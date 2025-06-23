@@ -17,9 +17,6 @@
             100% { text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080; }
         }
 
-        * {
-            animation: rainbowGlow 8s linear infinite;
-        }
 
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -140,32 +137,6 @@
             -webkit-text-fill-color: transparent;
         }
         
-        .process-step {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .process-step:hover {
-            transform: scale(1.1);
-        }
-        
-        .process-step::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(181,48,255,0.5), rgba(255,23,68,0.5));
-            display: none;
-        }
-        
-        @media (min-width: 768px) {
-            .process-step::after {
-                display: block;
-            }
-        }
-        
         .modal-content {
             animation: slideUp 0.3s ease-out;
         }
@@ -196,7 +167,6 @@
                 <li><a href="#home" class="text-white hover:text-purple-400 font-medium transition duration-300">Home</a></li>
                 <li><a href="#services" class="text-white hover:text-purple-400 font-medium transition duration-300">Services</a></li>
                 <li><a href="#products" class="text-white hover:text-purple-400 font-medium transition duration-300">Products</a></li>
-                <li><a href="#process" class="text-white hover:text-purple-400 font-medium transition duration-300">Process</a></li>
                 <li><a href="#stats" class="text-white hover:text-purple-400 font-medium transition duration-300">Why Us</a></li>
                 <li><a href="#faq" class="text-white hover:text-purple-400 font-medium transition duration-300">FAQ</a></li>
                 <li><a href="#contact" class="text-white hover:text-purple-400 font-medium transition duration-300">Contact</a></li>
@@ -214,7 +184,6 @@
                 <li><a href="#home" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Home</a></li>
                 <li><a href="#services" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Services</a></li>
                 <li><a href="#products" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Products</a></li>
-                <li><a href="#process" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Process</a></li>
                 <li><a href="#stats" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Why Us</a></li>
                 <li><a href="#faq" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">FAQ</a></li>
                 <li><a href="#contact" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Contact</a></li>
@@ -313,15 +282,11 @@
                             </li>
                             <li class="flex items-start">
                                 <span class="text-green-400 mr-2">✓</span>
-                                Interior surface sanitization
+                                Full interior compression with thorough wipedown (all surfaces, crevices, vents)
                             </li>
                             <li class="flex items-start">
                                 <span class="text-green-400 mr-2">✓</span>
                                 HEPA vacuum extraction
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-green-400 mr-2">✓</span>
-                                Hydrophobic glass treatment
                             </li>
                         </ul>
                         <a href="https://book.squareup.com/appointments/pzfva2vycwfzv7/location/LC0M9APDNYE44/services?show_locations=true" target="_blank" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center">
@@ -448,7 +413,7 @@
                             </li>
                             <li class="flex items-start">
                                 <span class="text-green-400 mr-2">✓</span>
-                                Advanced ceramic hyper wax
+                                Chrome polishing for wheels and trim (restores shine and protects)
                             </li>
                             <li class="flex items-start">
                                 <span class="text-green-400 mr-2">✓</span>
@@ -464,7 +429,19 @@
                             </li>
                             <li class="flex items-start">
                                 <span class="text-green-400 mr-2">✓</span>
-                                Hydrophobic SiO₂ infused graphene sealant (6-month protection)
+                                <div>
+                                    <div>Choose one:</div>
+                                    <div class="ml-4 mt-1">
+                                        <div class="flex items-start">
+                                            <span class="text-green-400 mr-2">•</span>
+                                            Hydrophobic SiO₂ infused graphene sealant (6-month protection)
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="text-green-400 mr-2">•</span>
+                                            Traditional ceramic paste wax (4-month protection, deeper gloss)
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                         <a href="https://book.squareup.com/appointments/pzfva2vycwfzv7/location/LC0M9APDNYE44/services?show_locations=true" target="_blank" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center">
@@ -483,7 +460,7 @@
                                     </div>
                                     <div class="flex items-start">
                                         <span class="text-green-400 mr-2">✓</span>
-                                        Graphene-enhanced ceramic hyper wax application
+                                        Ceramic paste wax application (4-month protection, deeper gloss)
                                     </div>
                                     <div class="flex items-start">
                                         <span class="text-green-400 mr-2">✓</span>
@@ -496,6 +473,10 @@
                                     <div class="flex items-start">
                                         <span class="text-green-400 mr-2">✓</span>
                                         Full iron decontamination using specialized iron remover that dissolves embedded metallic particles (turns purple as it works)
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="text-green-400 mr-2">✓</span>
+                                        <strong>Foam sealant option</strong>: Polymer-based liquid protection (6-month protection, easier application)
                                     </div>
                                     <div class="flex items-start">
                                         <span class="text-green-400 mr-2">✓</span>
@@ -530,19 +511,27 @@
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold text-center mb-3 text-purple-400">Koch Chemie</h3>
-                    <p class="text-gray-400 mb-4 text-center">Professional-grade detailing products.</p>
+                    <p class="text-gray-400 mb-4 text-center">German-engineered nano-technology detailing solutions</p>
                     <ul class="space-y-2 text-gray-400">
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Premium cleaning compounds
+                            pH-balanced SiO₂-infused formulations (8.5-10.5)
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            High-performance polishes
+                            Hybrid ceramic-graphene polymer technology
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Advanced protection products
+                            Non-ionic surfactant systems for superior cleaning
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            VOC-compliant, water-based chemistries
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            Advanced hydrophobic/oleophobic coatings
                         </li>
                     </ul>
                 </div>
@@ -555,21 +544,32 @@
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold text-center mb-3 text-purple-400">Maderite</h3>
-                    <p class="text-gray-400 mb-4 text-center">Innovative ceramic coatings.</p>
+                    <p class="text-gray-400 mb-4 text-center">Premium pH-balanced car wash soaps</p>
                     <ul class="space-y-2 text-gray-400">
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Long-lasting protection
+                            pH-balanced formulas (7.5-8.5) safe for all surfaces
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            High-gloss finish
+                            High-lubricity formula prevents swirl marks
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Hydrophobic properties
+                            Rich foam clings to vertical surfaces for better cleaning
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            Contains gloss enhancers for brilliant shine
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            Biodegradable and eco-friendly formulations
                         </li>
                     </ul>
+                    <div class="mt-4 text-xs text-gray-500 italic">
+                        *Professional-grade soaps that clean effectively without stripping wax or sealants
+                    </div>
                 </div>
                 
                 <!-- Ultra Clean -->
@@ -580,21 +580,32 @@
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold text-center mb-3 text-purple-400">Ultra Clean</h3>
-                    <p class="text-gray-400 mb-4 text-center">Professional cleaning solutions.</p>
+                    <p class="text-gray-400 mb-4 text-center">Professional-grade cleaning chemicals</p>
                     <ul class="space-y-2 text-gray-400">
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Heavy-duty degreasers
+                            Heavy-duty alkaline degreasers (pH 12-14)
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            pH-balanced formulas
+                            pH-neutral cleaners (pH 6-8) for delicate surfaces
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Eco-friendly options
+                            Water-based, VOC-compliant formulations
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            High-foaming surfactants for cling and dwell time
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            Biodegradable and phosphate-free options
                         </li>
                     </ul>
+                    <div class="mt-4 text-xs text-gray-500 italic">
+                        *Professional-strength cleaners that dissolve grease, oil, and stains without damaging surfaces
+                    </div>
                 </div>
                 
                 <!-- Ezpz Ceramic -->
@@ -625,92 +636,6 @@
         </div>
     </section>
 
-    <!-- Process Section -->
-    <section id="process" class="py-16 bg-gray-800 text-white px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-purple-400 font-semibold">Our Method</span>
-                <h2 class="text-4xl font-bold mt-2 gradient-text">Detail Process</h2>
-                <p class="text-xl mt-4 text-gray-400 max-w-3xl mx-auto">
-                    Professional Results In 5 Simple Steps
-                </p>
-            </div>
-            
-            <div class="relative">
-                <div class="flex flex-col md:flex-row justify-between items-center relative z-10 gap-4 md:gap-0">
-                    <!-- Step 1 -->
-                    <div class="process-step bg-gray-700 text-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center cursor-pointer transition duration-300 gradient-border" onclick="showProcessDetail(1)">
-                        <div class="step-number text-3xl md:text-4xl font-bold text-purple-400">1</div>
-                        <div class="step-text text-sm md:text-base font-medium">Schedule</div>
-                    </div>
-                    
-                    <!-- Step 2 -->
-                    <div class="process-step bg-gray-700 text-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center cursor-pointer transition duration-300 gradient-border" onclick="showProcessDetail(2)">
-                        <div class="step-number text-3xl md:text-4xl font-bold text-purple-400">2</div>
-                        <div class="step-text text-sm md:text-base font-medium">Arrival</div>
-                    </div>
-                    
-                    <!-- Step 3 -->
-                    <div class="process-step bg-gray-700 text-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center cursor-pointer transition duration-300 gradient-border" onclick="showProcessDetail(3)">
-                        <div class="step-number text-3xl md:text-4xl font-bold text-purple-400">3</div>
-                        <div class="step-text text-sm md:text-base font-medium">Detail</div>
-                    </div>
-                    
-                    <!-- Step 4 -->
-                    <div class="process-step bg-gray-700 text-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center cursor-pointer transition duration-300 gradient-border" onclick="showProcessDetail(4)">
-                        <div class="step-number text-3xl md:text-4xl font-bold text-purple-400">4</div>
-                        <div class="step-text text-sm md:text-base font-medium">Inspect</div>
-                    </div>
-                    
-                    <!-- Step 5 -->
-                    <div class="process-step bg-gray-700 text-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center cursor-pointer transition duration-300 gradient-border" onclick="showProcessDetail(5)">
-                        <div class="step-number text-3xl md:text-4xl font-bold text-purple-400">5</div>
-                        <div class="step-text text-sm md:text-base font-medium">Protect</div>
-                    </div>
-                </div>
-                
-                <div class="mt-12 bg-gray-700/50 backdrop-blur-sm rounded-xl p-8 border border-gray-600">
-                    <h3 class="text-2xl font-bold mb-4 text-purple-400">Our 5-Step Process</h3>
-                    <p class="text-gray-300 mb-6">
-                        Every detail follows our proven 5-step process to ensure consistent, high-quality results. From initial consultation to final protection, we treat your vehicle with the care it deserves.
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="text-lg font-bold mb-2 text-white">Step 1: Schedule</h4>
-                            <p class="text-gray-400">
-                                Book your appointment online or by phone. We'll confirm your location, vehicle type, and service selection.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2 text-white">Step 2: Arrival</h4>
-                            <p class="text-gray-400">
-                                Our team arrives on time with all necessary equipment. We'll discuss any specific concerns before starting.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2 text-white">Step 3: Detail</h4>
-                            <p class="text-gray-400">
-                                Professional detailing using premium products and techniques tailored to your vehicle's needs.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2 text-white">Step 4: Inspect</h4>
-                            <p class="text-gray-400">
-                                Thorough quality check to ensure every inch meets our high standards before finalizing.
-                            </p>
-                        </div>
-                        <div class="md:col-span-2">
-                            <h4 class="text-lg font-bold mb-2 text-white">Step 5: Protect</h4>
-                            <p class="text-gray-400">
-                                Application of protective coatings and final touches to maintain your vehicle's shine between details.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Stats Section -->
     <section id="stats" class="py-16 bg-gradient-to-br from-purple-900/80 to-pink-900/80 text-white px-6">
         <div class="max-w-7xl mx-auto">
@@ -733,26 +658,27 @@
                 
                 <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-shield-alt text-purple-300 text-2xl"></i>
+                        <i class="fas fa-handshake text-purple-300 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Premium Protection</h3>
-                    <p class="text-gray-300">Advanced ceramic coatings for long-lasting shine</p>
+                    <h3 class="text-xl font-bold mb-3">Satisfaction Guarantee</h3>
+                    <p class="text-gray-300">We won't leave until you're 100% happy - your car gets treated like my own</p>
                 </div>
                 
                 <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-leaf text-purple-300 text-2xl"></i>
+                        <i class="fas fa-bolt text-purple-300 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Eco-Friendly</h3>
-                    <p class="text-gray-300">Water-efficient techniques and biodegradable products</p>
+                    <h3 class="text-xl font-bold mb-3">Self-Sufficient</h3>
+                    <p class="text-gray-300">Fully spot-free deionized water & 4000W concurrent power</p>
                 </div>
                 
                 <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-award text-purple-300 text-2xl"></i>
+                        <i class="fas fa-handshake text-purple-300 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Certified Experts</h3>
-                    <p class="text-gray-300">Trained professionals with 10+ years of experience</p>
+                    <h3 class="text-xl font-bold mb-3">Highly Reputable</h3>
+                    <p class="text-gray-300">4.9★ Google & Yelp ratings with 100+ verified reviews</p>
+                    <p class="text-gray-300">55 perfect 5★ reviews on OfferUp</p>
                 </div>
             </div>
         </div>
@@ -963,11 +889,11 @@
             <div class="max-w-4xl mx-auto">
                 <!-- FAQ Item 1 -->
                 <div class="faq-item bg-gray-700 rounded-xl overflow-hidden mb-4 border border-gray-600">
-                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300" onclick="toggleFAQ(this)">
+                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300">
                         <span class="text-xl font-bold">How long does each service take?</span>
-                        <span class="faq-arrow text-xl text-purple-400">▼</span>
+                        <span class="faq-arrow text-xl text-purple-400 transform transition-transform duration-300">▼</span>
                     </div>
-                    <div class="faq-answer bg-gray-700/50">
+                    <div class="faq-answer bg-gray-700/50 max-h-0 overflow-hidden transition-all duration-300">
                         <div class="p-5">
                             <p class="mb-2"><strong class="text-purple-400">Jay's Basic:</strong> 1.5-2 hours</p>
                             <p class="mb-2"><strong class="text-purple-400">Jay's Luxury:</strong> 2.5-3 hours</p>
@@ -979,11 +905,11 @@
                 
                 <!-- FAQ Item 2 -->
                 <div class="faq-item bg-gray-700 rounded-xl overflow-hidden mb-4 border border-gray-600">
-                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300" onclick="toggleFAQ(this)">
+                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300">
                         <span class="text-xl font-bold">What do I need to provide?</span>
-                        <span class="faq-arrow text-xl text-purple-400">▼</span>
+                        <span class="faq-arrow text-xl text-purple-400 transform transition-transform duration-300">▼</span>
                     </div>
-                    <div class="faq-answer bg-gray-700/50">
+                    <div class="faq-answer bg-gray-700/50 max-h-0 overflow-hidden transition-all duration-300">
                         <div class="p-5">
                             <p>We supply our own de-ionized water (which means spot-free results) and bring 4000W of personal power generation. All you need to do is relax and come out to a brand new showroom-shiny vehicle!</p>
                             <p class="mt-2">We bring all professional equipment, products, and supplies. We just need about 10 feet of space around your vehicle to work comfortably.</p>
@@ -1018,6 +944,25 @@
                 </div>
                 
                 <!-- FAQ Item 5 -->
+                <div class="faq-item bg-gray-700 rounded-xl overflow-hidden border border-gray-600">
+                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300">
+                        <span class="text-xl font-bold">What payment methods do you accept?</span>
+                        <span class="faq-arrow text-xl text-purple-400 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="faq-answer bg-gray-700/50 max-h-0 overflow-hidden transition-all duration-300">
+                        <div class="p-5">
+                            <p class="mb-2">We accept the following payment methods:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Cash</strong> (Preferred method with no processing fees)</li>
+                                <li><strong>Zelle</strong> (Fast and secure digital payments)</li>
+                                <li><strong>Apple Pay</strong> (Contactless mobile payments)</li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-400">Note: Credit card payments are subject to a 1.75% processing fee.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
                 <div class="faq-item bg-gray-700 rounded-xl overflow-hidden border border-gray-600">
                     <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300" onclick="toggleFAQ(this)">
                         <span class="text-xl font-bold">What's the difference between polish and wax?</span>
@@ -1079,69 +1024,151 @@
                 <!-- Appointment Form -->
                 <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
                     <h3 class="text-2xl font-bold mb-6 text-center text-white">Schedule Appointment</h3>
-                    <form class="space-y-4">
+                    <form id="appointmentForm" class="space-y-4">
                         <div>
                             <label class="block text-gray-300 mb-2">Full Name</label>
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
+                            <input type="text" name="name" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
                         </div>
                         
                         <div>
                             <label class="block text-gray-300 mb-2">Email Address</label>
-                            <input type="email" placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
+                            <input type="email" name="email" placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
                         </div>
                         
                         <div>
                             <label class="block text-gray-300 mb-2">Phone Number</label>
-                            <input type="tel" placeholder="(123) 456-7890" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
+                            <input type="tel" name="phone" placeholder="(123) 456-7890" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
                         </div>
                         
                         <div>
                             <label class="block text-gray-300 mb-2">Vehicle Type</label>
-                            <select class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
-                                <option>Sedan</option>
-                                <option>SUV</option>
-                                <option>Truck</option>
-                                <option>Van</option>
-                                <option>Luxury Vehicle</option>
+                            <select name="vehicleType" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
+                                <option value="Sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Truck">Truck</option>
+                                <option value="Van">Van</option>
+                                <option value="Luxury Vehicle">Luxury Vehicle</option>
                             </select>
                         </div>
                         
                         <div>
                             <label class="block text-gray-300 mb-2">Preferred Service</label>
-                            <select class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
-                                <option>Jay's Basic</option>
-                                <option>Jay's Luxury</option>
-                                <option>Jay's Max</option>
-                                <option>Ceramic Coating</option>
-                                <option>Full Polish</option>
+                            <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
+                                <option value="Jay's Basic">Jay's Basic</option>
+                                <option value="Jay's Luxury">Jay's Luxury</option>
+                                <option value="Jay's Max">Jay's Max</option>
+                                <option value="Ceramic Coating">Ceramic Coating</option>
+                                <option value="Full Polish">Full Polish</option>
                             </select>
                         </div>
                         
                         <div>
                             <label class="block text-gray-300 mb-2">Preferred Date</label>
-                            <input type="date" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500">
+                            <input type="date" name="date" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" required>
                         </div>
                         
                         <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-full transition duration-300 shadow-lg">
                             Request Appointment
                         </button>
+                        <p id="formStatus" class="text-center text-green-400 hidden">Message sent! We'll contact you shortly.</p>
                     </form>
+
+                    <script>
+                    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        // Get form data
+                        const formData = new FormData(this);
+                        const data = {};
+                        formData.forEach((value, key) => {
+                            data[key] = value;
+                        });
+                        
+                        // Format email body
+                        const emailBody = `
+                            New Appointment Request:
+                            
+                            Name: ${data.name}
+                            Email: ${data.email}
+                            Phone: ${data.phone}
+                            Vehicle Type: ${data.vehicleType}
+                            Service: ${data.service}
+                            Preferred Date: ${data.date}
+                            
+                            Sent from Jay's Mobile Wash website
+                        `;
+                        
+                        // Send email using mailto link
+                        const mailtoLink = `mailto:jason122295@gmail.com?subject=New Appointment Request&body=${encodeURIComponent(emailBody)}`;
+                        window.location.href = mailtoLink;
+                        
+                        // Show success message
+                        document.getElementById('formStatus').classList.remove('hidden');
+                        this.reset();
+                        
+                        // Hide message after 5 seconds
+                        setTimeout(() => {
+                            document.getElementById('formStatus').classList.add('hidden');
+                        }, 5000);
+                    });
+                    </script>
                 </div>
             </div>
             
             <!-- Service Area Map -->
             <div class="mt-16">
-                <h3 class="text-3xl font-bold text-center mb-8 gradient-text">Our Service Area</h3>
-                <div class="bg-gray-800 rounded-xl overflow-hidden max-w-4xl mx-auto border border-gray-700">
-                    <div class="relative h-96 bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
-                        <i class="fas fa-map-marked-alt text-gray-600 text-6xl"></i>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white font-bold bg-black/50 px-4 py-2 rounded-full text-xl">Los Angeles & OC</span>
+                <h3 class="text-3xl font-bold text-center mb-8 gradient-text">Our Service Areas</h3>
+                <div class="bg-gray-800 rounded-xl overflow-hidden max-w-6xl mx-auto border border-gray-700">
+                    <div class="relative h-[500px]">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212270.7411280935!2d-118.1257018!3d33.9130685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd2955f7f8b0c9%3A0x3a9b4c641ce5f42a!2sLakewood%2C%20CA!5e0!3m2!1sen!2sus!4v1711234567890!5m2!1sen!2sus&z=10" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="rounded-lg"
+                        ></iframe>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="text-center">
+                                <span class="text-white font-bold bg-black/70 px-4 py-2 rounded-full text-xl block mb-2">30 Miles from Lakewood (LA & OC)</span>
+                                <span class="text-white font-bold bg-purple-600/80 px-4 py-2 rounded-full text-lg block">Free Service Within This Radius</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <p class="text-center mt-4 text-gray-400 max-w-2xl mx-auto">
-                    We proudly serve all of Los Angeles & OC. Free service within 30 miles of Lakewood, CA. Additional charges apply beyond this radius.
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h4 class="text-xl font-bold mb-4 text-purple-400">Los Angeles County Areas</h4>
+                        <ul class="grid grid-cols-2 gap-2 text-gray-300">
+                            <li>• Long Beach</li>
+                            <li>• Torrance</li>
+                            <li>• Santa Monica</li>
+                            <li>• Beverly Hills</li>
+                            <li>• Hollywood</li>
+                            <li>• Pasadena</li>
+                            <li>• Glendale</li>
+                            <li>• Burbank</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h4 class="text-xl font-bold mb-4 text-purple-400">Orange County Areas</h4>
+                        <ul class="grid grid-cols-2 gap-2 text-gray-300">
+                            <li>• Anaheim</li>
+                            <li>• Irvine</li>
+                            <li>• Newport Beach</li>
+                            <li>• Huntington Beach</li>
+                            <li>• Costa Mesa</li>
+                            <li>• Fullerton</li>
+                            <li>• Garden Grove</li>
+                            <li>• Orange</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center mt-6 text-gray-400 max-w-2xl mx-auto">
+                    Free service within 30 miles of both Gardena (LA County) and Buena Park (OC County) - our two service bases. 
+                    Additional charges apply beyond these radii ($10 per additional 10 miles).
                 </p>
             </div>
         </div>
@@ -1167,6 +1194,7 @@
             <p class="mb-4">© 2025 Jay's Mobile Wash. All rights reserved.</p>
             <p class="mb-4">Licensed • Insured • Satisfaction guaranteed</p>
             <p>Professional mobile detailing in Los Angeles and Orange County</p>
+            <p><a href="tel:15622289429" class="text-purple-400 hover:text-purple-300">562-228-9429</a></p>
         </div>
     </footer>
 
@@ -1233,6 +1261,24 @@
                         top: target.offsetTop - 100,
                         behavior: 'smooth'
                     });
+                }
+            });
+        });
+
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item');
+                const answer = faqItem.querySelector('.faq-answer');
+                const arrow = faqItem.querySelector('.faq-arrow');
+                
+                // Toggle the answer
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    arrow.classList.remove('rotate-180');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    arrow.classList.add('rotate-180');
                 }
             });
         });
