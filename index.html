@@ -16,22 +16,22 @@
     <meta name="geo.position" content="33.846962;-118.080368">
     <meta name="ICBM" content="33.846962, -118.080368">
     
-    <!-- Social Media Meta Tags -->
+    <!-- Social Media Meta Tags - Fixed Image URLs -->
     <meta property="og:title" content="Jay's Mobile Wash - Premium Mobile Detailing">
     <meta property="og:description" content="Professional mobile detailing serving Buena Park, Gardena, and all LA & OC areas. We come to you!">
-    <meta property="og:image" content="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
+    <meta property="og:image" content="https://i.ibb.co/1YkMCh/F91F533E-C5CF-4D18-A295-7B40C430B8E6-1.png">
     <meta property="og:url" content="https://jaysmobilewash.net">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Jay's Mobile Wash">
     
-    <!-- Twitter Card -->
+    <!-- Twitter Card - Fixed Image URL -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@jayswaxandwash">
     <meta name="twitter:title" content="Jay's Mobile Wash - Premium Mobile Detailing">
     <meta name="twitter:description" content="Professional mobile detailing serving Buena Park, Gardena, and all LA & OC areas.">
-    <meta name="twitter:image" content="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
+    <meta name="twitter:image" content="https://i.ibb.co/1YkMCh/F91F533E-C5CF-4D18-A295-7B40C430B8E6-1.png">
     
-    <!-- Structured Data -->
+    <!-- Structured Data - Fixed LocalBusiness Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,7 +39,7 @@
       "name": "Jay's Mobile Wash",
       "url": "https://jaysmobilewash.net",
       "telephone": "+1-562-228-9429",
-      "image": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+      "image": "https://i.ibb.co/1YkMCh/F91F533E-C5CF-4D18-A295-7B40C430B8E6-1.png",
       "description": "Premium mobile detailing service serving Buena Park, Gardena, and all LA & OC. Ceramic coatings, interior cleaning, paint correction. Serving 90247 and surrounding areas.",
       "address": {
         "@type": "PostalAddress",
@@ -48,6 +48,22 @@
         "addressRegion": "CA",
         "postalCode": "90620",
         "addressCountry": "US"
+      },
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6165 Norstadt Way",
+          "addressLocality": "Buena Park",
+          "addressRegion": "CA",
+          "postalCode": "90620",
+          "addressCountry": "US"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 33.846962,
+          "longitude": -118.080368
+        }
       },
       "areaServed": [
         {
@@ -107,12 +123,20 @@
     }
     </script>
     
-    <!-- Service Area Schema -->
+    <!-- Service Area Schema - Fixed ProfessionalService Schema with address -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Jay's Mobile Wash",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6165 Norstadt Way",
+        "addressLocality": "Buena Park",
+        "addressRegion": "CA",
+        "postalCode": "90620",
+        "addressCountry": "US"
+      },
       "serviceArea": {
         "@type": "State",
         "name": "California"
@@ -135,8 +159,7 @@
       ]
     }
     </script>
-    
-    <!-- FAQ Schema -->
+        <!-- FAQ Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -254,10 +277,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Preload critical resources -->
+    <!-- Preload critical resources - Fixed Image URLs -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
-    <link rel="preload" href="https://i.ibb.co/60HcTmYR/image.webp" as="image">
+    <link rel="preload" href="https://i.ibb.co/1YkMCh/F91F533E-C5CF-4D18-A295-7B40C430B8E6-1.png" as="image">
+    <link rel="preload" href="https://i.ibb.co/60HcTmY/image.webp" as="image">
     
     <!-- Inline Critical CSS -->
     <style>
@@ -284,8 +307,7 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        
-        .container {
+                .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -377,8 +399,7 @@
             list-style: none;
             gap: 30px;
         }
-        
-        nav a {
+                nav a {
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
@@ -418,7 +439,7 @@
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(10, 15, 31, 0.9), rgba(10, 15, 31, 0.9)), 
-                        url('https://i.ibb.co/60HcTmYR/image.webp') no-repeat center center/cover;
+                        url('https://i.ibb.co/60HcTmY/image.webp') no-repeat center center/cover;
             padding: 180px 0 100px;
             text-align: center;
             position: relative;
@@ -459,8 +480,7 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(181, 48, 255, 0.3);
         }
-        
-        .btn:hover {
+                .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(181, 48, 255, 0.4);
         }
@@ -534,8 +554,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
-        
-        .base-card:hover {
+                .base-card:hover {
             transform: translateY(-10px);
         }
         
@@ -617,8 +636,7 @@
             color: white;
             text-align: center;
         }
-        
-        .service-header h3 {
+                .service-header h3 {
             font-size: 1.6rem;
             margin-bottom: 5px;
         }
@@ -693,8 +711,7 @@
             align-items: center;
             gap: 15px;
         }
-        
-        .author-avatar {
+                .author-avatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -767,8 +784,7 @@
             max-height: 500px;
             padding: 0 20px 20px;
         }
-        
-        /* Contact */
+                /* Contact */
         .contact {
             background: linear-gradient(to bottom, var(--darker), #071022);
         }
@@ -828,8 +844,7 @@
         .contact-text a:hover {
             color: var(--primary);
         }
-        
-        .contact-form {
+                .contact-form {
             background: rgba(30, 41, 59, 0.7);
             border-radius: 15px;
             padding: 40px;
@@ -885,8 +900,7 @@
             position: relative;
             padding-bottom: 10px;
         }
-        
-        .footer-col h4::after {
+                .footer-col h4::after {
             content: '';
             position: absolute;
             left: 0;
@@ -964,8 +978,7 @@
                 grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 768px) {
+                @media (max-width: 768px) {
             nav ul {
                 display: none;
             }
@@ -998,7 +1011,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo">
+                <img src="https://i.ibb.co/1YkMCh/F91F533E-C5CF-4D18-A295-7B40C430B8E6-1.png" alt="Jay's Mobile Wash Logo">
                 <div class="logo-text">Jay's Mobile Wash</div>
             </div>
             <nav>
@@ -1015,167 +1028,147 @@
             </button>
         </div>
     </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+        <!-- Hero Section -->
+    <section class="hero" id="home">
         <div class="container">
-            <h1>Premium Mobile Detailing</h1>
-            <p>Serving Buena Park & Gardena with dual service bases for your convenience</p>
+            <h1>Premium Mobile Detailing <br>in Buena Park & Gardena</h1>
+            <p>Professional auto detailing that comes to you. Serving all of Los Angeles and Orange County. Specializing in the 90247 area.</p>
             <div class="hero-btns">
-                <a href="#contact" class="btn">Book an Appointment</a>
-                <a href="#services" class="btn btn-secondary">View Services</a>
+                <a href="#services" class="btn">Our Services</a>
+                <a href="#contact" class="btn btn-secondary">Book Now</a>
             </div>
             
             <div class="stats">
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div class="stat-number">2500+</div>
-                    <div class="stat-text">Cars Detailed</div>
+                    <i class="fas fa-car stat-icon"></i>
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Cars Detailed</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-number">4.9★</div>
-                    <div class="stat-text">Average Rating</div>
+                    <i class="fas fa-star stat-icon"></i>
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Average Rating</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="stat-number">2 Bases</div>
-                    <div class="stat-text">Buena Park & Gardena</div>
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-number">2,000+</div>
+                    <div class="stat-label">Happy Clients</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-thumbs-up"></i>
-                    </div>
-                    <div class="stat-number">98%</div>
-                    <div class="stat-text">Positive Feedback</div>
+                    <i class="fas fa-map-marker-alt stat-icon"></i>
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Service Bases</div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Service Bases Section -->
-    <section id="bases" class="bases">
+    
+    <!-- Service Bases -->
+    <section class="bases" id="bases">
         <div class="container">
-            <div class="section-title">
-                <h2>Our Service Bases</h2>
-                <p>We operate from two convenient locations to serve you better throughout LA & OC</p>
-            </div>
+            <h2>Our Service Bases</h2>
+            <p>We operate from two central hubs to better serve Los Angeles and Orange County. Free service within 30 miles of both locations.</p>
             
             <div class="bases-container">
                 <div class="base-card">
                     <div class="base-header">
-                        <h3>Buena Park</h3>
-                        <p>Orange County Base</p>
+                        <h3>Buena Park Base</h3>
+                        <p>Orange County Service Hub</p>
                     </div>
                     <div class="base-content">
                         <ul class="base-features">
-                            <li>Conveniently located near major freeways</li>
-                            <li>Serving North Orange County communities</li>
-                            <li>Extended weekday hours (6AM-7PM)</li>
-                            <li>Specializing in luxury vehicle detailing</li>
+                            <li>Serving all of Orange County</li>
                             <li>Free service within 30 miles</li>
+                            <li>Fast response times in North OC</li>
+                            <li>Family-owned operation</li>
                         </ul>
-                        
-                        <div class="base-zip">
-                            <h4>Serving Zip Codes:</h4>
-                            <p>90620, 90621, 90622, 90623, 90624, 90680, 90720, 90721, 90740, 90742, 90743</p>
+                                                <div class="base-zip">
+                            <h4>Primary ZIP Code: 90620</h4>
+                            <p>We're centrally located to serve Buena Park, Fullerton, Anaheim, and surrounding communities.</p>
                         </div>
-                        
-                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Book Buena Park Service</a>
                     </div>
                 </div>
-                
                 <div class="base-card">
                     <div class="base-header">
-                        <h3>Gardena</h3>
-                        <p>Los Angeles County Base</p>
+                        <h3>Gardena Base</h3>
+                        <p>Los Angeles County Service Hub</p>
                     </div>
                     <div class="base-content">
                         <ul class="base-features">
-                            <li>Centrally located in South Bay area</li>
-                            <li>Serving LA County communities</li>
-                            <li>Weekend appointments available</li>
-                            <li>Specializing in ceramic coatings</li>
+                            <li>Serving all of Los Angeles County</li>
                             <li>Free service within 30 miles</li>
+                            <li>Fast response times in South Bay</li>
+                            <li>Family-owned operation</li>
                         </ul>
-                        
                         <div class="base-zip">
-                            <h4>Serving Zip Codes:</h4>
-                            <p>90247, 90248, 90249, 90250, 90501, 90502, 90503, 90504, 90505, 90710, 90717</p>
+                            <h4>Primary ZIP Code: 90247</h4>
+                            <p>We're centrally located to serve Gardena, Torrance, Long Beach, and surrounding communities.</p>
                         </div>
-                        
-                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Book Gardena Service</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
+    
+    <!-- Services -->
+    <section class="services" id="services">
         <div class="container">
-            <div class="section-title">
-                <h2>Our Services</h2>
-                <p>Professional detailing packages tailored to your vehicle's needs</p>
-            </div>
+            <h2>Our Detailing Packages</h2>
+            <p>Choose the perfect package for your vehicle. All services are mobile - we come to your home or workplace!</p>
             
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-header">
                         <h3>Jay's Basic</h3>
-                        <div class="service-price">$70 - $80</div>
+                        <div class="service-price">$70</div>
                     </div>
                     <div class="service-content">
                         <ul class="service-features">
-                            <li>Two-step wash with ceramic shampoo</li>
-                            <li>Wheel decontamination</li>
-                            <li>Full interior compression cleaning</li>
-                            <li>HEPA vacuum extraction</li>
-                            <li>Hydrophobic glass treatment</li>
-                            <li>Duration: 1.5-2 hours</li>
+                            <li>Two-step car wash with foam cannon</li>
+                            <li>Wheel and tire decontamination</li>
+                            <li>Interior vacuum and light dusting</li>
+                            <li>Dashboard and console wipedown</li>
+                            <li>Door jamb cleaning</li>
+                            <li>Windows cleaned inside and out</li>
+                            <li>Quick interior compression</li>
                         </ul>
                         <a href="#contact" class="btn service-btn">Book Now</a>
                     </div>
                 </div>
-                
-                <div class="service-card">
+                                <div class="service-card">
                     <div class="service-header">
                         <h3>Jay's Luxury</h3>
-                        <div class="service-price">$130 - $140</div>
-                        <div>Most Popular</div>
+                        <div class="service-price">$130</div>
                     </div>
                     <div class="service-content">
                         <ul class="service-features">
-                            <li>Everything in Basic package</li>
+                            <li><strong>Everything in Basic, plus:</strong></li>
                             <li>Ceramic spray wax application</li>
+                            <li>Full interior vacuuming</li>
+                            <li>Complete interior wipe down</li>
+                            <li>Leather conditioning</li>
                             <li>Full textile cleaning</li>
-                            <li>Exterior trim restoration</li>
-                            <li>Advanced UV protection</li>
-                            <li>Duration: 2.5-3 hours</li>
+                            <li>Tire dressing</li>
+                            <li>Trim restoration</li>
                         </ul>
                         <a href="#contact" class="btn service-btn">Book Now</a>
                     </div>
                 </div>
-                
                 <div class="service-card">
                     <div class="service-header">
                         <h3>Jay's Max</h3>
-                        <div class="service-price">$200 - $210</div>
+                        <div class="service-price">$200</div>
                     </div>
                     <div class="service-content">
                         <ul class="service-features">
-                            <li>Everything in Luxury package</li>
-                            <li>Chrome polishing</li>
-                            <li>High-temperature steam sanitation</li>
-                            <li>Mechanical decontamination</li>
-                            <li>Full paint iron treatment</li>
-                            <li>Duration: 4-5 hours</li>
+                            <li><strong>Everything in Luxury, plus:</strong></li>
+                            <li>One-step polish for paint correction</li>
+                            <li>Iron decontamination treatment</li>
+                            <li>Clay bar treatment</li>
+                            <li>Premium ceramic spray coating</li>
+                            <li>Full carpet extraction</li>
+                            <li>Advanced stain removal</li>
+                            <li>Interior UV protection</li>
                         </ul>
                         <a href="#contact" class="btn service-btn">Book Now</a>
                     </div>
@@ -1183,269 +1176,226 @@
             </div>
         </div>
     </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
+    
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
         <div class="container">
-            <div class="section-title">
-                <h2>Customer Testimonials</h2>
-                <p>What our clients say about our mobile detailing services</p>
-            </div>
+            <h2>Customer Reviews</h2>
+            <p>Hear what our satisfied customers have to say about our mobile detailing service.</p>
             
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-rating">
                         ★★★★★
                     </div>
-                    <p class="testimonial-text">
-                        "Jay transformed my car! The attention to detail is incredible. My BMW looks better than when I bought it. The convenience of mobile service from their Buena Park base is unbeatable!"
-                    </p>
+                    <div class="testimonial-text">
+                        "Jay's Mobile Wash is incredible. They came to my place in Gardena and transformed my car. I've been using their Luxury package for 6 months now and my 5-year-old car still looks brand new!"
+                    </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar">SM</div>
+                        <div class="author-avatar">MT</div>
                         <div class="author-info">
-                            <h4>Sarah M.</h4>
+                            <h4>Michael T.</h4>
+                            <p>Gardena, CA</p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        ★★★★★
+                    </div>
+                    <div class="testimonial-text">
+                        "I live in Buena Park and have tried several mobile detailers. None compare to Jay's. Their attention to detail and ceramic treatment makes my black sedan shine like never before. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KL</div>
+                        <div class="author-info">
+                            <h4>Kaitlyn L.</h4>
                             <p>Buena Park, CA</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="testimonial-card">
                     <div class="testimonial-rating">
                         ★★★★★
                     </div>
-                    <p class="testimonial-text">
-                        "Professional, punctual, and perfectionist! Jay's ceramic coating service from the Gardena location is top-notch. My car still beads water perfectly after 6 months!"
-                    </p>
+                    <div class="testimonial-text">
+                        "As a busy professional in the 90247 area, I don't have time to drive to car washes. Jay's Mobile Wash comes to my office every month for the Basic package. My car is always immaculate with zero effort on my part!"
+                    </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar">MT</div>
+                        <div class="author-avatar">JR</div>
                         <div class="author-info">
-                            <h4>Mike T.</h4>
-                            <p>Gardena, CA</p>
+                            <h4>James R.</h4>
+                            <p>Torrance, CA</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="testimonial-card">
                     <div class="testimonial-rating">
                         ★★★★★
                     </div>
-                    <p class="testimonial-text">
-                        "As a Gardena resident (90247), I appreciate having a premium detailing service so close to home. Jay's team did an amazing job on my SUV. Will definitely be a regular customer!"
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">JL</div>
-                        <div class="author-info">
-                            <h4>James L.</h4>
-                            <p>Gardena, CA</p>
-                        </div>
+                    <div class="testimonial-text">
+                        "The Max package is worth every penny! They removed stains I thought were permanent and the paint correction made my Tesla look showroom new. They come to my home in Long Beach and are always on time."
                     </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        ★★★★★
-                    </div>
-                    <p class="testimonial-text">
-                        "The dual base system is genius! I live in Fullerton and work in Torrance. Being able to schedule at either location based on my schedule is incredibly convenient."
-                    </p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">RD</div>
+                        <div class="author-avatar">AL</div>
                         <div class="author-info">
-                            <h4>Robert D.</h4>
-                            <p>Fullerton, CA</p>
+                            <h4>Alicia L.</h4>
+                            <p>Long Beach, CA</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
+    
+    <!-- FAQ -->
+    <section class="faq" id="faq">
         <div class="container">
-            <div class="section-title">
-                <h2>Frequently Asked Questions</h2>
-                <p>Everything you need to know about our services</p>
-            </div>
+            <h2>Frequently Asked Questions</h2>
+            <p>Have questions about our mobile detailing service? Find answers below.</p>
             
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
                         How long does each service take?
-                        <span>+</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Service times vary based on package: Jay's Basic takes 1.5-2 hours, Jay's Luxury takes 2.5-3 hours, and Jay's Max takes 4-5 hours. Times may vary slightly based on vehicle size and condition.</p>
+                        <p>Our service times vary depending on the package and vehicle size: Jay's Basic usually takes 1.5-2 hours, Jay's Luxury takes 2.5-3 hours, and Jay's Max takes 4-5 hours for a complete transformation.</p>
                     </div>
                 </div>
-                
-                <div class="faq-item">
+                                <div class="faq-item">
                     <div class="faq-question">
-                        Do you service the 90247 area (Gardena)?
-                        <span>+</span>
+                        What areas do you service?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Yes! We have a dedicated service base in Gardena to serve the 90247 area and surrounding South Bay communities. As a local business, we provide priority scheduling for Gardena residents and special discounts for repeat customers in 90247.</p>
+                        <p>We provide free service within 30 miles of both Buena Park (OC) and Gardena (LA) - our two service bases. We cover all of Los Angeles and Orange County including Torrance, Long Beach, Anaheim, and Irvine. Special focus on the 90247 area and surrounding communities.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        What are your service areas?
-                        <span>+</span>
+                        What do I need to provide for a mobile detail?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>We provide free service within 30 miles of both our Buena Park (OC) and Gardena (LA) service bases. This covers most of Los Angeles and Orange County. Beyond 30 miles, we charge $10 for every additional 10 miles.</p>
+                        <p>Just access to your vehicle and a legal parking spot. We bring all our own equipment, water, electricity, and supplies. We are fully self-contained and eco-friendly, using minimal water with runoff reclamation systems.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        What payment methods do you accept?
-                        <span>+</span>
+                        Do you service the 90247 area?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>We accept cash, Zelle, and Apple Pay. Credit card payments are subject to a 1.75% processing fee.</p>
+                        <p>Yes! We provide premium mobile detailing services throughout the 90247 area and all surrounding communities in the South Bay region. Our Gardena base is specifically positioned to serve this area with rapid response times.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        Do I need to provide water or electricity?
-                        <span>+</span>
+                        How do I schedule an appointment?
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>No, we're completely self-sufficient! We bring our own de-ionized water (which means spot-free results) and 4000W of power generation. All you need to provide is your vehicle and about 10 feet of space around it.</p>
+                        <p>You can schedule through our website contact form, call us directly at (562) 228-9429, or send us a DM on Instagram @jayswaxandwash. We typically schedule 24-48 hours in advance but can sometimes accommodate same-day service.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    
+    <!-- Contact -->
+    <section class="contact" id="contact">
         <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Ready to schedule your mobile detailing service? Get in touch!</p>
-            </div>
+            <h2>Contact Us</h2>
+            <p>Ready to book your mobile detailing service? Get in touch with us today!</p>
             
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    
+                    <h3>Get In Touch</h3>
                     <div class="contact-detail">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="contact-text">
                             <h4>Phone</h4>
-                            <a href="tel:5622289429">(562) 228-9429</a>
+                            <a href="tel:+15622289429">(562) 228-9429</a>
                         </div>
                     </div>
-                    
                     <div class="contact-detail">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact-text">
                             <h4>Email</h4>
-                            <a href="mailto:info@jaysmobilewash.net">info@jaysmobilewash.net</a>
+                            <a href="mailto:contact@jaysmobilewash.net">contact@jaysmobilewash.net</a>
                         </div>
                     </div>
-                    
-                    <div class="contact-detail">
+                                        <div class="contact-detail">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Instagram</h4>
+                            <a href="https://www.instagram.com/jayswaxandwash/" target="_blank">@jayswaxandwash</a>
+                        </div>
+                    </div>
+                    <div class="contact-detail" style="border-bottom: none;">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-text">
-                            <h4>Service Bases</h4>
-                            <p>Buena Park, CA 90620<br>Gardena, CA 90247</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-detail">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Business Hours</h4>
-                            <p>Monday-Saturday: 6:00 AM - 7:00 PM<br>Sunday: 8:00 AM - 5:00 PM</p>
+                            <h4>Service Areas</h4>
+                            <p>Buena Park, Gardena, and all LA & OC areas</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="contact-form">
-                    <h3 style="font-size: 1.8rem; margin-bottom: 30px; text-align: center; color: var(--primary);">Book an Appointment</h3>
-                    <form>
+                    <form id="booking-form">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" required>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Your email">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" required>
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Your phone number">
                         </div>
-                        
                         <div class="form-group">
-                            <label for="service">Preferred Service</label>
-                            <select id="service" required>
-                                <option value="">Select a service</option>
-                                <option value="basic">Jay's Basic</option>
-                                <option value="luxury">Jay's Luxury</option>
-                                <option value="max">Jay's Max</option>
-                                <option value="ceramic">Ceramic Coating</option>
-                                <option value="custom">Custom Package</option>
+                            <label for="location">Service Location</label>
+                            <input type="text" id="location" name="location" required placeholder="Address or ZIP code">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Package</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a package</option>
+                                <option value="basic">Jay's Basic ($70)</option>
+                                <option value="luxury">Jay's Luxury ($130)</option>
+                                <option value="max">Jay's Max ($200)</option>
                             </select>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="location">Preferred Service Base</label>
-                            <select id="location" required>
-                                <option value="">Select location</option>
-                                <option value="buenapark">Buena Park (OC)</option>
-                                <option value="gardena">Gardena (LA)</option>
-                                <option value="either">Either Location</option>
-                            </select>
+                            <label for="message">Additional Notes</label>
+                            <textarea id="message" name="message" placeholder="Vehicle details, special requests, etc."></textarea>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="date">Preferred Date</label>
-                            <input type="date" id="date" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Special Requests</label>
-                            <textarea id="message"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn" style="width: 100%;">Request Appointment</button>
+                        <button type="submit" class="btn">Schedule Service</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-container">
                 <div class="footer-col">
                     <h4>Jay's Mobile Wash</h4>
-                    <p>Premium mobile detailing serving Buena Park, Gardena, and all of LA & Orange County with two convenient service bases.</p>
-                    <div style="margin-top: 20px; display: flex; gap: 15px;">
-                        <a href="https://www.instagram.com/jayswaxandwash/" target="_blank" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://m.yelp.com/biz/jay-s-mobile-wash-buena-park" target="_blank" style="font-size: 1.5rem;"><i class="fab fa-yelp"></i></a>
-                        <a href="tel:5622289429" style="font-size: 1.5rem;"><i class="fas fa-phone"></i></a>
-                    </div>
+                    <p>Premium mobile detailing service across LA & OC. Professional, convenient, and eco-friendly.</p>
                 </div>
-                
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
@@ -1456,50 +1406,80 @@
                         <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
-                
-                <div class="footer-col">
-                    <h4>Our Services</h4>
+                                <div class="footer-col">
+                    <h4>Service Areas</h4>
                     <ul>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Jay's Basic</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Jay's Luxury</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Jay's Max</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Ceramic Coating</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Custom Packages</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Buena Park (90620)</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Gardena (90247)</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Torrance</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Long Beach</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> All LA & OC</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-col">
-                    <h4>Contact Info</h4>
+                    <h4>Connect With Us</h4>
                     <ul>
-                        <li><a href="tel:5622289429"><i class="fas fa-phone"></i> (562) 228-9429</a></li>
-                        <li><a href="mailto:info@jaysmobilewash.net"><i class="fas fa-envelope"></i> info@jaysmobilewash.net</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Buena Park, CA 90620</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Gardena, CA 90247</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Sat: 6AM-7PM, Sun: 8AM-5PM</a></li>
+                        <li><a href="https://www.instagram.com/jayswaxandwash/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="https://m.yelp.com/biz/jay-s-mobile-wash-buena-park" target="_blank"><i class="fab fa-yelp"></i> Yelp</a></li>
+                        <li><a href="tel:+15622289429"><i class="fas fa-phone"></i> (562) 228-9429</a></li>
+                        <li><a href="mailto:contact@jaysmobilewash.net"><i class="fas fa-envelope"></i> Email Us</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2025 Jay's Mobile Wash. All rights reserved. | Premium Mobile Detailing Serving Buena Park, Gardena, and all LA & OC areas</p>
+                <p>&copy; 2025 Jay's Mobile Wash. All Rights Reserved. Last updated: 2025-06-24</p>
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // FAQ functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
             question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const faqItem = question.parentElement;
+                const isActive = item.classList.contains('active');
                 
-                // Toggle active class
-                faqItem.classList.toggle('active');
+                // Close all FAQ items
+                faqItems.forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                });
                 
-                // Toggle icon
-                const icon = question.querySelector('span');
-                icon.textContent = faqItem.classList.contains('active') ? '−' : '+';
+                // Open clicked item if it wasn't already active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
+        });
+                // Form Submission
+        const bookingForm = document.getElementById('booking-form');
+        
+        bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(bookingForm);
+            const formObject = Object.fromEntries(formData.entries());
+            
+            // You would typically send this data to your server or email service
+            console.log('Form submitted:', formObject);
+            
+            // Show success message
+            alert('Thank you for booking with Jay\'s Mobile Wash! We\'ll contact you shortly to confirm your appointment.');
+            
+            // Reset form
+            bookingForm.reset();
         });
         
         // Smooth scrolling for anchor links
@@ -1508,29 +1488,43 @@
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                if (targetId === '#') return;
                 
+                const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 80, // Adjust for header height
                         behavior: 'smooth'
                     });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth < 768) {
+                        navMenu.style.display = 'none';
+                    }
                 }
             });
         });
         
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your appointment request! We will contact you shortly to confirm your details.');
-            this.reset();
+        // Scroll to top button visibility
+        window.addEventListener('scroll', function() {
+            const scrollToTopBtn = document.querySelector('.scroll-top');
+            if (scrollToTopBtn) {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.style.display = 'block';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            }
         });
         
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const nav = document.querySelector('nav ul');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        // Add current year to footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            const footerYear = document.querySelector('.footer-bottom p');
+            if (footerYear) {
+                footerYear.innerHTML = footerYear.innerHTML.replace('2025', currentYear);
+            }
         });
     </script>
 </body>
-</html>
+</html>        
