@@ -1,47 +1,55 @@
-# JAYSMOBILEWASH.NET - LA/OC SEO ANNIHILATOR ROBOTS.TXT
+# JAYSMOBILEWASH.NET - OPTIMIZED ROBOTS.TXT
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /cgi-bin/
 Disallow: /private/
 
-# GOOGLE PRIORITY ZONES
+# Google Priority Paths
 User-agent: Googlebot
-Allow: /$  # Homepage nuke
+Allow: /$
 Allow: /mobile-detailing-los-angeles/
 Allow: /orange-county-mobile-detailing/
-Allow: /services/(premium|ceramic|interior)-detailing
-Allow: /cities/(beverly-hills|santa-monica|newport-beach|anaheim|long-beach|irvine|pasadena|malibu)  # 20+ LA/OC cities
-Allow: /blog/2024/.*-car-detailing-tips  # Fresh content
-Crawl-delay: 1  # Turbo-crawl
+Allow: /services/premium-detailing
+Allow: /services/ceramic-detailing
+Allow: /services/interior-detailing
+Allow: /cities/beverly-hills
+Allow: /cities/santa-monica
+Allow: /cities/newport-beach
+Allow: /cities/anaheim
+Allow: /cities/long-beach
+Allow: /cities/irvine
+Allow: /cities/pasadena
+Allow: /cities/malibu
+Allow: /blog/
 
-# BING LOCAL ASSAULT
+# Bing Directives
 User-agent: Bingbot
 Allow: /emergency-detailing/
 Allow: /same-day-detailing/
 Allow: /gift-certificates/
+Crawl-delay: 1
 
-# AI TERMINATOR
+# AI Restrictions
 User-agent: ChatGPT
 User-agent: Anthropic
 Disallow: /
 
-# IMAGE TAKEOVER
+# Image Optimization
 User-agent: Googlebot-Image
-Allow: /gallery/.*\.(jpg|webp)$
-Allow: /before-after/.*\.(png|jpeg)$
+Allow: /gallery/
+Allow: /before-after/
 
-# VOICE SEARCH HIJACK
+# Voice Search Optimization
 User-agent: Google-Assistant
 Allow: /how-to-remove-los-angeles-pollen/
 Allow: /oc-salt-air-corrosion-prevention/
 
-# HYPERLOCAL SITEMAPS
-Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
-Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
-Sitemap: https://jaysmobilewash.net/image-sitemap.xml
-
-# LA/OC PRIORITY CITIES
+# City Service Pages
+User-agent: *
 Allow: /locations/studio-city-detailing
 Allow: /locations/costa-mesa-mobile-detailing
 Allow: /locations/huntington-beach-detailing
+
+# Sitemap
+Sitemap: https://jaysmobilewash.net/sitemap.xml
