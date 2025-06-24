@@ -35,7 +35,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
     <link rel="apple-touch-icon" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
     
-    <!-- Primary Schema Markup -->
+    <!-- Fixed Schema Markup -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -45,14 +45,24 @@
       "telephone": "+1-562-228-9429",
       "image": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
       "description": "Premium mobile detailing service serving Buena Park, Gardena, and all LA & OC. Ceramic coatings, interior cleaning, paint correction. Serving 90247 and surrounding areas.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "6165 Norstadt Way",
-        "addressLocality": "Buena Park",
-        "addressRegion": "CA",
-        "postalCode": "90620",
-        "addressCountry": "US"
-      },
+      "address": [
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "6165 Norstadt Way",
+          "addressLocality": "Buena Park",
+          "addressRegion": "CA",
+          "postalCode": "90620",
+          "addressCountry": "US"
+        },
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "16845 South Hoover Street",
+          "addressLocality": "Gardena",
+          "addressRegion": "CA",
+          "postalCode": "90247",
+          "addressCountry": "US"
+        }
+      ],
       "areaServed": [
         {
           "@type": "GeoCircle",
@@ -121,12 +131,32 @@
     }
     </script>
 
-    <!-- Service Area Schema -->
+    <!-- Fixed Service Area Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Jay's Mobile Wash",
+      "url": "https://jaysmobilewash.net",
+      "telephone": "+1-562-228-9429",
+      "address": [
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "6165 Norstadt Way",
+          "addressLocality": "Buena Park",
+          "addressRegion": "CA",
+          "postalCode": "90620",
+          "addressCountry": "US"
+        },
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "16845 South Hoover Street",
+          "addressLocality": "Gardena",
+          "addressRegion": "CA",
+          "postalCode": "90247",
+          "addressCountry": "US"
+        }
+      ],
       "serviceArea": {
         "@type": "State",
         "name": "California"
@@ -376,6 +406,21 @@
                 opacity: 1;
             }
         }
+
+        /* New styles for dual locations */
+        .location-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #b530ff;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+        }
+        
+        .location-card:nth-child(2) {
+            border-left-color: #ff1744;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -393,6 +438,7 @@
                 <li><a href="#services" class="text-white hover:text-purple-400 font-medium transition duration-300">Services</a></li>
                 <li><a href="#products" class="text-white hover:text-purple-400 font-medium transition duration-300">Products</a></li>
                 <li><a href="#stats" class="text-white hover:text-purple-400 font-medium transition duration-300">Why Us</a></li>
+                <li><a href="#locations" class="text-white hover:text-purple-400 font-medium transition duration-300">Locations</a></li>
                 <li><a href="#faq" class="text-white hover:text-purple-400 font-medium transition duration-300">FAQ</a></li>
                 <li><a href="#contact" class="text-white hover:text-purple-400 font-medium transition duration-300">Contact</a></li>
             </ul>
@@ -410,6 +456,7 @@
                 <li><a href="#services" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Services</a></li>
                 <li><a href="#products" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Products</a></li>
                 <li><a href="#stats" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Why Us</a></li>
+                <li><a href="#locations" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Locations</a></li>
                 <li><a href="#faq" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">FAQ</a></li>
                 <li><a href="#contact" class="block text-white hover:text-purple-400 font-medium transition duration-300 py-2">Contact</a></li>
             </ul>
@@ -997,6 +1044,119 @@
         </div>
     </section>
 
+    <!-- Locations Section -->
+    <section id="locations" class="py-16 bg-gray-900 text-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-purple-400 font-semibold">Our Bases</span>
+                <h2 class="text-4xl font-bold mt-2 gradient-text">Service Locations</h2>
+                <p class="text-xl mt-4 text-gray-400 max-w-3xl mx-auto">
+                    Two convenient bases serving all of Los Angeles and Orange County
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Buena Park Location -->
+                <div class="location-card bg-gray-800 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-purple-400">Buena Park Base</h3>
+                    </div>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <p>6165 Norstadt Way</p>
+                                <p>Buena Park, CA 90620</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p>(562) 228-9429</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div>
+                                <p>Central Orange County location</p>
+                                <p class="text-gray-400">Serving Anaheim, Fullerton, Irvine</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3309.287158085168!2d-118.082557!3d33.846962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDUwJzQ5LjEiTiAxMTjCsDA0JzQ5LjMiVw!5e0!3m2!1sen!2sus!4v1650000000000!5m2!1sen!2sus" 
+                            width="100%" 
+                            height="250" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+                
+                <!-- Gardena Location -->
+                <div class="location-card bg-gray-800 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-purple-400">Gardena Base</h3>
+                    </div>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <p>16845 South Hoover Street</p>
+                                <p>Gardena, CA 90247</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p>(562) 228-9429</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-8 text-purple-400">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div>
+                                <p>South Bay Los Angeles location</p>
+                                <p class="text-gray-400">Serving Torrance, Long Beach, Redondo Beach</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.347619800927!2d-118.083887!3d33.9022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDU0JzA4LjQiTiAxMTjCsDA0JzU1LjEiVw!5e0!3m2!1sen!2sus!4v1650000000000!5m2!1sen!2sus" 
+                            width="100%" 
+                            height="250" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Add-ons Section -->
     <section class="py-16 bg-gray-900 text-white px-6">
         <div class="max-w-7xl mx-auto">
@@ -1497,6 +1657,21 @@
                     <i class="fas fa-phone text-2xl"></i>
                 </a>
             </div>
+            
+            <!-- Dual Locations in Footer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
+                <div class="text-center">
+                    <h4 class="text-lg font-bold mb-2 text-purple-400">Buena Park Location</h4>
+                    <p>6165 Norstadt Way</p>
+                    <p>Buena Park, CA 90620</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-lg font-bold mb-2 text-purple-400">Gardena Location</h4>
+                    <p>16845 South Hoover Street</p>
+                    <p>Gardena, CA 90247</p>
+                </div>
+            </div>
+            
             <p class="mb-4">© 2025 Jay's Mobile Wash. All rights reserved.</p>
             <p class="mb-4">Licensed • Insured • Satisfaction guaranteed</p>
             <p>Professional mobile detailing in Los Angeles and Orange County</p>
