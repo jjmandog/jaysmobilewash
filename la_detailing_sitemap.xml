@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- LA CORE PAGES -->
+  <url>
+    <loc>https://jaysmobilewash.net/mobile-detailing-los-angeles/</loc>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- LA CITY LANDING PAGES -->
+  <url>
+    <loc>https://jaysmobilewash.net/locations/beverly-hills-detailing</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaysmobilewash.net/locations/santa-monica-mobile-detailing</loc>
+  </url>
+  <!-- Add 18+ LA cities -->
+
+  <!-- LA SERVICE PAGES -->
+  <url>
+    <loc>https://jaysmobilewash.net/services/la-premium-interior-detailing</loc>
+  </url>
+</urlset>
