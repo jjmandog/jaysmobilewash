@@ -1,31 +1,42 @@
-# LOS ANGELES & OC MOBILE DETAILING DOMINATION
+# JAYSMOBILEWASH.NET - LA/OC SEO ANNIHILATOR ROBOTS.TXT
 User-agent: *
 Allow: /
-Disallow: /wp-admin/
+Disallow: /admin/
 Disallow: /cgi-bin/
-Disallow: /search/
+Disallow: /private/
 
-# GOOGLE PRIORITY CHANNELS
+# GOOGLE PRIORITY ZONES
 User-agent: Googlebot
-Allow: /$                              # Homepage
-Allow: /mobile-detailing-los-angeles/  # Money page
-Allow: /orange-county-detailing/       # Money page
-Allow: /emergency-water-spot-removal/  # Unique service
-Allow: /blog/how-to-.*                 # Educational content
-Crawl-delay: 2
+Allow: /$  # Homepage nuke
+Allow: /mobile-detailing-los-angeles/
+Allow: /orange-county-mobile-detailing/
+Allow: /services/(premium|ceramic|interior)-detailing
+Allow: /cities/(beverly-hills|santa-monica|newport-beach|anaheim|long-beach|irvine|pasadena|malibu)  # 20+ LA/OC cities
+Allow: /blog/2024/.*-car-detailing-tips  # Fresh content
+Crawl-delay: 1  # Turbo-crawl
 
-# AI SCRAPER FIREWALL
+# BING LOCAL ASSAULT
+User-agent: Bingbot
+Allow: /emergency-detailing/
+Allow: /same-day-detailing/
+Allow: /gift-certificates/
+
+# AI TERMINATOR
 User-agent: ChatGPT
 User-agent: Anthropic
-User-agent: PerplexityBot
 Disallow: /
 
-# IMAGE SEO FOR BEFORE/AFTER GALLERY
+# IMAGE TAKEOVER
 User-agent: Googlebot-Image
 Allow: /gallery/.*\.(jpg|webp)$
-Allow: /testimonials/.*\.(png|jpeg)$
-Disallow: /assets/icons/
+Allow: /before-after/.*\.(png|jpeg)$
 
-# SITEMAP NETWORK
-Sitemap: https://jaysmobilewash.net/sitemap_index.xml
-Sitemap: https://jaysmobilewash.net/local-sitemap.xml
+# VOICE SEARCH HIJACK
+User-agent: Google-Assistant
+Allow: /how-to-remove-los-angeles-pollen/
+Allow: /oc-salt-air-corrosion-prevention/
+
+# HYPERLOCAL SITEMAPS
+Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/image-sitemap.xml
