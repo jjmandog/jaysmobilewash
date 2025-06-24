@@ -5,23 +5,8 @@
   "@context": "https://schema.org",
   "@type": "AutoDetailing",
   "name": "Jay's Premium Mobile Detailing",
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 34.0522,
-      "longitude": -118.2437
-    },
-    "geoRadius": 50000,
-    "description": "Los Angeles & Orange County"
-  },
-  "areaServed": ["Los Angeles", "Orange County", "Ventura County"],
-  "offers": {
-    "@type": "Offer",
-    "name": "Ceramic Coating Special",
-    "price": "249",
-    "priceCurrency": "USD"
-  },
+  "serviceArea": ["Los Angeles", "Orange County"],
+  
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
@@ -29,7 +14,21 @@
     "bestRating": "5",
     "itemReviewed": {
       "@type": "Service",
-      "name": "Mobile Detailing Service"
+      "name": "Mobile Detailing",
+      "serviceType": "Auto Detailing",
+      "offers": {
+        "@type": "Offer",
+        "price": "89"
+      }
+    }
+  },
+  
+  // Add this to link the rating to your business
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "4.9"
     }
   }
 }
