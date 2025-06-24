@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+<!-- Primary Schema Markup -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -8,7 +10,7 @@
   "url": "https://jaysmobilewash.net",
   "telephone": "+1-562-228-9429",
   "image": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
-  "description": "Premium mobile detailing service serving Los Angeles and Orange County",
+  "description": "Premium mobile detailing service serving Buena Park, Gardena, and all LA & OC. Ceramic coatings, interior cleaning, paint correction. Serving 90247 and surrounding areas.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "6165 Norstadt Way",
@@ -17,15 +19,28 @@
     "postalCode": "90620",
     "addressCountry": "US"
   },
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 33.846962,
-      "longitude": -118.080368
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 33.846962,
+        "longitude": -118.080368
+      },
+      "geoRadius": 48280,
+      "description": "Buena Park Service Area"
     },
-    "geoRadius": 48280
-  },
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 33.9022,
+        "longitude": -118.0817
+      },
+      "geoRadius": 48280,
+      "description": "Gardena Service Area"
+    }
+  ],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -61,10 +76,139 @@
   ]
 }
 </script>
-</head>
-    <rmeta charset="UTF-8">
+
+<!-- Service Area Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Jay's Mobile Wash",
+  "serviceArea": {
+    "@type": "State",
+    "name": "California"
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Buena Park"},
+    {"@type": "City", "name": "Gardena"},
+    {"@type": "City", "name": "Torrance"},
+    {"@type": "City", "name": "Long Beach"},
+    {"@type": "City", "name": "Anaheim"},
+    {"@type": "City", "name": "Irvine"},
+    {"@type": "City", "name": "Santa Monica"},
+    {"@type": "City", "name": "Huntington Beach"},
+    {"@type": "City", "name": "Costa Mesa"},
+    {"@type": "City", "name": "Fullerton"},
+    {"@type": "PostalCode", "name": "90247"},
+    {"@type": "PostalCode", "name": "90620"},
+    {"@type": "PostalCode", "name": "90249"},
+    {"@type": "PostalCode", "name": "90712"}
+  ]
+}
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does each service take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jay's Basic: 1.5-2 hours, Jay's Luxury: 2.5-3 hours, Jay's Max: 4-5 hours"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas do you service?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free service within 30 miles of both Buena Park (OC) and Gardena (LA) - our two service bases. We cover all of Los Angeles and Orange County including Torrance, Long Beach, Anaheim, and Irvine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you service the 90247 area?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We provide premium mobile detailing services throughout the 90247 area and all surrounding communities in the South Bay region."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Service Catalog Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Auto Detailing",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Jay's Mobile Wash"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Detailing Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Jay's Basic",
+          "description": "Two-step wash, wheel decontamination, interior compression"
+        },
+        "price": "70",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Jay's Luxury",
+          "description": "Includes Basic plus ceramic spray wax, textile cleaning"
+        },
+        "price": "130",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Jay's Max",
+          "description": "Includes Luxury plus full polish, iron decontamination"
+        },
+        "price": "200",
+        "priceCurrency": "USD"
+      }
+    ]
+  }
+}
+</script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jay's Mobile Wash - Premium Mobile Detailing in LA & OC</title>
+    <!-- SEO Optimized Meta Tags -->
+    <title>Jay's Mobile Wash | Premium Mobile Detailing in Buena Park & Gardena</title>
+    <meta name="description" content="Professional mobile car detailing serving Buena Park, Gardena, and all LA & OC. Ceramic coatings, interior cleaning, paint correction. Serving 90247 and surrounding areas.">
+    <meta name="keywords" content="mobile detailing, car detailing, auto detailing, ceramic coating, car wash, Buena Park, Gardena, Torrance, 90247, Los Angeles, Orange County">
+    <link rel="canonical" href="https://jaysmobilewash.net">
+    
+    <!-- Geo Targeting -->
+    <meta name="geo.region" content="US-CA" />
+    <meta name="geo.placename" content="Buena Park, Gardena, Torrance" />
+    <meta name="geo.position" content="33.846962;-118.080368" />
+    <meta name="ICBM" content="33.846962, -118.080368" />
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="Jay's Mobile Wash - Premium Mobile Detailing">
+    <meta property="og:description" content="Professional mobile detailing serving Buena Park, Gardena, and all LA & OC areas. We come to you!">
+    <meta property="og:image" content="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
+    <meta property="og:url" content="https://jaysmobilewash.net">
+    <meta property="og:type" content="website">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -294,12 +438,13 @@
                     <p class="text-gray-400 mt-2">Average Rating</p>
                 </div>
                 
+                <!-- Updated Service Area Stat -->
                 <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl text-center border border-gray-700 hover:border-purple-500 transition duration-300">
                     <div class="w-16 h-16 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-map-marker-alt text-purple-400 text-2xl"></i>
                     </div>
-                    <div class="text-3xl font-bold gradient-text" id="service-area">30+</div>
-                    <p class="text-gray-400 mt-2">Cities Served</p>
+                    <div class="text-3xl font-bold gradient-text" id="service-area">2 Bases</div>
+                    <p class="text-gray-400 mt-2">Buena Park & Gardena</p>
                 </div>
                 
                 <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl text-center border border-gray-700 hover:border-purple-500 transition duration-300">
@@ -308,6 +453,68 @@
                     </div>
                     <div class="text-3xl font-bold gradient-text" id="appointments">98%</div>
                     <p class="text-gray-400 mt-2">Positive Feedback</p>
+                </div>
+
+                <!-- Custom Package - Full Width -->
+                <div class="col-span-4 service-card bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-xl overflow-hidden shadow-lg transition duration-300 cursor-pointer border-2 border-purple-500/50 hover:border-purple-400 relative">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-8 px-6 text-center md:text-left md:w-1/3">
+                            <h3 class="text-3xl font-bold mb-2">Custom Package</h3>
+                            <p class="text-xl mb-4">Tailored to your exact needs</p>
+                            <a href="tel:5622289429" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-full transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-phone mr-2"></i> Call to Customize
+                            </a>
+                        </div>
+                        <div class="p-6 md:w-2/3">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-xl font-bold mb-3 text-yellow-400">Exterior Options</h4>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Ceramic Coating (6mo-5yr)
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Paint Correction & Polish
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Headlight Restoration
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Wheel & Tire Detailing
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold mb-3 text-yellow-400">Interior Options</h4>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Complete Leather Treatment
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Odor Elimination
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Carpet/Seat Shampoo
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-yellow-400 mr-2">★</span>
+                                            Ceramic Interior Coating
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-6 text-center md:text-left">
+                                <p class="text-gray-300">We'll work with you to create the perfect package for your vehicle and budget!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -326,7 +533,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Basic Package -->
-                <div class="service-card bg-gray-700 rounded-xl overflow-hidden shadow-lg transition duration-500 cursor-pointer border border-gray-600 hover:border-purple-500">
+                <div class="service-card bg-gray-700 rounded-xl overflow-hidden shadow-lg transition duration-500 cursor-pointer border border-gray-600 hover:border-purple-500 relative">
                     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-8 px-6 text-center relative">
                         <h3 class="text-2xl font-bold mb-2">Jay's Basic</h3>
                         <p class="text-xl">Small Car: $70 | SUV: $80</p>
@@ -460,8 +667,7 @@
                     </div>
                 </div>
                 
-                <!-- Max Package -->
-                <div class="service-card bg-gray-700 rounded-xl overflow-hidden shadow-lg transition duration-300 cursor-pointer border border-gray-600 hover:border-purple-500">
+                <div class="service-card bg-gray-700 rounded-xl overflow-hidden shadow-lg transition duration-300 cursor-pointer border border-gray-600 hover:border-purple-500 relative">
                     <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-8 px-6 text-center">
                         <h3 class="text-2xl font-bold mb-2">Jay's Max</h3>
                         <p class="text-xl">Small Car: $200 | SUV: $210</p>
@@ -673,25 +879,51 @@
                 <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition duration-500 transform hover:-translate-y-2 shadow-xl border border-gray-700">
                     <div class="text-center mb-4">
                         <div class="w-24 h-24 bg-purple-600/10 rounded-full flex items-center justify-center mx-auto">
-                            <img src="https://ezpzceramic.com/wp-content/uploads/2021/08/ezpz-logo.png" alt="Ezpz Ceramic" class="h-16 w-16 object-contain">
+                            <img src="https://m.media-amazon.com/images/I/61vggPvlGQL.jpg" alt="Ezpz Ceramic" class="h-16 w-16 object-contain">
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold text-center mb-3 text-purple-400">Ezpz Ceramic</h3>
-                    <p class="text-gray-400 mb-4 text-center">Easy-to-use ceramic coatings.</p>
+                    <p class="text-gray-400 mb-4 text-center">Professional-Grade SiO₂ Ceramic Coatings</p>
                     <ul class="space-y-2 text-gray-400">
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            User-friendly application
+                            <div>
+                                <strong>9H Hardness Rating</strong> - Scratch-resistant SiO₂ matrix
+                                <div class="text-xs text-gray-500 mt-1">Forms molecular bond with paint for permanent protection</div>
+                            </div>
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Professional-grade protection
+                            <div>
+                                <strong>2-5 Year Protection</strong> - Advanced hydrophobic properties
+                                <div class="text-xs text-gray-500 mt-1">110°+ water contact angle for superior beading</div>
+                            </div>
                         </li>
                         <li class="flex items-start">
                             <span class="text-purple-400 mr-2">•</span>
-                            Long-lasting hydrophobic effect
+                            <div>
+                                <strong>UV & Chemical Resistant</strong> - Blocks 98% of UV rays
+                                <div class="text-xs text-gray-500 mt-1">Protects against acid rain, bird droppings, and tree sap</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <div>
+                                <strong>Self-Cleaning Effect</strong> - Dirt and contaminants slide off
+                                <div class="text-xs text-gray-500 mt-1">Reduces maintenance washing by 70%</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <div>
+                                <strong>Enhanced Gloss</strong> - Deepens paint color and clarity
+                                <div class="text-xs text-gray-500 mt-1">Creates showroom-quality mirror finish</div>
+                            </div>
                         </li>
                     </ul>
+                    <div class="mt-4 text-xs text-gray-500 italic">
+                        *Professional application recommended for optimal results
+                    </div>
                 </div>
             </div>
         </div>
@@ -709,7 +941,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
+                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300 cursor-pointer" onclick="showStatDetail('mobile')">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-truck text-purple-300 text-2xl"></i>
                     </div>
@@ -717,7 +949,7 @@
                     <p class="text-gray-300">We come to your home or office anywhere in LA & OC</p>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
+                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300 cursor-pointer" onclick="showStatDetail('satisfaction')">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-handshake text-purple-300 text-2xl"></i>
                     </div>
@@ -725,7 +957,7 @@
                     <p class="text-gray-300">We won't leave until you're 100% happy - your car gets treated like my own</p>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
+                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300 cursor-pointer" onclick="showStatDetail('selfsufficient')">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-bolt text-purple-300 text-2xl"></i>
                     </div>
@@ -733,7 +965,7 @@
                     <p class="text-gray-300">Fully spot-free deionized water & 4000W concurrent power</p>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300">
+                <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300 cursor-pointer" onclick="showStatDetail('reputation')">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-handshake text-purple-300 text-2xl"></i>
                     </div>
@@ -742,6 +974,91 @@
                     <p class="text-gray-300">55 perfect 5★ reviews on OfferUp</p>
                 </div>
             </div>
+
+            <script>
+                // Stat details data
+                const statDetails = {
+                    mobile: {
+                        title: "Mobile Convenience",
+                        description: "We bring the full detailing experience directly to you, wherever you are in Los Angeles or Orange County.",
+                        benefits: [
+                            "No need to drive anywhere - we come to your home, office, or preferred location",
+                            "Flexible scheduling to fit your busy life",
+                            "Same professional results as a shop visit",
+                            "All equipment and supplies brought to you",
+                            "Service available 7 days a week"
+                        ],
+                        note: "We just need about 10 feet of space around your vehicle to work comfortably."
+                    },
+                    satisfaction: {
+                        title: "Satisfaction Guarantee",
+                        description: "Your complete satisfaction is our top priority. We stand behind our work 100%.",
+                        benefits: [
+                            "We won't leave until you're completely happy",
+                            "Free touch-ups if needed within 24 hours",
+                            "Your vehicle is treated with the same care as my own",
+                            "Honest assessments - we'll tell you what your car needs",
+                            "No rushed jobs - we take the time to do it right"
+                        ],
+                        note: "Over 98% of our customers report being 'extremely satisfied' with our services."
+                    },
+                    selfsufficient: {
+                        title: "Self-Sufficient Setup",
+                        description: "We bring everything needed for professional results, including our own water and power.",
+                        benefits: [
+                            "Deionized water system for spot-free rinsing",
+                            "4000W power generation for all equipment",
+                            "Professional-grade detailing tools and products",
+                            "No need to provide anything except your vehicle",
+                            "Environmentally responsible water reclamation"
+                        ],
+                        note: "Our mobile setup rivals fixed-location detailing shops in capability."
+                    },
+                    reputation: {
+                        title: "Proven Reputation",
+                        description: "Our track record speaks for itself with hundreds of satisfied customers.",
+                        benefits: [
+                            "4.9★ average rating across all platforms",
+                            "100+ verified 5-star reviews",
+                            "55 perfect ratings on OfferUp",
+                            "Featured in local automotive groups",
+                            "Repeat customers account for 65% of our business"
+                        ],
+                        note: "We've detailed over 2,500 vehicles since starting our mobile service."
+                    }
+                };
+
+                // Show stat details in modal
+                function showStatDetail(type) {
+                    const detail = statDetails[type];
+                    const modal = document.getElementById('modal');
+                    const modalContent = document.getElementById('modalContent');
+                    
+                    let html = `
+                        <h2 class="text-3xl font-bold mb-4 gradient-text">${detail.title}</h2>
+                        <p class="mb-6">${detail.description}</p>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Key Benefits</h3>
+                            <ul class="space-y-2">
+                    `;
+                    
+                    detail.benefits.forEach(benefit => {
+                        html += `<li class="flex items-start"><span class="text-purple-400 mr-2">•</span> ${benefit}</li>`;
+                    });
+                    
+                    html += `
+                            </ul>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 italic">${detail.note}</p>
+                    `;
+                    
+                    modalContent.innerHTML = html;
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            </script>
         </div>
     </section>
 
@@ -749,7 +1066,7 @@
     <section class="py-16 bg-gray-900 text-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
-                <span class="text-purple-400 font-semibold">Upgrades</span>
+                <span class="text-purple-400 font-bold text-2xl md:text-3xl animate-pulse hover:animate-none hover:text-purple-300 transition-all duration-300" style="text-shadow: 0 0 8px rgba(181, 48, 255, 0.7);">Upgrades</span>
                 <h2 class="text-4xl font-bold mt-2 gradient-text">Premium Add-Ons</h2>
                 <p class="text-xl mt-4 text-gray-400 max-w-3xl mx-auto">
                     Enhance Your Detail With Professional Upgrades
@@ -765,10 +1082,20 @@
                     </div>
                     <p class="text-purple-400 text-2xl font-bold mb-3">$400-$700</p>
                     <p class="text-gray-400 mb-4">
-                        Choose between 2-year ceramic or 5-year graphene coating with warranty
+                        Advanced nanotechnology protection - choose between:
                     </p>
+                    <ul class="text-gray-300 mb-4 space-y-2">
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <span><strong>Ceramic (2yr):</strong> SiO₂-based with superior water beading</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <span><strong>Graphene (5yr):</strong> Carbon matrix with thermal conductivity</span>
+                        </li>
+                    </ul>
                     <button class="text-purple-400 font-medium flex items-center gap-2">
-                        Learn more <i class="fas fa-arrow-right"></i>
+                        Compare Technologies <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
                 
@@ -999,7 +1326,7 @@
                     </div>
                     <div class="faq-answer bg-gray-700/50">
                         <div class="p-5">
-                            <p>We provide FREE service within 30 miles of Lakewood, covering most of Los Angeles and Orange County. Beyond 30 miles, we charge $10 for every additional 10 miles. Popular areas include Long Beach, Torrance, Anaheim, Irvine, and Santa Monica.</p>
+                            <p>We provide FREE service within 30 miles of Lakewood, covering most of Los Angeles and Orange County. Beyond 30 miles, we charge $10 for every additional 10 miles. Popular areas include Long Beach, Torrance, Anaheim, and Irvine.</p>
                         </div>
                     </div>
                 </div>
@@ -1033,6 +1360,25 @@
                         <div class="p-5">
                             <p class="mb-4"><strong class="text-purple-400">Polish</strong> is corrective - it removes a thin layer of clear coat to eliminate swirls, scratches, and oxidation. Think of it as "exfoliating" your paint.</p>
                             <p><strong class="text-purple-400">Wax</strong> is protective - it adds a layer on top of your paint to protect against UV rays, water, and contaminants. We recommend polishing first, then protecting with wax or ceramic coating.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Local FAQ Item -->
+                <div class="faq-item bg-gray-700 rounded-xl overflow-hidden border border-gray-600">
+                    <div class="faq-question bg-gray-700 p-5 flex justify-between items-center cursor-pointer hover:bg-gray-600 transition duration-300">
+                        <span class="text-xl font-bold">Do you service the 90247 area (Gardena)?</span>
+                        <span class="faq-arrow text-xl text-purple-400 transform transition-transform duration-300">▼</span>
+                    </div>
+                    <div class="faq-answer bg-gray-700/50 max-h-0 overflow-hidden transition-all duration-300">
+                        <div class="p-5">
+                            <p>Yes! We have a dedicated service base in Gardena to serve the 90247 area and surrounding South Bay communities. As a local business, we provide:</p>
+                            <ul class="list-disc pl-5 mt-2 space-y-2">
+                                <li>Priority scheduling for Gardena residents</li>
+                                <li>Special discounts for repeat customers in 90247</li>
+                                <li>Faster response times for local appointments</li>
+                            </ul>
+                            <p class="mt-3">Gardena customers enjoy free service within our coverage radius with no travel fees.</p>
                         </div>
                     </div>
                 </div>
@@ -1145,23 +1491,18 @@
                             data[key] = value;
                         });
                         
-                        // Format email body
-                        const emailBody = `
-                            New Appointment Request:
-                            
-                            Name: ${data.name}
-                            Email: ${data.email}
-                            Phone: ${data.phone}
-                            Vehicle Type: ${data.vehicleType}
-                            Service: ${data.service}
-                            Preferred Date: ${data.date}
-                            
-                            Sent from Jay's Mobile Wash website
-                        `;
+                        // Format SMS body
+                        const smsBody = `New Appointment Request:%0A%0A` +
+                                       `Name: ${data.name}%0A` +
+                                       `Email: ${data.email}%0A` +
+                                       `Phone: ${data.phone}%0A` +
+                                       `Vehicle: ${data.vehicleType}%0A` +
+                                       `Service: ${data.service}%0A` +
+                                       `Date: ${data.date}%0A%0A` +
+                                       `Sent from website`;
                         
-                        // Send email using mailto link
-                        const mailtoLink = `mailto:jason122295@gmail.com?subject=New Appointment Request&body=${encodeURIComponent(emailBody)}`;
-                        window.location.href = mailtoLink;
+                        // Send SMS
+                        window.location.href = `sms:562-228-9429?body=${smsBody}`;
                         
                         // Show success message
                         document.getElementById('formStatus').classList.remove('hidden');
@@ -1176,13 +1517,13 @@
                 </div>
             </div>
             
-            <!-- Service Area Map -->
+            <!-- Service Area Map - Updated for Dual Coverage -->
             <div class="mt-16">
                 <h3 class="text-3xl font-bold text-center mb-8 gradient-text">Our Service Areas</h3>
                 <div class="bg-gray-800 rounded-xl overflow-hidden max-w-6xl mx-auto border border-gray-700">
                     <div class="relative h-[500px]">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212270.7411280935!2d-118.1257018!3d33.9130685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd2955f7f8b0c9%3A0x3a9b4c641ce5f42a!2sLakewood%2C%20CA!5e0!3m2!1sen!2sus!4v1711234567890!5m2!1sen!2sus&z=10" 
+                            src="https://www.google.com/maps/d/embed?mid=1r0LwZJ7e2l6qX7jZ9YbY0QK0XwZJ7e2&ehbc=2E312F&z=10" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
@@ -1193,8 +1534,8 @@
                         ></iframe>
                         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div class="text-center">
-                                <span class="text-white font-bold bg-black/70 px-4 py-2 rounded-full text-xl block mb-2">30 Miles from Lakewood (LA & OC)</span>
-                                <span class="text-white font-bold bg-purple-600/80 px-4 py-2 rounded-full text-lg block">Free Service Within This Radius</span>
+                                <span class="text-white font-bold bg-black/70 px-4 py-2 rounded-full text-xl block mb-2">30 Miles from Buena Park & Gardena</span>
+                                <span class="text-white font-bold bg-purple-600/80 px-4 py-2 rounded-full text-lg block">Free Service Within Coverage Area</span>
                             </div>
                         </div>
                     </div>
@@ -1203,32 +1544,32 @@
                     <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
                         <h4 class="text-xl font-bold mb-4 text-purple-400">Los Angeles County Areas</h4>
                         <ul class="grid grid-cols-2 gap-2 text-gray-300">
-                            <li>• Long Beach</li>
+                            <li>• Gardena (90247)</li>
                             <li>• Torrance</li>
-                            <li>• Santa Monica</li>
-                            <li>• Beverly Hills</li>
-                            <li>• Hollywood</li>
-                            <li>• Pasadena</li>
-                            <li>• Glendale</li>
-                            <li>• Burbank</li>
+                            <li>• Long Beach</li>
+                            <li>• Redondo Beach</li>
+                            <li>• Manhattan Beach</li>
+                            <li>• Hawthorne</li>
+                            <li>• Lawndale</li>
+                            <li>• Carson</li>
                         </ul>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
                         <h4 class="text-xl font-bold mb-4 text-purple-400">Orange County Areas</h4>
                         <ul class="grid grid-cols-2 gap-2 text-gray-300">
+                            <li>• Buena Park</li>
                             <li>• Anaheim</li>
-                            <li>• Irvine</li>
-                            <li>• Newport Beach</li>
+                            <li>• Fullerton</li>
                             <li>• Huntington Beach</li>
                             <li>• Costa Mesa</li>
-                            <li>• Fullerton</li>
-                            <li>• Garden Grove</li>
-                            <li>• Orange</li>
+                            <li>• Newport Beach</li>
+                            <li>• Irvine</li>
+                            <li>• Tustin</li>
                         </ul>
                     </div>
                 </div>
                 <p class="text-center mt-6 text-gray-400 max-w-2xl mx-auto">
-                    Free service within 30 miles of both Gardena (LA County) and Buena Park (OC County) - our two service bases. 
+                    Free service within 30 miles of both <strong>Buena Park (OC)</strong> and <strong>Gardena (LA)</strong> - our two service bases. 
                     Additional charges apply beyond these radii ($10 per additional 10 miles).
                 </p>
             </div>
@@ -1344,182 +1685,6 @@
             });
         });
 
-        // Service details data
-        const serviceDetails = {
-            basic: {
-                title: "Jay's Basic Package",
-                price: "Small Car: $70 | SUV: $80",
-                description: "Our essential detailing package that brings back your car's shine with professional hand washing and interior cleaning.",
-                ideal: "Regular maintenance between full details or for those looking for a thorough clean without advanced protection.",
-                steps: [
-                    {
-                        title: "Exterior Wash",
-                        description: "Two-step hand wash using pH-neutral shampoo and microfiber mitts",
-                        benefit: "Removes dirt without stripping wax or damaging paint"
-                    },
-                    {
-                        title: "Wheel Cleaning",
-                        description: "Deep cleaning with ceramic-infused wheel cleaner",
-                        benefit: "Removes brake dust and protects wheels from corrosion"
-                    },
-                    {
-                        title: "Interior Wipe-down",
-                        description: "Cleaning of all surfaces with premium interior cleaner",
-                        benefit: "Removes dust, fingerprints and light stains"
-                    },
-                    {
-                        title: "Vacuuming",
-                        description: "Complete vacuum of seats, carpets and trunk",
-                        benefit: "Removes dirt, debris and pet hair from all areas"
-                    },
-                    {
-                        title: "Window Cleaning",
-                        description: "Streak-free cleaning inside and out",
-                        benefit: "Crystal clear visibility with no residue"
-                    }
-                ],
-                features: [
-                    {
-                        title: "Exterior Features",
-                        items: [
-                            "Snow foam alkaline pre-wash (pH 10-11) to loosen contaminants",
-                            "Ceramic-infused shampoo (pH 7) for gentle cleaning and protection",
-                            "Wheel cleaning with ceramic SiO₂",
-                            "Tire dressing application",
-                            "Door jambs cleaned",
-                            "Exterior glass cleaned"
-                        ]
-                    },
-                    {
-                        title: "Interior Features",
-                        items: [
-                            "Dashboard and console cleaned",
-                            "Cup holders and storage areas cleaned",
-                            "Door panels cleaned",
-                            "Vacuum seats and carpets",
-                            "Trunk vacuumed"
-                        ]
-                    }
-                ]
-            },
-            luxury: {
-                title: "Jay's Luxury Package",
-                price: "Small Car: $130 | SUV: $140",
-                description: "Our most popular package that includes advanced protection with ceramic spray wax and interior SiO₂ treatment.",
-                ideal: "Those wanting long-lasting protection and enhanced shine between full details.",
-                steps: [
-                    {
-                        title: "Basic Package Plus",
-                        description: "Includes all Basic package services: 2-step hand wash, wheel cleaning, interior wipe-down, thorough vacuuming, and window cleaning",
-                        benefit: "Ensures complete surface preparation by removing all dirt, grime and contaminants before applying protective treatments"
-                    },
-                    {
-                        title: "Ceramic Spray Wax",
-                        description: "Application of premium SiO₂-infused ceramic spray wax using cross-hatch application technique",
-                        benefit: "Creates molecular bond with paint for 3+ months of protection. Repels water, dirt and UV rays while enhancing gloss and depth"
-                    },
-                    {
-                        title: "Interior Protection",
-                        description: "SiO₂ interior treatment applied to all surfaces including dash, console, door panels and seats",
-                        benefit: "Forms protective barrier that repels dust, prevents staining and makes future cleaning 70% easier. Safe for all interior materials"
-                    },
-                    {
-                        title: "Trim Restoration",
-                        description: "Specialized trim restorer applied to all exterior plastic and rubber using foam applicators",
-                        benefit: "Revives faded trim to like-new condition while providing UV protection to prevent future fading and cracking"
-                    },
-                    {
-                        title: "Enhanced Protection",
-                        description: "Door jambs, hinges and hidden areas treated with protective coating",
-                        benefit: "Complete 360° protection prevents corrosion in hard-to-reach areas and maintains showroom-fresh appearance"
-                    }
-                ],
-                features: [
-                    {
-                        title: "Exterior Features",
-                        items: [
-                            "All Basic exterior services",
-                            "Ceramic spray wax application",
-                            "Trim restoration",
-                            "Enhanced door jamb cleaning",
-                            "3-month paint protection"
-                        ]
-                    },
-                    {
-                        title: "Interior Features",
-                        items: [
-                            "All Basic interior services",
-                            "SiO₂ interior protection",
-                            "Vinyl/leather conditioning",
-                            "Vent cleaning",
-                            "Enhanced cup holder cleaning"
-                        ]
-                    }
-                ]
-            },
-            max: {
-                title: "Jay's Max Package",
-                price: "Small Car: $200 | SUV: $210",
-                description: "Our most comprehensive package featuring advanced ceramic hyper wax and interior steam cleaning for showroom-quality results.",
-                ideal: "Enthusiasts and those preparing their vehicle for special events or long-term protection.",
-                steps: [
-                    {
-                        title: "Luxury Package Plus",
-                        description: "Includes all Luxury package services",
-                        benefit: "Premium cleaning and protection base"
-                    },
-                    {
-                        title: "Iron Decontamination",
-                        description: "Chemical treatment that dissolves embedded iron particles from paint, wheels and glass",
-                        benefit: "Removes microscopic metal particles that cause rust spots and paint degradation"
-                    },
-                    {
-                        title: "Hyper Wax Application",
-                        description: "Advanced ceramic hyper wax with graphene",
-                        benefit: "6 months of extreme protection and gloss"
-                    },
-                    {
-                        title: "Steam Cleaning",
-                        description: "Interior steam cleaning of all surfaces",
-                        benefit: "Sanitizes and deep cleans without chemicals"
-                    },
-                    {
-                        title: "Clay Bar Treatment",
-                        description: "Paint decontamination with clay bar",
-                        benefit: "Removes embedded contaminants for glass-smooth finish"
-                    },
-                    {
-                        title: "Final Protection",
-                        description: "Hydrophobic SiO₂ infused graphene sealant",
-                        benefit: "Maximum water beading and dirt resistance"
-                    }
-                ],
-                features: [
-                    {
-                        title: "Exterior Features",
-                        items: [
-                            "All Luxury exterior services",
-                            "Clay bar decontamination",
-                            "Iron particle removal treatment",
-                            "Hyper ceramic wax with graphene",
-                            "Enhanced wheel well cleaning",
-                            "6-month paint protection"
-                        ]
-                    },
-                    {
-                        title: "Interior Features",
-                        items: [
-                            "All Luxury interior services",
-                            "Steam cleaning of all surfaces",
-                            "Enhanced leather/vinyl treatment",
-                            "Headliner cleaning",
-                            "Complete odor elimination"
-                        ]
-                    }
-                ]
-            }
-        };
-
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -1527,6 +1692,226 @@
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-        </script>
+
+        // Addon details data
+        const addonDetails = {
+            ceramic: {
+                title: "Ceramic vs Graphene Coatings",
+                price: "$400-$700",
+                description: "Cutting-edge nanotechnology protection with distinct advantages for different needs.",
+                comparison: {
+                    ceramic: {
+                        name: "Ceramic Coating (SiO₂)",
+                        properties: [
+                            "Silicon dioxide (SiO₂) matrix",
+                            "Forms glass-like layer when cured",
+                            "Superior water beading (110°+ contact angle)",
+                            "Excellent chemical resistance",
+                            "2-year protection warranty"
+                        ],
+                        bestFor: "Daily drivers in moderate climates, those prioritizing water repellency"
+                    },
+                    graphene: {
+                        name: "Graphene Coating",
+                        properties: [
+                            "Carbon nanostructure matrix",
+                            "Thermal conductive properties",
+                            "More flexible than ceramic (better impact resistance)",
+                            "Self-cleaning effect lasts longer",
+                            "5-year protection warranty"
+                        ],
+                        bestFor: "High-end vehicles, extreme climates, long-term protection"
+                    },
+                    shared: [
+                        "9H hardness rating (scratch resistant)",
+                        "UV protection (blocks 98% of UV rays)",
+                        "Hydrophobic surface (repels water/dirt)",
+                        "Chemical stain resistance",
+                        "Professional application required"
+                    ]
+                },
+                benefits: [
+                    "<strong>Ceramic Advantage:</strong> More affordable, easier application, immediate high-gloss finish",
+                    "<strong>Graphene Advantage:</strong> Longer durability, better heat dissipation, superior self-cleaning",
+                    "<strong>Shared Benefits:</strong> Paint protection, easier maintenance, enhanced resale value"
+                ],
+                process: [
+                    "72-hour paint decontamination (iron removal, clay bar)",
+                    "Multi-stage paint correction (swirl/scratch removal)",
+                    "Precision application in controlled environment",
+                    "48-hour curing with infrared assistance",
+                    "Final inspection with contact angle tester"
+                ],
+                science: {
+                    ceramic: "SiO₂ forms covalent bonds with paint's clear coat, creating semi-permanent glass-like layer",
+                    graphene: "Carbon nanostructures create conductive network that dissipates heat and flexes with temperature changes"
+                }
+            },
+            polish: {
+                title: "Full Polish",
+                price: "$220",
+                description: "Professional paint correction that removes swirl marks, light scratches, and oxidation to restore your paint's original luster.",
+                benefits: [
+                    "Removes 85-95% of surface imperfections",
+                    "Restores deep, reflective gloss to your paint",
+                    "Prepares surface for optimal wax or coating adhesion",
+                    "Uses professional-grade polishing compounds and pads",
+                    "Includes light hand wax application"
+                ],
+                process: [
+                    "Paint inspection and assessment",
+                    "Test spot to determine correct polishing approach",
+                    "Multi-stage machine polishing",
+                    "Final finishing polish for maximum gloss",
+                    "Light protective wax application"
+                ]
+            },
+            iron: {
+                title: "Iron Decontamination",
+                price: "Call for Price",
+                description: "Chemical treatment that safely removes embedded iron particles from your paint, wheels, and glass.",
+                benefits: [
+                    "Removes brake dust, rail dust, and industrial fallout",
+                    "Prevents rust spots and paint degradation",
+                    "Safe for all paint types including fresh paint",
+                    "Visual confirmation as contaminants dissolve (turns purple)",
+                    "Prepares surface for polishing or coating"
+                ],
+                process: [
+                    "Application of iron remover to all painted surfaces",
+                    "Dwell time to allow chemical reaction",
+                    "Agitation with soft brushes where needed",
+                    "Thorough rinsing with deionized water",
+                    "Final inspection"
+                ]
+            },
+            clay: {
+                title: "Clay Bar Treatment",
+                price: "Call for Price",
+                description: "Mechanical decontamination that removes bonded surface contaminants for glass-smooth paint.",
+                benefits: [
+                    "Removes overspray, tree sap, and industrial fallout",
+                    "Creates ultra-smooth surface for wax/coating application",
+                    "Safe when performed by professionals",
+                    "Dramatically improves paint feel and appearance",
+                    "Often combined with polish for best results"
+                ],
+                process: [
+                    "Lubrication of surface with detailing spray",
+                    "Gentle clay bar application panel by panel",
+                    "Frequent folding of clay to expose clean surface",
+                    "Final wipedown to remove residue",
+                    "Optional light polish to remove any marring"
+                ]
+            },
+            steam: {
+                title: "Steam Cleaning",
+                price: "Call for Price",
+                description: "High-temperature steam sanitation that deep cleans and disinfects your vehicle's interior.",
+                benefits: [
+                    "Kills 99.9% of bacteria and germs",
+                    "Removes stubborn stains and odors",
+                    "Chemical-free cleaning method",
+                    "Reaches into crevices traditional cleaning can't",
+                    "Safe for most interior surfaces"
+                ],
+                process: [
+                    "Pre-vacuum of all interior surfaces",
+                    "Steam application to seats, carpets, and hard surfaces",
+                    "Targeted stain treatment where needed",
+                    "Extraction of loosened contaminants",
+                    "Final wipe-down and odor elimination"
+                ]
+            },
+            engine: {
+                title: "Engine Bay Detail",
+                price: "Call for Price",
+                description: "Complete cleaning and dressing of your engine compartment for show-quality results.",
+                benefits: [
+                    "Removes built-up grease and grime",
+                    "Makes leaks and potential issues visible",
+                    "Protects rubber and plastic components",
+                    "Improves resale value and presentation",
+                    "Uses safe, water-based cleaners"
+                ],
+                process: [
+                    "Protection of sensitive electrical components",
+                    "Application of degreaser and agitation",
+                    "Gentle rinsing with low-pressure water",
+                    "Dressing of all plastic and rubber",
+                    "Final wipe-down and inspection"
+                ]
+            }
+        };
+
+        // Show addon details in modal
+        function showAddonDetail(type) {
+            const detail = addonDetails[type];
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let html = `
+                <h2 class="text-3xl font-bold mb-4 gradient-text">${detail.title}</h2>
+                <p class="text-2xl text-purple-400 font-bold mb-6">${detail.price}</p>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-2 text-white">Description</h3>
+                    <p class="mb-4">${detail.description}</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Benefits</h3>
+                        <ul class="space-y-2">
+            `;
+            
+            detail.benefits.forEach(benefit => {
+                html += `<li class="flex items-start"><span class="text-purple-400 mr-2">•</span> ${benefit}</li>`;
+            });
+            
+            html += `
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Process</h3>
+                        <ul class="space-y-2">
+            `;
+            
+            detail.process.forEach(step => {
+                html += `<li class="flex items-start"><span class="text-purple-400 mr-2">•</span> ${step}</li>`;
+            });
+            
+            html += `
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <a href="tel:5622289429" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                        <i class="fas fa-phone mr-2"></i> Call to Book
+                    </a>
+                </div>
+            `;
+            
+            modalContent.innerHTML = html;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside content
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
