@@ -40,3 +40,8 @@ Allow: /oc-salt-air-corrosion-prevention/
 Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
 Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
 Sitemap: https://jaysmobilewash.net/image-sitemap.xml
+
+# LA/OC PRIORITY CITIES
+Allow: /locations/studio-city-detailing
+Allow: /locations/costa-mesa-mobile-detailing
+Allow: /locations/huntington-beach-detailing
