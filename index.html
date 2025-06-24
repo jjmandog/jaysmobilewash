@@ -192,55 +192,6 @@
     }
     </script>
 
-    <!-- Service Catalog Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Auto Detailing",
-      "provider": {
-        "@type": "LocalBusiness",
-        "name": "Jay's Mobile Wash"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Detailing Packages",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Jay's Basic",
-              "description": "Two-step wash, wheel decontamination, interior compression"
-            },
-            "price": "70",
-            "priceCurrency": "USD"
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Jay's Luxury",
-              "description": "Includes Basic plus ceramic spray wax, textile cleaning"
-            },
-            "price": "130",
-            "priceCurrency": "USD"
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Jay's Max",
-              "description": "Includes Luxury plus full polish, iron decontamination"
-            },
-            "price": "200",
-            "priceCurrency": "USD"
-          }
-        ]
-      }
-    }
-    </script>
-    
     <!-- Reviews Schema -->
     <script type="application/ld+json">
     [
@@ -309,6 +260,11 @@
             100% { background-position: 200% 0; }
         }
         
+        @keyframes tvStatic {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
         .float-animation {
             animation: float 3s ease-in-out infinite;
         }
@@ -377,11 +333,6 @@
         
         .scroll-top:hover {
             transform: scale(1.1) translateY(0);
-        }
-
-        @keyframes tvStatic {
-            0% { background-position: 0 0; }
-            100% { background-position: 100% 100%; }
         }
 
         .gradient-border {
@@ -1036,7 +987,7 @@
                 
                 <div class="bg-white/5 backdrop-blur-sm p-6 rounded-xl text-center border border-white/10 hover:border-purple-400 transition duration-300 cursor-pointer" onclick="showStatDetail('reputation')">
                     <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-handshake text-purple-300 text-2xl"></i>
+                        <i class="fas fa-star text-purple-300 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Highly Reputable</h3>
                     <p class="text-gray-300">4.9★ Google & Yelp ratings with 100+ verified reviews</p>
@@ -1046,7 +997,107 @@
         </div>
     </section>
 
-    <!-- Testimonials Section with Semantic HTML -->
+    <!-- Add-ons Section -->
+    <section class="py-16 bg-gray-900 text-white px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-purple-400 font-bold text-2xl md:text-3xl animate-pulse hover:animate-none hover:text-purple-300 transition-all duration-300" style="text-shadow: 0 0 8px rgba(181, 48, 255, 0.7);">Upgrades</span>
+                <h2 class="text-4xl font-bold mt-2 gradient-text">Premium Add-Ons</h2>
+                <p class="text-xl mt-4 text-gray-400 max-w-3xl mx-auto">
+                    Enhance Your Detail With Professional Upgrades
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Ceramic/Graphene Coating -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('ceramic')">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="text-xl font-bold text-white">Ceramic/Graphene Coating</h4>
+                        <span class="bg-purple-600 text-white text-sm font-bold px-3 py-1 rounded-full">POPULAR</span>
+                    </div>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">$400-$700</p>
+                    <p class="text-gray-400 mb-4">
+                        Advanced nanotechnology protection - choose between:
+                    </p>
+                    <ul class="text-gray-300 mb-4 space-y-2">
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <span><strong>Ceramic (2yr):</strong> SiO₂-based with superior water beading</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-400 mr-2">•</span>
+                            <span><strong>Graphene (5yr):</strong> Carbon matrix with thermal conductivity</span>
+                        </li>
+                    </ul>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Compare Technologies <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Full Polish -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('polish')">
+                    <h4 class="text-xl font-bold text-white mb-2">Full Polish</h4>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">$220</p>
+                    <p class="text-gray-400 mb-4">
+                        Professional paint correction removes swirls and restores factory shine
+                    </p>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Iron Decontamination -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('iron')">
+                    <h4 class="text-xl font-bold text-white mb-2">Iron Decontamination</h4>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">Call for Price</p>
+                    <p class="text-gray-400 mb-4">
+                        Chemical treatment removes embedded brake dust and metal particles
+                    </p>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Clay Bar Treatment -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('clay')">
+                    <h4 class="text-xl font-bold text-white mb-2">Clay Bar Treatment</h4>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">Call for Price</p>
+                    <p class="text-gray-400 mb-4">
+                        Removes bonded contaminants for glass-smooth paint
+                    </p>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Steam Cleaning -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('steam')">
+                    <h4 class="text-xl font-bold text-white mb-2">Steam Cleaning</h4>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">Call for Price</p>
+                    <p class="text-gray-400 mb-4">
+                        Deep sanitization and odor removal using high-temperature steam
+                    </p>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Engine Bay Detail -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition duration-300 cursor-pointer" onclick="showAddonDetail('engine')">
+                    <h4 class="text-xl font-bold text-white mb-2">Engine Bay Detail</h4>
+                    <p class="text-purple-400 text-2xl font-bold mb-3">Call for Price</p>
+                    <p class="text-gray-400 mb-4">
+                        Complete engine bay cleaning, degreasing, and dressing
+                    </p>
+                    <button class="text-purple-400 font-medium flex items-center gap-2">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
     <section class="py-16 bg-gray-800 text-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -1064,9 +1115,9 @@
                         <div class="text-yellow-400 text-2xl mr-2">★★★★★</div>
                         <span class="text-sm text-gray-400">2 weeks ago</span>
                     </div>
-                    <blockquote class="text-lg italic mb-6 leading-relaxed">
+                    <p class="text-lg italic mb-6 leading-relaxed">
                         "Jay transformed my car! The attention to detail is incredible. My BMW looks better than when I bought it. The convenience of mobile service is unbeatable!"
-                    </blockquote>
+                    </p>
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">SM</div>
                         <div>
@@ -1082,9 +1133,9 @@
                         <div class="text-yellow-400 text-2xl mr-2">★★★★★</div>
                         <span class="text-sm text-gray-400">1 month ago</span>
                     </div>
-                    <blockquote class="text-lg italic mb-6 leading-relaxed">
+                    <p class="text-lg italic mb-6 leading-relaxed">
                         "Professional, punctual, and perfectionist! Jay's ceramic coating service is top-notch. My car still beads water perfectly after 6 months!"
-                    </blockquote>
+                    </p>
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4">MT</div>
                         <div>
@@ -1097,81 +1148,57 @@
         </div>
     </section>
 
-    <!-- Service Area Section with Local Citations -->
-    <section id="contact" class="py-16 bg-gray-900 text-white px-6">
+    <!-- Conditions Section -->
+    <section id="conditions" class="py-16 bg-gray-900 text-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
-                <span class="text-purple-400 font-semibold">Service Area</span>
-                <h2 class="text-4xl font-bold mt-2 gradient-text">Serving Los Angeles & Orange County</h2>
+                <span class="text-purple-400 font-semibold">Policies</span>
+                <h2 class="text-4xl font-bold mt-2 gradient-text">Service Conditions</h2>
                 <p class="text-xl mt-4 text-gray-400 max-w-3xl mx-auto">
-                    Convenient Mobile Service Throughout Southern California
+                    Important information about our services
                 </p>
             </div>
-            
-            <div class="bg-gray-800 rounded-xl overflow-hidden max-w-6xl mx-auto border border-gray-700">
-                <div class="relative h-[500px]">
-                    <iframe 
-                        src="https://www.google.com/maps/d/embed?mid=1r0LwZJ7e2l6qX7jZ9YbY0QK0XwZJ7e2&ehbc=2E312F&z=10" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        class="rounded-lg"
-                    ></iframe>
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div class="text-center">
-                            <span class="text-white font-bold bg-black/70 px-4 py-2 rounded-full text-xl block mb-2">30 Miles from Buena Park & Gardena</span>
-                            <span class="text-white font-bold bg-purple-600/80 px-4 py-2 rounded-full text-lg block">Free Service Within Coverage Area</span>
-                        </div>
-                    </div>
+
+            <div class="bg-gray-800 rounded-xl p-8 md:p-12 border border-gray-700 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6 text-purple-400">CONDITIONAL SURCHARGES <span class="text-gray-400 text-lg">(Added to Base Price)</span></h3>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start">
+                        <span class="text-red-400 font-bold mr-3">+30%</span>
+                        <span>Heavy dirt, gum, or embedded grime</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-red-400 font-bold mr-3">+50%</span>
+                        <span>Biohazards (vomit, urine, mold)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-red-400 font-bold mr-3">+$50</span>
+                        <span>After-Dark Work: Professional lighting provided <span class="text-gray-400">(Guarantee void)</span></span>
+                    </li>
+                </ul>
+
+                <div class="border-t border-gray-700 pt-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-400">QUALITY GUARANTEE</h3>
+                    <p class="mb-4 text-gray-300"><em>Guaranteed results require:</em></p>
+                    <ol class="list-decimal list-inside space-y-3 mb-6">
+                        <li><strong>Daylight/Proper Lighting</strong> (No guarantees for night work)</li>
+                        <li><strong>Full Disclosure</strong> (Severe messes reported upfront)</li>
+                        <li><strong>No Interruptions</strong> (Asking "Why is it so long?" or "Can you hurry?" voids guarantee. We are detailers not car washers. Trust our process)</li>
+                    </ol>
+                    <p class="text-sm text-gray-400 italic">Note: 92% of detailing flaws occur in low light (LA Detailing Institute, 2023).</p>
+                </div>
+
+                <div class="border-t border-gray-700 pt-8">
+                    <h3 class="text-2xl font-bold mb-6 text-purple-400">NOTES</h3>
+                    <ul class="space-y-3">
+                        <li><strong>1.75% card processing fee</strong> applies to all transactions.</li>
+                        <li><strong>$10 travel fee</strong> for every 10 miles beyond 30 miles.</li>
+                    </ul>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto">
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                    <h4 class="text-xl font-bold mb-4 text-purple-400">Los Angeles County Areas</h4>
-                    <ul class="grid grid-cols-2 gap-2 text-gray-300">
-                        <li>• Gardena (90247)</li>
-                        <li>• Torrance</li>
-                        <li>• Long Beach</li>
-                        <li>• Redondo Beach</li>
-                        <li>• Manhattan Beach</li>
-                        <li>• Hawthorne</li>
-                        <li>• Lawndale</li>
-                        <li>• Carson</li>
-                    </ul>
-                    <div class="mt-4">
-                        <p class="text-purple-300 font-semibold">Local Landmarks:</p>
-                        <p class="text-gray-400">Serving Knott's Berry Farm • Disneyland • South Coast Plaza • Toyota Arena</p>
-                    </div>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                    <h4 class="text-xl font-bold mb-4 text-purple-400">Orange County Areas</h4>
-                    <ul class="grid grid-cols-2 gap-2 text-gray-300">
-                        <li>• Buena Park</li>
-                        <li>• Anaheim</li>
-                        <li>• Fullerton</li>
-                        <li>• Huntington Beach</li>
-                        <li>• Costa Mesa</li>
-                        <li>• Newport Beach</li>
-                        <li>• Irvine</li>
-                        <li>• Tustin</li>
-                    </ul>
-                    <div class="mt-4">
-                        <p class="text-purple-300 font-semibold">Local Landmarks:</p>
-                        <p class="text-gray-400">Serving Angel Stadium • Long Beach Convention Center • Disneyland Resort</p>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center mt-6 text-gray-400 max-w-2xl mx-auto">
-                Free service within 30 miles of both <strong>Buena Park (OC)</strong> and <strong>Gardena (LA)</strong> - our two service bases. 
-                Additional charges apply beyond these radii ($10 per additional 10 miles).
-            </p>
         </div>
     </section>
 
-    <!-- FAQ Section with Pricing Question -->
+    <!-- FAQ Section -->
     <section id="faq" class="py-16 bg-gray-800 text-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -1296,7 +1323,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="py-16 bg-gray-900 text-white px-6">
+    <section id="contact" class="py-16 bg-gray-900 text-white px-6">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
                 <span class="text-purple-400 font-semibold">Get In Touch</span>
@@ -1390,6 +1417,63 @@
                     </form>
                 </div>
             </div>
+            
+            <!-- Service Area Map - Updated for Dual Coverage -->
+            <div class="mt-16">
+                <h3 class="text-3xl font-bold text-center mb-8 gradient-text">Our Service Areas</h3>
+                <div class="bg-gray-800 rounded-xl overflow-hidden max-w-6xl mx-auto border border-gray-700">
+                    <div class="relative h-[500px]">
+                        <iframe 
+                            src="https://www.google.com/maps/d/embed?mid=1r0LwZJ7e2l6qX7jZ9YbY0QK0XwZJ7e2&ehbc=2E312F&z=10" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="rounded-lg"
+                        ></iframe>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="text-center">
+                                <span class="text-white font-bold bg-black/70 px-4 py-2 rounded-full text-xl block mb-2">30 Miles from Buena Park & Gardena</span>
+                                <span class="text-white font-bold bg-purple-600/80 px-4 py-2 rounded-full text-lg block">Free Service Within Coverage Area</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h4 class="text-xl font-bold mb-4 text-purple-400">Los Angeles County Areas</h4>
+                        <ul class="grid grid-cols-2 gap-2 text-gray-300">
+                            <li>• Gardena (90247)</li>
+                            <li>• Torrance</li>
+                            <li>• Long Beach</li>
+                            <li>• Redondo Beach</li>
+                            <li>• Manhattan Beach</li>
+                            <li>• Hawthorne</li>
+                            <li>• Lawndale</li>
+                            <li>• Carson</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                        <h4 class="text-xl font-bold mb-4 text-purple-400">Orange County Areas</h4>
+                        <ul class="grid grid-cols-2 gap-2 text-gray-300">
+                            <li>• Buena Park</li>
+                            <li>• Anaheim</li>
+                            <li>• Fullerton</li>
+                            <li>• Huntington Beach</li>
+                            <li>• Costa Mesa</li>
+                            <li>• Newport Beach</li>
+                            <li>• Irvine</li>
+                            <li>• Tustin</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center mt-6 text-gray-400 max-w-2xl mx-auto">
+                    Free service within 30 miles of both <strong>Buena Park (OC)</strong> and <strong>Gardena (LA)</strong> - our two service bases. 
+                    Additional charges apply beyond these radii ($10 per additional 10 miles).
+                </p>
+            </div>
         </div>
     </section>
 
@@ -1427,6 +1511,16 @@
         </div>
     </footer>
 
+    <!-- Modal for Experience The Difference -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden overflow-y-auto p-4">
+        <div class="modal-content bg-gray-800 rounded-2xl max-w-4xl mx-auto my-12 p-6 md:p-8 relative border border-gray-700">
+            <button class="close-btn absolute top-4 right-4 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl transition duration-300 hover:bg-purple-700" onclick="closeModal()">
+                ×
+            </button>
+            <div id="modalContent" class="text-gray-300"></div>
+        </div>
+    </div>
+
     <script>
         // Toggle service details
         function toggleDetails(service) {
@@ -1449,7 +1543,7 @@
         // Close mobile menu when clicking a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+                document.getElementById('mobile-menu').classList.add('hidden');
             });
         });
 
@@ -1510,8 +1604,107 @@
             mobileMenu.classList.toggle('hidden');
         });
 
+        // Stat details data
+        const statDetails = {
+            mobile: {
+                title: "Mobile Convenience",
+                description: "We bring the full detailing experience directly to you, wherever you are in Los Angeles or Orange County.",
+                benefits: [
+                    "No need to drive anywhere - we come to your home, office, or preferred location",
+                    "Flexible scheduling to fit your busy life",
+                    "Same professional results as a shop visit",
+                    "All equipment and supplies brought to you",
+                    "Service available 7 days a week"
+                ],
+                note: "We just need about 10 feet of space around your vehicle to work comfortably."
+            },
+            satisfaction: {
+                title: "Satisfaction Guarantee",
+                description: "Your complete satisfaction is our top priority. We stand behind our work 100%.",
+                benefits: [
+                    "We won't leave until you're completely happy",
+                    "Free touch-ups if needed within 24 hours",
+                    "Your vehicle is treated with the same care as my own",
+                    "Honest assessments - we'll tell you what your car needs",
+                    "No rushed jobs - we take the time to do it right"
+                ],
+                note: "Over 98% of our customers report being 'extremely satisfied' with our services."
+            },
+            selfsufficient: {
+                title: "Self-Sufficient Setup",
+                description: "We bring everything needed for professional results, including our own water and power.",
+                benefits: [
+                    "Deionized water system for spot-free rinsing",
+                    "4000W power generation for all equipment",
+                    "Professional-grade detailing tools and products",
+                    "No need to provide anything except your vehicle",
+                    "Environmentally responsible water reclamation"
+                ],
+                note: "Our mobile setup rivals fixed-location detailing shops in capability."
+            },
+            reputation: {
+                title: "Proven Reputation",
+                description: "Our track record speaks for itself with hundreds of satisfied customers.",
+                benefits: [
+                    "4.9★ average rating across all platforms",
+                    "100+ verified 5-star reviews",
+                    "55 perfect ratings on OfferUp",
+                    "Featured in local automotive groups",
+                    "Repeat customers account for 65% of our business"
+                ],
+                note: "We've detailed over 2,500 vehicles since starting our mobile service."
+            }
+        };
+
+        // Show stat details in modal
+        function showStatDetail(type) {
+            const detail = statDetails[type];
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let html = `
+                <h2 class="text-3xl font-bold mb-4 gradient-text">${detail.title}</h2>
+                <p class="mb-6">${detail.description}</p>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-2 text-white">Key Benefits</h3>
+                    <ul class="space-y-2">
+            `;
+            
+            detail.benefits.forEach(benefit => {
+                html += `<li class="flex items-start"><span class="text-purple-400 mr-2">•</span> ${benefit}</li>`;
+            });
+            
+            html += `
+                    </ul>
+                </div>
+                
+                <p class="text-sm text-gray-400 italic">${detail.note}</p>
+            `;
+            
+            modalContent.innerHTML = html;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside content
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
         // Form submission
-        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        const appointmentForm = document.getElementById('appointmentForm');
+        
+        appointmentForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Get form data
