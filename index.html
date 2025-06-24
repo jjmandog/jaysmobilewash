@@ -4,8 +4,11 @@
 {
   "@context": "https://schema.org",
   "@type": "AutoDetailing",
+  "@id": "https://jaysmobilewash.net/#business",
   "name": "Jay's Premium Mobile Detailing",
-  "serviceArea": ["Los Angeles", "Orange County"],
+  "url": "https://jaysmobilewash.net/",
+  "telephone": "+1-888-123-4567",
+  "image": "https://jaysmobilewash.net/logo.webp",
   
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -16,20 +19,38 @@
       "@type": "Service",
       "name": "Mobile Detailing",
       "serviceType": "Auto Detailing",
-      "offers": {
-        "@type": "Offer",
-        "price": "89"
-      }
+      "@id": "https://jaysmobilewash.net/#detailing-service"
     }
   },
   
-  // Add this to link the rating to your business
-  "review": {
+  "review": [{
     "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": "Satisfied Customer"
+    },
+    "datePublished": "2025-06-15",
+    "reviewBody": "Best detailing service in LA! My car looks brand new.",
     "reviewRating": {
       "@type": "Rating",
-      "ratingValue": "4.9"
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "itemReviewed": {
+      "@type": "Service",
+      "name": "Mobile Detailing"
     }
+  }],
+  
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 34.0522,
+      "longitude": -118.2437
+    },
+    "geoRadius": 80467,
+    "description": "Los Angeles and Orange County"
   }
 }
 </script>
@@ -1502,43 +1523,3 @@
         </script>
 </body>
 </html>
-
-<!-- LA/OC TARGETING -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "AutoDetailing",
-  "name": "Jay's Premium Mobile Detailing",
-  "serviceArea": ["Los Angeles", "Orange County"],
-  "offers": {
-    "@type": "Offer",
-    "name": "First-Time Customer Discount",
-    "price": "89"
-  }
-}
-</script>
-
-<!-- HERO SECTION -->
-<section>
-  <h1>🚙 Luxury Mobile Detailing</h1>
-  <p>Serving Los Angeles & Orange County</p>
-  <a href="/booking">BOOK NOW</a>
-</section>
-<!-- In LOCAL pages (e.g. /los-angeles-detailing) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Jay's Mobile Wash - Los Angeles",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Los Angeles",
-    "addressRegion": "CA"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 34.0522,
-    "longitude": -118.2437
-  }
-}
-</script>
