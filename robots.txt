@@ -20,3 +20,4 @@ User-agent: Anthropic
 Disallow: /
 
 Sitemap: https://jaysmobilewash.net/sitemap.xml
+curl -A "Googlebot" https://jaysmobilewash.net/robots.txt
