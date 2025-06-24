@@ -47,7 +47,7 @@ User-agent: Google-Assistant
 User-agent: Alexa
 Allow: /how-to/.*                      # Voice-friendly guides
 Allow: /faq/                           # Featured snippets
-Crawl-delay: 1
+Crawl-delay: 1.1
 
 # ===== SITEMAP FUSION SYSTEM =====
 Sitemap: https://jaysmobilewash.net/sitemap_index.xml
