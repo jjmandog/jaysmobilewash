@@ -1,0 +1,23 @@
+<!-- sitemap_index.xml -->
+<sitemapindex>
+  <sitemap>
+    <loc>https://jaysmobilewash.net/main-sitemap.xml</loc>
+    <lastmod>2024-07-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://jaysmobilewash.net/image-sitemap.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://jaysmobilewash.net/local-sitemap.xml</loc>
+  </sitemap>
+</sitemapindex>
+
+<!-- local-sitemap.xml -->
+<urlset>
+  <url>
+    <loc>https://jaysmobilewash.net/locations/orlando-mobile-car-wash</loc>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://jaysmobilewash.net/locations/orlando"/>
+    <priority>0.8</priority>
+  </url>
+  <!-- Repeat for 20+ local service areas -->
+</urlset>
