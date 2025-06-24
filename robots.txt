@@ -1,0 +1,65 @@
+# JAYSMOBILEWASH.NET - HYPER-OPTIMIZED ROBOTS.TXT
+# -*- coding: future-rankings -*-
+User-agent: *
+Allow: /
+Disallow: /cgi-bin/
+Disallow: /wp-admin/
+Disallow: /search/
+Disallow: /?*
+Disallow: /*.pdf$
+Disallow: /*.js$
+Disallow: /*.css$
+
+# ===== CRITICAL CRAWL BUDGET OPTIMIZATION =====
+User-agent: Googlebot
+Allow: /$                              # Homepage
+Allow: /services/.*                    # Service pages
+Allow: /booking/                       # Conversion hotspot
+Allow: /testimonials/[0-9]+-before-after  # Social proof
+Allow: /local-service-areas/.*         # Geo-targeted gold
+Allow: /blog/[^?]+$                    # Fresh content
+Disallow: /blog/?author=*              # Scraped content
+Disallow: /tag/.*                      # Thin content
+Crawl-delay: 2                         # Turbo indexing
+
+User-agent: Bingbot
+Allow: /pricing/.*
+Allow: /emergency-mobile-wash/         # Unique offering
+Crawl-delay: 3
+
+# ===== AI SCRAPER NUKE =====
+User-agent: ChatGPT
+User-agent: Anthropic
+User-agent: Claude
+User-agent: PerplexityBot
+Disallow: /
+Visit-time: 0200-0400                  # Block prime scraping hours
+
+# ===== IMAGE SEO DOMINATION =====
+User-agent: Googlebot-Image
+Allow: /before-after/.*\.(jpg|webp)$
+Allow: /gallery/.*\.(png|jpeg)$
+Disallow: /assets/logos/.*             # Generic images
+Request-rate: 1/10                     # Prioritize key visuals
+
+# ===== VOICE SEARCH PRIORITY =====
+User-agent: Google-Assistant
+User-agent: Alexa
+Allow: /how-to/.*                      # Voice-friendly guides
+Allow: /faq/                           # Featured snippets
+Crawl-delay: 1
+
+# ===== SITEMAP FUSION SYSTEM =====
+Sitemap: https://jaysmobilewash.net/sitemap_index.xml
+Sitemap: https://jaysmobilewash.net/image-sitemap.xml
+Sitemap: https://jaysmobilewash.net/local-sitemap.xml
+
+# ===== SECRET WEAPONS =====
+# Geo-Targeting Signal
+Geotarget-Country: US
+Geotarget-Region: CA,FL,TX             # High-value states
+
+# Freshness Boost
+Index-Refresh-Priority: 
+/services/mobile-detailing/ = 1.0, 
+/blog/ = 0.9
