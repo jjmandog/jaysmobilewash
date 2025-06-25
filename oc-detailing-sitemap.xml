@@ -1,13 +1,45 @@
-<urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jaysmobilewash.net/orange-county-mobile-detailing/</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
     <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jaysmobilewash.net/locations/irvine-mobile-car-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://jaysmobilewash.net/locations/newport-beach-boat-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-  <!-- Add 18+ OC cities -->
+  <url>
+    <loc>https://jaysmobilewash.net/locations/anaheim-mobile-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jaysmobilewash.net/locations/huntington-beach-mobile-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jaysmobilewash.net/locations/costa-mesa-auto-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jaysmobilewash.net/locations/buena-park-car-detailing</loc>
+    <lastmod>2025-06-25T06:18:18+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
