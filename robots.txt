@@ -8,25 +8,21 @@ Disallow: /private/
 # Google Priority Paths
 User-agent: Googlebot
 Allow: /$
-Allow: /mobile-detailing-los-angeles/
-Allow: /orange-county-mobile-detailing/
-Allow: /services/premium-detailing
-Allow: /services/ceramic-detailing
-Allow: /services/interior-detailing
-Allow: /cities/beverly-hills
-Allow: /cities/santa-monica
-Allow: /cities/newport-beach
-Allow: /cities/anaheim
-Allow: /cities/long-beach
-Allow: /cities/irvine
-Allow: /cities/pasadena
-Allow: /cities/malibu
+Allow: /mobile-car-washing-los-angeles/
+Allow: /orange-county-mobile-car-wash/
+Allow: /services/mobile-car-wash-service
+Allow: /services/mobile-detailing-service
+Allow: /services/ceramic-coating-service
+Allow: /locations/beverly-hills-mobile-car-wash
+Allow: /locations/santa-monica-mobile-car-washing
+Allow: /locations/buena-park-mobile-car-washing
+Allow: /locations/irvine-mobile-car-wash
 Allow: /blog/
 
 # Bing Directives
 User-agent: Bingbot
-Allow: /emergency-detailing/
-Allow: /same-day-detailing/
+Allow: /emergency-mobile-car-wash/
+Allow: /same-day-mobile-detailing/
 Allow: /gift-certificates/
 Crawl-delay: 1
 
@@ -42,14 +38,18 @@ Allow: /before-after/
 
 # Voice Search Optimization
 User-agent: Google-Assistant
-Allow: /how-to-remove-los-angeles-pollen/
-Allow: /oc-salt-air-corrosion-prevention/
+User-agent: Alexa
+User-agent: Siri
+Allow: /faq
+Allow: /services
+Allow: /locations
+Allow: /how-much-does-mobile-detailing-cost
+Allow: /how-long-does-mobile-car-washing-take
 
-# City Service Pages
-User-agent: *
-Allow: /locations/studio-city-detailing
-Allow: /locations/costa-mesa-mobile-detailing
-Allow: /locations/huntington-beach-detailing
+# Map Pack Optimization
+User-agent: Googlebot
+Allow: /geo.kml
+Allow: /locations/*.html
 
-# Sitemap
+# Sitemap Index (Updated)
 Sitemap: https://jaysmobilewash.net/sitemap.xml

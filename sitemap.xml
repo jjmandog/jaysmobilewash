@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
+    <loc>https://jaysmobilewash.net/mobile-car-wash-sitemap.xml</loc>
+    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>https://jaysmobilewash.net/la-detailing-sitemap.xml</loc>
-    <lastmod>2025-06-24</lastmod>
+    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://jaysmobilewash.net/oc-detailing-sitemap.xml</loc>
-    <lastmod>2025-06-24</lastmod>
+    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://jaysmobilewash.net/image-sitemap.xml</loc>
-    <lastmod>2025-06-24</lastmod>
+    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
   </sitemap>
 </sitemapindex>
