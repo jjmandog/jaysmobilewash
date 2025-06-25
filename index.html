@@ -2133,6 +2133,79 @@
               });
             }
         });
-    </script>
+   <script>
+// Fix for expanding buttons
+document.addEventListener('DOMContentLoaded', function() {
+    // Fix for service cards and expandable content
+    const serviceButtons = document.querySelectorAll('.service-card .expand-details, .package-button, .detail-toggle');
+    
+    serviceButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const content = this.nextElementSibling || this.parentElement.nextElementSibling;
+            
+            // Toggle active class and visibility
+            content.classList.toggle('active');
+            
+            // Adjust height for smooth animation
+            if (content.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                this.querySelector('i')?.classList.add('rotate-180');
+            } else {
+                content.style.maxHeight = null;
+                this.querySelector('i')?.classList.remove('rotate-180');
+            }
+        });
+    });
+    
+    // Make sure FAQ buttons are working (additional check)
+    const faqButtons = document.querySelectorAll('.faq-button');
+    
+    faqButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            answer.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+            
+            if (answer.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = null;
+            }
+        });
+    });
+
+    // Fix for any buttons with the company name class
+    const jaysMobileButtons = document.querySelectorAll('.jays-button, .service-expand');
+    
+    jaysMobileButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target') || 
+                             this.getAttribute('href')?.replace('#', '') ||
+                             this.parentElement.nextElementSibling?.id;
+            
+            const targetElement = targetId ? 
+                document.getElementById(targetId) : 
+                this.nextElementSibling || this.parentElement.nextElementSibling;
+                
+            if (targetElement) {
+                targetElement.classList.toggle('hidden');
+                targetElement.classList.toggle('active');
+                
+                const icon = this.querySelector('i');
+                if (icon) icon.classList.toggle('rotate-180');
+                
+                if (!targetElement.classList.contains('hidden')) {
+                    targetElement.style.maxHeight = targetElement.scrollHeight + 'px';
+                } else {
+                    targetElement.style.maxHeight = null;
+                }
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
