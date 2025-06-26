@@ -63,7 +63,7 @@
         }
     </script>
     
-    <!-- Schema.org markup for LocalBusiness -->
+    <!-- Schema.org markup for LocalBusiness - FIXED AGGREGATE RATING -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -109,24 +109,24 @@
         "itemListElement": [
           {
             "@type": "Offer",
-            "name": "Jay's Maintenance Wash",
-            "price": "69.00",
+            "name": "Jay's Mini Detail",
+            "price": "70.00",
             "priceCurrency": "USD",
-            "description": "Basic exterior car wash with interior vacuum and wipe-down"
+            "description": "2-Step Hand Contact Wash, Interior Wipe-Down & Shine, Deep Vacuuming"
           },
           {
             "@type": "Offer",
-            "name": "Jay's Premium Detail",
-            "price": "169.00",
+            "name": "Jay's Luxury",
+            "price": "130.00",
             "priceCurrency": "USD",
-            "description": "Complete interior detailing with wax/sealant application"
+            "description": "Ceramic Spray Wax/Sealant, SiO₂ Interior Cleanser, Vinyl Restoration"
           },
           {
             "@type": "Offer",
-            "name": "Jay's Max Detail",
-            "price": "299.00",
+            "name": "Jay's Max",
+            "price": "200.00",
             "priceCurrency": "USD",
-            "description": "Full interior and exterior detailing with paint correction"
+            "description": "Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, 6-Month Foam Seal Treatment"
           }
         ]
       },
@@ -146,7 +146,8 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
-        "reviewCount": "124"
+        "reviewCount": "124",
+        "bestRating": "5"
       }
     }
     </script>
@@ -301,7 +302,8 @@
             </div>
         </div>
     </section>
-        <!-- Mobile Car Washing Section -->
+
+    <!-- Mobile Car Washing Section -->
     <section id="mobile-car-washing" class="py-20 px-6 bg-gray-800">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -417,7 +419,8 @@
             </div>
         </div>
     </section>
-        <!-- Products We Use Section -->
+
+    <!-- Products We Use Section -->
     <section id="products" class="py-20 px-6 bg-gray-800">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl font-bold mb-4 text-center">Premium <span class="gradient-text">Products</span> We Use</h2>
@@ -573,37 +576,41 @@
             </div>
         </div>
     </section>
-        <!-- Services Section -->
+
+    <!-- Services Section -->
     <section id="services" class="py-20 px-6 bg-gray-900">
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-4xl font-bold mb-4">Our <span class="gradient-text">Packages</span></h2>
             <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">Choose from our range of detailing packages, tailored to meet your needs and budget.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Package 1 -->
+                <!-- Package 1 - UPDATED WITH CORRECT NAME AND PRICES -->
                 <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Jay's Maintenance Wash</h3>
+                        <h3 class="text-2xl font-bold mb-2">Jay's Mini Detail</h3>
                         <div class="flex justify-center items-center mb-4">
-                            <span class="text-3xl font-bold">$69</span>
-                            <span class="text-gray-400 ml-2">Sedan/Coupe</span>
+                            <span class="text-3xl font-bold">$70</span>
+                            <span class="text-gray-400 ml-2">Small Car</span>
+                        </div>
+                        <div class="mb-4 text-center text-sm text-purple-400">
+                            <span>SUV: $80</span>
                         </div>
                         <ul class="space-y-2 text-left mb-6">
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Exterior hand wash</span>
+                                <span>2-Step Hand Contact Wash</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Wheels cleaned & tires dressed</span>
+                                <span>Alkaline & Ceramic SiO₂ Rim Cleaning</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Exterior windows cleaned</span>
+                                <span>Interior Wipe-Down & Shine</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Quick interior vacuum & wipedown</span>
+                                <span>Deep Vacuuming & Cup Holder Cleaning</span>
                             </li>
                         </ul>
                         <button class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg font-medium hover:shadow-lg transition-shadow mb-4">
@@ -649,31 +656,34 @@
                     </div>
                 </div>
                 
-                <!-- Package 2 -->
+                <!-- Package 2 - UPDATED WITH CORRECT PRICES -->
                 <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
                     <div class="p-6">
                         <div class="bg-purple-600 text-white px-4 py-1 rounded-full inline-block mb-4">Most Popular</div>
-                        <h3 class="text-2xl font-bold mb-2">Jay's Premium Detail</h3>
+                        <h3 class="text-2xl font-bold mb-2">Jay's Luxury</h3>
                         <div class="flex justify-center items-center mb-4">
-                            <span class="text-3xl font-bold">$169</span>
-                            <span class="text-gray-400 ml-2">Sedan/Coupe</span>
+                            <span class="text-3xl font-bold">$130</span>
+                            <span class="text-gray-400 ml-2">Small Car</span>
+                        </div>
+                        <div class="mb-4 text-center text-sm text-purple-400">
+                            <span>SUV: $140</span>
                         </div>
                         <ul class="space-y-2 text-left mb-6">
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Everything in Maintenance Wash</span>
+                                <span>Includes Jay's Mini Detail +</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Complete interior detailing</span>
+                                <span>Ceramic Spray Wax/Sealant</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Wax/sealant application</span>
+                                <span>SiO₂ Interior Cleanser with Dust Repellent</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Leather cleaning & conditioning</span>
+                                <span>Vinyl Restoration & Trim Restore</span>
                             </li>
                         </ul>
                         <button class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg font-medium hover:shadow-lg transition-shadow mb-4">
@@ -719,30 +729,33 @@
                     </div>
                 </div>
                 
-                <!-- Package 3 -->
+                <!-- Package 3 - UPDATED WITH CORRECT PRICES -->
                 <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
                     <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Jay's Max Detail</h3>
+                        <h3 class="text-2xl font-bold mb-2">Jay's Max</h3>
                         <div class="flex justify-center items-center mb-4">
-                            <span class="text-3xl font-bold">$299</span>
-                            <span class="text-gray-400 ml-2">Sedan/Coupe</span>
+                            <span class="text-3xl font-bold">$200</span>
+                            <span class="text-gray-400 ml-2">Small Car</span>
+                        </div>
+                        <div class="mb-4 text-center text-sm text-purple-400">
+                            <span>SUV: $210</span>
                         </div>
                         <ul class="space-y-2 text-left mb-6">
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Everything in Premium Detail</span>
+                                <span>Includes Jay's Luxury +</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Paint correction (1-step)</span>
+                                <span>Ceramic Hyper Wax/Sealant</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Clay bar treatment</span>
+                                <span>Interior Steam Cleaning & Clay Bar Treatment</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                <span>Engine bay detailing</span>
+                                <span>6-Month Foam Seal Treatment</span>
                             </li>
                         </ul>
                         <button class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-lg font-medium hover:shadow-lg transition-shadow mb-4">
@@ -995,666 +1008,402 @@
             </div>
         </div>
     </section>
-        <!-- Map Section -->
-    <section id="map" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">Our <span class="gradient-text">Service</span> Areas</h2>
-            <p class="text-xl text-gray-300 mb-12 text-center max-w-3xl mx-auto">We provide premium mobile detailing services throughout Los Angeles and Orange County from our two convenient locations.</p>
-            
-            <div class="relative w-full h-[500px] rounded-xl overflow-hidden shadow-xl">
-                <!-- Map embed with enhanced SEO attributes -->
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27405770525!2d-118.69192113751329!3d34.02016130653037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1656268087232!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    title="Jay's Mobile Wash Service Areas Map"
-                    aria-label="Map showing Jay's Mobile Wash service areas in Los Angeles and Orange County"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-                
-                <div class="absolute top-4 left-4 bg-black/70 p-4 rounded-lg backdrop-blur-sm">
-                    <h3 class="text-xl font-bold text-white mb-2">Service Radius</h3>
-                    <p class="text-gray-300">30-mile radius from both locations:</p>
-                    <ul class="text-gray-300 list-disc pl-5">
-                        <li>Gardena: Los Angeles County</li>
-                        <li>Buena Park: Orange County</li>
-                    </ul>
+
+    <!-- Conditional Surcharges Section - NEW SECTION -->
+    <section class="py-12 px-6 bg-gray-800 mt-8">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold mb-6 text-center">Conditional Surcharges</h3>
+            <div class="bg-gray-900 rounded-xl p-6 shadow-lg">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-plus text-red-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-red-400">+30%:</span>
+                            <span class="text-gray-300"> Heavy dirt, gum, or embedded grime</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-plus text-red-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-red-400">+50%:</span>
+                            <span class="text-gray-300"> Biohazards (vomit, urine, mold)</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                                                <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-plus text-red-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-red-400">+$50:</span>
+                            <span class="text-gray-300"> After-Dark Work - Professional lighting provided (Guarantee void)</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start mt-6">
+                        <div class="rounded-full bg-blue-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-info-circle text-blue-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-blue-400">Additional Fees:</span>
+                            <span class="text-gray-300"> 1.75% card processing fee applies to all transactions. $10 travel fee for every 10 miles beyond 30 miles.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quality Guarantee Section -->
+    <section class="py-12 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold mb-6 text-center">Quality Guarantee</h3>
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                <p class="text-gray-300 mb-4">Guaranteed results require:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="rounded-full bg-green-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-white">Daylight/Proper Lighting</span>
+                            <span class="text-gray-300 block">No guarantees for night work</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="rounded-full bg-green-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-white">Full Disclosure</span>
+                            <span class="text-gray-300 block">Severe messes reported upfront</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="rounded-full bg-green-900/20 p-2 flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <div>
+                            <span class="font-medium text-white">No Interruptions</span>
+                            <span class="text-gray-300 block">We are detailers not car washers. Trust our process.</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mt-6 pt-4 border-t border-gray-700 text-center">
+                    <p class="text-sm text-gray-400 italic">Note: 92% of detailing flaws occur in low light (LA Detailing Institute, 2023).</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Area List Section -->
-    <section id="service-area-list" class="py-20 px-6 bg-gray-800">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">All <span class="gradient-text">Service Areas</span></h2>
-            <p class="text-xl text-gray-300 mb-12 text-center max-w-3xl mx-auto">We proudly serve these cities and neighborhoods throughout LA and Orange County.</p>
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 px-6 bg-gradient-to-r from-gray-900 to-purple-900/30">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">Customer <span class="gradient-text">Reviews</span></h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">See what our customers have to say about our mobile detailing services.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- LA County Cities -->
-                <div class="bg-gray-900 rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-purple-400">Los Angeles County</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• <a href="/locations/gardena" class="hover:text-purple-300 transition-colors">Gardena</a> (90247, 90248, 90249)</li>
-                        <li>• <a href="/locations/torrance" class="hover:text-purple-300 transition-colors">Torrance</a> (90501-90510)</li>
-                        <li>• <a href="/locations/redondo-beach" class="hover:text-purple-300 transition-colors">Redondo Beach</a> (90277, 90278)</li>
-                        <li>• <a href="/locations/manhattan-beach" class="hover:text-purple-300 transition-colors">Manhattan Beach</a> (90266)</li>
-                        <li>• <a href="/locations/hermosa-beach" class="hover:text-purple-300 transition-colors">Hermosa Beach</a> (90254)</li>
-                        <li>• <a href="/locations/el-segundo" class="hover:text-purple-300 transition-colors">El Segundo</a> (90245)</li>
-                        <li>• <a href="/locations/hawthorne" class="hover:text-purple-300 transition-colors">Hawthorne</a> (90250, 90251)</li>
-                        <li>• <a href="/locations/inglewood" class="hover:text-purple-300 transition-colors">Inglewood</a> (90301-90312)</li>
-                        <li>• <a href="/locations/culver-city" class="hover:text-purple-300 transition-colors">Culver City</a> (90230-90233)</li>
-                        <li>• <a href="/locations/marina-del-rey" class="hover:text-purple-300 transition-colors">Marina del Rey</a> (90292)</li>
-                        <li>• <a href="/locations/venice" class="hover:text-purple-300 transition-colors">Venice</a> (90291)</li>
-                        <li>• <a href="/locations/santa-monica" class="hover:text-purple-300 transition-colors">Santa Monica</a> (90401-90411)</li>
-                        <li>• <a href="/locations/west-la" class="hover:text-purple-300 transition-colors">West LA</a> (90024, 90025)</li>
-                        <li>• <a href="/locations/beverly-hills" class="hover:text-purple-300 transition-colors">Beverly Hills</a> (90210-90213)</li>
-                        <li>• <a href="/locations/long-beach" class="hover:text-purple-300 transition-colors">Long Beach</a> (90802-90815)</li>
-                    </ul>
+                <!-- Review 1 -->
+                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-purple-700 flex items-center justify-center mr-4">
+                            <span class="text-xl font-bold">M</span>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold">Michael T.</h3>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-left">
+                        "Jay did an amazing job on my Tesla. The ceramic coating has kept it looking new for months, and the service was extremely convenient."
+                    </p>
                 </div>
                 
-                <!-- OC Cities -->
-                <div class="bg-gray-900 rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-purple-400">Orange County</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• <a href="/locations/buena-park" class="hover:text-purple-300 transition-colors">Buena Park</a> (90620-90624)</li>
-                        <li>• <a href="/locations/anaheim" class="hover:text-purple-300 transition-colors">Anaheim</a> (92801-92899)</li>
-                        <li>• <a href="/locations/fullerton" class="hover:text-purple-300 transition-colors">Fullerton</a> (92831-92838)</li>
-                        <li>• <a href="/locations/garden-grove" class="hover:text-purple-300 transition-colors">Garden Grove</a> (92840-92849)</li>
-                        <li>• <a href="/locations/orange" class="hover:text-purple-300 transition-colors">Orange</a> (92856-92869)</li>
-                        <li>• <a href="/locations/santa-ana" class="hover:text-purple-300 transition-colors">Santa Ana</a> (92701-92799)</li>
-                        <li>• <a href="/locations/tustin" class="hover:text-purple-300 transition-colors">Tustin</a> (92780-92782)</li>
-                        <li>• <a href="/locations/irvine" class="hover:text-purple-300 transition-colors">Irvine</a> (92602-92697)</li>
-                        <li>• <a href="/locations/newport-beach" class="hover:text-purple-300 transition-colors">Newport Beach</a> (92657-92663)</li>
-                        <li>• <a href="/locations/costa-mesa" class="hover:text-purple-300 transition-colors">Costa Mesa</a> (92626-92628)</li>
-                        <li>• <a href="/locations/huntington-beach" class="hover:text-purple-300 transition-colors">Huntington Beach</a> (92605, 92615, 92646-92649)</li>
-                        <li>• <a href="/locations/fountain-valley" class="hover:text-purple-300 transition-colors">Fountain Valley</a> (92708, 92728)</li>
-                        <li>• <a href="/locations/westminster" class="hover:text-purple-300 transition-colors">Westminster</a> (92683-92685)</li>
-                        <li>• <a href="/locations/lake-forest" class="hover:text-purple-300 transition-colors">Lake Forest</a> (92609, 92630)</li>
-                        <li>• <a href="/locations/mission-viejo" class="hover:text-purple-300 transition-colors">Mission Viejo</a> (92675, 92690-92694)</li>
-                    </ul>
+                <!-- Review 2 -->
+                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-pink-700 flex items-center justify-center mr-4">
+                            <span class="text-xl font-bold">S</span>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold">Sarah K.</h3>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-left">
+                        "I love that they come to my home. My car looks better than when I bought it. The attention to detail is impressive!"
+                    </p>
                 </div>
                 
-                <!-- Special Service Areas -->
-                <div class="bg-gray-900 rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-purple-400">Premium Service Areas</h3>
-                    <p class="text-gray-300 mb-4">We also service these exclusive areas:</p>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>• <a href="/locations/palos-verdes" class="hover:text-purple-300 transition-colors">Palos Verdes Peninsula</a></li>
-                        <li>• <a href="/locations/rolling-hills" class="hover:text-purple-300 transition-colors">Rolling Hills Estates</a></li>
-                        <li>• <a href="/locations/newport-coast" class="hover:text-purple-300 transition-colors">Newport Coast</a></li>
-                        <li>• <a href="/locations/laguna-beach" class="hover:text-purple-300 transition-colors">Laguna Beach</a></li>
-                        <li>• <a href="/locations/san-marino" class="hover:text-purple-300 transition-colors">San Marino</a></li>
-                        <li>• <a href="/locations/bel-air" class="hover:text-purple-300 transition-colors">Bel Air</a></li>
-                        <li>• <a href="/locations/pacific-palisades" class="hover:text-purple-300 transition-colors">Pacific Palisades</a></li>
-                        <li>• <a href="/locations/malibu" class="hover:text-purple-300 transition-colors">Malibu</a></li>
-                    </ul>
-                    <div class="mt-6 p-4 bg-gray-800 rounded-lg">
-                        <p class="text-sm text-gray-400">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            Areas beyond 30 miles may incur a travel fee. Contact us for details.
+                <!-- Review 3 -->
+                <div class="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-blue-700 flex items-center justify-center mr-4">
+                            <span class="text-xl font-bold">J</span>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold">James R.</h3>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-left">
+                        "The team at Jay's Mobile Wash went above and beyond. They removed stains that other detailers couldn't touch. Worth every penny!"
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <a href="#" class="bg-transparent border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors rounded-lg px-8 py-3 text-lg font-medium inline-flex items-center">
+                    View More Reviews
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-4 text-center">Frequently <span class="gradient-text">Asked Questions</span></h2>
+            <p class="text-xl text-gray-300 mb-12 text-center">Find answers to the most common questions about our mobile detailing services.</p>
+            
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
+                        <h3 class="text-xl font-medium text-left">How long does the detailing process take?</h3>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-gray-300">
+                            The time required depends on the package chosen and the condition of your vehicle. A Mini Detail typically takes 1-2 hours, a Luxury Detail takes 2-3 hours, and a Max Detail can take 3-5 hours. Ceramic coating applications may require 1-2 days depending on the package.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
+                        <h3 class="text-xl font-medium text-left">Do I need to provide water or electricity?</h3>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-gray-300">
+                            No, our mobile units are fully self-contained. We bring our own water, electricity, and all necessary equipment to your location. All we need is access to your vehicle and enough space to work around it.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
+                        <h3 class="text-xl font-medium text-left">How often should I detail my car?</h3>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-gray-300">
+                            For optimal results, we recommend a Mini Detail every 2-4 weeks, a Luxury Detail every 2-3 months, and a Max Detail every 6 months. Ceramic coatings should be maintained according to the manufacturer's recommendations, typically with annual inspections and maintenance.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
+                        <h3 class="text-xl font-medium text-left">How do I prepare my car for detailing?</h3>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-gray-300">
+                            Please remove all personal belongings and trash from your vehicle before our arrival. If possible, ensure easy access to your vehicle with sufficient space around it for our team to work efficiently. No other preparation is necessary—we'll handle the rest!
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
+                        <h3 class="text-xl font-medium text-left">Do you offer any guarantees?</h3>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-gray-300">
+                            Yes, we offer a satisfaction guarantee for all our services performed during daylight hours. If you're not completely satisfied with the results, we'll come back and make it right at no additional charge. Note that guarantees aren't valid for work performed after dark due to lighting constraints.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-        <!-- Special Offers Section -->
-    <section id="special-offers" class="py-20 px-6 bg-gray-800">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">Current <span class="gradient-text">Special Offers</span></h2>
-            <p class="text-xl text-gray-300 mb-12 text-center max-w-3xl mx-auto">Save on our premium mobile detailing services with these limited-time offers.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Offer 1 -->
-                <div class="bg-gradient-to-br from-purple-900 to-purple-700 rounded-xl p-6 shadow-lg text-center transform transition-all duration-300 hover:scale-105">
-                    <div class="text-5xl font-bold text-white mb-2">20%</div>
-                    <div class="text-2xl font-bold text-white mb-4">OFF</div>
-                    <h3 class="text-xl font-bold mb-2">First-Time Customers</h3>
-                    <p class="text-gray-200 mb-4">Get 20% off any detailing package on your first service</p>
-                    <p class="text-sm text-gray-300">Use code: FIRST20</p>
-                </div>
-                
-                <!-- Offer 2 -->
-                <div class="bg-gradient-to-br from-red-900 to-red-700 rounded-xl p-6 shadow-lg text-center transform transition-all duration-300 hover:scale-105">
-                    <div class="text-5xl font-bold text-white mb-2">$50</div>
-                    <div class="text-2xl font-bold text-white mb-4">OFF</div>
-                    <h3 class="text-xl font-bold mb-2">Ceramic Coating</h3>
-                    <p class="text-gray-200 mb-4">Save $50 on our professional ceramic coating service</p>
-                    <p class="text-sm text-gray-300">Limited time offer</p>
-                </div>
-                
-                <!-- Offer 3 -->
-                <div class="bg-gradient-to-br from-green-900 to-green-700 rounded-xl p-6 shadow-lg text-center transform transition-all duration-300 hover:scale-105">
-                    <div class="text-5xl font-bold text-white mb-2">FREE</div>
-                    <div class="text-2xl font-bold text-white mb-4">UPGRADE</div>
-                    <h3 class="text-xl font-bold mb-2">Interior Protection</h3>
-                    <p class="text-gray-200 mb-4">Free interior protection with Jay's Max package</p>
-                    <p class="text-sm text-gray-300">$40 value</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 px-6 bg-gray-900">
+    <!-- Locations Section -->
+    <section id="locations" class="py-20 px-6 bg-gray-800">
         <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">What Our <span class="gradient-text">Customers</span> Say</h2>
-            <p class="text-xl text-gray-300 mb-12">Don't just take our word for it. Here's what our satisfied customers have to say about Jay's Mobile Wash.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md" itemscope itemtype="https://schema.org/Review">
-                    <div class="flex items-center mb-6">
-                        <img src="https://via.placeholder.com/50" alt="Michael T., Tesla Owner" class="rounded-full">
-                        <div class="ml-4">
-                            <h4 class="text-lg font-bold text-white" itemprop="author">Michael T.</h4>
-                            <p class="text-sm text-gray-400">Tesla Owner</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300" itemprop="reviewBody">Jay did an amazing job on my Tesla. The ceramic coating has kept it looking new for months, and the service was extremely convenient.</p>
-                    <div class="mt-4" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        <meta itemprop="bestRating" content="5">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md" itemscope itemtype="https://schema.org/Review">
-                    <div class="flex items-center mb-6">
-                        <img src="https://via.placeholder.com/50" alt="Sarah K., BMW Owner" class="rounded-full">
-                        <div class="ml-4">
-                            <h4 class="text-lg font-bold text-white" itemprop="author">Sarah K.</h4>
-                            <p class="text-sm text-gray-400">BMW Owner</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300" itemprop="reviewBody">Professional, punctual, and perfectionist. Jay's ceramic coating service is top-notch and has protected my car through several bird-dropping incidents.</p>
-                    <div class="mt-4" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        <meta itemprop="bestRating" content="5">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md" itemscope itemtype="https://schema.org/Review">
-                    <div class="flex items-center mb-6">
-                        <img src="https://via.placeholder.com/50" alt="David R., Truck Owner" class="rounded-full">
-                        <div class="ml-4">
-                            <h4 class="text-lg font-bold text-white" itemprop="author">David R.</h4>
-                            <p class="text-sm text-gray-400">Truck Owner</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300" itemprop="reviewBody">Jay's Max detailing package restored my truck's paint to factory-new condition. Highly recommend their services!</p>
-                    <div class="mt-4" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                        <meta itemprop="ratingValue" content="5">
-                        <meta itemprop="bestRating" content="5">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
+            <h2 class="text-4xl font-bold mb-4">Service <span class="gradient-text">Locations</span></h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">We provide mobile detailing services throughout Los Angeles County and Orange County.</p>
             
-            <!-- Google Reviews CTA -->
-            <div class="mt-12">
-                <a href="https://g.page/r/jaysmobilewash/review" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-900 px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
-                    <i class="fab fa-google text-xl mr-2"></i>
-                    See More Reviews on Google
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-20 px-6 bg-gray-800">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Our <span class="gradient-text">Work</span></h2>
-            <p class="text-xl text-gray-300 mb-12">Take a look at some of our recent detailing projects. From basic washes to premium ceramic coatings, we deliver results that speak for themselves.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Image 1 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Before and after car detailing transformation - Exterior wash" class="w-full object-cover" loading="lazy">
-                </div>
-
-                <!-- Image 2 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Professional ceramic coating application on black sports car" class="w-full object-cover" loading="lazy">
-                </div>
-
-                <!-- Image 3 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Interior detailing results showing spotless leather seats" class="w-full object-cover" loading="lazy">
-                </div>
-
-                <!-- Image 4 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Wheel and tire detailing with premium shine" class="w-full object-cover" loading="lazy">
-                </div>
-
-                <!-- Image 5 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Engine bay cleaning and detailing results" class="w-full object-cover" loading="lazy">
-                </div>
-
-                <!-- Image 6 -->
-                <div class="rounded-xl overflow-hidden shadow-md">
-                    <img src="https://via.placeholder.com/600x400" alt="Paint correction before and after comparison" class="w-full object-cover" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-        <!-- Blog Preview Section (NEW) -->
-    <section id="blog" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">Detailing <span class="gradient-text">Insights</span></h2>
-            <p class="text-xl text-gray-300 mb-12 text-center max-w-3xl mx-auto">Expert tips and advice from our professional detailing team.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Blog Post 1 -->
-                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <img src="https://via.placeholder.com/600x400" alt="Ceramic Coating Guide" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <span class="text-purple-400 text-sm font-medium">Ceramic Coating</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3">The Ultimate Guide to Ceramic Coating: Is It Worth It?</h3>
-                        <p class="text-gray-400 mb-4">Explore the pros and cons of ceramic coating and why it might be the best investment for your vehicle.</p>
-                        <a href="blog/ceramic-coating-guide.html" class="text-purple-400 hover:text-purple-300 inline-flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Blog Post 2 -->
-                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <img src="https://via.placeholder.com/600x400" alt="Detailing Mistakes" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <span class="text-purple-400 text-sm font-medium">DIY Tips</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3">5 Common Car Detailing Mistakes to Avoid</h3>
-                        <p class="text-gray-400 mb-4">Learn about the most common mistakes people make when detailing their cars and how to avoid them.</p>
-                        <a href="blog/detailing-mistakes.html" class="text-purple-400 hover:text-purple-300 inline-flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Blog Post 3 -->
-                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <img src="https://via.placeholder.com/600x400" alt="Winter Car Care" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <span class="text-purple-400 text-sm font-medium">Seasonal Care</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3">Winter Car Care: Protecting Your Vehicle During Cold Months</h3>
-                        <p class="text-gray-400 mb-4">Essential tips for maintaining your vehicle's appearance and protection during the harsh winter months.</p>
-                        <a href="blog/winter-car-care.html" class="text-purple-400 hover:text-purple-300 inline-flex items-center">
-                            Read More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="blog.html" class="bg-transparent border-2 border-purple-500 text-purple-400 rounded-lg px-8 py-3 text-lg font-medium hover:bg-purple-500/10 transition-colors">
-                    View All Articles
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trust Badges Section -->
-    <section id="trust-badges" class="py-12 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-wrap justify-center items-center gap-8">
-                <div class="text-center">
-                    <i class="fas fa-certificate text-4xl text-purple-400 mb-2"></i>
-                    <p class="text-sm text-gray-300">Certified Detailers</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-shield-alt text-4xl text-purple-400 mb-2"></i>
-                    <p class="text-sm text-gray-300">Fully Insured</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-leaf text-4xl text-purple-400 mb-2"></i>
-                    <p class="text-sm text-gray-300">Eco-Friendly</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-award text-4xl text-purple-400 mb-2"></i>
-                    <p class="text-sm text-gray-300">5-Star Rated</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-clock text-4xl text-purple-400 mb-2"></i>
-                    <p class="text-sm text-gray-300">On-Time Guarantee</p>
-                </div>
-            </div>
-        </div>
-    </section>
-        <!-- Booking CTA Section -->
-    <section id="booking-cta" class="py-20 px-6 bg-gradient-to-r from-purple-900 to-red-900">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Ready to Experience the <span class="text-white">Difference?</span></h2>
-            <p class="text-xl text-gray-200 mb-8">Book your mobile detailing service today and see why we're Los Angeles and Orange County's preferred choice.</p>
-            
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a href="tel:5622289429" class="bg-white text-purple-900 font-bold py-4 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 inline-flex items-center justify-center">
-                    <i class="fas fa-phone-alt mr-2"></i> Call Now: 562-228-9429
-                </a>
-                <a href="#services" class="bg-transparent border-2 border-white text-white font-bold py-4 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 inline-flex items-center justify-center">
-                    <i class="fas fa-calendar-check mr-2"></i> View Available Times
-                </a>
-            </div>
-            
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">1000+</div>
-                    <p class="text-gray-200">Happy Customers</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">5.0 ★</div>
-                    <p class="text-gray-200">Average Rating</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">7 Days</div>
-                    <p class="text-gray-200">Weekly Service</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 px-6 bg-gray-800">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">Frequently Asked <span class="gradient-text">Questions</span></h2>
-            <p class="text-xl text-gray-300 mb-12 text-center">Find answers to the most common questions about our services.</p>
-            
-            <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
-                <!-- FAQ Item 1 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">How long does a typical detailing service take?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">Service times vary depending on the package and vehicle size. A basic wash typically takes 1-2 hours, while our premium and ceramic coating packages can take anywhere from 3-8 hours for the best results.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 2 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">Do I need to provide water or electricity?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">No, our mobile detailing units are fully self-contained with water, electricity, and all necessary equipment. We only need access to your vehicle.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 3 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">How far in advance should I book?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">We recommend booking at least 48 hours in advance for standard services, and 1 week for ceramic coating services. However, we do offer same-day appointments when available.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 4 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">Why do SUVs cost more?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">Larger vehicles require more product and additional labor due to their increased surface area. This is reflected in our pricing tiers.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 5 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">Do you offer ceramic coating for motorcycles?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">Yes! We provide ceramic coating services for motorcycles, protecting their paint and metal surfaces from corrosion and dirt buildup. Pricing starts at $399.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 6 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">Can you detail boats and RVs?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">Yes, we specialize in mobile detailing for boats and RVs. We offer comprehensive packages that include exterior washing, polishing, and protective coatings. Contact us for a custom quote.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 7 -->
-                <div class="bg-gray-900 rounded-xl overflow-hidden shadow-md faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button class="w-full py-4 px-6 text-left font-medium flex justify-between items-center faq-button focus:outline-none">
-                        <span itemprop="name">Do you offer discounts for regular customers?</span>
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-answer px-6 pb-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                        <p class="text-gray-300" itemprop="text">Yes! Regular customers can benefit from our Maintenance Wash subscription, which includes exclusive discounts and priority booking.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Reviews Section (NEW) -->
-    <section id="live-reviews" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Live <span class="gradient-text">Customer Reviews</span></h2>
-            <p class="text-xl text-gray-300 mb-12">See what our customers are saying about us on Google.</p>
-            
-            <div id="google-reviews" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Reviews will be loaded here -->
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40" alt="Customer" class="rounded-full mr-3">
-                            <span class="font-medium">Jessica M.</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300">Best detailing service I've ever used! My car looks brand new again. The ceramic coating was definitely worth the investment.</p>
-                    <p class="text-sm text-gray-500 mt-4">2 weeks ago</p>
-                </div>
-                
-                <!-- More placeholder reviews -->
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40" alt="Customer" class="rounded-full mr-3">
-                            <span class="font-medium">Robert K.</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300">So convenient having them come to my home. Great attention to detail and very professional team. Highly recommend!</p>
-                    <p class="text-sm text-gray-500 mt-4">1 month ago</p>
-                </div>
-                
-                <div class="bg-gray-800 rounded-xl p-6 shadow-md">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40" alt="Customer" class="rounded-full mr-3">
-                            <span class="font-medium">Thomas W.</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <i class="fas fa-star text-yellow-400"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-300">Jay and his team went above and beyond with my classic car. They were careful with the delicate paintwork and the results are stunning.</p>
-                    <p class="text-sm text-gray-500 mt-4">3 weeks ago</p>
-                </div>
-            </div>
-            
-            <div class="mt-8">
-                <a href="https://g.page/r/jay-mobile-wash/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-white text-gray-900 px-6 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-colors">
-                    <i class="fab fa-google text-xl mr-2"></i>
-                    Leave Us a Review
-                </a>
-            </div>
-        </div>
-    </section>
-        <!-- Contact Us Section -->
-    <section id="contact" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
-            <p class="text-xl text-gray-300 mb-12">Have questions or need a custom quote? Contact us today, and we'll be happy to assist you.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Contact Form -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Los Angeles County -->
                 <div>
-                    <form action="#" method="POST" class="space-y-6 bg-gray-800 p-6 rounded-xl shadow-md">
-                        <div>
-                            <label for="name" class="block text-gray-300 font-medium mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none" required>
+                    <h3 class="text-2xl font-bold mb-6">Los Angeles County</h3>
+                    <div class="bg-gray-900 rounded-xl p-6 shadow-lg mb-6">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Santa Monica</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Beverly Hills</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Downtown LA</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Long Beach</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Pasadena</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Malibu</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Glendale</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Torrance</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Gardena</a>
                         </div>
-                        <div>
-                            <label for="email" class="block text-gray-300 font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none" required>
+                    </div>
+                    <div class="aspect-w-16 aspect-h-9 h-64 relative">
+                        <img src="https://via.placeholder.com/600x400?text=Los+Angeles+County+Map" alt="Map of Los Angeles County service areas" class="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg">
+                    </div>
+                </div>
+                
+                <!-- Orange County -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Orange County</h3>
+                    <div class="bg-gray-900 rounded-xl p-6 shadow-lg mb-6">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Newport Beach</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Huntington Beach</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Irvine</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Anaheim</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Laguna Beach</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Costa Mesa</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Dana Point</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">San Clemente</a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors">Buena Park</a>
                         </div>
-                        <div>
-                            <label for="message" class="block text-gray-300 font-medium mb-2">Your Message</label>
-                            <textarea id="message" name="message" rows="6" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none" required></textarea>
+                    </div>
+                    <div class="aspect-w-16 aspect-h-9 h-64 relative">
+                        <img src="https://via.placeholder.com/600x400?text=Orange+County+Map" alt="Map of Orange County service areas" class="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <p class="text-gray-300">Don't see your location? <a href="#contact" class="text-purple-400 hover:text-purple-300 transition-colors">Contact us</a> to check if we can accommodate your area.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Contact <span class="gradient-text">Us</span></h2>
+                    <p class="text-xl text-gray-300 mb-8">
+                        Have questions or ready to book your detailing appointment? Reach out to us!
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-purple-600/20 p-3 flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Call or Text</h3>
+                                <a href="tel:5622289429" class="text-gray-300 hover:text-white transition-colors">562-228-9429</a>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-red-500 text-white py-3 rounded-lg font-medium hover:shadow-lg transition duration-300">
-                            Submit Message
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-purple-600/20 p-3 flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Email Us</h3>
+                                <a href="mailto:info@jaysmobilewash.net" class="text-gray-300 hover:text-white transition-colors">info@jaysmobilewash.net</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-purple-600/20 p-3 flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Locations</h3>
+                                <p class="text-gray-300 mb-1">16845 S Hoover St, Gardena, CA</p>
+                                <p class="text-gray-300">6165 Norstadt Way, Buena Park, CA</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="rounded-full bg-purple-600/20 p-3 flex items-center justify-center mr-4">
+                                <i class="fas fa-clock text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold mb-1">Hours</h3>
+                                <p class="text-gray-300">Monday - Friday: 8am - 6pm</p>
+                                <p class="text-gray-300">Saturday - Sunday: 9am - 5pm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <form action="#" method="POST" class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Your Name</label>
+                                <input type="text" id="name" name="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div class="mb-6">
+                            <label for="service" class="block text-sm font-medium text-gray-400 mb-1">Service Interested In</label>
+                            <select id="service" name="service" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="">Select a Service</option>
+                                <option value="mini">Jay's Mini Detail</option>
+                                <option value="luxury">Jay's Luxury</option>
+                                <option value="max">Jay's Max</option>
+                                <option value="ceramic">Ceramic Coating</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-4 rounded-lg font-medium hover:shadow-lg transition-shadow">
+                            Send Message
                         </button>
                     </form>
                 </div>
-
-                <!-- Contact Info -->
-                <div class="bg-gray-800 p-6 rounded-xl shadow-md">
-                    <h3 class="text-2xl font-bold mb-4 text-white">Contact Details</h3>
-                    <ul class="space-y-4 text-gray-300">
-                        <li><span class="font-bold text-white">Phone:</span> <a href="tel:5622289429" class="hover:text-white transition-colors">562-228-9429</a></li>
-                        <li><span class="font-bold text-white">Email:</span> <a href="mailto:info@jaysmobilewash.net" class="hover:text-white transition-colors">info@jaysmobilewash.net</a></li>
-                        <li><span class="font-bold text-white">Locations:</span>
-                            <ul class="pl-4 space-y-1">
-                                <li>16845 S Hoover St, Gardena, CA</li>
-                                <li>6165 Norstadt Way, Buena Park, CA</li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <div class="mt-6 flex space-x-4">
-                        <a href="https://www.facebook.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.twitter.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://www.instagram.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-20 px-6 bg-gray-800">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">About <span class="gradient-text">Us</span></h2>
-            <p class="text-xl text-gray-300 mb-12">Learn more about Jay's Mobile Wash and what drives us to deliver exceptional service.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <img src="https://via.placeholder.com/600x400" alt="Jay's Mobile Wash team of professional car detailers" class="rounded-xl shadow-md">
-                </div>
-                <div class="text-left">
-                    <h3 class="text-2xl font-bold mb-4 text-white">Our Mission</h3>
-                    <p class="text-gray-300 mb-6">At Jay's Mobile Wash, our mission is to provide premium mobile car detailing services that exceed expectations. We are committed to quality, convenience, and customer satisfaction.</p>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Why Choose Us?</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Professional detailing services at your location</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Eco-friendly products and techniques</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 5-star customer reviews</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i> Competitive pricing</li>
-                    </ul>
-                    <a href="#contact" class="inline-block mt-6 bg-gradient-to-r from-purple-600 to-red-500 text-white py-3 px-8 rounded-lg font-medium hover:shadow-lg transition duration-300">
-                        Contact Us
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Widget (NEW) -->
-    <section id="booking-widget" class="fixed bottom-8 right-8 z-50">
-        <button id="booking-toggle" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-            <i class="fas fa-calendar-check text-2xl"></i>
-        </button>
-        
-        <div id="booking-form" class="hidden absolute bottom-16 right-0 bg-gray-900 rounded-xl shadow-2xl w-80 p-6 border border-purple-800">
-            <h3 class="text-xl font-bold mb-4">Quick Booking</h3>
-            <form action="#" method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-gray-300 text-sm font-medium mb-1">Service Type</label>
-                    <select class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none border border-gray-700">
-                        <option>Select a service</option>
-                        <option>Jay's Maintenance Wash</option>
-                        <option>Jay's Premium Detail</option>
-                        <option>Jay's Max Detail</option>
-                        <option>Ceramic Coating</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-gray-300 text-sm font-medium mb-1">Preferred Date</label>
-                    <input type="date" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none border border-gray-700">
-                </div>
-                <div>
-                    <label class="block text-gray-300 text-sm font-medium mb-1">Phone Number</label>
-                    <input type="tel" class="w-full bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none border border-gray-700">
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 rounded-lg font-medium hover:shadow-lg transition-shadow">
-                    Request Booking
-                </button>
-            </form>
-        </div>
-    </section>
-        <!-- Footer Section -->
+    <!-- Footer Section -->
     <footer class="py-12 px-6 bg-gray-900">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -1689,35 +1438,30 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-bold mb-4 text-white">Follow Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="https://www.facebook.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
                         </a>
-                        <a href="https://www.twitter.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="https://www.instagram.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
                         </a>
-                        <a href="https://www.linkedin.com/company/jaysmobilewash" target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn" class="text-gray-300 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-youtube text-xl"></i>
                         </a>
                     </div>
-                    <div class="mt-6">
-                        <h4 class="text-sm font-medium mb-2 text-white">Popular Service Areas</h4>
-                        <ul class="space-y-1 text-xs text-gray-400">
-                            <li><a href="/locations/gardena" class="hover:text-white transition-colors">Gardena</a></li>
-                            <li><a href="/locations/buena-park" class="hover:text-white transition-colors">Buena Park</a></li>
-                            <li><a href="/locations/beverly-hills" class="hover:text-white transition-colors">Beverly Hills</a></li>
-                            <li><a href="/locations/manhattan-beach" class="hover:text-white transition-colors">Manhattan Beach</a></li>
-                            <li><a href="/locations/irvine" class="hover:text-white transition-colors">Irvine</a></li>
-                        </ul>
-                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="mt-12 text-center text-gray-400">
                 <p>&copy; 2025 Jay's Mobile Wash. All rights reserved.</p>
-                <p class="text-xs mt-2">Last updated: 2025-06-26 07:41:55</p>
+                <p class="text-xs mt-2">Last updated: 2025-06-26 09:06:54</p>
             </div>
         </div>
     </footer>
@@ -1732,135 +1476,32 @@
             menuToggle.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
             });
-        });
-
-        // Show More Package Details Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all expand details buttons
-            const expandButtons = document.querySelectorAll('.expand-details');
             
+            // Package details toggle
+            const expandButtons = document.querySelectorAll('.expand-details');
             expandButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Find the hidden content related to this button
-                    const hiddenContent = this.nextElementSibling;
-                    
-                    // Toggle the active class to show/hide content
-                    hiddenContent.classList.toggle('active');
-                    
-                    // Toggle the icon rotation
                     const icon = this.querySelector('i');
-                    icon.classList.toggle('rotate-180');
+                    const hiddenContent = this.parentElement.querySelector('.hidden-content');
                     
-                    // Update button text based on state
-                    if (hiddenContent.classList.contains('active')) {
-                        button.innerHTML = `Hide Package Details <i class="fas fa-chevron-up ml-2 transition-transform duration-300"></i>`;
-                    } else {
-                        button.innerHTML = `View Package Details <i class="fas fa-chevron-down ml-2 transition-transform duration-300"></i>`;
-                    }
+                    icon.classList.toggle('rotate-180');
+                    hiddenContent.classList.toggle('active');
                 });
             });
             
-            // Initialize FAQ functionality
-            const faqButtons = document.querySelectorAll('.faq-button');
-            
-            faqButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Find the answer related to this button
+            // FAQ toggle
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
                     const answer = this.nextElementSibling;
                     
-                    // Toggle the active class to show/hide answer
-                    answer.classList.toggle('active');
-                    
-                    // Toggle the icon rotation
-                    const icon = this.querySelector('i');
                     icon.classList.toggle('rotate-180');
+                    answer.classList.toggle('active');
                 });
-            });
-            
-            // Booking Widget Toggle
-            const bookingToggle = document.getElementById('booking-toggle');
-            const bookingForm = document.getElementById('booking-form');
-            
-            if (bookingToggle && bookingForm) {
-                bookingToggle.addEventListener('click', function() {
-                    bookingForm.classList.toggle('hidden');
-                });
-                
-                // Close booking form when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!bookingForm.contains(event.target) && !bookingToggle.contains(event.target)) {
-                        bookingForm.classList.add('hidden');
-                    }
-                });
-            }
-            
-            // Add lazy loading to all images that don't already have it
-            document.querySelectorAll('img').forEach(img => {
-                if (!img.hasAttribute('loading')) {
-                    img.setAttribute('loading', 'lazy');
-                }
             });
         });
-    </script>
-    
-    <!-- Structured Data - Business Information -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Jay's Mobile Wash",
-      "image": "https://www.jaysmobilewash.net/images/logo.png",
-      "description": "Professional mobile car detailing, ceramic coating, and premium wash services throughout Los Angeles and Orange County. We come to you!",
-      "url": "https://www.jaysmobilewash.net",
-      "telephone": "+15622289429",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "16845 S Hoover St",
-        "addressLocality": "Gardena",
-        "addressRegion": "CA",
-        "postalCode": "90247",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "33.8743",
-        "longitude": "-118.2827"
-      },
-      "priceRange": "$$$",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "
-              "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "08:00",
-          "closes": "18:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Saturday", "Sunday"],
-          "opens": "09:00",
-          "closes": "17:00"
-        }
-      ],
-      "sameAs": [
-        "https://www.facebook.com/jaysmobilewash",
-        "https://www.instagram.com/jaysmobilewash",
-        "https://www.twitter.com/jaysmobilewash",
-        "https://www.linkedin.com/company/jaysmobilewash"
-      ]
-    }
-    </script>
-    
-    <!-- Google Analytics Integration (Replace with your tracking code) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
     </script>
 </body>
 </html>
+                            
