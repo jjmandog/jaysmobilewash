@@ -63,15 +63,18 @@
         }
     </script>
     
-    <!-- Schema.org markup for LocalBusiness - FIXED AGGREGATE RATING -->
+    <!-- Completely Restructured Schema.org markup to fix Rich Results Test -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "AutoDetailing",
+      "@type": "LocalBusiness",
+      "@id": "https://www.jaysmobilewash.net",
       "name": "Jay's Mobile Wash",
       "url": "https://www.jaysmobilewash.net",
       "telephone": "5622289429",
       "priceRange": "$$$",
+      "description": "Professional mobile car detailing and ceramic coating services throughout Los Angeles and Orange County",
+      "image": "https://www.jaysmobilewash.net/images/og-image.jpg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "16845 S Hoover St",
@@ -103,6 +106,33 @@
         "https://www.facebook.com/jaysmobilewash",
         "https://www.instagram.com/jaysmobilewash"
       ],
+      "review": {
+        "@type": "Review",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "@id": "https://www.jaysmobilewash.net"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Michael T."
+        },
+        "reviewBody": "Jay did an amazing job on my Tesla. The ceramic coating has kept it looking new for months, and the service was extremely convenient."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "@id": "https://www.jaysmobilewash.net"
+        },
+        "ratingValue": "5.0",
+        "reviewCount": "124",
+        "bestRating": "5"
+      },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Car Detailing Services",
@@ -129,25 +159,6 @@
             "description": "Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, 6-Month Foam Seal Treatment"
           }
         ]
-      },
-      "review": {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Michael T."
-        },
-        "reviewBody": "Jay did an amazing job on my Tesla. The ceramic coating has kept it looking new for months, and the service was extremely convenient."
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "124",
-        "bestRating": "5"
       }
     }
     </script>
@@ -1020,21 +1031,8 @@
                             <i class="fas fa-plus text-red-500"></i>
                         </div>
                         <div>
-                            <span class="font-medium text-red-400">+30%:</span>
-                            <span class="text-gray-300"> Heavy dirt, gum, or embedded grime</span>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
-                            <i class="fas fa-plus text-red-500"></i>
-                        </div>
-                        <div>
-                            <span class="font-medium text-red-400">+50%:</span>
-                            <span class="text-gray-300"> Biohazards (vomit, urine, mold)</span>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                                                <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
+                            <span class="font-medium text-
+                                                        <div class="rounded-full bg-red-900/20 p-2 flex items-center justify-center mr-3">
                             <i class="fas fa-plus text-red-500"></i>
                         </div>
                         <div>
@@ -1461,7 +1459,7 @@
             </div>
             <div class="mt-12 text-center text-gray-400">
                 <p>&copy; 2025 Jay's Mobile Wash. All rights reserved.</p>
-                <p class="text-xs mt-2">Last updated: 2025-06-26 09:06:54</p>
+                <p class="text-xs mt-2">Last updated: 2025-06-26 10:03:15</p>
             </div>
         </div>
     </footer>
@@ -1504,4 +1502,3 @@
     </script>
 </body>
 </html>
-                            
