@@ -14,7 +14,7 @@ class GBPIntegration {
           title: 'Summer Special: 15% Off Ceramic Coating',
           content: 'Beat the heat this summer with our premium ceramic coating service. Now 15% off for all vehicles.',
           imageUrl: '/images/gmb-offer-ceramic.jpg',
-          fallbackImageUrl: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23cccccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%23666666\'%3ESpecial Offer%3C/text%3E%3C/svg%3E',
+          fallbackImageUrl: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a2a3a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%238a4bff\'%3ESpecial Offer%3C/text%3E%3C/svg%3E',
           date: '2025-06-15',
           cta: 'Book Now',
           ctaUrl: '/booking/'
@@ -24,7 +24,7 @@ class GBPIntegration {
           title: 'Now Serving Manhattan Beach',
           content: 'We now offer our mobile detailing services in Manhattan Beach!',
           imageUrl: '/images/gmb-update-location.jpg',
-          fallbackImageUrl: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23cccccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%23666666\'%3ELocation Update%3C/text%3E%3C/svg%3E',
+          fallbackImageUrl: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a2a3a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%238a4bff\'%3ELocation Update%3C/text%3E%3C/svg%3E',
           date: '2025-06-10',
           cta: 'Learn More',
           ctaUrl: '/locations/manhattan-beach/'
@@ -257,7 +257,7 @@ class GBPIntegration {
     // Safely use post data with fallbacks for everything
     const title = post.title || 'Latest Update';
     const content = post.content || 'Check out our latest mobile detailing update.';
-    const imageUrl = post.imageUrl || post.fallbackImageUrl || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23cccccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%23666666\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';
+    const imageUrl = post.imageUrl || post.fallbackImageUrl || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a2a3a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%238a4bff\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';
     const date = post.date ? new Date(post.date).toLocaleDateString() : 'Recent';
     const type = post.type || 'UPDATE';
     const cta = post.cta || 'Learn More';
@@ -266,7 +266,7 @@ class GBPIntegration {
     // Create post HTML with error handling
     postEl.innerHTML = `
       <div class="post-image">
-        <img src="${imageUrl}" alt="${title}" width="300" height="200" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23cccccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%23666666\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';">
+        <img src="${imageUrl}" alt="${title}" width="300" height="200" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a2a3a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%238a4bff\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';">
         <span class="post-type">${type}</span>
       </div>
       <div class="post-content">
@@ -285,7 +285,7 @@ class GBPIntegration {
         if (!exists) {
           const img = postEl.querySelector('img');
           if (img) {
-            img.src = post.fallbackImageUrl || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%23cccccc\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%23666666\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';
+            img.src = post.fallbackImageUrl || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a2a3a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'%238a4bff\'%3EJay\'s Mobile Wash%3C/text%3E%3C/svg%3E';
           }
         }
       })
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('gmb-posts-container');
     if (container) {
       container.innerHTML = `
-                <div class="gmb-fallback">
+        <div class="gmb-fallback">
           <p>Check out our latest updates on <a href="https://g.page/jays-mobile-wash" target="_blank" rel="noopener">Google</a>.</p>
         </div>
       `;
