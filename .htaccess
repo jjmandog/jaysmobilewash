@@ -4,22 +4,11 @@
 # Enable rewrite engine
 RewriteEngine On
 
-# Redirect non-www to www
-RewriteCond %{HTTP_HOST} ^jaysmobilewash\.net [NC]
-RewriteRule ^(.*)$ https://www.jaysmobilewash.net/$1 [L,R=301]
-
-# Redirect HTTP to HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
 # Force HTTPS redirect - FIXED IMPLEMENTATION
-RewriteEngine On
-# First check if it's not already HTTPS
 RewriteCond %{HTTPS} off
-# Now redirect to HTTPS version
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Also redirect non-www to www if preferred 
+# Redirect non-www to www
 RewriteCond %{HTTP_HOST} ^jaysmobilewash\.net [NC]
 RewriteRule ^(.*)$ https://www.jaysmobilewash.net/$1 [L,R=301]
 
@@ -36,106 +25,5 @@ RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
 RewriteRule ^index\.html$ / [R=301,L]
 
 # Handle SEO-friendly URLs
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)/?$ /page.php?slug=$1 [L,QSA]
-
-# Security headers
-<IfModule mod_headers.c>
-  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-  Header always set X-Content-Type-Options "nosniff"
-  Header always set X-Frame-Options "SAMEORIGIN" 
-  Header always set X-XSS-Protection "1; mode=block"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=(), fullscreen=(self)"
-  
-  # Cache Control Headers for better performance
-  <FilesMatch "\.(ico|pdf|jpg|jpeg|png|webp|gif)$">
-    Header set Cache-Control "max-age=31536000, public"
-  </FilesMatch>
-  
-  <FilesMatch "\.(html|htm|xml|txt|xsl)$">
-    Header set Cache-Control "max-age=7200, must-revalidate"
-  </FilesMatch>
-  
-  <FilesMatch "\.(js|css)$">
-    Header set Cache-Control "max-age=604800, public"
-  </FilesMatch>
-  
-  # Remove ETag
-  Header unset ETag
-  FileETag None
-</IfModule>
-
-# Enable GZIP compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/xhtml+xml application/rss+xml application/atom+xml
-  
-  # Remove browser bugs
-  BrowserMatch ^Mozilla/4 gzip-only-text/html
-  BrowserMatch ^Mozilla/4\.0[678] no-gzip
-  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-  
-  # Set compression level
-  DeflateCompressionLevel 9
-</IfModule>
-
-# Set default charset
-AddDefaultCharset UTF-8
-
-# Prevent directory listing
-Options -Indexes
-
-# Custom error pages
-ErrorDocument 404 /404.html
-ErrorDocument 500 /500.html
-ErrorDocument 403 /403.html
-
-# Prevent access to hidden files
-<FilesMatch "^\.">
-  Order allow,deny
-  Deny from all
-</FilesMatch>
-
-# Protect sensitive files
-<FilesMatch "(^#.*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
-  Order allow,deny
-  Deny from all
-  Satisfy All
-</FilesMatch>
-
-# Block bad bots
-RewriteCond %{HTTP_USER_AGENT} ^.*(bot1|bot2|Baiduspider|80legs|360Spider|Aboundex).*$ [NC]
-RewriteRule .* - [F,L]
-
-# Protect against SQL injections
-RewriteCond %{QUERY_STRING} (;|<|>|'|"|\)|%0A|%0D|%22|%27|%3C|%3E|%00).*(/\*|union|select|insert|drop|delete|update|cast|create|char|convert|alter|declare|order|script|set|md5|benchmark|encode) [NC,OR]
-RewriteCond %{QUERY_STRING} \.\./\.\. [OR]
-RewriteCond %{QUERY_STRING} (localhost|loopback|127\.0\.0\.1) [NC,OR]
-RewriteCond %{QUERY_STRING} \.[a-z0-9] [NC,OR]
-RewriteCond %{QUERY_STRING} (<|>|'|%0A|%0D|%27|%3C|%3E|%00) [NC]
-RewriteRule .* - [F,L]
-
-# Set browser caching
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault "access plus 1 month"
-  
-  # Images
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/gif "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/x-icon "access plus 1 year"
-  
-  # CSS, JavaScript
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-  
-  # HTML, XML
-  ExpiresByType text/html "access plus 2 days"
-  ExpiresByType application/xhtml+xml "access plus 2 days"
-  ExpiresByType application/xml "access plus 2 days"
-</IfModule>
+RewriteC
+
