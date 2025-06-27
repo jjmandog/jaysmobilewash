@@ -1,112 +1,68 @@
-# .htaccess for jaysmobilewash.net
-# SEO optimizations and security configurations
+# Optimize SEO and security for Jay's Mobile Wash
 
 # Force HTTPS
 RewriteEngine On
-RewriteCond %{HTTPS} off
+RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Remove trailing slash from non-directory URLs
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} (.+)/$
-RewriteRule ^ %1 [R=301,L]
 
 # WWW to non-WWW redirect
 RewriteCond %{HTTP_HOST} ^www\.jaysmobilewash\.net [NC]
 RewriteRule ^(.*)$ https://jaysmobilewash.net/$1 [L,R=301]
 
-# Add trailing slashes to directory URLs that don't have them
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.*[^/])$ $1/ [R=301,L]
-
-# Custom 404 error page
+# Custom error pages
 ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
 
-# Prevent directory browsing
-Options -Indexes
+# Enable GZIP compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+</IfModule>
 
-# Cache control for better performance
+# Browser caching
 <IfModule mod_expires.c>
   ExpiresActive On
-
-  # Images
+  ExpiresByType image/jpg "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/gif "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/x-icon "access plus 1 year"
-
-  # Video
-  ExpiresByType video/mp4 "access plus 1 year"
-  ExpiresByType video/webm "access plus 1 year"
-
-  # CSS, JavaScript
   ExpiresByType text/css "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-
-  # Fonts
-  ExpiresByType application/font-woff "access plus 1 year"
-  ExpiresByType application/font-woff2 "access plus 1 year"
-  ExpiresByType font/woff "access plus 1 year"
-  ExpiresByType font/woff2 "access plus 1 year"
-
-  # Others
   ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/x-javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/x-javascript "access plus 1 month"
   ExpiresByType application/x-shockwave-flash "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresDefault "access plus 2 days"
 </IfModule>
 
-# GZIP Compression for improved page speed
-<IfModule mod_deflate.c>
-  # Compress HTML, CSS, JavaScript, Text, XML and fonts
-  AddOutputFilterByType DEFLATE application/javascript
-  AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
-  AddOutputFilterByType DEFLATE application/x-font
-  AddOutputFilterByType DEFLATE application/x-font-opentype
-  AddOutputFilterByType DEFLATE application/x-font-otf
-  AddOutputFilterByType DEFLATE application/x-font-truetype
-  AddOutputFilterByType DEFLATE application/x-font-ttf
-  AddOutputFilterByType DEFLATE application/x-javascript
-  AddOutputFilterByType DEFLATE application/xhtml+xml
-  AddOutputFilterByType DEFLATE application/xml
-  AddOutputFilterByType DEFLATE font/opentype
-  AddOutputFilterByType DEFLATE font/otf
-  AddOutputFilterByType DEFLATE font/ttf
-  AddOutputFilterByType DEFLATE image/svg+xml
-  AddOutputFilterByType DEFLATE image/x-icon
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE text/html
-  AddOutputFilterByType DEFLATE text/javascript
-  AddOutputFilterByType DEFLATE text/plain
-  AddOutputFilterByType DEFLATE text/xml
-</IfModule>
-
-# Protect against XSS attacks
+# Security headers
 <IfModule mod_headers.c>
+  # XSS Protection
   Header set X-XSS-Protection "1; mode=block"
+  
+  # Prevent MIME-type sniffing
   Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header set Permissions-Policy "geolocation=self"
+  
+  # Referrer policy
+  Header set Referrer-Policy "no-referrer-when-downgrade"
 </IfModule>
 
-# Custom redirects for legacy pages or common misspellings
-# Auto-detailing variations
-Redirect 301 /auto-detailing /services/
-Redirect 301 /car-detailing /services/
-Redirect 301 /interior-detailing /services/interior-detailing/
-Redirect 301 /exterior-detailing /services/exterior-detailing/
+# Prevent directory listing
+Options -Indexes
 
-# Location variations
-Redirect 301 /la /locations/los-angeles/
-Redirect 301 /la-services /locations/los-angeles/
-Redirect 301 /orange-county-services /locations/orange-county/
-Redirect 301 /oc /locations/orange-county/
-Redirect 301 /bh /locations/beverly-hills/
-
-# Service variations
-Redirect 301 /ceramic /services/ceramic-coating/
-Redirect 301 /ceramic-coating /services/ceramic-coating/
-Redirect 301 /paint-correction /services/paint-correction/
+# Block access to hidden files and directories
+<IfModule mod_rewrite.c>
+  RewriteCond %{SCRIPT_FILENAME} -d [OR]
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule "(^|/)\." - [F]
+</IfModule>
