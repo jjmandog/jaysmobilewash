@@ -3,70 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found - Jay's Mobile Wash</title>
+    
+    <!-- No Index Directive -->
     <meta name="robots" content="noindex, follow">
     
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <title>Page Not Found | Jay's Mobile Wash</title>
+    <meta name="description" content="Sorry, we couldn't find the page you're looking for. Explore our mobile car detailing services in Los Angeles & Orange County or contact us for assistance.">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canonical Tag - Points to Homepage -->
+    <link rel="canonical" href="https://www.jaysmobilewash.net/" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        /* 404 Page Specific Styles */
+        .error-page {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('/images/404-background.jpg');
+            background-size: cover;
+            background-position: center;
         }
         
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
+        .error-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .gradient-text {
-            background: linear-gradient(45deg, #b530ff, #ff1744);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 32px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .error-message {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #34495e;
+        }
+        
+        .error-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .search-form {
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-input {
+            width: 70%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .search-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .popular-links {
+            margin-top: 40px;
+        }
+        
+        .popular-links h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            text-align: left;
+        }
+        
+        .links-grid a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 8px 0;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        
+        .links-grid a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .icon-link {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .search-input {
+                width: 65%;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-    <div class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="h-24 mb-8 float-animation">
-        
-        <h1 class="text-5xl font-bold mb-4 gradient-text">404</h1>
-        <h2 class="text-3xl font-bold mb-6">Page Not Found</h2>
-        <p class="text-xl text-gray-400 mb-8">Oops! The car washing service you're looking for seems to have driven away.</p>
-        
-        <div class="space-y-6 max-w-md">
-            <p class="text-gray-300">Let's get you back on track. Here are some helpful links:</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                <a href="/" class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg transition duration-300">
-                    <i class="fas fa-home mr-2"></i> Back to Home
-                </a>
-                <a href="/#services" class="bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-lg transition duration-300">
-                    <i class="fas fa-list mr-2"></i> View Services
-                </a>
-                <a href="/#contact" class="bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-lg transition duration-300">
-                    <i class="fas fa-envelope mr-2"></i> Contact Us
-                </a>
-                <a href="tel:5622289429" class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition duration-300">
-                    <i class="fas fa-phone-alt mr-2"></i> Call Now
-                </a>
+
+<body class="error-page-body">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/images/logo.png" alt="Jay's Mobile Wash Logo" width="180" height="60">
+                    </a>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/services/">Services</a></li>
+                        <li><a href="/locations/">Locations</a></li>
+                        <li><a href="/pricing/">Pricing</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-cta">
+                    <a href="tel:5622289429" class="phone-link"><i class="fas fa-phone"></i> 562-228-9429</a>
+                    <a href="/booking/" class="btn-primary">Book Now</a>
+                </div>
+                
+                <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
-        
-        <div class="mt-12">
-            <p>Need immediate assistance? Call us at <a href="tel:5622289429" class="text-purple-400 hover:text-purple-300 font-bold">562-228-9429</a></p>
-        </div>
-    </div>
+    </header>
     
-    <footer class="bg-gray-900 text-gray-400 py-6 border-t border-gray-800">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Jay's Mobile Wash. All Rights Reserved.</p>
+    <main>
+        <section class="error-page">
+            <div class="container">
+                <div class="error-container">
+                    <h1 class="error-code">404</h1>
+                    <h2 class="error-title">Page Not Found</h2>
+                    <p class="error-message">Oops! The page you're looking for seems to have driven off somewhere else. Don't worry, we've got plenty of other detailing services to explore.</p>
+                    
+                    <div class="error-buttons">
+                        <a href="/" class="btn-primary"><i class="fas fa-home icon-link"></i>Back to Homepage</a>
+                        <a href="/contact/" class="btn-secondary"><i class="fas fa-envelope icon-link"></i>Contact Us</a>
+                        <a href="/booking/" class="btn-primary"><i class="fas fa-calendar-alt icon-link"></i>Book a Detail</a>
+                    </div>
+                    
+                    <form action="/search/" method="get" class="search-form">
+                        <input type="text" name="q" placeholder="Search our site..." class="search-input">
+                        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+                    
+                    <div class="popular-links">
+                        <h3>Popular Pages</h3>
+                        <div class="links-grid">
+                            <a href="/services/ceramic-coating/"><i class="fas fa-shield-alt icon-link"></i>Ceramic Coating</a>
+                            <a href="/services/interior-detailing/"><i class="fas fa-couch icon-link"></i>Interior Detailing</a>
+                            <a href="/services/exterior-detailing/"><i class="fas fa-car-side icon-link"></i>Exterior Detailing</a>
+                            <a href="/locations/los-angeles/"><i class="fas fa-map-marker-alt icon-link"></i>Los Angeles Services</a>
+                            <a href="/locations/orange-county/"><i class="fas fa-map-marker-alt icon-link"></i>Orange County Services</a>
+                            <a href="/locations/beverly-hills/"><i class="fas fa-map-marker-alt icon-link"></i>Beverly Hills Services</a>
+                            <a href="/pricing/"><i class="fas fa-tag icon-link"></i>Detailing Prices</a>
+                            <a href="/blog/"><i class="fas fa-newspaper icon-link"></i>Detailing Blog</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <img src="/images/logo-white.png" alt="Jay's Mobile Wash Logo" width="160" height="50">
+                    </div>
+                    <p class="footer-tagline">Southern California's premier mobile detailing service</p>
+                    <div class="social-icons">
+                        <a href="https://facebook.com/jaysmobilewash" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/jaysmobilewash" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/jaysmobilewash" aria-label="Twitter" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                        <a href="https://yelp.com/biz/jays-mobile-wash-los-angeles" aria-label="Yelp" target="_blank" rel="noopener"><i class="fab fa-yelp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/exterior-detailing/">Exterior Detailing</a></li>
+                        <li><a href="/services/interior-detailing/">Interior Detailing</a></li>
+                        <li><a href="/services/ceramic-coating/">Ceramic Coating</a></li>
+                        <li><a href="/services/paint-correction/">Paint Correction</a></li>
+                        <li><a href="/services/headlight-restoration/">Headlight Restoration</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="/locations/los-angeles/">Los Angeles</a></li>
+                        <li><a href="/locations/orange-county/">Orange County</a></li>
+                        <li><a href="/locations/beverly-hills/">Beverly Hills</a></li>
+                        <li><a href="/locations/newport-beach/">Newport Beach</a></li>
+                        <li><a href="/locations/santa-monica/">Santa Monica</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i> <a href="tel:5622289429">562-228-9429</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@jaysmobilewash.net">info@jaysmobilewash.net</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Serving Los Angeles & Orange County</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8am-6pm <br>Sat-Sun: 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 Jay's Mobile Wash. All rights reserved.</p>
+                </div>
+                
+                <div class="footer-legal">
+                    <a href="/privacy-policy/">Privacy Policy</a>
+                    <a href="/terms-of-service/">Terms of Service</a>
+                    <a href="/sitemap.xml">Sitemap</a>
+                </div>
+            </div>
         </div>
     </footer>
+    
+    <!-- JavaScript -->
+    <script defer src="/js/main.js"></script>
+    <script>
+        // Script to capture 404 errors in Google Analytics
+        if (typeof gtag === 'function') {
+            gtag('event', 'page_view', {
+                page_title: '404 - Page Not Found',
+                page_location: window.location.href,
+                page_path: window.location.pathname,
+                send_to: 'G-XXXXXXXXXX' // Replace with your Measurement ID
+            });
+            
+            gtag('event', '404_error', {
+                'event_category': 'Error',
+                'event_label': 'Page: ' + document.referrer + ' -> ' + window.location.pathname,
+                'non_interaction': true
+            });
+        }
+        
+        // Script to track 404 exit paths
+        document.querySelectorAll('.error-buttons a, .links-grid a').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                if (typeof gtag === 'function') {
+                    gtag('event', '404_exit_click', {
+                        'event_category': '404 Navigation',
+                        'event_label': this.href,
+                        'transport_type': 'beacon'
+                    });
+                }
+            });
+        });
+        
+        // Script to track search attempts from 404 page
+        document.querySelector('.search-form').addEventListener('submit', function(e) {
+            if (typeof gtag === 'function') {
+                gtag('event', '404_search', {
+                    'event_category': '404 Navigation',
+                    'event_label': document.querySelector('.search-input').value,
+                    'transport_type': 'beacon'
+                });
+            }
+        });
+    </script>
 </body>
 </html>
