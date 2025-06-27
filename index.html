@@ -905,3 +905,343 @@
                             <link itemprop="dayOfWeek" href="https://schema.org/Saturday https://schema.org/Sunday">
                             <meta itemprop="opens" content="09:00:00">
                             <meta itemprop="closes" content="17:00:00">
+                                                        Sat-Sun: 9am-5pm
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 Jay's Mobile Wash. All rights reserved.</p>
+                </div>
+                
+                <div class="footer-legal">
+                    <a href="/privacy-policy/" class="hover-glow">Privacy Policy</a>
+                    <a href="/terms-of-service/" class="hover-glow">Terms of Service</a>
+                    <a href="/sitemap.xml" class="hover-glow">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="ai-chat-widget">
+      <button class="chat-toggle" id="chat-toggle-btn" aria-expanded="false" aria-controls="chat-container">
+        <span class="chat-closed">Get Instant Quote</span>
+        <span class="chat-open">Close</span>
+      </button>
+      
+      <div class="chat-container" id="chat-container" aria-hidden="true">
+        <div class="chat-header">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2c-.55 0-1 .45-1 1v1h2v-1c1.85-.31 3.25-1.9 3.25-3.83C16.25 7.28 14.38 6 12 6zm-1 7h2v2h-2z'/%3E%3C/svg%3E" 
+               alt="Jay's Mobile Wash" width="30" height="30" fetchpriority="high">
+          <h4>Instant Quote Assistant</h4>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+          <div class="message system">
+            Hi there! I can help you get an instant quote for mobile detailing in your area. What type of vehicle do you have?
+          </div>
+        </div>
+        
+        <div class="chat-input">
+          <input type="text" id="chat-input-field" placeholder="Type your message..." aria-label="Chat message">
+          <button class="send-button" id="chat-send-btn" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        
+        <!-- Offline fallback -->
+        <div class="chat-offline" id="chat-offline" style="display: none;">
+          <p>Sorry, our chat system is currently offline. Please call us directly at <a href="tel:5622289429">562-228-9429</a> for assistance.</p>
+        </div>
+        
+        <!-- Loading state -->
+        <div class="chat-loading" id="chat-loading" style="display: none;">
+          <div class="loading-indicator">
+            <span></span><span></span><span></span>
+          </div>
+          <p>Connecting to quote assistant...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Voice Search Optimization -->
+    <section class="voice-search-optimization hidden-section" aria-hidden="true">
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does mobile car detailing cost in Los Angeles",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Jay's Mobile Wash offers mobile car detailing in Los Angeles starting at $70 for a basic package, $130 for luxury detailing, and $450 for ceramic coating. Prices vary based on vehicle size and condition."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does mobile car detailing take",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At Jay's Mobile Wash in Los Angeles, a basic exterior detailing takes about 1 hour, a complete interior and exterior detailing takes 2-3 hours, and ceramic coating applications require 4-8 hours depending on vehicle size and condition."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where can I find mobile car detailing near me in Orange County",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Jay's Mobile Wash provides professional mobile car detailing services throughout Orange County including Newport Beach, Irvine, Huntington Beach, Laguna Beach, Anaheim, and Costa Mesa. They come directly to your location for convenient auto detailing."
+            }
+          }
+        ]
+      }
+      </script>
+      
+      <div class="voice-search-text">
+        <p>Who is the best mobile car detailing service that comes to your home in Los Angeles</p>
+        <p>Where can I get ceramic coating applied to my car at home in Beverly Hills</p>
+        <p>How to get your car detailed without leaving your house in Orange County</p>
+        <p>What is the cost of having someone come detail my car at my house in Malibu</p>
+        <p>Find mobile car detailing services that come to my office in downtown LA</p>
+        <p>How often should I get my car detailed in Southern California climate</p>
+        <p>Mobile car detailing near me Los Angeles</p>
+        <p>Auto detailing at home Orange County</p>
+      </div>
+    </section>
+    
+    <!-- Spanish Content for SEO -->
+    <div lang="es" class="hidden-section" aria-hidden="true">
+      <h1>Servicio Móvil de Detallado de Autos en Los Ángeles</h1>
+      <p>Ofrecemos servicios profesionales de detallado de autos a domicilio en Los Ángeles y el Condado de Orange.</p>
+      
+      <div class="spanish-keywords">
+        <p>detallado de autos a domicilio, lavado de autos móvil, pulido de autos Los Ángeles, limpieza de interiores de autos, encerado de autos a domicilio, recubrimiento cerámico para autos, detallado profesional de autos</p>
+      </div>
+      
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "inLanguage": "es-US",
+        "name": "Detallado Móvil de Autos en Los Ángeles",
+        "description": "Servicio profesional de detallado de autos que llega a su ubicación en Los Ángeles y el Condado de Orange."
+      }
+      </script>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></a>
+    
+    <!-- All JavaScript -->
+    <script src="main.js"></script>
+    <script src="price-calculator.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="google-business-integration.js"></script>
+    
+    <!-- LocalBusiness Schema with Enhanced Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDetailingBusiness",
+      "name": "Jay's Mobile Wash",
+      "alternateName": "Jay's Mobile Auto Detailing",
+      "legalName": "Jay's Mobile Wash LLC",
+      "description": "Premium mobile car detailing service providing professional auto detailing, ceramic coating, and paint correction throughout Los Angeles and Orange County. Our mobile detailing comes to your location.",
+      "keywords": "mobile car detailing, auto detailing Los Angeles, ceramic coating, paint correction, interior detailing, mobile detailing Orange County, professional car detailing service",
+      "slogan": "Southern California's premier mobile detailing service",
+      "image": [
+        "https://www.jaysmobilewash.net/logo.png",
+        "https://www.jaysmobilewash.net/mobile-detailing-van.jpg",
+        "https://www.jaysmobilewash.net/ceramic-coating-process.jpg"
+      ],
+      "@id": "https://www.jaysmobilewash.net",
+      "url": "https://www.jaysmobilewash.net",
+      "telephone": "+15622289429",
+      "email": "info@jaysmobilewash.net",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mobile Service - We Come To You",
+        "addressLocality": "Los Angeles",
+        "addressRegion": "CA",
+        "postalCode": "90001",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.052235,
+        "longitude": -118.243683
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "09:00",
+          "closes": "17:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/jaysmobilewash",
+        "https://www.instagram.com/jaysmobilewash",
+        "https://twitter.com/jaysmobilewash",
+        "https://www.yelp.com/biz/jays-mobile-wash-los-angeles",
+        "https://g.page/jays-mobile-wash-los-angeles",
+        "https://www.linkedin.com/company/jays-mobile-wash",
+        "https://www.youtube.com/channel/jaysmobilewash"
+      ],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 34.052235,
+          "longitude": -118.243683
+        },
+        "geoRadius": "50000"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Los Angeles",
+          "sameAs": "https://en.wikipedia.org/wiki/Los_Angeles"
+        },
+        {
+          "@type": "City",
+          "name": "Beverly Hills",
+          "sameAs": "https://en.wikipedia.org/wiki/Beverly_Hills,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Monica",
+          "sameAs": "https://en.wikipedia.org/wiki/Santa_Monica,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Malibu",
+          "sameAs": "https://en.wikipedia.org/wiki/Malibu,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Orange County",
+          "sameAs": "https://en.wikipedia.org/wiki/Orange_County,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Newport Beach",
+          "sameAs": "https://en.wikipedia.org/wiki/Newport_Beach,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Irvine",
+          "sameAs": "https://en.wikipedia.org/wiki/Irvine,_California"
+        },
+        {
+          "@type": "City",
+          "name": "Laguna Beach",
+          "sameAs": "https://en.wikipedia.org/wiki/Laguna_Beach,_California"
+        }
+      ],
+      "availableLanguage": ["English", "Spanish"],
+      "paymentAccepted": "Cash, Credit Card, Debit Card, Google Pay, Apple Pay, Venmo, PayPal",
+      "currenciesAccepted": "USD",
+      "foundingDate": "2018-05-15",
+      "foundingLocation": "Los Angeles, CA",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "award": "Best Mobile Detailing Service in Los Angeles 2024 - AutoCare Excellence Awards",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Car Detailing Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mini Detail",
+              "description": "2-Step Hand Contact Wash, Wheels & Tires Detailed"
+            },
+            "price": "70.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.jaysmobilewash.net/services/mini-detail/"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Luxury Detail",
+              "description": "Complete Mini Detail Package, Ceramic Spray Wax/Sealant, SiO₂ Interior Cleanser"
+            },
+            "price": "130.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.jaysmobilewash.net/services/luxury-detail/"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Max Detail",
+              "description": "Complete Luxury Detail Package, Ceramic Hyper Wax/Sealant, Interior Steam Cleaning"
+            },
+            "price": "200.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.jaysmobilewash.net/services/max-detail/"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Ceramic Coating",
+              "description": "Professional Ceramic Coating Application"
+            },
+            "price": "450.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.jaysmobilewash.net/services/ceramic-coating/"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.jaysmobilewash.net/"
+        }
+      ]
+    }
+    </script>
+</body>
+</html>
