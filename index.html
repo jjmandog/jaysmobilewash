@@ -23,7 +23,7 @@
     <!-- Open Graph Tags for Social Sharing -->
     <meta property="og:title" content="Mobile Car Detailing Los Angeles & Orange County | Jay's Mobile Wash">
     <meta property="og:description" content="Premium mobile car detailing service in Los Angeles & Orange County. Professional ceramic coating, paint correction & showroom-quality results at your location.">
-    <meta property="og:image" content="https://www.jaysmobilewash.net/og-image.jpg">
+    <meta property="og:image" content="https://www.jaysmobilewash.net/images/og-image.jpg">
     <meta property="og:url" content="https://www.jaysmobilewash.net/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
@@ -33,7 +33,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Mobile Car Detailing Los Angeles & Orange County | Jay's Mobile Wash">
     <meta name="twitter:description" content="Professional auto detailing service that comes to your location in LA & Orange County. Ceramic coating, paint correction & premium detailing.">
-    <meta name="twitter:image" content="https://www.jaysmobilewash.net/twitter-card-image.jpg">
+    <meta name="twitter:image" content="https://www.jaysmobilewash.net/images/twitter-card.jpg">
     <meta name="twitter:site" content="@jaysmobilewash">
     
     <!-- Hreflang tags -->
@@ -111,15 +111,15 @@
       }
     </script>
     
-    <!-- Preload Critical Resources -->
+    <!-- Preconnect to Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="preload" href="hero-background.jpg" as="image">
     
-    <!-- Mobile Optimization -->
+    <!-- Mobile Optimization - UPDATED -->
     <meta name="theme-color" content="#13131a">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
     <!-- Google Analytics 4 -->
@@ -139,14 +139,14 @@
     </script>
     
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="advanced-components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/advanced-components.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -161,7 +161,11 @@
             <div class="header-inner">
                 <div class="logo" itemscope itemtype="https://schema.org/Organization">
                     <a href="/" aria-label="Jay's Mobile Wash - Home" itemprop="url">
-                        <img src="logo.png" alt="Jay's Mobile Wash - Mobile Car Detailing Service Logo" width="180" height="60" itemprop="logo">
+                        <!-- Inline SVG logo instead of image file -->
+                        <svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M25 10h130v40H25z" fill="#8a4bff"/>
+                          <path d="M40 30l5-10h5l-7.5 15 7.5 15h-5l-5-10-5 10h-5l7.5-15L30 20h5l5 10zm25-10h5v30h-5V20zm15 0h12.5c5 0 7.5 2.5 7.5 7.5s-2.5 7.5-7.5 7.5H85v15h-5V20zm5 10h7.5c1.25 0 2.5-1.25 2.5-2.5s-1.25-2.5-2.5-2.5H85v5zm27.5-10h-7.5v30h5V35h2.5c5 0 7.5-2.5 7.5-7.5s-2.5-7.5-7.5-7.5zm0 10h-2.5v-5h2.5c1.25 0 2.5 1.25 2.5 2.5s-1.25 2.5-2.5 2.5z" fill="#fff"/>
+                        </svg>
                     </a>
                     <meta itemprop="name" content="Jay's Mobile Wash">
                     <meta itemprop="telephone" content="+15622289429">
@@ -232,7 +236,26 @@
                 </div>
                 
                 <div class="hero-image">
-                    <img src="mobile-detailing-hero.jpg" alt="Professional mobile car detailing service in Los Angeles treating a luxury vehicle" width="600" height="400" loading="eager" fetchpriority="high">
+                    <!-- Placeholder hero image or inline SVG -->
+                    <div class="animated-hero-image">
+                      <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Stylized car outline with detailing animation -->
+                        <path class="car-body" d="M150,250 C150,200 200,150 300,150 C400,150 450,200 450,250 L500,250 C520,250 520,300 500,300 L450,300 C450,320 400,350 300,350 C200,350 150,320 150,300 L100,300 C80,300 80,250 100,250 Z" fill="#333" />
+                        <!-- Car windows -->
+                        <path class="car-windows" d="M200,200 L250,170 L350,170 L400,200 L400,250 L200,250 Z" fill="#88f" />
+                        <!-- Car wheels -->
+                        <circle class="car-wheel" cx="180" cy="300" r="30" fill="#555" />
+                        <circle class="car-wheel-inner" cx="180" cy="300" r="15" fill="#222" />
+                        <circle class="car-wheel" cx="420" cy="300" r="30" fill="#555" />
+                        <circle class="car-wheel-inner" cx="420" cy="300" r="15" fill="#222" />
+                        <!-- Detailing animation elements -->
+                        <circle class="detailing-bubble" cx="0" cy="0" r="5" fill="rgba(255,255,255,0.8)" />
+                        <circle class="detailing-bubble" cx="0" cy="0" r="3" fill="rgba(255,255,255,0.8)" />
+                        <circle class="detailing-bubble" cx="0" cy="0" r="7" fill="rgba(255,255,255,0.8)" />
+                        <circle class="detailing-bubble" cx="0" cy="0" r="4" fill="rgba(255,255,255,0.8)" />
+                        <path class="detailing-wipe" d="M0,0 Q10,20 20,0" stroke="#8a4bff" stroke-width="4" fill="none" />
+                      </svg>
+                    </div>
                 </div>
             </div>
         </section>
@@ -255,7 +278,17 @@
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="priceRange" content="$$$">
                         </div>
-                        <img src="exterior-detailing.jpg" alt="Professional exterior mobile detailing service in Los Angeles with foam application" width="400" height="300" loading="lazy" itemprop="image">
+                        <!-- Service image with animation -->
+                        <div class="service-image-container">
+                          <svg class="service-image-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="300" fill="#2a2a3a" />
+                            <!-- Animated car exterior -->
+                            <path class="car-exterior-animation" d="M100,200 C100,150 150,100 200,100 C250,100 300,150 300,200" stroke="#8a4bff" stroke-width="5" fill="none" />
+                            <circle class="soap-bubble" cx="150" cy="150" r="8" fill="rgba(255,255,255,0.7)" />
+                            <circle class="soap-bubble" cx="200" cy="130" r="6" fill="rgba(255,255,255,0.7)" />
+                            <circle class="soap-bubble" cx="250" cy="150" r="10" fill="rgba(255,255,255,0.7)" />
+                          </svg>
+                        </div>
                         <h3 itemprop="name">Exterior Mobile Detailing</h3>
                         <p itemprop="description">Our <strong>exterior detailing service</strong> includes professional hand washing, paint decontamination, and premium wax or ceramic sealant application for lasting protection and showroom shine. Perfect for removing surface contaminants, water spots, and restoring your vehicle's finish in <strong>Los Angeles</strong> and <strong>Orange County</strong>.</p>
                         <ul class="feature-list">
@@ -284,7 +317,16 @@
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="priceRange" content="$$$">
                         </div>
-                        <img src="interior-detailing.jpg" alt="Professional interior auto detailing in Orange County showing upholstery cleaning" width="400" height="300" loading="lazy" itemprop="image">
+                        <!-- Service image with animation -->
+                        <div class="service-image-container">
+                          <svg class="service-image-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="300" fill="#2a2a3a" />
+                            <!-- Animated car interior -->
+                            <rect class="car-seat" x="100" y="150" width="200" height="100" rx="20" fill="#444" />
+                            <rect class="car-dashboard" x="100" y="100" width="200" height="30" rx="5" fill="#333" />
+                            <path class="cleaning-path" d="M0,0" stroke="#8a4bff" stroke-width="3" fill="none" />
+                          </svg>
+                        </div>
                         <h3 itemprop="name">Interior Auto Detailing</h3>
                         <p itemprop="description">Complete <strong>interior car cleaning</strong> including professional steam cleaning, leather conditioning, and odor elimination. Our <strong>mobile interior detailing</strong> is perfect for removing pet hair, stains, and everyday buildup from your vehicle's interior surfaces, leaving a fresh and sanitized cabin environment.</p>
                         <ul class="feature-list">
@@ -309,7 +351,17 @@
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="priceRange" content="$$$">
                         </div>
-                        <img src="ceramic-coating.jpg" alt="Mobile ceramic coating application in Los Angeles showing water beading on treated surface" width="400" height="300" loading="lazy" itemprop="image">
+                        <!-- Service image with animation -->
+                        <div class="service-image-container">
+                          <svg class="service-image-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="300" fill="#2a2a3a" />
+                            <!-- Animated ceramic coating -->
+                            <path class="car-panel" d="M100,150 Q200,100 300,150" fill="#333" />
+                            <path class="coating-animation" d="M0,0" stroke="#8a4bff" stroke-width="4" fill="none" />
+                            <circle class="water-bead" cx="0" cy="0" r="6" fill="rgba(200,200,255,0.8)" />
+                            <circle class="water-bead" cx="0" cy="0" r="4" fill="rgba(200,200,255,0.8)" />
+                          </svg>
+                        </div>
                         <h3 itemprop="name">Ceramic Coating Protection</h3>
                         <p itemprop="description">Professional <strong>ceramic coating services</strong> providing 2-5 years of protection against environmental damage, UV rays, and water spots while enhancing your paint's depth and gloss. Our <strong>mobile ceramic coating in Los Angeles</strong> and Orange County brings this premium service directly to your location.</p>
                         <ul class="feature-list">
@@ -404,37 +456,37 @@
                 
                 <div class="benefits-grid">
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-home"></i>
+                        <i class="fas fa-home animated-icon"></i>
                         <h3 itemprop="name">We Come To You</h3>
                         <p itemprop="description">No need to drive anywhere or wait at a detailing shop. Our fully equipped <strong>mobile detailing units</strong> bring everything needed to your home or office throughout <strong>Los Angeles</strong> and <strong>Orange County</strong>.</p>
                     </div>
                     
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-certificate animated-icon"></i>
                         <h3 itemprop="name">Certified Detailers</h3>
                         <p itemprop="description">Our team consists of trained and certified <strong>auto detailing professionals</strong> with expertise in the latest techniques and premium products for all vehicle types including luxury automobiles.</p>
                     </div>
                     
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-tint"></i>
+                        <i class="fas fa-tint animated-icon"></i>
                         <h3 itemprop="name">Eco-Friendly Products</h3>
                         <p itemprop="description">We use environmentally responsible <strong>car detailing products</strong> that are safe for your vehicle, your family, and the planet while delivering professional results worthy of showroom display.</p>
                     </div>
                     
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt animated-icon"></i>
                         <h3 itemprop="name">Fully Insured</h3>
                         <p itemprop="description">Rest easy knowing our <strong>mobile detailing service</strong> is fully insured, providing protection and peace of mind during the detailing process for your luxury or everyday vehicle.</p>
                     </div>
                     
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-clock animated-icon"></i>
                         <h3 itemprop="name">Flexible Scheduling</h3>
                         <p itemprop="description">Book <strong>mobile car detailing appointments</strong> that work with your schedule, including early morning, evening, and weekend slots throughout <strong>Los Angeles County</strong> and <strong>Orange County</strong> areas.</p>
                     </div>
                     
                     <div class="benefit-item card-glow" itemscope itemtype="https://schema.org/Thing">
-                        <i class="fas fa-smile"></i>
+                        <i class="fas fa-smile animated-icon"></i>
                         <h3 itemprop="name">Satisfaction Guaranteed</h3>
                         <p itemprop="description">We stand behind our work with a 100% satisfaction guarantee on all our <strong>mobile detailing services</strong>. Your complete satisfaction with our <strong>auto detailing</strong> is our priority and commitment.</p>
                     </div>
@@ -453,26 +505,26 @@
                     <meta itemprop="description" content="How our mobile detailing service works from booking to completion">
                     <meta itemprop="totalTime" content="PT3H">
                     
-                    <div class="step card-glow" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                    <div class="step card-glow animated-step" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
                         <link itemprop="url" href="https://www.jaysmobilewash.net/process#step1">
                         <meta itemprop="position" content="1">
-                        <div class="step-number">1</div>
+                        <div class="step-number"><span>1</span></div>
                         <h3 itemprop="name">Book Your Appointment</h3>
                         <p itemprop="text">Schedule your <strong>mobile detailing service</strong> online or by phone. Select your preferred date, time, and service package for your <strong>Los Angeles</strong> or <strong>Orange County</strong> location. Same-day appointments often available.</p>
                     </div>
                     
-                    <div class="step card-glow" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                    <div class="step card-glow animated-step" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
                         <link itemprop="url" href="https://www.jaysmobilewash.net/process#step2">
                         <meta itemprop="position" content="2">
-                        <div class="step-number">2</div>
+                        <div class="step-number"><span>2</span></div>
                         <h3 itemprop="name">We Come to You</h3>
                         <p itemprop="text">Our fully-equipped <strong>mobile detailing unit</strong> arrives at your <strong>Los Angeles</strong> or <strong>Orange County</strong> location at your scheduled time, bringing everything needed for premium <strong>car detailing service</strong> at your doorstep.</p>
                     </div>
                     
-                    <div class="step card-glow" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                    <div class="step card-glow animated-step" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
                         <link itemprop="url" href="https://www.jaysmobilewash.net/process#step3">
                         <meta itemprop="position" content="3">
-                        <div class="step-number">3</div>
+                        <div class="step-number"><span>3</span></div>
                         <h3 itemprop="name">Enjoy the Results</h3>
                         <p itemprop="text">Review and approve our <strong>professional detailing work</strong>, then enjoy your freshly detailed vehicle with showroom-quality results without ever having to leave your home or office. Our <strong>mobile auto detailing</strong> delivers convenience without compromising on quality.</p>
                     </div>
@@ -489,7 +541,7 @@
                 <div class="location-grid">
                     <div class="location-column">
                         <h3>Los Angeles Service Areas</h3>
-                        <ul class="location-list">
+                        <ul class="location-list animated-list">
                             <li itemscope itemtype="https://schema.org/Service">
                                 <meta itemprop="serviceType" content="Mobile Car Detailing">
                                 <span itemprop="areaServed" itemscope itemtype="https://schema.org/City">
@@ -515,7 +567,7 @@
                     
                     <div class="location-column">
                         <h3>Orange County Service Areas</h3>
-                        <ul class="location-list">
+                        <ul class="location-list animated-list">
                             <li itemscope itemtype="https://schema.org/Service">
                                 <meta itemprop="serviceType" content="Mobile Car Detailing">
                                 <span itemprop="areaServed" itemscope itemtype="https://schema.org/City">
@@ -649,7 +701,14 @@
                             <p>"Jay's team did an incredible job on my Tesla. The <strong>ceramic coating</strong> makes washing so much easier - water just sheets right off. Highly recommended for anyone in <strong>Los Angeles</strong> looking for <strong>professional mobile detailing</strong> that comes to you. Saved me so much time and the results exceeded my expectations!"</p>
                         </blockquote>
                         <div class="client-info">
-                            <img src="michael-r.jpg" alt="Michael R. from Beverly Hills testimonial" width="60" height="60">
+                            <!-- Client avatar as SVG instead of image -->
+                            <div class="client-avatar">
+                              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="30" fill="#2a2a3a" />
+                                <circle cx="30" cy="20" r="12" fill="#8a4bff" />
+                                <path d="M10,60 C10,40 50,40 50,60" fill="#8a4bff" />
+                              </svg>
+                            </div>
                             <div class="client-details">
                                 <p class="client-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Michael R.</span></p>
                                 <p class="client-location" itemprop="locationCreated">Beverly Hills</p>
@@ -658,7 +717,7 @@
                         </div>
                         <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/LocalBusiness">
                             <meta itemprop="name" content="Jay's Mobile Wash">
-                            <meta itemprop="image" content="https://www.jaysmobilewash.net/logo.png">
+                            <meta itemprop="image" content="https://www.jaysmobilewash.net/images/logo.svg">
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="address" content="Los Angeles, CA">
                             <meta itemprop="priceRange" content="$$$">
@@ -676,7 +735,14 @@
                             <p>"As a busy mom, I never have time to get my SUV detailed. <strong>Jay's Mobile Wash</strong> came to my home in <strong>Newport Beach</strong> while I was working, and the <strong>interior detailing</strong> looks better than when I bought it! Their steam cleaning removed all the kids' stains I thought were permanent. Outstanding service and convenience."</p>
                         </blockquote>
                         <div class="client-info">
-                            <img src="sarah-k.jpg" alt="Sarah K. from Newport Beach testimonial" width="60" height="60">
+                            <!-- Client avatar as SVG instead of image -->
+                            <div class="client-avatar">
+                              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="30" fill="#2a2a3a" />
+                                <circle cx="30" cy="20" r="12" fill="#8a4bff" />
+                                <path d="M10,60 C10,40 50,40 50,60" fill="#8a4bff" />
+                              </svg>
+                            </div>
                             <div class="client-details">
                                 <p class="client-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Sarah K.</span></p>
                                 <p class="client-location" itemprop="locationCreated">Newport Beach</p>
@@ -685,7 +751,7 @@
                         </div>
                         <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/LocalBusiness">
                             <meta itemprop="name" content="Jay's Mobile Wash">
-                            <meta itemprop="image" content="https://www.jaysmobilewash.net/logo.png">
+                            <meta itemprop="image" content="https://www.jaysmobilewash.net/images/logo.svg">
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="address" content="Newport Beach, CA">
                             <meta itemprop="priceRange" content="$$$">
@@ -703,7 +769,14 @@
                             <p>"I've tried several <strong>mobile detailers in Los Angeles</strong>, and <strong>Jay's Mobile Wash</strong> is by far the best. The attention to detail is outstanding, and their <strong>ceramic coating service</strong> has kept my Porsche looking showroom-ready for months. Worth every penny for the convenience and quality. They're now my go-to detailers!"</p>
                         </blockquote>
                         <div class="client-info">
-                            <img src="david-t.jpg" alt="David T. from Malibu testimonial" width="60" height="60">
+                            <!-- Client avatar as SVG instead of image -->
+                            <div class="client-avatar">
+                              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="30" cy="30" r="30" fill="#2a2a3a" />
+                                <circle cx="30" cy="20" r="12" fill="#8a4bff" />
+                                <path d="M10,60 C10,40 50,40 50,60" fill="#8a4bff" />
+                              </svg>
+                            </div>
                             <div class="client-details">
                                 <p class="client-name" itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">David T.</span></p>
                                 <p class="client-location" itemprop="locationCreated">Malibu</p>
@@ -712,7 +785,7 @@
                         </div>
                         <span itemprop="itemReviewed" itemscope itemtype="https://schema.org/LocalBusiness">
                             <meta itemprop="name" content="Jay's Mobile Wash">
-                            <meta itemprop="image" content="https://www.jaysmobilewash.net/logo.png">
+                            <meta itemprop="image" content="https://www.jaysmobilewash.net/images/logo.svg">
                             <meta itemprop="telephone" content="+15622289429">
                             <meta itemprop="address" content="Malibu, CA">
                             <meta itemprop="priceRange" content="$$$">
@@ -762,7 +835,7 @@
                 <div class="local-citations">
                     <div class="citation" itemscope itemtype="https://schema.org/LocalBusiness">
                         <meta itemprop="name" content="Jay's Mobile Wash">
-                        <meta itemprop="image" content="https://www.jaysmobilewash.net/logo.png">
+                        <meta itemprop="image" content="https://www.jaysmobilewash.net/images/logo.svg">
                         <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                             <meta itemprop="streetAddress" content="Mobile Service - We Come To You">
                             <meta itemprop="addressLocality" content="Los Angeles">
@@ -803,7 +876,7 @@
                 <p class="cta-text">Experience the convenience of <strong>professional mobile car detailing</strong> at your <strong>Los Angeles</strong> or <strong>Orange County</strong> location. Same-day appointments often available for <strong>mobile auto detailing</strong>. Call now or book online to secure your preferred time slot and restore your vehicle's showroom shine.</p>
                 
                 <div class="cta-buttons">
-                    <a href="/booking/" class="btn-primary btn-glow" onclick="gtag('event', 'final_cta_booking_click', {'event_category': 'conversion'})">Schedule Online</a>
+                    <a href="/booking/" class="btn-primary btn-glow pulse-animation" onclick="gtag('event', 'final_cta_booking_click', {'event_category': 'conversion'})">Schedule Online</a>
                     <a href="tel:5622289429" class="btn-secondary btn-glow" onclick="gtag('event', 'final_cta_call_click', {'event_category': 'conversion'})">Call: 562-228-9429</a>
                 </div>
             </div>
@@ -816,7 +889,11 @@
                 <div class="footer-column">
                     <div class="footer-logo" itemscope itemtype="https://schema.org/Organization">
                         <a href="/" itemprop="url">
-                            <img src="logo-white.png" alt="Jay's Mobile Wash Logo - Mobile Car Detailing Service" width="160" height="50" itemprop="logo">
+                            <!-- Inline SVG for footer logo -->
+                                                        <svg width="160" height="50" viewBox="0 0 160 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M20 8h120v35H20z" fill="#13131a"/>
+                              <path d="M35 25l5-10h5l-7.5 15 7.5 15h-5l-5-10-5 10h-5l7.5-15L25 15h5l5 10zm25-10h5v30h-5V15zm15 0h12.5c5 0 7.5 2.5 7.5 7.5s-2.5 7.5-7.5 7.5H80v15h-5V15zm5 10h7.5c1.25 0 2.5-1.25 2.5-2.5s-1.25-2.5-2.5-2.5H80v5zm27.5-10h-7.5v30h5V30h2.5c5 0 7.5-2.5 7.5-7.5s-2.5-7.5-7.5-7.5zm0 10h-2.5v-5h2.5c1.25 0 2.5 1.25 2.5 2.5s-1.25 2.5-2.5 2.5z" fill="#8a4bff"/>
+                            </svg>
                         </a>
                         <meta itemprop="name" content="Jay's Mobile Wash">
                         <meta itemprop="telephone" content="+15622289429">
@@ -887,7 +964,7 @@
                     <h3>Contact Us</h3>
                     <ul class="contact-info" itemscope itemtype="https://schema.org/LocalBusiness">
                         <meta itemprop="name" content="Jay's Mobile Wash">
-                        <meta itemprop="image" content="https://www.jaysmobilewash.net/logo.png">
+                        <meta itemprop="image" content="https://www.jaysmobilewash.net/images/logo.svg">
                         <meta itemprop="url" content="https://www.jaysmobilewash.net">
                         <li><i class="fas fa-phone"></i> <a href="tel:5622289429" class="hover-glow" itemprop="telephone" onclick="gtag('event', 'footer_call_click', {'event_category': 'conversion'})">562-228-9429</a></li>
                         <li><i class="fas fa-envelope"></i> <a href="mailto:info@jaysmobilewash.net" class="hover-glow" itemprop="email" onclick="gtag('event', 'footer_email_click', {'event_category': 'conversion'})">info@jaysmobilewash.net</a></li>
@@ -905,7 +982,7 @@
                             <link itemprop="dayOfWeek" href="https://schema.org/Saturday https://schema.org/Sunday">
                             <meta itemprop="opens" content="09:00:00">
                             <meta itemprop="closes" content="17:00:00">
-                                                        Sat-Sun: 9am-5pm
+                            Sat-Sun: 9am-5pm
                         </li>
                     </ul>
                 </div>
@@ -1036,10 +1113,10 @@
     <a href="#" class="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></a>
     
     <!-- All JavaScript -->
-    <script src="main.js"></script>
-    <script src="price-calculator.js"></script>
-    <script src="chatbot.js"></script>
-    <script src="google-business-integration.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/price-calculator.js"></script>
+    <script src="/js/chatbot.js"></script>
+    <script src="/js/google-business-integration.js"></script>
     
     <!-- LocalBusiness Schema with Enhanced Data -->
     <script type="application/ld+json">
@@ -1053,9 +1130,9 @@
       "keywords": "mobile car detailing, auto detailing Los Angeles, ceramic coating, paint correction, interior detailing, mobile detailing Orange County, professional car detailing service",
       "slogan": "Southern California's premier mobile detailing service",
       "image": [
-        "https://www.jaysmobilewash.net/logo.png",
-        "https://www.jaysmobilewash.net/mobile-detailing-van.jpg",
-        "https://www.jaysmobilewash.net/ceramic-coating-process.jpg"
+        "https://www.jaysmobilewash.net/images/logo.svg",
+        "https://www.jaysmobilewash.net/images/mobile-detailing-van.svg",
+        "https://www.jaysmobilewash.net/images/ceramic-coating-process.svg"
       ],
       "@id": "https://www.jaysmobilewash.net",
       "url": "https://www.jaysmobilewash.net",
