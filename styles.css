@@ -1,0 +1,183 @@
+/* Main Stylesheet for Jay's Mobile Wash */
+
+/* Base styles */
+body {
+    background-color: #13131a;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+}
+
+/* Base gradient text */
+.gradient-text {
+    background: linear-gradient(to right, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Background gradients */
+.hero-gradient {
+    background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.4) 0%, rgba(30, 30, 42, 0) 50%), 
+                radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.4) 0%, rgba(19, 19, 26, 0) 50%);
+}
+
+/* Animated RGB text */
+@keyframes rgbGlow {
+    0% {
+        color: #ff0000;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 
+                    0 0 20px rgba(255, 0, 0, 0.5),
+                    0 0 30px rgba(255, 0, 0, 0.3);
+    }
+    20% {
+        color: #ff00ff;
+        text-shadow: 0 0 10px rgba(255, 0, 255, 0.7), 
+                    0 0 20px rgba(255, 0, 255, 0.5),
+                    0 0 30px rgba(255, 0, 255, 0.3);
+    }
+    40% {
+        color: #00ffff;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.7), 
+                    0 0 20px rgba(0, 255, 255, 0.5),
+                    0 0 30px rgba(0, 255, 255, 0.3);
+    }
+    60% {
+        color: #00ff00;
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 
+                    0 0 20px rgba(0, 255, 0, 0.5),
+                    0 0 30px rgba(0, 255, 0, 0.3);
+    }
+    80% {
+        color: #ffff00;
+        text-shadow: 0 0 10px rgba(255, 255, 0, 0.7), 
+                    0 0 20px rgba(255, 255, 0, 0.5),
+                    0 0 30px rgba(255, 255, 0, 0.3);
+    }
+    100% {
+        color: #ff0000;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 
+                    0 0 20px rgba(255, 0, 0, 0.5),
+                    0 0 30px rgba(255, 0, 0, 0.3);
+    }
+}
+
+.animated-rgb-text {
+    display: inline-block;
+    animation: rgbGlow 8s infinite linear;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+}
+
+/* Content hiding and revealing */
+.hidden-content {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+    overflow: hidden;
+    padding: 0;
+}
+
+.hidden-content.active {
+    max-height: 1000px;
+    opacity: 1;
+    padding: 1rem 0;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+}
+
+.faq-answer.active {
+    max-height: 1000px;
+    opacity: 1;
+}
+
+/* Hover glow effects */
+.hover-glow {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.hover-glow:hover {
+    color: #a855f7;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.6),
+                0 0 12px rgba(168, 85, 247, 0.4);
+}
+
+/* Button hover glow effect */
+.btn-glow {
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.7);
+    transform: translateY(-2px);
+}
+
+/* Card hover effect */
+.card-glow {
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.card-glow:hover {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3),
+                0 0 40px rgba(236, 72, 153, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Improved clickable indicator */
+.clickable-card {
+    position: relative;
+}
+
+.clickable-card::after {
+    content: "Click for details";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(168, 85, 247, 0.2);
+    color: #d8b4fe;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.clickable-card:hover::after {
+    opacity: 1;
+}
+
+/* Form styles */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #a855f7;
+    border-color: transparent;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .animated-rgb-text {
+        font-size: 90%;
+    }
+    
+    .hidden-content.active {
+        max-height: 1500px; /* Increase for mobile to fit more content */
+    }
+}
+
+@media (max-width: 640px) {
+    .clickable-card::after {
+        display: none; /* Hide the click indicator on mobile */
+    }
+}
