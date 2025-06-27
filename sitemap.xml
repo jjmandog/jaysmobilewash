@@ -1,19 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://jaysmobilewash.net/mobile-car-wash-sitemap.xml</loc>
-    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://jaysmobilewash.net/la-detailing-sitemap.xml</loc>
-    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://jaysmobilewash.net/oc-detailing-sitemap.xml</loc>
-    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://jaysmobilewash.net/image-sitemap.xml</loc>
-    <lastmod>2025-06-25T10:39:20+00:00</lastmod>
-  </sitemap>
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.jaysmobilewash.net/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/mobile-detailing-hero.jpg</image:loc>
+      <image:title>Mobile Car Detailing Los Angeles &amp; Orange County</image:title>
+    </image:image>
+  </url>
+
+  <!-- Service Pages -->
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/exterior-detailing/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/exterior-detailing-hero.jpg</image:loc>
+      <image:title>Exterior Car Detailing Services</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/interior-detailing/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/interior-detailing-hero.jpg</image:loc>
+      <image:title>Interior Car Detailing Services</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/ceramic-coating/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/ceramic-coating-hero.jpg</image:loc>
+      <image:title>Ceramic Coating Services</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/paint-correction/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/services/headlight-restoration/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Location Pages -->
+  <url>
+    <loc>https://www.jaysmobilewash.net/locations/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/locations/los-angeles/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/los-angeles-hero.jpg</image:loc>
+      <image:title>Mobile Car Detailing in Los Angeles</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/locations/orange-county/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/orange-county-hero.jpg</image:loc>
+      <image:title>Mobile Car Detailing in Orange County</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/locations/beverly-hills/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jaysmobilewash.net/images/beverly-hills-hero.jpg</image:loc>
+      <image:title>Mobile Car Detailing in Beverly Hills</image:title>
+    </image:image>
+  </url>
+
+  <!-- More Location Pages (Newport Beach, Santa Monica, etc.) -->
+  <url><loc>https://www.jaysmobilewash.net/locations/newport-beach/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/santa-monica/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/irvine/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/huntington-beach/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/laguna-beach/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/long-beach/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/locations/pasadena/</loc><lastmod>2025-06-27</lastmod><priority>0.7</priority></url>
+
+  <!-- Other Important Pages -->
+  <url>
+    <loc>https://www.jaysmobilewash.net/pricing/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/booking/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/about/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/contact/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jaysmobilewash.net/blog/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url><loc>https://www.jaysmobilewash.net/privacy-policy/</loc><lastmod>2025-06-27</lastmod><priority>0.3</priority></url>
+  <url><loc>https://www.jaysmobilewash.net/terms-of-service/</loc><lastmod>2025-06-27</lastmod><priority>0.3</priority></url>
+  
+</urlset>
