@@ -55,3 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// Function to open the chat widget
+function openChat() {
+    document.getElementById('chat-toggle').click();
+    document.getElementById('chat-window').classList.remove('hidden');
+}
