@@ -273,3 +273,162 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
   document.head.appendChild(styleSheet);
 });
+// Add to your custom-animations.js file
+
+// Live Booking System with SMS Alerts
+function setupAlerts() {
+    // Integration with Twilio or similar SMS service
+    const phoneNumber = prompt("Enter your phone for booking confirmation:");
+    if (phoneNumber) {
+        // Send to backend for SMS confirmation
+        fetch('/api/booking-alert', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                phone: phoneNumber,
+                type: 'instant-booking',
+                slot: 'today'
+            })
+        });
+        alert("Booking confirmed! You'll receive an SMS shortly.");
+    }
+}
+
+function showAlertModal() {
+    document.getElementById('alertModal').classList.remove('hidden');
+}
+
+function closeAlertModal() {
+    document.getElementById('alertModal').classList.add('hidden');
+}
+
+// Before/After Slider
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('before-after-slider');
+    const handle = document.getElementById('slider-handle');
+    const afterPanel = document.getElementById('after-panel');
+    
+    let isDragging = false;
+    
+    handle.addEventListener('mousedown', () => isDragging = true);
+    document.addEventListener('mouseup', () => isDragging = false);
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        
+        const rect = slider.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percent = (x / rect.width) * 100;
+        
+        if (percent >= 0 && percent <= 100) {
+            handle.style.left = percent + '%';
+            afterPanel.style.width = percent + '%';
+        }
+    });
+});
+
+// AI Chat Integration
+const OPENAI_ENDPOINT = '/api/chat'; // Your backend endpoint
+
+async function sendMessage(message) {
+    const messagesDiv = document.getElementById('chat-messages');
+    
+    // Add user message
+    messagesDiv.innerHTML += `
+        <div class="flex justify-end mb-3">
+            <div class="bg-purple-600 text-white px-4 py-2 rounded-lg max-w-xs">
+                ${message}
+            </div>
+        </div>
+    `;
+    
+    // Add loading indicator
+    messagesDiv.innerHTML += `
+        <div class="flex justify-start mb-3" id="loading">
+            <div class="bg-gray-700 px-4 py-2 rounded-lg">
+                <i class="fas fa-ellipsis-h animate-pulse"></i>
+            </div>
+        </div>
+    `;
+    
+    // Call GPT-4 API through your backend
+    try {
+        const response = await fetch(OPENAI_ENDPOINT, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                message: message,
+                context: 'mobile car detailing service'
+            })
+        });
+        
+        const data = await response.json();
+        document.getElementById('loading').remove();
+        
+        // Add AI response
+        messagesDiv.innerHTML += `
+            <div class="flex justify-start mb-3">
+                <div class="bg-gray-700 text-white px-4 py-2 rounded-lg max-w-xs">
+                    ${data.response}
+                </div>
+            </div>
+        `;
+        
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    } catch (error) {
+        console.error('Chat error:', error);
+    }
+}
+
+function sendQuickMessage(message) {
+    document.getElementById('chat-input').value = message;
+    sendMessage(message);
+}
+
+// Referral System
+function copyReferralText() {
+    const text = "Check out Jay's Mobile Wash! Professional detailing that comes to you. Mention my name when booking and we both get rewards! Call (562) 228-9429";
+    navigator.clipboard.writeText(text);
+    alert('Referral message copied to clipboard!');
+}
+
+// Form Submissions
+document.getElementById('alertForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    // Send to backend for SMS/Email alerts
+    await fetch('/api/setup-alerts', {
+        method: 'POST',
+        body: formData
+    });
+    
+    alert('Alerts configured! You\'ll be notified when slots open.');
+    closeAlertModal();
+});
+
+document.getElementById('referral-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    // Register referrer in system
+    await fetch('/api/register-referrer', {
+        method: 'POST',
+        body: formData
+    });
+    
+    alert('You\'re registered! Share your name with friends to earn free details!');
+});
+
+// Update live slots every 30 seconds
+setInterval(async () => {
+    try {
+        const response = await fetch('/api/live-slots');
+        const data = await response.json();
+        
+        document.getElementById('today-slots').textContent = data.today + ' slots left';
+        document.getElementById('tomorrow-slots').textContent = data.tomorrow + ' slots available';
+    } catch (error) {
+        console.error('Error updating slots:', error);
+    }
+}, 30000);
