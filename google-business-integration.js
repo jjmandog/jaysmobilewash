@@ -401,5 +401,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('gmb-posts-container');
     if (container) {
       container.innerHTML = `
-        <div class="gmb-fallback">
-          <p>Check out our latest updates on <a href="https://
+                <div class="gmb-fallback">
+          <p>Check out our latest updates on <a href="https://g.page/jays-mobile-wash" target="_blank" rel="noopener">Google</a>.</p>
+        </div>
+      `;
+    }
+    
+    // Hide loading indicator
+    const loading = document.getElementById('gmb-loading');
+    if (loading) {
+      loading.style.display = 'none';
+    }
+  }
+});
