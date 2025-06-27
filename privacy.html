@@ -261,4 +261,69 @@
                         <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Mini Detail Package</a></li>
                         <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Luxury Detail Package</a></li>
                         <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Max Detail Package</a></li>
-                        <li><a href="
+                                                <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Luxury Detail Package</a></li>
+                        <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Max Detail Package</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Ceramic Coating</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Paint Correction</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Interior Detailing</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white hover-glow">Contact Info</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>
+                            <i class="fas fa-phone mr-2"></i>
+                            <a href="tel:5622289429" class="hover:text-white transition-colors hover-glow">562-228-9429</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:info@jaysmobilewash.net" class="hover:text-white transition-colors hover-glow">info@jaysmobilewash.net</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Serving LA & Orange County</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>Mon-Fri: 8AM-6PM</span><br>
+                            <span class="ml-6">Sat-Sun: 9AM-5PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="mt-12 pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        &copy; 2025 Jay's Mobile Wash. All rights reserved.
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors hover-glow">Privacy Policy</a>
+                        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors hover-glow">Terms of Service</a>
+                        <a href="about.html" class="text-gray-400 hover:text-white transition-colors hover-glow">About Us</a>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-4">Last updated: 2025-06-27 00:45:32</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts.js"></script>
+    <script>
+        // Update all timestamps with the current date and time
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDateTime = "2025-06-27 00:45:32";
+            const timestampElements = document.querySelectorAll('.text-sm.text-gray-400.text-center.mb-8, .text-xs.text-gray-500.text-center.mt-4');
+            timestampElements.forEach(el => {
+                if (el.innerHTML.includes('Last Updated') || el.innerHTML.includes('Last updated')) {
+                    el.innerHTML = el.innerHTML.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, currentDateTime);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
