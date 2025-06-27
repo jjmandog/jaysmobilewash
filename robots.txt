@@ -1,42 +1,25 @@
-# Jay's Mobile Wash - Robots.txt
-# Last updated: 2025-06-27
-# Website: https://www.jaysmobilewash.net
-
 User-agent: *
 Allow: /
+Crawl-delay: 0
 
-# Block admin areas
-Disallow: /wp-admin/
-Disallow: /admin/
-Disallow: /login/
-Disallow: /cgi-bin/
-Disallow: /tmp/
-Disallow: /private/
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
 
-# Allow search engines to access JS and CSS files
-Allow: /*.js$
-Allow: /*.css$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.png$
-Allow: /*.gif$
-Allow: /*.svg$
-Allow: /*.webp$
-Allow: /*.pdf$
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
 
-# Block specific files
-Disallow: /*?*
-Disallow: /*?
-Disallow: /*.php$
-Disallow: /wp-*.php
-Disallow: /search
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
 
-# Crawl delay for specific bots
-User-agent: AhrefsBot
-Crawl-delay: 10
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
 
-User-agent: SemrushBot
-Crawl-delay: 10
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 0
 
-# XML Sitemap location
-Sitemap: https://www.jaysmobilewash.net/sitemap.xml
+Sitemap: https://jaysmobilewash.com/sitemap.xml
