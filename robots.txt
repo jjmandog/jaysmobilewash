@@ -1,55 +1,31 @@
-# JAYSMOBILEWASH.NET - OPTIMIZED ROBOTS.TXT
+# robots.txt for jaysmobilewash.net
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /cgi-bin/
-Disallow: /private/
 
-# Google Priority Paths
-User-agent: Googlebot
-Allow: /$
-Allow: /mobile-car-washing-los-angeles/
-Allow: /orange-county-mobile-car-wash/
-Allow: /services/mobile-car-wash-service
-Allow: /services/mobile-detailing-service
-Allow: /services/ceramic-coating-service
-Allow: /locations/beverly-hills-mobile-car-wash
-Allow: /locations/santa-monica-mobile-car-washing
-Allow: /locations/buena-park-mobile-car-washing
-Allow: /locations/irvine-mobile-car-wash
-Allow: /blog/
+# Prevent duplicate content indexing
+Disallow: /booking/success
+Disallow: /booking/error
+Disallow: /booking/confirmation
+Disallow: /search
 
-# Bing Directives
-User-agent: Bingbot
-Allow: /emergency-mobile-car-wash/
-Allow: /same-day-mobile-detailing/
-Allow: /gift-certificates/
-Crawl-delay: 1
+# Allow key assets to be crawled
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
 
-# AI Restrictions
-User-agent: ChatGPT
-User-agent: Anthropic
+# Sitemap declaration
+Sitemap: https://www.jaysmobilewash.net/sitemap.xml
+
+# Limit crawl rate for certain bots to prevent server overload
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
 Disallow: /
-
-# Image Optimization
-User-agent: Googlebot-Image
-Allow: /gallery/
-Allow: /before-after/
-
-# Voice Search Optimization
-User-agent: Google-Assistant
-User-agent: Alexa
-User-agent: Siri
-Allow: /faq
-Allow: /services
-Allow: /locations
-Allow: /how-much-does-mobile-detailing-cost
-Allow: /how-long-does-mobile-car-washing-take
-
-# Map Pack Optimization
-User-agent: Googlebot
-Allow: /geo.kml
-Allow: /locations/*.html
-
-# Sitemap Index (Updated)
-Sitemap: https://jaysmobilewash.net/sitemap.xml
