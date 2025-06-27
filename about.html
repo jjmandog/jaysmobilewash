@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Jay's Mobile Wash</title>
-    <meta name="description" content="Learn about Jay's Mobile Wash and our commitment to quality mobile detailing services in Los Angeles and Orange County.">
+    <meta name="description" content="Learn about Jay's Mobile Wash, Southern California's premiere mobile detailing service, our story, values, and expert team.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,102 +34,409 @@
         }
     </script>
     
-    <style>
-        body {
-            background-color: #13131a;
-            color: white;
-            font-family: 'Manrope', sans-serif;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(to right, #a855f7, #ec4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-gradient {
-            background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.4) 0%, rgba(30, 30, 42, 0) 50%), 
-                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.4) 0%, rgba(19, 19, 26, 0) 50%);
-        }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
 </head>
 <body>
-    <!-- Header/Navigation (Simplified) -->
-    <header class="bg-gray-900 shadow-lg">
+    <!-- Custom Page Navigation at Top -->
+    <div class="bg-gray-800 py-2 px-6">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center text-sm">
+            <div class="flex items-center space-x-4">
+                <a href="tel:5622289429" class="text-gray-300 hover:text-white transition-colors hover-glow">
+                    <i class="fas fa-phone-alt mr-2"></i>562-228-9429
+                </a>
+                <span class="text-gray-500">|</span>
+                <a href="mailto:info@jaysmobilewash.net" class="text-gray-300 hover:text-white transition-colors hover-glow">
+                    <i class="fas fa-envelope mr-2"></i>info@jaysmobilewash.net
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="index.html" class="text-gray-300 hover:text-white transition-colors hover-glow">Home</a>
+                <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors hover-glow">Privacy Policy</a>
+                <a href="terms.html" class="text-gray-300 hover:text-white transition-colors hover-glow">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-md shadow-lg">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center py-4">
                 <a href="index.html" class="flex items-center">
                     <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="h-14">
                 </a>
-                <a href="index.html" class="bg-transparent border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors rounded-lg px-6 py-2">
-                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                <nav class="hidden lg:flex space-x-10">
+                    <a href="index.html#packages" class="font-medium hover:text-purple-400 transition-colors hover-glow">Packages</a>
+                    <a href="index.html#deep-detail" class="font-medium hover:text-purple-400 transition-colors hover-glow">Deep Detail Options</a>
+                    <a href="index.html#mobile-washing" class="font-medium hover:text-purple-400 transition-colors hover-glow">Mobile Washing</a>
+                    <a href="index.html#products" class="font-medium hover:text-purple-400 transition-colors hover-glow">Products</a>
+                    <a href="index.html#locations" class="font-medium hover:text-purple-400 transition-colors hover-glow">Locations</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="tel:5622289429" class="bg-purple-600 text-white rounded-lg px-6 py-2 font-medium hidden md:block hover:bg-purple-700 transition-colors btn-glow">
+                        Call Now
+                    </a>
+                    <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-gray-900 shadow-xl">
+            <div class="max-w-7xl mx-auto px-6 py-4 space-y-3">
+                <a href="index.html#packages" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Packages</a>
+                <a href="index.html#deep-detail" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Deep Detail Options</a>
+                <a href="index.html#mobile-washing" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Mobile Washing</a>
+                <a href="index.html#products" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Products</a>
+                <a href="index.html#locations" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Locations</a>
+                <a href="tel:5622289429" class="block text-purple-400 hover-glow">
+                    <i class="fas fa-phone-alt mr-2"></i>562-228-9429
                 </a>
             </div>
         </div>
     </header>
 
     <!-- About Hero Section -->
-    <section class="hero-gradient py-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">About <span class="gradient-text">Jay's Mobile Wash</span></h1>
-            <p class="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
-                The story behind Southern California's premier mobile detailing service
+    <section class="hero-gradient py-16 md:py-24 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                About <span class="animated-rgb-text">Jay's Mobile Wash</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                The story of Southern California's most trusted mobile detailing service and the passionate team behind it.
             </p>
         </div>
     </section>
 
-    <!-- About Content -->
-    <section class="py-12 px-6">
-        <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl p-8 shadow-lg mb-12">
-            <h2 class="text-2xl font-bold mb-6">Our Story</h2>
-            <p class="mb-4">Jay's Mobile Wash was founded in 2020 with a simple idea: provide premium car detailing services that come to you. Our founder, Jay, had spent years working at traditional detailing shops and saw firsthand how inconvenient it was for busy professionals to find time to bring their vehicles in for service.</p>
-            <p class="mb-4">Starting with just one mobile unit and a handful of loyal customers, Jay built the business on a foundation of exceptional service, professional results, and customer convenience. Word spread quickly about the quality of our work, and within two years, we expanded to five mobile units serving all of Los Angeles County and Orange County.</p>
-            <p>Today, we're proud to be one of Southern California's highest-rated mobile detailing services, with over 500 five-star reviews and a growing team of certified professional detailers.</p>
-        </div>
-        
-        <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl p-8 shadow-lg mb-12">
-            <h2 class="text-2xl font-bold mb-6">Our Mission</h2>
-            <p class="mb-4">At Jay's Mobile Wash, our mission is to deliver exceptional mobile detailing services that exceed our customers' expectations while respecting their time, their vehicles, and the environment.</p>
-            <p>We believe that maintaining your vehicle's appearance shouldn't be a chore—it should be a convenient, premium experience that fits seamlessly into your busy life. That's why we bring our professional-grade equipment and expertise directly to your home, office, or anywhere else you need us.</p>
-        </div>
-        
-        <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl p-8 shadow-lg">
-            <h2 class="text-2xl font-bold mb-6">Our Team</h2>
-            <p class="mb-8">Our team consists of passionate automotive enthusiasts who are professionally trained in the latest detailing techniques. Every member of our staff completes a rigorous training program and is certified in our proprietary detailing processes.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="text-center">
-                    <div class="h-40 w-40 mx-auto rounded-full bg-purple-700/30 flex items-center justify-center mb-4">
-                        <i class="fas fa-user text-6xl text-purple-400"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-1">Jay Thomas</h3>
-                    <p class="text-gray-300">Founder & Lead Detailer</p>
+    <!-- Our Story Section -->
+    <section class="py-20 px-6 bg-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4 hover-glow">Our <span class="gradient-text">Story</span></h2>
+                    <p class="text-gray-300 mb-4">
+                        Founded in 2018 by Jay Martinez, Jay's Mobile Wash began with a simple vision: to provide exceptional car care without the inconvenience of visiting a physical location.
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        After years of working at traditional detailing shops, Jay recognized that customers valued their time as much as they valued their vehicles. He invested in a fully-equipped mobile detailing van and began offering services throughout Los Angeles County.
+                    </p>
+                    <p class="text-gray-300">
+                        Word quickly spread about the quality and convenience of Jay's services. Within two years, the company expanded to a fleet of custom mobile detailing units serving both Los Angeles and Orange County, with a growing team of certified detailing professionals.
+                    </p>
                 </div>
-                <div class="text-center">
-                    <div class="h-40 w-40 mx-auto rounded-full bg-pink-700/30 flex items-center justify-center mb-4">
-                        <i class="fas fa-user text-6xl text-pink-400"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-1">Maria Rodriguez</h3>
-                    <p class="text-gray-300">Operations Manager</p>
-                </div>
-                <div class="text-center">
-                    <div class="h-40 w-40 mx-auto rounded-full bg-blue-700/30 flex items-center justify-center mb-4">
-                        <i class="fas fa-user text-6xl text-blue-400"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-1">David Chen</h3>
-                    <p class="text-gray-300">Head of Customer Relations</p>
+                <div>
+                    <img src="https://via.placeholder.com/600x400" alt="Jay Martinez, founder of Jay's Mobile Wash" class="rounded-xl shadow-2xl">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Simple Footer -->
-    <footer class="py-8 px-6 bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center text-gray-400">
-            <p>&copy; 2025 Jay's Mobile Wash. All rights reserved.</p>
-            <p class="text-xs mt-2">Last updated: 2025-06-26 10:08:46</p>
+    <!-- Our Values Section -->
+    <section class="py-20 px-6 bg-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center hover-glow">Our <span class="gradient-text">Values</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-award text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Excellence</h3>
+                    <p class="text-gray-300">
+                        We're committed to delivering exceptional results with every detail. Our team is trained to meet the highest standards in the industry, using only premium products and equipment.
+                    </p>
+                </div>
+                
+                <!-- Value 2 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-clock text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Respect for Time</h3>
+                    <p class="text-gray-300">
+                        We understand that your time is valuable. Our mobile service brings professional detailing to your doorstep, on your schedule, without compromising on quality or results.
+                    </p>
+                </div>
+                
+                <!-- Value 3 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-leaf text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Environmental Responsibility</h3>
+                    <p class="text-gray-300">
+                        We're dedicated to minimizing our environmental footprint. Our DI water system reduces water usage, and we prioritize eco-friendly products whenever possible.
+                    </p>
+                </div>
+                
+                <!-- Value 4 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Community</h3>
+                    <p class="text-gray-300">
+                        We're proud to be part of the Southern California community. We support local events and charities, and prioritize hiring from within the communities we serve.
+                    </p>
+                </div>
+                
+                <!-- Value 5 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-book-open text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Continuous Learning</h3>
+                    <p class="text-gray-300">
+                        The detailing industry evolves constantly. We invest in ongoing education and training, ensuring our team is always up-to-date with the latest techniques and products.
+                    </p>
+                </div>
+                
+                <!-- Value 6 -->
+                <div class="service-card card-glow bg-gray-900 rounded-xl p-6 shadow-lg overflow-hidden">
+                    <div class="rounded-full bg-purple-600/20 p-4 w-16 h-16 flex items-center justify-center mb-4">
+                        <i class="fas fa-handshake text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 hover-glow">Integrity</h3>
+                    <p class="text-gray-300">
+                        We believe in transparent pricing, honest recommendations, and standing behind our work. Our reputation is built on trust and delivering on our promises.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="py-20 px-6 bg-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center hover-glow">Meet Our <span class="gradient-text">Team</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="service-card card-glow bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://via.placeholder.com/400x300" alt="Jay Martinez" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1 hover-glow">Jay Martinez</h3>
+                        <p class="text-purple-400 mb-3">Founder & Lead Detailer</p>
+                        <p class="text-gray-300 text-sm">
+                            With over 15 years of experience, Jay is certified in advanced paint correction techniques and ceramic coating application. His attention to detail and passion for perfection set the standard for our entire team.
+                        </p>
+                        <div class="flex mt-4 space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="service-card card-glow bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://via.placeholder.com/400x300" alt="Maria Rodriguez" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1 hover-glow">Maria Rodriguez</h3>
+                        <p class="text-purple-400 mb-3">Operations Manager</p>
+                        <p class="text-gray-300 text-sm">
+                            Maria ensures our mobile units are perfectly equipped and that schedules run smoothly. Her background in logistics makes her the backbone of our efficient operation and exceptional customer service.
+                        </p>
+                        <div class="flex mt-4 space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="service-card card-glow bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                    <img src="https://via.placeholder.com/400x300" alt="Carlos Mendoza" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-1 hover-glow">Carlos Mendoza</h3>
+                        <p class="text-purple-400 mb-3">Ceramic Coating Specialist</p>
+                        <p class="text-gray-300 text-sm">
+                            Carlos is our ceramic coating expert, certified by multiple manufacturers. His precise application technique and dedication to surface preparation ensure our coatings provide maximum longevity and protection.
+                        </p>
+                        <div class="flex mt-4 space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white hover-glow">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-300">Our full team includes 12 certified detailing professionals serving Los Angeles and Orange County.</p>
+                <a href="careers.html" class="inline-flex mt-6 bg-transparent border border-purple-500 text-purple-400 hover:bg-purple-500/10 transition-colors rounded-lg px-8 py-3 text-lg font-medium btn-glow">
+                    Join Our Team
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="py-20 px-6 bg-gray-800">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 hover-glow">Our <span class="gradient-text">Certifications</span></h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                We invest in ongoing education to ensure our team delivers the highest standard of service.
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Certification 1 -->
+                <div class="p-6 bg-gray-900 rounded-xl shadow-lg card-glow">
+                    <img src="https://via.placeholder.com/150" alt="Ceramic Pro Certified" class="h-24 mx-auto mb-4">
+                    <h3 class="font-bold hover-glow">Ceramic Pro Certified</h3>
+                </div>
+                
+                <!-- Certification 2 -->
+                <div class="p-6 bg-gray-900 rounded-xl shadow-lg card-glow">
+                    <img src="https://via.placeholder.com/150" alt="Maderite Authorized Applicator" class="h-24 mx-auto mb-4">
+                    <h3 class="font-bold hover-glow">Maderite Authorized</h3>
+                </div>
+                
+                <!-- Certification 3 -->
+                <div class="p-6 bg-gray-900 rounded-xl shadow-lg card-glow">
+                    <img src="https://via.placeholder.com/150" alt="EZPZ Certified Installer" class="h-24 mx-auto mb-4">
+                    <h3 class="font-bold hover-glow">EZPZ Certified</h3>
+                </div>
+                
+                <!-- Certification 4 -->
+                <div class="p-6 bg-gray-900 rounded-xl shadow-lg card-glow">
+                    <img src="https://via.placeholder.com/150" alt="International Detailing Association" class="h-24 mx-auto mb-4">
+                    <h3 class="font-bold hover-glow">IDA Member</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="py-16 px-6 bg-gradient-to-r from-gray-900 to-purple-900/30">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 hover-glow">Ready to <span class="gradient-text">Experience</span> the Difference?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Contact us today to schedule your mobile detailing appointment or learn more about our services.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="tel:5622289429" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg px-8 py-4 text-lg font-medium shadow-lg hover:shadow-xl transition-shadow inline-flex items-center justify-center btn-glow">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    Call 562-228-9429
+                </a>
+                <a href="index.html#contact" class="bg-transparent border-2 border-white text-white rounded-lg px-8 py-4 text-lg font-medium hover:bg-white/10 transition-colors inline-flex items-center justify-center btn-glow">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <a href="#" class="flex items-center mb-4">
+                        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="h-14">
+                    </a>
+                    <p class="text-gray-400 mb-4">Southern California's premier mobile car detailing service, bringing professional quality right to your doorstep.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/jaysmobilewash" class="text-gray-400 hover:text-white transition-colors hover-glow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/jaysmobilewash" class="text-gray-400 hover:text-white transition-colors hover-glow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/jaysmobilewash" class="text-gray-400 hover:text-white transition-colors hover-glow">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://youtube.com/c/jaysmobilewash" class="text-gray-400 hover:text-white transition-colors hover-glow">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white hover-glow">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Our Packages</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Deep Detail Options</a></li>
+                        <li><a href="index.html#mobile-washing" class="hover:text-white transition-colors hover-glow">Mobile Washing</a></li>
+                        <li><a href="index.html#products" class="hover:text-white transition-colors hover-glow">Products We Use</a></li>
+                        <li><a href="index.html#locations" class="hover:text-white transition-colors hover-glow">Service Areas</a></li>
+                        <li><a href="index.html#faq" class="hover:text-white transition-colors hover-glow">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white hover-glow">Services</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Mini Detail Package</a></li>
+                        <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Luxury Detail Package</a></li>
+                        <li><a href="index.html#packages" class="hover:text-white transition-colors hover-glow">Max Detail Package</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Ceramic Coating</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Paint Correction</a></li>
+                        <li><a href="index.html#deep-detail" class="hover:text-white transition-colors hover-glow">Interior Detailing</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white hover-glow">Contact Info</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>
+                            <i class="fas fa-phone mr-2"></i>
+                            <a href="tel:5622289429" class="hover:text-white transition-colors hover-glow">562-228-9429</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope mr-2"></i>
+                            <a href="mailto:info@jaysmobilewash.net" class="hover:text-white transition-colors hover-glow">info@jaysmobilewash.net</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Serving LA & Orange County</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>Mon-Fri: 8AM-6PM</span><br>
+                            <span class="ml-6">Sat-Sun: 9AM-5PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Footer -->
+            <div class="mt-12 pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        &copy; 2025 Jay's Mobile Wash. All rights reserved.
+                    </p>
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors hover-glow">Privacy Policy</a>
+                        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors hover-glow">Terms of Service</a>
+                        <a href="about.html" class="text-gray-400 hover:text-white transition-colors hover-glow">About Us</a>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-4">Last updated: 2025-06-27 00:36:38</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="scripts.js"></script>
 </body>
 </html>
