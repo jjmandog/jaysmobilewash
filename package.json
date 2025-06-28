@@ -1,0 +1,15 @@
+{
+  "name": "jaysmobilewash",
+  "version": "1.0.0",
+  "description": "This repository contains the website code for Jay's Mobile Wash, a premium mobile car detailing service operating in Los Angeles County and Orange County.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "htmlhint": "^1.6.3"
+  }
+}
