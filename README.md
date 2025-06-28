@@ -6,6 +6,10 @@ This repository contains the website code for Jay's Mobile Wash, a premium mobil
 ## Features
 - Responsive design optimized for all devices
 - PWA (Progressive Web App) functionality for mobile app-like experience
+- Interactive McLaren SVG with particle effects
+- Advanced foam particle physics system
+- Circuit breaker pattern for error handling and resilience
+- Font preloading and performance optimization
 - Structured data for rich results in search engines
 - Voice search optimization
 - Local SEO implementation
@@ -38,8 +42,14 @@ For live server functionality:
 
 ## File Structure
 - `index.html` - Main website file
-- `manifest.json` - PWA manifest
+- `scripts.js` - Main JavaScript functionality
+- `particleCanvas.js` - Particle system and foam effects
+- `mcLarenInteractions.js` - Interactive McLaren SVG functionality  
+- `foamPhysics.js` - Foam particle physics and behavior
+- `circuitBreaker.js` - Error handling and system resilience
 - `service-worker.js` - Service worker for offline functionality
+- `sw.js` - Service worker entry point
+- `manifest.json` - PWA manifest
 - `robots.txt` - Search engine directives
 - `sitemap.xml` - Main sitemap index
 - Various sitemap files - Specialized content sitemaps
