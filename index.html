@@ -40,11 +40,15 @@
     
     <!-- Preconnect to optimize performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jaysmobilewash.net">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     
     <!-- Preload critical resources -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" crossorigin>
+    
+    <!-- Load fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* Critical CSS - Inline for fastest render */
@@ -1576,15 +1580,6 @@
                 },
                 
                 createFoamBurst: function(x, y) {
-                    const burstCount = 30;
-                    
-                    for (let i = 0; i < burstCount; i++) {
-                        const particle = this.getParticle();
-                        if (!particle) break;
-                        
-                        const angle = (Math.PI * 2 * i) / burstCount;
-                        const velocity = 5 + Math.random() * 
-                                            createFoamBurst: function(x, y) {
                     const burstCount = 30;
                     
                     for (let i = 0; i < burstCount; i++) {
