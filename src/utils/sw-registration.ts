@@ -13,12 +13,12 @@ export const registerSW = () => {
       }
     })
 
-    wb.addEventListener('waiting', (event) => {
+    wb.addEventListener('waiting', () => {
       // Show update available notification
       console.log('Update available, waiting for activation')
     })
 
-    wb.addEventListener('controlling', (event) => {
+    wb.addEventListener('controlling', () => {
       // Service worker is now controlling the page
       console.log('Service worker is now controlling the page')
     })

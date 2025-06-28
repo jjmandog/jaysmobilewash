@@ -174,7 +174,7 @@ export const PerformanceProvider: React.FC<{ children: React.ReactNode }> = ({ c
       const canvas = document.createElement('canvas')
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
       
-      if (gl) {
+      if (gl && 'getExtension' in gl && 'getParameter' in gl) {
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info')
         if (debugInfo) {
           const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)

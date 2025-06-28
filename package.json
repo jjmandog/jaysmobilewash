@@ -52,6 +52,9 @@
     "workbox-window": "^7.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/three": "^0.160.0",
@@ -75,7 +78,8 @@
     "vite-plugin-pwa": "^0.17.5",
     "vitest": "^1.2.2",
     "@vitest/ui": "^1.2.2",
-    "@vitest/coverage-v8": "^1.2.2"
+    "@vitest/coverage-v8": "^1.2.2",
+    "web-vitals": "^3.5.0"
   },
   "browserslist": {
     "production": [
