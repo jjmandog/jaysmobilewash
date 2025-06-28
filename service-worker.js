@@ -1,68 +1,73 @@
-{
-  "name": "Jay's Mobile Wash - Mobile Car Detailing in LA & OC",
-  "short_name": "Jay's Mobile Wash",
-  "description": "Premium mobile car detailing that comes to you in Los Angeles & Orange County. Professional ceramic coatings, interior cleaning & paint correction.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#111827",
-  "theme_color": "#b530ff",
-  "icons": [
-    {
-      "src": "/images/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/images/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/images/maskable-icon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Contact Us",
-      "short_name": "Contact",
-      "description": "Request a mobile car wash quote",
-      "url": "/#contact",
-      "icons": [{ "src": "/images/contact-icon.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Book Service",
-      "short_name": "Book",
-      "description": "Schedule your mobile car detailing",
-      "url": "/#services",
-      "icons": [{ "src": "/images/book-icon.png", "sizes": "96x96" }]
-    }
-  ],
-  "related_applications": [
-    {
-      "platform": "web"
-    }
-  ],
-  "categories": ["business", "automotive", "car wash", "mobile services"],
-  "screenshots": [
-    {
-      "src": "/images/screenshot1.jpg",
-      "sizes": "1280x720",
-      "type": "image/jpeg"
-    },
-    {
-      "src": "/images/screenshot2.jpg",
-      "sizes": "1280x720",
-      "type": "image/jpeg"
-    }
-  ],
-  "prefer_related_applications": false,
-  "orientation": "portrait",
-  "scope": "/",
-  "serviceworker": {
-    "src": "/service-worker.js",
-    "scope": "/"
-  }
-}
+/**
+ * Service Worker for Jay's Mobile Wash
+ * Provides offline functionality and caching for better performance
+ */
+
+const CACHE_NAME = 'jays-mobile-wash-v1.0.0';
+const STATIC_CACHE_URLS = [
+    '/',
+    '/index.html',
+    '/styles.css',
+    '/scripts.js',
+    '/manifest.json',
+    '/images/icon-192.png',
+    '/images/icon-512.png'
+];
+
+// Install event - cache static assets
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                return cache.addAll(STATIC_CACHE_URLS);
+            })
+            .catch((error) => {
+                console.error('Cache installation failed:', error);
+            })
+    );
+    self.skipWaiting();
+});
+
+// Activate event - clean up old caches
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+// Fetch event - serve cached content when offline
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.match(event.request)
+            .then((response) => {
+                // Return cached version or fetch from network
+                return response || fetch(event.request)
+                    .then((fetchResponse) => {
+                        // Cache successful responses
+                        if (fetchResponse.ok) {
+                            const responseClone = fetchResponse.clone();
+                            caches.open(CACHE_NAME)
+                                .then((cache) => {
+                                    cache.put(event.request, responseClone);
+                                });
+                        }
+                        return fetchResponse;
+                    });
+            })
+            .catch(() => {
+                // Offline fallback
+                if (event.request.mode === 'navigate') {
+                    return caches.match('/index.html');
+                }
+            })
+    );
+});
