@@ -10,10 +10,10 @@ const Navigation: React.FC = () => {
             Jay's Mobile Wash
           </Link>
           <div className="hidden md:flex space-x-8">
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#testimonials" className="nav-link">Reviews</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <Link to="/about-jays-company" className="nav-link">About</Link>
+            <a href="#services" className="nav-link group">Services</a>
+            <a href="#testimonials" className="nav-link group">Reviews</a>
+            <a href="#contact" className="nav-link group">Contact</a>
+            <Link to="/about-jays-company" className="nav-link group">About</Link>
           </div>
         </div>
       </div>

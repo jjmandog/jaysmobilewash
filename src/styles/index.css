@@ -81,12 +81,16 @@ body {
   
   .nav-link {
     @apply text-dark-300 hover:text-white transition-colors duration-300 
-           relative group font-medium;
+           relative font-medium;
   }
   
   .nav-link::after {
     @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 
-           transition-all duration-300 group-hover:w-full;
+           transition-all duration-300;
+  }
+  
+  .nav-link.group:hover::after {
+    @apply w-full;
   }
 }
 
