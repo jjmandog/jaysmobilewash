@@ -1,51 +1,38 @@
-# robots.txt for Jay's Mobile Wash
-# Last updated: 2025-06-30
+# Robots.txt for Jay's Mobile Wash
+# Advanced SEO Configuration
+# Generated: 2025-06-30
 
 User-agent: *
 Allow: /
+Allow: /ceramic-coating/
+Allow: /paint-correction/
+Allow: /mobile-detailing/
+Allow: /mobile-washing/
+Allow: /packages/
+Allow: /products/
+Allow: /locations/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: *.pdf$
+Disallow: /*#*
+Disallow: /*?*
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bingbot specific
+User-agent: Bingbot
+Allow: /
 Crawl-delay: 1
 
-# Allow Google to index fragment identifiers
-User-agent: Googlebot
-Allow: /#
-Allow: /#services
-Allow: /#before-after
-Allow: /#testimonials
-Allow: /#locations
-Allow: /#process
-Allow: /#faq
-Allow: /#contact
-Allow: /#blog
+# Important files
+Allow: /sitemap.xml
+Allow: /sitemap-index.xml
 
-# Block access to any administrative areas
-Disallow: /admin/
-Disallow: /wp-admin/
-Disallow: /dashboard/
-Disallow: /cms/
-
-# Block access to development/staging resources
-Disallow: /dev/
-Disallow: /staging/
-Disallow: /test/
-
-# Block specific file types
-Disallow: /*.pdf$
-Disallow: /*.doc$
-Disallow: /*.docx$
-Disallow: /*.xls$
-Disallow: /*.xlsx$
-Disallow: /*.ppt$
-Disallow: /*.pptx$
-Disallow: /*.zip$
-Disallow: /*.rar$
-Disallow: /*.tar$
-Disallow: /*.gz$
-
-# Block any temporary files
-Disallow: /*?*
-Disallow: /*?
-Disallow: /*~
-Disallow: /*#
-
-# Sitemap declaration
+# Sitemap
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml
