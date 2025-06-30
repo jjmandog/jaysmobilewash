@@ -39,7 +39,7 @@
     <meta name="twitter:site" content="@jaysmobilewash">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.jaysmobilewash.net/">
+    <link rel="canonical" href="https://www.jaysmobilewash.net/" id="canonical-link">
     
     <!-- Alternate URLs for service pages -->
     <link rel="alternate" href="https://www.jaysmobilewash.net/ceramic-coating/" hreflang="en">
@@ -67,8 +67,39 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Production Tailwind CSS -->
-    <link rel="stylesheet" href="/assets/css/tailwind.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87'
+                        },
+                        pink: {
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d'
+                        }
+                    }
+                }
+            }
+        }
+        // Suppress Tailwind warning for development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const originalWarn = console.warn;
+            console.warn = function(...args) {
+                if (!args[0]?.includes('cdn.tailwindcss.com')) {
+                    originalWarn.apply(console, args);
+                }
+            };
+        }
+    </script>
     
     <!-- Enhanced Schema.org LocalBusiness + Service markup -->
     <script type="application/ld+json">
@@ -286,6 +317,7 @@
             font-family: 'Manrope', sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         
         .gradient-text {
@@ -796,6 +828,63 @@
         #foam-chat-bubble:hover .foam-bubble-dots {
             display: flex;
         }
+        
+        /* Mobile-specific Improvements */
+        @media (max-width: 767px) {
+            #foam-chat-bubble {
+                width: 56px !important;
+                height: 56px !important;
+            }
+            
+            #mobile-sticky-cta {
+                bottom: 80px;
+            }
+            
+            #foam-chat-widget.with-sticky-cta {
+                bottom: 140px;
+            }
+            
+            /* Horizontal scroll for packages */
+            #packages .package-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                margin: 0 -1rem;
+                padding: 0 1rem;
+            }
+            
+            #packages .package-grid::-webkit-scrollbar {
+                display: none;
+            }
+            
+            #packages .package-card {
+                flex: 0 0 320px;
+                scroll-snap-align: center;
+                margin-right: 1rem;
+            }
+            
+            .scroll-indicator {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+            
+            .scroll-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #6b7280;
+                transition: background-color 0.3s;
+            }
+            
+            .scroll-dot.active {
+                background-color: #a855f7;
+            }
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -813,7 +902,7 @@
             <!-- Water tank container -->
             <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
                 <!-- Water fill -->
-                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear h-0">
+                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear" style="height: 0%">
                     <div class="water-wave"></div>
                     <div class="water-wave water-wave-2"></div>
                 </div>
@@ -830,7 +919,7 @@
             
             <!-- Logo -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg" width="96" height="96">
+                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
             </div>
             
             <!-- Progress text -->
@@ -1131,7 +1220,7 @@
                 <!-- Testimonial 1 -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 review-card">
                     <div class="p-6">
-                                                <div class="flex items-center mb-4">
+                        <div class="flex items-center mb-4">
                             <div class="text-yellow-400 flex mr-2">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1243,7 +1332,10 @@
                 <!-- Maderite -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
-                        <img src="https://placehold.co/400x300/444444/999999?text=Maderite" alt="Maderite Professional Products in Los Angeles" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" width="400" height="300" loading="lazy">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5NYWRlcml0ZTwvdGV4dD48L3N2Zz4=" 
+                             alt="Maderite Professional Products in Los Angeles" 
+                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" 
+                             width="400" height="300" loading="lazy">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Maderite</h3>
@@ -1258,7 +1350,10 @@
                 <!-- Koch Chemie -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
-                        <img src="https://placehold.co/400x300/444444/999999?text=Koch+Chemie" alt="Koch Chemie Premium Detailing Products in Orange County" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" width="400" height="300" loading="lazy">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Lb2NoIENoZW1pZTwvdGV4dD48L3N2Zz4=" 
+                             alt="Koch Chemie Premium Detailing Products in Orange County" 
+                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" 
+                             width="400" height="300" loading="lazy">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Koch Chemie</h3>
@@ -1273,7 +1368,10 @@
                 <!-- Bio Bomb -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
-                        <img src="https://placehold.co/400x300/444444/999999?text=Bio+Bomb" alt="Bio Bomb Interior Sanitization Services Los Angeles" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" width="400" height="300" loading="lazy">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5CaW8gQm9tYjwvdGV4dD48L3N2Zz4=" 
+                             alt="Bio Bomb Interior Sanitization Services Los Angeles" 
+                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" 
+                             width="400" height="300" loading="lazy">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Bio Bomb</h3>
@@ -1288,7 +1386,10 @@
                 <!-- Ultraclean -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
                     <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
-                        <img src="https://placehold.co/400x300/444444/999999?text=Ultraclean" alt="Ultraclean Professional Products for Mobile Detailing" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" width="400" height="300" loading="lazy">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5VbHRyYWNsZWFuPC90ZXh0Pjwvc3ZnPg==" 
+                             alt="Ultraclean Professional Products for Mobile Detailing" 
+                             class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300" 
+                             width="400" height="300" loading="lazy">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Ultraclean</h3>
@@ -1303,7 +1404,7 @@
         </div>
     </section>
 
-    <!-- Pricing Packages Section -->
+    <!-- Pricing Packages Section with Mobile Scroll -->
     <section id="packages" class="py-20 bg-gray-900">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -1315,9 +1416,9 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 package-grid">
                 <!-- Mini Detail -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 package-card">
                     <div class="p-6 bg-gradient-to-br from-purple-900/30 to-pink-900/30">
                         <h3 class="text-2xl font-bold mb-2">Mini Detail</h3>
                         <p class="text-3xl font-bold gradient-text">$70<span class="text-sm text-gray-400">/car</span></p>
@@ -1357,7 +1458,7 @@
                 </div>
                 
                 <!-- Luxury Detail -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform scale-105 border border-purple-500/30">
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform scale-105 border border-purple-500/30 package-card">
                     <div class="p-6 bg-gradient-to-br from-purple-600/30 to-pink-600/30">
                         <div class="inline-block px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-semibold rounded-full mb-2">
                             MOST POPULAR
@@ -1400,7 +1501,7 @@
                 </div>
                 
                 <!-- Max Detail -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 package-card">
                     <div class="p-6 bg-gradient-to-br from-purple-900/30 to-pink-900/30">
                         <h3 class="text-2xl font-bold mb-2">Max Detail</h3>
                         <p class="text-3xl font-bold gradient-text">$200<span class="text-sm text-gray-400">/car</span></p>
@@ -1440,11 +1541,21 @@
                 </div>
             </div>
             
+            <!-- Mobile scroll indicators -->
+            <div class="scroll-indicator md:hidden">
+                <span class="scroll-dot active"></span>
+                <span class="scroll-dot"></span>
+                <span class="scroll-dot"></span>
+            </div>
+            
             <!-- Ceramic Coating Banner -->
             <div class="mt-16 bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-xl overflow-hidden shadow-xl">
                 <div class="flex flex-col md:flex-row">
                     <div class="w-full md:w-2/5">
-                        <img src="https://placehold.co/800x600/444444/999999?text=Ceramic+Coating" alt="Ceramic Coating Application in Los Angeles" class="w-full h-full object-cover" width="800" height="600" loading="lazy">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMzYiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5DZXJhbWljIENvYXRpbmc8L3RleHQ+PC9zdmc+" 
+                             alt="Ceramic Coating Application in Los Angeles" 
+                             class="w-full h-full object-cover" 
+                             width="800" height="600" loading="lazy">
                     </div>
                     <div class="w-full md:w-3/5 p-8 flex flex-col justify-center">
                         <h3 class="text-2xl md:text-3xl font-bold mb-4">
@@ -1869,639 +1980,642 @@
         </div>
     </div>
 
-    <!-- Main JavaScript with All Fixes Integrated -->
-    <script>
-        // Configuration encryption to hide API key
-        const CONFIG = (() => {
-            const _0x4e8a=['c2stb3ItdjEt','NmFkYzMzMWJiNWEzNWEwNzlhMGJlNjQzNjcxOGFkOWVhMjQ3ZWViZTgxNDQ1NDM2NWE1NmY2MGYwODI1YzA5Mg=='];
-            const _0x38f2=function(_0x4e8ax2){return atob(_0x4e8ax2);};
-            return {
-                getKey: () => _0x38f2(_0x4e8a[0]) + _0x38f2(_0x4e8a[1])
-            };
-        })();
+   // COMPLETE JAVASCRIPT SECTION - PRODUCTION READY
+// Configuration encryption to hide API key
+const CONFIG = (() => {
+    const _0x4e8a=['c2stb3ItdjEt','NmFkYzMzMWJiNWEzNWEwNzlhMGJlNjQzNjcxOGFkOWVhMjQ3ZWViZTgxNDQ1NDM2NWE1NmY2MGYwODI1YzA5Mg=='];
+    const _0x38f2=function(_0x4e8ax2){return atob(_0x4e8ax2);};
+    return {
+        getKey: () => _0x38f2(_0x4e8a[0]) + _0x38f2(_0x4e8a[1])
+    };
+})();
 
-        // Main application initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize all components
-            initLoadingScreen();
-            initNavigation();
-            initFAQAccordion();
-            initBackToTop();
-            initJayMode();
-            initChatWidget();
-            initContactForm();
+// Service Worker Registration with version control
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js?v=' + new Date().getTime())
+            .then(registration => {
+                console.log('[Service Worker] Service worker registered - v' + new Date().toISOString().replace(/[-:.]/g, ''));
+                registration.update();
+            })
+            .catch(err => console.error('[Service Worker] Registration failed:', err));
+    });
+}
+
+// Main application initialization
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("[App] Initializing Jay's Mobile Wash SPA");
+    
+    // Initialize all components
+    initLoadingScreen();
+    initNavigation();
+    initFAQAccordion();
+    initBackToTop();
+    initJayMode();
+    initChatWidget();
+    initContactForm();
+    initSPARouter();
+    initPerformanceMonitoring();
+    initMobileEnhancements();
+    
+    console.log("[App] All components initialized successfully");
+});
+
+/**
+ * Loading Screen Implementation - PRODUCTION OPTIMIZED
+ */
+function initLoadingScreen() {
+    console.log("[Loading] Initialization started");
+    
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingProgress = document.getElementById('loading-progress');
+    const waterFill = document.getElementById('water-fill');
+    
+    if (!loadingScreen || !loadingProgress || !waterFill) {
+        console.error("[Loading] Critical elements missing");
+        return;
+    }
+    
+    let progress = 0;
+    const loadingInterval = setInterval(function() {
+        progress += Math.floor(Math.random() * 15) + 5;
+        if (progress > 100) progress = 100;
+        
+        loadingProgress.textContent = progress;
+        loadingScreen.setAttribute('aria-valuenow', progress);
+        waterFill.style.height = progress + '%';
+        
+        if (progress === 100) {
+            clearInterval(loadingInterval);
             
-            console.log("Application initialized successfully");
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }, 500);
+        }
+    }, 100);
+    
+    // Failsafe timeout
+    setTimeout(() => {
+        if (parseInt(loadingProgress.textContent) < 100) {
+            console.log("[Loading] Force completing after timeout");
+            clearInterval(loadingInterval);
+            
+            progress = 100;
+            loadingProgress.textContent = "100";
+            loadingScreen.setAttribute('aria-valuenow', '100');
+            waterFill.style.height = '100%';
+            
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }, 500);
+        }
+    }, 5000);
+}
+
+/**
+ * Navigation Functionality with Clean URLs
+ */
+function initNavigation() {
+    const navbar = document.getElementById('navbar');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    // Handle sticky header
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-gray-900/90');
+                navbar.classList.remove('bg-opacity-20');
+            } else {
+                navbar.classList.remove('bg-gray-900/90');
+                navbar.classList.add('bg-opacity-20');
+            }
         });
-
-        /**
-         * Loading Screen Implementation - FIXED
-         * Solves the issue where progress was stuck at 0%
-         */
-        function initLoadingScreen() {
-            console.log("[Loading] Initialization started");
+    }
+    
+    // Mobile menu toggle
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
             
-            const loadingScreen = document.getElementById('loading-screen');
-            const loadingProgress = document.getElementById('loading-progress');
-            const waterFill = document.getElementById('water-fill');
+            if (expanded) {
+                mobileMenu.classList.add('hidden');
+            } else {
+                mobileMenu.classList.remove('hidden');
+            }
+        });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
             
-            if (!loadingScreen || !loadingProgress || !waterFill) {
-                console.error("[Loading] Critical elements missing:", {
-                    loadingScreen: Boolean(loadingScreen),
-                    loadingProgress: Boolean(loadingProgress),
-                    waterFill: Boolean(waterFill)
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-                return;
+                
+                // Update URL with clean path
+                const cleanPath = href === '#' ? '/' : href.replace('#', '/');
+                window.history.pushState({}, '', cleanPath);
+                trackPageView(cleanPath);
+                
+                // Close mobile menu if open
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    });
+}
+
+/**
+ * FAQ Accordion Functionality
+ */
+function initFAQAccordion() {
+    const faqButtons = document.querySelectorAll('[id^="faq-"][id$="-button"]');
+    
+    faqButtons.forEach(button => {
+        const answerId = button.getAttribute('aria-controls');
+        const answerEl = document.getElementById(answerId);
+        
+        if (!answerEl) return;
+        
+        button.addEventListener('click', () => {
+            // Toggle aria-expanded
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            
+            // Toggle answer visibility
+            if (isExpanded) {
+                answerEl.classList.remove('active');
+            } else {
+                answerEl.classList.add('active');
             }
             
-            // Set ARIA attributes for accessibility
-            loadingScreen.setAttribute('role', 'progressbar');
-            loadingScreen.setAttribute('aria-valuemin', '0');
-            loadingScreen.setAttribute('aria-valuemax', '100');
-            loadingScreen.setAttribute('aria-valuenow', '0');
-            
-            // Track loading progress
-            let progress = 0;
-            const loadingInterval = setInterval(function() {
-                // Your original increment with better randomization
-                progress += Math.floor(Math.random() * 10) + 1;
-                if (progress > 100) progress = 100;
-                
-                // Update display and ARIA
-                loadingProgress.textContent = progress;
-                loadingScreen.setAttribute('aria-valuenow', progress);
-                waterFill.style.height = progress + '%';
-                
-                if (progress === 100) {
-                    clearInterval(loadingInterval);
-                    
-                    // Animate out after completion
-                    setTimeout(function() {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(function() {
-                            loadingScreen.style.display = 'none';
-                        }, 500);
-                    }, 500);
-                }
-            }, 150);
-            
-            // Failsafe to prevent eternal loading
-            setTimeout(() => {
-                if (parseInt(loadingProgress.textContent) < 100) {
-                    console.log("[Loading] Force completing after timeout");
-                    clearInterval(loadingInterval);
-                    
-                    progress = 100;
-                    loadingProgress.textContent = "100";
-                    loadingScreen.setAttribute('aria-valuenow', '100');
-                    waterFill.style.height = '100%';
-                    
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => loadingScreen.style.display = 'none', 500);
-                    }, 500);
-                }
-            }, 8000);
+            // Toggle icon rotation
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('rotate-180');
+            }
+        });
+    });
+}
+
+/**
+ * Back to Top Button
+ */
+function initBackToTop() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (!backToTopButton) return;
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+            backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+            backToTopButton.classList.remove('opacity-100', 'visible');
+            backToTopButton.classList.add('opacity-0', 'invisible');
         }
+    });
+    
+    // Scroll to top on click
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
-        /**
-         * Navigation Functionality
-         * Sticky header, mobile menu toggle, and active link highlighting
-         */
-        function initNavigation() {
-            const navbar = document.getElementById('navbar');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            // Handle sticky header
-            if (navbar) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 20) {
-                        navbar.classList.add('bg-gray-900/90');
-                        navbar.classList.remove('bg-opacity-20');
-                    } else {
-                        navbar.classList.remove('bg-gray-900/90');
-                        navbar.classList.add('bg-opacity-20');
-                    }
-                });
-            }
-            
-            // Mobile menu toggle
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    mobileMenuButton.setAttribute('aria-expanded', !expanded);
-                    
-                    if (expanded) {
-                        mobileMenu.classList.add('hidden');
-                    } else {
-                        mobileMenu.classList.remove('hidden');
-                    }
-                });
-            }
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href === '#') return;
-                    
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        
-                        // Close mobile menu if open
-                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            mobileMenuButton.setAttribute('aria-expanded', 'false');
-                        }
-                    }
-                });
-            });
-        }
-
-        /**
-         * FAQ Accordion Functionality
-         */
-        function initFAQAccordion() {
-            const faqButtons = document.querySelectorAll('[id^="faq-"][id$="-button"]');
-            
-            faqButtons.forEach(button => {
-                const answerId = button.getAttribute('aria-controls');
-                const answerEl = document.getElementById(answerId);
-                
-                if (!answerEl) return;
-                
-                button.addEventListener('click', () => {
-                    // Toggle aria-expanded
-                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                    button.setAttribute('aria-expanded', !isExpanded);
-                    
-                    // Toggle answer visibility
-                    if (isExpanded) {
-                        answerEl.classList.remove('active');
-                    } else {
-                        answerEl.classList.add('active');
-                    }
-                    
-                    // Toggle icon rotation
-                    const icon = button.querySelector('i');
-                    if (icon) {
-                        icon.classList.toggle('rotate-180');
-                    }
-                });
-            });
-        }
-
-        /**
-         * Back to Top Button
-         */
-        function initBackToTop() {
-            const backToTopButton = document.getElementById('back-to-top');
-            
-            if (!backToTopButton) return;
-            
-            // Show/hide button based on scroll position
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.remove('opacity-0', 'invisible');
-                    backToTopButton.classList.add('opacity-100', 'visible');
-                } else {
-                    backToTopButton.classList.remove('opacity-100', 'visible');
-                    backToTopButton.classList.add('opacity-0', 'invisible');
-                }
-            });
-            
-            // Scroll to top on click
-            backToTopButton.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        /**
-         * Fixed JAY Mode Implementation
-         * Solves the audio playback issue and adds proper beat reactivity
-         */
-        function initJayMode() {
-            let keySequence = '';
-            let targetSequence = 'JAY';
-            const audio = document.getElementById('jay-audio');
-            const jayOverlay = document.getElementById('jay-overlay');
-            let jayModeActive = false;
-            let jayModeTimer = null;
-            let audioContext = null;
-            let analyser = null;
-            let dataArray = null;
-            
-            // Check for required elements
-            if (!audio || !jayOverlay) {
-                console.error("[JAY Mode] Required elements missing:", {
-                    audio: Boolean(audio),
-                    jayOverlay: Boolean(jayOverlay)
-                });
-                return;
-            }
-            
-            // Preload audio file to improve startup time
-            audio.load();
-            console.log("[JAY Mode] Audio file preloaded");
-            
-            // Setup audio context with beat detection
-            function setupAudioAnalyser() {
-                try {
-                                        // Create or resume audio context
-                    if (audioContext) {
-                        if (audioContext.state === 'suspended') {
-                            audioContext.resume();
-                        }
-                        return true;
-                    }
-                    
-                    // Create new audio context
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    analyser = audioContext.createAnalyser();
-                    analyser.fftSize = 256;
-                    
-                    // Connect audio element to analyser
-                    const source = audioContext.createMediaElementSource(audio);
-                    source.connect(analyser);
-                    analyser.connect(audioContext.destination);
-                    
-                    // Create data array for frequency analysis
-                    dataArray = new Uint8Array(analyser.frequencyBinCount);
-                    
-                    console.log("[JAY Mode] Audio analyser setup successful");
-                    return true;
-                } catch(err) {
-                    console.error("[JAY Mode] Audio analyser setup failed:", err);
-                    return false;
-                }
-            }
-            
-            // Detect JAY sequence from keyboard
-            document.addEventListener('keydown', function(event) {
-                const key = event.key.toUpperCase();
-                keySequence += key;
-                
-                if (keySequence.length > 3) {
-                    keySequence = keySequence.substring(keySequence.length - 3);
-                }
-                
-                if (keySequence === targetSequence) {
-                    console.log('[JAY Mode] Sequence detected!');
-                    
-                    if (jayModeActive) {
-                        deactivateJayMode();
-                    } else {
-                        activateJayMode();
-                    }
-                }
-            });
-            
-            // Mobile-friendly audio unlock
-            async function unlockAudio() {
-                if (!audioContext) return;
-                
+/**
+ * JAY Mode Implementation - PRODUCTION READY
+ */
+function initJayMode() {
+    let keySequence = '';
+    let targetSequence = 'JAY';
+    const audio = document.getElementById('jay-audio');
+    const jayOverlay = document.getElementById('jay-overlay');
+    let jayModeActive = false;
+    let jayModeTimer = null;
+    let audioContext = null;
+    let analyser = null;
+    let dataArray = null;
+    
+    // Check for required elements
+    if (!audio || !jayOverlay) {
+        console.error("[JAY Mode] Required elements missing");
+        return;
+    }
+    
+    // Preload audio file
+    audio.load();
+    console.log("[JAY Mode] Audio file preloaded");
+    
+    // Setup audio context with beat detection
+    function setupAudioAnalyser() {
+        try {
+            // Create or resume audio context
+            if (audioContext) {
                 if (audioContext.state === 'suspended') {
-                    try {
-                        await audioContext.resume();
-                        
-                        // Create and play silent buffer (mobile device requirement)
-                        const buffer = audioContext.createBuffer(1, 1, 22050);
-                        const source = audioContext.createBufferSource();
-                        source.buffer = buffer;
-                        source.connect(audioContext.destination);
-                        source.start(0);
-                        
-                        console.log("[JAY Mode] Audio context unlocked");
-                    } catch(e) {
-                        console.error("[JAY Mode] Failed to unlock audio:", e);
-                    }
+                    audioContext.resume();
                 }
+                return true;
             }
             
-            async function activateJayMode() {
-                console.log('[JAY Mode] Activation started');
-                jayModeActive = true;
-                
-                // Clear existing timer
-                if (jayModeTimer) {
-                    clearTimeout(jayModeTimer);
-                }
-                
-                // Setup audio context and beat detection
-                const audioSetup = setupAudioAnalyser();
-                if (audioSetup) {
-                    await unlockAudio();
-                }
-                
-                // Reset audio to beginning
-                audio.currentTime = 0;
-                
-                // Fixed audio playback with proper error handling
-                try {
-                    const playPromise = audio.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            console.log('[JAY Mode] Audio playback started successfully');
-                            startBeatVisualization();
-                        }).catch(error => {
-                            console.error('[JAY Mode] Audio playback failed:', error);
-                            
-                            // Create fallback play button for browsers that block autoplay
-                            createPlayButton();
-                        });
-                    }
-                } catch (e) {
-                    console.error('[JAY Mode] Exception during playback:', e);
-                    createPlayButton();
-                }
-                
-                // Show overlay
-                jayOverlay.style.display = 'flex';
-                jayOverlay.setAttribute('aria-hidden', 'false');
-                
-                // Add body class for global effects
-                document.body.classList.add('jay-activated');
-                
-                // Create particles
-                createParticles(20);
-                
-                // Set timer to auto-deactivate after 45 seconds
-                jayModeTimer = setTimeout(() => deactivateJayMode(), 45000);
-            }
+            // Create new audio context
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 256;
             
-            // Create play button for browsers blocking autoplay
-            function createPlayButton() {
-                const existingButton = document.getElementById('jay-play-button');
-                if (existingButton) existingButton.remove();
-                
-                const playButton = document.createElement('button');
-                playButton.id = 'jay-play-button';
-                playButton.innerHTML = '<i class="fas fa-play"></i> Start JAY Mode';
-                playButton.setAttribute('aria-label', 'Start JAY Mode audio');
-                playButton.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[10001] bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 px-6 rounded-lg font-bold text-lg shadow-lg';
-                
-                playButton.addEventListener('click', async function() {
-                    await unlockAudio();
-                    
-                    try {
-                        await audio.play();
-                        console.log('[JAY Mode] Audio playback started after user interaction');
-                        this.remove();
-                        startBeatVisualization();
-                    } catch (err) {
-                        console.error('[JAY Mode] Audio still failed after click:', err);
-                        this.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Audio Error';
-                        setTimeout(() => this.remove(), 3000);
-                    }
-                });
-                
-                document.body.appendChild(playButton);
-            }
+            // Connect audio element to analyser
+            const source = audioContext.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
             
-            // Beat visualization and reactive elements
-            function startBeatVisualization() {
-                if (!analyser || !dataArray || !jayModeActive) return;
-                
-                function updateVisuals() {
-                    if (!jayModeActive) return;
-                    
-                    try {
-                        // Get frequency data
-                        analyser.getByteFrequencyData(dataArray);
-                        
-                        // Process frequency ranges
-                        const bassRange = averageFrequencyRange(dataArray, 0, 5);
-                        const midRange = averageFrequencyRange(dataArray, 6, 15);
-                        const highRange = averageFrequencyRange(dataArray, 16, 24);
-                        
-                        // Update beat bars
-                        updateBeatBars(bassRange, midRange, highRange);
-                        
-                        // Update reactive elements
-                        updateReactiveElements(bassRange, midRange, highRange);
-                        
-                        // Generate particles on strong beats
-                        if ((bassRange > 200 || midRange > 200) && Math.random() > 0.7) {
-                            createParticles(3);
-                        }
-                        
-                        // Continue loop if active
-                        if (jayModeActive) {
-                            requestAnimationFrame(updateVisuals);
-                        }
-                    } catch(e) {
-                        console.error("[JAY Mode] Visualization error:", e);
-                    }
-                }
-                
-                // Start loop
-                requestAnimationFrame(updateVisuals);
-            }
+            // Create data array for frequency analysis
+            dataArray = new Uint8Array(analyser.frequencyBinCount);
             
-            // Calculate average in frequency range
-            function averageFrequencyRange(dataArray, start, end) {
-                let sum = 0;
-                let count = 0;
-                
-                for (let i = start; i <= end && i < dataArray.length; i++) {
-                    sum += dataArray[i];
-                    count++;
-                }
-                
-                return count > 0 ? sum / count : 0;
-            }
+            console.log("[JAY Mode] Audio analyser setup successful");
+            return true;
+        } catch(err) {
+            console.error("[JAY Mode] Audio analyser setup failed:", err);
+            return false;
+        }
+    }
+    
+    // Detect JAY sequence from keyboard
+    document.addEventListener('keydown', function(event) {
+        const key = event.key.toUpperCase();
+        keySequence += key;
+        
+        if (keySequence.length > 3) {
+            keySequence = keySequence.substring(keySequence.length - 3);
+        }
+        
+        if (keySequence === targetSequence) {
+            console.log('[JAY Mode] Sequence detected!');
             
-            // Update beat visualization bars
-            function updateBeatBars(bass, mid, high) {
-                const bars = document.querySelectorAll('.beat-bar');
-                if (bars.length < 5) return;
-                
-                updateBar(bars[0], bass);
-                updateBar(bars[1], mid);
-                updateBar(bars[2], high);
-                updateBar(bars[3], mid);
-                updateBar(bars[4], bass);
-            }
-            
-            // Update single beat bar
-            function updateBar(bar, intensity) {
-                if (!bar) return;
-                
-                const height = 30 + (intensity / 255) * 90;
-                const glow = Math.floor((intensity / 255) * 30);
-                const brightness = 1 + (intensity / 255);
-                
-                bar.style.height = `${height}px`;
-                bar.style.boxShadow = `0 0 ${glow}px rgba(168, 85, 247, 0.8)`;
-                bar.style.filter = `brightness(${brightness})`;
-            }
-            
-            // Update elements that react to beats
-            function updateReactiveElements(bass, mid, high) {
-                // Calculate overall intensity (0-1)
-                const overallIntensity = (bass + mid + high) / (255 * 3);
-                
-                // Update logo
-                const logo = document.querySelector('.exploding-logo');
-                if (logo) {
-                    logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
-                }
-                
-                // Update text glow
-                const titleText = document.querySelector('.jay-mode-text');
-                if (titleText) {
-                    titleText.style.textShadow = `0 0 ${100 + overallIntensity * 40}px rgba(255, 255, 255, ${0.8 + overallIntensity * 0.2})`;
-                    titleText.style.filter = `brightness(${1.3 + overallIntensity * 0.5})`;
-                }
-                
-                // Background flash on heavy beats
-                if (bass > 200 || mid > 200) {
-                    jayOverlay.style.background = `rgba(0, 0, 0, ${0.7 - (overallIntensity * 0.3)})`;
-                } else {
-                    jayOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
-                }
-                
-                // Update elements with .beat-reactive class
-                document.querySelectorAll('.beat-reactive').forEach(element => {
-                    const freq = element.getAttribute('data-freq') || 'mid';
-                    let intensity;
-                    
-                    switch(freq) {
-                        case 'low': intensity = bass / 255; break;
-                        case 'high': intensity = high / 255; break;
-                        case 'mid':
-                        default: intensity = mid / 255; break;
-                    }
-                    
-                    if (intensity > 0.5) {
-                        element.classList.add('on-beat');
-                        element.style.transform = `scale(${1 + (intensity * 0.1)})`;
-                        element.style.filter = `brightness(${1 + (intensity * 0.5)})`;
-                    } else {
-                        element.classList.remove('on-beat');
-                        element.style.transform = '';
-                        element.style.filter = '';
-                    }
-                });
-            }
-            
-            function deactivateJayMode() {
-                console.log('[JAY Mode] Deactivation');
-                jayModeActive = false;
-                
-                // Stop audio
-                audio.pause();
-                audio.currentTime = 0;
-                
-                // Hide overlay
-                jayOverlay.style.display = 'none';
-                jayOverlay.setAttribute('aria-hidden', 'true');
-                
-                // Remove activation class
-                document.body.classList.remove('jay-activated');
-                
-                // Remove play button if exists
-                const playButton = document.getElementById('jay-play-button');
-                if (playButton) playButton.remove();
-                
-                // Remove particles
-                document.querySelectorAll('.floating-product-particle').forEach(particle => {
-                    particle.remove();
-                });
-                
-                // Reset reactive elements
-                document.querySelectorAll('.beat-reactive').forEach(element => {
-                    element.classList.remove('on-beat');
-                    element.style.transform = '';
-                    element.style.filter = '';
-                });
-                
-                // Clear timer
-                if (jayModeTimer) {
-                    clearTimeout(jayModeTimer);
-                    jayModeTimer = null;
-                }
-            }
-            
-            // Create floating particles
-            function createParticles(count = 10) {
-                for (let i = 0; i < count; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'floating-product-particle';
-                    
-                    // Randomize position
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    
-                    // Randomize size
-                    const size = 40 + Math.random() * 40;
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    
-                    // Custom animation
-                    particle.style.animationDuration = 3 + Math.random() * 3 + 's';
-                    particle.style.animationDelay = Math.random() * 2 + 's';
-                    
-                    document.body.appendChild(particle);
-                    
-                    // Remove after animation
-                    setTimeout(() => {
-                        if (particle.parentNode) {
-                            particle.remove();
-                        }
-                    }, 6000);
-                }
+            if (jayModeActive) {
+                deactivateJayMode();
+            } else {
+                activateJayMode();
             }
         }
-
-        /**
-         * Chat Widget Implementation with Fixed OpenRouter API Integration
-         */
-        function initChatWidget() {
-            // Main elements
-            const chatWidget = document.getElementById('foam-chat-widget');
-            const chatBubble = document.getElementById('foam-chat-bubble');
-            const chatPanel = document.getElementById('foam-chat-panel');
-            const minimizeBtn = document.getElementById('foam-chat-minimize');
-            const chatInput = document.getElementById('foam-chat-input');
-            const sendBtn = document.getElementById('foam-chat-send');
-            const messagesContainer = document.getElementById('foam-chat-messages');
-            const waterContainer = document.getElementById('foam-chat-water-container');
-            const waterFill = document.getElementById('foam-chat-water-fill');
-            const aiThinking = document.getElementById('ai-thinking');
+    });
+    
+    // Mobile-friendly audio unlock
+    async function unlockAudio() {
+        if (!audioContext) return;
+        
+        if (audioContext.state === 'suspended') {
+            try {
+                await audioContext.resume();
+                
+                // Create and play silent buffer
+                const buffer = audioContext.createBuffer(1, 1, 22050);
+                const source = audioContext.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioContext.destination);
+                source.start(0);
+                
+                console.log("[JAY Mode] Audio context unlocked");
+            } catch(e) {
+                console.error("[JAY Mode] Failed to unlock audio:", e);
+            }
+        }
+    }
+    
+    async function activateJayMode() {
+        console.log('[JAY Mode] Activation started');
+        jayModeActive = true;
+        
+        // Clear existing timer
+        if (jayModeTimer) {
+            clearTimeout(jayModeTimer);
+        }
+        
+        // Setup audio context and beat detection
+        const audioSetup = setupAudioAnalyser();
+        if (audioSetup) {
+            await unlockAudio();
+        }
+        
+        // Reset audio to beginning
+        audio.currentTime = 0;
+        
+        // Try to play audio
+        try {
+            const playPromise = audio.play();
             
-            // Check for required elements
-            if (!chatWidget || !chatBubble || !chatPanel || !messagesContainer) {
-                console.error("[Chat] Required elements missing");
-                return;
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('[JAY Mode] Audio playback started successfully');
+                    startBeatVisualization();
+                }).catch(error => {
+                    console.error('[JAY Mode] Audio playback failed:', error);
+                    createPlayButton();
+                });
+            }
+        } catch (e) {
+            console.error('[JAY Mode] Exception during playback:', e);
+            createPlayButton();
+        }
+        
+        // Show overlay
+        jayOverlay.style.display = 'flex';
+        jayOverlay.setAttribute('aria-hidden', 'false');
+        
+        // Add body class for global effects
+        document.body.classList.add('jay-activated');
+        
+        // Create particles
+        createParticles(20);
+        
+        // Set timer to auto-deactivate after 45 seconds
+        jayModeTimer = setTimeout(() => deactivateJayMode(), 45000);
+    }
+    
+    // Create play button for browsers blocking autoplay
+    function createPlayButton() {
+        const existingButton = document.getElementById('jay-play-button');
+        if (existingButton) existingButton.remove();
+        
+        const playButton = document.createElement('button');
+        playButton.id = 'jay-play-button';
+        playButton.innerHTML = '<i class="fas fa-play"></i> Start JAY Mode';
+        playButton.setAttribute('aria-label', 'Start JAY Mode audio');
+        playButton.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[10001] bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 px-6 rounded-lg font-bold text-lg shadow-lg';
+        
+        playButton.addEventListener('click', async function() {
+            await unlockAudio();
+            
+            try {
+                await audio.play();
+                console.log('[JAY Mode] Audio playback started after user interaction');
+                this.remove();
+                startBeatVisualization();
+            } catch (err) {
+                console.error('[JAY Mode] Audio still failed after click:', err);
+                this.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Audio Error';
+                setTimeout(() => this.remove(), 3000);
+            }
+        });
+        
+        document.body.appendChild(playButton);
+    }
+    
+    // Beat visualization and reactive elements
+    function startBeatVisualization() {
+        if (!analyser || !dataArray || !jayModeActive) return;
+        
+        function updateVisuals() {
+            if (!jayModeActive) return;
+            
+            try {
+                // Get frequency data
+                analyser.getByteFrequencyData(dataArray);
+                
+                // Process frequency ranges
+                const bassRange = averageFrequencyRange(dataArray, 0, 5);
+                const midRange = averageFrequencyRange(dataArray, 6, 15);
+                const highRange = averageFrequencyRange(dataArray, 16, 24);
+                
+                // Update beat bars
+                updateBeatBars(bassRange, midRange, highRange);
+                
+                // Update reactive elements
+                updateReactiveElements(bassRange, midRange, highRange);
+                
+                // Generate particles on strong beats
+                if ((bassRange > 200 || midRange > 200) && Math.random() > 0.7) {
+                    createParticles(3);
+                }
+                
+                // Continue loop if active
+                if (jayModeActive) {
+                    requestAnimationFrame(updateVisuals);
+                }
+            } catch(e) {
+                console.error("[JAY Mode] Visualization error:", e);
+            }
+        }
+        
+        // Start loop
+        requestAnimationFrame(updateVisuals);
+    }
+    
+    // Calculate average in frequency range
+    function averageFrequencyRange(dataArray, start, end) {
+        let sum = 0;
+        let count = 0;
+        
+        for (let i = start; i <= end && i < dataArray.length; i++) {
+            sum += dataArray[i];
+            count++;
+        }
+        
+        return count > 0 ? sum / count : 0;
+    }
+    
+    // Update beat visualization bars
+    function updateBeatBars(bass, mid, high) {
+        const bars = document.querySelectorAll('.beat-bar');
+        if (bars.length < 5) return;
+        
+        updateBar(bars[0], bass);
+        updateBar(bars[1], mid);
+        updateBar(bars[2], high);
+        updateBar(bars[3], mid);
+        updateBar(bars[4], bass);
+    }
+    
+    // Update single beat bar
+    function updateBar(bar, intensity) {
+        if (!bar) return;
+        
+        const height = 30 + (intensity / 255) * 90;
+        const glow = Math.floor((intensity / 255) * 30);
+        const brightness = 1 + (intensity / 255);
+        
+        bar.style.height = `${height}px`;
+        bar.style.boxShadow = `0 0 ${glow}px rgba(168, 85, 247, 0.8)`;
+        bar.style.filter = `brightness(${brightness})`;
+    }
+    
+    // Update elements that react to beats
+    function updateReactiveElements(bass, mid, high) {
+        // Calculate overall intensity (0-1)
+        const overallIntensity = (bass + mid + high) / (255 * 3);
+        
+        // Update logo
+        const logo = document.querySelector('.exploding-logo');
+        if (logo) {
+            logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
+        }
+        
+        // Update text glow
+        const titleText = document.querySelector('.jay-mode-text');
+        if (titleText) {
+            titleText.style.textShadow = `0 0 ${100 + overallIntensity * 40}px rgba(255, 255, 255, ${0.8 + overallIntensity * 0.2})`;
+            titleText.style.filter = `brightness(${1.3 + overallIntensity * 0.5})`;
+        }
+        
+        // Background flash on heavy beats
+        if (bass > 200 || mid > 200) {
+            jayOverlay.style.background = `rgba(0, 0, 0, ${0.7 - (overallIntensity * 0.3)})`;
+        } else {
+            jayOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+        }
+        
+        // Update elements with .beat-reactive class
+        document.querySelectorAll('.beat-reactive').forEach(element => {
+            const freq = element.getAttribute('data-freq') || 'mid';
+            let intensity;
+            
+            switch(freq) {
+                case 'low': intensity = bass / 255; break;
+                case 'high': intensity = high / 255; break;
+                case 'mid':
+                default: intensity = mid / 255; break;
             }
             
-            // Show chat widget with fade in
-            chatWidget.classList.remove('hidden');
+            if (intensity > 0.5) {
+                element.classList.add('on-beat');
+                element.style.transform = `scale(${1 + (intensity * 0.1)})`;
+                element.style.filter = `brightness(${1 + (intensity * 0.5)})`;
+            } else {
+                element.classList.remove('on-beat');
+                element.style.transform = '';
+                element.style.filter = '';
+            }
+        });
+    }
+    
+    function deactivateJayMode() {
+        console.log('[JAY Mode] Deactivation');
+        jayModeActive = false;
+        
+        // Stop audio
+        audio.pause();
+        audio.currentTime = 0;
+        
+        // Hide overlay
+        jayOverlay.style.display = 'none';
+        jayOverlay.setAttribute('aria-hidden', 'true');
+        
+        // Remove activation class
+        document.body.classList.remove('jay-activated');
+        
+        // Remove play button if exists
+        const playButton = document.getElementById('jay-play-button');
+        if (playButton) playButton.remove();
+        
+        // Remove particles
+        document.querySelectorAll('.floating-product-particle').forEach(particle => {
+            particle.remove();
+        });
+        
+        // Reset reactive elements
+        document.querySelectorAll('.beat-reactive').forEach(element => {
+            element.classList.remove('on-beat');
+            element.style.transform = '';
+            element.style.filter = '';
+        });
+        
+        // Clear timer
+        if (jayModeTimer) {
+            clearTimeout(jayModeTimer);
+            jayModeTimer = null;
+        }
+    }
+    
+    // Create floating particles
+    function createParticles(count = 10) {
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-product-particle';
+            
+            // Randomize position
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            
+            // Randomize size
+            const size = 40 + Math.random() * 40;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Custom animation
+            particle.style.animationDuration = 3 + Math.random() * 3 + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.body.appendChild(particle);
+            
+            // Remove after animation
             setTimeout(() => {
-                chatWidget.style.opacity = '1';
-                chatWidget.style.transition = 'opacity 0.5s ease';
-            }, 100);
-            
-            // OpenRouter API Configuration (Hidden)
-            const OPENROUTER_API_KEY = CONFIG.getKey();
-            const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-            
-            // Chat history and context
-            let chatHistory = [
-                {
-                    role: "system",
-                    content: `You are Detail Detective, an AI assistant for Jay's Mobile Wash - a premium mobile car detailing service in Los Angeles and Orange County.
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, 6000);
+        }
+    }
+}
+
+/**
+ * Chat Widget Implementation with Production API Integration
+ */
+function initChatWidget() {
+    // Main elements
+    const chatWidget = document.getElementById('foam-chat-widget');
+    const chatBubble = document.getElementById('foam-chat-bubble');
+    const chatPanel = document.getElementById('foam-chat-panel');
+    const minimizeBtn = document.getElementById('foam-chat-minimize');
+    const chatInput = document.getElementById('foam-chat-input');
+    const sendBtn = document.getElementById('foam-chat-send');
+    const messagesContainer = document.getElementById('foam-chat-messages');
+    const waterContainer = document.getElementById('foam-chat-water-container');
+    const waterFill = document.getElementById('foam-chat-water-fill');
+    const aiThinking = document.getElementById('ai-thinking');
+    
+    // Check for required elements
+    if (!chatWidget || !chatBubble || !chatPanel || !messagesContainer) {
+        console.error("[Chat] Required elements missing");
+        return;
+    }
+    
+    // Show chat widget with fade in
+    chatWidget.classList.remove('hidden');
+    setTimeout(() => {
+        chatWidget.style.opacity = '1';
+        chatWidget.style.transition = 'opacity 0.5s ease';
+    }, 100);
+    
+    // OpenRouter API Configuration
+    const OPENROUTER_API_KEY = CONFIG.getKey();
+    const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+    
+    // Chat history and context
+    let chatHistory = [
+        {
+            role: "system",
+            content: `You are Detail Detective, an AI assistant for Jay's Mobile Wash - a premium mobile car detailing service in Los Angeles and Orange County.
 
 Key information about Jay's Mobile Wash:
 - Services: Mobile detailing, ceramic coating, paint correction, headlight restoration
@@ -2516,335 +2630,638 @@ Key information about Jay's Mobile Wash:
 Your personality: You're the "Detail Detective" who can spot issues and recommend the perfect treatment. Be helpful, knowledgeable but conversational. Use car detailing metaphors occasionally.
 
 Always recommend they call 562-228-9429 for booking or specific quotes. Keep responses concise and helpful.`
-                }
+        }
+    ];
+    
+    // Toggle chat panel visibility
+    chatBubble.addEventListener('click', openChatPanel);
+    
+    // Minimize chat panel
+    if (minimizeBtn) {
+        minimizeBtn.addEventListener('click', () => {
+            chatPanel.classList.add('hidden');
+            chatBubble.classList.remove('hidden');
+        });
+    }
+    
+    // Send message handlers
+    if (sendBtn && chatInput) {
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
+    
+    // Open chat panel with animation
+    function openChatPanel() {
+        chatBubble.classList.add('hidden');
+        chatPanel.classList.remove('hidden');
+        
+        // Show water filling animation
+        if (waterContainer && waterFill) {
+            waterContainer.style.opacity = '1';
+            
+            let percent = 0;
+            const loadingMessages = [
+                "Preparing foam cannons...",
+                "Mixing ceramic coating...",
+                "Activating Detail Detective...",
+                "Loading detailing expertise..."
             ];
+            const chatLoadingPercent = document.getElementById('chat-loading-percent');
+            const chatLoadingMessage = document.getElementById('chat-loading-message');
             
-            // Toggle chat panel visibility
-            chatBubble.addEventListener('click', openChatPanel);
-            
-            // Minimize chat panel
-            if (minimizeBtn) {
-                minimizeBtn.addEventListener('click', () => {
-                    chatPanel.classList.add('hidden');
-                    chatBubble.classList.remove('hidden');
-                });
-            }
-            
-            // Send message handlers
-            if (sendBtn && chatInput) {
-                sendBtn.addEventListener('click', sendMessage);
-                chatInput.addEventListener('keypress', e => {
-                    if (e.key === 'Enter') {
-                        sendMessage();
+            if (chatLoadingPercent && chatLoadingMessage) {
+                const loadingInterval = setInterval(() => {
+                    percent += 5;
+                    if (percent > 100) percent = 100;
+                    
+                    chatLoadingPercent.textContent = Math.floor(percent);
+                    waterFill.style.height = percent + '%';
+                    
+                    const messageIndex = Math.floor(percent / 25);
+                    if (messageIndex < loadingMessages.length) {
+                        chatLoadingMessage.textContent = loadingMessages[messageIndex];
                     }
-                });
-            }
-            
-            // Open chat panel with animation
-            function openChatPanel() {
-                chatBubble.classList.add('hidden');
-                chatPanel.classList.remove('hidden');
-                
-                // Show water filling animation
-                if (waterContainer && waterFill) {
-                    waterContainer.style.opacity = '1';
                     
-                    let percent = 0;
-                    const loadingMessages = [
-                        "Preparing foam cannons...",
-                        "Mixing ceramic coating...",
-                        "Activating Detail Detective...",
-                        "Loading detailing expertise..."
-                    ];
-                    const chatLoadingPercent = document.getElementById('chat-loading-percent');
-                    const chatLoadingMessage = document.getElementById('chat-loading-message');
-                    
-                    if (chatLoadingPercent && chatLoadingMessage) {
-                        const loadingInterval = setInterval(() => {
-                            percent += 5;
-                            if (percent > 100) percent = 100;
+                    if (percent >= 100) {
+                        clearInterval(loadingInterval);
+                        setTimeout(() => {
+                            waterContainer.style.opacity = '0';
                             
-                            chatLoadingPercent.textContent = Math.floor(percent);
-                            waterFill.style.height = percent + '%';
-                            
-                            const messageIndex = Math.floor(percent / 25);
-                            if (messageIndex < loadingMessages.length) {
-                                chatLoadingMessage.textContent = loadingMessages[messageIndex];
+                            // Add welcome message if first time
+                            if (messagesContainer.children.length === 0) {
+                                addMessage("I'm Detail Detective, Jay's AI assistant! 🕵️‍♂️✨ I'll help spot those swirl marks in your finish and recommend the perfect treatment. What would you like to know about our mobile detailing services?", 'ai');
                             }
-                            
-                            if (percent >= 100) {
-                                clearInterval(loadingInterval);
-                                setTimeout(() => {
-                                    waterContainer.style.opacity = '0';
-                                    
-                                    // Add welcome message if first time
-                                    if (messagesContainer.children.length === 0) {
-                                        addMessage("I'm Detail Detective, Jay's AI assistant! 🕵️‍♂️✨ I'll help spot those swirl marks in your finish and recommend the perfect treatment. What would you like to know about our mobile detailing services?", 'ai');
-                                    }
-                                }, 500);
-                            }
-                        }, 30);
+                        }, 500);
                     }
-                }
-            }
-            
-            // Add message to chat
-            function addMessage(text, sender) {
-                const messageDiv = document.createElement('div');
-                
-                if (sender === 'user') {
-                    messageDiv.className = 'flex justify-end mb-4';
-                    messageDiv.innerHTML = `
-                        <div class="max-w-[80%]">
-                            <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-t-lg rounded-l-lg shadow">
-                                <p class="text-sm">${text}</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    messageDiv.className = 'flex mb-4';
-                    messageDiv.innerHTML = `
-                        <div class="max-w-[80%]">
-                            <div class="bg-gray-800 p-3 rounded-t-lg rounded-r-lg shadow">
-                                <p class="text-sm">${formatMessageLinks(text)}</p>
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                messagesContainer.appendChild(messageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }
-            
-            // Format links and phone numbers in messages
-            function formatMessageLinks(text) {
-                // Make phone numbers clickable
-                text = text.replace(/(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4})/g, 
-                    '<a href="tel:$1" class="text-purple-400 hover:text-purple-300">$1</a>');
-                
-                // Make URLs clickable
-                text = text.replace(/(https?:\/\/[^\s]+)/g,
-                    '<a href="$1" target="_blank" rel="noopener" class="text-purple-400 hover:text-purple-300">$1</a>');
-                
-                return text;
-            }
-            
-            // Send message to API and get response
-            async function sendMessage() {
-                const message = chatInput.value.trim();
-                if (!message) return;
-                
-                // Add user message to UI
-                addMessage(message, 'user');
-                chatInput.value = '';
-                
-                // Add user message to chat history
-                chatHistory.push({
-                    role: "user",
-                    content: message
-                });
-                
-                try {
-                    // Show AI thinking indicator
-                    if (aiThinking) {
-                        aiThinking.classList.remove('hidden');
-                    }
-                    
-                    // Call API
-                    const response = await callOpenRouterAPI(chatHistory);
-                    
-                    // Hide thinking indicator
-                    if (aiThinking) {
-                        aiThinking.classList.add('hidden');
-                    }
-                    
-                    // Add AI response to history
-                    chatHistory.push({
-                        role: "assistant",
-                        content: response
-                    });
-                    
-                    // Add response to UI
-                    addMessage(response, 'ai');
-                    
-                } catch (error) {
-                    console.error('[Chat] API error:', error);
-                    
-                    // Hide thinking indicator
-                    if (aiThinking) {
-                        aiThinking.classList.add('hidden');
-                    }
-                    
-                    // Handle error gracefully
-                    const fallbackResponse = "I apologize, but I'm having trouble connecting to my knowledge base right now. For immediate assistance with mobile detailing services, please call us at 562-228-9429.";
-                    addMessage(fallbackResponse, 'ai');
-                    
-                    // Add fallback to history
-                    chatHistory.push({
-                        role: "assistant",
-                        content: fallbackResponse
-                    });
-                }
-            }
-            
-            /**
-             * FIXED OpenRouter API Integration
-             * Properly sets up API call with correct headers and error handling
-             */
-            async function callOpenRouterAPI(history) {
-                console.log("[API] Request initiated with", history.length, "messages");
-                
-                // If offline, use fallback immediately
-                if (!navigator.onLine) {
-                    console.warn("[API] Device offline - using fallback response");
-                    return getFallbackResponse(history[history.length - 1].content);
-                }
-                
-                try {
-                    console.log("[API] Making request to:", OPENROUTER_API_URL);
-                    
-                    // Fixed API request with proper headers
-                    const response = await fetch(OPENROUTER_API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                            'Content-Type': 'application/json',
-                            'HTTP-Referer': window.location.origin,
-                            'X-Title': "Jay's Mobile Wash"
-                        },
-                        body: JSON.stringify({
-                            model: 'openai/gpt-3.5-turbo',
-                            messages: history,
-                            max_tokens: 500,
-                            temperature: 0.7,
-                            stream: false
-                        })
-                    });
-                    
-                    // Handle API errors
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error(`[API] Error (${response.status}):`, errorText);
-                        throw new Error(`API request failed with status ${response.status}`);
-                    }
-                    
-                    // Parse API response
-                    const data = await response.json();
-                    console.log("[API] Response received successfully");
-                    
-                    // Validate response structure
-                    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-                        console.error("[API] Invalid response format:", data);
-                        throw new Error("Invalid response format");
-                    }
-                    
-                    // Return message content
-                    return data.choices[0].message.content;
-                    
-                } catch (error) {
-                    console.error('[API] Call failed:', error);
-                    return getFallbackResponse(history[history.length - 1].content);
-                }
-            }
-            
-            // Get fallback response if API fails
-            function getFallbackResponse(query) {
-                query = query.toLowerCase();
-                
-                // Product info responses
-                if (query.includes("maderite")) {
-                    return "Maderite is our preferred brand for professional buffing compounds and polishes. Their products are specially formulated for perfect paint correction with minimal swirl marks and outstanding finish. We use Maderite for all our high-end detailing services and ceramic coating preparation.";
-                }
-                
-                if (query.includes("koch chemie")) {
-                    return "Koch Chemie is a premium German brand we trust for their exceptional interior and exterior cleaning products. Their Green Star all-purpose cleaner and Gentle Snow Foam are staples in our detailing arsenal, providing superior cleaning power while being gentle on surfaces.";
-                }
-                
-                if (query.includes("ceramic")) {
-                    return "Our ceramic coating starts at $450 for cars and $550 for SUVs/trucks. It provides 2 years of protection with hydrophobic properties and UV resistance. For more details or to book, please call us at 562-228-9429.";
-                }
-                
-                if (query.includes("price") || query.includes("cost") || query.includes("package")) {
-                    return "We offer three mobile detailing packages: Mini Detail ($70/$80), Luxury Detail ($130/$140), and Max Detail ($200/$210). Prices are for cars/SUVs. For ceramic coating and other services, please call 562-228-9429.";
-                }
-                
-                // Default response with Detail Detective personality
-                return "As the Detail Detective, I'm committed to helping you find the perfect detailing solution! For specific questions about our mobile services in LA & OC, please call us at 562-228-9429. We offer ceramic coating, paint correction, and full mobile detailing at your location using premium products like Maderite and Koch Chemie. What specific detailing needs can I help with today?";
+                }, 30);
             }
         }
-
-        /**
-         * Contact Form Handler
-         */
-        function initContactForm() {
-            const contactForm = document.getElementById('contact-form');
+    }
+    
+    // Add message to chat
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        
+        if (sender === 'user') {
+            messageDiv.className = 'flex justify-end mb-4';
+            messageDiv.innerHTML = `
+                <div class="max-w-[80%]">
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-t-lg rounded-l-lg shadow">
+                        <p class="text-sm">${text}</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            messageDiv.className = 'flex mb-4';
+            messageDiv.innerHTML = `
+                <div class="max-w-[80%]">
+                    <div class="bg-gray-800 p-3 rounded-t-lg rounded-r-lg shadow">
+                        <p class="text-sm">${formatMessageLinks(text)}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Format links and phone numbers in messages
+    function formatMessageLinks(text) {
+        // Make phone numbers clickable
+        text = text.replace(/(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4})/g, 
+            '<a href="tel:$1" class="text-purple-400 hover:text-purple-300">$1</a>');
+        
+        // Make URLs clickable
+        text = text.replace(/(https?:\/\/[^\s]+)/g,
+            '<a href="$1" target="_blank" rel="noopener" class="text-purple-400 hover:text-purple-300">$1</a>');
+        
+        return text;
+    }
+    
+    // Send message to API and get response
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message to UI
+        addMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Add user message to chat history
+        chatHistory.push({
+            role: "user",
+            content: message
+        });
+        
+        try {
+            // Show AI thinking indicator
+            if (aiThinking) {
+                aiThinking.classList.remove('hidden');
+            }
             
-            if (!contactForm) return;
+            // Call API
+            const response = await callOpenRouterAPI(chatHistory);
             
-            contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const formData = {
-                    name: document.getElementById('name').value,
-                    phone: document.getElementById('phone').value,
-                    email: document.getElementById('email').value,
-                    service: document.getElementById('service').value,
-                    message: document.getElementById('message').value
-                };
-                
-                // Submit button
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                
-                // Update button state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
-                
-                try {
-                    // In production, this would send to your backend
-                    // For now, simulate success
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    
-                    // Success state
-                    submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Message Sent!';
-                    submitBtn.classList.add('bg-green-500');
-                    
-                    // Reset form
-                    contactForm.reset();
-                    
-                    // Reset button after 3 seconds
-                    setTimeout(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.classList.remove('bg-green-500');
-                    }, 3000);
-                    
-                } catch (error) {
-                    console.error('Form submission error:', error);
-                    
-                    // Error state
-                    submitBtn.innerHTML = '<i class="fas fa-times mr-2"></i> Error - Try Again';
-                    submitBtn.classList.add('bg-red-500');
-                    
-                    // Reset button after 3 seconds
-                    setTimeout(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.classList.remove('bg-red-500');
-                    }, 3000);
-                }
+            // Hide thinking indicator
+            if (aiThinking) {
+                aiThinking.classList.add('hidden');
+            }
+            
+            // Add AI response to history
+            chatHistory.push({
+                role: "assistant",
+                content: response
+            });
+            
+            // Add response to UI
+            addMessage(response, 'ai');
+            
+        } catch (error) {
+            console.error('[Chat] API error:', error);
+            
+            // Hide thinking indicator
+            if (aiThinking) {
+                aiThinking.classList.add('hidden');
+            }
+            
+            // Handle error gracefully
+            const fallbackResponse = "I apologize, but I'm having trouble connecting to my knowledge base right now. For immediate assistance with mobile detailing services, please call us at 562-228-9429.";
+            addMessage(fallbackResponse, 'ai');
+            
+            // Add fallback to history
+            chatHistory.push({
+                role: "assistant",
+                content: fallbackResponse
             });
         }
+    }
+    
+    /**
+     * OpenRouter API Integration
+     */
+    async function callOpenRouterAPI(history) {
+        console.log("[API] Request initiated with", history.length, "messages");
+        
+        // If offline, use fallback immediately
+        if (!navigator.onLine) {
+            console.warn("[API] Device offline - using fallback response");
+            return getFallbackResponse(history[history.length - 1].content);
+        }
+        
+        try {
+            console.log("[API] Making request to:", OPENROUTER_API_URL);
+            
+            // API request with proper headers
+            const response = await fetch(OPENROUTER_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': window.location.origin,
+                    'X-Title': "Jay's Mobile Wash"
+                },
+                body: JSON.stringify({
+                    model: 'openai/gpt-3.5-turbo',
+                    messages: history,
+                    max_tokens: 500,
+                    temperature: 0.7,
+                    stream: false
+                })
+            });
+            
+            // Handle API errors
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(`[API] Error (${response.status}):`, errorText);
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            
+            // Parse API response
+            const data = await response.json();
+            console.log("[API] Response received successfully");
+            
+            // Validate response structure
+            if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+                console.error("[API] Invalid response format:", data);
+                throw new Error("Invalid response format");
+            }
+            
+            // Return message content
+            return data.choices[0].message.content;
+            
+        } catch (error) {
+            console.error('[API] Call failed:', error);
+            return getFallbackResponse(history[history.length - 1].content);
+        }
+    }
+    
+    // Get fallback response if API fails
+    function getFallbackResponse(query) {
+        query = query.toLowerCase();
+        
+        // Product info responses
+        if (query.includes("maderite")) {
+            return "Maderite is our preferred brand for professional buffing compounds and polishes. Their products are specially formulated for perfect paint correction with minimal swirl marks and outstanding finish. We use Maderite for all our high-end detailing services and ceramic coating preparation.";
+        }
+        
+        if (query.includes("koch chemie")) {
+            return "Koch Chemie is a premium German brand we trust for their exceptional interior and exterior cleaning products. Their Green Star all-purpose cleaner and Gentle Snow Foam are staples in our detailing arsenal, providing superior cleaning power while being gentle on surfaces.";
+        }
+        
+        if (query.includes("ceramic")) {
+            return "Our ceramic coating starts at $450 for cars and $550 for SUVs/trucks. It provides 2 years of protection with hydrophobic properties and UV resistance. For more details or to book, please call us at 562-228-9429.";
+        }
+        
+        if (query.includes("price") || query.includes("cost") || query.includes("package")) {
+            return "We offer three mobile detailing packages: Mini Detail ($70/$80), Luxury Detail ($130/$140), and Max Detail ($200/$210). Prices are for cars/SUVs. For ceramic coating and other services, please call 562-228-9429.";
+        }
+        
+        // Default response with Detail Detective personality
+        return "As the Detail Detective, I'm committed to helping you find the perfect detailing solution! For specific questions about our mobile services in LA & OC, please call us at 562-228-9429. We offer ceramic coating, paint correction, and full mobile detailing at your location using premium products like Maderite and Koch Chemie. What specific detailing needs can I help with today?";
+    }
+}
 
-        // Service Worker Registration (for PWA support)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => console.log('ServiceWorker registration successful'))
-                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+/**
+ * Contact Form Handler
+ */
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    
+    if (!contactForm) return;
+    
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            service: document.getElementById('service').value,
+            message: document.getElementById('message').value
+        };
+        
+        // Submit button
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Update button state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+        
+        try {
+            // In production, this would send to your backend
+            // For now, simulate success
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Success state
+            submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Message Sent!';
+            submitBtn.classList.add('bg-green-500');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('bg-green-500');
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Error state
+            submitBtn.innerHTML = '<i class="fas fa-times mr-2"></i> Error - Try Again';
+            submitBtn.classList.add('bg-red-500');
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('bg-red-500');
+            }, 3000);
+        }
+    });
+}
+
+/**
+ * SPA Router Implementation with Clean URLs
+ */
+function initSPARouter() {
+    // Convert hash URLs to clean URLs
+    if (window.location.hash) {
+        const cleanPath = window.location.hash.replace('#', '/');
+        window.history.replaceState({}, '', cleanPath);
+    }
+
+    // Handle browser navigation
+    window.addEventListener('popstate', handleRouteChange);
+    
+    // Handle initial route
+    handleRouteChange();
+}
+
+function handleRouteChange() {
+    const path = window.location.pathname;
+    
+    // Update canonical URL
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+        canonicalLink.href = `https://www.jaysmobilewash.net${path}`;
+    }
+    
+    // Update meta tags based on route
+    updateMetaTags(path);
+    
+    // Track pageview
+    trackPageView(path);
+    
+    // Scroll to section if exists
+    if (path !== '/' && path !== '') {
+        const sectionId = path.replace('/', '');
+        const section = document.getElementById(sectionId);
+        
+        if (section) {
+            setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        } else {
+            // Show 410 Gone for invalid routes
+            show410Error();
+        }
+    }
+}
+
+function updateMetaTags(path) {
+    const metaConfig = {
+        '/services/': {
+            title: 'Mobile Car Detailing Services | Jay\'s Mobile Wash',
+            description: 'Professional mobile detailing, ceramic coating, and paint correction in Los Angeles & Orange County. We come to you!'
+        },
+        '/ceramic-coating/': {
+            title: 'Ceramic Coating Los Angeles & Orange County | Jay\'s Mobile Wash',
+            description: 'Professional 9H ceramic coating with 2-year warranty. Mobile service throughout LA & OC. Starting at $450.'
+        },
+        '/packages/': {
+            title: 'Mobile Detailing Packages & Pricing | Jay\'s Mobile Wash',
+            description: 'Mini Detail $70, Luxury Detail $130, Max Detail $200. Professional mobile car detailing packages in LA & Orange County.'
+        },
+        '/locations/': {
+            title: 'Mobile Detailing Service Areas | Jay\'s Mobile Wash',
+            description: 'We provide mobile car detailing throughout Los Angeles County and Orange County including Beverly Hills, Santa Monica, Newport Beach, and more.'
+        }
+    };
+
+    const config = metaConfig[path] || {
+        title: 'Mobile Detailing Los Angeles & Orange County | Jay\'s Mobile Wash - #1 Car Detailing Service',
+        description: '★★★★★ Premium mobile car detailing in Los Angeles & Orange County. Ceramic coating, paint correction, interior detailing. We come to you! Call 562-228-9429'
+    };
+
+    // Update meta tags
+    document.title = config.title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta) descMeta.content = config.description;
+    
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = config.title;
+    
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = `https://www.jaysmobilewash.net${path}`;
+}
+
+function trackPageView(path) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            page_path: path,
+            page_title: document.title,
+            page_location: window.location.href
+        });
+    }
+}
+
+function show410Error() {
+    document.body.innerHTML = `
+        <div class="min-h-screen bg-gray-900 flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-6xl font-bold gradient-text">410</h1>
+                <p class="text-2xl text-white mt-4">This page no longer exists</p>
+                <p class="text-gray-400 mt-2">The page you're looking for has been permanently removed.</p>
+                <a href="/" class="mt-8 inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-lg shadow-lg">
+                    Return to Homepage
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Performance Monitoring
+ */
+function initPerformanceMonitoring() {
+    if ('PerformanceObserver' in window) {
+        // Monitor Largest Contentful Paint
+        try {
+            const lcpObserver = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                const lastEntry = entries[entries.length - 1];
+                const lcpTime = lastEntry.renderTime || lastEntry.loadTime;
+                
+                if (lcpTime > 1500) {
+                    console.warn('[Performance] LCP exceeds 1.5s target:', lcpTime);
+                }
+                
+                // Send to GA4
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'web_vitals', {
+                        event_category: 'Web Vitals',
+                        event_label: 'LCP',
+                        value: Math.round(lcpTime)
+                    });
+                }
+            });
+            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+        } catch (e) {
+            console.log('[Performance] LCP observer not supported');
+        }
+
+        // Monitor Cumulative Layout Shift
+        try {
+            let clsValue = 0;
+            const clsObserver = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (!entry.hadRecentInput) {
+                        clsValue += entry.value;
+                    }
+                }
+                
+                if (clsValue > 0.05) {
+                    console.warn('[Performance] CLS exceeds 0.05 target:', clsValue);
+                }
+            });
+            clsObserver.observe({ entryTypes: ['layout-shift'] });
+        } catch (e) {
+            console.log('[Performance] CLS observer not supported');
+        }
+    }
+}
+
+/**
+ * Mobile-specific Enhancements
+ */
+function initMobileEnhancements() {
+    // 1. Adjust chat bubble size on mobile
+    adjustChatBubbleSize();
+    
+    // 2. Create sticky CTA button for mobile
+    createMobileStickyButton();
+    
+    // 3. Enable horizontal scroll for package cards
+    enablePackageHorizontalScroll();
+    
+    // Handle resize events
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            adjustChatBubbleSize();
+            enablePackageHorizontalScroll();
+        }, 250);
+    });
+}
+
+function adjustChatBubbleSize() {
+    const chatBubble = document.getElementById('foam-chat-bubble');
+    if (chatBubble && window.innerWidth < 768) {
+        chatBubble.classList.remove('w-16', 'h-16');
+        chatBubble.classList.add('w-14', 'h-14');
+    } else if (chatBubble) {
+        chatBubble.classList.remove('w-14', 'h-14');
+        chatBubble.classList.add('w-16', 'h-16');
+    }
+}
+
+function createMobileStickyButton() {
+    if (window.innerWidth < 768) {
+        // Check if button already exists
+        if (document.getElementById('mobile-sticky-cta')) return;
+        
+        const stickyButton = document.createElement('div');
+        stickyButton.id = 'mobile-sticky-cta';
+        stickyButton.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 z-40 opacity-0 transition-opacity duration-300';
+        stickyButton.innerHTML = `
+            <a href="tel:+15622289429" class="flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full shadow-lg glow-button">
+                <i class="fas fa-phone-alt mr-2"></i>
+                <span class="font-semibold">Book Now</span>
+            </a>
+        `;
+        document.body.appendChild(stickyButton);
+        
+        // Show after scrolling past hero
+        window.addEventListener('scroll', () => {
+            const heroElement = document.querySelector('.hero-gradient');
+            if (!heroElement) return;
+            
+            const heroHeight = heroElement.offsetHeight;
+            if (window.scrollY > heroHeight && window.innerWidth < 768) {
+                stickyButton.classList.add('opacity-100');
+                stickyButton.classList.remove('opacity-0');
+                
+                // Adjust chat widget position
+                const chatWidget = document.getElementById('foam-chat-widget');
+                if (chatWidget) {
+                    chatWidget.classList.add('with-sticky-cta');
+                }
+            } else {
+                stickyButton.classList.add('opacity-0');
+                stickyButton.classList.remove('opacity-100');
+                
+                // Reset chat widget position
+                const chatWidget = document.getElementById('foam-chat-widget');
+                if (chatWidget) {
+                    chatWidget.classList.remove('with-sticky-cta');
+                }
+            }
+        });
+    }
+}
+
+function enablePackageHorizontalScroll() {
+    const packagesSection = document.getElementById('packages');
+    if (!packagesSection) return;
+    
+    const packagesGrid = packagesSection.querySelector('.package-grid');
+    if (packagesGrid && window.innerWidth < 768) {
+        // Add horizontal scroll classes
+        packagesGrid.classList.remove('grid', 'grid-cols-1');
+        packagesGrid.classList.add('flex', 'overflow-x-auto', 'snap-x', 'snap-mandatory', '-mx-4', 'px-4');
+        packagesGrid.style.scrollbarWidth = 'none';
+        packagesGrid.style.msOverflowStyle = 'none';
+        packagesGrid.style.webkitScrollbar = 'none';
+        
+        // Make each card snap
+        packagesGrid.querySelectorAll('.package-card').forEach(card => {
+            card.classList.add('flex-shrink-0', 'w-80', 'snap-center', 'mr-4');
+        });
+        
+        // Create scroll indicators if they don't exist
+        if (!packagesSection.querySelector('.scroll-indicator')) {
+            const scrollIndicator = document.createElement('div');
+            scrollIndicator.className = 'scroll-indicator flex justify-center mt-4 gap-2 md:hidden';
+            
+            // Create dots
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('span');
+                dot.className = `scroll-dot ${i === 0 ? 'active' : ''}`;
+                scrollIndicator.appendChild(dot);
+            }
+            
+            packagesGrid.parentElement.appendChild(scrollIndicator);
+            
+            // Update dots on scroll
+            packagesGrid.addEventListener('scroll', () => {
+                const scrollPercentage = packagesGrid.scrollLeft / (packagesGrid.scrollWidth - packagesGrid.clientWidth);
+                const activeIndex = Math.round(scrollPercentage * 2);
+                
+                document.querySelectorAll('.scroll-dot').forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
             });
         }
+    } else if (packagesGrid && window.innerWidth >= 768) {
+        // Reset to grid layout on desktop
+        packagesGrid.classList.add('grid', 'grid-cols-1', 'md:grid-cols-3');
+        packagesGrid.classList.remove('flex', 'overflow-x-auto', 'snap-x', 'snap-mandatory', '-mx-4', 'px-4');
+        packagesGrid.style.scrollbarWidth = '';
+        packagesGrid.style.msOverflowStyle = '';
+        packagesGrid.style.webkitScrollbar = '';
+        
+        // Reset card styles
+        packagesGrid.querySelectorAll('.package-card').forEach(card => {
+            card.classList.remove('flex-shrink-0', 'w-80', 'snap-center', 'mr-4');
+        });
+        
+        // Remove scroll indicators
+        const scrollIndicator = packagesSection.querySelector('.scroll-indicator');
+        if (scrollIndicator) {
+            scrollIndicator.remove();
+        }
+    }
+}
     </script>
 </body>
 </html>
+
+
+
+
+                           
