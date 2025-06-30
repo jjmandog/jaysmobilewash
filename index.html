@@ -2364,208 +2364,59 @@ You analyze uploaded car photos and recommend specific services. Always end with
                     });
                 },
                 
-                initializeJayMode() {
-                    console.log('🎵 Jay Mode system armed - 45 second activation ready');
-                    
-                    let jayModeActive = false;
-                    let lastActivation = 0;
-                    const cooldownPeriod = 30000; // 30 seconds
-                    
-                    const activateJayMode = () => {
-                        const now = Date.now();
-                        if (jayModeActive || (now - lastActivation) < cooldownPeriod) {
-                            console.log('🎵 Jay Mode on cooldown...');
-                            return;
-                        }
-                        
-                        jayModeActive = true;
-                        lastActivation = now;
-                        
-                        console.log('🎵 JAY MODE ACTIVATED - 45 SECOND COUNTDOWN INITIATED');
-                        
-                        const overlay = document.createElement('div');
-                        overlay.className = 'fixed inset-0 z-[10000] pointer-events-none';
-                        overlay.innerHTML = `
-                            <div class="absolute inset-0 bg-gradient-conic from-purple-500 via-pink-500 to-blue-500 opacity-20 animate-spin"></div>
-                            
-                            <!-- Central Jay Mode Display -->
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                                <div class="mb-8">
-                                    <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
-                                         alt="Jay's Mobile Wash Jay Mode Activated" 
-                                         class="w-32 h-32 mx-auto mb-4 animate-pulse"
-                                         style="filter: drop-shadow(0 0 50px rgba(168, 85, 247, 1)) brightness(2);">
-                                </div>
-                                
-                                <h1 class="text-8xl font-black mb-4 animate-pulse" 
-                                    style="background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
-                                           background-size: 400% 400%;
-                                           -webkit-background-clip: text;
-                                           background-clip: text;
-                                           -webkit-text-fill-color: transparent;
-                                           animation: gradient-shift 2s ease infinite;">
-                                    JAY MODE
-                                </h1>
-                                
-                                <p class="text-2xl text-white mb-4">🎵 BLP KOSHER - 45 SECOND EDITION 🎵</p>
-                                
-                                <!-- 45 Second Countdown -->
-                                <div class="countdown-container">
-                                    <div class="relative w-24 h-24 mx-auto">
-                                        <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
-                                            <circle cx="50" cy="50" r="45" stroke="#374151" stroke-width="6" fill="none"/>
-                                            <circle id="countdown-progress" cx="50" cy="50" r="45" stroke="#ec4899" stroke-width="6" 
-                                                    fill="none" stroke-linecap="round" 
-                                                    style="stroke-dasharray: 282.74; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear;"/>
-                                        </svg>
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <span id="countdown-number" class="text-3xl font-bold text-white">45</span>
-                                        </div>
-                                    </div>
-                                    <p class="text-sm text-gray-300 mt-2">seconds remaining</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Audio Visualizer -->
-                            <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                                ${Array.from({length: 12}, (_, i) => `
-                                    <div class="visualizer-bar w-4 bg-gradient-to-t from-purple-500 to-pink-500 rounded-full"
-                                         style="height: ${30 + Math.random() * 50}px; 
-                                                animation: visualizer-dance ${0.4 + Math.random() * 0.6}s ease-in-out infinite;
-                                                animation-delay: ${i * 0.1}s;"></div>
-                                `).join('')}
-                            </div>
-                            
-                            <!-- Particle Explosion Effect -->
-                            <div class="particles-explosion absolute inset-0">
-                                ${Array.from({length: 25}, (_, i) => `
-                                    <div class="jay-particle absolute w-3 h-3 rounded-full"
-                                         style="background: hsl(${i * 14.4}, 80%, 60%);
-                                                left: ${Math.random() * 100}%;
-                                                top: ${Math.random() * 100}%;
-                                                animation: particle-explode ${2 + Math.random() * 2}s ease-out infinite ${Math.random() * 2}s;"></div>
-                                `).join('')}
-                            </div>
-                        `;
-                        
-                        document.body.appendChild(overlay);
-                        document.body.classList.add('jay-activated');
-                        
-                        // Start 45-second countdown
-                        let timeLeft = 45;
-                        const countdownNumber = overlay.querySelector('#countdown-number');
-                        const progressCircle = overlay.querySelector('#countdown-progress');
-                        const circumference = 282.74; // 2 * π * 45
-                        
-                        const countdownInterval = setInterval(() => {
-                            timeLeft--;
-                            
-                            if (countdownNumber) {
-                                countdownNumber.textContent = timeLeft;
-                            }
-                            
-                            if (progressCircle) {
-                                const progress = (45 - timeLeft) / 45;
-                                const offset = circumference * progress;
-                                progressCircle.style.strokeDashoffset = offset;
-                            }
-                            
-                            // Update visualizer bars
-                            overlay.querySelectorAll('.visualizer-bar').forEach(bar => {
-                                const height = 20 + Math.random() * 60;
-                                bar.style.height = height + 'px';
-                                bar.style.background = `linear-gradient(to top, hsl(${Math.random() * 360}, 80%, 60%), hsl(${Math.random() * 360}, 80%, 80%))`;
-                            });
-                            
-                            if (timeLeft <= 0) {
-                                clearInterval(countdownInterval);
-                                deactivateJayMode();
-                            }
-                        }, 1000);
-                        
-                        // Audio with enhanced error handling
-                        const audio = new Audio('./BLP Kosher - Jack and Jill (Official Music Video).wav');
-                        audio.volume = 0.7;
-                        audio.currentTime = 0;
-                        
-                        audio.play().then(() => {
-                            console.log('🎵 BLP Kosher audio playing - 45 seconds');
-                        }).catch((error) => {
-                            console.log('🎵 Audio autoplay blocked - adding manual trigger');
-                            
-                            // Create manual play button
-                            const playButton = document.createElement('div');
-                            playButton.className = 'fixed top-8 left-1/2 transform -translate-x-1/2 z-[10001] bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-3 rounded-full cursor-pointer shadow-lg animate-pulse';
-                            playButton.innerHTML = '<i class="fas fa-play mr-2"></i>🎵 CLICK TO PLAY JAY MODE AUDIO 🎵';
-                            playButton.onclick = () => {
-                                audio.play().then(() => {
-                                    playButton.remove();
-                                    console.log('🎵 Manual audio activation successful');
-                                });
-                            };
-                            document.body.appendChild(playButton);
-                        });
-                        
-                        function deactivateJayMode() {
-                            console.log('🎵 Jay Mode deactivation sequence initiated');
-                            
-                            clearInterval(countdownInterval);
-                            
-                            if (audio) {
-                                audio.pause();
-                                audio.currentTime = 0;
-                            }
-                            
-                            document.body.classList.remove('jay-activated');
-                            overlay.style.transition = 'opacity 1s ease';
-                            overlay.style.opacity = '0';
-                            
-                            setTimeout(() => {
-                                overlay.remove();
-                                jayModeActive = false;
-                                console.log('🎵 Jay Mode fully deactivated - 30s cooldown active');
-                            }, 1000);
-                        }
-                        
-                        // Emergency 45-second force stop
-                        setTimeout(() => {
-                            if (jayModeActive) {
-                                console.log('🎵 Emergency Jay Mode timeout - force deactivation');
-                                deactivateJayMode();
-                            }
-                        }, 45000);
-                    };
-                    
-                    // Jay Mode trigger detection system
-                    const scanForJayTrigger = () => {
-                        const textContent = document.body.innerText.toLowerCase();
-                        const jayKeywords = ['jay', 'jays', 'detailing', 'detail detective', 'mobile wash', 'ceramic coating'];
-                        
-                        let totalMatches = 0;
-                        jayKeywords.forEach(keyword => {
-                            const matches = (textContent.match(new RegExp(`\\b${keyword}\\b`, 'gi')) || []).length;
-                            totalMatches += matches;
-                        });
-                        
-                        if (totalMatches >= 8 && !jayModeActive) {
-                            console.log(`🎵 Jay Mode trigger detected - ${totalMatches} keyword matches`);
-                            activateJayMode();
-                        }
-                    };
-                    
-                    // Multiple trigger points
-                    setInterval(scanForJayTrigger, 3000);
-                    document.addEventListener('click', scanForJayTrigger);
-                    document.addEventListener('scroll', scanForJayTrigger);
-                    
-                    // Manual trigger for testing
-                    document.addEventListener('keydown', (e) => {
-                        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-                            console.log('🎵 Manual Jay Mode trigger activated');
-                            activateJayMode();
-                        }
-                    });
-                },
+                /* Enhanced Chat Widget Styles */
+#foam-chat-bubble {
+    animation: gentle-bounce 3s ease-in-out infinite;
+    transform: scale(1);
+}
+
+#foam-chat-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+}
+
+@keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-5px) scale(1.05); }
+}
+
+/* Enhanced chat panel animations */
+#foam-chat-panel {
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Enhanced message bubbles */
+.message-bubble {
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Enhanced quick action buttons */
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+}
                 
                 initializeCopilotContext() {
                     console.log('🤖 GitHub Copilot context optimization active');
