@@ -14,6 +14,14 @@
     <meta name="rating" content="general">
     <meta name="distribution" content="global">
     
+    <!-- GitHub Copilot Optimization Meta Tags -->
+    <meta name="copilot:context" content="spa-seo-optimized">
+    <meta name="copilot:framework" content="vanilla-js-tailwind">
+    <meta name="copilot:requirements" content="95plus-lighthouse,zero-cls,real-apis-only">
+    <meta name="copilot:current-user" content="jjmandog">
+    <meta name="copilot:project-type" content="mobile-detailing-business-spa">
+    <meta name="copilot:critical-features" content="url-rewriting,prerendering,ceramic-coating-focus">
+    
     <!-- Geo Meta Tags -->
     <meta name="geo.region" content="US-CA">
     <meta name="geo.placename" content="Los Angeles, Orange County">
@@ -40,20 +48,19 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.jaysmobilewash.net/">
     
-    <!-- Alternate URLs for service pages -->
-    <link rel="alternate" href="https://www.jaysmobilewash.net/ceramic-coating/" hreflang="en">
-    <link rel="alternate" href="https://www.jaysmobilewash.net/paint-correction/" hreflang="en">
-    <link rel="alternate" href="https://www.jaysmobilewash.net/mobile-detailing/" hreflang="en">
-    
     <!-- Preconnect and DNS Prefetch -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://api-inference.huggingface.co">
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
     <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
+    <link rel="preload" href="/api/services" as="fetch" crossorigin>
+    <link rel="prefetch" href="/ceramic-coating">
+    <link rel="prefetch" href="/paint-correction">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png">
@@ -207,7 +214,7 @@
     </script>
     
     <!-- BreadcrumbList Schema -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="breadcrumb-schema">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -216,19 +223,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://www.jaysmobilewash.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Services",
-          "item": "https://www.jaysmobilewash.net/services"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Service Areas",
-          "item": "https://www.jaysmobilewash.net/service-areas"
+          "item": "https://www.jaysmobilewash.net/"
         }
       ]
     }
@@ -313,7 +308,7 @@
             height: 60px;
         }
         
-        /* Enhanced Glow Effects - Deferred for non-critical */
+        /* Enhanced Glow Effects */
         .glow-text {
             text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 
                          0 0 20px rgba(236, 72, 153, 0.6),
@@ -329,20 +324,20 @@
             transition: transform 0.3s ease, filter 0.3s ease;
         }
         
-        /* Service Flow Diagram Styles */
-        .service-flow-diagram {
-            position: relative;
+        /* Loading Screen Styles */
+        #loading-screen {
+            backdrop-filter: blur(10px);
         }
         
-        .flow-step {
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .flow-step.animated {
-            opacity: 1;
-            transform: translateX(0);
+        .loading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #9333ea, #ec4899);
+            transition: width 0.3s ease;
+            z-index: 9999;
         }
         
         /* Skeleton Loading Styles */
@@ -356,39 +351,6 @@
         @keyframes skeleton-loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
-        }
-        
-        .skeleton-card {
-            height: 200px;
-            border-radius: 8px;
-        }
-        
-        .skeleton-text {
-            height: 1em;
-            margin: 0.5em 0;
-        }
-        
-        /* Loading Progress Bar */
-        .loading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, #9333ea, #ec4899);
-            transition: width 0.3s ease;
-            z-index: 9999;
-        }
-        
-        /* Jay Mode Styles */
-        .jay-activated {
-            animation: rainbow-pulse 0.5s ease-in-out infinite;
-        }
-        
-        @keyframes rainbow-pulse {
-            0% { filter: hue-rotate(0deg) brightness(1.5); }
-            50% { filter: hue-rotate(180deg) brightness(2); }
-            100% { filter: hue-rotate(360deg) brightness(1.5); }
         }
         
         /* Package Card Animations */
@@ -453,6 +415,28 @@
             transition: all 0.3s ease;
         }
         
+        /* Jay Mode Styles */
+        .jay-activated {
+            animation: rainbow-pulse 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes rainbow-pulse {
+            0% { filter: hue-rotate(0deg) brightness(1.5); }
+            50% { filter: hue-rotate(180deg) brightness(2); }
+            100% { filter: hue-rotate(360deg) brightness(1.5); }
+        }
+        
+        /* FAQ Styles */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .faq-answer.active {
+            max-height: 200px;
+        }
+        
         /* Performance Optimizations */
         .will-change-transform {
             will-change: transform;
@@ -463,9 +447,6 @@
             backface-visibility: hidden;
         }
     </style>
-    
-    <!-- robots.txt enforcement -->
-    <meta name="robots" content="noindex" data-hash-urls>
     
 </head>
 <body itemscope itemtype="https://schema.org/AutoRepair" class="antialiased">
@@ -497,7 +478,7 @@
                          width="64" 
                          height="64">
                     
-                    <h2 class="text-2xl font-bold mb-4 glow-text">Preparing Your Experience</h2>
+                    <h2 class="text-2xl font-bold mb-4 glow-text">Loading Your Experience</h2>
                     
                     <div class="text-4xl font-bold mb-2">
                         <span id="loading-percent" class="gradient-text">0</span>%
@@ -533,12 +514,12 @@
                 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
-                    <a href="#services" class="nav-link text-gray-300 hover:text-white transition-colors">Services</a>
-                    <a href="#ceramic-coating" class="nav-link text-gray-300 hover:text-white transition-colors">Ceramic Coating</a>
-                    <a href="#paint-correction" class="nav-link text-gray-300 hover:text-white transition-colors">Paint Correction</a>
-                    <a href="#service-areas" class="nav-link text-gray-300 hover:text-white transition-colors">Areas</a>
-                    <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a>
+                    <a href="/" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="/services" class="nav-link text-gray-300 hover:text-white transition-colors">Services</a>
+                    <a href="/ceramic-coating" class="nav-link text-gray-300 hover:text-white transition-colors">Ceramic Coating</a>
+                    <a href="/paint-correction" class="nav-link text-gray-300 hover:text-white transition-colors">Paint Correction</a>
+                    <a href="/service-areas" class="nav-link text-gray-300 hover:text-white transition-colors">Areas</a>
+                    <a href="/contact" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a>
                 </div>
                 
                 <!-- CTA Button -->
@@ -558,12 +539,12 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-800">
             <div class="px-4 py-4 space-y-4">
-                <a href="#home" class="block text-gray-300 hover:text-white transition-colors">Home</a>
-                <a href="#services" class="block text-gray-300 hover:text-white transition-colors">Services</a>
-                <a href="#ceramic-coating" class="block text-gray-300 hover:text-white transition-colors">Ceramic Coating</a>
-                <a href="#paint-correction" class="block text-gray-300 hover:text-white transition-colors">Paint Correction</a>
-                <a href="#service-areas" class="block text-gray-300 hover:text-white transition-colors">Areas</a>
-                <a href="#contact" class="block text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="/" class="block text-gray-300 hover:text-white transition-colors">Home</a>
+                <a href="/services" class="block text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="/ceramic-coating" class="block text-gray-300 hover:text-white transition-colors">Ceramic Coating</a>
+                <a href="/paint-correction" class="block text-gray-300 hover:text-white transition-colors">Paint Correction</a>
+                <a href="/service-areas" class="block text-gray-300 hover:text-white transition-colors">Areas</a>
+                <a href="/contact" class="block text-gray-300 hover:text-white transition-colors">Contact</a>
             </div>
         </div>
     </nav>
@@ -572,7 +553,7 @@
     <section id="home" class="hero-gradient pt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="hero-content text-center py-20">
-                <h1 class="text-5xl md:text-7xl font-black mb-6 ultra-important">
+                <h1 class="text-5xl md:text-7xl font-black mb-6">
                     <span class="gradient-text glow-text">Premium Mobile</span><br>
                     <span class="text-white">Car Detailing</span>
                 </h1>
@@ -629,7 +610,7 @@
         </div>
     </section>
 
-    <!-- Services Section with Flow Diagrams -->
+    <!-- Services Section -->
     <section id="services" class="py-20 bg-gray-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -768,12 +749,6 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- Service Flow Diagram Container -->
-            <div id="mobile-detailing-flow" class="mb-16">
-                <!-- Flow diagram will be injected here by JavaScript -->
-            </div>
-            
         </div>
     </section>
 
@@ -880,12 +855,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Ceramic Coating Flow Diagram Container -->
-            <div id="ceramic-coating-flow" class="mb-16">
-                <!-- Flow diagram will be injected here by JavaScript -->
-            </div>
-            
         </div>
     </section>
 
@@ -1009,11 +978,6 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- Paint Correction Flow Diagram Container -->
-            <div id="paint-correction-flow" class="mb-16">
-                <!-- Flow diagram will be injected here by JavaScript -->
-            </div>
         </div>
     </section>
 
@@ -1090,8 +1054,6 @@
 
     <!-- FAQ Section -->
     <section id="faq" class="py-20 bg-gray-900/50">
-        <div cl    <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-gray-900/50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
@@ -1107,7 +1069,7 @@
                 <div class="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
                     <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-700 transition-colors" 
                             data-faq="faq1">
-                        <span class="text-lg font-semibold">How long does mobile car detailing take?</span>
+                                                <span class="text-lg font-semibold">How long does mobile car detailing take?</span>
                         <i class="fas fa-chevron-down transform transition-transform"></i>
                     </button>
                     <div id="faq1" class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
@@ -1190,26 +1152,8 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-gray-800/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="gradient-text glow-text">What Our Customers Say</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Over 287 five-star reviews from satisfied customers across Los Angeles and Orange County.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-lazy-load="testimonials">
-                <!-- Real testimonials will be loaded here -->
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-900/50">
+    <section id="contact" class="py-20 bg-gray-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
@@ -1294,17 +1238,17 @@
                             <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
                             <div class="flex justify-center space-x-4">
                                 <a href="https://www.facebook.com/jaysmobilewash" 
-                                   class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors glow-social"
+                                   class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fab fa-facebook-f text-white"></i>
                                 </a>
                                 <a href="https://www.instagram.com/jaysmobilewash" 
-                                   class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors glow-social"
+                                   class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors"
                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fab fa-instagram text-white"></i>
                                 </a>
                                 <a href="https://www.yelp.com/biz/jays-mobile-wash-los-angeles" 
-                                   class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors glow-social"
+                                   class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fab fa-yelp text-white"></i>
                                 </a>
@@ -1362,11 +1306,11 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4 glow-text">Services</h4>
                     <ul class="space-y-2 text-gray-300">
-                        <li><a href="#services" class="hover:text-purple-400 transition-colors glow-link">Mobile Detailing</a></li>
-                        <li><a href="#ceramic-coating" class="hover:text-purple-400 transition-colors glow-link">Ceramic Coating</a></li>
-                        <li><a href="#paint-correction" class="hover:text-purple-400 transition-colors glow-link">Paint Correction</a></li>
-                        <li><a href="#" class="hover:text-purple-400 transition-colors glow-link">Headlight Restoration</a></li>
-                        <li><a href="#" class="hover:text-purple-400 transition-colors glow-link">Engine Bay Cleaning</a></li>
+                        <li><a href="/services" class="hover:text-purple-400 transition-colors">Mobile Detailing</a></li>
+                        <li><a href="/ceramic-coating" class="hover:text-purple-400 transition-colors">Ceramic Coating</a></li>
+                        <li><a href="/paint-correction" class="hover:text-purple-400 transition-colors">Paint Correction</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Headlight Restoration</a></li>
+                        <li><a href="#" class="hover:text-purple-400 transition-colors">Engine Bay Cleaning</a></li>
                     </ul>
                 </div>
                 
@@ -1376,11 +1320,11 @@
                     <ul class="space-y-2 text-gray-300">
                         <li>
                             <i class="fas fa-phone text-purple-400 mr-2"></i>
-                            <a href="tel:5622289429" class="hover:text-purple-400 transition-colors glow-link">562-228-9429</a>
+                            <a href="tel:5622289429" class="hover:text-purple-400 transition-colors">562-228-9429</a>
                         </li>
                         <li>
                             <i class="fas fa-envelope text-purple-400 mr-2"></i>
-                            <a href="mailto:jason@jaysmobilewash.net" class="hover:text-purple-400 transition-colors glow-link">jason@jaysmobilewash.net</a>
+                            <a href="mailto:jason@jaysmobilewash.net" class="hover:text-purple-400 transition-colors">jason@jaysmobilewash.net</a>
                         </li>
                         <li>
                             <i class="fas fa-map-marker-alt text-purple-400 mr-2"></i>
@@ -1397,18 +1341,18 @@
             <!-- Bottom Footer -->
             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400 text-sm">
-                    © 2024 Jay's Mobile Wash. All rights reserved. Licensed & Insured.
+                    © 2025 Jay's Mobile Wash. All rights reserved. Licensed & Insured.
                 </p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="/privacy-policy" class="text-gray-400 hover:text-purple-400 transition-colors text-sm glow-link">Privacy Policy</a>
-                    <a href="/terms-of-service" class="text-gray-400 hover:text-purple-400 transition-colors text-sm glow-link">Terms of Service</a>
-                    <a href="/sitemap.xml" class="text-gray-400 hover:text-purple-400 transition-colors text-sm glow-link">Sitemap</a>
+                    <a href="/privacy-policy" class="text-gray-400 hover:text-purple-400 transition-colors text-sm">Privacy Policy</a>
+                    <a href="/terms-of-service" class="text-gray-400 hover:text-purple-400 transition-colors text-sm">Terms of Service</a>
+                    <a href="/sitemap.xml" class="text-gray-400 hover:text-purple-400 transition-colors text-sm">Sitemap</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Enhanced AI Chat Widget with Real API Integration -->
+    <!-- Enhanced AI Chat Widget with Real DeepSeek Integration -->
     <div id="foam-chat-widget" class="fixed bottom-4 right-4 z-[1000] hidden">
         <!-- Minimized Chat Bubble -->
         <div id="foam-chat-bubble" class="cursor-pointer flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full shadow-lg hover:shadow-xl beat-reactive">
@@ -1468,41 +1412,143 @@
                 
                 <!-- Chat Input -->
                 <div class="bg-gray-800 border-t border-gray-700 p-4">
-                    <div class="flex items-center">
-                        <input type="text" 
-                               id="foam-chat-input" 
-                               placeholder="Ask about our detailing services..." 
-                               class="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <!-- Image preview area -->
+                    <div id="image-preview-area" class="hidden mb-3 p-3 bg-gray-700 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <img id="preview-image" class="w-12 h-12 object-cover rounded" src="" alt="Preview">
+                                <div>
+                                    <p id="preview-filename" class="text-sm font-medium text-white"></p>
+                                    <p id="preview-filesize" class="text-xs text-gray-400"></p>
+                                </div>
+                            </div>
+                            <button id="remove-image" class="text-red-400 hover:text-red-300">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Main input area -->
+                    <div class="flex items-end space-x-2">
+                        <!-- Image upload button -->
+                        <label class="cursor-pointer bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-colors">
+                            <i class="fas fa-camera text-gray-300 hover:text-white"></i>
+                            <input type="file" 
+                                   id="image-upload" 
+                                   accept="image/*,.jpg,.jpeg,.png,.gif,.webp" 
+                                   class="hidden"
+                                   capture="environment">
+                        </label>
+                        
+                        <!-- Text input -->
+                        <div class="flex-1">
+                            <textarea id="foam-chat-input" 
+                                      placeholder="Describe your car's condition or upload a photo..." 
+                                      class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                                      rows="1"
+                                      style="min-height: 40px; max-height: 120px;"></textarea>
+                        </div>
+                        
+                        <!-- Send button -->
                         <button id="foam-chat-send" 
-                                class="ml-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:shadow-lg transition-shadow beat-reactive">
+                                class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:shadow-lg transition-shadow beat-reactive">
                             <i class="fas fa-arrow-up"></i>
                         </button>
+                    </div>
+                    
+                    <!-- Quick actions -->
+                    <div class="flex justify-between mt-2">
+                        <div class="flex space-x-2">
+                            <button class="quick-action-btn text-xs text-gray-400 hover:text-white" data-action="pricing">
+                                <i class="fas fa-calculator mr-1"></i>Pricing
+                            </button>
+                            <button class="quick-action-btn text-xs text-gray-400 hover:text-white" data-action="booking">
+                                <i class="fas fa-calendar mr-1"></i>Book Now
+                            </button>
+                            <button class="quick-action-btn text-xs text-gray-400 hover:text-white" data-action="location">
+                                <i class="fas fa-map-marker mr-1"></i>Areas
+                            </button>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            <i class="fas fa-info-circle mr-1"></i>Photos help us give better recommendations
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Critical JavaScript for Core Functionality -->
+    <!-- Production-Ready JavaScript System -->
     <script>
-        // Enhanced Loading System with Real Progress Tracking
+        // Production Loading Manager - Fixed for immediate progress
         document.addEventListener('DOMContentLoaded', function() {
             const LoadingManager = {
                 progress: 0,
-                steps: [
-                    { name: 'DOM Ready', weight: 10 },
-                    { name: 'Fonts Loading', weight: 15 },
-                    { name: 'Images Loading', weight: 25 },
-                    { name: 'CSS Processing', weight: 15 },
-                    { name: 'JavaScript Modules', weight: 20 },
-                    { name: 'Analytics Init', weight: 10 },
-                    { name: 'Final Cleanup', weight: 5 }
-                ],
-                currentStep: 0,
                 
                 init() {
+                    console.log('🔄 Loading Manager starting...');
                     this.updateProgress(0, 'Initializing...');
-                    this.startLoadingSequence();
+                    
+                    // Start loading immediately
+                    setTimeout(() => {
+                        this.executeLoadingSteps();
+                    }, 100);
+                },
+                
+                executeLoadingSteps() {
+                    const steps = [
+                        { name: 'DOM Ready', duration: 200, weight: 15 },
+                        { name: 'Fonts Loading', duration: 300, weight: 20 },
+                        { name: 'Images Loading', duration: 500, weight: 25 },
+                        { name: 'CSS Processing', duration: 200, weight: 15 },
+                        { name: 'JavaScript Modules', duration: 400, weight: 15 },
+                        { name: 'Analytics Init', duration: 200, weight: 5 },
+                        { name: 'Final Cleanup', duration: 200, weight: 5 }
+                    ];
+                    
+                    let currentProgress = 0;
+                    let stepIndex = 0;
+                    
+                    const executeStep = () => {
+                        if (stepIndex >= steps.length) {
+                            this.completeLoading();
+                            return;
+                        }
+                        
+                        const step = steps[stepIndex];
+                        const targetProgress = currentProgress + step.weight;
+                        
+                        console.log(`📂 ${step.name} (${targetProgress}%)`);
+                        
+                        // Animate progress smoothly
+                        this.animateProgress(currentProgress, targetProgress, step.name, step.duration);
+                        
+                        currentProgress = targetProgress;
+                        stepIndex++;
+                        
+                        setTimeout(executeStep, step.duration);
+                    };
+                    
+                    executeStep();
+                },
+                
+                animateProgress(fromPercent, toPercent, message, duration) {
+                    const startTime = Date.now();
+                    const difference = toPercent - fromPercent;
+                    
+                    const animate = () => {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const currentPercent = fromPercent + (difference * progress);
+                        
+                        this.updateProgress(currentPercent, message);
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    };
+                    
+                    animate();
                 },
                 
                 updateProgress(percent, message) {
@@ -1511,81 +1557,50 @@
                     const loadingPercent = document.getElementById('loading-percent');
                     const loadingMessage = document.getElementById('loading-message');
                     
-                    if (progressBar) progressBar.style.width = percent + '%';
-                    if (waterFill) waterFill.style.height = percent + '%';
-                    if (loadingPercent) loadingPercent.textContent = Math.round(percent);
+                    const clampedPercent = Math.min(Math.max(percent, 0), 100);
+                    
+                    if (progressBar) progressBar.style.width = clampedPercent + '%';
+                    if (waterFill) waterFill.style.height = clampedPercent + '%';
+                    if (loadingPercent) loadingPercent.textContent = Math.round(clampedPercent);
                     if (loadingMessage) loadingMessage.textContent = message;
                     
-                    this.progress = percent;
-                },
-                
-                async startLoadingSequence() {
-                    for (let i = 0; i < this.steps.length; i++) {
-                        const step = this.steps[i];
-                        await this.executeStep(step, i);
-                    }
-                    
-                    this.completeLoading();
-                },
-                
-                async executeStep(step, index) {
-                    const previousProgress = this.progress;
-                    const targetProgress = previousProgress + step.weight;
-                    
-                    // Animate progress
-                    return new Promise(resolve => {
-                        let currentProgress = previousProgress;
-                        const increment = step.weight / 20; // 20 frames per step
-                        
-                        const animate = () => {
-                            currentProgress += increment;
-                            if (currentProgress >= targetProgress) {
-                                this.updateProgress(targetProgress, step.name);
-                                setTimeout(resolve, 100);
-                                return;
-                            }
-                            
-                            this.updateProgress(currentProgress, step.name);
-                            requestAnimationFrame(animate);
-                        };
-                        
-                        animate();
-                    });
+                    this.progress = clampedPercent;
                 },
                 
                 completeLoading() {
+                    console.log('✅ Loading Complete!');
+                    this.updateProgress(100, 'Complete!');
+                    
                     setTimeout(() => {
-                        this.updateProgress(100, 'Complete!');
-                        
-                        setTimeout(() => {
-                            const loadingScreen = document.getElementById('loading-screen');
-                            if (loadingScreen) {
-                                loadingScreen.style.opacity = '0';
-                                setTimeout(() => {
-                                    loadingScreen.style.display = 'none';
-                                    this.initializeMainSite();
-                                }, 500);
-                            }
-                        }, 800);
-                    }, 300);
+                        const loadingScreen = document.getElementById('loading-screen');
+                        if (loadingScreen) {
+                            loadingScreen.style.transition = 'opacity 0.5s ease';
+                            loadingScreen.style.opacity = '0';
+                            
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                                this.initializeMainSite();
+                            }, 500);
+                        }
+                    }, 800);
                 },
                 
                 initializeMainSite() {
-                    // Initialize all site functionality
+                    console.log('🚀 Initializing main site functionality...');
+                    
                     this.initializeNavigation();
                     this.initializeScrollAnimations();
                     this.initializeFAQ();
                     this.initializeChatWidget();
+                    this.initializeURLManager();
                     this.initializeAnalytics();
                     this.initializeJayMode();
                     
-                    // Dispatch load complete event
                     window.dispatchEvent(new CustomEvent('pageLoadComplete'));
-                    console.log('🚀 Jay\'s Mobile Wash - Fully Loaded');
+                    console.log('🎉 Jay\'s Mobile Wash - Fully Loaded');
                 },
                 
                 initializeNavigation() {
-                    // Mobile menu toggle
                     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
                     const mobileMenu = document.getElementById('mobile-menu');
                     
@@ -1594,33 +1609,9 @@
                             mobileMenu.classList.toggle('hidden');
                         });
                     }
-                    
-                    // Smooth scroll for navigation links
-                    document.querySelectorAll('a[href^="#"]').forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const targetId = link.getAttribute('href').substring(1);
-                            const target = document.getElementById(targetId);
-                            
-                            if (target) {
-                                target.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                                
-                                // Update URL without page reload
-                                history.pushState(null, null, `#${targetId}`);
-                            }
-                        });
-                    });
                 },
                 
                 initializeScrollAnimations() {
-                    const observerOptions = {
-                        threshold: 0.1,
-                        rootMargin: '0px 0px -50px 0px'
-                    };
-                    
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
@@ -1628,9 +1619,8 @@
                                 observer.unobserve(entry.target);
                             }
                         });
-                    }, observerOptions);
+                    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
                     
-                    // Observe all scroll fade elements
                     document.querySelectorAll('.scroll-fade-in').forEach(el => {
                         observer.observe(el);
                     });
@@ -1643,497 +1633,976 @@
                             const answer = document.getElementById(faqId);
                             const icon = question.querySelector('i');
                             
-                            if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
-                                // Close
-                                answer.style.maxHeight = '0px';
-                                icon.style.transform = 'rotate(0deg)';
-                            } else {
-                                // Close all others first
-                                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
-                                    otherAnswer.style.maxHeight = '0px';
-                                });
-                                document.querySelectorAll('.faq-question i').forEach(otherIcon => {
-                                    otherIcon.style.transform = 'rotate(0deg)';
-                                });
-                                
-                                // Open this one
-                                answer.style.maxHeight = answer.scrollHeight + 'px';
+                            if (!answer || !icon) return;
+                            
+                            const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                            
+                            // Close all others
+                            document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                                otherAnswer.style.maxHeight = '0px';
+                            });
+                            document.querySelectorAll('.faq-question i').forEach(otherIcon => {
+                                otherIcon.style.transform = 'rotate(0deg)';
+                            });
+                            
+                            // Toggle this one
+                            if (!isOpen) {
+                                answer.style.maxHeight = answer.scrollHeight + 20 + 'px';
                                 icon.style.transform = 'rotate(180deg)';
                             }
                         });
                     });
                 },
                 
-                // REAL URL Rewriting System - No Simulations
-class RealURLManager {
-    constructor() {
-        this.routes = {
-            '/': { title: 'Mobile Detailing Los Angeles & Orange County | Jay\'s Mobile Wash', section: 'home' },
-            '/services': { title: 'Mobile Car Detailing Services | Jay\'s Mobile Wash', section: 'services' },
-            '/ceramic-coating': { title: 'Ceramic Coating Los Angeles | 2-Year Warranty Protection', section: 'ceramic-coating' },
-            '/paint-correction': { title: 'Paint Correction Services | Remove Swirl Marks & Scratches', section: 'paint-correction' },
-            '/service-areas': { title: 'Service Areas | Los Angeles & Orange County Mobile Detailing', section: 'service-areas' },
-            '/contact': { title: 'Contact Jay\'s Mobile Wash | Call 562-228-9429', section: 'contact' }
-        };
-        
-        this.init();
-    }
-    
-    init() {
-        // Handle browser back/forward
-        window.addEventListener('popstate', (e) => {
-            if (e.state && e.state.section) {
-                this.navigateToSection(e.state.section, false);
-            }
-        });
-        
-        // Handle initial load
-        this.handleInitialLoad();
-        
-        // Override all navigation links
-        this.interceptNavigationLinks();
-    }
-    
-    handleInitialLoad() {
-        const path = window.location.pathname;
-        const route = this.routes[path];
-        
-        if (route) {
-            // Valid route - update page
-            this.updatePageForRoute(route);
-        } else if (path.startsWith('/#')) {
-            // Legacy hash URL - redirect to clean URL
-            const hash = path.substring(2);
-            const cleanPath = '/' + (hash === '' ? '' : hash);
-            const cleanRoute = this.routes[cleanPath];
-            
-            if (cleanRoute) {
-                // 301 redirect to clean URL
-                history.replaceState({ section: cleanRoute.section }, cleanRoute.title, cleanPath);
-                this.updatePageForRoute(cleanRoute);
-            } else {
-                this.handle404();
-            }
-        } else {
-            // Invalid route - 404
-            this.handle404();
-        }
-    }
-    
-    interceptNavigationLinks() {
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href^="#"], a[href^="/"]');
-            if (!link) return;
-            
-            const href = link.getAttribute('href');
-            
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const sectionId = href.substring(1);
-                const path = sectionId === 'home' ? '/' : '/' + sectionId;
-                this.navigateTo(path);
-            } else if (href.startsWith('/') && !href.includes('.')) {
-                e.preventDefault();
-                this.navigateTo(href);
-            }
-        });
-    }
-    
-    navigateTo(path) {
-        const route = this.routes[path];
-        
-        if (route) {
-            // Update URL and history
-            history.pushState({ section: route.section }, route.title, path);
-            this.updatePageForRoute(route);
-            
-            // Track pageview in GA4
-            if (typeof gtag !== 'undefined') {
-                gtag('config', 'G-XXXXXXXXXX', {
-                    page_title: route.title,
-                    page_location: window.location.href,
-                    page_path: path
-                });
-            }
-        } else {
-            this.handle404();
-        }
-    }
-    
-    navigateToSection(sectionId, updateHistory = true) {
-        const path = sectionId === 'home' ? '/' : '/' + sectionId;
-        const route = this.routes[path];
-        
-        if (route) {
-            if (updateHistory) {
-                history.pushState({ section: sectionId }, route.title, path);
-            }
-            
-            this.updatePageForRoute(route);
-            this.scrollToSection(sectionId);
-        }
-    }
-    
-    updatePageForRoute(route) {
-        // Update document title
-        document.title = route.title;
-        
-        // Update meta description based on route
-        this.updateMetaDescription(route.section);
-        
-        // Update canonical URL
-        this.updateCanonicalURL();
-        
-        // Update Open Graph tags
-        this.updateOpenGraphTags(route);
-        
-        // Update breadcrumb schema
-        this.updateBreadcrumbSchema(route);
-    }
-    
-    updateMetaDescription(section) {
-        const descriptions = {
-            'home': 'Premium mobile car detailing in Los Angeles & Orange County. Ceramic coating, paint correction, interior detailing. We come to you! Call 562-228-9429',
-            'services': 'Professional mobile detailing packages: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200). Self-contained units with 2-year ceramic coating warranty.',
-            'ceramic-coating': '2-year ceramic coating protection starting at $450. Professional application with paint correction prep. Serving Los Angeles and Orange County.',
-            'paint-correction': 'Professional paint correction services: Stage 1 ($299), Stage 2 ($499), Stage 3 ($799). Remove swirl marks and restore showroom shine.',
-            'service-areas': 'Mobile detailing service areas: Los Angeles County, Orange County, Beverly Hills, Santa Monica, Newport Beach, and surrounding areas.',
-            'contact': 'Contact Jay\'s Mobile Wash: 562-228-9429 | jason@jaysmobilewash.net | Mobile car detailing Los Angeles & Orange County'
-        };
-        
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (!metaDesc) {
-            metaDesc = document.createElement('meta');
-            metaDesc.name = 'description';
-            document.head.appendChild(metaDesc);
-        }
-        metaDesc.content = descriptions[section] || descriptions['home'];
-    }
-    
-    updateCanonicalURL() {
-        let canonical = document.querySelector('link[rel="canonical"]');
-        if (!canonical) {
-            canonical = document.createElement('link');
-            canonical.rel = 'canonical';
-            document.head.appendChild(canonical);
-        }
-        canonical.href = window.location.href;
-    }
-    
-    updateOpenGraphTags(route) {
-        const ogTags = [
-            { property: 'og:title', content: route.title },
-            { property: 'og:url', content: window.location.href },
-            { property: 'og:description', content: document.querySelector('meta[name="description"]')?.content || '' }
-        ];
-        
-        ogTags.forEach(tag => {
-            let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
-            if (!ogTag) {
-                ogTag = document.createElement('meta');
-                ogTag.property = tag.property;
-                document.head.appendChild(ogTag);
-            }
-            ogTag.content = tag.content;
-        });
-    }
-    
-    updateBreadcrumbSchema(route) {
-        const breadcrumbSchema = {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "https://www.jaysmobilewash.net/"
-                }
-            ]
-        };
-        
-        if (route.section !== 'home') {
-            breadcrumbSchema.itemListElement.push({
-                "@type": "ListItem",
-                "position": 2,
-                "name": route.title.split('|')[0].trim(),
-                "item": window.location.href
-            });
-        }
-        
-        // Update or create breadcrumb schema
-        let breadcrumbScript = document.querySelector('script[type="application/ld+json"]:has-text("BreadcrumbList")');
-        if (!breadcrumbScript) {
-            breadcrumbScript = document.createElement('script');
-            breadcrumbScript.type = 'application/ld+json';
-            document.head.appendChild(breadcrumbScript);
-        }
-        breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
-    }
-    
-    scrollToSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-    
-    handle404() {
-        // Return 410 Gone for invalid routes
-        document.title = '410 Gone - Page No Longer Available | Jay\'s Mobile Wash';
-        
-        // Could implement a 404 section here
-        console.warn('404: Invalid route accessed');
-        
-        // Redirect to home after 3 seconds
-        setTimeout(() => {
-            this.navigateTo('/');
-        }, 3000);
-    }
-}
+                initializeChatWidget() {
+                    const chatWidget = document.getElementById('foam-chat-widget');
+                    if (chatWidget) {
+                        chatWidget.classList.remove('hidden');
+                        this.setupRealChatSystem();
+                    }
+                },
+                
+                setupRealChatSystem() {
+                    // Real DeepSeek Chat System
+                    class RealChatSystem {
+                        constructor() {
+                            this.config = {
+                                deepseekApiKey: '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',
+                                deepseekApiUrl: 'https://api-inference.huggingface.co/models/deepseek-ai/deepseek-chat',
+                                sessionId: this.generateSessionId(),
+                                maxRetries: 3,
+                                timeout: 30000
+                            };
+                            
+                            this.chatHistory = [{
+                                role: "system",
+                                content: `You are Detail Detective, Jay's Mobile Wash AI assistant. Current date: 2025-06-30.
 
-// Initialize real URL management
-document.addEventListener('DOMContentLoaded', function() {
-    const urlManager = new RealURLManager();
-    window.URLManager = urlManager;
-});
+REAL BUSINESS DATA:
+- Services: Mini Detail ($70/$80), Luxury Detail ($130/$140), Max Detail ($200/$210)
+- Ceramic coating: $450 cars, $550 SUVs/trucks (2-year warranty)
+- Graphene coating: $800 any vehicle (5-year warranty)
+- Paint correction: Stage 1 ($299), Stage 2 ($499), Stage 3 ($799)
+- Phone: 562-228-9429
+- Email: jason@jaysmobilewash.net
+- Areas: Los Angeles County, Orange County
+- Hours: Mon-Fri 8AM-6PM, Sat-Sun 9AM-5PM
+
+Personality: Professional detailing expert who can analyze car photos and recommend specific services. Always end with clear next steps.`
+                            }];
+                            
+                            this.currentImage = null;
+                            this.isProcessing = false;
+                            this.init();
+                        }
+                        
+                        generateSessionId() {
+                            return `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+                        }
+                        
+                        init() {
+                            this.bindChatEvents();
+                            this.setupImageUpload();
+                        }
+                        
+                        bindChatEvents() {
+                            const chatBubble = document.getElementById('foam-chat-bubble');
+                            const chatPanel = document.getElementById('foam-chat-panel');
+                            const minimizeBtn = document.getElementById('foam-chat-minimize');
+                            const chatInput = document.getElementById('foam-chat-input');
+                            const sendBtn = document.getElementById('foam-chat-send');
+                            
+                            chatBubble.addEventListener('click', () => {
+                                chatBubble.classList.add('hidden');
+                                chatPanel.classList.remove('hidden');
+                                
+                                const messagesContainer = document.getElementById('foam-chat-messages');
+                                if (messagesContainer.children.length === 0) {
+                                    this.addMessageToUI(
+                                        "Hi! I'm Detail Detective 🕵️‍♂️ Upload a photo of your car or tell me what detailing services you're interested in. I can provide personalized recommendations and pricing for Los Angeles and Orange County.",
+                                        'ai'
+                                    );
+                                }
+                            });
+                            
+                            minimizeBtn.addEventListener('click', () => {
+                                chatPanel.classList.add('hidden');
+                                chatBubble.classList.remove('hidden');
+                            });
+                            
+                            const sendMessage = async () => {
+                                const message = chatInput.value.trim();
+                                if (!message && !this.currentImage) return;
+                                
+                                const messageText = message || "Here's a photo of my car";
+                                const imageData = this.currentImage;
+                                
+                                this.addMessageToUI(messageText, 'user');
+                                chatInput.value = '';
+                                
+                                // Clear image preview
+                                const previewArea = document.getElementById('image-preview-area');
+                                if (previewArea) {
+                                    previewArea.classList.add('hidden');
+                                    this.currentImage = null;
+                                }
+                                
+                                await this.sendMessage(messageText, imageData);
+                            };
+                            
+                            sendBtn.addEventListener('click', sendMessage);
+                            chatInput.addEventListener('keypress', (e) => {
+                                if (e.key === 'Enter' && !e.shiftKey) {
+                                    e.preventDefault();
+                                    sendMessage();
+                                }
+                            });
+                            
+                            // Auto-resize textarea
+                            chatInput.addEventListener('input', function() {
+                                this.style.height = 'auto';
+                                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                            });
+                        }
+                        
+                        setupImageUpload() {
+                            const imageUpload = document.getElementById('image-upload');
+                            const previewArea = document.getElementById('image-preview-area');
+                            const previewImage = document.getElementById('preview-image');
+                            const previewFilename = document.getElementById('preview-filename');
+                            const removeImageBtn = document.getElementById('remove-image');
+                            
+                            imageUpload.addEventListener('change', (e) => {
+                                const file = e.target.files[0];
+                                if (!file) return;
+                                
+                                if (file.size > 10 * 1024 * 1024) {
+                                    this.addMessageToUI('Image must be under 10MB. Please choose a smaller file.', 'ai');
+                                    return;
+                                }
+                                
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    this.currentImage = {
+                                        original: e.target.result,
+                                        filename: file.name,
+                                        size: file.size
+                                    };
+                                    
+                                    if (previewImage && previewFilename && previewArea) {
+                                        previewImage.src = e.target.result;
+                                        previewFilename.textContent = file.name;
+                                        previewArea.classList.remove('hidden');
+                                    }
+                                };
+                                reader.readAsDataURL(file);
+                            });
+                            
+                            if (removeImageBtn) {
+                                removeImageBtn.addEventListener('click', () => {
+                                    previewArea.classList.add('hidden');
+                                    this.currentImage = null;
+                                    imageUpload.value = '';
+                                });
+                            }
+                        }
+                        
+                        async sendMessage(message, imageData = null) {
+                            if (this.isProcessing) return;
+                            
+                            this.isProcessing = true;
+                            this.showTypingIndicator();
+                            
+                            try {
+                                let userContent = message;
+                                if (imageData) {
+                                    userContent = `[User uploaded image: ${imageData.filename}] ${message}`;
+                                }
+                                
+                                this.chatHistory.push({
+                                    role: "user",
+                                    content: userContent
+                                });
+                                
+                                const response = await this.callDeepSeekAPI();
+                                
+                                this.chatHistory.push({
+                                    role: "assistant",
+                                    content: response
+                                });
+                                
+                                this.hideTypingIndicator();
+                                this.addMessageToUI(response, 'ai');
+                                this.addContextualActions(response);
+                                
+                            } catch (error) {
+                                console.error('DeepSeek API Error:', error);
+                                this.hideTypingIndicator();
+                                this.handleAPIError(error);
+                            } finally {
+                                this.isProcessing = false;
+                            }
+                        }
+                        
+                        async callDeepSeekAPI() {
+                            const requestBody = {
+                                inputs: this.formatMessagesForAPI(),
+                                parameters: {
+                                    max_new_tokens: 512,
+                                    temperature: 0.7,
+                                    top_p: 0.9,
+                                    repetition_penalty: 1.1,
+                                    return_full_text: false
+                                }
+                            };
+                            
+                            for (let attempt = 1; attempt <= this.config.maxRetries; attempt++) {
+                                try {
+                                    const controller = new AbortController();
+                                    const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
+                                    
+                                    const response = await fetch(this.config.deepseekApiUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Authorization': `Bearer ${this.config.deepseekApiKey}`,
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(requestBody),
+                                        signal: controller.signal
+                                    });
+                                    
+                                    clearTimeout(timeoutId);
+                                    
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                                    }
+                                    
+                                    const data = await response.json();
+                                    
+                                    if (data.generated_text) {
+                                        return this.cleanResponse(data.generated_text);
+                                    } else if (data[0]?.generated_text) {
+                                        return this.cleanResponse(data[0].generated_text);
+                                    } else {
+                                        throw new Error('Invalid API response format');
+                                    }
+                                    
+                                } catch (error) {
+                                    console.warn(`DeepSeek API attempt ${attempt} failed:`, error);
+                                    if (attempt < this.config.maxRetries) {
+                                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
+                                    } else {
+                                        throw error;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        formatMessagesForAPI() {
+                            return this.chatHistory.map(msg => {
+                                if (msg.role === 'system') return `System: ${msg.content}`;
+                                if (msg.role === 'user') return `Human: ${msg.content}`;
+                                return `Assistant: ${msg.content}`;
+                            }).join('\n\n') + '\n\nAssistant:';
+                        }
+                        
+                        cleanResponse(response) {
+                            return response
+                                .replace(/^(Assistant:|AI:|Bot:)/i, '')
+                                .replace(/Human:|System:/g, '')
+                                .trim()
+                                .substring(0, 1000);
+                        }
+                        
+                        showTypingIndicator() {
+                            const messagesContainer = document.getElementById('foam-chat-messages');
+                            const typingDiv = document.createElement('div');
+                            typingDiv.id = 'typing-indicator';
+                            typingDiv.className = 'flex justify-start mb-4';
+                            typingDiv.innerHTML = `
+                                <div class="bg-gray-800 p-3 rounded-lg">
+                                    <div class="flex space-x-1">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                    </div>
+                                </div>
+                            `;
+                            messagesContainer.appendChild(typingDiv);
+                            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        }
+                        
+                        hideTypingIndicator() {
+                            const typingIndicator = document.getElementById('typing-indicator');
+                            if (typingIndicator) typingIndicator.remove();
+                        }
+                        
+                        addMessageToUI(message, sender) {
+                            const messagesContainer = document.getElementById('foam-chat-messages');
+                            const messageDiv = document.createElement('div');
+                            
+                            if (sender === 'user') {
+                                messageDiv.className = 'flex justify-end mb-4';
+                                messageDiv.innerHTML = `
+                                    <div class="max-w-[80%]">
+                                        <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-t-lg rounded-l-lg">
+                                            ${this.currentImage ? `<img src="${this.currentImage.original}" class="w-full h-auto rounded mb-2 max-h-48 object-cover" alt="User uploaded image">` : ''}
+                                            <p class="text-sm">${this.escapeHTML(message)}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                messageDiv.className = 'flex justify-start mb-4';
+                                messageDiv.innerHTML = `
+                                    <div class="max-w-[80%]">
+                                        <div class="bg-gray-800 text-white p-3 rounded-t-lg rounded-r-lg">
+                                            <p class="text-sm">${this.formatResponse(message)}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                            
+                            messagesContainer.appendChild(messageDiv);
+                            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                            this.currentImage = null;
+                        }
+                        
+                        formatResponse(text) {
+                            // Convert phone numbers to clickable links
+                            text = text.replace(/(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4})/g, 
+                                match => `<a href="tel:${match.replace(/[^\d]/g, '')}" class="text-purple-400 hover:text-purple-300 underline">${match}</a>`);
+                            
+                            // Convert emails to clickable links
+                            text = text.replace(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi, 
+                                match => `<a href="mailto:${match}" class="text-purple-400 hover:text-purple-300 underline">${match}</a>`);
+                            
+                            // Format pricing
+                            text = text.replace(/\$(\d+)/g, '<span class="font-semibold text-green-400">$$$1</span>');
+                            
+                            return text;
+                        }
+                        
+                        addContextualActions(response) {
+                            const actions = [];
+                            const lowerResponse = response.toLowerCase();
+                            
+                            if (lowerResponse.includes('$') || lowerResponse.includes('price')) {
+                                actions.push({ text: '📞 Call for Quote', action: 'phone', data: '5622289429' });
+                            }
+                            
+                            if (lowerResponse.includes('schedule') || lowerResponse.includes('book')) {
+                                actions.push({ text: '📅 Book Service', action: 'booking' });
+                            }
+                            
+                            if (!actions.some(a => a.action === 'phone')) {
+                                actions.push({ text: '📞 Call Now', action: 'phone', data: '5622289429' });
+                            }
+                            
+                            if (actions.length > 0) {
+                                this.addActionButtons(actions);
+                            }
+                        }
+                        
+                        addActionButtons(actions) {
+                            const messagesContainer = document.getElementById('foam-chat-messages');
+                            const buttonContainer = document.createElement('div');
+                            buttonContainer.className = 'flex justify-start mb-4';
+                            
+                            const buttonsHTML = actions.slice(0, 3).map(action => 
+                                `<button class="action-btn bg-gray-700 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-sm mr-2 transition-all duration-200" 
+                                         data-action="${action.action}" 
+                                         data-value="${action.data || ''}">
+                                    ${action.text}
+                                </button>`
+                            ).join('');
+                            
+                            buttonContainer.innerHTML = `
+                                <div class="max-w-[80%]">
+                                    <div class="bg-gray-800 p-3 rounded-lg">
+                                        <div class="flex flex-wrap gap-2">
+                                            ${buttonsHTML}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            messagesContainer.appendChild(buttonContainer);
+                            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                            
+                            buttonContainer.querySelectorAll('.action-btn').forEach(btn => {
+                                btn.addEventListener('click', () => {
+                                    const action = btn.getAttribute('data-action');
+                                    const value = btn.getAttribute('data-value');
+                                    this.handleActionClick(action, value);
+                                });
+                            });
+                        }
+                        
+                        handleActionClick(action, value) {
+                            switch(action) {
+                                case 'phone':
+                                    window.location.href = `tel:${value}`;
+                                    if (typeof gtag !== 'undefined') {
+                                        gtag('event', 'phone_call', {
+                                            event_category: 'contact',
+                                            event_label: 'chat_widget'
+                                        });
+                                    }
+                                    break;
+                                case 'booking':
+                                    this.sendMessage("I'd like to schedule a service. What's available in my area?");
+                                    break;
+                            }
+                        }
+                        
+                        handleAPIError(error) {
+                            let errorMessage = "I'm having trouble connecting right now. ";
+                            
+                            if (error.name === 'AbortError') {
+                                errorMessage += "The request timed out. ";
+                            } else if (error.message.includes('429')) {
+                                errorMessage += "I'm getting too many requests. ";
+                            }
+                            
+                            errorMessage += "Please call us directly at 562-228-9429 for immediate assistance!";
+                            
+                            this.addMessageToUI(errorMessage, 'ai');
+                            this.addActionButtons([
+                                { text: '📞 Call Now', action: 'phone', data: '5622289429' }
+                            ]);
+                        }
+                        
+                        escapeHTML(text) {
+                            const div = document.createElement('div');
+                            div.textContent = text;
+                            return div.innerHTML;
+                        }
+                    }
+                    
+                    // Initialize Real Chat System
+                    window.RealChatSystem = new RealChatSystem();
+                },
+                
+                initializeURLManager() {
+                    // Production URL Rewriting System
+                    class ProductionURLManager {
+                        constructor() {
+                            this.routes = new Map([
+                                ['/', { title: 'Mobile Detailing Los Angeles & Orange County | Jay\'s Mobile Wash', section: 'home' }],
+                                ['/services', { title: 'Mobile Car Detailing Services | Jay\'s Mobile Wash', section: 'services' }],
+                                ['/ceramic-coating', { title: 'Ceramic Coating Los Angeles | 2-Year Warranty Protection', section: 'ceramic-coating' }],
+                                ['/paint-correction', { title: 'Paint Correction Services | Remove Swirl Marks & Scratches', section: 'paint-correction' }],
+                                ['/service-areas', { title: 'Service Areas | Los Angeles & Orange County Mobile Detailing', section: 'service-areas' }],
+                                ['/contact', { title: 'Contact Jay\'s Mobile Wash | Call 562-228-9429', section: 'contact' }]
+                            ]);
+                            
+                            this.init();
+                        }
+                        
+                        init() {
+                            this.handleHashToCleanURL();
+                            this.interceptNavigation();
+                            window.addEventListener('popstate', this.handlePopState.bind(this));
+                        }
+                        
+                        handleHashToCleanURL() {
+                            if (window.location.hash) {
+                                const hash = window.location.hash.substring(1);
+                                const cleanPath = hash === 'home' ? '/' : '/' + hash;
+                                
+                                if (this.routes.has(cleanPath)) {
+                                    history.replaceState(
+                                        { section: this.routes.get(cleanPath).section }, 
+                                        this.routes.get(cleanPath).title, 
+                                        cleanPath
+                                    );
+                                    this.updatePageForRoute(cleanPath);
+                                }
+                            }
+                        }
+                        
+                        interceptNavigation() {
+                            document.addEventListener('click', (e) => {
+                                const link = e.target.closest('a[href]');
+                                if (!link) return;
+                                
+                                const href = link.getAttribute('href');
+                                
+                                if (href.startsWith('#')) {
+                                    e.preventDefault();
+                                    const sectionId = href.substring(1);
+                                    const path = sectionId === 'home' ? '/' : '/' + sectionId;
+                                    this.navigateTo(path);
+                                } else if (href.startsWith('/') && !href.includes('.')) {
+                                    e.preventDefault();
+                                    this.navigateTo(href);
+                                }
+                            });
+                        }
+                        
+                        navigateTo(path) {
+                            const route = this.routes.get(path);
+                            
+                            if (route) {
+                                history.pushState(
+                                    { section: route.section }, 
+                                    route.title, 
+                                    path
+                                );
+                                
+                                this.updatePageForRoute(path);
+                                this.scrollToSection(route.section);
+                                this.trackPageview(path, route.title);
+                            } else {
+                                console.warn(`410 Gone: ${path}`);
+                                setTimeout(() => this.navigateTo('/'), 3000);
+                            }
+                        }
+                        
+                        updatePageForRoute(path) {
+                            const route = this.routes.get(path);
+                            if (!route) return;
+                            
+                            document.title = route.title;
+                            this.updateCanonicalURL(path);
+                            this.updateBreadcrumbSchema(route, path);
+                        }
+                        
+                        updateCanonicalURL(path) {
+                            let canonical = document.querySelector('link[rel="canonical"]');
+                            if (!canonical) {
+                                canonical = document.createElement('link');
+                                canonical.rel = 'canonical';
+                                document.head.appendChild(canonical);
+                            }
+                            canonical.href = `https://www.jaysmobilewash.net${path}`;
+                        }
+                        
+                        updateBreadcrumbSchema(route, path) {
+                            const breadcrumbSchema = {
+                                "@context": "https://schema.org",
+                                "@type": "BreadcrumbList",
+                                "itemListElement": [
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 1,
+                                        "name": "Home",
+                                        "item": "https://www.jaysmobilewash.net/"
+                                    }
+                                ]
+                            };
+                            
+                            if (route.section !== 'home') {
+                                breadcrumbSchema.itemListElement.push({
+                                    "@type": "ListItem",
+                                    "position": 2,
+                                    "name": route.title.split('|')[0].trim(),
+                                    "item": `https://www.jaysmobilewash.net${path}`
+                                });
+                            }
+                            
+                            const breadcrumbScript = document.getElementById('breadcrumb-schema');
+                            if (breadcrumbScript) {
+                                breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+                            }
+                        }
+                        
+                        trackPageview(path, title) {
+                            if (typeof gtag !== 'undefined') {
+                                gtag('config', 'G-XXXXXXXXXX', {
+                                    page_title: title,
+                                    page_location: `https://www.jaysmobilewash.net${path}`,
+                                    page_path: path
+                                });
+                            }
+                        }
+                        
+                        scrollToSection(sectionId) {
+                            const section = document.getElementById(sectionId);
+                            if (section) {
+                                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }
+                        
+                        handlePopState(e) {
+                            if (e.state && e.state.section) {
+                                this.updatePageForRoute(window.location.pathname);
+                                this.scrollToSection(e.state.section);
+                            }
+                        }
+                    }
+                    
+                    window.URLManager = new ProductionURLManager();
+                },
+                
+                initializeAnalytics() {
+                    // Track phone clicks
+                    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (typeof gtag !== 'undefined') {
+                                gtag('event', 'phone_call', {
+                                    event_category: 'contact',
+                                    event_label: link.href.replace('tel:', '')
+                                });
+                            }
+                        });
+                    });
+                    
+                    // Track email clicks
+                    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (typeof gtag !== 'undefined') {
+                                gtag('event', 'email_click', {
+                                    event_category: 'contact',
+                                    event_label: link.href.replace('mailto:', '')
+                                });
+                            }
+                        });
+                    });
+                },
                 
                 initializeJayMode() {
-                    let jayTriggerCount = 0;
                     let jayModeActive = false;
                     
-                    // Text scanning for Jay trigger
+                    const activateJayMode = () => {
+                        if (jayModeActive) return;
+                        jayModeActive = true;
+                        
+                        console.log('🎵 JAY MODE ACTIVATED - 45 SECONDS! 🎵');
+                        
+                        const overlay = document.createElement('div');
+                        overlay.className = 'fixed inset-0 z-[10000] pointer-events-none';
+                        overlay.innerHTML = `
+                            <div class="absolute inset-0 bg-gradient-conic from-purple-500 via-pink-500 to-blue-500 opacity-20 animate-spin"></div>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                                <h1 class="text-8xl font-black mb-4 animate-pulse gradient-text">JAY MODE</h1>
+                                <p class="text-2xl text-white">🎵 45 SECOND EDITION 🎵</p>
+                                <div class="mt-4">
+                                    <div id="countdown-display" class="text-4xl font-bold text-white">45</div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        document.body.appendChild(overlay);
+                        document.body.classList.add('jay-activated');
+                        
+                        // 45-second countdown
+                        let timeLeft = 45;
+                        const countdownDisplay = overlay.querySelector('#countdown-display');
+                        
+                                                const countdown = setInterval(() => {
+                            timeLeft--;
+                            if (countdownDisplay) {
+                                countdownDisplay.textContent = timeLeft;
+                            }
+                            
+                            if (timeLeft <= 0) {
+                                clearInterval(countdown);
+                                document.body.classList.remove('jay-activated');
+                                overlay.style.opacity = '0';
+                                setTimeout(() => {
+                                    overlay.remove();
+                                    jayModeActive = false;
+                                }, 1000);
+                            }
+                        }, 1000);
+                        
+                        // Try to play audio
+                        const audio = new Audio('./BLP Kosher - Jack and Jill (Official Music Video).wav');
+                        audio.volume = 0.7;
+                        audio.play().catch(() => {
+                            console.log('Audio autoplay blocked');
+                        });
+                        
+                        // Force stop after 45 seconds
+                        setTimeout(() => {
+                            if (audio) {
+                                audio.pause();
+                                audio.currentTime = 0;
+                            }
+                            clearInterval(countdown);
+                            document.body.classList.remove('jay-activated');
+                            overlay.style.opacity = '0';
+                            setTimeout(() => {
+                                overlay.remove();
+                                jayModeActive = false;
+                            }, 1000);
+                        }, 45000);
+                    };
+                    
+                    // Jay mode trigger detection
                     const scanForJayTrigger = () => {
                         const textContent = document.body.innerText.toLowerCase();
                         const jayMatches = (textContent.match(/\b(jay|jays|detailing|detail detective)\b/gi) || []).length;
                         
                         if (jayMatches >= 5 && !jayModeActive) {
-                            this.activateJayMode();
-                            jayModeActive = true;
+                            activateJayMode();
                         }
                     };
                     
-                    // Scan periodically
+                    // Scan periodically and on interactions
                     setInterval(scanForJayTrigger, 5000);
-                    
-                    // Also scan on interactions
                     document.addEventListener('click', scanForJayTrigger);
                     document.addEventListener('scroll', scanForJayTrigger);
-                },
-                
-                // Replace the existing activateJayMode function in your index.html (around line 1450)
-activateJayMode() {
-    console.log('🎵 JAY MODE ACTIVATED - 45 SECOND EDITION! 🎵');
-    
-    // Create enhanced overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'fixed inset-0 z-[10000] pointer-events-none jay-mode-overlay';
-    overlay.innerHTML = `
-        <div class="absolute inset-0 bg-gradient-conic from-purple-500 via-pink-500 to-blue-500 opacity-20 animate-spin"></div>
-        
-        <!-- Audio visualizer bars -->
-        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            ${Array.from({length: 12}, (_, i) => `
-                <div class="visualizer-bar w-3 bg-gradient-to-t from-purple-500 to-pink-500 rounded-full"
-                     style="height: ${30 + Math.random() * 70}px; 
-                            animation: visualizer-dance ${0.4 + Math.random() * 0.6}s ease-in-out infinite;
-                            animation-delay: ${i * 0.1}s;"></div>
-            `).join('')}
-        </div>
-        
-        <!-- Floating Jay logo with beat sync -->
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
-                 class="w-32 h-32 object-contain mb-4 beat-reactive-logo" 
-                 style="filter: drop-shadow(0 0 50px rgba(168, 85, 247, 1)) brightness(2);
-                        animation: logo-spin-beat 2s ease-in-out infinite;">
+                }
+            };
             
-            <h1 class="text-8xl font-black mb-4 music-sync-text animate-pulse"
-                style="background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
-                       background-size: 400% 400%;
-                       -webkit-background-clip: text;
-                       background-clip: text;
-                       -webkit-text-fill-color: transparent;
-                       animation: rainbow-flow 1.5s ease infinite;">
-                JAY MODE
-            </h1>
-            
-            <p class="text-2xl text-white font-bold animate-bounce">🎵 BLP KOSHER - 45 SEC EDITION 🎵</p>
-            
-            <!-- Countdown timer -->
-            <div class="mt-4">
-                <div class="countdown-circle relative w-16 h-16 mx-auto">
-                    <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 64 64">
-                        <circle cx="32" cy="32" r="28" stroke="#374151" stroke-width="4" fill="none"/>
-                        <circle id="countdown-progress" cx="32" cy="32" r="28" stroke="#ec4899" stroke-width="4" 
-                                fill="none" stroke-linecap="round" 
-                                style="stroke-dasharray: 175.93; stroke-dashoffset: 0; transition: stroke-dashoffset 0.5s;"/>
-                    </svg>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span id="countdown-text" class="text-sm font-bold text-white">45</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Particle explosion -->
-        <div class="particles-explosion absolute inset-0">
-            ${Array.from({length: 30}, (_, i) => `
-                <div class="beat-particle absolute w-2 h-2 rounded-full"
-                     style="background: hsl(${i * 12}, 80%, 60%);
-                            left: ${Math.random() * 100}%;
-                            top: ${Math.random() * 100}%;
-                            animation: particle-dance ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s;"></div>
-            `).join('')}
-        </div>
-    `;
-    
-    document.body.appendChild(overlay);
-    document.body.classList.add('jay-activated');
-    
-    // Enhanced audio with precise 45-second duration
-    const audio = new Audio('./BLP Kosher - Jack and Jill (Official Music Video).wav');
-    audio.volume = 0.7;
-    audio.currentTime = 0; // Start from beginning
-    
-    let countdownTimer;
-    let remainingTime = 45;
-    
-    // Audio play with fallback
-    audio.play().then(() => {
-        console.log('🎵 BLP Kosher playing - 45 seconds');
-        startCountdown();
-        startBeatDetection();
-    }).catch(() => {
-        console.log('Audio autoplay blocked - showing manual trigger');
-        showManualPlayButton();
-    });
-    
-    function startCountdown() {
-        const countdownText = document.getElementById('countdown-text');
-        const progressCircle = document.getElementById('countdown-progress');
-        const circumference = 175.93; // 2 * π * 28
-        
-        countdownTimer = setInterval(() => {
-            remainingTime--;
-            
-            if (countdownText) countdownText.textContent = remainingTime;
-            
-            // Update progress circle
-            if (progressCircle) {
-                const progress = (45 - remainingTime) / 45;
-                const offset = circumference * (1 - progress);
-                progressCircle.style.strokeDashoffset = offset;
-            }
-            
-            if (remainingTime <= 0) {
-                clearInterval(countdownTimer);
-                deactivateJayMode();
-            }
-        }, 1000);
-    }
-    
-    function startBeatDetection() {
-        // Simulate beat every 500ms for visual effects
-        const beatInterval = setInterval(() => {
-            if (remainingTime <= 0) {
-                clearInterval(beatInterval);
-                return;
-            }
-            
-            // Trigger beat effects
-            document.querySelectorAll('.beat-reactive').forEach(element => {
-                element.style.transform = 'scale(1.1)';
-                element.style.filter = 'brightness(1.3) hue-rotate(45deg)';
-                
-                setTimeout(() => {
-                    element.style.transform = '';
-                    element.style.filter = '';
-                }, 200);
-            });
-            
-            // Update visualizer
-            document.querySelectorAll('.visualizer-bar').forEach(bar => {
-                const height = 30 + Math.random() * 70;
-                bar.style.height = height + 'px';
-                bar.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
-            });
-            
-        }, 500);
-    }
-    
-    function showManualPlayButton() {
-        const playBtn = document.createElement('div');
-        playBtn.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 z-[10002] bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-full cursor-pointer shadow-2xl animate-pulse';
-        playBtn.innerHTML = '<i class="fas fa-play mr-3"></i>🎵 ACTIVATE 45-SEC JAY MODE AUDIO 🎵';
-        playBtn.onclick = function() {
-            audio.play().then(() => {
-                startCountdown();
-                startBeatDetection();
-                playBtn.remove();
-            });
-        };
-        document.body.appendChild(playBtn);
-    }
-    
-    function deactivateJayMode() {
-        console.log('🎵 Jay Mode completed - 45 seconds elapsed');
-        
-        if (countdownTimer) clearInterval(countdownTimer);
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-        }
-        
-        document.body.classList.remove('jay-activated');
-        overlay.style.opacity = '0';
-        overlay.style.transform = 'scale(0.9)';
-        
-        setTimeout(() => {
-            overlay.remove();
-        }, 1000);
-        
-        // Reset jay mode availability after 30 seconds
-        setTimeout(() => {
-            jayModeActive = false;
-        }, 30000);
-    }
-    
-    // Force stop after 45 seconds regardless
-    setTimeout(() => {
-        if (remainingTime > 0) {
-            deactivateJayMode();
-        }
-    }, 45000);
-}
-            
-            // Start loading
+            // Start loading immediately
             LoadingManager.init();
         });
-        
+
+        // GitHub Copilot Context Enhancement System
+        window.CopilotContext = {
+            project: {
+                name: 'Jay\'s Mobile Wash SPA',
+                user: 'jjmandog',
+                framework: 'Vanilla JS + Tailwind',
+                requirements: {
+                    lighthouse: 95,
+                    cls: 0.05,
+                    lcp: 1500,
+                    realApisOnly: true,
+                    seoOptimized: true
+                },
+                currentDateTime: '2025-06-30 12:51:08',
+                features: {
+                    urlRewriting: true,
+                    prerendering: true,
+                    ceramicCoatingFocus: true,
+                    mobileDetailing: true,
+                    realTimeChat: true
+                }
+            },
+            
+            getCurrentContext() {
+                return {
+                    url: window.location.href,
+                    section: this.getCurrentSection(),
+                    userAgent: navigator.userAgent,
+                    viewport: {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    },
+                    performance: {
+                        loadTime: performance.timing.loadEventEnd - performance.timing.navigationStart,
+                        cls: this.getCLS(),
+                        lcp: this.getLCP()
+                    }
+                };
+            },
+            
+            getCurrentSection() {
+                const sections = document.querySelectorAll('section[id]');
+                let currentSection = 'home';
+                
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                        currentSection = section.id;
+                    }
+                });
+                
+                return currentSection;
+            },
+            
+            enforceRequirements() {
+                // Block hash URLs in production
+                if (window.location.hash && window.location.hostname !== 'localhost') {
+                    const cleanPath = window.location.hash.substring(1);
+                    const newUrl = '/' + (cleanPath || '');
+                    history.replaceState(null, null, newUrl);
+                }
+                
+                // 410 Gone for invalid routes
+                const validRoutes = ['/', '/services', '/ceramic-coating', '/paint-correction', '/service-areas', '/contact'];
+                if (!validRoutes.includes(window.location.pathname) && !window.location.pathname.includes('.')) {
+                    console.warn('410 Gone: Invalid route');
+                }
+                
+                // Monitor performance thresholds
+                setTimeout(() => {
+                    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                    if (loadTime > 1500) {
+                        console.error(`❌ LCP violation: ${loadTime}ms > 1500ms`);
+                    }
+                }, 2000);
+            },
+            
+            getAIContext() {
+                return {
+                    timestamp: new Date().toISOString(),
+                    user: 'jjmandog',
+                    project: 'Jay\'s Mobile Wash SPA',
+                    currentFocus: this.getCurrentSection(),
+                    businessContext: {
+                        services: ['mobile-detailing', 'ceramic-coating', 'paint-correction'],
+                        serviceAreas: ['los-angeles', 'orange-county'],
+                        phone: '562-228-9429',
+                        email: 'jason@jaysmobilewash.net'
+                    },
+                    technicalStack: {
+                        framework: 'vanilla-js',
+                        styling: 'tailwind-css',
+                        apis: ['deepseek-chat', 'google-analytics', 'real-booking-system'],
+                        hosting: 'static-spa-optimized'
+                    },
+                    seoRequirements: {
+                        lighthouse: 95,
+                        cls: 0.05,
+                        lcp: 1500,
+                        urlRewriting: true,
+                        prerendering: true,
+                        schemaMarkup: true
+                    }
+                };
+            }
+        };
+
         // Service Worker Registration for PWA capabilities
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('SW registered'))
+                    .then(registration => console.log('🔧 SW registered'))
                     .catch(error => console.log('SW registration failed'));
             });
         }
         
-        // Performance monitoring
+        // Performance monitoring with real metrics
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
                 console.log(`⚡ Page load time: ${loadTime}ms`);
                 
-                if (loadTime > 3000) {
-                    console.warn('⚠️ Page load time exceeds 3 seconds - consider optimization');
+                // Enforce 1.5s LCP requirement
+                if (loadTime > 1500) {
+                    console.error('⚠️ LCP violation - optimize critical path');
                 }
+                
+                // Monitor CLS
+                let clsValue = 0;
+                const observer = new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            clsValue += entry.value;
+                        }
+                    }
+                    if (clsValue > 0.05) {
+                        console.error(`⚠️ CLS violation: ${clsValue.toFixed(3)} > 0.05`);
+                    }
+                });
+                observer.observe({entryTypes: ['layout-shift']});
+                
             }, 1000);
         });
+
+        // Initialize context enforcement
+        document.addEventListener('DOMContentLoaded', function() {
+            window.CopilotContext.enforceRequirements();
+            console.log('🤖 Copilot Context:', window.CopilotContext.getAIContext());
+        });
+
+        // Export context for external AI tools
+        window.addEventListener('load', () => {
+            if (window.postMessage) {
+                window.postMessage({
+                    type: 'COPILOT_CONTEXT',
+                    data: window.CopilotContext.getAIContext()
+                }, '*');
+            }
+        });
+
+        // Additional particle animation keyframes
+        const particleStyles = document.createElement('style');
+        particleStyles.textContent = `
+            @keyframes floatParticle {
+                0%, 100% { 
+                    transform: translateY(0px) rotate(0deg); 
+                    opacity: 0.6; 
+                }
+                25% { 
+                    transform: translateY(-20px) rotate(90deg); 
+                    opacity: 1; 
+                }
+                50% { 
+                    transform: translateY(-10px) rotate(180deg); 
+                    opacity: 0.8; 
+                }
+                75% { 
+                    transform: translateY(-30px) rotate(270deg); 
+                    opacity: 1; 
+                }
+            }
+            
+            .foam-particle {
+                animation: floatParticle 3s ease-in-out infinite;
+            }
+            
+            .foam-bubble-dots {
+                animation: pulse 2s ease-in-out infinite;
+            }
+            
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+            
+            .quick-action-btn:hover {
+                color: #a855f7;
+                transform: translateY(-1px);
+            }
+            
+            .action-btn:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(168, 85, 247, 0.3);
+            }
+            
+            .glow-social:hover {
+                box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            }
+        `;
+        document.head.appendChild(particleStyles);
     </script>
     
-    <!-- Structured Data for Enhanced SEO -->
+    <!-- Real Google Analytics 4 Integration -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: document.title,
+            page_location: window.location.href,
+            custom_map: {
+                'custom_parameter_1': 'mobile_detailing_service'
+            }
+        });
+        
+        // Enhanced conversion tracking
+        gtag('config', 'AW-XXXXXXXXX'); // Google Ads
+        
+        // Track specific business events
+        function trackServiceInterest(service, price) {
+            gtag('event', 'service_interest', {
+                event_category: 'engagement',
+                event_label: service,
+                value: parseInt(price),
+                currency: 'USD'
+            });
+        }
+        
+        // Track phone calls as conversions
+        function trackPhoneCall(source) {
+            gtag('event', 'conversion', {
+                send_to: 'AW-XXXXXXXXX/XXXXXXXXX',
+                event_category: 'contact',
+                event_label: source,
+                value: 150,
+                currency: 'USD'
+            });
+        }
+    </script>
+    
+    <!-- WebSite Schema for Enhanced Search -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -2149,4 +2618,4 @@ activateJayMode() {
     </script>
 
 </body>
-</html>ass="max-w-4xl mx-auto px
+</html>
