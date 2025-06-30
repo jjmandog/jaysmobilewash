@@ -70,7 +70,370 @@ body {
 @keyframes rgbGlow {
   0% {
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.7),
+                 0 0 20px rgba(0, 255, 0, 0.5),
+                 0 0 30px rgba(0, 255, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0, 0, 255, 0.7),
+                 0 0 20px rgba(0, 0, 255, 0.5),
+                 0 0 30px rgba(0, 0, 255, 0.3);
+  }
+  75% {
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7),
+                 0 0 20px rgba(255, 0, 255, 0.5),
+                 0 0 30px rgba(255, 0, 255, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7),
                  0 0 20px rgba(255, 0, 0, 0.5),
+                 0 0 30px rgba(255, 0, 0, 0.3);
+  }
+}
+
+/* Initial state and animation */
+.company-name-animated {
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInUp 0.8s ease-out forwards;
+  position: relative;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  transition: text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect - changing glow color */
+.company-name-animated:hover {
+  text-shadow: 
+    0 0 10px rgba(236, 72, 153, 0.7),
+    0 0 20px rgba(236, 72, 153, 0.5);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.rgb-glow-header {
+  position: relative;
+  z-index: 1;
+  animation: rgbGlow 8s infinite linear;
+}
+
+/* Particle background container */
+.particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure the canvas covers the entire screen */
+#particle-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Make content appear above particles */
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Audio visualization container */
+.beat-visualization-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  will-change: opacity, transform;
+}
+
+.beat-visualization-container.active {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+/* Beat visualization bars */
+.beat-bars {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.beat-bar {
+  width: calc(100% / 32 - 4px);
+  background: linear-gradient(to top, 
+    rgba(var(--primary-color), 0.8), 
+    rgba(var(--secondary-color), 0.8)
+  );
+  margin: 0 2px;
+  height: 5px;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.1s ease-out;
+  will-change: height;
+}
+
+/* Audio trigger indicator */
+.audio-trigger-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+  pointer-events: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.audio-trigger-indicator.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Beat reactive elements */
+.beat-reactive {
+  transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67),
+              filter 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  will-change: transform, filter;
+}
+
+.beat-reactive.on-beat {
+  animation: beatPulse 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+/* Beat animation keyframes */
+@keyframes beatPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(calc(1 + var(--beat-intensity) * 0.12));
+    filter: brightness(calc(1 + var(--beat-intensity) * 0.5));
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Beat anticipation animation */
+.beat-anticipation {
+  transition: all 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.beat-anticipation.anticipating {
+  animation: anticipationGrow 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+@keyframes anticipationGrow {
+  0% { 
+    transform: scale(0.98);
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(1.02);
+    opacity: 1; 
+  }
+}
+
+/* Logo-specific beat effects */
+.company-logo.beat-reactive.on-beat {
+  animation: logoPulse 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+@keyframes logoPulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(var(--secondary-color), 0));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(var(--secondary-color), 0.8));
+    transform: scale(1.1);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(var(--secondary-color), 0));
+    transform: scale(1);
+  }
+}
+
+/* Text-specific beat effects */
+.company-name-animated.beat-reactive.on-beat {
+  animation: textGlow 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 0 rgba(var(--primary-color), 0);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(var(--primary-color), 0.8),
+                 0 0 40px rgba(var(--primary-color), 0.4);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(var(--primary-color), 0);
+  }
+}
+
+/* Products section specific beat effects */
+.product-card.beat-reactive.on-beat {
+  box-shadow: 0 10px 25px rgba(var(--primary-color), calc(0.3 + var(--beat-intensity) * 0.5));
+}
+
+.product-image.beat-reactive.on-beat {
+  filter: brightness(calc(1 + var(--beat-intensity) * 0.3)) 
+          contrast(calc(1 + var(--beat-intensity) * 0.1));
+}
+
+/* Gyroscope-reactive elements */
+.gyroscope-reactive {
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Particle effects */
+.particle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--primary-color), 0.8) 0%,
+    rgba(var(--secondary-color), 0) 70%
+  );
+  animation: particleFloat 3s infinite ease-in-out;
+  opacity: 0.5;
+  will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* BPM indicator */
+.bpm-indicator {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+}
+
+.bpm-indicator.active {
+  opacity: 1;
+}
+
+.bpm-indicator::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(var(--secondary-color), 1);
+  margin-right: 8px;
+  animation: bpmPulse calc(60s / var(--current-bpm, 120)) infinite linear;
+}
+
+@keyframes bpmPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+}
+
+/* Battery-saving mode */
+.battery-saver .beat-reactive,
+.battery-saver .beat-anticipation,
+.battery-saver .gyroscope-reactive {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.battery-saver .beat-visualization-container {
+  display: none;
+}
+
+.battery-saver .particle {
+  display: none;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .beat-reactive,
+  .beat-anticipation,
+  .gyroscope-reactive {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .beat-visualization-container {
+    display: none;
+  }
+  
+  .particle {
+    animation: none !important;
+    opacity: 0.2 !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .beat-visualization-container {
+    height: 80px;
+  }
+  
+  .beat-bar {
+    width: calc(100% / 24 - 4px);
+  }
+  
+  .company-name-animated {
+    font-size: 1.25rem; /* Smaller on mobile */
+  }
+}
                  0 0 30px rgba(255, 0, 0, 0.3);
   }
   25% {
