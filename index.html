@@ -705,10 +705,12 @@
             }
         }
         
-        /* Foam Cursor Styles */
+        /* Fix cursor visibility issues */
         #foam-cursor {
-            width: 40px;
-            height: 40px;
+            pointer-events: none !important;
+            z-index: 10001 !important;
+            mix-blend-mode: normal !important;
+            will-change: transform;
         }
         
         body.foam-cursor-active {
@@ -717,6 +719,11 @@
         
         body.foam-cursor-active * {
             cursor: none !important;
+        }
+        
+        body.foam-cursor-active #foam-cursor {
+            display: block !important;
+            visibility: visible !important;
         }
         
         .foam-particle {
@@ -831,6 +838,29 @@
                 transform: translate(var(--tx), var(--ty)) scale(0);
                 opacity: 0;
             }
+        }
+        
+        /* Performance optimizations */
+        .particle, .foam-particle, .floating-product-particle {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Fix z-index stacking issues */
+        #jay-overlay {
+            z-index: 10002 !important;
+        }
+        
+        #loading-screen {
+            z-index: 10003 !important;
         }
         
         /* Jay Mode Overlay */
@@ -977,6 +1007,110 @@
             0% { opacity: 1; }
             100% { opacity: 0; }
         }
+        
+        /* Foam Drip Animation */
+        .foam-drip {
+            position: absolute;
+            top: -40px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.4) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.4), 
+                        inset 0 0 5px 1px rgba(220,220,255,0.9);
+            filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.2));
+            transform-origin: center bottom;
+            animation: drip-fall var(--fall-duration, 8s) ease-in forwards, 
+                       drip-wobble var(--wobble-duration, 2s) ease-in-out infinite alternate,
+                       drip-grow var(--grow-duration, 1.5s) ease-in-out forwards;
+            opacity: 0.8;
+            will-change: transform;
+            z-index: 9998;
+        }
+        
+        .foam-drip::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            bottom: -5%;
+            filter: blur(2px);
+        }
+        
+        @keyframes drip-fall {
+            0% { 
+                transform: translateY(0) scale(1);
+            }
+            70% {
+                transform: translateY(calc(70vh - 40px)) scale(1);
+            }
+            90% {
+                transform: translateY(calc(90vh - 40px)) scale(0.8);
+                opacity: 0.7;
+            }
+            100% { 
+                transform: translateY(calc(100vh)) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes drip-wobble {
+            0% { 
+                border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+                transform: translateX(0) rotate(0deg); 
+            }
+            50% { 
+                border-radius: 45% 55% 52% 48% / 55% 58% 42% 45%;
+            }
+            100% { 
+                border-radius: 48% 52% 48% 52% / 58% 52% 48% 42%;
+                transform: translateX(10px) rotate(5deg); 
+            }
+        }
+        
+        @keyframes drip-grow {
+            0% { 
+                transform: scaleY(0.7) scaleX(1);
+            }
+            20% {
+                transform: scaleY(1.3) scaleX(0.8);
+            }
+            100% { 
+                transform: scaleY(1) scaleX(1);
+            }
+        }
+        
+        /* Foam trail effect */
+        .foam-trail {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0;
+            animation: trail-fade 3s ease-out forwards;
+            z-index: 9997;
+        }
+        
+        @keyframes trail-fade {
+            0% { 
+                opacity: 0.7;
+                transform: scale(0.8);
+            }
+            100% { 
+                opacity: 0;
+                transform: scale(0.3);
+            }
+        }
+        
+        /* Jay Mode enhancement for foam drip */
+        body.jay-activated .foam-drip {
+            animation-duration: 3s, 0.8s, 0.6s !important;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8)) hue-rotate(var(--beat-hue, 0deg));
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -988,6 +1122,9 @@
     </noscript>
 </head>
 <body itemscope itemtype="https://schema.org/AutoRepair">
+    <!-- Foam Drip Container -->
+    <div id="foam-drip-container" class="fixed inset-x-0 top-0 z-[9998] pointer-events-none overflow-hidden h-screen"></div>
+    
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center">
         <div class="relative w-80 h-80">
@@ -1267,7 +1404,7 @@
                                 <span>SUV/Truck: $140 | Mobile Service LA & OC</span>
                             </div>
                             <ul class="space-y-2 text-left mb-6" itemprop="description">
-                                <li class="flex items-start">
+                                                                <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
                                     <span>Everything in Mini Detail PLUS:</span>
                                 </li>
@@ -1332,7 +1469,7 @@
                             <ul class="space-y-2 text-left mb-6" itemprop="description">
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                                                        <span>Everything in Luxury PLUS:</span>
+                                    <span>Everything in Luxury PLUS:</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
@@ -2127,7 +2264,7 @@
                             </div>
                             <div class="mb-6">
                                 <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Vehicle Details & Special Requests</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Tell us about your vehicle (make, model, year) and any specific detailing needs..." class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+                                                               <textarea id="message" name="message" rows="4" placeholder="Tell us about your vehicle (make, model, year) and any specific detailing needs..." class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-4 rounded-lg font-medium hover:shadow-lg transition-shadow beat-reactive glow-button">
                                 Get Free Mobile Detailing Quote
@@ -2188,7 +2325,7 @@
                     <!-- FAQ Item 4 -->
                     <div class="bg-gray-900 rounded-xl overflow-hidden">
                         <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
-                                                        <h3 class="text-xl font-medium text-left">Do I need to provide water or electricity for mobile detailing?</h3>
+                            <h3 class="text-xl font-medium text-left">Do I need to provide water or electricity for mobile detailing?</h3>
                             <i class="fas fa-chevron-down transition-transform duration-300"></i>
                         </button>
                         <div class="faq-answer px-6 pb-6">
@@ -2296,112 +2433,8 @@
     </footer>
 
     <!-- Defer JavaScript Loading -->
-    <script defer>
-        // Base64 Audio String (CB Track)
-        const CB_BASE64_AUDIO = 'SUQzBAAAAAAAf1RYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAHAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzbzZtcDQxAFRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/+1AAAAAAAAAAAAAA';
-        
-        // Loading Screen Logic
-        function initLoadingScreen() {
-            const loadingScreen = document.getElementById('loading-screen');
-            const loadingPercent = document.getElementById('loading-percent');
-            const waterFill = document.getElementById('water-fill');
-            const loadingMessage = document.getElementById('loading-message');
-            
-            const messages = [
-                "Preparing foam cannons...",
-                "Mixing ceramic coating...",
-                "Polishing the interface...",
-                "Loading detailing tools...",
-                "Activating hydrophobic mode...",
-                "Calibrating paint correction...",
-                "Jay's team is getting ready...",
-                "Almost ready to shine!"
-            ];
-            
-            let percent = 0;
-            const loadingInterval = setInterval(() => {
-                percent += 1.67; // 6 seconds = 100%
-                if (percent > 100) percent = 100;
-                
-                loadingPercent.textContent = Math.floor(percent);
-                waterFill.style.height = percent + '%';
-                
-                // Change message every 12.5%
-                const messageIndex = Math.floor(percent / 12.5);
-                if (messages[messageIndex]) {
-                    loadingMessage.textContent = messages[messageIndex];
-                }
-                
-                if (percent >= 100) {
-                    clearInterval(loadingInterval);
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        loadingScreen.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                            document.body.style.overflow = 'auto';
-                            initFoamCursor();
-                        }, 500);
-                    }, 500);
-                }
-            }, 60); // Update every 60ms for smooth animation
-            
-            // Prevent scrolling during loading
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Foam Cursor Logic
-        function initFoamCursor() {
-            const foamCursor = document.getElementById('foam-cursor');
-            document.body.classList.add('foam-cursor-active');
-            
-            document.addEventListener('mousemove', (e) => {
-                foamCursor.style.left = e.clientX - 20 + 'px';
-                foamCursor.style.top = e.clientY - 20 + 'px';
-                foamCursor.style.opacity = '1';
-            });
-            
-            // Create foam on click
-            document.addEventListener('click', (e) => {
-                createFoamBurst(e.clientX, e.clientY);
-            });
-            
-            // Hide cursor when leaving window
-            document.addEventListener('mouseleave', () => {
-                foamCursor.style.opacity = '0';
-            });
-            
-            document.addEventListener('mouseenter', () => {
-                foamCursor.style.opacity = '1';
-            });
-        }
-        
-        function createFoamBurst(x, y) {
-            const foamBurst = document.createElement('div');
-            foamBurst.className = 'click-foam';
-            foamBurst.style.left = x + 'px';
-            foamBurst.style.top = y + 'px';
-            
-            for (let i = 0; i < 12; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'click-foam-particle';
-                
-                const angle = (i / 12) * Math.PI * 2;
-                const velocity = 50 + Math.random() * 50;
-                const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity;
-                
-                particle.style.setProperty('--tx', tx + 'px');
-                particle.style.setProperty('--ty', ty + 'px');
-                
-                foamBurst.appendChild(particle);
-            }
-            
-            document.body.appendChild(foamBurst);
-            setTimeout(() => foamBurst.remove(), 1000);
-        }
-
-        // Main initialization
+    <script>
+        // THIS IS THE UPDATED SCRIPT WITH FOAM DRIPPING EFFECT AND FIXED AUDIO PLAYBACK
         document.addEventListener('DOMContentLoaded', async function() {
             // Start loading screen
             initLoadingScreen();
@@ -2424,7 +2457,6 @@
                             behavior: 'smooth',
                             block: 'start'
                         });
-                        // Close mobile menu if open
                         mobileMenu.classList.add('hidden');
                     }
                 });
@@ -2449,7 +2481,6 @@
                     const icon = this.querySelector('i');
                     const answer = this.nextElementSibling;
                     
-                    // Close other FAQs
                     faqToggles.forEach(otherToggle => {
                         if (otherToggle !== toggle) {
                             const otherIcon = otherToggle.querySelector('i');
@@ -2459,7 +2490,6 @@
                         }
                     });
                     
-                    // Toggle current FAQ
                     icon.classList.toggle('rotate-180');
                     answer.classList.toggle('active');
                 });
@@ -2475,44 +2505,8 @@
                 });
             }
 
-            // ===== AUDIO EFFECTS SYSTEM =====
-            // Create audio element
-            const audioElement = document.createElement('audio');
-            audioElement.id = 'background-audio';
-            audioElement.loop = true;
-            audioElement.volume = 0.7;
-            // Use standard audio for background
-            audioElement.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-            document.body.appendChild(audioElement);
-            
-            // Create Jay audio element
-            const jayAudioElement = document.createElement('audio');
-            jayAudioElement.id = 'jay-audio';
-            jayAudioElement.loop = false;
-            jayAudioElement.volume = 1;
-            jayAudioElement.src = 'data:audio/mp3;base64,' + CB_BASE64_AUDIO;
-            document.body.appendChild(jayAudioElement);
-            
-            // Audio controls
-            const audioControls = document.createElement('div');
-            audioControls.innerHTML = `
-                <button id="toggle-audio" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #9333ea, #ec4899); color: white; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;" aria-label="Toggle music">
-                    <i class="fas fa-volume-mute"></i>
-                </button>
-            `;
-            document.body.appendChild(audioControls);
-            
-            let audioStarted = false;
-            document.getElementById('toggle-audio').addEventListener('click', function() {
-                if (audioElement.paused) {
-                    audioElement.play();
-                    this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    audioStarted = true;
-                } else {
-                    audioElement.pause();
-                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                }
-            });
+            // Initialize foam cursor
+            initFoamCursor();
             
             // Add particles to hero
             const heroSection = document.querySelector('.hero-gradient');
@@ -2523,7 +2517,7 @@
                 const particlesContainer = heroSection.querySelector('.particles-container');
                 
                 // Create particles
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 20; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     
@@ -2543,6 +2537,7 @@
                         top: ${y}%;
                         opacity: 0.6;
                         animation: floatParticle ${duration}s ease-in-out ${delay}s infinite;
+                        will-change: transform;
                     `;
                     
                     particlesContainer.appendChild(particle);
@@ -2571,106 +2566,48 @@
                 }, 100);
             }
             
-            // Audio visualizer
-            const visualizerHTML = `<canvas id="audio-visualizer" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 999; pointer-events: none; opacity: 0.8;"></canvas>`;
-            document.body.insertAdjacentHTML('beforeend', visualizerHTML);
+            // CREATE AUDIO ELEMENT FOR JAY MODE WITH PROPER BASE64 ENCODING
+            // Base64 audio string - CB track
+            const CB_BASE64_AUDIO = 'SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA/+M4wAAAAAAAAAAAAEluZm8AAAAPAAAAAwAAAEQAgwANDQ0NDRsbGxsbGxsbKCgoKCgoKCg2NjY2NjY2NkNDQ0NDQ0NDUVFRUVFRUVFfX19fX19fX2xsbGxsbGxseXl5eXl5eXmHh4eHh4eHh5SUlJSUlJSUoqKioqKioqKwsLCwsLCwsL29vb29vb29y8vLy8vLy8vZ2dnZ2dnZ2ebm5ubm5ubm8/Pz8/Pz8/P///////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJANYAAAAAAAARIMObBfQAAAAAAD/+8BkAAaUK3JJ6ygABsPvOT/nlAAOfcUn7PKAAl+4HP+eEDCiFS0uaNO2kGgMKiGDQBQujFEUtQmiEe0y/NE24DCgBgILh4FQmEYAxqsKLS7oFAiDYhxDCwvxc3C81KyEHhYYVsL4XhYiE+ykkOHAaL7KhKkwc4JiYTLAJ8M0syY2a0NCMmEyQLxBCzJO5ZYJdGOoI6OkICiICQA0kCSgqYIMFJCOKcbKCuXRkDNQyKrJbjVcbkyeqzZ7RdK45KjGXkZM1oQlhaZI5ULiNlUeM8i42GzYpOjQxUFkXN0BZjKJUj5RhpuBXAKCdF13SytlRVpJO83my+XkJDqchlVTK4Y66jlkLnLIoarmbU2nq1qRVpLJtJBUr/+1Bk54AB30FFoe8YAJ7DE04xAABTNFBxbnnACmcQ0C38MAHwqLodpq6ioeFJ2SFRTK6Q9CouCC5P0Evt0l7MUpuiXUmaSsL7UVZWWSWNCg2TyhMbluYpQUkoi+Hu87BksIGjeQkGCwnLQmJRGUhsPYiiK3aLauCnDwVIUEGJzT+SzgNEhDuLPiVNZUUbTkMIoKMhEZHNJISZFCLgSwiJhKlSZmJ8GPWMlBXMSEwXdFRMhUpPDROaHTUnVTW5FEJXDakZwmOhJJmpcrrLomfU6pKU0y7MYob3N47n8mVV0zpThhip01nOfUGP+KiMcurmFBupWTKc7+SfUlJHaq3Py+/9S6tMSjrZzpQ+ZtaL+zp1K6tGjh0mYXJHOBSpOo8iVTc5i5NOFyVqITdQ8Y6T+pkgP/+0Bk8AAxIy3GM9MAB+iFuIYwIADY8LcYxwwAnvoW0BjRgAkMjJHholLhe8iZQyRkg4uGjpUjuiYTiQVUhQxuMVkCQdkRqeCfmzl+5D9JDnIi+t5ciJeeC5aK6rXGdFO7l/ojj8M8iUya2RaVW5OovtzAooXUd/QwfhRK1Ius5aixdeM5kZK7S6lvPJNScMtgPcz7ZNcxzu29tYCc7kLyPYtuUczN5+V1K82sxVGga0qZz2ka1Wrds3psg7gdCpqvM/1FNYcs1ouAxkpqEUCFVQsIlRJVFpyshY3YkakySUoEUaa4SnVLoMlVw2DkXFE3DVFZjMigaJQ5E4YDMUdcLSw4owoeZIzOkZCQrPgsVGBcRAkNlxQWHgzFnTOQaaxSoCq5qoRw2Uyc1UP/+0Bk8IAwLC3GM8EABdKFuMY4IACzELcYxhAAF+IW0RnggAOkZeGVKus4LSHMWuDMitaiby98r02FYS2K2xORofue9/jhBZwgTIgMhKxU04fqcQWCaTxrNxA2VTKFCFSMS/C6EEKulnJMMmwtmHD2kzfFursu4cPUOmRHH4aaF3HOWpyw02JTcc85Lj2YCIyfEO1cYxHH7w3TltYQOgQJwIJJUZh4q81jq25WqKUqVsOTFiqxaUxvd1+RT0NIyILFdbms7DHes7lpEos5mbwDm6yfw3rXWmuRDrZ/W21fK63T2v65zs5n93q7+y/Z3mfaX/KK8lXN/Y9u5y2kKJCW5t67+oVQVPI+rAy3Xfy/pgnjqr7h3LlG7zCgSvMO4+O9fQtP/+0Bk5wEcvwtgDWHgA1m4XAWnvABpFAXBNPOADSbgsCaeMAAMjyP5+t5fIEFZ09ew88OIuBJUlYYbnIIH+lhL8RqeoRVCxSgAAZrjx7AWAAHzHZPxlGIkkYrBBiVCmFQibNyZqFimM2QYlwhgIDGXw+dlCRscZmI4Ca7bpiRjGulCZHERpXnlSEYcawrAJisOmS5YsDwwvKi8LTo+JkoPQlJkMx4dAxwYIACIRlIGHxw4YaY5ZYHgUAMUAQ6IqmOANBDYYRCiZEIh6OJCSEgMLiRUJGAEDeozVaLerWuuWVGcn16ab6d1GffQ5iUW5lcDfNrLf6F9MqaqmnftnfV7q/tMd/3q137b7j8YlEq4yaIdDKWJ00Wm52U09a5Ncn6a+rv/+0Bk9AExfCzA0x4YBCqFl/oz00BCILMDTHhgCAIWX+mHnRnfW177+8+OHNmUjhaenkdT+P8En1CWNEfxr3XVPt7YawOGifo2wWoDMSxTQBmjxZSLsNuWTjFftF5hBITw4mAaA1RJFJiQcYAjmU4BgxUMiw1N+EPARgXaZvRiAtRhoKGNA5h3KYeAy7rMMTzo0RuNXujVG809YMXFTFIQMPBTG0kw9KMXgRhQmDAES9W2cBAylRDRKBxYZQlEFJBSGc05roqqf4pFxdaTlK/6+RpS0qBbkjDzcfzasWrMzN2KiutKPbjr8RlKLsoAai4SohLQ9NkHRk7RvP9uxGXXezQCAgIPCA6k6wuEqrRD5a1Kk8w2s7rPvVFuC6ozf/+0Bk/IEppQsuNMRGgQihZf6Y09AqtCzA0w0aBHaFk1phI0Pv5elbgJ86WBTU6oSpTuQq30cEkJACMIJLCDdZErSbaILBbdnHKWBgYYbEoQXGJA0TDNNGGhshHDBhiYmGyJGMpEAw0YlMKFgzAy7ABGUk0YyWApCDQobZKUtGJJ1n+OOjCCUYCLhTl5geKMOwxICFgAxLk8mMZlGqeBmsjtYdYv70+fyvKp3pF9XVpvNamtequHWhCo6D5qqWQoLSTCmCLB8QJnPfZk+D3/1FrP9RnzDtVkKzayVnqT+lJkp219/Refu/+q3Z4pG3a5FTL+zcUdqqidCXjDzZcgT+WXV53+75KZZCVzW/qcxuDLF+UbnDKo1KVFVSpvzmfIKv/+0Bk/4IpuQssNMeGAQyhZgzGBLQnRCyw0x4YBF6Fl9swZUV3/9Tk7keTSle8HSMbZ1uNdBpkvFy8tXeNIfsptCrgRskXu6nhBAIKN6CzuDThyXDwYbg7IBCMOAQkLGYjKLOmVGuZAA8SBdLKlYnBJ4SMRAwdDTYeAFRYKQzLSIMtYXG4Zw46IHiJ1geAKDgIAj1SYMFNBIADQDNtyzIQhhghqYaBmHhgMBJ9CLlHnRVVSBfv1VTTTRVRXXKXbdNW1ZbODclla63RFFVXm9SZnW1Pk1+nnCJnGSZjC0zanSUq63tUVLPv+oXSqltJ3MT2NWO//o/9OlVa2PVnbsemr+ylf+1lNa1lmu+Z2t7N+p1UlExGm9UPm0tE3tLZhkf/+0BlAQIptQsv9MJGgSYhZf6YWdAk5Cy/0wcaBIyFl/o750Xn7NlU/1kL0v+qGABAQ2IkGxybLNU617jisOcDqr7CV7zR/rliiItJIwklJgQki/iiIgQaIDxY3MVjkz9PDRskbRGWiVY9LS4xWNw0KSQm0yzv7coDBBm0OjXU3TMYZjJQ3VI2GPBiAgLQQEhoYCTUGFRlsJwQMRgnwMdhgYJCQkYJAhiWE0TU4IXF8ZREhwJnp7VMBHdKnyrzqbTeZzO/7LFAleR9qG8/tJK2aj0LABQ1cCQgctwOMVD0zpqarjwAwUEqgYaABJFVR2XSZyz9yVWpf1Wv/mtJUVW9vT2c3qvVc0KJPoMQVilMHpZVcrSV/+0Bk/4IpzQsv9MeGgQChZf6YWNCdMLLrTBxoBs4WXUwELTkAB+yeIOtFwA8vpPFi+6e5uynff1G9leVFbpgeUDQsKaAaUWxZZKvPM+CU9vZ7t1XE3HhRl2lzS+rNkkSseFKkTUZixGFrUCtFvaGxIQdgzMeJiIoaajmJ4JjaMbeiDPw052yMNhjKxIcITjwcx0BQwMwjDMJQjFcA4TDQMAEzDwUzTHIJESrF01FEYoYBAQXCJhmMZq7gaDGDgpfsyKSMtS5MFFg5ImBYQCoDcw3Dg0KgcGIFcPcowBCgwXL31k8psbKaPOryqSKTjWW88Sk6TRraSuvKkqZy8Cp5VexdjRbRokpbJRedu7dpG7XP/+0Bk/4IqIQsvtMZGgSWhZfqYOdAmlCy+0w0aBMaFl9pg50wcvdm9zyRZsVjjfWfZdlRm8z9BE4nDJBIAAF0lNsdnP31ZfR2UfdrJBULRsjB0MOMY00PTBVNexyK+0YIcNNjOM2YksdFosTR6BDIuLtPbbFvUhjaYjwtSprNIypDWosjC46sMsRMRzpavPnzIUNOG1gaMGoUaNnJCKYMggFMJgi2MSgyZArV0hwuBFIjERw8x0QABJlS2YUBEQKFAM/8eMSEUCj7ElxWAMREIGF1NQmiiLEhiYhYNQGDCcVQ6ZE2S1dE2VVJPRUkWdHUqKRHez9RTsXnu0+SK29DVfeH3f53/kt5qvBL9V21X9u1lN1pv/+0BlAIIp9QsvtMHOgRohZfaYGNAn9CzA2wcaA+SFl9pgp0LD/d9ilutNe/+m2zc+ZNnNl7pYfMxixG4PcOYly0I9/f7OaW5/cZ2peFBANCSRQISnEnraklbL4sE2rlQBQgkngr3BcB1FVTqL3TayV7bqjggTYi9DseplRw3HGYdFABm+evOmlMMgUcDBplM6FTJUBLdkOAjMY4EHgDAkMSxgENgUjAwPIyacqcCQJhQiEQMEiJsLDQMAKCMEkYsGmED5lA0Y4BmTlRmSgYqnmBGSCJYYiIIAmQmBYRBjIuwAGJDYmIMOG13HcQQOBrWp4INQLCw7MFwDMdQDAwE21Tc1RVdNENJ09ao621bfu9ao/+0Bk/4AqIQswNsHGgR2hZgbYOdAnxCy62YUaA6iFl9tk50898re3nfyWfb8+bdNiMoaRa5eQJJvbb+QNOQB4LlMw9RJuMGL5iy1Xqul/68iodxGVNasrb+7Llde7CuqiaCmK8LlEWuYuT1cSeBw0kcuGZWaTER5YMeZJowzi+9YgpbWZJD4mSpe+VeFniFgVMvlAMA0w8EjDQBMvkg4IzDQgMdiRlMtyQwcbRB5EJeAwRGnBYZRD4leZQLiCAZIHdBMFJgcIAxUChIFYoDXiYbAISB23UDtY2UPAiV1RHVda13WWl/U1JtN03W/c29+rvuQjD5zLlxWlGSTCzq/pjBvrrt+ijt339Gz7ekl7ftVK2+VXP/+0Bk/wIqMQsvtsHOgQohZgbYKNCn9CzA2wkaBJqFl9tiJ0AyYHrhYr00jG3JXJ+Zevb9/WBEcCWQcMmx+uZt36uTxvK/ddvqJux2HBp+9yrPDwuJjRaYKaCVl3K3VFpwVOIJJiUBDcmQeWSLkAlZTQyEnkDk87eoV8lZtpWpLmXrHxB6AFEUw9gh4WMFhMxULDFI8MthYxgFjBSILUAwWxRwYuh4YcB56TGJMbeIATDgSLw4AeYBBgmCVQRDLENKA2MQV9qcEwxKCUwNCaURixpFO1A2sGkgMGCIGowjEXLQwFAAwDAaDMBApkEAwQD22ofPBcyCSHxIyM0s869KSSfVZJam1B1V2VLLWWWUVPJm+jIijhWtLahWSsrSb9SzpP/+0Bk+4IqYQswtsJOgQkhZgbYONCk5Cy+2YUaA9SFl9tgp0HvST9J00TZWdR293Vi9Eqvu3u3dpfvl5t/iwLiBltB2Xu3TlfLDHoZb+5TBceoOtQwx31Jl9zDLacxjkUtvzv99SrRzLGrVZWhZ7fdvuVZCuupLiIINAgk0ECQCC6Cdh4oEmdZ4toEQEeVl2ZEoVHTLWh2IDSPFZwvTNV3KP1CgGvksxwFAw7CvVSLXKgqFJhSB1V3cgMDk5kM2HM6oK3RmNQow3rwQISCDmQYMruowECxUyMdA3GawgGTIGLAMkFJdOYGOQCBkDGo6y+chYzBIcCFVguYEGgYwYARhhgtNkpBo+ODRMCmhHCqpirSZCq6lKlKp8/RWqT/+sBk/YAqLkLMDZCRoEgIWYG2CnQotQswNsHOgQqhZDbYSdA6olVdqfmOUk5pqRiY0nU3K9C1bo/PPdNKJrOg6ToNECQlBiGJOGTwfr6UzTEkad7fOu8ojGRVLXtZK9rfquu+3c37WN/NfifVaKS+jvXaiUUU+zbnDWrHxVDPXZupeq0TUVVQqyEEBwaaKQAkuJZrD3K+n8/0/yreYIVEg/YAHgY8NBJ7mOB8BBMS4EwOCTCQTMGCxWgHBiEUCACpUDBqbMOwZAkmJREBc4OjTIOLIk5MYEgzLZaCsBgdNCiNlLXQpaxYsQGAmBgAGAQEFcDCwMXgA+QsEBisYrzGPAwuDgRAQGBxkUjLsxqaaxAbl07aWvNVWm+9Wm36bq3q6lbtXSuV13NBwE/6KcOgEw3JfWfVPe0VHv99a3SdVqpXikpjKN2rs5Urs0qUzV4qcbt52YOj52qxpUe6++Tt9Hc5v+b87umd08SvmxisZ5QmJ9x8+vVrN7rdJLxAwiChhoVGIT8KAJzL3nqdfKk7Lfp339P68hQRBQYaRAknzUbGE4fFhhMEH1PcDqcvvZREgeLTZpXCIYfTSvMYlH009zYUfWNFhYxE3woJgKSAwBpJDQJpJDQZACRIRYoHmAmAwWIiwizRjCw6CE0Giwol1BR0FJQCjJxgMEhE5wuBANVkqULxugkYLEZqqA3VUDdRQN0CR01JUkypUm0l7TUz7Nef5/n81eouabZt9FMBMiTJvl+ShW7dJQWXmmmmzZssvs+0qu82M/rc12n1vUdUvMgAdJ6v2hdFNFIxs8z+jy9cKsQH59hre/q57k8qbogGKrWs7T3oWmmpnfVdb3UUVsYr0fayvt9d1Hbd3bbLKXff1ff3RcX0CUEUUV0UpSRKUkpUm0mynZAYCUREVUVAU0AAATQAAAASU2UCggDibIAAAAABUAAAAAAABggkQAAAAAHsEAQgA==';
+
+            // Set up the audio element for Jay mode
+            const jayAudioElement = document.createElement('audio');
+            jayAudioElement.id = 'jay-audio';
+            jayAudioElement.preload = 'auto';
             
-            const canvas = document.getElementById('audio-visualizer');
-            const canvasCtx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = 60;
-            
-            // Audio context for beat detection
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioContext = new AudioContext();
-            const analyser = audioContext.createAnalyser();
-            analyser.fftSize = 256;
-            
-            const source = audioContext.createMediaElementSource(audioElement);
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            
-            const bufferLength = analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-            
-            // Beat detection variables
-            let beatCutoff = 0;
-            const beatDecayRate = 0.98;
-            const beatMinimum = 0.15;
-            
-            function animate() {
-                requestAnimationFrame(animate);
+            // Set audio source using multiple methods
+            try {
+                // Method 1: Set source directly
+                jayAudioElement.src = 'data:audio/mpeg;base64,' + CB_BASE64_AUDIO;
+                console.log("Direct base64 audio source set");
+            } catch(e) {
+                console.error("Error setting direct base64 audio:", e);
                 
-                analyser.getByteFrequencyData(dataArray);
-                
-                // Clear canvas
-                canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw bars only if audio is playing
-                if (audioStarted && !audioElement.paused) {
-                    const barWidth = (canvas.width / bufferLength) * 2.5;
-                    let x = 0;
-                    
-                    for(let i = 0; i < bufferLength; i++) {
-                        const barHeight = dataArray[i] / 3;
-                        
-                        const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, canvas.height - barHeight);
-                        gradient.addColorStop(0, '#9333ea');
-                        gradient.addColorStop(0.5, '#ec4899');
-                        gradient.addColorStop(1, '#a855f7');
-                        
-                        canvasCtx.fillStyle = gradient;
-                        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-                        
-                        x += barWidth + 1;
+                // Method 2: Create and use Blob URL
+                try {
+                    const byteCharacters = atob(CB_BASE64_AUDIO);
+                    const byteArray = new Uint8Array(byteCharacters.length);
+                    for(let i = 0; i < byteCharacters.length; i++) {
+                        byteArray[i] = byteCharacters.charCodeAt(i);
                     }
-                    
-                    // Beat detection
-                    let sum = 0;
-                    for(let i = 0; i < 8; i++) {
-                        sum += dataArray[i];
-                    }
-                    const average = sum / 8;
-                    const normalized = average / 255;
-                    
-                    if(normalized > beatCutoff && normalized > beatMinimum) {
-                        beatCutoff = normalized * 1.1;
-                        triggerBeatEffect();
-                    }
-                    
-                    beatCutoff *= beatDecayRate;
-                    beatCutoff = Math.max(beatCutoff, beatMinimum);
+                    const blob = new Blob([byteArray], {type: 'audio/mpeg'});
+                    const blobUrl = URL.createObjectURL(blob);
+                    jayAudioElement.src = blobUrl;
+                    console.log("Blob URL audio source set");
+                } catch(blobError) {
+                    console.error("Error creating blob URL:", blobError);
                 }
             }
-            
-            animate();
-            
-            // Beat reactive elements
-            function triggerBeatEffect() {
-                // Make buttons pulse
-                document.querySelectorAll('.beat-reactive').forEach(el => {
-                    el.classList.add('on-beat');
-                    setTimeout(() => {
-                        el.classList.remove('on-beat');
-                    }, 300);
-                });
-                
-                // Pulse particles
-                document.querySelectorAll('.particle').forEach(particle => {
-                    particle.style.opacity = '1';
-                    particle.style.transform = 'scale(1.2)';
-                    setTimeout(() => {
-                        particle.style.opacity = '0.6';
-                        particle.style.transform = 'scale(1)';
-                    }, 200);
-                });
-            }
-            
+
+            document.body.appendChild(jayAudioElement);
+            console.log("Jay audio element created and appended to document");
+
             // ===== JAY TRIGGER SYSTEM =====
             let jaySequence = '';
             let jayActivated = false;
             
             document.addEventListener('keypress', function(e) {
+                console.log("Key pressed:", e.key);
                 jaySequence += e.key.toLowerCase();
                 
                 // Keep only last 3 characters
@@ -2678,72 +2615,57 @@
                     jaySequence = jaySequence.slice(-3);
                 }
                 
+                console.log("Current sequence:", jaySequence);
+                
                 // Check for "jay"
                 if (jaySequence === 'jay' && !jayActivated) {
+                    console.log("JAY SEQUENCE DETECTED!");
                     jayActivated = true;
                     activateJayMode();
                 }
             });
             
+            // Expose activateJayMode globally for debugging
+            window.activateJayMode = activateJayMode;
+            
             function activateJayMode() {
-                // Stop background audio
-                audioElement.pause();
-                document.getElementById('toggle-audio').innerHTML = '<i class="fas fa-volume-mute"></i>';
+                console.log("ACTIVATING JAY MODE!");
                 
-                // Play the CB audio
-                jayAudioElement.currentTime = 0;
-                jayAudioElement.play().catch(e => console.log('Audio play failed:', e));
-                
-                // Create audio context for beat detection
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const jayAudioContext = new AudioContext();
-                const jayAnalyser = jayAudioContext.createAnalyser();
-                jayAnalyser.fftSize = 256;
-                
-                const jaySource = jayAudioContext.createMediaElementSource(jayAudioElement);
-                jaySource.connect(jayAnalyser);
-                jayAnalyser.connect(jayAudioContext.destination);
-                
-                const jayBufferLength = jayAnalyser.frequencyBinCount;
-                const jayDataArray = new Uint8Array(jayBufferLength);
-                
-                // Beat-synced visual effects
-                let beatInterval = setInterval(() => {
-                    jayAnalyser.getByteFrequencyData(jayDataArray);
-                    
-                    // Detect bass frequencies (0-10 bins)
-                    let bassSum = 0;
-                    for(let i = 0; i < 10; i++) {
-                        bassSum += jayDataArray[i];
+                // Create user gesture context for audio playback
+                const activateAudio = function() {
+                    // Resume audio context if needed
+                    if (window.AudioContext || window.webkitAudioContext) {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        if (audioContext.state === 'suspended') {
+                            audioContext.resume().then(() => console.log("Audio context resumed"));
+                        }
                     }
-                    const bassAverage = bassSum / 10;
+
+                    // Play the audio with various fallback methods
+                    jayAudioElement.volume = 1.0;
+                    jayAudioElement.currentTime = 0;
                     
-                    // Trigger effects on strong beats
-                    if (bassAverage > 200) {
-                        // Screen pulse
-                        document.body.style.transform = 'scale(1.02)';
-                        setTimeout(() => {
-                            document.body.style.transform = 'scale(1)';
-                        }, 100);
-                        
-                        // Foam explosion at random positions
-                        const x = Math.random() * window.innerWidth;
-                        const y = Math.random() * window.innerHeight;
-                        createFoamBurst(x, y);
-                        
-                        // Make all gradient text rainbow pulse
-                        document.querySelectorAll('.gradient-text, .glow-text').forEach(el => {
-                            el.style.filter = `hue-rotate(${Math.random() * 360}deg) brightness(2)`;
+                    // Play with promise handling
+                    const playPromise = jayAudioElement.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log("Audio playing successfully!");
+                        }).catch(error => {
+                            console.error("Audio play failed:", error);
+                            
+                            // Trigger alternative play method
                             setTimeout(() => {
-                                el.style.filter = '';
-                            }, 200);
+                                jayAudioElement.muted = false;
+                                jayAudioElement.play().catch(e => console.error("Retry play failed:", e));
+                            }, 100);
                         });
                     }
-                    
-                    // Color shift based on frequency
-                    const colorShift = (bassAverage / 255) * 360;
-                    document.documentElement.style.setProperty('--beat-hue', colorShift + 'deg');
-                }, 50);
+                };
+                
+                // Trigger audio playback with all available methods
+                activateAudio();
+                document.addEventListener('click', activateAudio, {once: true});
                 
                 // Enhanced visual overlay
                 const jayOverlay = document.createElement('div');
@@ -2766,65 +2688,453 @@
                 `;
                 document.body.appendChild(jayOverlay);
                 
-                // Add massive foam explosions
-                for (let i = 0; i < 50; i++) {
+                // Add foam explosions
+                for (let i = 0; i < 30; i++) {
                     setTimeout(() => {
                         const x = Math.random() * window.innerWidth;
                         const y = Math.random() * window.innerHeight;
                         createFoamBurst(x, y);
-                    }, i * 50);
+                    }, i * 100);
                 }
                 
-                // Add rainbow effects to everything
+                // Add rainbow effects
                 document.body.classList.add('jay-activated');
                 
-                // Make all headers ultra glow
+                // Make headers glow
                 document.querySelectorAll('h1, h2, h3').forEach(el => {
                     el.classList.add('ultra-important');
                 });
                 
-                // Stop effects when audio ends or after 30 seconds
-                jayAudioElement.addEventListener('ended', cleanupJayMode);
-                setTimeout(cleanupJayMode, 30000);
+                // Simple beat effect
+                let beatCount = 0;
+                const beatInterval = setInterval(() => {
+                    beatCount++;
+                    
+                    // Pulse effect
+                    document.body.style.transform = `scale(${1 + Math.sin(beatCount * 0.1) * 0.02})`;
+                    
+                    // Random foam bursts
+                    if (beatCount % 10 === 0) {
+                        const x = Math.random() * window.innerWidth;
+                        const y = Math.random() * window.innerHeight;
+                        createFoamBurst(x, y);
+                    }
+                    
+                    // Color shift
+                    const hue = (beatCount * 5) % 360;
+                    document.documentElement.style.setProperty('--beat-hue', hue + 'deg');
+                }, 100);
                 
+                // Cleanup function
                 function cleanupJayMode() {
                     clearInterval(beatInterval);
-                    jayOverlay.remove();
+                    if (jayOverlay && jayOverlay.parentNode) {
+                        jayOverlay.remove();
+                    }
                     document.body.classList.remove('jay-activated');
+                    document.body.style.transform = 'scale(1)';
                     document.querySelectorAll('.ultra-important').forEach(el => {
                         el.classList.remove('ultra-important');
                     });
-                    jayAudioElement.removeEventListener('ended', cleanupJayMode);
                     jayActivated = false;
                     jaySequence = '';
+                    console.log('Jay mode deactivated');
+                }
+                
+                // Stop after 30 seconds or when audio ends
+                jayAudioElement.addEventListener('ended', cleanupJayMode);
+                setTimeout(cleanupJayMode, 30000);
+            }
+
+            // Initialize loading screen
+            function initLoadingScreen() {
+                const loadingScreen = document.getElementById('loading-screen');
+                const loadingPercent = document.getElementById('loading-percent');
+                const waterFill = document.getElementById('water-fill');
+                const loadingMessage = document.getElementById('loading-message');
+                
+                const messages = [
+                    "Preparing foam cannons...",
+                    "Mixing ceramic coating...",
+                    "Polishing the interface...",
+                    "Loading detailing tools...",
+                    "Activating hydrophobic mode...",
+                    "Calibrating paint correction...",
+                    "Jay's team is getting ready...",
+                    "Almost ready to shine!"
+                ];
+                
+                let percent = 0;
+                const loadingInterval = setInterval(() => {
+                    percent += 1.67;
+                    if (percent > 100) percent = 100;
+                    
+                    loadingPercent.textContent = Math.floor(percent);
+                    waterFill.style.height = percent + '%';
+                    
+                    const messageIndex = Math.floor(percent / 12.5);
+                    if (messages[messageIndex]) {
+                        loadingMessage.textContent = messages[messageIndex];
+                    }
+                    
+                    if (percent >= 100) {
+                        clearInterval(loadingInterval);
+                        setTimeout(() => {
+                            loadingScreen.style.opacity = '0';
+                            loadingScreen.style.transition = 'opacity 0.5s ease';
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                                document.body.style.overflow = 'auto';
+                            }, 500);
+                        }, 500);
+                    }
+                }, 60);
+                
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Optimized Foam Cursor Logic (Fix for vanishing cursor)
+            function initFoamCursor() {
+                const foamCursor = document.createElement('div');
+                foamCursor.id = 'foam-cursor';
+                foamCursor.className = 'fixed pointer-events-none z-[10000] opacity-0 transition-opacity duration-300';
+                foamCursor.innerHTML = `
+                <svg width="40" height="40" viewBox="0 0 40 40">
+                    <g transform="rotate(-45 20 20)">
+                        <!-- Foam cannon body -->
+                        <rect x="15" y="10" width="10" height="20" fill="url(#cannonGradient)" rx="2"/>
+                        <!-- Nozzle -->
+                        <rect x="17" y="5" width="6" height="8" fill="#666" rx="1"/>
+                        <!-- Handle -->
+                        <rect x="10" y="20" width="20" height="4" fill="#333" rx="2"/>
+                        <!-- Trigger -->
+                        <path d="M 18 24 L 18 28 L 22 28 L 22 24" fill="#ff6b6b" stroke="#333" stroke-width="1"/>
+                    </g>
+                    <!-- Foam particles -->
+                    <circle class="foam-particle" cx="5" cy="5" r="2" fill="white" opacity="0.8"/>
+                    <circle class="foam-particle" cx="35" cy="8" r="1.5" fill="white" opacity="0.7"/>
+                    <circle class="foam-particle" cx="30" cy="35" r="2.5" fill="white" opacity="0.9"/>
+                    <defs>
+                        <linearGradient id="cannonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="foam-spray"></div>
+                `;
+                
+                document.body.appendChild(foamCursor);
+                document.body.classList.add('foam-cursor-active');
+                
+                // Debounced mousemove for better performance
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    
+                    // Ensure cursor is always visible
+                    foamCursor.style.opacity = '1';
+                    foamCursor.style.display = 'block';
+                });
+                
+                // Smooth cursor animation loop (reduces lag)
+                function animateCursor() {
+                    const dx = mouseX - cursorX;
+                    const dy = mouseY - cursorY;
+                    
+                    cursorX += dx * 0.15; // Smooth interpolation
+                    cursorY += dy * 0.15;
+                    
+                    foamCursor.style.left = cursorX - 20 + 'px';
+                    foamCursor.style.top = cursorY - 20 + 'px';
+                    
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+                
+                // Create foam on click
+                document.addEventListener('click', (e) => {
+                    createFoamBurst(e.clientX, e.clientY);
+                });
+            }
+
+            // Optimized foam burst function
+            function createFoamBurst(x, y) {
+                const foamBurst = document.createElement('div');
+                foamBurst.className = 'click-foam';
+                foamBurst.style.left = x + 'px';
+                foamBurst.style.top = y + 'px';
+                
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'click-foam-particle';
+                    
+                    const angle = (i / 8) * Math.PI * 2;
+                    const velocity = 50 + Math.random() * 50;
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    
+                    particle.style.setProperty('--tx', tx + 'px');
+                    particle.style.setProperty('--ty', ty + 'px');
+                    
+                    foamBurst.appendChild(particle);
+                }
+                
+                document.body.appendChild(foamBurst);
+                setTimeout(() => foamBurst.remove(), 1000);
+            }
+            
+            // Foam dripping effect
+            function initFoamDrips() {
+                const dripsContainer = document.getElementById('foam-drip-container');
+                const containerWidth = window.innerWidth;
+                let isActive = true;
+                
+                // Create foam drips at random intervals
+                function createFoamDrip() {
+                    if (!isActive) return;
+                    
+                    // Random positioning and timing
+                    const xPos = Math.random() * containerWidth;
+                    const size = 30 + Math.random() * 25;
+                    const fallDuration = 7 + Math.random() * 6;
+                    const wobbleDuration = 1.5 + Math.random() * 1.5;
+                    const delay = Math.random() * 2;
+                    
+                    // Create the drip element
+                    const drip = document.createElement('div');
+                    drip.className = 'foam-drip';
+                    drip.style.left = `${xPos}px`;
+                    drip.style.width = `${size}px`;
+                    drip.style.height = `${size}px`;
+                    drip.style.setProperty('--fall-duration', `${fallDuration}s`);
+                    drip.style.setProperty('--wobble-duration', `${wobbleDuration}s`);
+                    drip.style.animationDelay = `${delay}s`;
+                    
+                    // Add to container
+                    dripsContainer.appendChild(drip);
+                    
+                    // Create trails as the drip falls
+                    createFoamTrail(drip, fallDuration);
+                    
+                    // Remove drip after animation completes
+                    setTimeout(() => {
+                        if (drip && drip.parentNode) {
+                            drip.parentNode.removeChild(drip);
+                        }
+                    }, (fallDuration + delay) * 1000);
+                }
+                
+                // Create foam trails behind the drip
+                function createFoamTrail(drip, duration) {
+                    if (!isActive) return;
+                    
+                    const trailInterval = setInterval(() => {
+                        if (!drip.parentNode || !isActive) {
+                            clearInterval(trailInterval);
+                            return;
+                        }
+                        
+                        const dripRect = drip.getBoundingClientRect();
+                        if (dripRect.top < 0) return;
+                        
+                        // Only create trails once the drip is visible
+                        if (dripRect.top > 0 && dripRect.top < window.innerHeight) {
+                            // Random position within the drip
+                            const trail = document.createElement('div');
+                            trail.className = 'foam-trail';
+                            
+                            const xOffset = (Math.random() - 0.5) * drip.offsetWidth * 0.5;
+                            trail.style.left = `${dripRect.left + dripRect.width/2 + xOffset}px`;
+                            trail.style.top = `${dripRect.top + Math.random() * drip.offsetHeight * 0.7}px`;
+                            
+                            dripsContainer.appendChild(trail);
+                            
+                            // Remove trail after animation
+                            setTimeout(() => {
+                                if (trail && trail.parentNode) {
+                                    trail.parentNode.removeChild(trail);
+                                }
+                            }, 3000);
+                        }
+                    }, 300);
+                }
+                
+                // Generate drips at random intervals
+                function scheduleNextDrip() {
+                    if (!isActive) return;
+                    
+                    const nextTime = 500 + Math.random() * 3000;
+                    setTimeout(() => {
+                        createFoamDrip();
+                        scheduleNextDrip();
+                    }, nextTime);
+                }
+                
+                // Start dripping after the page loads
+                setTimeout(() => {
+                    scheduleNextDrip();
+                }, 2000);
+                
+                // Optimize performance: pause animations when tab is inactive
+                document.addEventListener('visibilitychange', () => {
+                    isActive = document.visibilityState === 'visible';
+                });
+                
+                                // Handle window resize
+                window.addEventListener('resize', () => {
+                    // Update container width
+                    const newWidth = window.innerWidth;
+                    if (Math.abs(containerWidth - newWidth) > 100) {
+                        // Clear all existing drips if window size changes significantly
+                        dripsContainer.innerHTML = '';
+                    }
+                });
+                
+                // Enhance foam drips in Jay Mode
+                const originalActivateJayMode = window.activateJayMode;
+                if (typeof originalActivateJayMode === 'function') {
+                    window.activateJayMode = function() {
+                        originalActivateJayMode.apply(this, arguments);
+                        
+                        // Create a foam drip burst in Jay Mode
+                        for (let i = 0; i < 15; i++) {
+                            setTimeout(() => {
+                                createFoamDrip();
+                            }, i * 200);
+                        }
+                    };
                 }
             }
             
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-            });
+            // Initialize foam drips (after loading screen)
+            setTimeout(initFoamDrips, 1000);
             
-            // Optimize performance with Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+            // SPA Enhancement Script
+            (function() {
+                // SPA Configuration
+                const config = {
+                    siteName: "Jay's Mobile Wash",
+                    baseUrl: "https://www.jaysmobilewash.net",
+                    routes: {
+                        "/": {
+                            title: "Mobile Detailing Los Angeles & Orange County | Jay's Mobile Wash",
+                            description: "★★★★★ Premium mobile car detailing in Los Angeles & Orange County. Ceramic coating, paint correction, interior detailing. We come to you! Call 562-228-9429 for same-day service.",
+                            canonicalPath: "/"
+                        },
+                        "/ceramic-coating": {
+                            title: "Ceramic Coating Los Angeles | 2-Year Warranty | Jay's Mobile Wash",
+                            description: "Professional ceramic coating $450 (car) $550 (SUV). Graphene coating $800. Mobile application in Beverly Hills, Newport Beach, and all LA/OC areas.",
+                            canonicalPath: "/ceramic-coating/"
+                        },
+                        "/paint-correction": {
+                            title: "Paint Correction Los Angeles | Mobile Swirl Removal | Jay's Mobile Wash",
+                            description: "Mobile paint correction service to remove swirl marks, scratches, and oxidation. We come to your location in Los Angeles and Orange County. Call 562-228-9429.",
+                            canonicalPath: "/paint-correction/"
+                        },
+                        "/mobile-detailing": {
+                            title: "Mobile Auto Detailing Los Angeles & Orange County | Jay's Mobile Wash",
+                            description: "Premium mobile car wash and detailing services. We come to your home or office in Beverly Hills, Santa Monica, Newport Beach, and all LA/OC areas.",
+                            canonicalPath: "/mobile-detailing/"
+                        }
+                    },
+                    // Track these sections as virtual pageviews
+                    trackableSections: [
+                        { id: "packages", title: "Detailing Packages" },
+                        { id: "ceramic-coating", title: "Ceramic Coating" },
+                        { id: "paint-correction", title: "Paint Correction" },
+                        { id: "mobile-detailing", title: "Mobile Detailing" },
+                        { id: "locations", title: "Service Areas" },
+                        { id: "reviews", title: "Reviews" },
+                        { id: "faq", title: "FAQ" }
+                    ]
+                };
+                
+                // Init state
+                let currentPath = window.location.pathname;
+                let currentHash = window.location.hash;
+                
+                // Convert hash URLs to clean URLs on page load
+                function initCleanUrls() {
+                    // Handle hash navigation if present (convert #section to /section/)
+                    if (window.location.hash && window.location.hash.length > 1) {
+                        const hashPath = window.location.hash.substring(1);
+                        const targetRoute = `/${hashPath}`;
+                        
+                        // Only rewrite if it's a known route
+                        if (config.routes[targetRoute]) {
+                            // Use replaceState to avoid adding to browser history
+                            window.history.replaceState(
+                                { path: targetRoute },
+                                config.routes[targetRoute].title,
+                                targetRoute
+                            );
+                            currentPath = targetRoute;
+                            updatePageMetadata(targetRoute);
+                            console.log(`Converted hash URL to clean URL: ${targetRoute}`);
+                        }
+                    } else {
+                        // Set initial page metadata
+                        updatePageMetadata(currentPath);
+                    }
+                }
+                
+                // Update meta tags for SEO
+                function updatePageMetadata(path) {
+                    const route = config.routes[path] || config.routes['/'];
+                    
+                    // Update title and meta description
+                    document.title = route.title;
+                    
+                    // Update meta description
+                    const metaDescription = document.querySelector('meta[name="description"]');
+                    if (metaDescription) {
+                        metaDescription.setAttribute('content', route.description);
+                    }
+                    
+                    // Update canonical URL
+                    const canonicalLink = document.querySelector('link[rel="canonical"]');
+                    if (canonicalLink) {
+                        canonicalLink.setAttribute('href', `${config.baseUrl}${route.canonicalPath}`);
+                    }
+                    
+                    // Update Open Graph tags
+                    const ogTitle = document.querySelector('meta[property="og:title"]');
+                    const ogUrl = document.querySelector('meta[property="og:url"]');
+                    const ogDescription = document.querySelector('meta[property="og:description"]');
+                    
+                    if (ogTitle) ogTitle.setAttribute('content', route.title);
+                    if (ogUrl) ogUrl.setAttribute('content', `${config.baseUrl}${route.canonicalPath}`);
+                    if (ogDescription) ogDescription.setAttribute('content', route.description);
+                    
+                    // Update Twitter Card tags
+                    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+                    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+                    
+                    if (twitterTitle) twitterTitle.setAttribute('content', route.title);
+                    if (twitterDescription) twitterDescription.setAttribute('content', route.description);
+                }
+                
+                // Initialize when DOM is ready
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Handle clean URLs and SPA navigation
+                    initCleanUrls();
+                    
+                    // Track initial pageview
+                    if (window.gtag) {
+                        window.gtag('config', 'G-XXXXXXXXXX', {
+                            page_path: currentPath,
+                            page_title: document.title,
+                            page_location: window.location.href
+                        });
                     }
                 });
-            }, observerOptions);
-            
-            // Observe all sections
-            document.querySelectorAll('section').forEach(section => {
-                observer.observe(section);
-            });
+            })();
         });
     </script>
 </body>
 </html>
+                                    
