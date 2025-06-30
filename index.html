@@ -462,87 +462,93 @@
                             <i class="fas fa-shield-alt text-green-400 mr-2"></i>
                             Fully Insured
                         </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-clock text-blue-400 mr-2"></i>
-                            Same Day Service
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-star text-yellow-400 mr-2"></i>
-                            4.9/5 Rating
-                        </div>
+                        <!-- Hero Section - FIXED LAYOUT -->
+<section id="home" class="pt-16 min-h-screen flex items-center hero-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Hero Content - LEFT SIDE -->
+            <div class="scroll-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Premium Mobile
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                        Car Detailing
+                    </span>
+                    in LA & OC
+                </h1>
+                <p class="text-xl text-gray-200 mb-8 leading-relaxed">
+                    We bring professional car detailing to your location. Ceramic coating, paint correction, and premium detailing services. Rated ⭐⭐⭐⭐⭐ by 127+ satisfied customers.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="tel:562-228-9429" class="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors text-center">
+                        <i class="fas fa-phone mr-2"></i>
+                        Call (562) 228-9429
+                    </a>
+                    <a href="#services" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition-colors text-center">
+                        View Services
+                    </a>
+                </div>
+                <!-- Trust Indicators -->
+                <div class="mt-8 flex flex-wrap items-center gap-6 text-sm text-gray-200">
+                    <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                        Fully Insured
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-blue-400 mr-2"></i>
+                        Same Day Service
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-2"></i>
+                        4.9/5 Rating
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Video - RIGHT SIDE -->
+            <div class="scroll-fade-in">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <video 
+                        autoplay 
+                        muted 
+                        loop 
+                        playsinline
+                        poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-auto object-cover"
+                        aria-label="Professional mobile car detailing service demonstration in Los Angeles and Orange County"
+                        style="aspect-ratio: 16/9; max-height: 400px;"
+                        width="800"
+                        height="450"
+                    >
+                        <source src="./VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
+                        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                        <!-- Fallback for browsers that don't support video -->
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Professional mobile car detailing in Los Angeles and Orange County - Jay's Mobile Wash" 
+                             class="w-full h-auto object-cover rounded-2xl"
+                             style="aspect-ratio: 16/9; max-height: 400px;"
+                             width="800"
+                             height="450">
+                    </video>
+                    
+                    <!-- Video Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    
+                    <!-- Play Button Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                        <button class="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/30 transition-colors" aria-label="Play video">
+                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                        </button>
                     </div>
                 </div>
                 
-                <!-- Hero Video -->
-                <div class="scroll-fade-in">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                        <video 
-                            autoplay 
-                            muted 
-                            loop 
-                            playsinline
-                            poster="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            class="w-full h-auto object-cover"
-                            aria-label="Professional mobile car detailing service demonstration in Los Angeles and Orange County"
-                            width="800"
-                            height="450"
-                        >
-                            <source src="./VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
-                            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                            <!-- Fallback for browsers that don't support video -->
-                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                                 alt="Professional mobile car detailing in Los Angeles and Orange County - Jay's Mobile Wash" 
-                                 class="w-full h-auto"
-                                 width="800"
-                                 height="450">
-                        </video>
-                        
-                        <!-- Video Overlay -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        
-                        <!-- Play Button Overlay -->
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                            <button class="bg-white/20 backdrop-blur-sm rounded-full p-4 hover:bg-white/30 transition-colors" aria-label="Play video">
-                                <i class="fas fa-play text-white text-2xl ml-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Video Caption -->
-                    <p class="text-center text-gray-300 mt-4 text-sm">
-                        Watch how we transform your vehicle with professional mobile detailing in Los Angeles
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 scroll-fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Premium Services</h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    From basic washes to premium ceramic coatings, we offer comprehensive mobile detailing services throughout Los Angeles and Orange County.
+                <!-- Video Caption -->
+                <p class="text-center text-gray-300 mt-4 text-sm">
+                    Watch how we transform your vehicle with professional mobile detailing in Los Angeles
                 </p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="scroll-fade-in bg-gray-900 rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
-                    <div class="text-purple-400 text-4xl mb-6">
-                        <i class="fas fa-car-side"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Mobile Detailing</h3>
-                    <p class="text-gray-400 mb-6">Complete interior and exterior detailing at your location in Los Angeles and Orange County. We bring all equipment and premium products.</p>
-                    <ul class="text-sm text-gray-300 space-y-2 mb-6">
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>Hand wash & dry</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>Interior deep clean</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>Tire & rim detailing</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>Window cleaning</li>
-                    </ul>
-                    <div class="text-2xl font-bold text-purple-400 mb-4">Starting at $70</div>
-                    <a href="tel:562-228-9429" class="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-lg font-semibold transition-colors">
+        </div>
+    </div>
+</section>
                         Book Service
                     </a>
                 </div>
