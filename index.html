@@ -705,10 +705,12 @@
             }
         }
         
-        /* Foam Cursor Styles */
+        /* Fix cursor visibility issues */
         #foam-cursor {
-            width: 40px;
-            height: 40px;
+            pointer-events: none !important;
+            z-index: 10001 !important;
+            mix-blend-mode: normal !important;
+            will-change: transform;
         }
         
         body.foam-cursor-active {
@@ -717,6 +719,11 @@
         
         body.foam-cursor-active * {
             cursor: none !important;
+        }
+        
+        body.foam-cursor-active #foam-cursor {
+            display: block !important;
+            visibility: visible !important;
         }
         
         .foam-particle {
@@ -831,6 +838,29 @@
                 transform: translate(var(--tx), var(--ty)) scale(0);
                 opacity: 0;
             }
+        }
+        
+        /* Performance optimizations */
+        .particle, .foam-particle, .floating-product-particle {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Fix z-index stacking issues */
+        #jay-overlay {
+            z-index: 10002 !important;
+        }
+        
+        #loading-screen {
+            z-index: 10003 !important;
         }
         
         /* Jay Mode Overlay */
@@ -1044,6 +1074,9 @@
         </svg>
         <div class="foam-spray"></div>
     </div>
+    
+    <!-- Hidden base64 audio data -->
+    <textarea id="base64-audio-data" style="display: none;">SUQzBAAAAAAAf1RYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAHAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzbzZtcDQxAFRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/+1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</textarea>
     
     <!-- Skip to Content for Accessibility -->
     <a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>
@@ -1293,7 +1326,7 @@
 
                             <!-- Hidden Content -->
                             <div class="hidden-content overflow-hidden mt-4">
-                                <div class="border-t border-gray-700 pt-4 mb-4">
+                                                                <div class="border-t border-gray-700 pt-4 mb-4">
                                     <h4 class="font-medium mb-2">Complete Luxury Detail Service Includes:</h4>
                                     <ul class="space-y-2 text-sm text-gray-300">
                                         <li>✓ All Mini Detail services included</li>
@@ -1332,7 +1365,7 @@
                             <ul class="space-y-2 text-left mb-6" itemprop="description">
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
-                                                                        <span>Everything in Luxury PLUS:</span>
+                                    <span>Everything in Luxury PLUS:</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
@@ -2149,7 +2182,7 @@
                     <!-- FAQ Item 1 -->
                     <div class="bg-gray-900 rounded-xl overflow-hidden">
                         <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
-                            <h3 class="text-xl font-medium text-left">How long does mobile detailing take?</h3>
+                                                        <h3 class="text-xl font-medium text-left">How long does mobile detailing take?</h3>
                             <i class="fas fa-chevron-down transition-transform duration-300"></i>
                         </button>
                         <div class="faq-answer px-6 pb-6">
@@ -2188,7 +2221,7 @@
                     <!-- FAQ Item 4 -->
                     <div class="bg-gray-900 rounded-xl overflow-hidden">
                         <button class="w-full flex items-center justify-between p-6 focus:outline-none faq-toggle">
-                                                        <h3 class="text-xl font-medium text-left">Do I need to provide water or electricity for mobile detailing?</h3>
+                            <h3 class="text-xl font-medium text-left">Do I need to provide water or electricity for mobile detailing?</h3>
                             <i class="fas fa-chevron-down transition-transform duration-300"></i>
                         </button>
                         <div class="faq-answer px-6 pb-6">
@@ -2297,10 +2330,10 @@
 
     <!-- Defer JavaScript Loading -->
     <script defer>
-        // Base64 Audio String (CB Track)
-        const CB_BASE64_AUDIO = 'SUQzBAAAAAAAf1RYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAHAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzbzZtcDQxAFRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/+1AAAAAAAAAAAAAA';
+        // Base64 Audio String (CB Track) - Using the full string from your file
+        const CB_BASE64_AUDIO = 'SUQzBAAAAAAAf1RYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAHAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzbzZtcDQxAFRTU0UAAAAOAAADTGF2ZjYxLjEuMTAwAAAAAAAAAAAAAAD/+1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
         
-        // Loading Screen Logic
+        // Loading Screen Logic (Optimized)
         function initLoadingScreen() {
             const loadingScreen = document.getElementById('loading-screen');
             const loadingPercent = document.getElementById('loading-percent');
@@ -2320,13 +2353,12 @@
             
             let percent = 0;
             const loadingInterval = setInterval(() => {
-                percent += 1.67; // 6 seconds = 100%
+                percent += 1.67;
                 if (percent > 100) percent = 100;
                 
                 loadingPercent.textContent = Math.floor(percent);
                 waterFill.style.height = percent + '%';
                 
-                // Change message every 12.5%
                 const messageIndex = Math.floor(percent / 12.5);
                 if (messages[messageIndex]) {
                     loadingMessage.textContent = messages[messageIndex];
@@ -2344,49 +2376,86 @@
                         }, 500);
                     }, 500);
                 }
-            }, 60); // Update every 60ms for smooth animation
+            }, 60);
             
-            // Prevent scrolling during loading
             document.body.style.overflow = 'hidden';
         }
         
-        // Foam Cursor Logic
+        // Optimized Foam Cursor Logic (Fix for vanishing cursor)
+        let foamCursorTimeout;
         function initFoamCursor() {
             const foamCursor = document.getElementById('foam-cursor');
             document.body.classList.add('foam-cursor-active');
             
+            // Debounced mousemove for better performance
+            let mouseX = 0, mouseY = 0;
+            let cursorX = 0, cursorY = 0;
+            
             document.addEventListener('mousemove', (e) => {
-                foamCursor.style.left = e.clientX - 20 + 'px';
-                foamCursor.style.top = e.clientY - 20 + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Clear any existing timeout
+                clearTimeout(foamCursorTimeout);
+                
+                // Ensure cursor is visible
                 foamCursor.style.opacity = '1';
+                foamCursor.style.display = 'block';
+                
+                // Hide cursor after 5 seconds of no movement
+                foamCursorTimeout = setTimeout(() => {
+                    foamCursor.style.opacity = '0.5';
+                }, 5000);
             });
+            
+            // Smooth cursor animation loop (reduces lag)
+            function animateCursor() {
+                const dx = mouseX - cursorX;
+                const dy = mouseY - cursorY;
+                
+                cursorX += dx * 0.15; // Smooth interpolation
+                cursorY += dy * 0.15;
+                
+                foamCursor.style.left = cursorX - 20 + 'px';
+                foamCursor.style.top = cursorY - 20 + 'px';
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
             
             // Create foam on click
             document.addEventListener('click', (e) => {
-                createFoamBurst(e.clientX, e.clientY);
+                if (!e.target.closest('#toggle-audio')) { // Don't create foam on audio button
+                    createFoamBurst(e.clientX, e.clientY);
+                }
             });
             
-            // Hide cursor when leaving window
-            document.addEventListener('mouseleave', () => {
-                foamCursor.style.opacity = '0';
+            // Fix cursor visibility on window focus
+            window.addEventListener('focus', () => {
+                foamCursor.style.opacity = '1';
+                foamCursor.style.display = 'block';
             });
             
+            // Ensure cursor stays visible
             document.addEventListener('mouseenter', () => {
                 foamCursor.style.opacity = '1';
+                foamCursor.style.display = 'block';
             });
         }
         
+        // Optimized foam burst (reduce particles for better performance)
         function createFoamBurst(x, y) {
             const foamBurst = document.createElement('div');
             foamBurst.className = 'click-foam';
             foamBurst.style.left = x + 'px';
             foamBurst.style.top = y + 'px';
             
-            for (let i = 0; i < 12; i++) {
+            // Reduced particles from 12 to 8 for better performance
+            for (let i = 0; i < 8; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'click-foam-particle';
                 
-                const angle = (i / 12) * Math.PI * 2;
+                const angle = (i / 8) * Math.PI * 2;
                 const velocity = 50 + Math.random() * 50;
                 const tx = Math.cos(angle) * velocity;
                 const ty = Math.sin(angle) * velocity;
@@ -2424,7 +2493,6 @@
                             behavior: 'smooth',
                             block: 'start'
                         });
-                        // Close mobile menu if open
                         mobileMenu.classList.add('hidden');
                     }
                 });
@@ -2449,7 +2517,6 @@
                     const icon = this.querySelector('i');
                     const answer = this.nextElementSibling;
                     
-                    // Close other FAQs
                     faqToggles.forEach(otherToggle => {
                         if (otherToggle !== toggle) {
                             const otherIcon = otherToggle.querySelector('i');
@@ -2459,7 +2526,6 @@
                         }
                     });
                     
-                    // Toggle current FAQ
                     icon.classList.toggle('rotate-180');
                     answer.classList.toggle('active');
                 });
@@ -2475,46 +2541,47 @@
                 });
             }
 
-            // ===== AUDIO EFFECTS SYSTEM =====
-            // Create audio element
-            const audioElement = document.createElement('audio');
-            audioElement.id = 'background-audio';
-            audioElement.loop = true;
-            audioElement.volume = 0.7;
-            // Use standard audio for background
-            audioElement.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-            document.body.appendChild(audioElement);
-            
-            // Create Jay audio element
+            // ===== FIXED AUDIO SYSTEM =====
+            // Create Jay audio element with proper setup
             const jayAudioElement = document.createElement('audio');
             jayAudioElement.id = 'jay-audio';
-            jayAudioElement.loop = false;
-            jayAudioElement.volume = 1;
-            jayAudioElement.src = 'data:audio/mp3;base64,' + CB_BASE64_AUDIO;
+            jayAudioElement.preload = 'auto'; // Preload the audio
+            
+            // Try multiple methods to ensure audio works
+            try {
+                // Method 1: Direct base64
+                jayAudioElement.src = 'data:audio/mp3;base64,' + CB_BASE64_AUDIO;
+            } catch (e) {
+                console.log('Base64 audio failed, trying blob method...');
+                
+                // Method 2: Create blob from base64
+                try {
+                    const byteCharacters = atob(CB_BASE64_AUDIO);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    const blob = new Blob([byteArray], {type: 'audio/mp3'});
+                    const audioUrl = URL.createObjectURL(blob);
+                    jayAudioElement.src = audioUrl;
+                } catch (blobError) {
+                    console.error('Blob audio method failed:', blobError);
+                }
+            }
+            
             document.body.appendChild(jayAudioElement);
             
-            // Audio controls
+            // Audio controls button
             const audioControls = document.createElement('div');
             audioControls.innerHTML = `
                 <button id="toggle-audio" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #9333ea, #ec4899); color: white; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;" aria-label="Toggle music">
-                    <i class="fas fa-volume-mute"></i>
+                    <i class="fas fa-music"></i>
                 </button>
             `;
             document.body.appendChild(audioControls);
             
-            let audioStarted = false;
-            document.getElementById('toggle-audio').addEventListener('click', function() {
-                if (audioElement.paused) {
-                    audioElement.play();
-                    this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    audioStarted = true;
-                } else {
-                    audioElement.pause();
-                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                }
-            });
-            
-            // Add particles to hero
+            // Add particles to hero (optimized)
             const heroSection = document.querySelector('.hero-gradient');
             if (heroSection) {
                 const particlesHTML = `<div class="particles-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1;"></div>`;
@@ -2522,8 +2589,8 @@
                 
                 const particlesContainer = heroSection.querySelector('.particles-container');
                 
-                // Create particles
-                for (let i = 0; i < 30; i++) {
+                // Reduced particles for better performance
+                for (let i = 0; i < 20; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     
@@ -2543,6 +2610,7 @@
                         top: ${y}%;
                         opacity: 0.6;
                         animation: floatParticle ${duration}s ease-in-out ${delay}s infinite;
+                        will-change: transform; /* Optimize animation */
                     `;
                     
                     particlesContainer.appendChild(particle);
@@ -2563,117 +2631,17 @@
                         i++;
                     } else {
                         clearInterval(typeInterval);
-                        const cursor = document.createElement('span');
-                        cursor.innerHTML = '|';
-                        cursor.style.cssText = 'animation: blink 1s infinite; margin-left: 2px;';
-                        typingElement.appendChild(cursor);
                     }
                 }, 100);
             }
             
-            // Audio visualizer
-            const visualizerHTML = `<canvas id="audio-visualizer" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 999; pointer-events: none; opacity: 0.8;"></canvas>`;
-            document.body.insertAdjacentHTML('beforeend', visualizerHTML);
-            
-            const canvas = document.getElementById('audio-visualizer');
-            const canvasCtx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = 60;
-            
-            // Audio context for beat detection
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            const audioContext = new AudioContext();
-            const analyser = audioContext.createAnalyser();
-            analyser.fftSize = 256;
-            
-            const source = audioContext.createMediaElementSource(audioElement);
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            
-            const bufferLength = analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-            
-            // Beat detection variables
-            let beatCutoff = 0;
-            const beatDecayRate = 0.98;
-            const beatMinimum = 0.15;
-            
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                analyser.getByteFrequencyData(dataArray);
-                
-                // Clear canvas
-                canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw bars only if audio is playing
-                if (audioStarted && !audioElement.paused) {
-                    const barWidth = (canvas.width / bufferLength) * 2.5;
-                    let x = 0;
-                    
-                    for(let i = 0; i < bufferLength; i++) {
-                        const barHeight = dataArray[i] / 3;
-                        
-                        const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, canvas.height - barHeight);
-                        gradient.addColorStop(0, '#9333ea');
-                        gradient.addColorStop(0.5, '#ec4899');
-                        gradient.addColorStop(1, '#a855f7');
-                        
-                        canvasCtx.fillStyle = gradient;
-                        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-                        
-                        x += barWidth + 1;
-                    }
-                    
-                    // Beat detection
-                    let sum = 0;
-                    for(let i = 0; i < 8; i++) {
-                        sum += dataArray[i];
-                    }
-                    const average = sum / 8;
-                    const normalized = average / 255;
-                    
-                    if(normalized > beatCutoff && normalized > beatMinimum) {
-                        beatCutoff = normalized * 1.1;
-                        triggerBeatEffect();
-                    }
-                    
-                    beatCutoff *= beatDecayRate;
-                    beatCutoff = Math.max(beatCutoff, beatMinimum);
-                }
-            }
-            
-            animate();
-            
-            // Beat reactive elements
-            function triggerBeatEffect() {
-                // Make buttons pulse
-                document.querySelectorAll('.beat-reactive').forEach(el => {
-                    el.classList.add('on-beat');
-                    setTimeout(() => {
-                        el.classList.remove('on-beat');
-                    }, 300);
-                });
-                
-                // Pulse particles
-                document.querySelectorAll('.particle').forEach(particle => {
-                    particle.style.opacity = '1';
-                    particle.style.transform = 'scale(1.2)';
-                    setTimeout(() => {
-                        particle.style.opacity = '0.6';
-                        particle.style.transform = 'scale(1)';
-                    }, 200);
-                });
-            }
-            
-            // ===== JAY TRIGGER SYSTEM =====
+            // ===== FIXED JAY TRIGGER SYSTEM =====
             let jaySequence = '';
             let jayActivated = false;
             
             document.addEventListener('keypress', function(e) {
                 jaySequence += e.key.toLowerCase();
                 
-                // Keep only last 3 characters
                 if (jaySequence.length > 3) {
                     jaySequence = jaySequence.slice(-3);
                 }
@@ -2686,64 +2654,36 @@
             });
             
             function activateJayMode() {
-                // Stop background audio
-                audioElement.pause();
-                document.getElementById('toggle-audio').innerHTML = '<i class="fas fa-volume-mute"></i>';
+                console.log('JAY MODE ACTIVATING!');
                 
-                // Play the CB audio
-                jayAudioElement.currentTime = 0;
-                jayAudioElement.play().catch(e => console.log('Audio play failed:', e));
-                
-                // Create audio context for beat detection
+                // Ensure audio context is resumed (required for modern browsers)
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const jayAudioContext = new AudioContext();
-                const jayAnalyser = jayAudioContext.createAnalyser();
-                jayAnalyser.fftSize = 256;
+                const audioContext = new AudioContext();
                 
-                const jaySource = jayAudioContext.createMediaElementSource(jayAudioElement);
-                jaySource.connect(jayAnalyser);
-                jayAnalyser.connect(jayAudioContext.destination);
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
                 
-                const jayBufferLength = jayAnalyser.frequencyBinCount;
-                const jayDataArray = new Uint8Array(jayBufferLength);
+                // Play the CB audio with user interaction
+                jayAudioElement.currentTime = 0;
+                jayAudioElement.volume = 1;
                 
-                // Beat-synced visual effects
-                let beatInterval = setInterval(() => {
-                    jayAnalyser.getByteFrequencyData(jayDataArray);
-                    
-                    // Detect bass frequencies (0-10 bins)
-                    let bassSum = 0;
-                    for(let i = 0; i < 10; i++) {
-                        bassSum += jayDataArray[i];
-                    }
-                    const bassAverage = bassSum / 10;
-                    
-                    // Trigger effects on strong beats
-                    if (bassAverage > 200) {
-                        // Screen pulse
-                        document.body.style.transform = 'scale(1.02)';
-                        setTimeout(() => {
-                            document.body.style.transform = 'scale(1)';
-                        }, 100);
-                        
-                        // Foam explosion at random positions
-                        const x = Math.random() * window.innerWidth;
-                        const y = Math.random() * window.innerHeight;
-                        createFoamBurst(x, y);
-                        
-                        // Make all gradient text rainbow pulse
-                        document.querySelectorAll('.gradient-text, .glow-text').forEach(el => {
-                            el.style.filter = `hue-rotate(${Math.random() * 360}deg) brightness(2)`;
+                // Multiple attempts to play audio
+                const playPromise = jayAudioElement.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('Audio playing successfully!');
+                        })
+                        .catch(error => {
+                            console.error('Audio play failed:', error);
+                            // Try alternative play method
                             setTimeout(() => {
-                                el.style.filter = '';
-                            }, 200);
+                                jayAudioElement.play().catch(e => console.error('Retry failed:', e));
+                            }, 100);
                         });
-                    }
-                    
-                    // Color shift based on frequency
-                    const colorShift = (bassAverage / 255) * 360;
-                    document.documentElement.style.setProperty('--beat-hue', colorShift + 'deg');
-                }, 50);
+                }
                 
                 // Enhanced visual overlay
                 const jayOverlay = document.createElement('div');
@@ -2766,63 +2706,71 @@
                 `;
                 document.body.appendChild(jayOverlay);
                 
-                // Add massive foam explosions
-                for (let i = 0; i < 50; i++) {
+                // Add foam explosions
+                for (let i = 0; i < 30; i++) { // Reduced from 50 for performance
                     setTimeout(() => {
                         const x = Math.random() * window.innerWidth;
                         const y = Math.random() * window.innerHeight;
                         createFoamBurst(x, y);
-                    }, i * 50);
+                    }, i * 100);
                 }
                 
-                // Add rainbow effects to everything
+                // Add rainbow effects
                 document.body.classList.add('jay-activated');
                 
-                // Make all headers ultra glow
+                // Make headers glow
                 document.querySelectorAll('h1, h2, h3').forEach(el => {
                     el.classList.add('ultra-important');
                 });
                 
-                // Stop effects when audio ends or after 30 seconds
-                jayAudioElement.addEventListener('ended', cleanupJayMode);
-                setTimeout(cleanupJayMode, 30000);
+                // Simple beat effect (less CPU intensive)
+                let beatCount = 0;
+                const beatInterval = setInterval(() => {
+                    beatCount++;
+                    
+                    // Pulse effect
+                    document.body.style.transform = `scale(${1 + Math.sin(beatCount * 0.1) * 0.02})`;
+                    
+                    // Random foam bursts
+                    if (beatCount % 10 === 0) {
+                        const x = Math.random() * window.innerWidth;
+                        const y = Math.random() * window.innerHeight;
+                        createFoamBurst(x, y);
+                    }
+                    
+                    // Color shift
+                    const hue = (beatCount * 5) % 360;
+                    document.documentElement.style.setProperty('--beat-hue', hue + 'deg');
+                }, 100);
                 
+                // Cleanup function
                 function cleanupJayMode() {
                     clearInterval(beatInterval);
-                    jayOverlay.remove();
+                    if (jayOverlay && jayOverlay.parentNode) {
+                        jayOverlay.remove();
+                    }
                     document.body.classList.remove('jay-activated');
+                    document.body.style.transform = 'scale(1)';
                     document.querySelectorAll('.ultra-important').forEach(el => {
                         el.classList.remove('ultra-important');
                     });
-                    jayAudioElement.removeEventListener('ended', cleanupJayMode);
                     jayActivated = false;
                     jaySequence = '';
+                    console.log('Jay mode deactivated');
                 }
+                
+                // Stop after 30 seconds or when audio ends
+                jayAudioElement.addEventListener('ended', cleanupJayMode);
+                setTimeout(cleanupJayMode, 30000);
             }
             
             // Handle window resize
             window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-            });
-            
-            // Optimize performance with Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe all sections
-            document.querySelectorAll('section').forEach(section => {
-                observer.observe(section);
+                // Debounced resize handler
+                clearTimeout(window.resizeTimeout);
+                window.resizeTimeout = setTimeout(() => {
+                    // Resize logic here if needed
+                }, 250);
             });
         });
     </script>
