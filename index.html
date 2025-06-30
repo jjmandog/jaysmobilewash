@@ -485,6 +485,122 @@
             filter: brightness(1.2);
         }
         
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #13131a;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        
+        .water-wave {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 200%;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,128C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+            animation: wave 10s linear infinite;
+        }
+        
+        .water-wave-2 {
+            top: -5px;
+            animation: wave 8s linear infinite reverse;
+            opacity: 0.6;
+        }
+        
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .bubbles {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: rise 10s linear infinite;
+            opacity: 0;
+        }
+        
+        .bubble:nth-child(1) {
+            left: 10%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 0s;
+            animation-duration: 8s;
+        }
+        
+        .bubble:nth-child(2) {
+            left: 30%;
+            width: 10px;
+            height: 10px;
+            animation-delay: 2s;
+            animation-duration: 6s;
+        }
+        
+        .bubble:nth-child(3) {
+            left: 60%;
+            width: 12px;
+            height: 12px;
+            animation-delay: 4s;
+            animation-duration: 10s;
+        }
+        
+        .bubble:nth-child(4) {
+            left: 80%;
+            width: 8px;
+            height: 8px;
+            animation-delay: 6s;
+            animation-duration: 7s;
+        }
+        
+        .bubble:nth-child(5) {
+            left: 45%;
+            width: 18px;
+            height: 18px;
+            animation-delay: 3s;
+            animation-duration: 9s;
+        }
+        
+        @keyframes rise {
+            0% {
+                bottom: 0;
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                bottom: 100%;
+                opacity: 0;
+            }
+        }
+        
         /* Ultra Glow Effects */
         .ultra-glow {
             text-shadow: 0 0 20px rgba(168, 85, 247, 1), 
@@ -533,8 +649,8 @@
             width: 100%;
             height: 100%;
             z-index: 10000;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -550,23 +666,26 @@
         }
         
         .exploding-logo {
-            width: 200px;
-            height: 200px;
-            filter: drop-shadow(0 0 50px rgba(168, 85, 247, 1));
+            width: 250px;
+            height: 250px;
+            filter: drop-shadow(0 0 80px rgba(168, 85, 247, 1)) brightness(1.5);
         }
         
         @keyframes logo-spin-explode {
             0% {
                 transform: translate(-50%, -50%) scale(0) rotate(0deg);
                 opacity: 0;
+                filter: brightness(1);
             }
             50% {
-                transform: translate(-50%, -50%) scale(2) rotate(720deg);
+                transform: translate(-50%, -50%) scale(2.5) rotate(720deg);
                 opacity: 1;
+                filter: brightness(1.8);
             }
             100% {
-                transform: translate(-50%, -50%) scale(0.5) rotate(1440deg);
-                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1) rotate(1440deg);
+                opacity: 0.5;
+                filter: brightness(1.5);
             }
         }
         
@@ -579,22 +698,24 @@
         }
         
         .jay-mode-text {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 900;
             background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient-shift 2s ease infinite;
-            text-shadow: 0 0 100px rgba(168, 85, 247, 0.8);
+            animation: gradient-shift 1s ease infinite;
+            text-shadow: 0 0 120px rgba(255, 255, 255, 1);
+            filter: brightness(1.5);
         }
         
         .jay-mode-subtext {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: white;
-            text-shadow: 0 0 20px rgba(236, 72, 153, 1);
-            animation: fade-pulse 1s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(236, 72, 153, 1), 0 0 60px rgba(236, 72, 153, 1);
+            animation: fade-pulse 0.8s ease-in-out infinite;
+            filter: brightness(1.2);
         }
         
         @keyframes gradient-shift {
@@ -615,17 +736,19 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
-            height: 100px;
+            gap: 12px;
+            height: 120px;
             align-items: flex-end;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
         }
         
         .beat-bar {
-            width: 20px;
+            width: 24px;
             background: linear-gradient(to top, #ff006e, #8338ec);
-            border-radius: 10px;
+            border-radius: 12px;
             animation: beat-dance 0.5s ease-in-out infinite;
             animation-delay: calc(var(--i) * 0.1s);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
         }
         
         .beat-bar:nth-child(1) { --i: 0; height: 40px; }
@@ -637,37 +760,46 @@
         @keyframes beat-dance {
             0%, 100% {
                 transform: scaleY(1);
+                filter: brightness(1);
             }
             50% {
-                transform: scaleY(1.5);
+                transform: scaleY(1.8);
+                filter: brightness(1.5);
             }
         }
         
         /* Floating particles */
         .floating-product-particle {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             background-image: url('https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png');
             background-size: contain;
             background-repeat: no-repeat;
             pointer-events: none;
-            animation: float-up 8s linear infinite;
+            animation: float-up-enhanced 8s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.8)) brightness(1.4);
         }
         
-        @keyframes float-up {
+        @keyframes float-up-enhanced {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
                 opacity: 0;
             }
             10% {
                 opacity: 1;
+                transform: translateY(80vh) rotate(90deg) scale(0.8);
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.2);
+                filter: drop-shadow(0 0 30px rgba(236, 72, 153, 1)) brightness(1.8);
             }
             90% {
                 opacity: 1;
+                transform: translateY(20vh) rotate(270deg) scale(0.8);
             }
             100% {
-                transform: translateY(-100vh) rotate(720deg);
+                transform: translateY(-50px) rotate(360deg) scale(0.5);
                 opacity: 0;
             }
         }
@@ -816,6 +948,40 @@
     </noscript>
 </head>
 <body itemscope itemtype="https://schema.org/AutoRepair">
+    <!-- Loading Screen - RESTORED -->
+    <div id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center">
+        <div class="relative w-80 h-80">
+            <!-- Water tank container -->
+            <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
+                <!-- Water fill -->
+                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear h-0">
+                    <div class="water-wave"></div>
+                    <div class="water-wave water-wave-2"></div>
+                </div>
+                
+                <!-- Bubbles -->
+                <div class="bubbles">
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                </div>
+            </div>
+            
+            <!-- Logo -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
+            </div>
+            
+            <!-- Progress text -->
+            <div class="absolute bottom-10 left-0 right-0 text-center text-white">
+                <p class="text-sm font-medium">Loading Experience...</p>
+                <p class="text-xs mt-1"><span id="loading-progress">0</span>%</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -899,35 +1065,223 @@
             </div>
         </div>
         
-        <!-- Trust Badges -->
+        <!-- Trust Badges Section - FIXED -->
         <div class="bg-gray-900 bg-opacity-50 py-6 mt-8">
             <div class="container mx-auto px-4">
                 <div class="flex flex-wrap justify-center gap-8 sm:gap-12 items-center">
-                    <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2107/2107957.png" alt="5-Star Rating" class="h-10 mx-auto mb-2 opacity-80">
-                        <p class="text-sm text-gray-300">287+ 5-Star Reviews</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1178/1178215.png" alt="Service Guarantee" class="h-10 mx-auto mb-2 opacity-80">
-                        <p class="text-sm text-gray-300">100% Satisfaction</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Premium Materials" class="h-10 mx-auto mb-2 opacity-80">
-                        <p class="text-sm text-gray-300">Premium Products</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5891/5891165.png" alt="Mobile Service" class="h-10 mx-auto mb-2 opacity-80">
-                        <p class="text-sm text-gray-300">We Come To You</p>
-                    </div>
+                    <a href="#reviews" class="text-center group hover:transform hover:scale-105 transition-all">
+                        <div class="h-16 w-16 mx-auto mb-2 flex items-center justify-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2107/2107957.png" alt="5-Star Rating" class="h-12 object-contain opacity-90 group-hover:opacity-100">
+                        </div>
+                        <p class="text-sm text-gray-300 group-hover:text-white">287+ 5-Star Reviews</p>
+                    </a>
+                    <a href="#guarantee" class="text-center group hover:transform hover:scale-105 transition-all">
+                        <div class="h-16 w-16 mx-auto mb-2 flex items-center justify-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1178/1178215.png" alt="Service Guarantee" class="h-12 object-contain opacity-90 group-hover:opacity-100">
+                        </div>
+                        <p class="text-sm text-gray-300 group-hover:text-white">100% Satisfaction</p>
+                    </a>
+                    <a href="#products" class="text-center group hover:transform hover:scale-105 transition-all">
+                        <div class="h-16 w-16 mx-auto mb-2 flex items-center justify-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Premium Materials" class="h-12 object-contain opacity-90 group-hover:opacity-100">
+                        </div>
+                        <p class="text-sm text-gray-300 group-hover:text-white">Premium Products</p>
+                    </a>
+                    <a href="#locations" class="text-center group hover:transform hover:scale-105 transition-all">
+                        <div class="h-16 w-16 mx-auto mb-2 flex items-center justify-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5891/5891165.png" alt="Mobile Service" class="h-12 object-contain opacity-90 group-hover:opacity-100">
+                        </div>
+                        <p class="text-sm text-gray-300 group-hover:text-white">We Come To You</p>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Your website's sections and content go here -->
+    <!-- Services Section - FIXED -->
+    <section id="services" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text glow-text">Our Services</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    We provide premium car detailing services throughout Los Angeles and Orange County.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Mobile Detailing -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Mobile Car Detailing in Los Angeles" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
+                        <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Interior & Exterior Detailing</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Full-Service Mobile Car Wash</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Steam Cleaning & Disinfection</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
+                            View Packages
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Ceramic Coating -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1619927549287-6c9f8a48b9d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Ceramic Coating in Orange County" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
+                        <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 9H Ceramic Coating</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Graphene-Infused Options</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 2-5 Year Protection Warranty</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
+                            View Packages
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Paint Correction -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1621252179024-ab22bb83fc1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Paint Correction in Los Angeles" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
+                        <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Swirl Mark Removal</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Scratch & Defect Correction</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Single & Multi-Stage Polishing</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
+                            View Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Add the chat widget -->
-    <!-- Enhanced AI Chat Widget with OpenRouter API Integration -->
+    <!-- NEW Premium Products Section -->
+    <section id="products" class="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text glow-text">Premium Products We Use</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    We only use the highest quality professional-grade products to deliver exceptional results.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Maderite -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/300x200/252525/999999?text=Maderite" alt="Maderite Professional Products" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Maderite</h3>
+                        <p class="text-gray-300 mb-4">Professional-grade buffing compounds and polishes for perfect paint correction and restoration.</p>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md mr-2">Paint Correction</span>
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md">Polishing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Koch Chemie -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/300x200/252525/999999?text=Koch+Chemie" alt="Koch Chemie Premium Detailing Products" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Koch Chemie</h3>
+                        <p class="text-gray-300 mb-4">German-engineered compounds, polishes and cleaners that deliver superior results on all surfaces.</p>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md mr-2">Interior</span>
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md">Exterior</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bio Bomb -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/300x200/252525/999999?text=Bio+Bomb" alt="Bio Bomb Interior Sanitization" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Bio Bomb</h3>
+                        <p class="text-gray-300 mb-4">Advanced disinfecting and deodorizing technology that eliminates odors and harmful bacteria.</p>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md mr-2">Sanitization</span>
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md">Odor Removal</span>
+                        </div>
+                    </div>
+                </div>
+                
+                                <!-- Ultraclean -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center p-6">
+                        <img src="https://via.placeholder.com/300x200/252525/999999?text=Ultraclean" alt="Ultraclean Professional Products" class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Ultraclean</h3>
+                        <p class="text-gray-300 mb-4">Heavy-duty cleaners and degreasers that break down tough stains and grime without damaging surfaces.</p>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md mr-2">Deep Cleaning</span>
+                            <span class="inline-block px-2 py-1 bg-gray-700 rounded-md">Engine Bay</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-400 mb-6">We source only the highest quality detailing products to ensure your vehicle receives the best possible care.</p>
+                <a href="#contact" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg glow-button">
+                    Ask About Our Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="py-12 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-400">© 2023 Jay's Mobile Wash. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio for Jay Mode -->
+    <audio id="jay-audio" preload="auto">
+        <source src="BLP Kosher - Jack and Jill (Official Music Video).wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Jay Mode Overlay -->
+    <div id="jay-overlay" style="display: none;">
+        <div class="jay-logo-explosion">
+            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="exploding-logo">
+        </div>
+        <div class="jay-text-container">
+            <h1 class="jay-mode-text">JAY MODE ACTIVATED!</h1>
+            <p class="jay-mode-subtext">Premium detailing in progress...</p>
+        </div>
+        <div class="beat-visualizer">
+            <div class="beat-bar"></div>
+            <div class="beat-bar"></div>
+            <div class="beat-bar"></div>
+            <div class="beat-bar"></div>
+            <div class="beat-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Enhanced AI Chat Widget -->
     <div id="foam-chat-widget" class="fixed bottom-4 right-4 z-[1000] hidden">
         <!-- Minimized Chat Bubble -->
         <div id="foam-chat-bubble" class="cursor-pointer flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full shadow-lg hover:shadow-xl beat-reactive">
@@ -1152,40 +1506,12 @@
         </div>
     </div>
 
-    <!-- Audio for Jay Mode -->
-    <audio id="jay-audio" preload="auto">
-        <source src="BLP Kosher - Jack and Jill (Official Music Video).wav" type="audio/wav">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 glow-button">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-    <!-- Jay Mode Overlay -->
-    <div id="jay-overlay" style="display: none;">
-        <div class="jay-logo-explosion">
-            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="exploding-logo">
-        </div>
-        <div class="jay-text-container">
-            <h1 class="jay-mode-text">JAY MODE ACTIVATED!</h1>
-            <p class="jay-mode-subtext">Premium detailing in progress...</p>
-        </div>
-        <div class="beat-visualizer">
-            <div class="beat-bar"></div>
-            <div class="beat-bar"></div>
-            <div class="beat-bar"></div>
-            <div class="beat-bar"></div>
-            <div class="beat-bar"></div>
-        </div>
-    </div>
-
-    <!-- Footer Section -->
-    <footer class="py-12 bg-gray-900 border-t border-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="text-center">
-                <p class="text-gray-400">© 2023 Jay's Mobile Wash. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-        <!-- Scripts -->
+    <!-- Scripts -->
     <script>
         // Loading Screen
         document.addEventListener('DOMContentLoaded', function() {
@@ -1286,7 +1612,7 @@
             });
         });
         
-        // Jay Mode Activation with enhanced features
+        // Enhanced JAY Mode Activation with beat-reactive features
         document.addEventListener('DOMContentLoaded', function() {
             let keySequence = '';
             let targetSequence = 'JAY';
@@ -1294,6 +1620,169 @@
             const jayOverlay = document.getElementById('jay-overlay');
             let jayModeActive = false;
             let jayModeTimer = null;
+            let audioContext = null;
+            let analyser = null;
+            let dataArray = null;
+
+            // Create AudioContext for beat detection
+            function setupAudioAnalyser() {
+                try {
+                    // Create audio context and analyser
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    analyser = audioContext.createAnalyser();
+                    analyser.fftSize = 256;
+                    
+                    // Connect audio to analyser
+                    const source = audioContext.createMediaElementSource(audio);
+                    source.connect(analyser);
+                    analyser.connect(audioContext.destination);
+                    
+                    // Create data array to receive frequency data
+                    dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    
+                    console.log("Audio analyser setup successful");
+                    return true;
+                } catch(err) {
+                    console.error("Audio analyser setup failed:", err);
+                    return false;
+                }
+            }
+
+            // Beat detection and visualization
+            function updateBeatVisualization() {
+                if (!analyser || !dataArray || !jayModeActive) return;
+                
+                // Get frequency data
+                analyser.getByteFrequencyData(dataArray);
+                
+                // Split frequency range into low, mid, and high
+                const bassRange = averageFrequencyRange(dataArray, 0, 5);  // Bass
+                const midRange = averageFrequencyRange(dataArray, 6, 12);  // Midrange
+                const highRange = averageFrequencyRange(dataArray, 13, 20); // High
+                const veryHighRange = averageFrequencyRange(dataArray, 21, 30); // Very High
+                
+                // Update beat bars
+                const bars = document.querySelectorAll('.beat-bar');
+                if (bars.length >= 5) {
+                    updateBar(bars[0], bassRange);
+                    updateBar(bars[1], midRange);
+                    updateBar(bars[2], highRange);
+                    updateBar(bars[3], midRange);
+                    updateBar(bars[4], veryHighRange);
+                }
+                
+                // Make elements with beat-reactive class react to the beat
+                document.querySelectorAll('.beat-reactive').forEach(element => {
+                    const freq = element.getAttribute('data-freq') || 'mid';
+                    let intensity;
+                    
+                    switch(freq) {
+                        case 'low':
+                            intensity = bassRange / 255;
+                            break;
+                        case 'high':
+                            intensity = highRange / 255;
+                            break;
+                        case 'mid':
+                        default:
+                            intensity = midRange / 255;
+                    }
+                    
+                    // Apply beat reactiveness
+                    if (intensity > 0.5) {
+                        element.classList.add('on-beat');
+                        element.style.transform = `scale(${1 + (intensity * 0.1)})`;
+                        element.style.filter = `brightness(${1 + (intensity * 0.5)})`;
+                    } else {
+                        element.classList.remove('on-beat');
+                        element.style.transform = '';
+                        element.style.filter = '';
+                    }
+                });
+                
+                // Apply global effects based on overall intensity
+                const overallIntensity = (bassRange + midRange + highRange) / (255 * 3);
+                
+                // Logo pulse effect
+                const logo = document.querySelector('.exploding-logo');
+                if (logo) {
+                    logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
+                }
+                
+                // Text glow effect
+                const titleText = document.querySelector('.jay-mode-text');
+                if (titleText) {
+                    titleText.style.textShadow = `0 0 ${100 + overallIntensity * 40}px rgba(255, 255, 255, ${0.8 + overallIntensity * 0.2})`;
+                    titleText.style.filter = `brightness(${1.3 + overallIntensity * 0.5})`;
+                }
+                
+                // Background flash on heavy beats
+                if (bassRange > 200 || midRange > 200) {
+                    jayOverlay.style.background = `rgba(0, 0, 0, ${0.7 - (overallIntensity * 0.3)})`;
+                    
+                    // Create random particle bursts on heavy beats
+                    if (Math.random() > 0.7) {
+                        createBeatParticles();
+                    }
+                } else {
+                    jayOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+                }
+                
+                // Continue animation loop
+                if (jayModeActive) {
+                    requestAnimationFrame(updateBeatVisualization);
+                }
+            }
+            
+            function averageFrequencyRange(dataArray, start, end) {
+                let sum = 0;
+                for (let i = start; i <= end && i < dataArray.length; i++) {
+                    sum += dataArray[i];
+                }
+                return sum / (end - start + 1);
+            }
+            
+            function updateBar(bar, intensity) {
+                if (!bar) return;
+                // Scale between 30px and 120px based on intensity
+                const height = 30 + (intensity / 255) * 90;
+                bar.style.height = height + 'px';
+                
+                // Add glow based on intensity
+                const glow = Math.floor((intensity / 255) * 30);
+                bar.style.boxShadow = `0 0 ${glow}px rgba(168, 85, 247, 0.8)`;
+                
+                // Increase brightness with intensity
+                const brightness = 1 + (intensity / 255);
+                bar.style.filter = `brightness(${brightness})`;
+            }
+            
+            // Create particles that react to the beat
+            function createBeatParticles() {
+                const numParticles = Math.floor(Math.random() * 5) + 3; // 3 to 7 particles
+                
+                for (let i = 0; i < numParticles; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'floating-product-particle';
+                    
+                    // Random position
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    
+                    // Random size
+                    const size = 40 + Math.random() * 40;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    
+                    // Custom animation
+                    particle.style.animationDuration = 3 + Math.random() * 3 + 's';
+                    
+                    document.body.appendChild(particle);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => particle.remove(), 6000);
+                }
+            }
             
             // Listen for keypress events
             document.addEventListener('keydown', function(event) {
@@ -1330,13 +1819,22 @@
                     clearTimeout(jayModeTimer);
                 }
                 
-                // Play the audio - with error handling and logging
+                // Initialize audio context and analyser if needed
+                if (!audioContext) {
+                    setupAudioAnalyser();
+                } else if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                // Play the audio with error handling
                 audio.currentTime = 0; // Reset audio to start
                 const playPromise = audio.play();
                 
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
                         console.log('Audio playback started successfully');
+                        // Start beat detection and visualization
+                        updateBeatVisualization();
                     }).catch(error => {
                         console.error('Audio playback failed:', error);
                         
@@ -1348,6 +1846,8 @@
                             audio.play().then(() => {
                                 console.log('Audio playback started after user interaction');
                                 document.removeEventListener('click', clickHandler);
+                                // Start beat detection and visualization
+                                updateBeatVisualization();
                             }).catch(err => {
                                 console.error('Audio still failed after click:', err);
                             });
@@ -1358,7 +1858,7 @@
                 }
                 
                 // Show the overlay
-                jayOverlay.style.display = 'block';
+                jayOverlay.style.display = 'flex';
                 
                 // Add the jay-activated class to the body
                 document.body.classList.add('jay-activated');
@@ -1389,6 +1889,13 @@
                     particle.remove();
                 });
                 
+                // Reset any beat-reactive elements
+                document.querySelectorAll('.beat-reactive').forEach(element => {
+                    element.classList.remove('on-beat');
+                    element.style.transform = '';
+                    element.style.filter = '';
+                });
+                
                 // Clear the timer
                 if (jayModeTimer) {
                     clearTimeout(jayModeTimer);
@@ -1408,11 +1915,8 @@
                 }
             }
         });
-    </script>
 
-    <!-- Chat Widget JavaScript with OpenRouter API Integration -->
-    <script>
-        // Initialize chat widget with all features
+        // Chat Widget JavaScript with OpenRouter API Integration
         document.addEventListener('DOMContentLoaded', function() {
             // Wait a bit to ensure main site is loaded first
             setTimeout(initEnhancedChat, 2000);
@@ -1568,6 +2072,7 @@ Key information about Jay's Mobile Wash:
 - Service areas: All of Los Angeles County and Orange County
 - Contact: 562-228-9429 or jason@jaysmobilewash.net
 - No need for water or electricity - they bring everything needed
+- Premium products used: Maderite, Koch Chemie, Bio Bomb, and Ultraclean
 
 Your personality: You're the "Detail Detective" who can spot issues and recommend the perfect treatment. Be helpful, knowledgeable but conversational. Use car detailing metaphors occasionally.
 
@@ -1637,14 +2142,11 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                 let suggestion = "";
                 
                 switch(section) {
-                    case "ceramic-coating":
-                        suggestion = "I see you're checking out ceramic coating! Would you like to see a before/after comparison?";
+                    case "products":
+                        suggestion = "I see you're checking out our premium products! We use professional-grade products like Maderite and Koch Chemie. Would you like to know more about any specific product?";
                         break;
-                    case "paint-correction":
-                        suggestion = "Looking at paint correction? I can show you the dramatic difference it makes on swirl marks.";
-                        break;
-                    case "packages":
-                        suggestion = "Browsing our packages? I can help estimate pricing for your specific vehicle.";
+                    case "services":
+                        suggestion = "Looking at our services? Our ceramic coating provides 2-5 years of protection for your vehicle's paint. Would you like to see before/after results?";
                         break;
                     case "locations":
                         suggestion = "I notice you're checking service areas. Which area are you located in?";
@@ -1659,12 +2161,10 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                         addMessage(suggestion, 'ai');
                         
                         // For ceramic coating, add before/after button
-                        if (section === "ceramic-coating") {
+                        if (section === "services") {
                             addBeforeAfterButton("ceramic coating");
-                        } else if (section === "paint-correction") {
-                            addBeforeAfterButton("paint correction");
-                        } else if (section === "packages") {
-                            addPriceEstimatorButton();
+                        } else if (section === "products") {
+                            addProductInfoButtons();
                         }
                     }, 3000); // Delay suggestion to feel natural
                 }
@@ -1682,6 +2182,33 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                 }
                 
                 return null;
+            }
+            
+            function addProductInfoButtons() {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'flex flex-wrap justify-start gap-2 mt-2';
+                buttonContainer.innerHTML = `
+                    <button class="product-info-btn bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-xs text-purple-400 transition-colors">Koch Chemie</button>
+                    <button class="product-info-btn bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-xs text-purple-400 transition-colors">Maderite</button>
+                    <button class="product-info-btn bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-xs text-purple-400 transition-colors">Bio Bomb</button>
+                `;
+                
+                const messages = messagesContainer.querySelectorAll('.flex');
+                const lastMessage = messages[messages.length - 1];
+                if (lastMessage) {
+                    const messageContent = lastMessage.querySelector('.flex-col');
+                    if (messageContent) {
+                        messageContent.appendChild(buttonContainer);
+                    }
+                }
+                
+                // Add event listeners
+                document.querySelectorAll('.product-info-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        chatInput.value = `Tell me about ${this.textContent} products`;
+                        sendMessage();
+                    });
+                });
             }
             
             // Add buttons to show before/after
@@ -1968,6 +2495,8 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                                 <div class="font-bold text-sm">${day.dayName}, ${dateStr}</div>
                                 <div class="flex flex-wrap gap-1 mt-1">
                                     ${day.slots.map(slot => 
+                                        `<button class="book-slot-btn bg-gray-700 hover:bg-
+                                                                            ${day.slots.map(slot => 
                                         `<button class="book-slot-btn bg-gray-700 hover:bg-purple-600 px-2 py-1 rounded text-xs transition-colors" data-date="${dateStr}" data-time="${slot}">
                                             ${slot}
                                         </button>`
@@ -2334,6 +2863,12 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                     }
                 }
                 
+                // If response mentions products
+                if (response.toLowerCase().includes("maderite") || response.toLowerCase().includes("koch chemie") || 
+                    response.toLowerCase().includes("bio bomb") || response.toLowerCase().includes("ultraclean")) {
+                    suggestions.push("Which products do you use?");
+                }
+                
                 // If response mentions price or cost
                 if (response.toLowerCase().includes("price") || response.toLowerCase().includes("cost") || response.toLowerCase().includes("$")) {
                     suggestions.push("Schedule an appointment");
@@ -2434,6 +2969,27 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                     }
                 }
                 
+                // Product info responses
+                if (query.includes("maderite")) {
+                    return "Maderite is our preferred brand for professional buffing compounds and polishes. Their products are specially formulated for perfect paint correction with minimal swirl marks and outstanding finish. We use Maderite for all our high-end detailing services and ceramic coating preparation.";
+                }
+                
+                if (query.includes("koch chemie")) {
+                    return "Koch Chemie is a premium German brand we trust for their exceptional interior and exterior cleaning products. Their Green Star all-purpose cleaner and Gentle Snow Foam are staples in our detailing arsenal, providing superior cleaning power while being gentle on surfaces.";
+                }
+                
+                if (query.includes("bio bomb")) {
+                    return "Bio Bomb is our go-to solution for eliminating tough odors and sanitizing vehicle interiors. It uses advanced enzymatic technology to break down organic matter and kill bacteria rather than just masking smells. Perfect for removing smoke, pet odors, or food spills from your vehicle.";
+                }
+                
+                if (query.includes("ultraclean")) {
+                    return "Ultraclean provides our heavy-duty cleaning solutions for tough jobs like engine bay detailing and removing stubborn stains. Their degreasers and cleaners break down grime without damaging sensitive components. We use Ultraclean products for the most challenging cleaning tasks.";
+                }
+                
+                if (query.includes("product")) {
+                    return "We only use premium professional-grade products including Maderite polishes for paint correction, Koch Chemie cleaners for interiors and exteriors, Bio Bomb for odor elimination, and Ultraclean for heavy-duty degreasing. These high-quality products ensure exceptional results that last longer than consumer-grade alternatives.";
+                }
+                
                 // Common Q&A fallbacks for offline or API failure
                 const fallbacks = {
                     "ceramic": "Our ceramic coating starts at $450 for cars and $550 for SUVs/trucks. It provides 2 years of protection with hydrophobic properties and UV resistance. For more details or to book, please call us at 562-228-9429.",
@@ -2454,7 +3010,7 @@ Always recommend they call 562-228-9429 for booking or specific quotes. Keep res
                 }
                 
                 // Default response with Detail Detective personality
-                return "As the Detail Detective, I'm committed to helping you find the perfect detailing solution! For specific questions about our mobile services in LA & OC, please call us at 562-228-9429. We offer ceramic coating, paint correction, and full mobile detailing at your location. What specific detailing needs can I help with today?";
+                return "As the Detail Detective, I'm committed to helping you find the perfect detailing solution! For specific questions about our mobile services in LA & OC, please call us at 562-228-9429. We offer ceramic coating, paint correction, and full mobile detailing at your location using premium products like Maderite and Koch Chemie. What specific detailing needs can I help with today?";
             }
             
             function addMessage(text, sender) {
