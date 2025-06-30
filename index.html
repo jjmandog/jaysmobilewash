@@ -671,6 +671,140 @@
                 opacity: 0;
             }
         }
+        
+        /* Chat Widget Specific Styles */
+        #foam-chat-bubble {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 
+                        0 0 40px rgba(236, 72, 153, 0.3);
+            animation: button-glow 3s ease-in-out infinite;
+            opacity: 0;
+            animation: fade-in 0.5s ease-out forwards 2s;
+        }
+        
+        #foam-chat-bubble:hover {
+            transform: scale(1.05);
+        }
+        
+        #foam-chat-panel {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        /* Quick reply buttons */
+        .quick-reply-btn {
+            transition: all 0.2s ease;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+        
+        .quick-reply-btn:hover {
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        }
+        
+        /* Vehicle and Price button styles */
+        .vehicle-type-btn.selected,
+        .price-vehicle-btn.selected,
+        .price-service-btn.selected {
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+            color: white;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+        
+        /* Before/After Comparison Slider */
+        .comparison-container {
+            user-select: none;
+        }
+        
+        .slider-handle {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Water wave animation in AI thinking indicator */
+        #thinking-water-fill .water-wave {
+            animation: thinking-wave 2s linear infinite;
+        }
+        
+        @keyframes thinking-wave {
+            0% { transform: translateX(-50%) }
+            100% { transform: translateX(50%) }
+        }
+        
+        /* Chat message animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* AI Message style */
+        .ai-message {
+            animation: fade-in 0.3s ease-out;
+        }
+        
+        .user-message {
+            animation: fade-in 0.2s ease-out;
+        }
+        
+        /* Foam Chat Widget */
+        .foam-bubble-dots span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bubble-bounce 1.5s infinite;
+        }
+        
+        .foam-bubble-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .foam-bubble-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bubble-bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+        
+        /* Click foam effect */
+        .click-foam {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .click-foam-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: foam-particle 1s ease-out forwards;
+        }
+        
+        @keyframes foam-particle {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+            }
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -682,40 +816,6 @@
     </noscript>
 </head>
 <body itemscope itemtype="https://schema.org/AutoRepair">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center">
-        <div class="relative w-80 h-80">
-            <!-- Water tank container -->
-            <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
-                <!-- Water fill -->
-                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear">
-                    <div class="water-wave"></div>
-                    <div class="water-wave water-wave-2"></div>
-                </div>
-                
-                <!-- Bubbles -->
-                <div class="bubbles">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                </div>
-            </div>
-            
-            <!-- Logo -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
-            </div>
-            
-            <!-- Progress text -->
-            <div class="absolute bottom-10 left-0 right-0 text-center text-white">
-                <p class="text-sm font-medium">Loading Experience...</p>
-                <p class="text-xs mt-1"><span id="loading-progress">0</span>%</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -824,557 +924,241 @@
         </div>
     </div>
 
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Our Services</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We provide premium car detailing services throughout Los Angeles and Orange County.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Mobile Detailing -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Mobile Car Detailing in Los Angeles" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
-                        <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Interior & Exterior Detailing</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Full-Service Mobile Car Wash</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Steam Cleaning & Disinfection</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
-                            View Packages
-                        </a>
-                    </div>
-                </div>
+    <!-- Your website's sections and content go here -->
+
+    <!-- Add the chat widget -->
+    <!-- Enhanced AI Chat Widget with OpenRouter API Integration -->
+    <div id="foam-chat-widget" class="fixed bottom-4 right-4 z-[1000] hidden">
+        <!-- Minimized Chat Bubble -->
+        <div id="foam-chat-bubble" class="cursor-pointer flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full shadow-lg hover:shadow-xl beat-reactive">
+            <div class="relative">
+                <svg width="30" height="30" viewBox="0 0 40 40">
+                    <g transform="rotate(-45 20 20)">
+                        <rect x="15" y="10" width="10" height="20" fill="url(#chatBubbleGradient)" rx="2"/>
+                        <rect x="17" y="5" width="6" height="8" fill="#666" rx="1"/>
+                    </g>
+                    <!-- Foam particles -->
+                    <circle class="foam-particle" cx="5" cy="5" r="2" fill="white" opacity="0.8"/>
+                    <circle class="foam-particle" cx="35" cy="8" r="1.5" fill="white" opacity="0.7"/>
+                    <defs>
+                        <linearGradient id="chatBubbleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
                 
-                <!-- Ceramic Coating -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1619927549287-6c9f8a48b9d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Ceramic Coating in Orange County" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
-                        <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 9H Ceramic Coating</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Graphene-Infused Options</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 2-5 Year Protection Warranty</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
-                            View Packages
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Paint Correction -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1621252179024-ab22bb83fc1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Paint Correction in Los Angeles" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
-                        <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Swirl Mark Removal</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Scratch & Defect Correction</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Single & Multi-Stage Polishing</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-md glow-button">
-                            View Packages
-                        </a>
-                    </div>
+                <!-- Animated dots -->
+                <div class="foam-bubble-dots absolute top-full left-1/2 transform -translate-x-1/2 mt-1 flex">
+                    <span class="w-1.5 h-1.5 bg-white rounded-full mx-0.5 animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 bg-white rounded-full mx-0.5 animate-bounce" style="animation-delay: 0.2s"></span>
+                    <span class="w-1.5 h-1.5 bg-white rounded-full mx-0.5 animate-bounce" style="animation-delay: 0.4s"></span>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Process Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">How It Works</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Our easy 3-step process makes getting your car detailed more convenient than ever.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="low">
-                        <i class="fas fa-calendar-check text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">1. Book Your Service</h3>
-                    <p class="text-gray-300">Call us or use our online booking form to schedule your detailing service.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="mid">
-                        <i class="fas fa-truck text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">2. We Come To You</h3>
-                    <p class="text-gray-300">Our mobile detailers arrive at your location with all necessary equipment.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="high">
-                        <i class="fas fa-car text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">3. Enjoy Your Clean Car</h3>
-                    <p class="text-gray-300">Sit back and relax while we transform your vehicle to showroom condition.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Areas Section -->
-    <section id="locations" class="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Service Areas</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We provide mobile detailing services throughout Los Angeles and Orange County.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6 gradient-text">Los Angeles County</h3>
-                    <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Los Angeles</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Beverly Hills</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Santa Monica</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Pasadena</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Glendale</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Long Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Torrance</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Redondo Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Hermosa Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Manhattan Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> Culver City</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-purple-500 mr-2"></i> West Hollywood</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-2xl font-bold mb-6 gradient-text">Orange County</h3>
-                    <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Anaheim</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Irvine</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Newport Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Huntington Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Costa Mesa</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Santa Ana</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Laguna Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Orange</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Fullerton</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Tustin</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Seal Beach</li>
-                        <li class="flex items-center text-gray-300"><i class="fas fa-map-marker-alt text-pink-500 mr-2"></i> Dana Point</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <p class="text-gray-300 mb-6">Not sure if we service your area? Give us a call - we may be able to accommodate!</p>
-                <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button">
-                    <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Customer Reviews</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Don't just take our word for it - see what our satisfied customers have to say.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-2xl transition-all duration-300 review-card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-300">5.0</span>
-                    </div>
-                    <p class="text-gray-300 mb-4">"Jay did an amazing job on my BMW. The ceramic coating looks incredible, and the car looks better than when I bought it. Highly recommended service!"</p>
+        <!-- Expanded Chat Panel -->
+        <div id="foam-chat-panel" class="hidden">
+            <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl w-80 sm:w-96 h-[500px] max-h-[80vh] flex flex-col">
+                <!-- Chat Header -->
+                <div class="p-4 bg-gray-800 border-b border-gray-700 flex justify-between items-center">
                     <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
+                        <div class="h-10 w-10 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-8 w-8 object-contain">
+                        </div>
                         <div>
-                            <p class="font-medium text-white">Michael R.</p>
-                            <p class="text-sm text-gray-400">Beverly Hills, CA</p>
+                            <h3 class="text-lg font-bold text-white">Detail Detective</h3>
+                            <p class="text-xs text-gray-400">Online | Mobile Detailing Expert</p>
                         </div>
+                    </div>
+                    <button id="foam-chat-minimize" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                
+                <!-- Water Fill Animation Container -->
+                <div id="foam-chat-water-container" class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden opacity-0 pointer-events-none transition-opacity duration-500 z-50">
+                    <div id="foam-chat-water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 h-0 transition-all duration-1000">
+                        <div class="water-wave"></div>
+                        <div class="water-wave water-wave-2"></div>
+                    </div>
+                    <div class="bubbles">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <h2 class="text-2xl font-bold mb-4 ultra-glow">Starting Chat</h2>
+                        <div class="text-4xl font-bold mb-2">
+                            <span id="chat-loading-percent" class="gradient-text">0</span>%
+                        </div>
+                        <p id="chat-loading-message" class="text-purple-300 text-center px-4">Preparing foam cannons...</p>
                     </div>
                 </div>
                 
-                <!-- Review 2 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-2xl transition-all duration-300 review-card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-300">5.0</span>
+                <!-- Chat Messages -->
+                <div id="foam-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-900">
+                    <!-- Initial message will be added by JavaScript -->
+                </div>
+                
+                <!-- Before/After Image Comparison Tool (Hidden Initially) -->
+                <div id="before-after-tool" class="hidden bg-gray-800 w-full p-4 border-t border-gray-700">
+                    <div class="text-center mb-3">
+                        <h4 class="text-lg font-bold mb-2">Before/After: Ceramic Coating</h4>
+                        <p class="text-sm text-gray-400 mb-2">Drag slider to compare results</p>
                     </div>
-                    <p class="text-gray-300 mb-4">"I've tried many mobile detailers in Orange County, and Jay's is by far the best. The attention to detail is incredible. My car hasn't looked this good in years!"</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
+                    <div class="comparison-container relative h-36 overflow-hidden rounded-lg">
+                        <img class="before-image absolute inset-0 w-full h-full object-cover" src="https://via.placeholder.com/400x200/333333/666666?text=Before" alt="Before ceramic coating">
+                        <div class="after-container absolute inset-0 overflow-hidden" style="width: 50%;">
+                            <img class="after-image absolute inset-0 w-full h-full object-cover" src="https://via.placeholder.com/400x200/444444/999999?text=After" alt="After ceramic coating">
+                        </div>
+                        <div class="slider-handle absolute top-0 bottom-0 w-1 bg-white cursor-col-resize" style="left: 50%;">
+                            <div class="w-6 h-6 rounded-full bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+                                <i class="fas fa-arrows-alt-h text-gray-800 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right mt-2">
+                        <button id="close-comparison" class="text-xs text-gray-400 hover:text-white">
+                            <i class="fas fa-times mr-1"></i>Close
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vehicle Matcher Tool (Hidden Initially) -->
+                <div id="vehicle-matcher-tool" class="hidden bg-gray-800 w-full p-4 border-t border-gray-700">
+                    <div class="text-center mb-3">
+                        <h4 class="text-lg font-bold mb-1">Vehicle Matcher</h4>
+                        <p class="text-sm text-gray-400 mb-2">See services for your specific vehicle</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                        <button class="vehicle-type-btn bg-gray-700 hover:bg-gray-600 py-2 px-3 rounded-lg text-sm transition-colors" data-type="sedan">Sedan</button>
+                        <button class="vehicle-type-btn bg-gray-700 hover:bg-gray-600 py-2 px-3 rounded-lg text-sm transition-colors" data-type="suv">SUV</button>
+                        <button class="vehicle-type-btn bg-gray-700 hover:bg-gray-600 py-2 px-3 rounded-lg text-sm transition-colors" data-type="truck">Truck</button>
+                    </div>
+                    <div id="vehicle-matcher-result" class="rounded-lg bg-gray-700 p-3 text-sm"></div>
+                    <div class="text-right mt-2">
+                        <button id="close-vehicle-matcher" class="text-xs text-gray-400 hover:text-white">
+                            <i class="fas fa-times mr-1"></i>Close
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Price Estimator Tool (Hidden Initially) -->
+                <div id="price-estimator-tool" class="hidden bg-gray-800 w-full p-4 border-t border-gray-700">
+                    <div class="text-center mb-2">
+                        <h4 class="text-lg font-bold">Price Estimator</h4>
+                        <p class="text-sm text-gray-400 mb-2">Select options for an estimate</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="mb-2">
+                            <label class="block text-sm mb-1">Vehicle Type:</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button class="price-vehicle-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-vehicle="sedan">Sedan</button>
+                                <button class="price-vehicle-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-vehicle="suv">SUV</button>
+                                <button class="price-vehicle-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-vehicle="truck">Truck</button>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-sm mb-1">Service Type:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="price-service-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-service="mini">Mini Detail</button>
+                                <button class="price-service-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-service="luxury">Luxury Detail</button>
+                                <button class="price-service-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-service="max">Max Detail</button>
+                                <button class="price-service-btn bg-gray-700 hover:bg-gray-600 py-1 px-2 rounded-lg text-sm transition-colors" data-service="ceramic">Ceramic Coating</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="price-result" class="mt-3 rounded-lg bg-gradient-to-r from-purple-600/20 to-pink-500/20 p-3 text-sm hidden"></div>
+                    <div class="text-right mt-2">
+                        <button id="close-price-estimator" class="text-xs text-gray-400 hover:text-white">
+                            <i class="fas fa-times mr-1"></i>Close
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Scheduling Assistant Tool (Hidden Initially) -->
+                <div id="scheduling-tool" class="hidden bg-gray-800 w-full p-4 border-t border-gray-700">
+                    <div class="text-center mb-3">
+                        <h4 class="text-lg font-bold mb-1">Scheduling Assistant</h4>
+                        <p class="text-sm text-gray-400 mb-2">Find available time slots</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
                         <div>
-                            <p class="font-medium text-white">Jennifer L.</p>
-                            <p class="text-sm text-gray-400">Newport Beach, CA</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Review 3 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-2xl transition-all duration-300 review-card">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-300">5.0</span>
-                    </div>
-                    <p class="text-gray-300 mb-4">"What I love most about Jay's Mobile Wash is the convenience. They showed up on time, were professional, and left my car looking brand new. Great service!"</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
-                        <div>
-                            <p class="font-medium text-white">David T.</p>
-                            <p class="text-sm text-gray-400">Los Angeles, CA</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://www.yelp.com/biz/jays-mobile-wash-los-angeles" target="_blank" class="text-white hover:text-purple-300 glow-link">
-                    <i class="fab fa-yelp mr-2"></i>Read more reviews on Yelp
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Frequently Asked Questions</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Find answers to common questions about our mobile detailing services.
-                </p>
-            </div>
-            
-            <div class="max-w-3xl mx-auto">
-                <!-- FAQ Item 1 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-1-button">
-                        <span class="text-lg font-medium text-white">How long does mobile car detailing take?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                                        <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-1-answer">
-                        <p class="text-gray-300 py-4">Our mobile detailing services take approximately 1-2 hours for Mini Detail, 2-3 hours for Luxury Detail, and 3-5 hours for Max Detail. Ceramic coating applications require 1-2 days depending on vehicle size and condition.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 2 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-2-button">
-                        <span class="text-lg font-medium text-white">Do you provide mobile detailing in my area?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-2-answer">
-                        <p class="text-gray-300 py-4">We service all of Los Angeles County and Orange County including Santa Monica, Beverly Hills, Long Beach, Newport Beach, Huntington Beach, Irvine, and surrounding areas. Additional travel fees may apply for locations outside our primary service area.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 3 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-3-button">
-                        <span class="text-lg font-medium text-white">What is ceramic coating and how long does it last?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-3-answer">
-                        <p class="text-gray-300 py-4">Ceramic coating is a liquid polymer that bonds with your vehicle's paint, creating a protective layer that enhances gloss and provides long-lasting protection. Our ceramic coating lasts 2 years, and our graphene coating lasts 5 years with proper maintenance and care.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 4 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-4-button">
-                        <span class="text-lg font-medium text-white">Do I need to provide water or electricity for mobile detailing?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-4-answer">
-                        <p class="text-gray-300 py-4">No, our mobile detailing units are fully self-contained with water tanks, generators, and all equipment necessary to complete the job. We only need access to your vehicle and space to work.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 5 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-5-button">
-                        <span class="text-lg font-medium text-white">How do I prepare my car for detailing?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-5-answer">
-                        <p class="text-gray-300 py-4">There's minimal preparation needed! Simply remove any personal belongings or valuables you don't want our team to move during the detailing process. For interior detailing, removing excess trash or clutter beforehand can help us deliver better results.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 6 -->
-                <div class="mb-6">
-                    <button class="flex justify-between items-center w-full bg-gray-900 p-4 rounded-md text-left" id="faq-6-button">
-                        <span class="text-lg font-medium text-white">What payment methods do you accept?</span>
-                        <i class="fas fa-chevron-down text-purple-500 transition-transform duration-300"></i>
-                    </button>
-                    <div class="bg-gray-900 bg-opacity-50 px-4 py-2 rounded-b-md faq-answer" id="faq-6-answer">
-                        <p class="text-gray-300 py-4">We accept all major credit cards, cash, Venmo, CashApp, Zelle and PayPal. Payment is due upon completion of service.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Contact Us</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Ready to get your car detailed? Contact us today to schedule an appointment or request a quote.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                <!-- Contact Info -->
-                <div class="bg-gray-900 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-6">Get In Touch</h3>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-phone text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Phone</h4>
-                                <p class="text-gray-300">
-                                    <a href="tel:+15622289429" class="hover:text-purple-300">(562) 228-9429</a>
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Email</h4>
-                                <p class="text-gray-300">
-                                    <a href="mailto:info@jaysmobilewash.net" class="hover:text-purple-300">info@jaysmobilewash.net</a>
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-clock text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Business Hours</h4>
-                                <p class="text-gray-300">Monday-Friday: 8am - 6pm</p>
-                                <p class="text-gray-300">Saturday-Sunday: 9am - 5pm</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full mr-4 flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Service Area</h4>
-                                <p class="text-gray-300">Los Angeles & Orange County</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8">
-                        <h4 class="text-lg font-medium text-white mb-4">Follow Us</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://www.facebook.com/jaysmobilewash" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full glow-social">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="https://www.instagram.com/jaysmobilewash" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full glow-social">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://www.yelp.com/biz/jays-mobile-wash-los-angeles" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full glow-social">
-                                <i class="fab fa-yelp"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contact Form -->
-                <div class="bg-gray-900 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-6">Send Us a Message</h3>
-                    
-                    <form id="contact-form" action="https://formspree.io/f/your-formspree-endpoint" method="POST">
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone</label>
-                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="service" class="block text-sm font-medium text-gray-300 mb-2">Interested In</label>
-                            <select id="service" name="service" class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                <option value="">-- Select a Service --</option>
-                                <option value="Mini Detail">Mini Detail</option>
-                                <option value="Luxury Detail">Luxury Detail</option>
-                                <option value="Max Detail">Max Detail</option>
-                                <option value="Ceramic Coating">Ceramic Coating</option>
-                                <option value="Graphene Coating">Graphene Coating</option>
-                                <option value="Other">Other</option>
+                            <label class="block text-sm mb-1">Your Area:</label>
+                            <select id="scheduling-location" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm">
+                                <option value="la">Los Angeles</option>
+                                <option value="oc">Orange County</option>
+                                <option value="bh">Beverly Hills</option>
+                                <option value="sm">Santa Monica</option>
+                                <option value="nb">Newport Beach</option>
+                                <option value="lb">Long Beach</option>
                             </select>
                         </div>
-                        
-                        <div class="mb-6">
-                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                        <div>
+                            <label class="block text-sm mb-1">Service Type:</label>
+                            <select id="scheduling-service" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm">
+                                <option value="mini">Mini Detail (1-2 hrs)</option>
+                                <option value="luxury">Luxury Detail (2-3 hrs)</option>
+                                <option value="max">Max Detail (3-5 hrs)</option>
+                                <option value="ceramic">Ceramic Coating (1-2 days)</option>
+                            </select>
                         </div>
-                        
-                        <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg glow-button">
-                            Send Message
+                    </div>
+                    <button id="find-slots" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white py-2 rounded-lg font-medium hover:shadow-lg transition-shadow">Find Available Times</button>
+                    <div id="scheduling-results" class="mt-3 rounded-lg bg-gray-700 p-3 text-sm hidden"></div>
+                    <div class="text-right mt-2">
+                        <button id="close-scheduling" class="text-xs text-gray-400 hover:text-white">
+                            <i class="fas fa-times mr-1"></i>Close
                         </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 bg-gray-900 border-t border-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="mb-8 md:mb-0">
-                    <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="h-16 mb-4">
-                    <p class="text-gray-400 mb-4">Premium mobile car detailing services throughout Los Angeles and Orange County. We bring the car wash to you!</p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.facebook.com/jaysmobilewash" target="_blank" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.instagram.com/jaysmobilewash" target="_blank" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.yelp.com/biz/jays-mobile-wash-los-angeles" target="_blank" class="text-gray-400 hover:text-white">
-                            <i class="fab fa-yelp"></i>
-                        </a>
                     </div>
                 </div>
                 
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#services" class="text-gray-400 hover:text-white">Services</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Packages</a></li>
-                        <li><a href="#locations" class="text-gray-400 hover:text-white">Service Areas</a></li>
-                        <li><a href="#testimonials" class="text-gray-400 hover:text-white">Reviews</a></li>
-                        <li><a href="#faq" class="text-gray-400 hover:text-white">FAQ</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact Us</a></li>
-                    </ul>
+                <!-- AI Thinking Indicator (Water Fill Animation) -->
+                <div id="ai-thinking" class="hidden bg-gray-800 border-t border-gray-700 p-4">
+                    <div class="relative h-6 w-full bg-gray-700 rounded-full overflow-hidden">
+                        <div id="thinking-water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-pink-500 h-full transition-all duration-300">
+                            <div class="water-wave absolute top-0 left-0 w-full h-2 bg-white/10"></div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Services</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Mobile Detailing</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Ceramic Coating</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Paint Correction</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Interior Detailing</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Headlight Restoration</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-white">Graphene Coating</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Contact Info</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-phone mr-2 text-purple-500"></i>
-                            <a href="tel:+15622289429" class="hover:text-white">(562) 228-9429</a>
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-envelope mr-2 text-purple-500"></i>
-                            <a href="mailto:info@jaysmobilewash.net" class="hover:text-white">info@jaysmobilewash.net</a>
-                        </li>
-                        <li class="flex items-start text-gray-400">
-                            <i class="fas fa-map-marker-alt mr-2 text-purple-500 mt-1"></i>
-                            <span>Serving Los Angeles & Orange County</span>
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-clock mr-2 text-purple-500"></i>
-                            <span>Mon-Fri: 8am-6pm, Sat-Sun: 9am-5pm</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Jay's Mobile Wash. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+                <!-- Chat Input -->
+                <div class="bg-gray-800 border-t border-gray-700 p-4">
+                    <div class="flex items-center">
+                        <input type="text" id="foam-chat-input" placeholder="Type your question..." class="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <button id="foam-chat-send" class="ml-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:shadow-lg transition-shadow beat-reactive">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                    </div>
+                    <div class="flex justify-between mt-2">
+                        <div class="flex space-x-2">
+                            <button id="show-vehicle-matcher" class="text-xs text-gray-400 hover:text-white" title="Vehicle Matcher">
+                                <i class="fas fa-car mr-1"></i>Vehicle
+                            </button>
+                            <button id="show-price-estimator" class="text-xs text-gray-400 hover:text-white" title="Price Estimator">
+                                <i class="fas fa-calculator mr-1"></i>Pricing
+                            </button>
+                            <button id="show-scheduling" class="text-xs text-gray-400 hover:text-white" title="Scheduling Assistant">
+                                <i class="fas fa-calendar-alt mr-1"></i>Schedule
+                            </button>
+                        </div>
+                        <div id="section-context" class="text-xs text-purple-400 italic hidden">
+                            <i class="fas fa-map-marker-alt mr-1"></i><span id="context-text"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 glow-button">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-    
-    <!-- Jay Mode Audio & Overlay -->
+    <!-- Audio for Jay Mode -->
     <audio id="jay-audio" preload="auto">
         <source src="BLP Kosher - Jack and Jill (Official Music Video).wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Jay Mode Overlay -->
     <div id="jay-overlay" style="display: none;">
         <div class="jay-logo-explosion">
             <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="exploding-logo">
@@ -1392,7 +1176,16 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Footer Section -->
+    <footer class="py-12 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-400">© 2023 Jay's Mobile Wash. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+        <!-- Scripts -->
     <script>
         // Loading Screen
         document.addEventListener('DOMContentLoaded', function() {
@@ -1513,8 +1306,12 @@
                     keySequence = keySequence.substring(keySequence.length - 3);
                 }
                 
+                console.log('Current sequence:', keySequence); // Debug log
+                
                 // Check if the sequence matches "JAY"
                 if (keySequence === targetSequence) {
+                    console.log('JAY sequence detected!'); // Debug log
+                    
                     // Toggle Jay Mode on/off
                     if (jayModeActive) {
                         deactivateJayMode();
@@ -1533,11 +1330,32 @@
                     clearTimeout(jayModeTimer);
                 }
                 
-                // Play the audio
+                // Play the audio - with error handling and logging
                 audio.currentTime = 0; // Reset audio to start
-                audio.play().catch(error => {
-                    console.error('Audio playback failed:', error);
-                });
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('Audio playback started successfully');
+                    }).catch(error => {
+                        console.error('Audio playback failed:', error);
+                        
+                        // If autoplay fails due to browser policy, suggest user interaction
+                        alert('Please click anywhere on the page first to enable audio playback');
+                        
+                        // Set up a click handler to retry playing audio
+                        const clickHandler = function() {
+                            audio.play().then(() => {
+                                console.log('Audio playback started after user interaction');
+                                document.removeEventListener('click', clickHandler);
+                            }).catch(err => {
+                                console.error('Audio still failed after click:', err);
+                            });
+                        };
+                        
+                        document.addEventListener('click', clickHandler);
+                    });
+                }
                 
                 // Show the overlay
                 jayOverlay.style.display = 'block';
@@ -1590,6 +1408,1144 @@
                 }
             }
         });
+    </script>
+
+    <!-- Chat Widget JavaScript with OpenRouter API Integration -->
+    <script>
+        // Initialize chat widget with all features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit to ensure main site is loaded first
+            setTimeout(initEnhancedChat, 2000);
+        });
+        
+        function initEnhancedChat() {
+            // Main elements
+            const chatWidget = document.getElementById('foam-chat-widget');
+            const chatBubble = document.getElementById('foam-chat-bubble');
+            const chatPanel = document.getElementById('foam-chat-panel');
+            const minimizeBtn = document.getElementById('foam-chat-minimize');
+            const chatInput = document.getElementById('foam-chat-input');
+            const sendBtn = document.getElementById('foam-chat-send');
+            const messagesContainer = document.getElementById('foam-chat-messages');
+            const waterContainer = document.getElementById('foam-chat-water-container');
+            const waterFill = document.getElementById('foam-chat-water-fill');
+            const aiThinking = document.getElementById('ai-thinking');
+            const thinkingWaterFill = document.getElementById('thinking-water-fill');
+            const sectionContext = document.getElementById('section-context');
+            const contextText = document.getElementById('context-text');
+            
+            // Tool elements
+            const beforeAfterTool = document.getElementById('before-after-tool');
+            const closeComparisonBtn = document.getElementById('close-comparison');
+            const vehicleMatcherTool = document.getElementById('vehicle-matcher-tool');
+            const vehicleTypeButtons = document.querySelectorAll('.vehicle-type-btn');
+            const vehicleMatcherResult = document.getElementById('vehicle-matcher-result');
+            const closeVehicleMatcherBtn = document.getElementById('close-vehicle-matcher');
+            const priceEstimatorTool = document.getElementById('price-estimator-tool');
+            const priceVehicleButtons = document.querySelectorAll('.price-vehicle-btn');
+            const priceServiceButtons = document.querySelectorAll('.price-service-btn');
+            const priceResult = document.getElementById('price-result');
+            const closePriceEstimatorBtn = document.getElementById('close-price-estimator');
+            const schedulingTool = document.getElementById('scheduling-tool');
+            const schedulingLocation = document.getElementById('scheduling-location');
+            const schedulingService = document.getElementById('scheduling-service');
+            const findSlotsBtn = document.getElementById('find-slots');
+            const schedulingResults = document.getElementById('scheduling-results');
+            const closeSchedulingBtn = document.getElementById('close-scheduling');
+            
+            // Tool trigger buttons
+            const showVehicleMatcherBtn = document.getElementById('show-vehicle-matcher');
+            const showPriceEstimatorBtn = document.getElementById('show-price-estimator');
+            const showSchedulingBtn = document.getElementById('show-scheduling');
+            
+            // OpenRouter API Configuration
+            const OPENROUTER_API_KEY = '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';
+            const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+            
+            // Service data
+            const serviceData = {
+                miniDetail: {
+                    sedan: 70,
+                    suv: 80,
+                    truck: 80
+                },
+                luxuryDetail: {
+                    sedan: 130,
+                    suv: 140,
+                    truck: 140
+                },
+                maxDetail: {
+                    sedan: 200,
+                    suv: 210,
+                    truck: 210
+                },
+                ceramicCoating: {
+                    sedan: 450,
+                    suv: 550,
+                    truck: 550
+                },
+                grapheneCoating: {
+                    sedan: 800,
+                    suv: 800,
+                    truck: 800
+                }
+            };
+            
+            // Vehicle info for matcher
+            const vehicleInfo = {
+                sedan: {
+                    description: "Sedans are perfect candidates for our ceramic coating service. The smooth surfaces and moderate size make application efficient, and our Luxury Detail package is especially popular for sedans.",
+                    popularServices: ["Ceramic Coating", "Luxury Detail", "Headlight Restoration"],
+                    image: "https://via.placeholder.com/300x160/444444/999999?text=Sedan"
+                },
+                suv: {
+                    description: "SUVs benefit greatly from our Max Detail package which includes clay bar treatment. The larger surface area combined with frequent off-road exposure makes paint protection especially important.",
+                    popularServices: ["Max Detail", "Ceramic Coating", "Interior Steam Cleaning"],
+                    image: "https://via.placeholder.com/300x160/444444/999999?text=SUV"
+                },
+                truck: {
+                    description: "Trucks with their rugged use need extra protection. Our Graphene Coating is ideal for trucks due to its superior durability and chemical resistance properties.",
+                    popularServices: ["Graphene Coating", "Max Detail", "Engine Bay Cleaning"],
+                    image: "https://via.placeholder.com/300x160/444444/999999?text=Truck"
+                }
+            };
+            
+            // Service areas with availability
+            const serviceAreas = {
+                "los angeles": {
+                    areas: ["Downtown LA", "Hollywood", "Westwood"],
+                    days: ["Monday", "Wednesday", "Friday"]
+                },
+                "beverly hills": {
+                    areas: ["Beverly Hills", "Bel Air", "Holmby Hills"],
+                    days: ["Tuesday", "Thursday", "Saturday"] 
+                },
+                "santa monica": {
+                    areas: ["Santa Monica", "Venice", "Pacific Palisades"],
+                    days: ["Monday", "Wednesday", "Saturday"]
+                },
+                "newport beach": {
+                    areas: ["Newport Beach", "Corona del Mar", "Balboa Island"],
+                    days: ["Tuesday", "Thursday", "Sunday"]
+                },
+                "long beach": {
+                    areas: ["Long Beach", "Signal Hill", "Belmont Shore"],
+                    days: ["Monday", "Thursday", "Saturday"]
+                },
+                "orange county": {
+                    areas: ["Irvine", "Huntington Beach", "Costa Mesa"],
+                    days: ["Wednesday", "Friday", "Sunday"]
+                }
+            };
+            
+            // Before/After images for different services
+            const beforeAfterImages = {
+                ceramicCoating: {
+                    before: "https://via.placeholder.com/600x300/333333/666666?text=Before+Ceramic+Coating",
+                    after: "https://via.placeholder.com/600x300/444444/999999?text=After+Ceramic+Coating"
+                },
+                paintCorrection: {
+                    before: "https://via.placeholder.com/600x300/333333/666666?text=Before+Paint+Correction",
+                    after: "https://via.placeholder.com/600x300/444444/999999?text=After+Paint+Correction"
+                },
+                headlights: {
+                    before: "https://via.placeholder.com/600x300/333333/666666?text=Before+Headlight+Restoration",
+                    after: "https://via.placeholder.com/600x300/444444/999999?text=After+Headlight+Restoration"
+                }
+            };
+            
+            // Chat context and memory
+            let chatHistory = [
+                {
+                    role: "system",
+                    content: `You are Detail Detective, an AI assistant for Jay's Mobile Wash - a premium mobile car detailing service in Los Angeles and Orange County.
+
+Key information about Jay's Mobile Wash:
+- Services: Mobile detailing, ceramic coating, paint correction, headlight restoration
+- Packages: Mini Detail ($70/$80), Luxury Detail ($130/$140), Max Detail ($200/$210)
+- Ceramic coating: $450 for cars, $550 for SUVs/trucks with 2-year warranty
+- Graphene coating: $800 for any vehicle with 5-year warranty
+- Service areas: All of Los Angeles County and Orange County
+- Contact: 562-228-9429 or jason@jaysmobilewash.net
+- No need for water or electricity - they bring everything needed
+
+Your personality: You're the "Detail Detective" who can spot issues and recommend the perfect treatment. Be helpful, knowledgeable but conversational. Use car detailing metaphors occasionally.
+
+Always recommend they call 562-228-9429 for booking or specific quotes. Keep responses concise and helpful.`
+                }
+            ];
+            
+            // User context tracking
+            let userContext = {
+                currentSection: null,
+                location: null,
+                vehicleType: null,
+                recentTopics: []
+            };
+            
+            // Show chat widget with fade in
+            chatWidget.classList.remove('hidden');
+            chatWidget.style.opacity = '0';
+            setTimeout(() => {
+                chatWidget.style.opacity = '1';
+                chatWidget.style.transition = 'opacity 0.5s ease';
+            }, 100);
+            
+            // Track which section user is viewing
+            function trackUserSection() {
+                // Get all sections
+                const sections = document.querySelectorAll('section[id]');
+                let currentSection = null;
+                
+                // Find which section is most in view
+                let maxVisibleHeight = 0;
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+                    
+                    if (visibleHeight > maxVisibleHeight && visibleHeight > 0) {
+                        maxVisibleHeight = visibleHeight;
+                        currentSection = section.id;
+                    }
+                });
+                
+                // Update context if section changed
+                if (currentSection !== userContext.currentSection) {
+                    userContext.currentSection = currentSection;
+                    updateContextDisplay();
+                    
+                    // If chat is open, maybe suggest something based on section
+                    if (!chatPanel.classList.contains('hidden') && Math.random() > 0.7) {
+                        suggestBasedOnSection(currentSection);
+                    }
+                }
+            }
+            
+            // Update context display
+            function updateContextDisplay() {
+                if (userContext.currentSection) {
+                    const sectionName = userContext.currentSection.replace(/-/g, ' ');
+                    contextText.textContent = `Viewing: ${sectionName}`;
+                    sectionContext.classList.remove('hidden');
+                } else {
+                    sectionContext.classList.add('hidden');
+                }
+            }
+            
+            // Suggest something based on current section
+            function suggestBasedOnSection(section) {
+                let suggestion = "";
+                
+                switch(section) {
+                    case "ceramic-coating":
+                        suggestion = "I see you're checking out ceramic coating! Would you like to see a before/after comparison?";
+                        break;
+                    case "paint-correction":
+                        suggestion = "Looking at paint correction? I can show you the dramatic difference it makes on swirl marks.";
+                        break;
+                    case "packages":
+                        suggestion = "Browsing our packages? I can help estimate pricing for your specific vehicle.";
+                        break;
+                    case "locations":
+                        suggestion = "I notice you're checking service areas. Which area are you located in?";
+                        break;
+                    default:
+                        return; // No suggestion for other sections
+                }
+                
+                // Add suggestion as AI message
+                if (suggestion) {
+                    setTimeout(() => {
+                        addMessage(suggestion, 'ai');
+                        
+                        // For ceramic coating, add before/after button
+                        if (section === "ceramic-coating") {
+                            addBeforeAfterButton("ceramic coating");
+                        } else if (section === "paint-correction") {
+                            addBeforeAfterButton("paint correction");
+                        } else if (section === "packages") {
+                            addPriceEstimatorButton();
+                        }
+                    }, 3000); // Delay suggestion to feel natural
+                }
+            }
+            
+            // Check for service area mentions
+            function checkForLocationMention(message) {
+                message = message.toLowerCase();
+                
+                for (const area in serviceAreas) {
+                    if (message.includes(area)) {
+                        userContext.location = area;
+                        return area;
+                    }
+                }
+                
+                return null;
+            }
+            
+            // Add buttons to show before/after
+            function addBeforeAfterButton(service) {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'flex justify-start mt-2';
+                buttonContainer.innerHTML = `
+                    <button class="show-comparison-btn bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg px-4 py-2 text-sm" data-service="${service}">
+                        <i class="fas fa-images mr-2"></i>Show Before/After
+                    </button>
+                `;
+                
+                const messages = messagesContainer.querySelectorAll('.flex');
+                const lastMessage = messages[messages.length - 1];
+                if (lastMessage) {
+                    const messageContent = lastMessage.querySelector('.flex-col');
+                    if (messageContent) {
+                        messageContent.appendChild(buttonContainer);
+                    }
+                }
+                
+                // Add event listener
+                document.querySelector('.show-comparison-btn').addEventListener('click', function() {
+                    const service = this.getAttribute('data-service');
+                    showBeforeAfterComparison(service);
+                });
+            }
+            
+            // Add price estimator button
+            function addPriceEstimatorButton() {
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'flex justify-start mt-2';
+                buttonContainer.innerHTML = `
+                    <button class="price-estimator-btn bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg px-4 py-2 text-sm">
+                        <i class="fas fa-calculator mr-2"></i>Estimate Price
+                    </button>
+                `;
+                
+                const messages = messagesContainer.querySelectorAll('.flex');
+                const lastMessage = messages[messages.length - 1];
+                if (lastMessage) {
+                    const messageContent = lastMessage.querySelector('.flex-col');
+                    if (messageContent) {
+                        messageContent.appendChild(buttonContainer);
+                    }
+                }
+                
+                // Add event listener
+                document.querySelector('.price-estimator-btn').addEventListener('click', function() {
+                    hideAllTools();
+                    priceEstimatorTool.classList.remove('hidden');
+                });
+            }
+            
+            // Toggle chat panel visibility
+            chatBubble.addEventListener('click', function() {
+                openChatPanel();
+            });
+            
+            // Minimize chat panel
+            minimizeBtn.addEventListener('click', function() {
+                chatPanel.classList.add('hidden');
+                chatBubble.classList.remove('hidden');
+                createFoamBurst(chatBubble.getBoundingClientRect().x, chatBubble.getBoundingClientRect().y);
+            });
+            
+            // Send message on button click
+            sendBtn.addEventListener('click', sendMessage);
+            
+            // Send message on Enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Handle tools
+            showVehicleMatcherBtn.addEventListener('click', function() {
+                hideAllTools();
+                vehicleMatcherTool.classList.remove('hidden');
+            });
+            
+            showPriceEstimatorBtn.addEventListener('click', function() {
+                hideAllTools();
+                priceEstimatorTool.classList.remove('hidden');
+            });
+            
+            showSchedulingBtn.addEventListener('click', function() {
+                hideAllTools();
+                schedulingTool.classList.remove('hidden');
+            });
+            
+            closeComparisonBtn.addEventListener('click', function() {
+                beforeAfterTool.classList.add('hidden');
+            });
+            
+            closeVehicleMatcherBtn.addEventListener('click', function() {
+                vehicleMatcherTool.classList.add('hidden');
+            });
+            
+            closePriceEstimatorBtn.addEventListener('click', function() {
+                priceEstimatorTool.classList.add('hidden');
+            });
+            
+            closeSchedulingBtn.addEventListener('click', function() {
+                schedulingTool.classList.add('hidden');
+            });
+            
+            // Vehicle type selection
+            vehicleTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove selected from all buttons
+                    vehicleTypeButtons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const vehicleType = this.getAttribute('data-type');
+                    userContext.vehicleType = vehicleType;
+                    
+                    // Show vehicle info
+                    const vehicle = vehicleInfo[vehicleType];
+                    vehicleMatcherResult.innerHTML = `
+                        <div class="flex flex-col items-center">
+                            <img src="${vehicle.image}" alt="${vehicleType}" class="rounded-lg mb-2 w-full h-auto">
+                            <h5 class="text-base font-bold mb-1">Recommendations for your ${vehicleType}</h5>
+                            <p class="text-sm mb-2">${vehicle.description}</p>
+                            <div class="text-sm">
+                                <div class="font-bold mb-1">Popular services:</div>
+                                <ul class="list-disc pl-5">
+                                    ${vehicle.popularServices.map(service => `<li>${service}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add message from AI about vehicle
+                    setTimeout(() => {
+                        addMessage(`I see you have a ${vehicleType}! ${vehicle.description.split('.')[0]}. Would you like to know which packages are most popular for ${vehicleType}s?`, 'ai');
+                    }, 500);
+                });
+            });
+            
+            // Price estimator interactions
+            priceVehicleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    priceVehicleButtons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                    updatePriceEstimate();
+                });
+            });
+            
+            priceServiceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    priceServiceButtons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                    updatePriceEstimate();
+                });
+            });
+            
+            function updatePriceEstimate() {
+                const selectedVehicle = document.querySelector('.price-vehicle-btn.selected');
+                const selectedService = document.querySelector('.price-service-btn.selected');
+                
+                if (selectedVehicle && selectedService) {
+                    const vehicle = selectedVehicle.getAttribute('data-vehicle');
+                    const service = selectedService.getAttribute('data-service');
+                    
+                    let price = 0;
+                    let serviceName = "";
+                    
+                    switch(service) {
+                        case "mini":
+                            price = serviceData.miniDetail[vehicle];
+                            serviceName = "Mini Detail";
+                            break;
+                        case "luxury":
+                            price = serviceData.luxuryDetail[vehicle];
+                            serviceName = "Luxury Detail";
+                            break;
+                        case "max":
+                            price = serviceData.maxDetail[vehicle];
+                            serviceName = "Max Detail";
+                            break;
+                        case "ceramic":
+                            price = serviceData.ceramicCoating[vehicle];
+                            serviceName = "Ceramic Coating";
+                            break;
+                    }
+                    
+                    priceResult.innerHTML = `
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white mb-1">$${price}</div>
+                            <div class="text-sm">${serviceName} for ${vehicle}</div>
+                            <div class="mt-2">
+                                <a href="tel:5622289429" class="inline-block text-purple-400 hover:text-purple-300">
+                                    <i class="fas fa-phone mr-1"></i>Call to book: 562-228-9429
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    priceResult.classList.remove('hidden');
+                    
+                    // Add message from AI about price
+                    setTimeout(() => {
+                        addMessage(`Based on your selections, a ${serviceName} for your ${vehicle} would be $${price}. This includes ${getServiceDetails(service)}. Would you like to schedule this service?`, 'ai');
+                    }, 500);
+                }
+            }
+            
+            function getServiceDetails(service) {
+                switch(service) {
+                    case "mini":
+                        return "a 2-step hand wash, interior wipe-down, and deep vacuuming";
+                    case "luxury":
+                        return "everything in Mini Detail plus ceramic spray wax/sealant and interior cleanser";
+                    case "max":
+                        return "everything in Luxury plus ceramic hyper wax, steam cleaning, and clay bar treatment";
+                    case "ceramic":
+                        return "premium ceramic coating with 2-year warranty and full paint preparation";
+                    default:
+                        return "our premium detailing service";
+                }
+            }
+            
+            // Scheduling assistant
+            findSlotsBtn.addEventListener('click', function() {
+                const location = schedulingLocation.value;
+                const service = schedulingService.value;
+                
+                // Get location display name
+                let locationName = "";
+                switch(location) {
+                    case "la": locationName = "Los Angeles"; break;
+                    case "oc": locationName = "Orange County"; break;
+                    case "bh": locationName = "Beverly Hills"; break;
+                    case "sm": locationName = "Santa Monica"; break;
+                    case "nb": locationName = "Newport Beach"; break;
+                    case "lb": locationName = "Long Beach"; break;
+                }
+                
+                // Get service time
+                let serviceTime = "";
+                switch(service) {
+                    case "mini": serviceTime = "1-2 hours"; break;
+                    case "luxury": serviceTime = "2-3 hours"; break;
+                    case "max": serviceTime = "3-5 hours"; break;
+                    case "ceramic": serviceTime = "1-2 days"; break;
+                }
+                
+                // Generate mock available times
+                const today = new Date();
+                const availableDays = [];
+                
+                for (let i = 1; i <= 7; i++) {
+                    const day = new Date(today);
+                    day.setDate(today.getDate() + i);
+                    
+                    // Only show certain days based on location
+                    const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][day.getDay()];
+                    const areaInfo = getServiceAreaInfo(locationName.toLowerCase());
+                    
+                    if (areaInfo && areaInfo.days.includes(dayName)) {
+                        availableDays.push({
+                            date: day,
+                            dayName: dayName,
+                            slots: ["9:00 AM", "12:00 PM", "3:00 PM"]
+                        });
+                    }
+                }
+                
+                // Show results
+                let resultsHTML = `
+                    <div class="text-center mb-2">
+                        <h5 class="font-bold">Available in ${locationName}</h5>
+                        <p class="text-xs text-gray-400">Service time: ${serviceTime}</p>
+                    </div>
+                    <div class="space-y-2">
+                `;
+                
+                if (availableDays.length > 0) {
+                    availableDays.slice(0, 3).forEach(day => {
+                        const dateStr = `${day.date.getMonth() + 1}/${day.date.getDate()}`;
+                        resultsHTML += `
+                            <div class="bg-gray-800 p-2 rounded">
+                                <div class="font-bold text-sm">${day.dayName}, ${dateStr}</div>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    ${day.slots.map(slot => 
+                                        `<button class="book-slot-btn bg-gray-700 hover:bg-purple-600 px-2 py-1 rounded text-xs transition-colors" data-date="${dateStr}" data-time="${slot}">
+                                            ${slot}
+                                        </button>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultsHTML += `
+                        <div class="text-center text-sm py-2">
+                            <p>No available times found this week.</p>
+                            <p class="mt-1">Please call for specialized scheduling:</p>
+                            <a href="tel:5622289429" class="text-purple-400 hover:text-purple-300 block mt-1">
+                                <i class="fas fa-phone mr-1"></i>562-228-9429
+                            </a>
+                        </div>
+                    `;
+                }
+                
+                resultsHTML += `</div>`;
+                schedulingResults.innerHTML = resultsHTML;
+                schedulingResults.classList.remove('hidden');
+                
+                // Add event listeners to booking buttons
+                document.querySelectorAll('.book-slot-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const date = this.getAttribute('data-date');
+                        const time = this.getAttribute('data-time');
+                        
+                        // Add message from AI about booking
+                        addMessage(`Great! I've found an available slot on ${date} at ${time} in ${locationName}. To confirm your booking, please call us at 562-228-9429 or would you like me to tell you more about our services?`, 'ai');
+                        
+                        // Hide scheduling tool
+                        schedulingTool.classList.add('hidden');
+                    });
+                });
+                
+                // Add message from AI about available times
+                if (availableDays.length > 0) {
+                    addMessage(`I found ${availableDays.length} days with availability in ${locationName} for your selected service! The nearest available time is ${availableDays[0].dayName}, ${availableDays[0].date.getMonth() + 1}/${availableDays[0].date.getDate()} at ${availableDays[0].slots[0]}. Would you like me to help you book this time?`, 'ai');
+                } else {
+                    addMessage(`I don't see any standard availability in ${locationName} this week, but we can accommodate special requests. Please call us at 562-228-9429 to schedule your appointment.`, 'ai');
+                }
+            });
+            
+            function getServiceAreaInfo(location) {
+                for (const area in serviceAreas) {
+                    if (location.includes(area)) {
+                        return serviceAreas[area];
+                    }
+                }
+                return serviceAreas["los angeles"]; // Default
+            }
+            
+            // Show before/after comparison
+            function showBeforeAfterComparison(service) {
+                let images;
+                if (service.includes("ceramic")) {
+                    images = beforeAfterImages.ceramicCoating;
+                    document.querySelector('#before-after-tool h4').textContent = "Before/After: Ceramic Coating";
+                } else if (service.includes("paint")) {
+                    images = beforeAfterImages.paintCorrection;
+                    document.querySelector('#before-after-tool h4').textContent = "Before/After: Paint Correction";
+                } else if (service.includes("headlight")) {
+                    images = beforeAfterImages.headlights;
+                    document.querySelector('#before-after-tool h4').textContent = "Before/After: Headlight Restoration";
+                } else {
+                    images = {
+                        before: "https://via.placeholder.com/600x300/333333/666666?text=Before",
+                        after: "https://via.placeholder.com/600x300/444444/999999?text=After"
+                    };
+                }
+                
+                // Set images
+                document.querySelector('.before-image').src = images.before;
+                document.querySelector('.after-image').src = images.after;
+                
+                // Reset slider to middle
+                const afterContainer = document.querySelector('.after-container');
+                const sliderHandle = document.querySelector('.slider-handle');
+                afterContainer.style.width = '50%';
+                sliderHandle.style.left = '50%';
+                
+                // Show tool
+                hideAllTools();
+                beforeAfterTool.classList.remove('hidden');
+                
+                // Initialize slider
+                initComparisonSlider();
+            }
+            
+            // Initialize before/after slider
+            function initComparisonSlider() {
+                const container = document.querySelector('.comparison-container');
+                const afterContainer = document.querySelector('.after-container');
+                const sliderHandle = document.querySelector('.slider-handle');
+                
+                let isDragging = false;
+                
+                // Mouse events
+                sliderHandle.addEventListener('mousedown', startDrag);
+                container.addEventListener('mousemove', drag);
+                container.addEventListener('mouseup', endDrag);
+                container.addEventListener('mouseleave', endDrag);
+                
+                // Touch events for mobile
+                sliderHandle.addEventListener('touchstart', startDrag);
+                container.addEventListener('touchmove', drag);
+                container.addEventListener('touchend', endDrag);
+                
+                function startDrag(e) {
+                    e.preventDefault();
+                    isDragging = true;
+                }
+                
+                function drag(e) {
+                    if (!isDragging) return;
+                    
+                    const rect = container.getBoundingClientRect();
+                    let x;
+                    
+                    if (e.type === 'touchmove') {
+                        x = e.touches[0].clientX - rect.left;
+                    } else {
+                        x = e.clientX - rect.left;
+                    }
+                    
+                    let position = (x / rect.width) * 100;
+                    position = Math.max(0, Math.min(100, position));
+                    
+                    afterContainer.style.width = position + '%';
+                    sliderHandle.style.left = position + '%';
+                }
+                
+                function endDrag() {
+                    isDragging = false;
+                }
+            }
+            
+            // Hide all tools
+            function hideAllTools() {
+                beforeAfterTool.classList.add('hidden');
+                vehicleMatcherTool.classList.add('hidden');
+                priceEstimatorTool.classList.add('hidden');
+                schedulingTool.classList.add('hidden');
+            }
+            
+            function openChatPanel() {
+                chatBubble.classList.add('hidden');
+                chatPanel.classList.remove('hidden');
+                
+                // Show water filling animation
+                waterContainer.style.opacity = '1';
+                
+                let percent = 0;
+                const loadingMessages = [
+                    "Preparing foam cannons...",
+                    "Mixing ceramic coating...",
+                    "Activating Detail Detective...",
+                    "Loading detailing expertise..."
+                ];
+                const chatLoadingPercent = document.getElementById('chat-loading-percent');
+                const chatLoadingMessage = document.getElementById('chat-loading-message');
+                
+                const loadingInterval = setInterval(() => {
+                    percent += 5;
+                    
+                    if (percent > 100) percent = 100;
+                    
+                    chatLoadingPercent.textContent = Math.floor(percent);
+                    waterFill.style.height = percent + '%';
+                    
+                    const messageIndex = Math.floor(percent / 25);
+                    if (loadingMessages[messageIndex]) {
+                        chatLoadingMessage.textContent = loadingMessages[messageIndex];
+                    }
+                    
+                    if (percent >= 100) {
+                        clearInterval(loadingInterval);
+                        setTimeout(() => {
+                            waterContainer.style.opacity = '0';
+                            
+                            // Add welcome message if first time
+                            if (messagesContainer.children.length === 0) {
+                                addMessage("I'm Detail Detective, Jay's AI assistant! 🕵️‍♂️✨ I'll help spot those swirl marks in your finish and recommend the perfect treatment. What would you like to know about our mobile detailing services?", 'ai');
+                                
+                                // Add quick reply buttons
+                                addQuickReplyButtons([
+                                    "Tell me about ceramic coating",
+                                    "How much for detailing?",
+                                    "Do you service my area?"
+                                ]);
+                            }
+                        }, 500);
+                    }
+                }, 30);
+                
+                // Create foam burst effect on open
+                createFoamBurst(chatBubble.getBoundingClientRect().x, chatBubble.getBoundingClientRect().y);
+            }
+            
+            // Add quick reply buttons
+            function addQuickReplyButtons(options) {
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'flex flex-wrap gap-2 mt-2';
+                
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-reply-btn bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded-full text-xs text-purple-400 transition-colors';
+                    button.textContent = option;
+                    button.addEventListener('click', function() {
+                        chatInput.value = this.textContent;
+                        sendMessage();
+                    });
+                    buttonsContainer.appendChild(button);
+                });
+                
+                const messages = messagesContainer.querySelectorAll('.flex');
+                const lastMessage = messages[messages.length - 1];
+                if (lastMessage) {
+                    const messageContent = lastMessage.querySelector('.flex-col');
+                    if (messageContent) {
+                        messageContent.appendChild(buttonsContainer);
+                    }
+                }
+            }
+            
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+                
+                // Add user message to UI
+                addMessage(message, 'user');
+                chatInput.value = '';
+                
+                // Hide any open tools
+                hideAllTools();
+                
+                // Check if the message contains location mention
+                const location = checkForLocationMention(message);
+                if (location) {
+                    userContext.location = location;
+                }
+                
+                // Check for specific tool triggers
+                if (message.toLowerCase().includes("before") && message.toLowerCase().includes("after")) {
+                    if (message.toLowerCase().includes("ceramic")) {
+                        setTimeout(() => showBeforeAfterComparison("ceramic"), 500);
+                    } else if (message.toLowerCase().includes("paint")) {
+                        setTimeout(() => showBeforeAfterComparison("paint"), 500);
+                    } else if (message.toLowerCase().includes("headlight")) {
+                        setTimeout(() => showBeforeAfterComparison("headlight"), 500);
+                    } else {
+                        setTimeout(() => showBeforeAfterComparison("ceramic"), 500);
+                    }
+                } else if ((message.toLowerCase().includes("price") || message.toLowerCase().includes("cost") || message.toLowerCase().includes("much")) && 
+                          !message.toLowerCase().includes("compare")) {
+                    setTimeout(() => {
+                        hideAllTools();
+                        priceEstimatorTool.classList.remove('hidden');
+                    }, 500);
+                } else if (message.toLowerCase().includes("schedule") || message.toLowerCase().includes("book") || message.toLowerCase().includes("appointment")) {
+                    setTimeout(() => {
+                        hideAllTools();
+                        schedulingTool.classList.remove('hidden');
+                    }, 500);
+                } else if (message.toLowerCase().includes("vehicle") || message.toLowerCase().includes("my car")) {
+                    setTimeout(() => {
+                        hideAllTools();
+                        vehicleMatcherTool.classList.remove('hidden');
+                    }, 500);
+                }
+                
+                // Track topics
+                trackTopicFromMessage(message);
+                
+                // Show AI thinking with water fill animation
+                aiThinking.classList.remove('hidden');
+                let thinkingProgress = 0;
+                const thinkingInterval = setInterval(() => {
+                    thinkingProgress += 5;
+                    if (thinkingProgress > 100) thinkingProgress = 0;
+                    thinkingWaterFill.style.width = thinkingProgress + '%';
+                }, 50);
+                
+                // Add user message to chat history
+                chatHistory.push({
+                    role: "user",
+                    content: message
+                });
+                
+                try {
+                    // Call OpenRouter API
+                    const response = await callOpenRouterAPI(chatHistory);
+                    
+                    // Add assistant's response to chat history
+                    chatHistory.push({
+                        role: "assistant",
+                        content: response
+                    });
+                    
+                    // Hide thinking indicator
+                    clearInterval(thinkingInterval);
+                    aiThinking.classList.add('hidden');
+                    
+                    // Add response to UI
+                    addMessage(response, 'ai');
+                    
+                    // Add contextual follow-up buttons based on response
+                    addContextualFollowups(response, message);
+                    
+                } catch (error) {
+                    // Handle API errors gracefully
+                    console.error('OpenRouter API error:', error);
+                    
+                    // Hide thinking indicator
+                    clearInterval(thinkingInterval);
+                    aiThinking.classList.add('hidden');
+                    
+                    // Add fallback response
+                    const fallbackResponse = "I apologize, but I'm having trouble connecting to my knowledge base right now. For immediate assistance with mobile detailing services, please call us at 562-228-9429.";
+                    addMessage(fallbackResponse, 'ai');
+                    
+                    // Keep fallback in chat history
+                    chatHistory.push({
+                        role: "assistant",
+                        content: fallbackResponse
+                    });
+                }
+            }
+            
+            function trackTopicFromMessage(message) {
+                message = message.toLowerCase();
+                const topics = [
+                    "ceramic", "coating", "paint", "correction", "detail", 
+                    "price", "cost", "schedule", "appointment", "location"
+                ];
+                
+                topics.forEach(topic => {
+                    if (message.includes(topic) && !userContext.recentTopics.includes(topic)) {
+                        userContext.recentTopics.push(topic);
+                        // Keep only last 3 topics
+                        if (userContext.recentTopics.length > 3) {
+                            userContext.recentTopics.shift();
+                        }
+                    }
+                });
+            }
+            
+            function addContextualFollowups(response, userMessage) {
+                // Generate contextual followup suggestions
+                const suggestions = [];
+                
+                // Check if response mentions specific services
+                if (response.toLowerCase().includes("ceramic")) {
+                    if (userContext.vehicleType) {
+                        suggestions.push(`Ceramic coating cost for my ${userContext.vehicleType}`);
+                    } else if (!response.toLowerCase().includes("cost") && !response.toLowerCase().includes("price")) {
+                        suggestions.push("How much is ceramic coating?");
+                    }
+                    if (!response.toLowerCase().includes("last") && !userMessage.toLowerCase().includes("last")) {
+                        suggestions.push("How long does ceramic coating last?");
+                    }
+                }
+                
+                // If response mentions price or cost
+                if (response.toLowerCase().includes("price") || response.toLowerCase().includes("cost") || response.toLowerCase().includes("$")) {
+                    suggestions.push("Schedule an appointment");
+                    if (!userContext.vehicleType) {
+                        suggestions.push("Price for SUV");
+                    }
+                }
+                
+                // If location is mentioned
+                if (response.toLowerCase().includes("service area") || response.toLowerCase().includes("location") ||
+                    userContext.location || userMessage.toLowerCase().includes("area")) {
+                    suggestions.push("Do you service Beverly Hills?");
+                    suggestions.push("Same-day service available?");
+                }
+                
+                // Service comparison suggestion
+                if (response.toLowerCase().includes("mini detail") && response.toLowerCase().includes("luxury detail") ||
+                    response.toLowerCase().includes("package")) {
+                    suggestions.push("Difference between packages");
+                }
+                
+                // Always allow scheduling if not already suggested
+                if (!suggestions.some(s => s.toLowerCase().includes("schedule")) && 
+                    !suggestions.some(s => s.toLowerCase().includes("appointment"))) {
+                    suggestions.push("Schedule an appointment");
+                }
+                
+                // Always allow contact if not suggested
+                if (!suggestions.some(s => s.toLowerCase().includes("contact"))) {
+                    suggestions.push("Contact information");
+                }
+                
+                // Process suggestions to ensure we have 2-3 without duplicates
+                const uniqueSuggestions = [...new Set(suggestions)].slice(0, 3);
+                
+                // Add buttons
+                if (uniqueSuggestions.length > 0) {
+                    addQuickReplyButtons(uniqueSuggestions);
+                }
+            }
+            
+            async function callOpenRouterAPI(history) {
+                // If not connected to internet, use fallback logic
+                if (!navigator.onLine) {
+                    return getFallbackResponse(history[history.length - 1].content);
+                }
+                
+                try {
+                    const response = await fetch(OPENROUTER_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                            'Content-Type': 'application/json',
+                            'HTTP-Referer': window.location.href,
+                            'X-Title': "Jay's Mobile Wash"
+                        },
+                        body: JSON.stringify({
+                            model: 'anthropic/claude-3-haiku',
+                            messages: history,
+                            max_tokens: 500,
+                            temperature: 0.7
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return data.choices[0].message.content;
+                    
+                } catch (error) {
+                    console.error('API call failed:', error);
+                    return getFallbackResponse(history[history.length - 1].content);
+                }
+            }
+            
+            function getFallbackResponse(query) {
+                query = query.toLowerCase();
+                
+                // If location is mentioned
+                if (userContext.location) {
+                    const location = userContext.location;
+                    const areaInfo = getServiceAreaInfo(location);
+                    
+                    if (query.includes("schedule") || query.includes("appointment") || query.includes("book")) {
+                        return `We service ${location} on ${areaInfo.days.join(", ")}. Would you like me to help you find an available time slot? Or you can call us directly at 562-228-9429 to schedule.`;
+                    }
+                    
+                    if (query.includes("same day") || query.includes("today")) {
+                        const today = new Date();
+                        const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][today.getDay()];
+                        if (areaInfo.days.includes(dayName)) {
+                            return `Yes! We offer same-day service in ${location} today. Please call us at 562-228-9429 to check immediate availability.`;
+                        } else {
+                            return `We don't typically offer same-day service in ${location} on ${dayName}s, but we might be able to accommodate special requests. Please call us at 562-228-9429 to check availability.`;
+                        }
+                    }
+                }
+                
+                // Common Q&A fallbacks for offline or API failure
+                const fallbacks = {
+                    "ceramic": "Our ceramic coating starts at $450 for cars and $550 for SUVs/trucks. It provides 2 years of protection with hydrophobic properties and UV resistance. For more details or to book, please call us at 562-228-9429.",
+                    "graphene": "Our advanced graphene coating is $800 for any vehicle size and provides 5-year protection with superior heat dissipation and anti-static properties. It's our premium option! Call 562-228-9429 to schedule an appointment.",
+                    "price": "We offer three mobile detailing packages: Mini Detail ($70/$80), Luxury Detail ($130/$140), and Max Detail ($200/$210). Prices are for cars/SUVs. For ceramic coating and other services, please call 562-228-9429.",
+                    "area": "We service all of Los Angeles County and Orange County including Beverly Hills, Santa Monica, Newport Beach, Huntington Beach, Irvine, and surrounding areas. Additional travel fees may apply beyond 30 miles.",
+                    "contact": "You can reach us at 562-228-9429 or email jason@jaysmobilewash.net. We're available 7 days a week for mobile service!",
+                    "time": "Our mobile detailing takes 1-2 hours for Mini Detail, 2-3 hours for Luxury Detail, and 3-5 hours for Max Detail. Ceramic coating applications require 1-2 days depending on the package.",
+                    "water": "No need to provide water or electricity! Our mobile detailing units are fully self-contained with water tanks, generators, and all necessary equipment. We only need access to your vehicle and space to work.",
+                    "paint correction": "Our paint correction services start at $299 for Stage 1 (removes 50-60% of defects), $499 for Stage 2 (removes 85-95%), and $799 for Stage 3 (removes 95-99%). Each includes progressively more intensive treatment."
+                };
+                
+                // Check query against keywords
+                for (const [keyword, response] of Object.entries(fallbacks)) {
+                    if (query.includes(keyword)) {
+                        return response;
+                    }
+                }
+                
+                // Default response with Detail Detective personality
+                return "As the Detail Detective, I'm committed to helping you find the perfect detailing solution! For specific questions about our mobile services in LA & OC, please call us at 562-228-9429. We offer ceramic coating, paint correction, and full mobile detailing at your location. What specific detailing needs can I help with today?";
+            }
+            
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                
+                if (sender === 'user') {
+                    messageDiv.className = 'flex justify-end mb-4 user-message';
+                    messageDiv.innerHTML = `
+                        <div class="max-w-[80%]">
+                            <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-t-lg rounded-l-lg shadow">
+                                <p class="text-sm">${text}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.className = 'flex items-start mb-4 ai-message';
+                    messageDiv.innerHTML = `
+                        <div class="flex flex-col space-y-2 max-w-[80%]">
+                            <div class="bg-gray-800 p-3 rounded-t-lg rounded-r-lg shadow">
+                                <p class="text-sm">${formatMessageWithLinks(text)}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                messagesContainer.appendChild(messageDiv);
+                
+                // Auto scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Create foam particles on new message
+                if (sender === 'user') {
+                    createFoamBurst(sendBtn.getBoundingClientRect().x, sendBtn.getBoundingClientRect().y);
+                }
+            }
+            
+            function formatMessageWithLinks(text) {
+                // Convert phone numbers to clickable links
+                text = text.replace(/(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})/g, 
+                    match => `<a href="tel:${match.replace(/[^\d]/g, '')}" class="text-purple-400 hover:text-purple-300">${match}</a>`);
+                
+                // Convert emails to clickable links
+                text = text.replace(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi, 
+                    match => `<a href="mailto:${match}" class="text-purple-400 hover:text-purple-300">${match}</a>`);
+                
+                return text;
+            }
+            
+            // Create foam burst effect
+            function createFoamBurst(x, y) {
+                const foamBurst = document.createElement('div');
+                foamBurst.className = 'click-foam';
+                foamBurst.style.left = x + 'px';
+                foamBurst.style.top = y + 'px';
+                foamBurst.style.zIndex = '9999';
+                
+                for (let i = 0; i < 12; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'click-foam-particle';
+                    
+                    const angle = (i / 12) * Math.PI * 2;
+                    const velocity = 40 + Math.random() * 40;
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    
+                    particle.style.setProperty('--tx', tx + 'px');
+                    particle.style.setProperty('--ty', ty + 'px');
+                    
+                    foamBurst.appendChild(particle);
+                }
+                
+                document.body.appendChild(foamBurst);
+                setTimeout(() => foamBurst.remove(), 1000);
+            }
+            
+            // Add section awareness - track which section user is viewing
+            window.addEventListener('scroll', function() {
+                // Throttle the scroll event to avoid excessive calculations
+                if (!window.requestAnimationFrame) {
+                    trackUserSection();
+                } else {
+                    window.requestAnimationFrame(trackUserSection);
+                }
+            });
+            
+            // Start tracking user section
+            trackUserSection();
+            
+            // Initialize the session
+            console.log("Detail Detective Chat initialized with OpenRouter API integration");
+        }
     </script>
 </body>
 </html>
