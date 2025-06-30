@@ -1,45 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-    <url>
-        <loc>https://jaysmobilewash.com/</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-        <image:image>
-            <image:loc>https://jaysmobilewash.com/hero-image.jpg</image:loc>
-            <image:title>Jay's Mobile Car Wash - Professional Mobile Detailing Los Angeles</image:title>
-            <image:caption>Premium mobile car detailing service that comes to you in LA</image:caption>
-        </image:image>
-    </url>
-    <url>
-        <loc>https://jaysmobilewash.com/#services</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://jaysmobilewash.com/#ceramic-coating</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://jaysmobilewash.com/#gallery</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://jaysmobilewash.com/#testimonials</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://jaysmobilewash.com/#contact</loc>
-        <lastmod>2025-06-27</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://www.jaysmobilewash.net/sitemap-pages.xml</loc>
+    <lastmod>2025-06-30T02:39:09+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.jaysmobilewash.net/sitemap-services.xml</loc>
+    <lastmod>2025-06-30T02:39:09+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.jaysmobilewash.net/sitemap-locations.xml</loc>
+    <lastmod>2025-06-30T02:39:09+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.jaysmobilewash.net/sitemap-blog.xml</loc>
+    <lastmod>2025-06-30T02:39:09+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.jaysmobilewash.net/sitemap-images.xml</loc>
+    <lastmod>2025-06-30T02:39:09+00:00</lastmod>
+  </sitemap>
+</sitemapindex>
