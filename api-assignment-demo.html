@@ -177,7 +177,7 @@ import ChatQuoteEngine from '/src/components/ChatQuoteEngine.js';
 import { routeLLMRequest } from '/src/utils/chatRouter.js';
 
 // Use specific role for targeted functionality
-const handleQuoteRequest = async (prompt, assignments) => {
+const handleQuoteRequest = async (prompt, assignments) =&gt; {
   const response = await routeLLMRequest(prompt, 'quotes', assignments);
   return response;
 };
