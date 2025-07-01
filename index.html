@@ -2112,7 +2112,7 @@ function updateReactiveElements(bass, mid, high) {
     // Update logo
     const logo = document.querySelector('.exploding-logo');
     if (logo) {
-        logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
+        logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;\
         logo.style.transform = `scale(${1 + (overallIntensity * 0.5)}) rotate(${overallIntensity * 360}deg)`;
     }
     
