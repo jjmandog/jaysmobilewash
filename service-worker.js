@@ -45,7 +45,8 @@ self.addEventListener('fetch', event => {
                 return fetch(fetchRequest).then(response => {
                     // Check if valid response
                     if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return response;
+                        // Clone response before returning to prevent "already used" errors
+                        return response.clone();
                     }
 
                     // Clone the response before caching

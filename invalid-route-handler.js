@@ -408,15 +408,6 @@ class InvalidRouteHandler {
           'timestamp': new Date().toISOString()
         });
       }
-      
-      // Custom analytics
-      if (window.trackGA4Event) {
-        window.trackGA4Event('410_gone', {
-          path: path,
-          referrer: document.referrer,
-          timestamp: new Date().toISOString()
-        });
-      }
     } catch (error) {
       console.error('Failed to track 410 event:', error);
     }
