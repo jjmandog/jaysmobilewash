@@ -6,13 +6,28 @@
   "scripts": {
     "dev": "node -e \"console.log('Static site - open index.html')\"",
     "lint": "htmlhint **/*.html",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "lighthouse": "node scripts/lighthouse-performance.js",
+    "seo:validate": "node scripts/seo-prerender-validator.js",
+    "css:validate": "node scripts/critical-css-validator.js",
+    "audit:all": "npm run test:run && npm run seo:validate && npm run css:validate",
+    "audit:performance": "npm run lighthouse --performance-threshold=85",
+    "robots:validate": "node scripts/robots-validator.js"
   },
   "dependencies": {
     "nodemailer": "^6.9.8"
   },
   "devDependencies": {
-    "htmlhint": "^1.6.3"
+    "@vitest/ui": "^3.2.4",
+    "chrome-launcher": "^1.2.0",
+    "htmlhint": "^1.6.3",
+    "jsdom": "^26.1.0",
+    "lighthouse": "^12.7.0",
+    "node-fetch": "^3.3.2",
+    "vitest": "^3.2.4"
   },
   "keywords": [
     "mobile",

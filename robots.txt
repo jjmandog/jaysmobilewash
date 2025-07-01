@@ -1,14 +1,6 @@
 # Robots.txt for Jay's Mobile Wash
-# Advanced SEO Configuration
-# Generated: 2025-06-30
-
-User-agent: *
-Allow: /
-Disallow: /*#*
-Disallow: /api/
-Disallow: /admin/
-
-Sitemap: https://www.jaysmobilewash.net/sitemap.xml
+# Advanced SEO Configuration with Hash URL Blocking
+# Generated: 2025-07-01
 
 User-agent: *
 Allow: /
@@ -19,12 +11,20 @@ Allow: /mobile-washing/
 Allow: /packages/
 Allow: /products/
 Allow: /locations/
+Allow: /sitemap.xml
+Allow: /sitemap-index.xml
+
+# Block hash URLs and fragments (comprehensive coverage)
+Disallow: /#
+Disallow: /*#*
+Disallow: /*?*
+
+# Block sensitive directories
+Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /tmp/
 Disallow: *.pdf$
-Disallow: /*#*
-Disallow: /*?*
 
 # Googlebot specific
 User-agent: Googlebot
@@ -36,11 +36,7 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Important files
-Allow: /sitemap.xml
-Allow: /sitemap-index.xml
-
-# Sitemap
+# Sitemaps
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml
