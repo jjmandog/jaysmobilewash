@@ -274,4 +274,19 @@ Disallow: /admin/
       expect(isValid).toBe(true);
     });
   });
+
+  describe('Vercel Static File Sync', () => {
+    it('should have identical content in root and public robots.txt files', async () => {
+      const rootRobotsPath = path.join(process.cwd(), 'robots.txt');
+      const publicRobotsPath = path.join(process.cwd(), 'public', 'robots.txt');
+      
+      const rootContent = await readFile(rootRobotsPath, 'utf-8');
+      const publicContent = await readFile(publicRobotsPath, 'utf-8');
+      
+      expect(publicContent).toBe(rootContent);
+      expect(publicContent).toContain('# Robots.txt for Jay\'s Mobile Wash');
+      expect(publicContent).toContain('Disallow: /#');
+      expect(publicContent).toContain('Disallow: /*#*');
+    });
+  });
 });
