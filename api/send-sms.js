@@ -102,9 +102,15 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
   
-  // Only allow POST requests
+  // Only allow POST requests - return detailed error for unsupported methods
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    console.warn(`405 Method Not Allowed: ${req.method} request attempted on /api/send-sms (POST required)`);
+    return res.status(405).json({ 
+      error: 'Method not allowed',
+      message: `${req.method} requests are not supported. This endpoint only accepts POST requests.`,
+      supportedMethods: ['POST', 'OPTIONS'],
+      endpoint: '/api/send-sms'
+    });
   }
 
   // Block known bot/crawler/spider user-agents
