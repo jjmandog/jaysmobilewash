@@ -81,7 +81,7 @@ function formatSMSMessage(data) {
  * Creates Gmail transporter for sending SMS
  */
 function createGmailTransporter(gmailUser, gmailAppPassword) {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     service: 'gmail',
     secure: true,
     auth: {
