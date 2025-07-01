@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * Initialize the production chat widget with multi-backend AI support
+ * Initialize the production chat widget with trainable AI system and multi-backend support
  */
 function initializeChatWidget() {
     // Check if required elements exist
@@ -91,7 +91,7 @@ function initializeChatWidget() {
         //     }));
         // }
 
-        // Initialize chat widget with production configuration
+        // Initialize chat widget with trainable base template and production configuration
         window.jaysChatWidget = new window.ChatWidget({
             containerId: 'chat-widget',
             bubbleId: 'chat-bubble',
@@ -99,10 +99,44 @@ function initializeChatWidget() {
             strategy: 'failover', // Try adapters in sequence
             maxRetries: 2,
             timeout: 30000,
-            debug: false // Set to true for development
+            debug: false, // Set to true for development
+            enableTrainableTemplate: true, // Enable intelligent base template
+            trainableTemplateOptions: {
+                debug: false,
+                confidenceThreshold: 0.7,
+                maxKnowledgeEntries: 10000,
+                learningRate: 0.1
+            }
         });
 
-        console.log('Chat widget initialized successfully with', adapters.length, 'adapters');
+        console.log('Chat widget initialized successfully with', adapters.length, 'adapters and trainable AI system');
+
+        // Initialize AI Training Interface
+        if (typeof window.AITrainingInterface !== 'undefined') {
+            window.jaysTrainingInterface = new window.AITrainingInterface(window.jaysChatWidget, {
+                debug: false
+            });
+            
+            console.log('AI Training Interface initialized');
+            
+            // Add keyboard shortcut to open training interface (Ctrl+Shift+T)
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    window.jaysTrainingInterface.show();
+                }
+            });
+
+            // Add training interface access for admin users
+            // This could be protected by authentication in production
+            window.openTrainingInterface = function() {
+                if (window.jaysTrainingInterface) {
+                    window.jaysTrainingInterface.show();
+                } else {
+                    console.error('Training interface not available');
+                }
+            };
+        }
 
     } catch (error) {
         console.error('Failed to initialize chat widget:', error);

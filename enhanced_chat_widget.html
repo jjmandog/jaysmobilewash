@@ -576,31 +576,69 @@ Be helpful, professional, and encourage customers to call for quotes and booking
             }
         }
 
-        // Initialize the standalone chat widget
+        // Initialize the standalone chat widget with AI training system
         document.addEventListener('DOMContentLoaded', () => {
             // Configure adapter for standalone version
             const adapter = new window.ChatAdapters.HuggingFaceAdapter({
                 endpoint: '/api/ai'
             });
 
-            // Initialize widget with simple configuration
+            // Initialize widget with trainable AI system
             // Note: This standalone version doesn't have a chat bubble
-            new window.ChatWidget({
+            window.jaysChatWidget = new window.ChatWidget({
                 containerId: 'chat-widget',
                 bubbleId: null, // No bubble in standalone version
                 adapters: [adapter],
                 strategy: 'failover',
-                debug: false
+                debug: true, // Enable debug for standalone version
+                enableTrainableTemplate: true,
+                trainableTemplateOptions: {
+                    debug: true,
+                    confidenceThreshold: 0.7
+                }
             });
             
             // Override the openChat method since there's no bubble to click
             if (window.jaysChatWidget) {
                 window.jaysChatWidget.isOpen = true; // Always open in standalone
             }
+
+            // Initialize training interface for standalone version
+            if (typeof window.AITrainingInterface !== 'undefined') {
+                window.jaysTrainingInterface = new window.AITrainingInterface(window.jaysChatWidget, {
+                    debug: true
+                });
+
+                // Add button to open training interface in standalone version
+                const trainingButton = document.createElement('button');
+                trainingButton.innerHTML = '🧠 Open AI Training';
+                trainingButton.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #667eea;
+                    color: white;
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                `;
+                trainingButton.addEventListener('click', () => {
+                    window.jaysTrainingInterface.show();
+                });
+                document.body.appendChild(trainingButton);
+
+                console.log('AI Training Interface available in standalone mode');
+            }
         });
     </script>
 
-    <!-- Include the production chat widget module -->
+    <!-- Include the production chat widget module with AI training system -->
+    <script src="trainableBaseTemplate.js"></script>
     <script src="chatWidget.js"></script>
+    <script src="aiTrainingInterface.js"></script>
 </body>
 </html>

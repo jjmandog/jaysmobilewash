@@ -19,6 +19,8 @@ class ChatWidget {
             maxRetries: options.maxRetries || 2,
             timeout: options.timeout || 30000,
             debug: options.debug || false,
+            enableTrainableTemplate: options.enableTrainableTemplate !== false, // Default enabled
+            trainableTemplateOptions: options.trainableTemplateOptions || {},
             ...options
         };
 
@@ -27,6 +29,19 @@ class ChatWidget {
         this.isTyping = false;
         this.messages = [];
         this.currentAdapter = 0;
+
+        // Initialize Trainable Base Template
+        if (this.config.enableTrainableTemplate && typeof TrainableBaseTemplate !== 'undefined') {
+            this.baseTemplate = new TrainableBaseTemplate({
+                debug: this.config.debug,
+                ...this.config.trainableTemplateOptions
+            });
+        } else {
+            this.baseTemplate = null;
+            if (this.config.enableTrainableTemplate) {
+                this.log('TrainableBaseTemplate not available - falling back to external APIs only');
+            }
+        }
 
         // Business knowledge system prompt
         this.systemPrompt = {
@@ -212,33 +227,62 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
     }
 
     /**
-     * Process AI response using configured strategy
+     * Process AI response using trainable base template first, then external APIs
      */
     async processAIResponse() {
-        if (this.config.adapters.length === 0) {
-            this.addMessage("I'm not configured to respond right now. Please call us at 562-228-9429 for immediate assistance!", 'error');
-            return;
-        }
-
         this.showTyping();
 
         try {
-            let response;
-            
-            if (this.config.strategy === 'parallel') {
-                response = await this.tryParallelAdapters();
+            let response = null;
+            let responseSource = 'unknown';
+
+            // First, try the trainable base template
+            if (this.baseTemplate) {
+                const baseResult = await this.baseTemplate.generateResponse(
+                    this.messages[this.messages.length - 1].content,
+                    this.messages
+                );
+
+                if (baseResult && !baseResult.shouldUseExternalAPI) {
+                    // Base template provided a confident response
+                    response = baseResult.response;
+                    responseSource = 'base_template';
+                    
+                    this.log(`Base template responded with confidence: ${baseResult.confidence}`);
+                } else {
+                    // Base template confidence too low, use external APIs
+                    this.log(`Base template confidence too low (${baseResult?.confidence || 0}), using external APIs`);
+                    
+                    const externalResponse = await this.tryExternalAPIs();
+                    if (externalResponse) {
+                        response = externalResponse;
+                        responseSource = 'external_api';
+                        
+                        // Let base template learn from external response
+                        if (this.baseTemplate) {
+                            await this.baseTemplate.learnFromExternalResponse(
+                                this.messages[this.messages.length - 1].content,
+                                externalResponse,
+                                'external_adapter'
+                            );
+                        }
+                    }
+                }
             } else {
-                response = await this.tryFailoverAdapters();
+                // No base template, use external APIs directly
+                response = await this.tryExternalAPIs();
+                responseSource = 'external_api';
             }
 
             if (response) {
                 this.messages.push({
                     role: 'assistant',
-                    content: response
+                    content: response,
+                    source: responseSource
                 });
                 this.addMessage(response, 'assistant');
             } else {
-                throw new Error('All adapters failed');
+                throw new Error('All response methods failed');
             }
 
         } catch (error) {
@@ -250,6 +294,25 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
         } finally {
             this.hideTyping();
         }
+    }
+
+    /**
+     * Try external APIs using configured strategy
+     */
+    async tryExternalAPIs() {
+        if (this.config.adapters.length === 0) {
+            return null;
+        }
+
+        let response;
+        
+        if (this.config.strategy === 'parallel') {
+            response = await this.tryParallelAdapters();
+        } else {
+            response = await this.tryFailoverAdapters();
+        }
+
+        return response;
     }
 
     /**
@@ -521,10 +584,103 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
      * Get current adapter status
      */
     getAdapterStatus() {
-        return this.config.adapters.map(adapter => ({
+        const adapterStatus = this.config.adapters.map(adapter => ({
             name: adapter.name,
             configured: typeof adapter.sendMessage === 'function'
         }));
+
+        // Add base template status
+        const baseTemplateStatus = {
+            enabled: !!this.baseTemplate,
+            metrics: this.baseTemplate ? this.baseTemplate.getMetrics() : null
+        };
+
+        return {
+            adapters: adapterStatus,
+            baseTemplate: baseTemplateStatus
+        };
+    }
+
+    /**
+     * Submit training content to the base template
+     */
+    async submitTrainingContent(content, type, metadata = {}) {
+        if (!this.baseTemplate) {
+            throw new Error('Trainable base template not enabled');
+        }
+
+        return await this.baseTemplate.submitTrainingContent(content, type, metadata);
+    }
+
+    /**
+     * Get learning metrics from base template
+     */
+    getLearningMetrics() {
+        if (!this.baseTemplate) {
+            return { error: 'Trainable base template not enabled' };
+        }
+
+        return this.baseTemplate.getMetrics();
+    }
+
+    /**
+     * Export knowledge base for backup
+     */
+    exportKnowledgeBase() {
+        if (!this.baseTemplate) {
+            throw new Error('Trainable base template not enabled');
+        }
+
+        return this.baseTemplate.exportKnowledgeBase();
+    }
+
+    /**
+     * Import knowledge base from backup
+     */
+    async importKnowledgeBase(data) {
+        if (!this.baseTemplate) {
+            throw new Error('Trainable base template not enabled');
+        }
+
+        return await this.baseTemplate.importKnowledgeBase(data);
+    }
+
+    /**
+     * Clear knowledge base (for testing/reset)
+     */
+    clearKnowledgeBase() {
+        if (!this.baseTemplate) {
+            throw new Error('Trainable base template not enabled');
+        }
+
+        this.baseTemplate.clearKnowledgeBase();
+    }
+
+    /**
+     * Get detailed system status including learning capabilities
+     */
+    getSystemStatus() {
+        const status = {
+            chatWidget: {
+                isOpen: this.isOpen,
+                messagesCount: this.messages.length,
+                adaptersConfigured: this.config.adapters.length
+            },
+            baseTemplate: null
+        };
+
+        if (this.baseTemplate) {
+            status.baseTemplate = {
+                enabled: true,
+                metrics: this.baseTemplate.getMetrics(),
+                knowledgeEntries: this.baseTemplate.knowledgeBase.size,
+                conversationMemory: this.baseTemplate.conversationMemory.length
+            };
+        } else {
+            status.baseTemplate = { enabled: false };
+        }
+
+        return status;
     }
 }
 
