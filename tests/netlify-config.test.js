@@ -1,6 +1,6 @@
 /**
  * Test Suite for Netlify Configuration Files
- * Tests _redirects and netlify.toml configuration for SPA routing and 410 error handling
+ * Tests netlify.toml configuration for SPA routing and 410 error handling
  */
 
 import { describe, it, expect } from 'vitest';
@@ -9,19 +9,6 @@ import path from 'path';
 
 describe('Netlify Configuration Files', () => {
   const projectRoot = process.cwd();
-  
-  describe('_redirects File', () => {
-    it('should exist and contain required redirect rules', async () => {
-      const redirectsPath = path.join(projectRoot, '_redirects');
-      const content = await readFile(redirectsPath, 'utf-8');
-      
-      // Check SPA routing rule
-      expect(content).toContain('/*           /index.html   200');
-      
-      // Check 410 Gone rule for invalid routes
-      expect(content).toContain('/invalid-route    /410.html   410');
-    });
-  });
 
   describe('410.html Error Page', () => {
     it('should exist and be properly configured', async () => {
@@ -41,6 +28,11 @@ describe('Netlify Configuration Files', () => {
       const tomlPath = path.join(projectRoot, 'netlify.toml');
       const content = await readFile(tomlPath, 'utf-8');
       
+      // Check AI API redirect rule
+      expect(content).toContain('from = "/api/ai"');
+      expect(content).toContain('to = "/.netlify/functions/ai"');
+      expect(content).toContain('status = 200');
+      
       // Check 410 redirect rule
       expect(content).toContain('from = "/invalid-route"');
       expect(content).toContain('to = "/410.html"');
@@ -55,23 +47,12 @@ describe('Netlify Configuration Files', () => {
       expect(content).toContain('publish = "."');
       expect(content).toContain('directory = "netlify/functions"');
     });
-  });
 
-  describe('Configuration Integration', () => {
-    it('should have matching rules between _redirects and netlify.toml', async () => {
-      const redirectsPath = path.join(projectRoot, '_redirects');
+    it('should have proper Node.js version specified', async () => {
       const tomlPath = path.join(projectRoot, 'netlify.toml');
+      const content = await readFile(tomlPath, 'utf-8');
       
-      const redirectsContent = await readFile(redirectsPath, 'utf-8');
-      const tomlContent = await readFile(tomlPath, 'utf-8');
-      
-      // Both should have the invalid-route -> 410 rule
-      expect(redirectsContent).toContain('/invalid-route');
-      expect(tomlContent).toContain('/invalid-route');
-      
-      // Both should handle SPA routing
-      expect(redirectsContent).toContain('/index.html   200');
-      expect(tomlContent).toContain('to = "/index.html"');
+      expect(content).toContain('NODE_VERSION = "18"');
     });
   });
 });

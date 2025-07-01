@@ -38,6 +38,8 @@ sms-test-example.html
 
 # Generated validation reports
 robots-validation-*.json
+critical-css-audit-*.json
+seo-audit-*.json
 
 # Netlify
 .netlify/
