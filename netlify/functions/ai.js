@@ -5,7 +5,8 @@ exports.handler = async function(event, context) {
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "POST",
+    "Content-Type": "application/json",
   };
 
   try {
@@ -20,9 +21,7 @@ exports.handler = async function(event, context) {
         statusCode: 405,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Method Not Allowed",
-          method: event.httpMethod,
-          stack: (new Error()).stack,
+          error: "Method not allowed",
         }),
       };
     }
@@ -30,15 +29,13 @@ exports.handler = async function(event, context) {
     // Block bots and crawlers
     const ua = event.headers["user-agent"] || "";
     if (
-      /bot|crawl|spider|slurp|baidu|bing|yandex|duckduckgo|google|facebook|pinterest/i.test(ua)
+      /bot|crawl|spider|slurp|baidu|bing|yandex|duckduckgo|google|facebook|pinterest|curl|wget|python|scrapy/i.test(ua)
     ) {
       return {
         statusCode: 403,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Bots and crawlers are not permitted.",
-          userAgent: ua,
-          stack: (new Error()).stack,
+          error: "Access denied",
         }),
       };
     }
@@ -50,8 +47,7 @@ exports.handler = async function(event, context) {
         statusCode: 500,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Missing HF_API_KEY in environment.",
-          stack: (new Error()).stack,
+          error: "HF_API_KEY not set in environment",
         }),
       };
     }
@@ -59,29 +55,24 @@ exports.handler = async function(event, context) {
     // Parse body as JSON
     let payload;
     try {
-      payload = JSON.parse(event.body || "");
+      payload = JSON.parse(event.body || "{}");
     } catch (err) {
       return {
         statusCode: 400,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Invalid JSON payload.",
-          message: err.message,
-          stack: err.stack,
-          body: event.body,
+          error: "Invalid JSON body",
         }),
       };
     }
 
     // Validate prompt
-    if (!payload.prompt || typeof payload.prompt !== "string") {
+    if (!payload.prompt || typeof payload.prompt !== "string" || payload.prompt.trim() === "") {
       return {
         statusCode: 400,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Missing or invalid 'prompt' field.",
-          received: payload,
-          stack: (new Error()).stack,
+          error: "No prompt provided",
         }),
       };
     }
@@ -90,7 +81,7 @@ exports.handler = async function(event, context) {
     let hfResponse;
     try {
       const res = await fetch(
-        "https://api-inference.huggingface.co/models/your-model-name",
+        "https://api-inference.huggingface.co/models/gpt2",
         {
           method: "POST",
           headers: {
@@ -102,18 +93,34 @@ exports.handler = async function(event, context) {
       );
 
       if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Hugging Face API failed: ${res.status} ${errorText}`);
+        let errorData;
+        try {
+          // Check if res.json() exists and use it, otherwise use res.text()
+          if (res.json && typeof res.json === 'function') {
+            errorData = await res.json();
+          } else if (res.text && typeof res.text === 'function') {
+            const errorText = await res.text();
+            errorData = JSON.parse(errorText);
+          } else {
+            errorData = { error: `HTTP ${res.status}` };
+          }
+        } catch {
+          errorData = { error: `HTTP ${res.status}` };
+        }
+        return {
+          statusCode: res.status,
+          headers: corsHeaders,
+          body: JSON.stringify(errorData),
+        };
       }
       hfResponse = await res.json();
     } catch (err) {
+      console.error('Hugging Face API error:', err);
       return {
-        statusCode: 502,
+        statusCode: 500,
         headers: corsHeaders,
         body: JSON.stringify({
-          error: "Downstream Hugging Face API error.",
-          message: err.message,
-          stack: err.stack,
+          error: "Internal server error",
         }),
       };
     }
@@ -122,14 +129,7 @@ exports.handler = async function(event, context) {
     return {
       statusCode: 200,
       headers: corsHeaders,
-      body: JSON.stringify({
-        result: hfResponse,
-        prompt: payload.prompt,
-        meta: {
-          timestamp: new Date().toISOString(),
-          trace: (new Error()).stack,
-        },
-      }),
+      body: JSON.stringify(hfResponse),
     };
   } catch (err) {
     // Last-resort catch-all
@@ -139,8 +139,6 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({
         error: "Unhandled server error.",
         message: err.message,
-        stack: err.stack,
-        event,
       }),
     };
   }
