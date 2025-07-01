@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Import the Netlify function handler
-const { handler } = await import('../netlify/functions/ai.js');
+const { handler } = await import('./ai.js');
 
 describe('Netlify /netlify/functions/ai Serverless Function', () => {
   let mockEvent, mockContext;
