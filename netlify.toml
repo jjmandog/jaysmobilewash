@@ -1,19 +1,13 @@
-# netlify.toml
-
 [build]
   command = "npm run build"
   publish = "build"
 
-# 1. API function endpoint (must come BEFORE SPA fallback)
 [[redirects]]
   from = "/api/ai"
   to = "/.netlify/functions/ai"
   status = 200
   force = true
 
-# 2. (Optional) Add more API/function endpoints above this line as needed
-
-# 3. SPA fallback for all other routes (must come LAST)
 [[redirects]]
   from = "/*"
   to = "/index.html"
