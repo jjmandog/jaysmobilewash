@@ -1,9 +1,7 @@
-const CACHE_NAME = 'jays-mobile-wash-v1';
+const CACHE_NAME = 'jays-mobile-wash-v2';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/assets/css/main.css',
-    '/assets/images/logo.webp',
     'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
@@ -12,12 +10,21 @@ const urlsToCache = [
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
+            .then(cache => {
+                console.log('[SW] Caching app shell');
+                return cache.addAll(urlsToCache);
+            })
+            .catch(err => {
+                console.error('[SW] Cache addAll failed:', err);
+            })
     );
 });
 
-// Fixed fetch handler - clone BEFORE reading response
+// Fixed fetch handler - no more clone errors
 self.addEventListener('fetch', event => {
+    // Skip non-GET requests
+    if (event.request.method !== 'GET') return;
+    
     // Skip chrome-extension and non-http(s) requests
     if (event.request.url.startsWith('chrome-extension://') || 
         !event.request.url.startsWith('http')) {
@@ -25,25 +32,35 @@ self.addEventListener('fetch', event => {
     }
 
     event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                // Don't cache non-successful responses
-                if (!response || response.status !== 200 || response.type !== 'basic') {
-                    return response;
+        caches.match(event.request)
+            .then(cachedResponse => {
+                // Return cached response if found
+                if (cachedResponse) {
+                    return cachedResponse;
                 }
 
-                // Clone BEFORE using the response
-                const responseToCache = response.clone();
+                // Clone the request because it can only be used once
+                const fetchRequest = event.request.clone();
 
-                caches.open(CACHE_NAME)
-                    .then(cache => {
-                        cache.put(event.request, responseToCache);
-                    });
+                return fetch(fetchRequest).then(response => {
+                    // Check if valid response
+                    if (!response || response.status !== 200 || response.type !== 'basic') {
+                        return response;
+                    }
 
-                return response;
-            })
-            .catch(() => {
-                return caches.match(event.request);
+                    // Clone the response before caching
+                    const responseToCache = response.clone();
+
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(event.request, responseToCache);
+                        });
+
+                    return response;
+                }).catch(() => {
+                    // Return offline page if available
+                    return caches.match('/offline.html');
+                });
             })
     );
 });
