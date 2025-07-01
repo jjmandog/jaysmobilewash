@@ -32,3 +32,6 @@ yarn-error.log*
 # Temporary files
 tmp/
 temp/
+
+# Test files (don't deploy to production)
+sms-test-example.html
