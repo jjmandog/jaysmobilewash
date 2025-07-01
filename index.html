@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +54,8 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="mobile-detailing.png" as="image">
+    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -666,6 +667,37 @@
                 opacity: 0;
             }
         }
+        
+        /* Package details animation */
+        .package-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .package-details:not(.hidden) {
+            transition: max-height 0.5s ease-in;
+        }
+        
+        /* Product modal styles */
+        #product-modal {
+            backdrop-filter: blur(5px);
+        }
+        
+        #product-modal > div {
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -844,7 +876,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mobile Detailing -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="mobile-detailing.PNG" alt="Mobile Car Detailing Service in Los Angeles" class="w-full h-48 object-cover" loading="lazy">
+                    <img src="mobile-detailing.png" alt="Mobile Car Detailing Service in Los Angeles" class="w-full h-48 object-cover" loading="lazy">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
                         <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
@@ -936,7 +968,7 @@
         </div>
     </section>
 
-    <!-- Packages Section -->
+    <!-- Enhanced Packages Section with Show More -->
     <section id="packages" class="py-20 bg-gray-900">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -956,7 +988,7 @@
                         <span class="text-4xl font-bold">$70</span>
                         <span class="text-gray-400">/service</span>
                     </div>
-                    <ul class="mb-8 space-y-3">
+                    <ul class="mb-4 space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">2-Step Hand Contact Wash</span>
@@ -973,15 +1005,39 @@
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">Ceramic SiO₂ Rim Cleaning</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Door Jamb Cleaning</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Ceramic Tire Shine</span>
-                        </li>
                     </ul>
+                    
+                    <!-- Hidden content -->
+                    <div class="package-details hidden" id="mini-details">
+                        <ul class="mb-6 space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Door Jamb Cleaning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Ceramic Tire Shine</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Window Cleaning (Inside & Out)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Air Freshener Application</span>
+                            </li>
+                        </ul>
+                        <div class="bg-gray-700 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold mb-2 text-purple-400">What's Included:</h4>
+                            <p class="text-sm text-gray-300">Perfect for regular maintenance, our Mini Detail keeps your vehicle fresh and clean. Using premium Maderite cleaners and UltraClean products, we ensure a spotless finish inside and out.</p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="togglePackageDetails('mini-details', this)" class="text-purple-400 hover:text-purple-300 text-sm font-medium mb-6 flex items-center">
+                        <span>Show More</span>
+                        <i class="fas fa-chevron-down ml-2 transition-transform"></i>
+                    </button>
+                    
                     <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
                         Book Now
                     </a>
@@ -998,7 +1054,7 @@
                         <span class="text-gray-400">/service</span>
                     </div>
                     <p class="text-sm text-gray-400 mb-4">Featuring Koch Chemie ceramic spray sealant and professional-grade SiO₂ interior cleanser</p>
-                    <ul class="mb-8 space-y-3">
+                    <ul class="mb-4 space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">Everything in Mini Detail</span>
@@ -1011,19 +1067,43 @@
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">SiO₂ Interior Cleanser</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Vinyl Restoration</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Leather Conditioning</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">UV Protection</span>
-                        </li>
                     </ul>
+                    
+                    <!-- Hidden content -->
+                    <div class="package-details hidden" id="luxury-details">
+                        <ul class="mb-6 space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Vinyl Restoration</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Leather Conditioning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">UV Protection</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Carpet Shampoo</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Headlight Restoration</span>
+                            </li>
+                        </ul>
+                        <div class="bg-gray-700 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold mb-2 text-purple-400">Premium Protection:</h4>
+                            <p class="text-sm text-gray-300">Our Luxury Detail includes advanced Koch Chemie ceramic sealants providing 6-month protection. Perfect for those who want their vehicle to maintain showroom shine with minimal maintenance.</p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="togglePackageDetails('luxury-details', this)" class="text-purple-400 hover:text-purple-300 text-sm font-medium mb-6 flex items-center">
+                        <span>Show More</span>
+                        <i class="fas fa-chevron-down ml-2 transition-transform"></i>
+                    </button>
+                    
                     <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg ultra-glow-button">
                         Book Now
                     </a>
@@ -1037,7 +1117,7 @@
                         <span class="text-gray-400">/service</span>
                     </div>
                     <p class="text-sm text-gray-400 mb-4">Includes BioBomb odor elimination treatment and Koch Chemie clay bar decontamination</p>
-                    <ul class="mb-8 space-y-3">
+                    <ul class="mb-4 space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">Everything in Luxury Detail</span>
@@ -1050,19 +1130,43 @@
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                             <span class="text-gray-300">Interior Steam Cleaning</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Clay Bar Treatment</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Odor Elimination</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Engine Bay Detailing</span>
-                        </li>
                     </ul>
+                    
+                    <!-- Hidden content -->
+                    <div class="package-details hidden" id="max-details">
+                        <ul class="mb-6 space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Clay Bar Treatment</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Odor Elimination</span>
+                                                        </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Engine Bay Detailing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Paint Sealant (1-Year Protection)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">Trunk Deep Clean</span>
+                            </li>
+                        </ul>
+                        <div class="bg-gray-700 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold mb-2 text-purple-400">Ultimate Protection:</h4>
+                            <p class="text-sm text-gray-300">Our Max Detail is the ultimate treatment featuring BioBomb odor elimination, Koch Chemie clay bar decontamination, and long-lasting ceramic protection. Ideal for luxury vehicles or complete restoration.</p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="togglePackageDetails('max-details', this)" class="text-purple-400 hover:text-purple-300 text-sm font-medium mb-6 flex items-center">
+                        <span>Show More</span>
+                        <i class="fas fa-chevron-down ml-2 transition-transform"></i>
+                    </button>
+                    
                     <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
                         Book Now
                     </a>
@@ -1122,7 +1226,7 @@
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                                               <span class="text-gray-300">Superior Heat Dissipation</span>
+                                <span class="text-gray-300">Superior Heat Dissipation</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
@@ -1138,7 +1242,7 @@
         </div>
     </section>
 
-    <!-- Products We Use Section -->
+    <!-- Enhanced Products Section with Click-to-View Details -->
     <section id="products" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -1146,63 +1250,68 @@
                     <span class="gradient-text">Premium Products We Use</span>
                 </h2>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We only use the highest quality professional-grade products to ensure exceptional results.
+                    Click on any product to learn more about our professional-grade solutions.
                 </p>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
                 <!-- Koch Chemie -->
-                <div class="text-center group">
+                <div class="text-center group cursor-pointer" onclick="showProductModal('koch-chemie')">
                     <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
                         <h3 class="text-xl font-bold text-white mb-2">KOCH CHEMIE</h3>
                         <p class="text-sm text-gray-400">German Engineering</p>
                         <div class="mt-4 text-purple-400">
                             <i class="fas fa-flask text-3xl"></i>
                         </div>
+                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
                     </div>
                 </div>
                 
                 <!-- Maderite -->
-                <div class="text-center group">
+                <div class="text-center group cursor-pointer" onclick="showProductModal('maderite')">
                     <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
                         <h3 class="text-xl font-bold text-white mb-2">MADERITE</h3>
                         <p class="text-sm text-gray-400">Professional Grade</p>
                         <div class="mt-4 text-pink-400">
                             <i class="fas fa-shield-alt text-3xl"></i>
                         </div>
+                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
                     </div>
                 </div>
                 
                 <!-- BioBomb -->
-                <div class="text-center group">
+                <div class="text-center group cursor-pointer" onclick="showProductModal('biobomb')">
                     <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
                         <h3 class="text-xl font-bold text-white mb-2">BIOBOMB</h3>
                         <p class="text-sm text-gray-400">Odor Elimination</p>
                         <div class="mt-4 text-green-400">
                             <i class="fas fa-bomb text-3xl"></i>
                         </div>
+                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
                     </div>
                 </div>
                 
                 <!-- UltraClean -->
-                <div class="text-center group">
+                <div class="text-center group cursor-pointer" onclick="showProductModal('ultraclean')">
                     <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
                         <h3 class="text-xl font-bold text-white mb-2">ULTRACLEAN</h3>
                         <p class="text-sm text-gray-400">Deep Cleaning</p>
                         <div class="mt-4 text-blue-400">
                             <i class="fas fa-spray-can text-3xl"></i>
                         </div>
+                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
                     </div>
                 </div>
                 
                 <!-- EZPZ -->
-                <div class="text-center group">
+                <div class="text-center group cursor-pointer" onclick="showProductModal('ezpz')">
                     <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
                         <h3 class="text-xl font-bold text-white mb-2">EZPZ</h3>
                         <p class="text-sm text-gray-400">Ceramic Coating</p>
                         <div class="mt-4 text-purple-400">
                             <i class="fas fa-gem text-3xl"></i>
                         </div>
+                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
                     </div>
                 </div>
             </div>
@@ -1235,6 +1344,23 @@
             </div>
         </div>
     </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 id="modal-product-title" class="text-2xl font-bold gradient-text"></h3>
+                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="modal-product-content" class="text-gray-300">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Service Areas Section -->
     <section id="locations" class="py-20 bg-gray-900">
@@ -1670,7 +1796,7 @@
     <!-- Jay Mode Overlay (hidden by default) -->
     <div class="jay-overlay" id="jay-overlay">
         <div class="jay-content">
-            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY Mode" class="exploding-logo">
+            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY MODE" class="exploding-logo">
             <h1 class="jay-mode-text">JAY MODE ACTIVATED</h1>
         </div>
     </div>
@@ -1827,22 +1953,20 @@
             initJayMode();
         });
 
-        // JAY Mode Implementation with local WAV file
+        // JAY Mode Implementation with local WAV file (no CORS issues)
         function initJayMode() {
             let jayModeActive = false;
             let jayModeTimer = null;
             const jaySequence = ['j', 'a', 'y'];
             let currentSequence = [];
             
-            // Get overlay
             const jayOverlay = document.getElementById('jay-overlay');
             
-            // Audio setup with local WAV file
-            const audio = new Audio('BLP%20Kosher%20-%20Jack%20and%20Jill%20(Official%20Music%20Video).wav');
+            // Use local WAV file to avoid CORS issues
+            const audio = new Audio('blp-kosher-jack-and-jill.wav');
             audio.preload = 'auto';
             audio.volume = 0.7;
             
-            // Listen for keystrokes
             document.addEventListener('keypress', handleKeyPress);
             
             function handleKeyPress(e) {
@@ -1866,31 +1990,22 @@
                 console.log('[JAY Mode] Activating!');
                 jayModeActive = true;
                 
-                // Show overlay
                 jayOverlay.style.display = 'flex';
                 document.body.classList.add('jay-activated');
                 
-                // Animate entrance
                 setTimeout(() => {
                     jayOverlay.classList.add('active');
                 }, 10);
                 
-                // Try to play audio
                 try {
-                    // First, try to load the audio
-                    audio.load();
-                    // Then play it
                     await audio.play();
                     console.log('[JAY Mode] Audio playing!');
                 } catch (error) {
-                    console.error('[JAY Mode] Audio failed:', error);
-                    // If local file fails, audio won't play but JAY mode visual effects will still work
+                    console.error('[JAY Mode] Audio playback failed:', error);
                 }
                 
-                // Create floating particles
                 createJayParticles();
                 
-                // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
                     deactivateJayMode();
                 }, 30000);
@@ -1942,12 +2057,294 @@
                 
                 document.body.classList.remove('jay-activated');
                 
-                // Remove any remaining particles
                 document.querySelectorAll('.floating-product-particle').forEach(particle => {
                     particle.remove();
                 });
             }
         }
+
+        // Toggle package details
+        function togglePackageDetails(detailsId, button) {
+            const details = document.getElementById(detailsId);
+            const icon = button.querySelector('i');
+            const text = button.querySelector('span');
+            
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                details.style.maxHeight = details.scrollHeight + 'px';
+                icon.classList.add('rotate-180');
+                text.textContent = 'Show Less';
+            } else {
+                details.style.maxHeight = '0';
+                setTimeout(() => {
+                    details.classList.add('hidden');
+                }, 300);
+                icon.classList.remove('rotate-180');
+                text.textContent = 'Show More';
+            }
+        }
+
+        // Product modal data
+        const productData = {
+            'koch-chemie': {
+                title: 'Koch Chemie - German Excellence',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-lg">Koch Chemie represents the pinnacle of German automotive care technology, with over 50 years of innovation in professional detailing products.</p>
+                        
+                        <h4 class="font-semibold text-purple-400 mt-6">Products We Use:</h4>
+                        <ul class="space-y-3 mt-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Gentle Snow Foam (GSF)</strong>
+                                    <p class="text-sm text-gray-400">pH-neutral pre-wash foam that safely removes dirt without damaging existing protection</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Fine Cut F6.01</strong>
+                                    <p class="text-sm text-gray-400">Premium polishing compound for paint correction and swirl mark removal</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>1K-Nano Paint Sealant</strong>
+                                    <p class="text-sm text-gray-400">Long-lasting ceramic-infused sealant providing up to 12 months protection</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-gray-700 p-4 rounded-lg mt-6">
+                            <h4 class="font-semibold text-purple-400 mb-2">Why We Choose Koch Chemie:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Laboratory-tested formulations</li>
+                                <li>• Eco-friendly and biodegradable options</li>
+                                <li>• Professional-grade concentration</li>
+                                <li>• Used by luxury dealerships worldwide</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'maderite': {
+                title: 'Maderite - Professional Detailing Solutions',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-lg">Maderite specializes in professional-grade detailing products designed for the most demanding applications.</p>
+                        
+                        <h4 class="font-semibold text-purple-400 mt-6">Featured Products:</h4>
+                        <ul class="space-y-3 mt-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-pink-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>All-Purpose Cleaner</strong>
+                                    <p class="text-sm text-gray-400">Versatile cleaner safe for all interior and exterior surfaces</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-pink-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Leather Conditioner</strong>
+                                    <p class="text-sm text-gray-400">Premium leather treatment that nourishes and protects</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                                               <i class="fas fa-circle text-pink-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Glass Cleaner Pro</strong>
+                                    <p class="text-sm text-gray-400">Streak-free formula for crystal-clear windows</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-gray-700 p-4 rounded-lg mt-6">
+                            <h4 class="font-semibold text-purple-400 mb-2">Benefits:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Commercial-grade formulations</li>
+                                <li>• Safe on all vehicle surfaces</li>
+                                <li>• Long-lasting protection</li>
+                                <li>• Cost-effective professional solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'biobomb': {
+                title: 'BioBomb - Advanced Odor Elimination',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-lg">BioBomb utilizes ClO2 (Chlorine Dioxide) technology to permanently eliminate odors at the molecular level, not just mask them.</p>
+                        
+                        <h4 class="font-semibold text-purple-400 mt-6">How BioBomb Works:</h4>
+                        <ul class="space-y-3 mt-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-green-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Molecular Penetration</strong>
+                                    <p class="text-sm text-gray-400">Penetrates deep into fabrics, carpets, and air systems</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-green-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Complete Elimination</strong>
+                                    <p class="text-sm text-gray-400">Destroys odor-causing bacteria, mold, and mildew</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-green-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Safe & EPA Approved</strong>
+                                    <p class="text-sm text-gray-400">Non-toxic, leaves no harmful residue</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-gray-700 p-4 rounded-lg mt-6">
+                            <h4 class="font-semibold text-purple-400 mb-2">Perfect For:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Smoke odor removal</li>
+                                <li>• Pet odor elimination</li>
+                                <li>• Mold and mildew treatment</li>
+                                <li>• Food and beverage spill odors</li>
+                                <li>• Used car restoration</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 mt-4">* BioBomb treatment included in Jay's Max Detail package</p>
+                    </div>
+                `
+            },
+            'ultraclean': {
+                title: 'UltraClean - Deep Cleaning Technology',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-lg">UltraClean products deliver professional-grade cleaning power for the toughest automotive challenges.</p>
+                        
+                        <h4 class="font-semibold text-purple-400 mt-6">Product Line:</h4>
+                        <ul class="space-y-3 mt-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-blue-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Degreaser Pro</strong>
+                                    <p class="text-sm text-gray-400">Heavy-duty engine bay and wheel well cleaner</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-blue-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Fabric Cleaner</strong>
+                                    <p class="text-sm text-gray-400">Penetrating foam for deep carpet and upholstery cleaning</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-blue-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>Tar & Bug Remover</strong>
+                                    <p class="text-sm text-gray-400">Safe removal of stubborn contaminants</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-gray-700 p-4 rounded-lg mt-6">
+                            <h4 class="font-semibold text-purple-400 mb-2">Features:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Industrial-strength formulas</li>
+                                <li>• Safe for all automotive surfaces</li>
+                                <li>• Biodegradable ingredients</li>
+                                <li>• Professional results every time</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'ezpz': {
+                title: 'EZPZ - Ceramic Coating Excellence',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-lg">EZPZ ceramic coatings provide unmatched paint protection with easy application and long-lasting durability.</p>
+                        
+                        <h4 class="font-semibold text-purple-400 mt-6">Coating Options:</h4>
+                        <ul class="space-y-3 mt-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>EZPZ Ceramic 2.0</strong>
+                                    <p class="text-sm text-gray-400">2-year protection with 9H hardness rating</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>EZPZ Graphene Pro</strong>
+                                    <p class="text-sm text-gray-400">5-year protection with enhanced heat dissipation</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-purple-500 mr-3 mt-1 text-xs"></i>
+                                <div>
+                                    <strong>EZPZ Glass Shield</strong>
+                                    <p class="text-sm text-gray-400">Hydrophobic glass coating for maximum visibility</p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="bg-gray-700 p-4 rounded-lg mt-6">
+                            <h4 class="font-semibold text-purple-400 mb-2">Benefits of EZPZ Coatings:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Self-cleaning properties</li>
+                                <li>• UV protection prevents fading</li>
+                                <li>• Chemical resistance</li>
+                                <li>• Extreme gloss enhancement</li>
+                                <li>• Scratch resistance</li>
+                                <li>• Easy maintenance</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 mt-4">* Professional application included with all ceramic coating packages</p>
+                    </div>
+                `
+            }
+        };
+
+        // Show product modal
+        function showProductModal(productId) {
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('modal-product-title');
+            const content = document.getElementById('modal-product-content');
+            
+            const product = productData[productId];
+            if (product) {
+                title.textContent = product.title;
+                content.innerHTML = product.content;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close product modal
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('product-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
     </script>
 </body>
 </html>
