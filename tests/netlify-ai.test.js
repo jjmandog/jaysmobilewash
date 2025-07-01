@@ -1,7 +1,7 @@
 /**
  * Comprehensive Test Suite for Netlify /netlify/functions/ai.js Serverless Function
  * Tests POST requests, error handling, user-agent blocking, and Hugging Face API integration
- * Ensures identical functionality to the Vercel /api/ai.js endpoint
+ * Production-ready Netlify AI endpoint testing
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
