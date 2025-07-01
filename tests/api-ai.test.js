@@ -1,6 +1,6 @@
 /**
  * Comprehensive Test Suite for /api/ai Serverless Endpoint
- * Tests POST requests, error handling, user-agent blocking, and API integration
+ * Tests POST requests, error handling, user-agent blocking, and Hugging Face API integration
  * Production-grade testing with full edge case coverage
  */
 
@@ -12,22 +12,16 @@ describe('/api/ai Serverless Endpoint', () => {
 
   beforeEach(() => {
     // Reset environment variables
-    process.env.OPENROUTER_API_KEY = 'test-api-key-mock';
+    process.env.HF_API_KEY = 'test-hf-api-key-mock';
     
-    // Mock request object
+    // Mock request object for Hugging Face format
     mockReq = {
       method: 'POST',
       headers: {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'referer': 'https://jaysmobilewash.net',
-        'origin': 'https://jaysmobilewash.net'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       },
       body: {
-        messages: [
-          { role: 'user', content: 'Tell me about your car detailing services' }
-        ],
-        max_tokens: 500,
-        temperature: 0.7
+        prompt: 'Tell me about your car detailing services'
       }
     };
 
@@ -46,10 +40,7 @@ describe('/api/ai Serverless Endpoint', () => {
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: 'Method not allowed',
-        message: 'GET requests are not supported. This endpoint only accepts POST requests.',
-        supportedMethods: ['POST'],
-        endpoint: '/api/ai'
+        error: 'Method not allowed'
       });
     });
 
@@ -60,10 +51,7 @@ describe('/api/ai Serverless Endpoint', () => {
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: 'Method not allowed',
-        message: 'PUT requests are not supported. This endpoint only accepts POST requests.',
-        supportedMethods: ['POST'],
-        endpoint: '/api/ai'
+        error: 'Method not allowed'
       });
     });
 
@@ -74,24 +62,23 @@ describe('/api/ai Serverless Endpoint', () => {
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: 'Method not allowed',
-        message: 'DELETE requests are not supported. This endpoint only accepts POST requests.',
-        supportedMethods: ['POST'],
-        endpoint: '/api/ai'
+        error: 'Method not allowed'
       });
     });
 
     it('should accept POST requests', async () => {
-      // Mock successful OpenRouter API response
-      mockFetch({
-        choices: [
-          {
-            message: {
-              content: 'I can help you with information about our car detailing services.'
-            }
-          }
-        ]
-      });
+      // Mock successful Hugging Face API response
+      const mockFetch = (responseData, status = 200, ok = true) => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok,
+          status,
+          json: vi.fn().mockResolvedValue(responseData)
+        });
+      };
+
+      mockFetch([{
+        generated_text: 'I can help you with information about our car detailing services.'
+      }]);
 
       await handler(mockReq, mockRes);
       
@@ -100,10 +87,22 @@ describe('/api/ai Serverless Endpoint', () => {
   });
 
   describe('User-Agent Blocking', () => {
+    // Mock fetch function for successful responses
+    const mockFetch = (responseData, status = 200, ok = true) => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok,
+        status,
+        json: vi.fn().mockResolvedValue(responseData)
+      });
+    };
+
+    const mockFetchReject = (error) => {
+      global.fetch = vi.fn().mockRejectedValue(error);
+    };
+
     const blockedUserAgents = [
-      'openrouter',
       'bot',
-      'crawler',
+      'crawler', 
       'spider',
       'curl',
       'wget',
@@ -132,9 +131,9 @@ describe('/api/ai Serverless Endpoint', () => {
     });
 
     it('should allow legitimate browser user-agents', async () => {
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
+      mockFetch([{
+        generated_text: 'Response'
+      }]);
 
       const legitimateUserAgents = [
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
@@ -153,9 +152,9 @@ describe('/api/ai Serverless Endpoint', () => {
 
     it('should handle missing user-agent header', async () => {
       delete mockReq.headers['user-agent'];
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
+      mockFetch([{
+        generated_text: 'Response'
+      }]);
       
       await handler(mockReq, mockRes);
       
@@ -164,29 +163,37 @@ describe('/api/ai Serverless Endpoint', () => {
   });
 
   describe('API Key Validation', () => {
-    it('should return 500 error when OPENROUTER_API_KEY is missing', async () => {
-      delete process.env.OPENROUTER_API_KEY;
+    it('should return 500 error when HF_API_KEY is missing', async () => {
+      delete process.env.HF_API_KEY;
       
       await handler(mockReq, mockRes);
       
       expect(mockRes.status).toHaveBeenCalledWith(500);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
+      expect(mockRes.json).toHaveBeenCalledWith({ error: 'HF_API_KEY not set in environment' });
     });
 
-    it('should return 500 error when OPENROUTER_API_KEY is empty', async () => {
-      process.env.OPENROUTER_API_KEY = '';
+    it('should return 500 error when HF_API_KEY is empty', async () => {
+      process.env.HF_API_KEY = '';
       
       await handler(mockReq, mockRes);
       
       expect(mockRes.status).toHaveBeenCalledWith(500);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Server configuration error' });
+      expect(mockRes.json).toHaveBeenCalledWith({ error: 'HF_API_KEY not set in environment' });
     });
 
-    it('should proceed when OPENROUTER_API_KEY is valid', async () => {
-      process.env.OPENROUTER_API_KEY = 'valid-api-key';
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
+    it('should proceed when HF_API_KEY is valid', async () => {
+      process.env.HF_API_KEY = 'valid-api-key';
+      
+      // Mock fetch function
+      const mockFetch = (responseData, status = 200, ok = true) => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok,
+          status,
+          json: vi.fn().mockResolvedValue(responseData)
+        });
+      };
+      
+      mockFetch([{ generated_text: 'Response' }]);
       
       await handler(mockReq, mockRes);
       
@@ -194,76 +201,44 @@ describe('/api/ai Serverless Endpoint', () => {
     });
   });
 
-  describe('OpenRouter API Integration', () => {
-    it('should forward request to OpenRouter API with correct parameters', async () => {
-      mockFetch({
-        choices: [{ message: { content: 'API Response' } }]
+  describe('Hugging Face API Integration', () => {
+    // Mock fetch function
+    const mockFetch = (responseData, status = 200, ok = true) => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok,
+        status,
+        json: vi.fn().mockResolvedValue(responseData)
       });
+    };
+
+    const mockFetchReject = (error) => {
+      global.fetch = vi.fn().mockRejectedValue(error);
+    };
+
+    it('should forward request to Hugging Face API with correct parameters', async () => {
+      mockFetch([{ generated_text: 'I can help you with car detailing services.' }]);
 
       await handler(mockReq, mockRes);
 
       expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
+        'https://api-inference.huggingface.co/models/gpt2',
         expect.objectContaining({
           method: 'POST',
           headers: expect.objectContaining({
-            'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json',
-            'HTTP-Referer': mockReq.headers.referer,
-            'X-Title': "Jay's Mobile Wash"
+            'Authorization': `Bearer ${process.env.HF_API_KEY}`,
+            'Content-Type': 'application/json'
           }),
-          body: expect.stringContaining('deepseek/deepseek-r1-distill-llama-70b:free')
+          body: expect.stringContaining('"inputs":"Tell me about your car detailing services"')
         })
       );
     });
 
-    it('should use origin as referer fallback', async () => {
-      delete mockReq.headers.referer;
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
-      await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          headers: expect.objectContaining({
-            'HTTP-Referer': mockReq.headers.origin
-          })
-        })
-      );
-    });
-
-    it('should use default referer when both referer and origin are missing', async () => {
-      delete mockReq.headers.referer;
-      delete mockReq.headers.origin;
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
-      await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          headers: expect.objectContaining({
-            'HTTP-Referer': 'https://jaysmobilewash.net'
-          })
-        })
-      );
-    });
-
-    it('should return successful response from OpenRouter', async () => {
-      const mockApiResponse = {
-        choices: [
-          {
-            message: {
-              content: 'I can help you with information about our premium mobile detailing services.'
-            }
-          }
-        ]
-      };
+    it('should return successful response from Hugging Face', async () => {
+      const mockApiResponse = [
+        {
+          generated_text: 'Tell me about your car detailing services. We offer premium mobile car detailing with ceramic coating and paint correction.'
+        }
+      ];
 
       mockFetch(mockApiResponse, 200, true);
 
@@ -273,84 +248,71 @@ describe('/api/ai Serverless Endpoint', () => {
       expect(mockRes.json).toHaveBeenCalledWith(mockApiResponse);
     });
 
-    it('should handle OpenRouter API errors gracefully', async () => {
-      mockFetch({ error: 'API Error' }, 429, false);
+    it('should handle Hugging Face API errors gracefully', async () => {
+      mockFetch({ error: 'Model loading' }, 503, false);
 
       await handler(mockReq, mockRes);
 
-      expect(mockRes.status).toHaveBeenCalledWith(429);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'API Error' });
+      expect(mockRes.status).toHaveBeenCalledWith(503);
+      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Model loading' });
     });
   });
 
   describe('Request Body Validation', () => {
-    it('should handle missing messages array', async () => {
+    it('should return 400 error for missing prompt', async () => {
       mockReq.body = {};
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
+      
       await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          body: expect.stringContaining('"messages":[]')
-        })
-      );
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({ error: 'No prompt provided' });
     });
 
-    it('should use default max_tokens when not provided', async () => {
-      delete mockReq.body.max_tokens;
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
+    it('should return 400 error for empty prompt', async () => {
+      mockReq.body = { prompt: '' };
+      
       await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          body: expect.stringContaining('"max_tokens":500')
-        })
-      );
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({ error: 'No prompt provided' });
     });
 
-    it('should use default temperature when not provided', async () => {
-      delete mockReq.body.temperature;
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
+    it('should handle string request body', async () => {
+      mockReq.body = '{"prompt": "Test prompt"}';
+      
+      // Mock fetch function
+      const mockFetch = (responseData, status = 200, ok = true) => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok,
+          status,
+          json: vi.fn().mockResolvedValue(responseData)
+        });
+      };
+      
+      mockFetch([{ generated_text: 'Response' }]);
+      
       await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          body: expect.stringContaining('"temperature":0.7')
-        })
-      );
-    });
-
-    it('should preserve custom parameters from request body', async () => {
-      mockReq.body.custom_param = 'test_value';
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
-      await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          body: expect.stringContaining('"custom_param":"test_value"')
-        })
-      );
+      
+      expect(mockRes.status).not.toHaveBeenCalledWith(400);
     });
   });
 
   describe('Error Handling', () => {
+    // Mock fetch function
+    const mockFetch = (responseData, status = 200, ok = true) => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok,
+        status,
+        json: vi.fn().mockResolvedValue(responseData)
+      });
+    };
+
+    const mockFetchReject = (error) => {
+      global.fetch = vi.fn().mockRejectedValue(error);
+    };
+
     it('should handle network errors', async () => {
+      process.env.HF_API_KEY = 'valid-key';
       mockFetchReject(new Error('Network error'));
 
       await handler(mockReq, mockRes);
@@ -360,6 +322,7 @@ describe('/api/ai Serverless Endpoint', () => {
     });
 
     it('should handle fetch timeout', async () => {
+      process.env.HF_API_KEY = 'valid-key';
       mockFetchReject(new Error('Request timeout'));
 
       await handler(mockReq, mockRes);
@@ -369,56 +332,17 @@ describe('/api/ai Serverless Endpoint', () => {
     });
 
     it('should handle malformed JSON responses', async () => {
-      global.fetch.mockResolvedValueOnce({
+      process.env.HF_API_KEY = 'valid-key';
+      global.fetch = vi.fn().mockResolvedValue({
         ok: true,
         status: 200,
-        json: async () => {
-          throw new Error('Invalid JSON');
-        }
+        json: vi.fn().mockRejectedValue(new Error('Invalid JSON'))
       });
 
       await handler(mockReq, mockRes);
 
       expect(mockRes.status).toHaveBeenCalledWith(500);
       expect(mockRes.json).toHaveBeenCalledWith({ error: 'Internal server error' });
-    });
-  });
-
-  describe('Security Headers', () => {
-    it('should include proper security headers in API request', async () => {
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
-      await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          headers: expect.objectContaining({
-            'Authorization': expect.stringContaining('Bearer'),
-            'Content-Type': 'application/json',
-            'X-Title': "Jay's Mobile Wash"
-          })
-        })
-      );
-    });
-  });
-
-  describe('Model Configuration', () => {
-    it('should use the correct AI model', async () => {
-      mockFetch({
-        choices: [{ message: { content: 'Response' } }]
-      });
-
-      await handler(mockReq, mockRes);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://openrouter.ai/api/v1/chat/completions',
-        expect.objectContaining({
-          body: expect.stringContaining('"model":"deepseek/deepseek-r1-distill-llama-70b:free"')
-        })
-      );
     });
   });
 });
