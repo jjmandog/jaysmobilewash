@@ -18,8 +18,8 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 // Import modules (these would be imported in a real test environment)
 // For now, we'll assume they're available globally
-const { TrainableBaseTemplate } = require('./trainableBaseTemplate.js');
-const { ChatWidget } = require('./chatWidget.js');
+const { TrainableBaseTemplate } = require('../trainableBaseTemplate.js');
+const { ChatWidget } = require('../chatWidget.js');
 
 describe('TrainableBaseTemplate', () => {
     let baseTemplate;
