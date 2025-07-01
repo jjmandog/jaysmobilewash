@@ -576,10 +576,31 @@ Be helpful, professional, and encourage customers to call for quotes and booking
             }
         }
 
-        // Initialize chat widget when DOM is loaded
+        // Initialize the standalone chat widget
         document.addEventListener('DOMContentLoaded', () => {
-            new ChatWidget();
+            // Configure adapter for standalone version
+            const adapter = new window.ChatAdapters.HuggingFaceAdapter({
+                endpoint: '/api/ai'
+            });
+
+            // Initialize widget with simple configuration
+            // Note: This standalone version doesn't have a chat bubble
+            new window.ChatWidget({
+                containerId: 'chat-widget',
+                bubbleId: null, // No bubble in standalone version
+                adapters: [adapter],
+                strategy: 'failover',
+                debug: false
+            });
+            
+            // Override the openChat method since there's no bubble to click
+            if (window.jaysChatWidget) {
+                window.jaysChatWidget.isOpen = true; // Always open in standalone
+            }
         });
     </script>
+
+    <!-- Include the production chat widget module -->
+    <script src="chatWidget.js"></script>
 </body>
 </html>

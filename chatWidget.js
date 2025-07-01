@@ -71,11 +71,11 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
         this.log('Initializing chat widget...');
         
         // Find DOM elements
-        this.chatBubble = document.getElementById(this.config.bubbleId);
+        this.chatBubble = this.config.bubbleId ? document.getElementById(this.config.bubbleId) : null;
         this.chatWidget = document.getElementById(this.config.containerId);
         
-        if (!this.chatBubble || !this.chatWidget) {
-            this.error('Required DOM elements not found. Make sure chat-bubble and chat-widget elements exist.');
+        if (!this.chatWidget) {
+            this.error('Required DOM element chat-widget not found.');
             return;
         }
 
@@ -103,8 +103,10 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
      * Setup event listeners
      */
     setupEventListeners() {
-        // Chat bubble click
-        this.chatBubble.addEventListener('click', () => this.openChat());
+        // Chat bubble click (only if bubble exists)
+        if (this.chatBubble) {
+            this.chatBubble.addEventListener('click', () => this.openChat());
+        }
         
         // Close button
         if (this.closeButton) {
@@ -128,12 +130,14 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
             this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 80) + 'px';
         });
 
-        // Escape key to close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeChat();
-            }
-        });
+        // Escape key to close (only if bubble exists for toggle functionality)
+        if (this.chatBubble) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.isOpen) {
+                    this.closeChat();
+                }
+            });
+        }
     }
 
     /**
@@ -157,7 +161,9 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
      */
     openChat() {
         this.isOpen = true;
-        this.chatBubble.style.display = 'none';
+        if (this.chatBubble) {
+            this.chatBubble.style.display = 'none';
+        }
         this.chatWidget.classList.add('active');
         this.chatInput.focus();
         this.log('Chat opened');
@@ -169,9 +175,11 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
     closeChat() {
         this.isOpen = false;
         this.chatWidget.classList.remove('active');
-        setTimeout(() => {
-            this.chatBubble.style.display = 'flex';
-        }, 300);
+        if (this.chatBubble) {
+            setTimeout(() => {
+                this.chatBubble.style.display = 'flex';
+            }, 300);
+        }
         this.log('Chat closed');
     }
 
