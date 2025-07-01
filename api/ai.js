@@ -1,25 +1,32 @@
-// /api/ai.js — Vercel serverless function for Hugging Face Inference API
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Block simple bots/crawlers
+  // Block basic bots/crawlers
   const block = ['bot','crawler','spider','curl','wget','python','scrapy'];
   const ua = (req.headers['user-agent'] || '').toLowerCase();
   if (block.some(a => ua.includes(a))) {
     return res.status(403).json({ error: 'Access denied' });
   }
 
-  // Hugging Face API key from Vercel dashboard
+  // Hugging Face API key (set in Vercel dashboard)
   const hfApiKey = process.env.HF_API_KEY;
   if (!hfApiKey) {
     return res.status(500).json({ error: 'HF_API_KEY not set in environment' });
   }
 
-  // Parse prompt
-  const { prompt } = typeof req.body === 'object' ? req.body : JSON.parse(req.body || '{}');
+  // Parse prompt from POST body
+  let prompt = "";
+  try {
+    if (typeof req.body === "object") {
+      prompt = req.body.prompt;
+    } else {
+      prompt = JSON.parse(req.body || "{}").prompt;
+    }
+  } catch {
+    return res.status(400).json({ error: "Invalid JSON body" });
+  }
   if (!prompt) {
     return res.status(400).json({ error: 'No prompt provided' });
   }
