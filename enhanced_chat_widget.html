@@ -138,6 +138,103 @@
             40% { content: '..'; }
         }
 
+        .booking-form {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .booking-form h4 {
+            margin: 0 0 12px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .booking-form .form-group {
+            margin-bottom: 12px;
+        }
+
+        .booking-form label {
+            display: block;
+            margin-bottom: 4px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .booking-form textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .booking-form .form-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .booking-form button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .booking-form .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .booking-form .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+
+        .booking-form .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .booking-form .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .confirmation-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            color: #155724;
+        }
+
+        .confirmation-message h4 {
+            margin: 0 0 8px 0;
+            color: #155724;
+        }
+
         @media (max-width: 480px) {
             .chat-widget {
                 width: calc(100vw - 40px);
@@ -232,6 +329,12 @@ Be helpful, professional, and encourage customers to call for quotes and booking
                     content: message
                 });
 
+                // Check if user wants to book
+                if (this.isBookingRequest(message)) {
+                    this.showBookingForm();
+                    return;
+                }
+
                 // Show typing indicator
                 this.showTyping();
 
@@ -308,6 +411,168 @@ Be helpful, professional, and encourage customers to call for quotes and booking
 
             scrollToBottom() {
                 this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+
+            isBookingRequest(message) {
+                const bookingKeywords = [
+                    'book', 'schedule', 'appointment', 'reserve', 'booking',
+                    'book service', 'schedule service', 'make appointment',
+                    'book now', 'schedule now', 'book appointment'
+                ];
+                
+                const lowerMessage = message.toLowerCase();
+                return bookingKeywords.some(keyword => lowerMessage.includes(keyword));
+            }
+
+            showBookingForm() {
+                const bookingFormHtml = `
+                    <div class="booking-form">
+                        <h4>📅 Book Your Service</h4>
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label for="bookingName">Name *</label>
+                                <input type="text" id="bookingName" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingPhone">Phone *</label>
+                                <input type="tel" id="bookingPhone" name="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingService">Service *</label>
+                                <select id="bookingService" name="service" required>
+                                    <option value="">Select a service</option>
+                                    <option value="Mini Detail ($70)">Mini Detail ($70)</option>
+                                    <option value="Luxury Detail ($120)">Luxury Detail ($120)</option>
+                                    <option value="Max Detail ($200)">Max Detail ($200)</option>
+                                    <option value="Ceramic Coating">Ceramic Coating</option>
+                                    <option value="Paint Correction">Paint Correction</option>
+                                    <option value="Interior Detailing">Interior Detailing</option>
+                                    <option value="Exterior Detailing">Exterior Detailing</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingDate">Preferred Date</label>
+                                <input type="date" id="bookingDate" name="date" min="${new Date().toISOString().split('T')[0]}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingTime">Preferred Time</label>
+                                <select id="bookingTime" name="time">
+                                    <option value="">Select time</option>
+                                    <option value="8:00 AM">8:00 AM</option>
+                                    <option value="9:00 AM">9:00 AM</option>
+                                    <option value="10:00 AM">10:00 AM</option>
+                                    <option value="11:00 AM">11:00 AM</option>
+                                    <option value="12:00 PM">12:00 PM</option>
+                                    <option value="1:00 PM">1:00 PM</option>
+                                    <option value="2:00 PM">2:00 PM</option>
+                                    <option value="3:00 PM">3:00 PM</option>
+                                    <option value="4:00 PM">4:00 PM</option>
+                                    <option value="5:00 PM">5:00 PM</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bookingNotes">Additional Notes</label>
+                                <textarea id="bookingNotes" name="notes" placeholder="Any special requests or vehicle details..."></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Submit Booking</button>
+                                <button type="button" class="btn-secondary" onclick="this.closest('.booking-form').remove()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+
+                const bookingDiv = document.createElement('div');
+                bookingDiv.innerHTML = bookingFormHtml;
+                this.chatMessages.appendChild(bookingDiv);
+                this.scrollToBottom();
+
+                // Add form submission handler
+                const form = document.getElementById('bookingForm');
+                form.addEventListener('submit', (e) => this.handleBookingSubmission(e));
+            }
+
+            async handleBookingSubmission(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const bookingData = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    service: formData.get('service'),
+                    date: formData.get('date'),
+                    time: formData.get('time'),
+                    notes: formData.get('notes')
+                };
+
+                // Validate required fields
+                if (!bookingData.name || !bookingData.phone || !bookingData.service) {
+                    alert('Please fill in all required fields (Name, Phone, Service)');
+                    return;
+                }
+
+                try {
+                    // Disable submit button
+                    const submitBtn = event.target.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Submitting...';
+
+                    // Send booking data to API
+                    const response = await fetch('/api/send-sms', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Booking failed: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    // Remove the form
+                    event.target.closest('.booking-form').remove();
+                    
+                    // Show confirmation message
+                    this.showConfirmationMessage(result.booking);
+
+                } catch (error) {
+                    console.error('Booking submission failed:', error);
+                    alert('Sorry, there was an error submitting your booking. Please try calling us directly at 562-228-9429.');
+                    
+                    // Re-enable submit button
+                    const submitBtn = event.target.querySelector('button[type="submit"]');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            }
+
+            showConfirmationMessage(bookingInfo) {
+                const confirmationHtml = `
+                    <div class="confirmation-message">
+                        <h4>✅ Booking Request Submitted!</h4>
+                        <p><strong>Thank you, ${bookingInfo.name}!</strong></p>
+                        <p>Your booking request for <strong>${bookingInfo.service}</strong> has been received.</p>
+                        ${bookingInfo.date ? `<p>Requested Date: <strong>${bookingInfo.date}</strong></p>` : ''}
+                        ${bookingInfo.time ? `<p>Requested Time: <strong>${bookingInfo.time}</strong></p>` : ''}
+                        <p>We'll contact you shortly at your phone number to confirm the details and finalize your appointment.</p>
+                        <p>For immediate assistance, call us at <strong>562-228-9429</strong></p>
+                    </div>
+                `;
+
+                const confirmationDiv = document.createElement('div');
+                confirmationDiv.innerHTML = confirmationHtml;
+                this.chatMessages.appendChild(confirmationDiv);
+                this.scrollToBottom();
             }
         }
 
