@@ -18,6 +18,12 @@
   to = "/.netlify/functions/ai"
   status = 200
 
+# 410 Gone for invalid/removed routes - SEO compliance
+[[redirects]]
+  from = "/invalid-route"
+  to = "/410.html"
+  status = 410
+
 # SPA routing - catch-all redirect to index.html for client-side routing
 # This preserves SPA functionality while maintaining SEO-friendly URLs
 # Applied only when no file exists (404 scenarios)
