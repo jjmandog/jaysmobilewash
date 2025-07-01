@@ -3091,8 +3091,202 @@
     <script src="chatWidget.js"></script>
     <script src="aiTrainingInterface.js"></script>
     <script src="main.js"></script>
-    
+
     <script>
+        class EnhancedChatWidget {
+            constructor() {
+                this.isOpen = false;
+                this.isTyping = false;
+                this.messages = [
+                    {
+                        role: 'system',
+                        content: `You are a helpful assistant for Jay's Mobile Wash, a premium mobile car detailing service in Los Angeles and Orange County. 
+
+Key information about our services:
+- Mobile detailing services that come to the customer
+- Areas served: Los Angeles and Orange County
+- Services: Exterior detailing, interior detailing, ceramic coating, paint correction
+- Phone: 562-228-9429
+- Premium packages available including "Jay's Max Detail"
+- Professional products used: Koch Chemie, BioBomb odor elimination, ceramic coatings
+- Specializes in luxury and exotic vehicles
+- Fully licensed and insured
+
+Always be helpful, professional, and knowledgeable about mobile detailing. Encourage customers to call 562-228-9429 to schedule or for detailed quotes. Focus on the convenience of mobile service and quality of work.`
+                    }
+                ];
+                this.init();
+            }
+
+            init() {
+                this.chatBubble = document.getElementById('chat-bubble');
+                this.chatWidget = document.getElementById('chat-widget');
+                this.chatMessages = document.getElementById('chatMessages');
+                this.chatInput = document.getElementById('chatInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.closeButton = document.getElementById('chat-close');
+
+                // Event listeners
+                this.chatBubble.addEventListener('click', () => this.openChat());
+                this.closeButton.addEventListener('click', () => this.closeChat());
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                
+                this.chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+
+                // Auto-resize textarea
+                this.chatInput.addEventListener('input', () => {
+                    this.chatInput.style.height = 'auto';
+                    this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 80) + 'px';
+                });
+
+                // Close on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeChat();
+                    }
+                });
+            }
+
+            openChat() {
+                this.isOpen = true;
+                this.chatBubble.style.display = 'none';
+                this.chatWidget.classList.add('active');
+                this.chatInput.focus();
+            }
+
+            closeChat() {
+                this.isOpen = false;
+                this.chatWidget.classList.remove('active');
+                setTimeout(() => {
+                    this.chatBubble.style.display = 'flex';
+                }, 300);
+            }
+
+            async sendMessage() {
+                const message = this.chatInput.value.trim();
+                if (!message || this.isTyping) return;
+
+                // Secret settings panel trigger
+                if (message.toLowerCase() === 'josh') {
+                    this.chatInput.value = '';
+                    this.chatInput.style.height = 'auto';
+                    window.secretSettingsPanel.toggle();
+                    return;
+                }
+
+                // Add user message
+                this.addMessage(message, 'user');
+                this.chatInput.value = '';
+                this.chatInput.style.height = 'auto';
+
+                // Add user message to conversation history
+                this.messages.push({
+                    role: 'user',
+                    content: message
+                });
+
+                // Show typing indicator
+                this.showTyping();
+
+                try {
+                    // Call our secure API endpoint
+                    const response = await fetch('/api/ai', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            messages: this.messages,
+                            max_tokens: 500,
+                            temperature: 0.7
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    if (data.choices && data.choices[0] && data.choices[0].message) {
+                        const assistantMessage = data.choices[0].message.content;
+                        this.messages.push({
+                            role: 'assistant',
+                            content: assistantMessage
+                        });
+                        this.addMessage(assistantMessage, 'assistant');
+                    } else {
+                        throw new Error('Invalid response format');
+                    }
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    this.addMessage(
+                        "I'm having trouble connecting right now. Please call us directly at 562-228-9429 for immediate assistance!",
+                        'error'
+                    );
+                } finally {
+                    this.hideTyping();
+                }
+            }
+
+            addMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'message-avatar';
+                
+                if (type === 'assistant') {
+                    avatarDiv.innerHTML = '<i class="fas fa-user-tie"></i>';
+                } else if (type === 'user') {
+                    avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
+                } else if (type === 'error') {
+                    avatarDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                }
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = text;
+
+                messageDiv.appendChild(avatarDiv);
+                messageDiv.appendChild(contentDiv);
+                
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            showTyping() {
+                this.isTyping = true;
+                this.sendButton.disabled = true;
+                
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = '<i class="fas fa-user-tie" style="margin-right: 8px; color: #667eea;"></i>Jay is typing<span class="typing-dots"></span>';
+                this.chatMessages.appendChild(typingDiv);
+                this.scrollToBottom();
+            }
+
+            hideTyping() {
+                this.isTyping = false;
+                this.sendButton.disabled = false;
+                
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+
+            scrollToBottom() {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+        }
+
         // Secret Settings Panel Manager
         class SecretSettingsPanel {
             constructor() {
@@ -3116,191 +3310,275 @@
             }
             
             init() {
-                if (!this.overlay) {
-                    console.warn('Secret settings overlay not found');
-                    return;
-                }
+                // Load settings from localStorage
+                this.loadSettings();
                 
-                // Close button event
-                if (this.closeBtn) {
-                    this.closeBtn.addEventListener('click', () => this.hide());
-                }
+                // Setup event listeners
+                this.closeBtn.addEventListener('click', () => this.hide());
+                this.debugClearBtn.addEventListener('click', () => this.clearDebugConsole());
                 
-                // Settings toggle events  
-                document.querySelectorAll('.setting-toggle').forEach(toggle => {
-                    toggle.addEventListener('change', (e) => {
-                        const setting = e.target.dataset.setting;
-                        this.settings[setting] = e.target.checked;
-                        this.handleSettingChange(setting, e.target.checked);
-                        this.log(`Setting changed: ${setting} = ${e.target.checked}`);
-                    });
+                // Setup toggle listeners
+                document.getElementById('theme-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('theme', e.target.checked);
                 });
                 
-                // Debug console functionality
-                if (this.debugClearBtn) {
-                    this.debugClearBtn.addEventListener('click', () => {
-                        if (this.debugContent) {
-                            this.debugContent.innerHTML = '';
-                        }
-                    });
-                }
+                document.getElementById('debug-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('debug', e.target.checked);
+                });
                 
-                // Initialize settings state
-                this.loadSettings();
-                this.log('Secret settings panel initialized');
-            }
-            
-            handleSettingChange(setting, value) {
-                switch(setting) {
-                    case 'theme':
-                        if (value) {
-                            document.body.classList.add('debug-theme');
-                            this.log('Debug theme enabled');
-                        } else {
-                            document.body.classList.remove('debug-theme');
-                            this.log('Debug theme disabled');
-                        }
-                        break;
-                        
-                    case 'debug':
-                        if (value) {
-                            if (this.debugOverlay) {
-                                this.debugOverlay.style.display = 'block';
-                            }
-                            this.log('Debug console enabled');
-                        } else {
-                            if (this.debugOverlay) {
-                                this.debugOverlay.style.display = 'none';
-                            }
-                            this.log('Debug console disabled');
-                        }
-                        break;
-                        
-                    case 'history':
-                        this.log(`Chat history ${value ? 'enabled' : 'disabled'}`);
-                        break;
-                        
-                    case 'language':
-                        if (value) {
-                            this.log('Multi-language mode enabled');
-                        } else {
-                            this.log('Multi-language mode disabled');
-                        }
-                        break;
-                        
-                    case 'seo':
-                        if (value) {
-                            if (this.seoOverlay) {
-                                this.seoOverlay.style.display = 'block';
-                                this.updateSEOInfo();
-                            }
-                            this.log('SEO debug enabled');
-                        } else {
-                            if (this.seoOverlay) {
-                                this.seoOverlay.style.display = 'none';
-                            }
-                            this.log('SEO debug disabled');
-                        }
-                        break;
-                }
+                document.getElementById('history-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('history', e.target.checked);
+                });
                 
-                // Save settings
-                this.saveSettings();
+                document.getElementById('language-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('language', e.target.checked);
+                });
                 
-                // Dispatch custom event
-                document.dispatchEvent(new CustomEvent('settingChanged', {
-                    detail: { setting, value }
-                }));
-            }
-            
-            updateSEOInfo() {
-                if (!this.seoContent) return;
+                document.getElementById('seo-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('seo', e.target.checked);
+                });
                 
-                const seoInfo = {
-                    title: document.title,
-                    metaDescription: document.querySelector('meta[name="description"]')?.content || 'None',
-                    h1Count: document.querySelectorAll('h1').length,
-                    h2Count: document.querySelectorAll('h2').length,
-                    imgWithoutAlt: document.querySelectorAll('img:not([alt])').length,
-                    internalLinks: document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]').length,
-                    externalLinks: document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])').length,
-                    structuredData: document.querySelectorAll('script[type="application/ld+json"]').length
-                };
+                // Close on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.overlay.classList.contains('active')) {
+                        this.hide();
+                    }
+                });
                 
-                this.seoContent.innerHTML = `
-                    <div class="seo-metric">
-                        <span class="seo-label">Page Title:</span>
-                        <span class="seo-value">${seoInfo.title}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">Meta Description:</span>
-                        <span class="seo-value">${seoInfo.metaDescription}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">H1 Tags:</span>
-                        <span class="seo-value ${seoInfo.h1Count === 1 ? 'good' : 'warning'}">${seoInfo.h1Count}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">H2 Tags:</span>
-                        <span class="seo-value">${seoInfo.h2Count}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">Images without Alt:</span>
-                        <span class="seo-value ${seoInfo.imgWithoutAlt === 0 ? 'good' : 'warning'}">${seoInfo.imgWithoutAlt}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">Internal Links:</span>
-                        <span class="seo-value">${seoInfo.internalLinks}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">External Links:</span>
-                        <span class="seo-value">${seoInfo.externalLinks}</span>
-                    </div>
-                    <div class="seo-metric">
-                        <span class="seo-label">Structured Data:</span>
-                        <span class="seo-value ${seoInfo.structuredData > 0 ? 'good' : 'warning'}">${seoInfo.structuredData}</span>
-                    </div>
-                `;
-            }
-            
-            log(message) {
-                if (this.debugContent && this.settings.debug) {
-                    const timestamp = new Date().toLocaleTimeString();
-                    const logEntry = document.createElement('div');
-                    logEntry.className = 'debug-entry';
-                    logEntry.innerHTML = `<span class="debug-timestamp">[${timestamp}]</span> ${message}`;
-                    this.debugContent.appendChild(logEntry);
-                    this.debugContent.scrollTop = this.debugContent.scrollHeight;
-                }
-                console.log(`[SecretSettings] ${message}`);
-            }
-            
-            saveSettings() {
-                try {
-                    localStorage.setItem('secretSettings', JSON.stringify(this.settings));
-                } catch (e) {
-                    console.warn('Could not save settings to localStorage:', e);
-                }
+                // Close on backdrop click
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) {
+                        this.hide();
+                    }
+                });
+                
+                // Initialize debug logging
+                this.setupDebugLogging();
+                
+                // Initialize SEO monitoring
+                this.initSEOMonitoring();
             }
             
             loadSettings() {
-                try {
-                    const saved = localStorage.getItem('secretSettings');
-                    if (saved) {
+                const saved = localStorage.getItem('secretSettings');
+                if (saved) {
+                    try {
                         this.settings = { ...this.settings, ...JSON.parse(saved) };
-                        
-                        // Apply loaded settings to UI
-                        Object.keys(this.settings).forEach(key => {
-                            const toggle = document.querySelector(`[data-setting="${key}"]`);
-                            if (toggle) {
-                                toggle.checked = this.settings[key];
-                                this.handleSettingChange(key, this.settings[key]);
-                            }
-                        });
+                    } catch (e) {
+                        console.error('Failed to load settings:', e);
                     }
-                } catch (e) {
-                    console.warn('Could not load settings from localStorage:', e);
                 }
+                
+                // Apply loaded settings
+                Object.keys(this.settings).forEach(key => {
+                    const toggle = document.getElementById(key + '-toggle');
+                    if (toggle) {
+                        toggle.checked = this.settings[key];
+                        this.applySetting(key, this.settings[key], false);
+                    }
+                });
+            }
+            
+            saveSettings() {
+                localStorage.setItem('secretSettings', JSON.stringify(this.settings));
+            }
+            
+            updateSetting(key, value) {
+                this.settings[key] = value;
+                this.saveSettings();
+                this.applySetting(key, value, true);
+            }
+            
+            applySetting(key, value, dispatchEvent = true) {
+                switch (key) {
+                    case 'theme':
+                        this.applyTheme(value);
+                        break;
+                    case 'debug':
+                        this.toggleDebugConsole(value);
+                        break;
+                    case 'seo':
+                        this.toggleSEOOverlay(value);
+                        break;
+                    case 'history':
+                        this.toggleHistoryRetention(value);
+                        break;
+                    case 'language':
+                        this.toggleLanguage(value);
+                        break;
+                }
+                
+                if (dispatchEvent) {
+                    // Dispatch custom event
+                    document.dispatchEvent(new CustomEvent('settingChanged', {
+                        detail: { setting: key, value: value }
+                    }));
+                }
+            }
+            
+            applyTheme(isDark) {
+                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                this.log('Theme switched to: ' + (isDark ? 'Dark' : 'Light'));
+            }
+            
+            toggleDebugConsole(show) {
+                if (show) {
+                    this.debugOverlay.classList.add('active');
+                    this.log('Debug console activated');
+                } else {
+                    this.debugOverlay.classList.remove('active');
+                }
+            }
+            
+            toggleSEOOverlay(show) {
+                if (show) {
+                    this.updateSEOInfo();
+                    this.seoOverlay.classList.add('active');
+                    this.log('SEO debug overlay activated');
+                } else {
+                    this.seoOverlay.classList.remove('active');
+                }
+            }
+            
+            toggleHistoryRetention(retain) {
+                const message = retain ? 'enabled' : 'disabled';
+                this.log('Conversation history retention ' + message);
+                
+                if (!retain) {
+                    // Clear existing history
+                    localStorage.removeItem('chatHistory');
+                }
+            }
+            
+            toggleLanguage(enabled) {
+                const lang = enabled ? 'es' : 'en';
+                document.documentElement.setAttribute('lang', lang);
+                this.log('Language switched to: ' + (enabled ? 'Spanish' : 'English'));
+            }
+            
+            setupDebugLogging() {
+                // Override console methods to capture logs
+                const originalLog = console.log;
+                const originalError = console.error;
+                const originalWarn = console.warn;
+                
+                console.log = (...args) => {
+                    originalLog.apply(console, args);
+                    this.log(args.join(' '), 'info');
+                };
+                
+                console.error = (...args) => {
+                    originalError.apply(console, args);
+                    this.log(args.join(' '), 'error');
+                };
+                
+                console.warn = (...args) => {
+                    originalWarn.apply(console, args);
+                    this.log(args.join(' '), 'warn');
+                };
+            }
+            
+            log(message, type = 'info') {
+                if (!this.settings.debug) return;
+                
+                const timestamp = new Date().toLocaleTimeString();
+                const entry = document.createElement('div');
+                entry.className = `debug-entry ${type}`;
+                entry.textContent = `[${timestamp}] ${message}`;
+                
+                this.debugContent.appendChild(entry);
+                this.debugContent.scrollTop = this.debugContent.scrollHeight;
+                
+                // Limit debug entries to prevent memory issues
+                const entries = this.debugContent.children;
+                if (entries.length > 100) {
+                    entries[0].remove();
+                }
+            }
+            
+            clearDebugConsole() {
+                this.debugContent.innerHTML = '';
+                this.log('Debug console cleared');
+            }
+            
+            initSEOMonitoring() {
+                // Monitor for SEO-related changes
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.target.tagName === 'HEAD' || 
+                            (mutation.target.tagName === 'META' && this.settings.seo)) {
+                            this.updateSEOInfo();
+                        }
+                    });
+                });
+                
+                observer.observe(document.head, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true
+                });
+            }
+            
+            updateSEOInfo() {
+                if (!this.settings.seo) return;
+                
+                const seoData = this.collectSEOData();
+                this.renderSEOInfo(seoData);
+            }
+            
+            collectSEOData() {
+                return {
+                    title: document.title,
+                    description: document.querySelector('meta[name="description"]')?.content || 'Not set',
+                    keywords: document.querySelector('meta[name="keywords"]')?.content || 'Not set',
+                    canonical: document.querySelector('link[rel="canonical"]')?.href || 'Not set',
+                    ogTitle: document.querySelector('meta[property="og:title"]')?.content || 'Not set',
+                    ogDescription: document.querySelector('meta[property="og:description"]')?.content || 'Not set',
+                    ogImage: document.querySelector('meta[property="og:image"]')?.content || 'Not set',
+                    structuredData: document.querySelectorAll('script[type="application/ld+json"]').length,
+                    metaRobots: document.querySelector('meta[name="robots"]')?.content || 'Not set'
+                };
+            }
+            
+            renderSEOInfo(data) {
+                this.seoContent.innerHTML = `
+                    <div class="seo-item">
+                        <div class="seo-label">Title:</div>
+                        <div class="seo-value">${data.title}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Description:</div>
+                        <div class="seo-value">${data.description}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Keywords:</div>
+                        <div class="seo-value">${data.keywords}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Canonical:</div>
+                        <div class="seo-value">${data.canonical}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Title:</div>
+                        <div class="seo-value">${data.ogTitle}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Description:</div>
+                        <div class="seo-value">${data.ogDescription}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Image:</div>
+                        <div class="seo-value">${data.ogImage}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Structured Data Scripts:</div>
+                        <div class="seo-value">${data.structuredData}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Meta Robots:</div>
+                        <div class="seo-value">${data.metaRobots}</div>
+                    </div>
+                `;
             }
             
             show() {
@@ -3322,8 +3600,9 @@
             }
         }
 
-        // Initialize secret settings panel when DOM is loaded
+        // Initialize enhanced chat widget when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
+            new EnhancedChatWidget();
             window.secretSettingsPanel = new SecretSettingsPanel();
             
             // Setup event listeners for custom events
@@ -3331,5 +3610,6 @@
                 console.log('Setting changed:', e.detail);
             });
         });
-    </script></body>
+    </script>
+</body>
 </html>
