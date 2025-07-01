@@ -4,6 +4,7 @@
   "description": "Jay's Mobile Wash - Premium mobile car detailing service",
   "main": "index.html",
   "scripts": {
+    "build": "echo 'Static site build complete'",
     "dev": "node -e \"console.log('Static site - open index.html')\"",
     "lint": "htmlhint **/*.html",
     "test": "vitest",
