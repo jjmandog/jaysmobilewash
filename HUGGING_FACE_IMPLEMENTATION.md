@@ -100,10 +100,19 @@ function App() {
 
 ## Deployment Notes
 
+### Vercel Deployment
 1. Set `HF_API_KEY` environment variable in Vercel dashboard
 2. The API endpoint will be available at `/api/ai`
 3. The GPT-2 model is used by default (can be changed in the API code)
 4. All code is production-ready with comprehensive error handling
+
+### Netlify Deployment
+1. Set `HF_API_KEY` environment variable in Netlify dashboard:
+   - Go to Site settings > Environment variables
+   - Add `HF_API_KEY` with your Hugging Face API token
+2. The API endpoint will be available at `/api/ai` (redirects to `/.netlify/functions/ai`)
+3. SPA routing is configured in `netlify.toml` to preserve client-side routing
+4. The serverless function at `/netlify/functions/ai.js` provides identical functionality to the Vercel version
 
 ## Testing
 
