@@ -1,0 +1,27 @@
+{
+  "name": "jaysmobilewash",
+  "version": "1.0.0",
+  "description": "Jay's Mobile Wash - Premium mobile car detailing service",
+  "main": "index.html",
+  "scripts": {
+    "dev": "node -e \"console.log('Static site - open index.html')\"",
+    "lint": "htmlhint **/*.html",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.8"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.6.3"
+  },
+  "keywords": [
+    "mobile",
+    "car",
+    "detailing",
+    "wash",
+    "los-angeles",
+    "orange-county"
+  ],
+  "author": "Jay's Mobile Wash",
+  "license": "ISC"
+}
