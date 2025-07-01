@@ -38,3 +38,7 @@ sms-test-example.html
 
 # Generated validation reports
 robots-validation-*.json
+
+# Netlify
+.netlify/
+.netlify-cache/

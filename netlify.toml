@@ -1,0 +1,60 @@
+# Netlify Configuration for Jay's Mobile Wash
+# Provides SPA routing support and API endpoint redirects
+
+[build]
+  # Static site - no build command needed
+  publish = "."
+  
+  # Environment variables documentation
+  # Set HF_API_KEY in Netlify dashboard under Site settings > Environment variables
+
+[build.environment]
+  # Node.js version for serverless functions
+  NODE_VERSION = "18"
+
+# API endpoint redirect - redirect /api/ai to Netlify function
+[[redirects]]
+  from = "/api/ai"
+  to = "/.netlify/functions/ai"
+  status = 200
+
+# SPA routing - catch-all redirect to index.html for client-side routing
+# This preserves SPA functionality while maintaining SEO-friendly URLs
+# Applied only when no file exists (404 scenarios)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache control for static assets
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    # HTML files should not be cached aggressively for SPA updates
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    # API endpoints should not be cached
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    
+# Functions configuration
+[functions]
+  directory = "netlify/functions"
+  
+  # Function-specific settings
+  [functions."ai"]
+    included_files = ["netlify/functions/ai.js"]
