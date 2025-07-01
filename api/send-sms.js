@@ -1,6 +1,8 @@
 /**
  * Production-ready SMS notification endpoint for Jay's Mobile Wash
  * Sends booking notifications via Gmail to Verizon SMS gateway
+ * 
+ * Enhanced with comprehensive 405 error handling and detailed developer feedback
  */
 
 import nodemailer from 'nodemailer';

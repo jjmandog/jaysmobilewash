@@ -1,6 +1,8 @@
 /**
  * Secure serverless API endpoint for proxying AI chat requests to OpenRouter
  * Protects API key from client exposure and prevents scraping
+ * 
+ * Enhanced with production-ready 405 error handling for better developer experience
  */
 
 // Known bot/crawler/spider user-agents to block
