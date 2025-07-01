@@ -55,6 +55,9 @@
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
     <link rel="preload" href="mobile-detailing.PNG" as="image">
+    <!-- Critical loading screen image - Unsplash CDN for maximum reliability -->
+    <link rel="preload" href="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" as="image">
+    <!-- Fallback logo for loading screen if primary image fails -->
     <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
     
     <!-- Fonts -->
@@ -739,9 +742,13 @@
                 </div>
             </div>
             
-            <!-- Logo -->
+            <!-- Logo - Critical for UX: Shows loading progress and brand identity during SPA initialization -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
+                <img id="loading-logo" 
+                     src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" 
+                     alt="Jay's Mobile Wash Loading" 
+                     class="h-24 w-24 filter drop-shadow-lg object-cover rounded-full"
+                     onerror="this.src='https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png'; this.classList.remove('rounded-full'); this.classList.remove('object-cover');">
             </div>
             
             <!-- Progress text -->
@@ -1821,31 +1828,70 @@
             favicon.href = 'https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png';
             document.head.appendChild(favicon);
             
-            // Initialize loading screen
+            // Initialize loading screen with hardened error handling
+            // Critical for UX: Ensures SPA always loads even if assets fail (Lighthouse, SEO impact)
             const loadingScreen = document.getElementById('loading-screen');
             const waterFill = document.getElementById('water-fill');
             const loadingProgress = document.getElementById('loading-progress');
+            const loadingLogo = document.getElementById('loading-logo');
             let progress = 0;
+            let progressInterval;
             
-            // Update loading progress
-            const updateProgress = setInterval(() => {
+            // Fail-safe: Always complete loading within 10 seconds maximum
+            const failsafeTimeout = setTimeout(() => {
+                console.warn('[Loading] Fail-safe triggered - forcing completion');
+                completeLoading();
+            }, 10000);
+            
+            // Handle logo loading errors to prevent infinite loading
+            if (loadingLogo) {
+                loadingLogo.addEventListener('error', () => {
+                    console.warn('[Loading] Primary logo failed, using fallback');
+                    // Fallback is handled by onerror attribute
+                });
+                
+                loadingLogo.addEventListener('load', () => {
+                    console.log('[Loading] Logo loaded successfully');
+                });
+            }
+            
+            // Update loading progress with guaranteed completion
+            function updateProgress() {
                 progress += Math.random() * 15;
                 if (progress > 100) progress = 100;
                 
-                loadingProgress.textContent = Math.floor(progress);
-                waterFill.style.height = `${progress}%`;
+                if (loadingProgress) {
+                    loadingProgress.textContent = Math.floor(progress);
+                }
+                if (waterFill) {
+                    waterFill.style.height = `${progress}%`;
+                }
                 
                 if (progress >= 100) {
-                    clearInterval(updateProgress);
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                            document.body.style.overflow = 'auto';
-                        }, 500);
-                    }, 300);
+                    clearInterval(progressInterval);
+                    clearTimeout(failsafeTimeout);
+                    setTimeout(completeLoading, 300);
                 }
-            }, 50);
+            }
+            
+            // Complete loading process - guaranteed to run
+            function completeLoading() {
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                        console.log('[Loading] Screen removed successfully');
+                    }, 500);
+                } else {
+                    // Fallback if loading screen element missing
+                    document.body.style.overflow = 'auto';
+                    console.warn('[Loading] Loading screen element not found');
+                }
+            }
+            
+            // Start progress updates
+            progressInterval = setInterval(updateProgress, 50);
             
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -1962,7 +2008,8 @@
             initJayMode();
         });
 
-        // JAY Mode Implementation with local WAV file (no CORS issues)
+        // JAY Mode Implementation with hardened audio loading (Critical for UX and engagement)
+        // This easter egg enhances user experience but must never break core functionality
         function initJayMode() {
             let jayModeActive = false;
             let jayModeTimer = null;
@@ -1971,10 +2018,34 @@
             
             const jayOverlay = document.getElementById('jay-overlay');
             
-            // Use local WAV file to avoid CORS issues
-            const audio = new Audio('blp-kosher-jack-and-jill.wav');
-            audio.preload = 'auto';
-            audio.volume = 0.7;
+            // Use correct WAV file with comprehensive error handling
+            // Critical: Audio failures must never prevent JAY mode visual effects
+            let audio = null;
+            try {
+                audio = new Audio('BLP-Kosher-Jack-and-Jill.wav');
+                audio.preload = 'auto';
+                audio.volume = 0.7;
+                
+                // Handle audio loading errors gracefully
+                audio.addEventListener('error', (e) => {
+                    console.warn('[JAY Mode] Audio file failed to load:', e);
+                    // Try alternative filename
+                    try {
+                        audio.src = 'blp-kosher-jack-and-jill.wav';
+                        audio.load();
+                    } catch (fallbackError) {
+                        console.warn('[JAY Mode] Audio fallback also failed, continuing without audio');
+                        audio = null; // Disable audio completely
+                    }
+                });
+                
+                audio.addEventListener('canplaythrough', () => {
+                    console.log('[JAY Mode] Audio ready to play');
+                });
+            } catch (audioError) {
+                console.warn('[JAY Mode] Audio initialization failed, continuing without audio:', audioError);
+                audio = null;
+            }
             
             document.addEventListener('keypress', handleKeyPress);
             
@@ -1999,22 +2070,31 @@
                 console.log('[JAY Mode] Activating!');
                 jayModeActive = true;
                 
-                jayOverlay.style.display = 'flex';
+                // Always show visual effects regardless of audio status
+                if (jayOverlay) {
+                    jayOverlay.style.display = 'flex';
+                    setTimeout(() => {
+                        jayOverlay.classList.add('active');
+                    }, 10);
+                }
                 document.body.classList.add('jay-activated');
                 
-                setTimeout(() => {
-                    jayOverlay.classList.add('active');
-                }, 10);
-                
-                try {
-                    await audio.play();
-                    console.log('[JAY Mode] Audio playing!');
-                } catch (error) {
-                    console.error('[JAY Mode] Audio playback failed:', error);
+                // Try to play audio with comprehensive error handling
+                if (audio) {
+                    try {
+                        await audio.play();
+                        console.log('[JAY Mode] Audio playing successfully!');
+                    } catch (error) {
+                        console.warn('[JAY Mode] Audio playback failed (this is non-critical):', error);
+                        // Continue with visual effects even if audio fails
+                    }
+                } else {
+                    console.log('[JAY Mode] No audio available, continuing with visual effects only');
                 }
                 
                 createJayParticles();
                 
+                // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
                     deactivateJayMode();
                 }, 30000);
@@ -2049,6 +2129,7 @@
             }
             
             function deactivateJayMode() {
+                console.log('[JAY Mode] Deactivating!');
                 jayModeActive = false;
                 
                 if (jayModeTimer) {
@@ -2056,19 +2137,37 @@
                     jayModeTimer = null;
                 }
                 
-                audio.pause();
-                audio.currentTime = 0;
+                // Stop audio with error handling
+                if (audio) {
+                    try {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    } catch (audioError) {
+                        console.warn('[JAY Mode] Audio stop failed (non-critical):', audioError);
+                    }
+                }
                 
-                jayOverlay.classList.remove('active');
-                setTimeout(() => {
-                    jayOverlay.style.display = 'none';
-                }, 500);
-                
-                document.body.classList.remove('jay-activated');
-                
-                document.querySelectorAll('.floating-product-particle').forEach(particle => {
-                    particle.remove();
-                });
+                // Clean up visual effects with error handling
+                try {
+                    if (jayOverlay) {
+                        jayOverlay.classList.remove('active');
+                        setTimeout(() => {
+                            jayOverlay.style.display = 'none';
+                        }, 500);
+                    }
+                    document.body.classList.remove('jay-activated');
+                    
+                    // Remove particles safely
+                    document.querySelectorAll('.floating-product-particle').forEach(particle => {
+                        try {
+                            particle.remove();
+                        } catch (e) {
+                            console.warn('[JAY Mode] Particle cleanup error:', e);
+                        }
+                    });
+                } catch (cleanupError) {
+                    console.warn('[JAY Mode] Visual cleanup failed (non-critical):', cleanupError);
+                }
             }
         }
 
