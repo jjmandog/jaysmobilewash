@@ -2,19 +2,20 @@
 
 ## Summary
 
-Successfully replaced the legacy `/api/ai` endpoint with a production-ready Vercel serverless function that proxies POST requests to the Hugging Face Inference API.
+Production-ready Netlify serverless function that proxies POST requests to the Hugging Face Inference API at `/api/ai`.
 
 ## Implementation Details
 
-### ✅ API Endpoint (`/api/ai.js`)
-- **Location**: `/api/ai.js` in project root (Vercel serverless function format)
+### ✅ API Endpoint (`/netlify/functions/ai.js`)
+- **Location**: `/netlify/functions/ai.js` (Netlify serverless function format)
 - **Method**: Accepts only POST requests
 - **Request Format**: `{ prompt: "..." }` JSON body
 - **User-Agent Filtering**: Blocks bots/crawlers ('bot', 'crawler', 'spider', 'curl', 'wget', 'python', 'scrapy')
-- **Environment Variable**: Uses `HF_API_KEY` from Vercel dashboard
+- **Environment Variable**: Uses `HF_API_KEY` from Netlify dashboard
 - **Target API**: `https://api-inference.huggingface.co/models/gpt2`
 - **Response**: Returns Hugging Face API response JSON directly
 - **Error Handling**: Comprehensive error handling for missing keys, invalid prompts, and upstream API errors
+- **Routing**: Available at `/api/ai` via redirect in `netlify.toml`
 
 ### ✅ Utility Helper (`/src/utils/ai.js`)
 - Pure JavaScript fetch helper for SPA components
@@ -45,14 +46,14 @@ Successfully replaced the legacy `/api/ai` endpoint with a production-ready Verc
 - Mock-based testing for reliable CI/CD
 
 ### ✅ Requirements Compliance
-- ✅ Lives at `/api/ai.js` in project root (Vercel function format)
+- ✅ Lives at `/netlify/functions/ai.js` (Netlify function format)
+- ✅ Available at `/api/ai` via redirect configuration
 - ✅ Accepts POST requests with `{ prompt: "..." }` JSON body
 - ✅ Validates prompts and blocks bots/crawlers
 - ✅ Uses `HF_API_KEY` environment variable
 - ✅ Forwards to Hugging Face API (`gpt2` model, configurable)
 - ✅ Returns Hugging Face response JSON directly
 - ✅ Robust error handling with clear messages
-- ✅ No GA4-related logic or `GA_MEASUREMENT_ID` checks
 - ✅ No changes to UI layout, history rewriting, or SEO logic
 - ✅ Pure JS fetch helper at `/src/utils/ai.js`
 - ✅ React SPA component at `/src/components/AIChatBox.jsx`
@@ -100,19 +101,13 @@ function App() {
 
 ## Deployment Notes
 
-### Vercel Deployment
-1. Set `HF_API_KEY` environment variable in Vercel dashboard
-2. The API endpoint will be available at `/api/ai`
-3. The GPT-2 model is used by default (can be changed in the API code)
-4. All code is production-ready with comprehensive error handling
-
 ### Netlify Deployment
 1. Set `HF_API_KEY` environment variable in Netlify dashboard:
    - Go to Site settings > Environment variables
    - Add `HF_API_KEY` with your Hugging Face API token
 2. The API endpoint will be available at `/api/ai` (redirects to `/.netlify/functions/ai`)
 3. SPA routing is configured in `netlify.toml` to preserve client-side routing
-4. The serverless function at `/netlify/functions/ai.js` provides identical functionality to the Vercel version
+4. All code is production-ready with comprehensive error handling
 
 ## Testing
 
