@@ -54,9 +54,113 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'scale(1) rotate(0)';
         });
     });
+
+    // Initialize Chat Widget with multiple AI adapters
+    initializeChatWidget();
 });
+
+/**
+ * Initialize the production chat widget with trainable AI system and multi-backend support
+ */
+function initializeChatWidget() {
+    // Check if required elements exist
+    if (!document.getElementById('chat-widget') || !document.getElementById('chat-bubble')) {
+        console.log('Chat widget elements not found, skipping initialization');
+        return;
+    }
+
+    try {
+        // Configure multiple AI adapters with failover strategy
+        const adapters = [];
+
+        // Primary adapter: HuggingFace (via existing /api/ai endpoint)
+        adapters.push(new window.ChatAdapters.HuggingFaceAdapter({
+            endpoint: '/api/ai'
+        }));
+
+        // Secondary adapter: Netlify Functions (if available)
+        adapters.push(new window.ChatAdapters.NetlifyAdapter({
+            endpoint: '/netlify/functions/ai'
+        }));
+
+        // Additional adapters can be added here
+        // Example: DeepSeek (would need API key configuration)
+        // if (window.DEEPSEEK_API_KEY) {
+        //     adapters.push(new window.ChatAdapters.DeepSeekAdapter({
+        //         apiKey: window.DEEPSEEK_API_KEY
+        //     }));
+        // }
+
+        // Initialize chat widget with trainable base template and production configuration
+        window.jaysChatWidget = new window.ChatWidget({
+            containerId: 'chat-widget',
+            bubbleId: 'chat-bubble',
+            adapters: adapters,
+            strategy: 'failover', // Try adapters in sequence
+            maxRetries: 2,
+            timeout: 30000,
+            debug: false, // Set to true for development
+            enableTrainableTemplate: true, // Enable intelligent base template
+            trainableTemplateOptions: {
+                debug: false,
+                confidenceThreshold: 0.7,
+                maxKnowledgeEntries: 10000,
+                learningRate: 0.1
+            }
+        });
+
+        console.log('Chat widget initialized successfully with', adapters.length, 'adapters and trainable AI system');
+
+        // Initialize AI Training Interface
+        if (typeof window.AITrainingInterface !== 'undefined') {
+            window.jaysTrainingInterface = new window.AITrainingInterface(window.jaysChatWidget, {
+                debug: false
+            });
+            
+            console.log('AI Training Interface initialized');
+            
+            // Add keyboard shortcut to open training interface (Ctrl+Shift+T)
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    window.jaysTrainingInterface.show();
+                }
+            });
+
+            // Add training interface access for admin users
+            // This could be protected by authentication in production
+            window.openTrainingInterface = function() {
+                if (window.jaysTrainingInterface) {
+                    window.jaysTrainingInterface.show();
+                } else {
+                    console.error('Training interface not available');
+                }
+            };
+        }
+
+    } catch (error) {
+        console.error('Failed to initialize chat widget:', error);
+        
+        // Fallback: Create a basic error-only widget
+        const fallbackWidget = {
+            openChat: () => {
+                alert('Chat is temporarily unavailable. Please call us at 562-228-9429 for immediate assistance!');
+            }
+        };
+        
+        // Still allow bubble click for fallback
+        const bubble = document.getElementById('chat-bubble');
+        if (bubble) {
+            bubble.addEventListener('click', fallbackWidget.openChat);
+        }
+    }
+}
 // Function to open the chat widget
 function openChat() {
-    document.getElementById('chat-toggle').click();
-    document.getElementById('chat-window').classList.remove('hidden');
+    if (window.jaysChatWidget) {
+        window.jaysChatWidget.openChat();
+    } else {
+        // Fallback if widget not initialized
+        alert('Chat is temporarily unavailable. Please call us at 562-228-9429 for immediate assistance!');
+    }
 }

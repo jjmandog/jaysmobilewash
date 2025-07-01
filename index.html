@@ -629,6 +629,297 @@
             }
         }
         
+        /* Secret Settings Panel Styles */
+        .secret-settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 10001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .secret-settings-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .secret-settings-panel {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: settingsSlideIn 0.3s ease;
+        }
+        
+        @keyframes settingsSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        .settings-header h3 {
+            color: #f1f5f9;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .settings-close-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .settings-close-btn:hover {
+            background: rgba(148, 163, 184, 0.1);
+            color: #f1f5f9;
+        }
+        
+        .setting-item {
+            margin-bottom: 16px;
+        }
+        
+        .setting-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+        }
+        
+        .setting-label span {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #475569;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        
+        .toggle-input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .toggle-input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        /* Debug Console Styles */
+        .debug-console-overlay {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #333;
+            border-radius: 8px;
+            z-index: 9999;
+            display: none;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .debug-console-overlay.active {
+            display: block;
+        }
+        
+        .debug-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .debug-header h4 {
+            color: #00ff00;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+        
+        .debug-clear-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .debug-clear-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+        
+        .debug-content {
+            padding: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        
+        .debug-entry {
+            margin-bottom: 4px;
+            color: #ccc;
+        }
+        
+        .debug-entry.error {
+            color: #ff4444;
+        }
+        
+        .debug-entry.warn {
+            color: #ffaa00;
+        }
+        
+        .debug-entry.info {
+            color: #44aaff;
+        }
+        
+        /* SEO Debug Overlay Styles */
+        .seo-debug-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 300px;
+            max-height: 500px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #333;
+            border-radius: 8px;
+            z-index: 9999;
+            display: none;
+            font-size: 0.8rem;
+        }
+        
+        .seo-debug-overlay.active {
+            display: block;
+        }
+        
+        .seo-debug-header {
+            padding: 10px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .seo-debug-header h4 {
+            color: #00ff88;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .seo-debug-content {
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        
+        .seo-item {
+            margin-bottom: 8px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        
+        .seo-label {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        
+        .seo-value {
+            color: #ccc;
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+        
+        /* Theme System CSS Variables */
+        :root {
+            --theme-bg: #0a0a0a;
+            --theme-text: #ffffff;
+            --theme-accent: #667eea;
+            --theme-surface: #1a1a1a;
+            --theme-border: #333;
+        }
+        
+        [data-theme="light"] {
+            --theme-bg: #ffffff;
+            --theme-text: #1a1a1a;
+            --theme-accent: #667eea;
+            --theme-surface: #f8f9fa;
+            --theme-border: #e2e8f0;
+        }
+        
         /* Loading screen styles */
         .water-wave {
             position: absolute;
@@ -1808,6 +2099,86 @@
         </div>
     </div>
 
+    <!-- Secret Settings Panel (hidden by default) -->
+    <div class="secret-settings-overlay" id="secret-settings-overlay">
+        <div class="secret-settings-panel">
+            <div class="settings-header">
+                <h3>Developer Settings</h3>
+                <button class="settings-close-btn" id="settings-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>Theme/Contrast</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="theme-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>Debug Console</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="debug-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>Conversation History Retention</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="history-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>Language Switcher</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="language-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>SEO Debug Overlay</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="seo-toggle" class="toggle-input">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debug Console Overlay -->
+    <div class="debug-console-overlay" id="debug-console-overlay">
+        <div class="debug-console">
+            <div class="debug-header">
+                <h4>Debug Console</h4>
+                <button class="debug-clear-btn" id="debug-clear-btn">Clear</button>
+            </div>
+            <div class="debug-content" id="debug-content"></div>
+        </div>
+    </div>
+
+    <!-- SEO Debug Overlay -->
+    <div class="seo-debug-overlay" id="seo-debug-overlay">
+        <div class="seo-debug-panel">
+            <div class="seo-debug-header">
+                <h4>SEO Debug Information</h4>
+            </div>
+            <div class="seo-debug-content" id="seo-debug-content"></div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
         // Initialize everything
@@ -2715,197 +3086,250 @@
         }
     </style>
 
+    <!-- Production Chat Widget Module with AI Training System -->
+    <script src="trainableBaseTemplate.js"></script>
+    <script src="chatWidget.js"></script>
+    <script src="aiTrainingInterface.js"></script>
+    <script src="main.js"></script>
+    
     <script>
-        class EnhancedChatWidget {
+        // Secret Settings Panel Manager
+        class SecretSettingsPanel {
             constructor() {
-                this.isOpen = false;
-                this.isTyping = false;
-                this.messages = [
-                    {
-                        role: 'system',
-                        content: `You are a helpful assistant for Jay's Mobile Wash, a premium mobile car detailing service in Los Angeles and Orange County. 
-
-Key information about our services:
-- Mobile detailing services that come to the customer
-- Areas served: Los Angeles and Orange County
-- Services: Exterior detailing, interior detailing, ceramic coating, paint correction
-- Phone: 562-228-9429
-- Premium packages available including "Jay's Max Detail"
-- Professional products used: Koch Chemie, BioBomb odor elimination, ceramic coatings
-- Specializes in luxury and exotic vehicles
-- Fully licensed and insured
-
-Always be helpful, professional, and knowledgeable about mobile detailing. Encourage customers to call 562-228-9429 to schedule or for detailed quotes. Focus on the convenience of mobile service and quality of work.`
-                    }
-                ];
+                this.overlay = document.getElementById('secret-settings-overlay');
+                this.closeBtn = document.getElementById('settings-close-btn');
+                this.debugOverlay = document.getElementById('debug-console-overlay');
+                this.debugContent = document.getElementById('debug-content');
+                this.debugClearBtn = document.getElementById('debug-clear-btn');
+                this.seoOverlay = document.getElementById('seo-debug-overlay');
+                this.seoContent = document.getElementById('seo-debug-content');
+                
+                this.settings = {
+                    theme: false,
+                    debug: false,
+                    history: true,
+                    language: false,
+                    seo: false
+                };
+                
                 this.init();
             }
-
+            
             init() {
-                this.chatBubble = document.getElementById('chat-bubble');
-                this.chatWidget = document.getElementById('chat-widget');
-                this.chatMessages = document.getElementById('chatMessages');
-                this.chatInput = document.getElementById('chatInput');
-                this.sendButton = document.getElementById('sendButton');
-                this.closeButton = document.getElementById('chat-close');
-
-                // Event listeners
-                this.chatBubble.addEventListener('click', () => this.openChat());
-                this.closeButton.addEventListener('click', () => this.closeChat());
-                this.sendButton.addEventListener('click', () => this.sendMessage());
+                if (!this.overlay) {
+                    console.warn('Secret settings overlay not found');
+                    return;
+                }
                 
-                this.chatInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        this.sendMessage();
-                    }
-                });
-
-                // Auto-resize textarea
-                this.chatInput.addEventListener('input', () => {
-                    this.chatInput.style.height = 'auto';
-                    this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 80) + 'px';
-                });
-
-                // Close on escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.isOpen) {
-                        this.closeChat();
-                    }
-                });
-            }
-
-            openChat() {
-                this.isOpen = true;
-                this.chatBubble.style.display = 'none';
-                this.chatWidget.classList.add('active');
-                this.chatInput.focus();
-            }
-
-            closeChat() {
-                this.isOpen = false;
-                this.chatWidget.classList.remove('active');
-                setTimeout(() => {
-                    this.chatBubble.style.display = 'flex';
-                }, 300);
-            }
-
-            async sendMessage() {
-                const message = this.chatInput.value.trim();
-                if (!message || this.isTyping) return;
-
-                // Add user message
-                this.addMessage(message, 'user');
-                this.chatInput.value = '';
-                this.chatInput.style.height = 'auto';
-
-                // Add user message to conversation history
-                this.messages.push({
-                    role: 'user',
-                    content: message
-                });
-
-                // Show typing indicator
-                this.showTyping();
-
-                try {
-                    // Call our secure API endpoint
-                    const response = await fetch('/api/ai', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            messages: this.messages,
-                            max_tokens: 500,
-                            temperature: 0.7
-                        })
+                // Close button event
+                if (this.closeBtn) {
+                    this.closeBtn.addEventListener('click', () => this.hide());
+                }
+                
+                // Settings toggle events  
+                document.querySelectorAll('.setting-toggle').forEach(toggle => {
+                    toggle.addEventListener('change', (e) => {
+                        const setting = e.target.dataset.setting;
+                        this.settings[setting] = e.target.checked;
+                        this.handleSettingChange(setting, e.target.checked);
+                        this.log(`Setting changed: ${setting} = ${e.target.checked}`);
                     });
-
-                    if (!response.ok) {
-                        throw new Error(`API error: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    
-                    if (data.choices && data.choices[0] && data.choices[0].message) {
-                        const assistantMessage = data.choices[0].message.content;
-                        this.messages.push({
-                            role: 'assistant',
-                            content: assistantMessage
+                });
+                
+                // Debug console functionality
+                if (this.debugClearBtn) {
+                    this.debugClearBtn.addEventListener('click', () => {
+                        if (this.debugContent) {
+                            this.debugContent.innerHTML = '';
+                        }
+                    });
+                }
+                
+                // Initialize settings state
+                this.loadSettings();
+                this.log('Secret settings panel initialized');
+            }
+            
+            handleSettingChange(setting, value) {
+                switch(setting) {
+                    case 'theme':
+                        if (value) {
+                            document.body.classList.add('debug-theme');
+                            this.log('Debug theme enabled');
+                        } else {
+                            document.body.classList.remove('debug-theme');
+                            this.log('Debug theme disabled');
+                        }
+                        break;
+                        
+                    case 'debug':
+                        if (value) {
+                            if (this.debugOverlay) {
+                                this.debugOverlay.style.display = 'block';
+                            }
+                            this.log('Debug console enabled');
+                        } else {
+                            if (this.debugOverlay) {
+                                this.debugOverlay.style.display = 'none';
+                            }
+                            this.log('Debug console disabled');
+                        }
+                        break;
+                        
+                    case 'history':
+                        this.log(`Chat history ${value ? 'enabled' : 'disabled'}`);
+                        break;
+                        
+                    case 'language':
+                        if (value) {
+                            this.log('Multi-language mode enabled');
+                        } else {
+                            this.log('Multi-language mode disabled');
+                        }
+                        break;
+                        
+                    case 'seo':
+                        if (value) {
+                            if (this.seoOverlay) {
+                                this.seoOverlay.style.display = 'block';
+                                this.updateSEOInfo();
+                            }
+                            this.log('SEO debug enabled');
+                        } else {
+                            if (this.seoOverlay) {
+                                this.seoOverlay.style.display = 'none';
+                            }
+                            this.log('SEO debug disabled');
+                        }
+                        break;
+                }
+                
+                // Save settings
+                this.saveSettings();
+                
+                // Dispatch custom event
+                document.dispatchEvent(new CustomEvent('settingChanged', {
+                    detail: { setting, value }
+                }));
+            }
+            
+            updateSEOInfo() {
+                if (!this.seoContent) return;
+                
+                const seoInfo = {
+                    title: document.title,
+                    metaDescription: document.querySelector('meta[name="description"]')?.content || 'None',
+                    h1Count: document.querySelectorAll('h1').length,
+                    h2Count: document.querySelectorAll('h2').length,
+                    imgWithoutAlt: document.querySelectorAll('img:not([alt])').length,
+                    internalLinks: document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]').length,
+                    externalLinks: document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])').length,
+                    structuredData: document.querySelectorAll('script[type="application/ld+json"]').length
+                };
+                
+                this.seoContent.innerHTML = `
+                    <div class="seo-metric">
+                        <span class="seo-label">Page Title:</span>
+                        <span class="seo-value">${seoInfo.title}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">Meta Description:</span>
+                        <span class="seo-value">${seoInfo.metaDescription}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">H1 Tags:</span>
+                        <span class="seo-value ${seoInfo.h1Count === 1 ? 'good' : 'warning'}">${seoInfo.h1Count}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">H2 Tags:</span>
+                        <span class="seo-value">${seoInfo.h2Count}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">Images without Alt:</span>
+                        <span class="seo-value ${seoInfo.imgWithoutAlt === 0 ? 'good' : 'warning'}">${seoInfo.imgWithoutAlt}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">Internal Links:</span>
+                        <span class="seo-value">${seoInfo.internalLinks}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">External Links:</span>
+                        <span class="seo-value">${seoInfo.externalLinks}</span>
+                    </div>
+                    <div class="seo-metric">
+                        <span class="seo-label">Structured Data:</span>
+                        <span class="seo-value ${seoInfo.structuredData > 0 ? 'good' : 'warning'}">${seoInfo.structuredData}</span>
+                    </div>
+                `;
+            }
+            
+            log(message) {
+                if (this.debugContent && this.settings.debug) {
+                    const timestamp = new Date().toLocaleTimeString();
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'debug-entry';
+                    logEntry.innerHTML = `<span class="debug-timestamp">[${timestamp}]</span> ${message}`;
+                    this.debugContent.appendChild(logEntry);
+                    this.debugContent.scrollTop = this.debugContent.scrollHeight;
+                }
+                console.log(`[SecretSettings] ${message}`);
+            }
+            
+            saveSettings() {
+                try {
+                    localStorage.setItem('secretSettings', JSON.stringify(this.settings));
+                } catch (e) {
+                    console.warn('Could not save settings to localStorage:', e);
+                }
+            }
+            
+            loadSettings() {
+                try {
+                    const saved = localStorage.getItem('secretSettings');
+                    if (saved) {
+                        this.settings = { ...this.settings, ...JSON.parse(saved) };
+                        
+                        // Apply loaded settings to UI
+                        Object.keys(this.settings).forEach(key => {
+                            const toggle = document.querySelector(`[data-setting="${key}"]`);
+                            if (toggle) {
+                                toggle.checked = this.settings[key];
+                                this.handleSettingChange(key, this.settings[key]);
+                            }
                         });
-                        this.addMessage(assistantMessage, 'assistant');
-                    } else {
-                        throw new Error('Invalid response format');
                     }
-                } catch (error) {
-                    console.error('Chat error:', error);
-                    this.addMessage(
-                        "I'm having trouble connecting right now. Please call us directly at 562-228-9429 for immediate assistance!",
-                        'error'
-                    );
-                } finally {
-                    this.hideTyping();
+                } catch (e) {
+                    console.warn('Could not load settings from localStorage:', e);
                 }
             }
-
-            addMessage(text, type) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${type}`;
-                
-                const avatarDiv = document.createElement('div');
-                avatarDiv.className = 'message-avatar';
-                
-                if (type === 'assistant') {
-                    avatarDiv.innerHTML = '<i class="fas fa-user-tie"></i>';
-                } else if (type === 'user') {
-                    avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
-                } else if (type === 'error') {
-                    avatarDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            
+            show() {
+                this.overlay.classList.add('active');
+                this.log('Secret settings panel opened');
+            }
+            
+            hide() {
+                this.overlay.classList.remove('active');
+                this.log('Secret settings panel closed');
+            }
+            
+            toggle() {
+                if (this.overlay.classList.contains('active')) {
+                    this.hide();
+                } else {
+                    this.show();
                 }
-
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
-                contentDiv.textContent = text;
-
-                messageDiv.appendChild(avatarDiv);
-                messageDiv.appendChild(contentDiv);
-                
-                this.chatMessages.appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-
-            showTyping() {
-                this.isTyping = true;
-                this.sendButton.disabled = true;
-                
-                const typingDiv = document.createElement('div');
-                typingDiv.className = 'typing-indicator';
-                typingDiv.id = 'typingIndicator';
-                typingDiv.innerHTML = '<i class="fas fa-user-tie" style="margin-right: 8px; color: #667eea;"></i>Jay is typing<span class="typing-dots"></span>';
-                this.chatMessages.appendChild(typingDiv);
-                this.scrollToBottom();
-            }
-
-            hideTyping() {
-                this.isTyping = false;
-                this.sendButton.disabled = false;
-                
-                const typingIndicator = document.getElementById('typingIndicator');
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
-            }
-
-            scrollToBottom() {
-                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
             }
         }
 
-        // Initialize enhanced chat widget when DOM is loaded
+        // Initialize secret settings panel when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            new EnhancedChatWidget();
+            window.secretSettingsPanel = new SecretSettingsPanel();
+            
+            // Setup event listeners for custom events
+            document.addEventListener('settingChanged', (e) => {
+                console.log('Setting changed:', e.detail);
+            });
         });
-    </script>
-</body>
+    </script></body>
 </html>
