@@ -1582,6 +1582,24 @@ if ('serviceWorker' in navigator) {
 
 // Main application initialization
 document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('error', function(e) {
+    // If there's a critical error during loading, force complete the loading screen
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingProgress = document.getElementById('loading-progress');
+    
+    if (loadingScreen && loadingScreen.style.display !== 'none') {
+        console.error('[Critical Error] Force completing loading screen due to:', e.error);
+        
+        // Force complete loading
+        if (loadingProgress) loadingProgress.textContent = '100';
+        loadingScreen.style.opacity = '0';
+        
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 500);
+    }
+});
     console.log("[App] Initializing Jay's Mobile Wash SPA");
     
     // Initialize all components
