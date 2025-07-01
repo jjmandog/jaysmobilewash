@@ -68,38 +68,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        purple: {
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                            800: '#6b21a8',
-                            900: '#581c87'
-                        },
-                        pink: {
-                            500: '#ec4899',
-                            600: '#db2777',
-                            700: '#be185d'
-                        }
+    <!-- Replace your current Tailwind script section with this: -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+    // Production configuration
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    purple: {
+                        500: '#a855f7',
+                        600: '#9333ea',
+                        700: '#7e22ce',
+                        800: '#6b21a8',
+                        900: '#581c87'
+                    },
+                    pink: {
+                        500: '#ec4899',
+                        600: '#db2777',
+                        700: '#be185d'
                     }
                 }
             }
         }
-        // Suppress Tailwind warning for development
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            const originalWarn = console.warn;
-            console.warn = function(...args) {
-                if (!args[0]?.includes('cdn.tailwindcss.com')) {
-                    originalWarn.apply(console, args);
-                }
-            };
-        }
-    </script>
+    }
+    
+    // Suppress CDN warning in production
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        // Override console.warn to filter Tailwind warnings
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) {
+                return; // Suppress Tailwind CDN warning
+            }
+            originalWarn.apply(console, args);
+        };
+    }
+</script>
+
+<!-- Add this comment for future reference -->
+<!-- TODO: For true production deployment, run: npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify -->
     
     <!-- Enhanced Schema.org LocalBusiness + Service markup -->
     <script type="application/ld+json">
