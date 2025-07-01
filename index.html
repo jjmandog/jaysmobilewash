@@ -1994,7 +1994,34 @@ function initJayMode() {
                 updateBeatBars(bassRange, midRange, highRange);
                 
                 // Update reactive elements
-                updateReactiveElements(bassRange, midRange, highRange);
+                function updateReactiveElements(bass, mid, high) {
+    // Calculate overall intensity (0-1)
+    const overallIntensity = (bass + mid + high) / (255 * 3);
+    
+    // Update logo
+    const logo = document.querySelector('.exploding-logo');
+    if (logo) {
+        logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
+        logo.style.transform = `scale(${1 + (overallIntensity * 0.5)}) rotate(${overallIntensity * 360}deg)`;
+    }
+    
+    // Update text elements
+    const modeText = document.querySelector('.jay-mode-text');
+    if (modeText) {
+        const textScale = 1 + overallIntensity * 0.3;
+        const glowIntensity = 30 + overallIntensity * 50;
+        modeText.style.transform = `scale(${textScale})`;
+        modeText.style.textShadow = `0 0 ${glowIntensity}px rgba(168, 85, 247, 1), 0 0 ${glowIntensity * 1.5}px rgba(236, 72, 153, 1)`;
+    }
+    
+    // Add beat class to reactive elements
+    document.querySelectorAll('.beat-reactive').forEach(element => {
+        if (overallIntensity > 0.6) {
+            element.classList.add('on-beat');
+            setTimeout(() => element.classList.remove('on-beat'), 100);
+        }
+    });
+}
                 
                 // Generate particles on strong beats (BLP Kosher has heavy drops)
                 if ((bassRange > 180 || midRange > 180) && Math.random() > 0.6) {
