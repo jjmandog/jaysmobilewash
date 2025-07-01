@@ -1,0 +1,1667 @@
+{
+  "timestamp": "2025-07-01T10:49:15.952Z",
+  "summary": {
+    "totalFiles": 11,
+    "validatedFiles": 11,
+    "averageScore": 50,
+    "totalIssues": 52,
+    "filesWithPreloads": 7,
+    "filesWithPreconnects": 5,
+    "filesWithInlineCSS": 2,
+    "averagePreloads": 2
+  },
+  "files": [
+    {
+      "file": "index.html",
+      "timestamp": "2025-07-01T10:49:15.527Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "as": "style",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "mobile-detailing.PNG",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 0,
+        "stylePreloads": 1,
+        "imagePreloads": 2
+      },
+      "preconnectLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "crossorigin": false,
+            "isCritical": true
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "crossorigin": true,
+            "isCritical": true
+          }
+        ],
+        "criticalDomains": 2
+      },
+      "dnsPrefetchLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://www.googletagmanager.com/",
+            "isCritical": false
+          },
+          {
+            "href": "https://www.google-analytics.com/",
+            "isCritical": false
+          }
+        ]
+      },
+      "inlineCSS": {
+        "count": 3,
+        "totalSize": 20168,
+        "hasCriticalCSS": true,
+        "sizeKB": "19.70"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 5,
+        "fonts": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": true
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 1
+      },
+      "criticalImages": {
+        "totalImages": 7,
+        "criticalCount": 2,
+        "criticalImages": [
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "JAY MODE",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": true
+          }
+        ],
+        "preloadedCritical": 2
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": true,
+        "hasDnsPrefetch": true,
+        "hasInlineCSS": true,
+        "scriptsInHead": 5,
+        "asyncScripts": 0,
+        "deferScripts": 0
+      },
+      "issues": [
+        "Critical fonts not preloaded",
+        "Render-blocking scripts in head"
+      ],
+      "score": 95
+    },
+    {
+      "file": "services-exterior-detailing.html",
+      "timestamp": "2025-07-01T10:49:15.610Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/exterior-detailing-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 26,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/exterior-detailing-hero.jpg",
+            "alt": "Professional exterior car detailing in Los Angeles",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "services-interior-detailing.html",
+      "timestamp": "2025-07-01T10:49:15.660Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/interior-detailing-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 26,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/interior-detailing-hero.jpg",
+            "alt": "Professional interior car detailing in Los Angeles",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "services-ceramic-coating.html",
+      "timestamp": "2025-07-01T10:49:15.702Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/ceramic-coating-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 23,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/ceramic-coating-hero.jpg",
+            "alt": "Professional ceramic coating application on black Tesla in Los Angeles",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "locations-los-angeles.html",
+      "timestamp": "2025-07-01T10:49:15.787Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/los-angeles-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 15,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/los-angeles-hero.jpg",
+            "alt": "Mobile car detailing service in Los Angeles with downtown skyline",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "locations-orange-county.html",
+      "timestamp": "2025-07-01T10:49:15.832Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/orange-county-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 15,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/orange-county-hero.jpg",
+            "alt": "Mobile car detailing service in Orange County at client's home",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "locations-beverly-hills.html",
+      "timestamp": "2025-07-01T10:49:15.871Z",
+      "preloadLinks": {
+        "count": 3,
+        "resources": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "as": "font",
+            "type": "font/woff2",
+            "crossorigin": true,
+            "media": null,
+            "isCritical": true
+          },
+          {
+            "href": "/images/beverly-hills-hero.jpg",
+            "as": "image",
+            "type": null,
+            "crossorigin": false,
+            "media": null,
+            "isCritical": true
+          }
+        ],
+        "criticalCount": 3,
+        "fontPreloads": 2,
+        "stylePreloads": 0,
+        "imagePreloads": 1
+      },
+      "preconnectLinks": {
+        "count": 0,
+        "domains": [],
+        "criticalDomains": 0
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "/css/styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 3,
+        "fonts": [
+          {
+            "href": "/fonts/manrope-v8-latin-700.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "/fonts/manrope-v8-latin-regular.woff2",
+            "rel": "preload",
+            "isPreloaded": true,
+            "crossorigin": true
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 2
+      },
+      "criticalImages": {
+        "totalImages": 16,
+        "criticalCount": 3,
+        "criticalImages": [
+          {
+            "src": "/images/logo.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "/images/beverly-hills-hero.jpg",
+            "alt": "Mobile car detailing service in Beverly Hills for luxury vehicle",
+            "loading": "eager",
+            "isLazyLoaded": false,
+            "hasPreload": true
+          },
+          {
+            "src": "/images/logo-white.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 1
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": true,
+        "hasPreconnectLinks": false,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 2,
+        "asyncScripts": 1,
+        "deferScripts": 1
+      },
+      "issues": [
+        "No external domains preconnected",
+        "Missing preconnect for critical domains (fonts, CDNs)",
+        "No critical CSS inlined",
+        "Render-blocking scripts in head"
+      ],
+      "score": 55
+    },
+    {
+      "file": "about.html",
+      "timestamp": "2025-07-01T10:49:15.895Z",
+      "preloadLinks": {
+        "count": 0,
+        "resources": [],
+        "criticalCount": 0,
+        "fontPreloads": 0,
+        "stylePreloads": 0,
+        "imagePreloads": 0
+      },
+      "preconnectLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "crossorigin": false,
+            "isCritical": true
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "crossorigin": true,
+            "isCritical": true
+          }
+        ],
+        "criticalDomains": 2
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 3,
+        "stylesheets": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          },
+          {
+            "href": "styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          }
+        ],
+        "blockingCount": 3,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 4,
+        "fonts": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": true
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 0
+      },
+      "criticalImages": {
+        "totalImages": 10,
+        "criticalCount": 2,
+        "criticalImages": [
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 0
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": false,
+        "hasPreconnectLinks": true,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 3,
+        "asyncScripts": 0,
+        "deferScripts": 0
+      },
+      "issues": [
+        "No critical resources preloaded",
+        "Critical fonts not preloaded",
+        "Critical images not preloaded",
+        "No critical CSS inlined",
+        "Too many render-blocking stylesheets",
+        "Render-blocking scripts in head",
+        "Web fonts not preloaded"
+      ],
+      "score": 25
+    },
+    {
+      "file": "privacy.html",
+      "timestamp": "2025-07-01T10:49:15.912Z",
+      "preloadLinks": {
+        "count": 0,
+        "resources": [],
+        "criticalCount": 0,
+        "fontPreloads": 0,
+        "stylePreloads": 0,
+        "imagePreloads": 0
+      },
+      "preconnectLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "crossorigin": false,
+            "isCritical": true
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "crossorigin": true,
+            "isCritical": true
+          }
+        ],
+        "criticalDomains": 2
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 3,
+        "stylesheets": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          },
+          {
+            "href": "styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          }
+        ],
+        "blockingCount": 3,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 4,
+        "fonts": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": true
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 0
+      },
+      "criticalImages": {
+        "totalImages": 2,
+        "criticalCount": 2,
+        "criticalImages": [
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 0
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": false,
+        "hasPreconnectLinks": true,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 3,
+        "asyncScripts": 0,
+        "deferScripts": 0
+      },
+      "issues": [
+        "No critical resources preloaded",
+        "Critical fonts not preloaded",
+        "Critical images not preloaded",
+        "No critical CSS inlined",
+        "Too many render-blocking stylesheets",
+        "Render-blocking scripts in head",
+        "Web fonts not preloaded"
+      ],
+      "score": 25
+    },
+    {
+      "file": "terms.html",
+      "timestamp": "2025-07-01T10:49:15.933Z",
+      "preloadLinks": {
+        "count": 0,
+        "resources": [],
+        "criticalCount": 0,
+        "fontPreloads": 0,
+        "stylePreloads": 0,
+        "imagePreloads": 0
+      },
+      "preconnectLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "crossorigin": false,
+            "isCritical": true
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "crossorigin": true,
+            "isCritical": true
+          }
+        ],
+        "criticalDomains": 2
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 0,
+        "totalSize": 0,
+        "hasCriticalCSS": false,
+        "sizeKB": "0.00"
+      },
+      "externalCSS": {
+        "count": 3,
+        "stylesheets": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          },
+          {
+            "href": "styles.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          }
+        ],
+        "blockingCount": 3,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 4,
+        "fonts": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": true
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 0
+      },
+      "criticalImages": {
+        "totalImages": 2,
+        "criticalCount": 2,
+        "criticalImages": [
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          },
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 0
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": false,
+        "hasPreconnectLinks": true,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": false,
+        "scriptsInHead": 3,
+        "asyncScripts": 0,
+        "deferScripts": 0
+      },
+      "issues": [
+        "No critical resources preloaded",
+        "Critical fonts not preloaded",
+        "Critical images not preloaded",
+        "No critical CSS inlined",
+        "Too many render-blocking stylesheets",
+        "Render-blocking scripts in head",
+        "Web fonts not preloaded"
+      ],
+      "score": 25
+    },
+    {
+      "file": "products.html",
+      "timestamp": "2025-07-01T10:49:15.949Z",
+      "preloadLinks": {
+        "count": 0,
+        "resources": [],
+        "criticalCount": 0,
+        "fontPreloads": 0,
+        "stylePreloads": 0,
+        "imagePreloads": 0
+      },
+      "preconnectLinks": {
+        "count": 2,
+        "domains": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "crossorigin": false,
+            "isCritical": true
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "crossorigin": true,
+            "isCritical": true
+          }
+        ],
+        "criticalDomains": 2
+      },
+      "dnsPrefetchLinks": {
+        "count": 0,
+        "domains": []
+      },
+      "inlineCSS": {
+        "count": 1,
+        "totalSize": 384,
+        "hasCriticalCSS": true,
+        "sizeKB": "0.38"
+      },
+      "externalCSS": {
+        "count": 2,
+        "stylesheets": [
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "media": null,
+            "isBlocking": true,
+            "isCritical": true
+          }
+        ],
+        "blockingCount": 2,
+        "criticalCount": 1
+      },
+      "criticalFonts": {
+        "count": 4,
+        "fonts": [
+          {
+            "href": "https://fonts.googleapis.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://fonts.gstatic.com/",
+            "rel": "preconnect",
+            "isPreloaded": false,
+            "crossorigin": true
+          },
+          {
+            "href": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          },
+          {
+            "href": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+            "rel": "stylesheet",
+            "isPreloaded": false,
+            "crossorigin": false
+          }
+        ],
+        "preloadedFonts": 0
+      },
+      "criticalImages": {
+        "totalImages": 1,
+        "criticalCount": 1,
+        "criticalImages": [
+          {
+            "src": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png",
+            "alt": "Jay's Mobile Wash Logo",
+            "loading": null,
+            "isLazyLoaded": false,
+            "hasPreload": false
+          }
+        ],
+        "preloadedCritical": 0
+      },
+      "performanceOptimizations": {
+        "hasViewport": true,
+        "hasCharset": true,
+        "hasPreloadLinks": false,
+        "hasPreconnectLinks": true,
+        "hasDnsPrefetch": false,
+        "hasInlineCSS": true,
+        "scriptsInHead": 2,
+        "asyncScripts": 0,
+        "deferScripts": 0
+      },
+      "issues": [
+        "No critical resources preloaded",
+        "Critical fonts not preloaded",
+        "Critical images not preloaded",
+        "Render-blocking scripts in head",
+        "Web fonts not preloaded"
+      ],
+      "score": 50
+    }
+  ],
+  "recommendations": [
+    {
+      "issue": "No critical resources preloaded",
+      "frequency": 4,
+      "affectedFiles": [
+        "about.html",
+        "privacy.html",
+        "terms.html",
+        "products.html"
+      ],
+      "priority": 10
+    },
+    {
+      "issue": "Critical fonts not preloaded",
+      "frequency": 5,
+      "affectedFiles": [
+        "index.html",
+        "about.html",
+        "privacy.html",
+        "terms.html",
+        "products.html"
+      ],
+      "priority": 9
+    },
+    {
+      "issue": "Missing preconnect for critical domains (fonts, CDNs)",
+      "frequency": 6,
+      "affectedFiles": [
+        "services-exterior-detailing.html",
+        "services-interior-detailing.html",
+        "services-ceramic-coating.html",
+        "locations-los-angeles.html",
+        "locations-orange-county.html",
+        "locations-beverly-hills.html"
+      ],
+      "priority": 8
+    },
+    {
+      "issue": "No critical CSS inlined",
+      "frequency": 9,
+      "affectedFiles": [
+        "services-exterior-detailing.html",
+        "services-interior-detailing.html",
+        "services-ceramic-coating.html",
+        "locations-los-angeles.html",
+        "locations-orange-county.html",
+        "locations-beverly-hills.html",
+        "about.html",
+        "privacy.html",
+        "terms.html"
+      ],
+      "priority": 7
+    },
+    {
+      "issue": "Critical images not preloaded",
+      "frequency": 4,
+      "affectedFiles": [
+        "about.html",
+        "privacy.html",
+        "terms.html",
+        "products.html"
+      ],
+      "priority": 6
+    },
+    {
+      "issue": "Too many render-blocking stylesheets",
+      "frequency": 3,
+      "affectedFiles": [
+        "about.html",
+        "privacy.html",
+        "terms.html"
+      ],
+      "priority": 5
+    },
+    {
+      "issue": "Web fonts not preloaded",
+      "frequency": 4,
+      "affectedFiles": [
+        "about.html",
+        "privacy.html",
+        "terms.html",
+        "products.html"
+      ],
+      "priority": 4
+    },
+    {
+      "issue": "Render-blocking scripts in head",
+      "frequency": 11,
+      "affectedFiles": [
+        "index.html",
+        "services-exterior-detailing.html",
+        "services-interior-detailing.html",
+        "services-ceramic-coating.html",
+        "locations-los-angeles.html",
+        "locations-orange-county.html",
+        "locations-beverly-hills.html",
+        "about.html",
+        "privacy.html",
+        "terms.html",
+        "products.html"
+      ],
+      "priority": 3
+    },
+    {
+      "issue": "No external domains preconnected",
+      "frequency": 6,
+      "affectedFiles": [
+        "services-exterior-detailing.html",
+        "services-interior-detailing.html",
+        "services-ceramic-coating.html",
+        "locations-los-angeles.html",
+        "locations-orange-county.html",
+        "locations-beverly-hills.html"
+      ],
+      "priority": 2
+    }
+  ]
+}
