@@ -2103,35 +2103,56 @@ function initJayMode() {
         bar.style.filter = `brightness(${brightness})`;
     }
     
-    // Update elements that react to beats
-    function updateReactiveElements(bass, mid, high) {
-        // Calculate overall intensity (0-1)
-        const overallIntensity = (bass + mid + high) / (255 * 3);
-        
-        // Update logo
-        const logo = document.querySelector('.exploding-logo');
-        if (logo) {
-            logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
-            logo.style.transform = `scale(${1 + (overallIntensity * 0.5})`;
-        }
-        
-        // Update text elements
-        const modeText = document.querySelector('.jay-mode-text');
-        if (modeText) {
-            const textScale = 1 + overallIntensity * 0.3;
-            const glowIntensity = 30 + overallIntensity * 50;
-            modeText.style.transform = `scale(${textScale})`;
-            modeText.style.textShadow = `0 0 ${glowIntensity}px rgba(168, 85, 247, 1), 0 0 ${glowIntensity * 1.5}px rgba(236, 72, 153, 1)`;
-        }
-        
-        // Add beat class to reactive elements
-        document.querySelectorAll('.beat-reactive').forEach(element => {
-            if (overallIntensity > 0.6) {
-                element.classList.add('on-beat');
-                setTimeout(() => element.classList.remove('on-beat'), 100);
-            }
-        });
+   
+            } // Update elements that react to beats
+function updateReactiveElements(bass, mid, high) {
+    // Calculate overall intensity (0-1)
+    const overallIntensity = (bass + mid + high) / (255 * 3);
+    
+    // Update logo
+    const logo = document.querySelector('.exploding-logo');
+    if (logo) {
+        logo.style.filter = `drop-shadow(0 0 ${80 + overallIntensity * 50}px rgba(168, 85, 247, 1)) brightness(${1.3 + overallIntensity})`;
+        logo.style.transform = `scale(${1 + (overallIntensity * 0.5)}) rotate(${overallIntensity * 360}deg)`;
     }
+    
+    // Update text glow
+    const titleText = document.querySelector('.jay-mode-text');
+    if (titleText) {
+        titleText.style.textShadow = `0 0 ${100 + overallIntensity * 40}px rgba(255, 255, 255, ${0.8 + overallIntensity * 0.2})`;
+        titleText.style.filter = `brightness(${1.3 + overallIntensity * 0.5})`;
+    }
+    
+    // Background flash on heavy beats
+    if (bass > 200 || mid > 200) {
+        jayOverlay.style.background = `rgba(0, 0, 0, ${0.7 - (overallIntensity * 0.3)})`;
+    } else {
+        jayOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+    }
+    
+    // Update elements with .beat-reactive class
+    document.querySelectorAll('.beat-reactive').forEach(element => {
+        const freq = element.getAttribute('data-freq') || 'mid';
+        let intensity;
+        
+        switch(freq) {
+            case 'low': intensity = bass / 255; break;
+            case 'high': intensity = high / 255; break;
+            case 'mid':
+            default: intensity = mid / 255; break;
+        }
+        
+        if (intensity > 0.5) {
+            element.classList.add('on-beat');
+            element.style.transform = `scale(${1 + (intensity * 0.1)})`;
+            element.style.filter = `brightness(${1 + (intensity * 0.5)})`;
+        } else {
+            element.classList.remove('on-beat');
+            element.style.transform = '';
+            element.style.filter = '';
+        }
+    });
+}
     
     // Create floating particles
     function createParticles(count) {
