@@ -1,14 +1,10 @@
 /**
- * Fixes the OpenRouter API integration
+ * Secure OpenRouter API integration
+ * - Uses secure serverless endpoint to protect API key
  * - Preserves your original UI completely
- * - Just fixes the API call functionality
  */
 async function callOpenRouterAPI(history) {
-    // Use your existing OpenRouter API configuration
-    const OPENROUTER_API_KEY = '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';
-    const OPENROUTER_API_URL = 'https://openrouter.ai/deepseek/deepseek-r1:free/api';
-    
-    console.log("Calling API with history length:", history.length);
+    console.log("Calling secure API with history length:", history.length);
     
     // Offline detection (keeps your original UI)
     if (!navigator.onLine) {
@@ -17,19 +13,13 @@ async function callOpenRouterAPI(history) {
     }
     
     try {
-        console.log("Making request to:", OPENROUTER_API_URL);
-        
-        // Fixed API request that uses proper headers
-        const response = await fetch(OPENROUTER_API_URL, {
+        // Use secure API endpoint instead of direct OpenRouter call
+        const response = await fetch('/api/ai', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                'Content-Type': 'application/json',
-                'HTTP-Referer': window.location.origin,
-                'X-Title': "Jay's Mobile Wash"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'deepseek-r1',
                 messages: history,
                 max_tokens: 500,
                 temperature: 0.7
