@@ -53,11 +53,10 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
-    <link rel="preload" href="https://i.imgur.com/v8zcwCE.png" as="image">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.imgur.com/v8zcwCE.png">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/v8zcwCE.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <meta name="theme-color" content="#13131a">
     
     <!-- Fonts -->
@@ -78,7 +77,7 @@
       "name": "Jay's Mobile Wash",
       "alternateName": "Jay's Mobile Car Detailing",
       "url": "https://www.jaysmobilewash.net",
-      "logo": "https://i.imgur.com/v8zcwCE.png",
+      "logo": "https://www.jaysmobilewash.net/logo.png",
       "telephone": "+15622289429",
       "priceRange": "$70-$1299",
       "description": "Professional mobile car detailing and ceramic coating services throughout Los Angeles and Orange County. We bring the car wash to you!",
@@ -533,7 +532,7 @@
             width: 100%;
             height: 100%;
             z-index: 10000;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             justify-content: center;
             align-items: center;
@@ -596,7 +595,6 @@
             position: fixed;
             width: 40px;
             height: 40px;
-            background-image: url('https://i.imgur.com/v8zcwCE.png');
             background-size: contain;
             background-repeat: no-repeat;
             pointer-events: none;
@@ -700,7 +698,7 @@
             
             <!-- Logo -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <img src="https://i.imgur.com/v8zcwCE.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
+                <img src="data:image/png;base64,YOUR_NEW_LOGO_BASE64_HERE" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
             </div>
             
             <!-- Progress text -->
@@ -717,7 +715,7 @@
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <div class="flex items-center">
                     <a href="/" class="flex-shrink-0 beat-reactive" data-freq="low">
-                        <img src="https://i.imgur.com/v8zcwCE.png" alt="Jay's Mobile Wash - Mobile Car Detailing Los Angeles" class="h-12 sm:h-14 w-auto object-contain">
+                        <img class="h-12 sm:h-14 w-auto" src="data:image/png;base64,YOUR_NEW_LOGO_BASE64_HERE" alt="Jay's Mobile Wash Logo">
                     </a>
                 </div>
                 <div class="hidden md:block">
@@ -761,15 +759,14 @@
             <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
                 <source src="https://github.com/jjmandog/jaysmobilewash/raw/main/VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
                 <source src="https://raw.githubusercontent.com/jjmandog/jaysmobilewash/main/VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
-                <img src="https://images.unsplash.com/photo-1619939450246-5df8e7264d74?auto=format&fit=crop&q=80" alt="Car Detailing">
             </video>
             <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
         
         <!-- Particles Container -->
-        <div class="particles-container absolute inset-0 pointer-events-none z-1"></div>
+        <div class="particles-container absolute inset-0 pointer-events-none z-0"></div>
         
-        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-10">
+        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-2">
             <div class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
                     <span class="gradient-text glow-text">Professional Mobile Car Detailing</span>
@@ -805,23 +802,23 @@
         </div>
         
         <!-- Trust Badges -->
-        <div class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-10">
+        <div class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-2">
             <div class="container mx-auto px-4">
                 <div class="flex flex-wrap justify-center gap-8 sm:gap-12 items-center">
                     <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2107/2107957.png" alt="5-Star Rating" class="h-10 mx-auto mb-2 opacity-80">
+                        <div class="text-3xl mb-2">⭐⭐⭐⭐⭐</div>
                         <p class="text-sm text-gray-300">287+ 5-Star Reviews</p>
                     </div>
                     <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1178/1178215.png" alt="Service Guarantee" class="h-10 mx-auto mb-2 opacity-80">
+                        <div class="text-3xl mb-2">✅</div>
                         <p class="text-sm text-gray-300">100% Satisfaction</p>
                     </div>
                     <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Premium Materials" class="h-10 mx-auto mb-2 opacity-80">
+                        <div class="text-3xl mb-2">🏆</div>
                         <p class="text-sm text-gray-300">Premium Products</p>
                     </div>
                     <div class="text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5891/5891165.png" alt="Mobile Service" class="h-10 mx-auto mb-2 opacity-80">
+                        <div class="text-3xl mb-2">🚗</div>
                         <p class="text-sm text-gray-300">We Come To You</p>
                     </div>
                 </div>
@@ -844,7 +841,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mobile Detailing -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Mobile car detailing service in Los Angeles" class="w-full h-48 object-cover">
+                    <div class="w-full h-48 bg-gradient-to-br from-purple-600 to-pink-600"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
                         <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
@@ -861,7 +858,7 @@
                 
                 <!-- Ceramic Coating -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1619927549287-6c9f8a48b9d6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Ceramic coating service Orange County" class="w-full h-48 object-cover">
+                    <div class="w-full h-48 bg-gradient-to-br from-blue-600 to-purple-600"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
                         <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
@@ -878,7 +875,7 @@
                 
                 <!-- Paint Correction -->
                 <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1621252179024-ab22bb83fc1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Paint correction service Los Angeles" class="w-full h-48 object-cover">
+                    <div class="w-full h-48 bg-gradient-to-br from-pink-600 to-red-600"></div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
                         <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
@@ -1124,9 +1121,6 @@
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
                                 <span class="text-gray-300">Anti-Static Properties</span>
-                                                        <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Ultimate Paint Protection</span>
                             </li>
                         </ul>
                         <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
@@ -1286,9 +1280,18 @@
             <div class="text-center mt-12">
                 <p class="text-gray-300 mb-4">Join hundreds of satisfied customers!</p>
                 <div class="flex justify-center items-center space-x-8">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Google Reviews" class="h-12 opacity-70">
-                    <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook Reviews" class="h-12 opacity-70">
-                    <img src="https://cdn-icons-png.flaticon.com/512/355/355300.png" alt="Yelp Reviews" class="h-12 opacity-70">
+                    <div class="text-center">
+                        <i class="fab fa-google text-4xl text-gray-400"></i>
+                        <p class="text-xs mt-1 text-gray-400">Google</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-facebook text-4xl text-gray-400"></i>
+                        <p class="text-xs mt-1 text-gray-400">Facebook</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-yelp text-4xl text-gray-400"></i>
+                        <p class="text-xs mt-1 text-gray-400">Yelp</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1484,7 +1487,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
                 <div>
-                    <img src="https://i.imgur.com/v8zcwCE.png" alt="Jay's Mobile Wash" class="h-16 mb-4">
+                    <img src="data:image/png;base64,YOUR_NEW_LOGO_BASE64_HERE" alt="Jay's Mobile Wash" class="h-16 mb-4">
                     <p class="text-gray-400 mb-4">Professional mobile car detailing services in Los Angeles and Orange County.</p>
                     <div class="flex space-x-4">
                         <a href="https://facebook.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-purple-400">
@@ -1549,28 +1552,19 @@
         </div>
     </footer>
 
+    <!-- Jay Mode Overlay (hidden by default) -->
+    <div class="jay-overlay" id="jay-overlay">
+        <div class="jay-content">
+            <img src="data:image/png;base64,YOUR_NEW_LOGO_BASE64_HERE" alt="JAY Mode" class="exploding-logo">
+            <h1 class="jay-mode-text">JAY MODE ACTIVATED</h1>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
-        // Loading Screen with Error Handling
-        window.addEventListener('error', function(e) {
-            const loadingScreen = document.getElementById('loading-screen');
-            const loadingProgress = document.getElementById('loading-progress');
-            
-            if (loadingScreen && loadingScreen.style.display !== 'none') {
-                console.error('[Critical Error] Force completing loading screen due to:', e.error);
-                
-                if (loadingProgress) loadingProgress.textContent = '100';
-                loadingScreen.style.opacity = '0';
-                
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 500);
-            }
-        });
-
+        // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Loading Screen
+            // Initialize loading screen
             const loadingScreen = document.getElementById('loading-screen');
             const waterFill = document.getElementById('water-fill');
             const loadingProgress = document.getElementById('loading-progress');
@@ -1718,25 +1712,14 @@
             const jaySequence = ['j', 'a', 'y'];
             let currentSequence = [];
             
-            // Create overlay elements
-            const jayOverlay = document.createElement('div');
-            jayOverlay.className = 'jay-overlay';
-            jayOverlay.setAttribute('aria-hidden', 'true');
-            jayOverlay.innerHTML = `
-                <div class="jay-content">
-                    <img src="https://i.imgur.com/v8zcwCE.png" alt="JAY Mode" class="exploding-logo">
-                    <h1 class="jay-mode-text">JAY MODE ACTIVATED</h1>
-                    <div class="beat-reactive" data-freq="low"></div>
-                    <div class="beat-reactive" data-freq="mid"></div>
-                    <div class="beat-reactive" data-freq="high"></div>
-                </div>
-            `;
-            document.body.appendChild(jayOverlay);
+            // Get overlay
+            const jayOverlay = document.getElementById('jay-overlay');
             
-            // Audio setup with multiple sources
+            // Audio setup with MP3
             const audio = new Audio();
             audio.crossOrigin = 'anonymous';
             audio.preload = 'auto';
+            audio.src = 'https://github.com/jjmandog/jaysmobilewash/raw/main/BLP%20Kosher%20-%20Jack%20and%20Jill%20(Official%20Music%20Video).mp3';
             
             // Listen for keystrokes
             document.addEventListener('keypress', handleKeyPress);
@@ -1764,7 +1747,6 @@
                 
                 // Show overlay
                 jayOverlay.style.display = 'flex';
-                jayOverlay.setAttribute('aria-hidden', 'false');
                 document.body.classList.add('jay-activated');
                 
                 // Animate entrance
@@ -1774,22 +1756,21 @@
                 
                 // Try to play audio
                 try {
-                    audio.src = 'https://github.com/jjmandog/jaysmobilewash/raw/main/BLP%20Kosher%20-%20Jack%20and%20Jill%20(Official%20Music%20Video).wav';
                     await audio.play();
                     console.log('[JAY Mode] Audio playing!');
                 } catch (error) {
                     console.error('[JAY Mode] Audio failed:', error);
-                    // Try fallback
+                    // Try fallback source
+                    audio.src = 'https://raw.githubusercontent.com/jjmandog/jaysmobilewash/main/BLP%20Kosher%20-%20Jack%20and%20Jill%20(Official%20Music%20Video).mp3';
                     try {
-                        audio.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
                         await audio.play();
                     } catch (fallbackError) {
-                        console.error('[JAY Mode] Fallback audio also failed');
+                        console.error('[JAY Mode] Fallback also failed:', fallbackError);
                     }
                 }
                 
-                // Create particles
-                createJayParticles(20);
+                // Create floating particles
+                createJayParticles();
                 
                 // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
@@ -1797,26 +1778,35 @@
                 }, 30000);
             }
             
-            function createJayParticles(count) {
-                for (let i = 0; i < count; i++) {
+            function createJayParticles() {
+                for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         const particle = document.createElement('div');
                         particle.className = 'floating-product-particle';
-                        particle.style.left = `${Math.random() * 100}%`;
-                        particle.style.animationDuration = `${6 + Math.random() * 4}s`;
-                        particle.style.animationDelay = `${Math.random() * 2}s`;
+                        particle.style.cssText = `
+                            position: fixed;
+                            width: 40px;
+                            height: 40px;
+                            background-image: url('data:image/png;base64,YOUR_NEW_LOGO_BASE64_HERE');
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            pointer-events: none;
+                            left: ${Math.random() * 100}%;
+                            bottom: -50px;
+                            z-index: 10001;
+                            animation: float-up ${6 + Math.random() * 4}s linear;
+                        `;
                         
                         document.body.appendChild(particle);
                         
                         particle.addEventListener('animationend', () => {
                             particle.remove();
                         });
-                    }, i * 100);
+                    }, i * 200);
                 }
             }
             
             function deactivateJayMode() {
-                console.log('[JAY Mode] Deactivating');
                 jayModeActive = false;
                 
                 if (jayModeTimer) {
@@ -1824,25 +1814,34 @@
                     jayModeTimer = null;
                 }
                 
-                if (audio) {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }
+                audio.pause();
+                audio.currentTime = 0;
                 
                 jayOverlay.classList.remove('active');
                 setTimeout(() => {
                     jayOverlay.style.display = 'none';
-                    jayOverlay.setAttribute('aria-hidden', 'true');
                 }, 500);
                 
                 document.body.classList.remove('jay-activated');
                 
+                // Remove any remaining particles
                 document.querySelectorAll('.floating-product-particle').forEach(particle => {
                     particle.remove();
                 });
             }
         }
+
+        // Replace logo placeholders with your actual logo
+        window.addEventListener('load', function() {
+            // Convert your new logo to base64 and replace this placeholder
+            const logoBase64 = 'YOUR_NEW_LOGO_BASE64_HERE'; // Replace this with actual base64
+            
+            // Update all logo instances
+            document.querySelectorAll('img[src*="YOUR_NEW_LOGO_BASE64_HERE"]').forEach(img => {
+                // For now, fallback to original logo until you provide the base64
+                img.src = 'https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png';
+            });
+        });
     </script>
 </body>
 </html>
-                        
