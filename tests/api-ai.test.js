@@ -45,7 +45,12 @@ describe('/api/ai Serverless Endpoint', () => {
       await handler(mockReq, mockRes);
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Method not allowed' });
+      expect(mockRes.json).toHaveBeenCalledWith({
+        error: 'Method not allowed',
+        message: 'GET requests are not supported. This endpoint only accepts POST requests.',
+        supportedMethods: ['POST'],
+        endpoint: '/api/ai'
+      });
     });
 
     it('should reject PUT requests with 405 Method Not Allowed', async () => {
@@ -54,7 +59,12 @@ describe('/api/ai Serverless Endpoint', () => {
       await handler(mockReq, mockRes);
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Method not allowed' });
+      expect(mockRes.json).toHaveBeenCalledWith({
+        error: 'Method not allowed',
+        message: 'PUT requests are not supported. This endpoint only accepts POST requests.',
+        supportedMethods: ['POST'],
+        endpoint: '/api/ai'
+      });
     });
 
     it('should reject DELETE requests with 405 Method Not Allowed', async () => {
@@ -63,7 +73,12 @@ describe('/api/ai Serverless Endpoint', () => {
       await handler(mockReq, mockRes);
       
       expect(mockRes.status).toHaveBeenCalledWith(405);
-      expect(mockRes.json).toHaveBeenCalledWith({ error: 'Method not allowed' });
+      expect(mockRes.json).toHaveBeenCalledWith({
+        error: 'Method not allowed',
+        message: 'DELETE requests are not supported. This endpoint only accepts POST requests.',
+        supportedMethods: ['POST'],
+        endpoint: '/api/ai'
+      });
     });
 
     it('should accept POST requests', async () => {

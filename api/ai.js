@@ -16,9 +16,15 @@ const BLOCKED_USER_AGENTS = [
 ];
 
 export default async function handler(req, res) {
-  // Only allow POST requests
+  // Only allow POST requests - return detailed error for unsupported methods
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    console.warn(`405 Method Not Allowed: ${req.method} request attempted on /api/ai (POST required)`);
+    return res.status(405).json({ 
+      error: 'Method not allowed',
+      message: `${req.method} requests are not supported. This endpoint only accepts POST requests.`,
+      supportedMethods: ['POST'],
+      endpoint: '/api/ai'
+    });
   }
 
   // Block known bot/crawler/spider user-agents
