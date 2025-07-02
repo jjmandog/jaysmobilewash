@@ -51,7 +51,7 @@ describe('Next.js and Vercel Setup', () => {
       const vercelContent = JSON.parse(fs.readFileSync(vercelPath, 'utf-8'));
       
       expect(vercelContent.buildCommand).toBe('npm run build');
-      expect(vercelContent.outputDirectory).toBe('.next');
+      expect(vercelContent.outputDirectory).toBe('out');
       expect(vercelContent.framework).toBe('nextjs');
       expect(vercelContent.devCommand).toBe('npm run dev');
       expect(vercelContent.installCommand).toBe('npm install');
@@ -86,16 +86,16 @@ describe('Next.js and Vercel Setup', () => {
   });
 
   describe('Build Output', () => {
-    it('should build successfully and create .next directory', async () => {
-      // The .next directory should exist after running npm run build
-      const nextPath = path.join(process.cwd(), '.next');
+    it('should build successfully and create out directory for static export', async () => {
+      // The out directory should exist after running npm run build with static export
+      const outPath = path.join(process.cwd(), 'out');
       // We expect this to exist since we run build before tests in CI
-      // In actual deployment, Vercel will run the build command
-      expect(fs.existsSync(nextPath)).toBe(true);
+      // In actual deployment, Vercel will use the static files from out directory
+      expect(fs.existsSync(outPath)).toBe(true);
       
-      if (fs.existsSync(nextPath)) {
-        const buildManifest = path.join(nextPath, 'build-manifest.json');
-        expect(fs.existsSync(buildManifest)).toBe(true);
+      if (fs.existsSync(outPath)) {
+        const indexFile = path.join(outPath, 'index.html');
+        expect(fs.existsSync(indexFile)).toBe(true);
       }
     });
   });
