@@ -6,13 +6,6 @@
 // Available API options (up to 10)
 export const API_OPTIONS = [
   {
-    id: 'huggingface',
-    name: 'Hugging Face',
-    endpoint: '/api/ai',
-    description: 'General purpose AI model via Hugging Face',
-    enabled: true
-  },
-  {
     id: 'openrouter',
     name: 'OpenRouter',
     endpoint: '/api/openrouter',
@@ -74,6 +67,13 @@ export const API_OPTIONS = [
     endpoint: '/api/together',
     description: 'Together AI platform',
     enabled: false
+  },
+  {
+    id: 'deepseek',
+    name: 'DeepSeek',
+    endpoint: '/api/deepseek',
+    description: 'DeepSeek AI models',
+    enabled: true
   }
 ];
 
@@ -134,15 +134,15 @@ export const CHAT_ROLES = [
 // Default role assignments (maps role ID to API ID)
 export const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'openrouter',        // Advanced reasoning
-  tools: 'huggingface',          // Tool calling
-  quotes: 'huggingface',         // Service quotes
-  photo_uploads: 'huggingface',  // Photo analysis
-  summaries: 'huggingface',      // Summarization
-  search: 'openrouter',          // Search queries
-  chat: 'huggingface',           // General chat
-  fallback: 'huggingface',       // Always available fallback
-  analytics: 'huggingface',      // Data analysis
-  accessibility: 'huggingface'   // Accessibility support
+  tools: 'openrouter',            // Tool calling
+  quotes: 'openrouter',           // Service quotes
+  photo_uploads: 'openrouter',    // Photo analysis
+  summaries: 'openrouter',        // Summarization
+  search: 'openrouter',           // Search queries
+  chat: 'openrouter',             // General chat
+  fallback: 'openrouter',         // Always available fallback
+  analytics: 'openrouter',        // Data analysis
+  accessibility: 'openrouter'     // Accessibility support
 };
 
 // Get enabled API options

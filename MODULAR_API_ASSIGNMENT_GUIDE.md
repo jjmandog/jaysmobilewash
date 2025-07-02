@@ -16,7 +16,6 @@ The modular API assignment panel provides a user-configurable system for routing
 
 ### Supported APIs (10 Total)
 
-- ✅ **Hugging Face** (Active) - `/api/ai`
 - ✅ **OpenRouter** (Active) - `/api/openrouter`
 - ⚙️ **Anthropic Claude** (Configurable) - `/api/anthropic`
 - ⚙️ **OpenAI GPT** (Configurable) - `/api/openai`
@@ -26,6 +25,7 @@ The modular API assignment panel provides a user-configurable system for routing
 - ⚙️ **Perplexity** (Configurable) - `/api/perplexity`
 - ⚙️ **Mistral AI** (Configurable) - `/api/mistral`
 - ⚙️ **Together AI** (Configurable) - `/api/together`
+- ⚙️ **DeepSeek** (Configurable) - `/api/deepseek`
 
 ### Chat Roles (10 Total)
 
@@ -110,12 +110,18 @@ if (api.id === 'new-api') {
 }
 ```
 
-3. **Create Netlify Function** (if needed):
+3. **Create API Service Handler**:
 ```javascript
-// /netlify/functions/new-service.js
-exports.handler = async (event, context) => {
+// Custom API service implementation
+async function callNewAPIService(prompt, options) {
   // Implementation for new API service
-};
+  const response = await fetch(options.endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
+  return response.json();
+}
 ```
 
 ## Settings Panel Features
@@ -143,7 +149,7 @@ The system fires several GA4 events for tracking:
 gtag('event', 'chat_role_assignment_changed', {
   role: 'quotes',
   api: 'openrouter',
-  previous_api: 'huggingface'
+  previous_api: 'anthropic'
 });
 
 // Bulk settings updates
@@ -154,7 +160,7 @@ gtag('event', 'chat_assignments_updated', {
 // Query success/failure
 gtag('event', 'chat_query_success', {
   role: 'quotes',
-  api_used: 'huggingface'
+  api_used: 'openrouter'
 });
 ```
 

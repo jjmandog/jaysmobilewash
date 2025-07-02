@@ -12,7 +12,7 @@
  * @throws {Error} - If the request fails or returns an error
  */
 export async function queryAI(prompt, options = {}) {
-  const { endpoint = '/api/ai' } = options;
+  const { endpoint = '/api/openrouter' } = options;
 
   // Validate input
   if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
@@ -52,7 +52,7 @@ export async function queryAI(prompt, options = {}) {
  * @param {string} endpoint - Custom endpoint URL (defaults to /api/ai)
  * @returns {Promise<boolean>} - True if service is available
  */
-export async function isAIServiceAvailable(endpoint = '/api/ai') {
+export async function isAIServiceAvailable(endpoint = '/api/openrouter') {
   try {
     // Send a minimal test request
     await queryAI('test', { endpoint });

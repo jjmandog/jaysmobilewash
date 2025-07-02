@@ -61,10 +61,10 @@ describe('API Options Constants', () => {
   });
 
   it('should get API by ID correctly', () => {
-    const api = getAPIById('huggingface');
+    const api = getAPIById('openrouter');
     expect(api).toBeDefined();
-    expect(api.id).toBe('huggingface');
-    expect(api.name).toBe('Hugging Face');
+    expect(api.id).toBe('openrouter');
+    expect(api.name).toBe('OpenRouter');
   });
 
   it('should get role by ID correctly', () => {
@@ -103,7 +103,7 @@ describe('Chat Router', () => {
   });
 
   it('should throw error for unassigned role', async () => {
-    const assignments = { chat: 'huggingface' }; // missing other roles
+    const assignments = { chat: 'openrouter' }; // missing other roles
     await expect(routeLLMRequest('test', 'quotes', assignments)).rejects.toThrow('No API assigned');
   });
 
@@ -111,12 +111,12 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { chat: 'huggingface' };
+    const assignments = { chat: 'openrouter' };
     const result = await routeLLMRequest('test prompt', 'chat', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
       expect.stringContaining('test prompt'),
-      expect.objectContaining({ endpoint: '/api/ai' })
+      expect.objectContaining({ endpoint: '/api/openrouter' })
     );
     expect(result).toEqual({ response: 'test response' });
   });
@@ -125,7 +125,7 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { quotes: 'huggingface' };
+    const assignments = { quotes: 'openrouter' };
     await routeLLMRequest('vehicle detail', 'quotes', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
@@ -142,7 +142,7 @@ describe('Chat Router', () => {
 
     const assignments = { 
       chat: 'openrouter', 
-      fallback: 'huggingface' 
+      fallback: 'deepseek' 
     };
     
     const result = await routeLLMRequest('test', 'chat', assignments);
@@ -154,29 +154,29 @@ describe('Chat Router', () => {
     const { isAIServiceAvailable } = await import('../src/utils/ai.js');
     isAIServiceAvailable.mockResolvedValue(true);
 
-    const assignments = { chat: 'huggingface' };
+    const assignments = { chat: 'openrouter' };
     const available = await isRoleAPIAvailable('chat', assignments);
     
     expect(available).toBe(true);
-    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/ai');
+    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/openrouter');
   });
 
   it('should return routing statistics', () => {
     const assignments = {
-      chat: 'huggingface',
-      quotes: 'huggingface',
+      chat: 'openrouter',
+      quotes: 'deepseek',
       reasoning: 'openrouter'
     };
     
     const stats = getRoutingStats(assignments);
     
-    expect(stats).toHaveProperty('huggingface');
-    expect(stats.huggingface.count).toBe(2);
-    expect(stats.huggingface.roles).toEqual(['chat', 'quotes']);
-    
     expect(stats).toHaveProperty('openrouter');
-    expect(stats.openrouter.count).toBe(1);
-    expect(stats.openrouter.roles).toEqual(['reasoning']);
+    expect(stats.openrouter.count).toBe(2);
+    expect(stats.openrouter.roles).toEqual(['chat', 'reasoning']);
+    
+    expect(stats).toHaveProperty('deepseek');
+    expect(stats.deepseek.count).toBe(1);
+    expect(stats.deepseek.roles).toEqual(['quotes']);
   });
 });
 
@@ -199,7 +199,7 @@ describe('API Integration', () => {
     // Mock disabled API
     const assignments = { 
       chat: 'anthropic', // disabled in API_OPTIONS
-      fallback: 'huggingface' 
+      fallback: 'openrouter' 
     };
     
     const result = await routeLLMRequest('test', 'chat', assignments);
