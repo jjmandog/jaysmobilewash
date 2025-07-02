@@ -228,6 +228,9 @@
     background: #ffffff;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e0 transparent;
+    scroll-behavior: smooth;
+    max-height: 400px;
+    position: relative;
 }
 
 .admin-mode .chatbot-messages {
@@ -1115,4 +1118,89 @@
     .processing-message::before {
         animation: none;
     }
+}
+
+/* Scroll controls styling */
+.scroll-controls {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 10;
+}
+
+.scroll-to-top,
+.scroll-to-bottom {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(168, 85, 247, 0.9);
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top:hover,
+.scroll-to-bottom:hover {
+    background: rgba(168, 85, 247, 1);
+    transform: scale(1.1);
+}
+
+.admin-mode .scroll-to-top,
+.admin-mode .scroll-to-bottom {
+    background: rgba(255, 107, 107, 0.9);
+}
+
+.admin-mode .scroll-to-top:hover,
+.admin-mode .scroll-to-bottom:hover {
+    background: rgba(255, 107, 107, 1);
+}
+
+.jay-mode .scroll-to-top,
+.jay-mode .scroll-to-bottom {
+    background: rgba(255, 217, 61, 0.9);
+    color: #2d3748;
+}
+
+.jay-mode .scroll-to-top:hover,
+.jay-mode .scroll-to-bottom:hover {
+    background: rgba(255, 217, 61, 1);
+}
+
+/* Auto-mode notification styling */
+.auto-mode-notification {
+    text-align: center;
+    margin: 8px 0;
+    padding: 4px 8px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 12px;
+    font-size: 12px;
+    color: #a855f7;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+.admin-mode .auto-mode-notification {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+}
+
+.jay-mode .auto-mode-notification {
+    background: rgba(255, 217, 61, 0.1);
+    color: #d69e2e;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }

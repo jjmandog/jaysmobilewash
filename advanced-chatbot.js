@@ -88,6 +88,11 @@ const API_OPTIONS = [
 
 const CHAT_ROLES = [
   {
+    id: 'auto',
+    name: 'Auto Mode',
+    description: 'Automatically selects the best chat method based on your input'
+  },
+  {
     id: 'reasoning',
     name: 'Reasoning',
     description: 'Complex problem solving and logical analysis'
@@ -819,7 +824,7 @@ class AdvancedChatBot {
     this.settingsOpen = false;
     this.messages = [];
     this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
-    this.currentRole = 'chat';
+    this.currentRole = 'auto';
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
@@ -900,8 +905,8 @@ class AdvancedChatBot {
         <div class="chatbot-messages" id="chatbot-messages">
           <div class="message bot-message">
             <div class="message-content">
-              Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
-              Choose a chat mode above and ask me anything!
+              Hello! I'm Jay's AI Assistant in Auto Mode. I'll automatically select the best chat method based on your questions.
+              You can also manually choose a chat mode above. Ask me anything about our services!
             </div>
           </div>
         </div>
@@ -1012,11 +1017,91 @@ class AdvancedChatBot {
     this.sendAnalyticsEvent('role_changed', { role: newRole });
   }
 
+  detectBestChatMode(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Keywords for different modes
+    const quoteKeywords = ['quote', 'price', 'cost', 'how much', '$', 'pricing', 'estimate', 'package', 'service', 'ceramic', 'graphene', 'detail'];
+    const photoKeywords = ['photo', 'image', 'picture', 'pic', 'look at', 'analyze', 'see'];
+    const searchKeywords = ['search', 'find', 'lookup', 'locate', 'where', 'location', 'address'];
+    const reasoningKeywords = ['compare', 'difference', 'why', 'how', 'explain', 'versus', 'vs', 'analyze', 'recommend'];
+    const toolKeywords = ['schedule', 'book', 'appointment', 'call', 'contact'];
+    
+    // Check for uploaded files (implies photo mode)
+    if (this.uploadedFiles.length > 0) {
+      return 'photo_uploads';
+    }
+    
+    // Check for quote-related queries
+    if (quoteKeywords.some(keyword => lowerMessage.includes(keyword))) {
+      return 'quotes';
+    }
+    
+    // Check for photo analysis queries
+    if (photoKeywords.some(keyword => lowerMessage.includes(keyword))) {
+      return 'photo_uploads';
+    }
+    
+    // Check for search queries
+    if (searchKeywords.some(keyword => lowerMessage.includes(keyword))) {
+      return 'search';
+    }
+    
+    // Check for reasoning queries
+    if (reasoningKeywords.some(keyword => lowerMessage.includes(keyword))) {
+      return 'reasoning';
+    }
+    
+    // Check for tool/action queries
+    if (toolKeywords.some(keyword => lowerMessage.includes(keyword))) {
+      return 'tools';
+    }
+    
+    // Default to chat for general conversation
+    return 'chat';
+  }
+
+  updateDetectedMode(detectedMode) {
+    // Update the role indicator to show auto-detected mode
+    const currentApiSpan = document.getElementById('current-api');
+    const currentRoleSpan = document.getElementById('current-role');
+    
+    if (currentRoleSpan) {
+      currentRoleSpan.textContent = `auto → ${detectedMode}`;
+    }
+    
+    if (currentApiSpan) {
+      currentApiSpan.textContent = this.assignments[detectedMode] || 'none';
+    }
+    
+    // Add a temporary notification about mode detection
+    const modeNotification = document.createElement('div');
+    modeNotification.className = 'auto-mode-notification';
+    modeNotification.innerHTML = `<small>Auto-detected: ${this.getRoleById(detectedMode)?.name || detectedMode}</small>`;
+    
+    const messagesContainer = document.getElementById('chatbot-messages');
+    messagesContainer.appendChild(modeNotification);
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      if (modeNotification.parentNode) {
+        modeNotification.parentNode.removeChild(modeNotification);
+      }
+    }, 3000);
+  }
+
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     
     if (!message || this.isProcessing) return;
+    
+    // Auto-mode detection
+    let effectiveRole = this.currentRole;
+    if (this.currentRole === 'auto') {
+      effectiveRole = this.detectBestChatMode(message);
+      this.updateDetectedMode(effectiveRole);
+    }
     
     this.addMessage(message, 'user');
     input.value = '';
@@ -1037,17 +1122,17 @@ class AdvancedChatBot {
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
-          // Fall back to AI or smart responses
-          const assignedAPI = this.assignments[this.currentRole];
+          // Fall back to AI or smart responses using effective role
+          const assignedAPI = this.assignments[effectiveRole];
           
           if (assignedAPI === 'none' || !assignedAPI) {
-            response = { content: this.generateSmartResponse(message, this.currentRole) };
+            response = { content: this.generateSmartResponse(message, effectiveRole) };
           } else {
             try {
-              response = await ChatRouter.routeLLMRequest(message, this.currentRole, this.assignments);
+              response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
             } catch (aiError) {
               console.warn('AI failed, using smart fallback:', aiError);
-              response = { content: this.generateSmartResponse(message, this.currentRole) };
+              response = { content: this.generateSmartResponse(message, effectiveRole) };
             }
           }
         }
@@ -1058,7 +1143,8 @@ class AdvancedChatBot {
       
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
-        role: this.currentRole,
+        role: effectiveRole,
+        originalRole: this.currentRole,
         hasImages: this.uploadedFiles.length > 0,
         timestamp: Date.now()
       });
@@ -1067,10 +1153,12 @@ class AdvancedChatBot {
       this.clearUploadedFiles();
       
       this.sendAnalyticsEvent('chat_query_success', {
-        role: this.currentRole,
-        api: this.assignments[this.currentRole],
+        role: effectiveRole,
+        originalRole: this.currentRole,
+        api: this.assignments[effectiveRole],
         usedBasefile: !!basefileResponse,
-        usedMemory: !!this.memory.getLearnedResponse(message)
+        usedMemory: !!this.memory.getLearnedResponse(message),
+        autoDetected: this.currentRole === 'auto'
       });
     } catch (error) {
       console.error('Chat error:', error);
@@ -1452,7 +1540,49 @@ class AdvancedChatBot {
     `;
     
     messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Enhanced auto-scroll behavior
+    this.scrollToBottom();
+    
+    // Add scroll controls if not already present
+    this.addScrollControls();
+  }
+
+  scrollToBottom() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    // Smooth scroll to bottom
+    messagesContainer.scrollTo({
+      top: messagesContainer.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  addScrollControls() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    
+    // Check if scroll controls already exist
+    if (document.querySelector('.scroll-controls')) return;
+    
+    // Only add scroll controls if content overflows
+    if (messagesContainer.scrollHeight > messagesContainer.clientHeight) {
+      const scrollControls = document.createElement('div');
+      scrollControls.className = 'scroll-controls';
+      scrollControls.innerHTML = `
+        <button class="scroll-to-top" title="Scroll to top">↑</button>
+        <button class="scroll-to-bottom" title="Scroll to bottom">↓</button>
+      `;
+      
+      messagesContainer.parentNode.insertBefore(scrollControls, messagesContainer.nextSibling);
+      
+      // Add event listeners
+      scrollControls.querySelector('.scroll-to-top').addEventListener('click', () => {
+        messagesContainer.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      scrollControls.querySelector('.scroll-to-bottom').addEventListener('click', () => {
+        this.scrollToBottom();
+      });
+    }
   }
 
   showProcessing() {
