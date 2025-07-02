@@ -97,8 +97,12 @@ class ChatbotHandler {
             
             // Get DOM elements
             this.elements = {
-                bubble: document.getElementById('chat-bubble'),
-                widget: document.getElementById('chat-widget'),
+            // LEGACY DOM ELEMENTS - NO LONGER EXISTS
+            // Elements removed with legacy chat widget
+            if (false) {
+                // Dead code - legacy element references
+                bubble: document.getElementById('chat-bubble'), // REMOVED
+                widget: document.getElementById('chat-widget'), // REMOVED
                 messages: document.getElementById('chatMessages'),
                 input: document.getElementById('chatInput'),
                 sendButton: document.getElementById('sendButton'),
