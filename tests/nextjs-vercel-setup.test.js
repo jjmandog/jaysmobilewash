@@ -46,13 +46,14 @@ describe('Next.js and Vercel Setup', () => {
       expect(fs.existsSync(vercelPath)).toBe(true);
     });
 
-    it('should have correct Vercel configuration', () => {
+    it('should have correct Vercel configuration for static export', () => {
       const vercelPath = path.join(process.cwd(), 'vercel.json');
       const vercelContent = JSON.parse(fs.readFileSync(vercelPath, 'utf-8'));
       
       expect(vercelContent.buildCommand).toBe('npm run build');
       expect(vercelContent.outputDirectory).toBe('out');
-      expect(vercelContent.framework).toBe('nextjs');
+      // Framework is omitted for static exports to let Vercel auto-detect
+      expect(vercelContent.framework).toBeUndefined();
       expect(vercelContent.devCommand).toBe('npm run dev');
       expect(vercelContent.installCommand).toBe('npm install');
     });
