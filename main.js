@@ -1,6 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Main JS initialized");
     
+    // Jay Mode Button Safety Net - Ensure always-on-top class is maintained
+    function ensureJayModeButtonAccessibility() {
+        const jayButton = document.getElementById('jay-mode-button');
+        if (jayButton && !jayButton.classList.contains('always-on-top')) {
+            console.log('[Jay Mode] Re-applying always-on-top class to Jay Mode button');
+            jayButton.classList.add('always-on-top');
+        }
+    }
+    
+    // Initial check
+    ensureJayModeButtonAccessibility();
+    
+    // Set up mutation observer to watch for class changes on the Jay Mode button
+    const jayButton = document.getElementById('jay-mode-button');
+    if (jayButton) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    ensureJayModeButtonAccessibility();
+                }
+            });
+        });
+        
+        observer.observe(jayButton, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+    
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mainNav = document.querySelector('.main-nav');

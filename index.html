@@ -1139,12 +1139,18 @@
             }
         }
         
-        /* Jay Mode Activation Button */
+        /* Always On Top Utility Class - For elements that must never be blocked */
+        .always-on-top {
+            z-index: 2147483647 !important; /* Maximum safe z-index value */
+            pointer-events: auto !important;
+        }
+        
+        /* Jay Mode Activation Button - Nuclear z-index to prevent blocking by overlays */
         .jay-mode-button {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 9999;
+            z-index: 2147483647 !important; /* Nuclear z-index - always on top except when Jay Mode is active */
             background: linear-gradient(135deg, #ff006e, #8338ec);
             border: none;
             color: white;
@@ -1159,6 +1165,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
             backdrop-filter: blur(10px);
+            pointer-events: auto; /* Ensure button is always clickable */
         }
         
         .jay-mode-button:hover {
@@ -2691,7 +2698,7 @@
     </div>
 
     <!-- Jay Mode Activation Button -->
-    <button id="jay-mode-button" class="jay-mode-button" title="Activate Jay Mode (or type 'jay')" aria-label="Activate Jay Mode">
+    <button id="jay-mode-button" class="jay-mode-button always-on-top" title="Activate Jay Mode (or type 'jay')" aria-label="Activate Jay Mode">
         <i class="fas fa-music"></i>
         <span>Click me for a surprise!</span>
     </button>
