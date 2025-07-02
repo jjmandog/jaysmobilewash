@@ -276,7 +276,7 @@ Disallow: /admin/
   });
 
   describe('Static File Configuration', () => {
-    it('should have robots.txt in the root directory for Netlify deployment', async () => {
+    it('should have robots.txt in the root directory for static deployment', async () => {
       const rootRobotsPath = path.join(process.cwd(), 'robots.txt');
       
       const rootContent = await readFile(rootRobotsPath, 'utf-8');
