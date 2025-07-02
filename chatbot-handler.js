@@ -1,11 +1,16 @@
 /**
- * Chatbot Event Handler
+ * Chatbot Event Handler - DISABLED
+ * Legacy implementation - disabled in favor of new ChatBotModule system
  * Robust implementation for SPA compatibility and React Snap prerendering
  * Ensures WCAG compliance and proper event binding
  */
 
 class ChatbotHandler {
     constructor() {
+        // LEGACY SYSTEM DISABLED - Return early to prevent initialization
+        console.log('🚫 Legacy ChatbotHandler disabled - using new ChatBotModule system');
+        return;
+        
         this.isInitialized = false;
         this.isWidgetOpen = false;
         this.elements = {};
