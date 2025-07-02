@@ -770,7 +770,7 @@
         /* Jay Mode Activation Button */
         .jay-mode-button {
             position: fixed;
-            bottom: 20px;
+            top: 20px;
             right: 20px;
             z-index: 9999;
             background: linear-gradient(135deg, #ff006e, #8338ec);
@@ -2434,7 +2434,12 @@
                 jayButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     console.log('[JAY Mode] Button activation requested');
-                    activateJayMode();
+                    if (window.advancedChatbot && typeof window.advancedChatbot.activateJayMode === 'function') {
+                        window.advancedChatbot.activateJayMode();
+                    } else {
+                        console.warn('[JAY Mode] Chatbot not available, falling back to global Jay Mode');
+                        activateJayMode();
+                    }
                 });
                 console.log('[JAY Mode] Button listener added');
             }
