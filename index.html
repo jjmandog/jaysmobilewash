@@ -2399,7 +2399,6 @@
             const activationCooldown = 2000; // 2 seconds cooldown to prevent rapid activation
             const jaySequence = ['j', 'a', 'y'];
             let currentSequence = [];
-            let sequenceTimer = null;
             
             console.log('[JAY Mode] Initializing Jay Mode system...');
             
@@ -2427,8 +2426,8 @@
                 console.log('[JAY Mode] Audio loaded successfully');
             });
             
-            // Universal key detection (works in inputs/forms too)
-            document.addEventListener('keydown', handleKeyPress, true);
+            // Simple key detection that works reliably (reverted to previous working approach)
+            document.addEventListener('keypress', handleKeyPress);
             
             // Button activation
             if (jayButton) {
@@ -2441,21 +2440,9 @@
             }
             
             function handleKeyPress(e) {
-                // Safety check: prevent activation if already active or too soon
                 if (jayModeActive) return;
                 
-                const now = Date.now();
-                if (now - lastActivationTime < activationCooldown) {
-                    console.log('[JAY Mode] Activation blocked - cooldown active');
-                    return;
-                }
-                
                 const key = e.key.toLowerCase();
-                
-                // Clear sequence timer if it exists
-                if (sequenceTimer) {
-                    clearTimeout(sequenceTimer);
-                }
                 
                 if (key === jaySequence[currentSequence.length]) {
                     currentSequence.push(key);
@@ -2465,27 +2452,11 @@
                         console.log('[JAY Mode] Sequence completed! Activating...');
                         activateJayMode();
                         currentSequence = [];
-                    } else {
-                        // Reset sequence after 3 seconds if not completed
-                        sequenceTimer = setTimeout(() => {
-                            if (currentSequence.length < jaySequence.length) {
-                                console.log('[JAY Mode] Sequence timeout - resetting');
-                                currentSequence = [];
-                            }
-                        }, 3000);
                     }
                 } else {
-                    // Reset sequence, but start new one if 'j' was pressed
                     currentSequence = key === 'j' ? ['j'] : [];
                     if (key === 'j') {
                         console.log('[JAY Mode] Starting new sequence with J');
-                        // Reset sequence after 3 seconds if not completed
-                        sequenceTimer = setTimeout(() => {
-                            if (currentSequence.length < jaySequence.length) {
-                                console.log('[JAY Mode] Sequence timeout - resetting');
-                                currentSequence = [];
-                            }
-                        }, 3000);
                     }
                 }
             }
