@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Jay's Mobile Wash Service Areas</name>
+    <description>Mobile car washing and detailing service locations in Los Angeles and Orange County</description>
+    
+    <!-- Gardena Service Area -->
+    <Placemark>
+      <name>Jay's Mobile Wash - Gardena</name>
+      <description>Our Los Angeles County base serving South Bay and surrounding areas.</description>
+      <Point>
+        <coordinates>-118.308706,33.887516,0</coordinates>
+      </Point>
+      <ExtendedData>
+        <Data name="address">
+          <value>16845 South Hoover Street, Gardena, CA 90247</value>
+        </Data>
+        <Data name="phone">
+          <value>562-228-9429</value>
+        </Data>
+        <Data name="service_radius">
+          <value>30 miles</value>
+        </Data>
+      </ExtendedData>
+    </Placemark>
+    
+    <!-- Buena Park Service Area -->
+    <Placemark>
+      <name>Jay's Mobile Wash - Buena Park</name>
+      <description>Our Orange County base serving Buena Park and surrounding areas.</description>
+      <Point>
+        <coordinates>-117.998276,33.851835,0</coordinates>
+      </Point>
+      <ExtendedData>
+        <Data name="address">
+          <value>6165 Norstadt Way, Buena Park, CA 90620</value>
+        </Data>
+        <Data name="phone">
+          <value>562-228-9429</value>
+        </Data>
+        <Data name="service_radius">
+          <value>30 miles</value>
+        </Data>
+      </ExtendedData>
+    </Placemark>
+    
+    <!-- Service Area Circles -->
+    <Placemark>
+      <name>Gardena 30-Mile Service Radius</name>
+      <description>Our Los Angeles County service coverage area</description>
+      <Style>
+        <LineStyle>
+          <color>7f0000ff</color>
+          <width>2</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>1f0000ff</color>
+          <fill>1</fill>
+          <outline>1</outline>
+        </PolyStyle>
+      </Style>
+      <Circle>
+        <coordinates>-118.308706,33.887516,0</coordinates>
+        <radius>48280</radius> <!-- 30 miles in meters -->
+      </Circle>
+    </Placemark>
+    
+    <Placemark>
+      <name>Buena Park 30-Mile Service Radius</name>
+      <description>Our Orange County service coverage area</description>
+      <Style>
+        <LineStyle>
+          <color>7fff0000</color>
+          <width>2</width>
+        </LineStyle>
+        <PolyStyle>
+          <color>1fff0000</color>
+          <fill>1</fill>
+          <outline>1</outline>
+        </PolyStyle>
+      </Style>
+      <Circle>
+        <coordinates>-117.998276,33.851835,0</coordinates>
+        <radius>48280</radius> <!-- 30 miles in meters -->
+      </Circle>
+    </Placemark>
+    
+    <!-- Key service cities -->
+    <Folder>
+      <name>Key Service Cities</name>
+      
+      <!-- Los Angeles County Cities -->
+      <Placemark>
+        <name>Torrance Mobile Car Wash</name>
+        <Point>
+          <coordinates>-118.3406,33.8358,0</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name>Long Beach Mobile Car Wash</name>
+        <Point>
+          <coordinates>-118.1937,33.7701,0</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name>Santa Monica Mobile Car Wash</name>
+        <Point>
+          <coordinates>-118.4912,34.0195,0</coordinates>
+        </Point>
+      </Placemark>
+      
+      <!-- Orange County Cities -->
+      <Placemark>
+        <name>Anaheim Mobile Car Wash</name>
+        <Point>
+          <coordinates>-117.9143,33.8366,0</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name>Irvine Mobile Car Wash</name>
+        <Point>
+          <coordinates>-117.8265,33.6846,0</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name>Newport Beach Mobile Car Wash</name>
+        <Point>
+          <coordinates>-117.9294,33.6189,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
