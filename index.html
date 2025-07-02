@@ -481,6 +481,157 @@
             }
         }
         
+        /* Galaxy/Nebula Starfield Overlay */
+        .galaxy-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at top, rgba(16, 39, 112, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom, rgba(88, 28, 135, 0.1) 0%, transparent 50%);
+        }
+        
+        .galaxy-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            animation: galaxyTwinkle 3s ease-in-out infinite;
+        }
+        
+        .galaxy-star.large {
+            animation: galaxyTwinkle 2s ease-in-out infinite, galaxyDrift 25s linear infinite;
+        }
+        
+        .galaxy-star.medium {
+            animation: galaxyTwinkle 3.5s ease-in-out infinite, galaxyDrift 30s linear infinite;
+        }
+        
+        .galaxy-star.small {
+            animation: galaxyTwinkle 4s ease-in-out infinite, galaxyDrift 35s linear infinite;
+        }
+        
+        @keyframes galaxyTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes galaxyDrift {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            25% {
+                transform: translateX(15px) translateY(-20px);
+            }
+            50% {
+                transform: translateX(-10px) translateY(-40px);
+            }
+            75% {
+                transform: translateX(20px) translateY(-20px);
+            }
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+        
+        /* Jay Ghost Effect */
+        .jay-ghost {
+            position: fixed;
+            z-index: 9998;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 2rem;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                         0 0 40px rgba(138, 43, 226, 0.6),
+                         0 0 60px rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            animation: jaySpectral 3s ease-in-out forwards;
+            filter: blur(0.5px);
+        }
+        
+        .jay-ghost.ghost-form {
+            font-size: 3rem;
+            filter: blur(1px);
+            animation: jaySpectralGhost 3s ease-in-out forwards;
+        }
+        
+        @keyframes jaySpectral {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+                filter: blur(2px);
+            }
+            20% {
+                opacity: 0.8;
+                transform: translateY(0) scale(1);
+                filter: blur(0.5px);
+            }
+            80% {
+                opacity: 0.9;
+                transform: translateY(-10px) scale(1.05);
+                filter: blur(0.5px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+                filter: blur(2px);
+            }
+        }
+        
+        @keyframes jaySpectralGhost {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8) rotate(-5deg);
+                filter: blur(2px);
+            }
+            20% {
+                opacity: 0.9;
+                transform: translateY(0) scale(1) rotate(0deg);
+                filter: blur(1px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.1) rotate(2deg);
+                filter: blur(1px);
+            }
+            80% {
+                opacity: 0.8;
+                transform: translateY(-15px) scale(1.05) rotate(-1deg);
+                filter: blur(1.5px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.8) rotate(0deg);
+                filter: blur(3px);
+            }
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .galaxy-overlay {
+                opacity: 0.7;
+            }
+            
+            .jay-ghost {
+                font-size: 1.5rem;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                             0 0 30px rgba(138, 43, 226, 0.4);
+            }
+            
+            .jay-ghost.ghost-form {
+                font-size: 2rem;
+            }
+        }
+        
         /* Axy Stars Animations */
         @keyframes starTwinkle {
             0%, 100% {
@@ -542,7 +693,10 @@
         .laser-beam,
         .axy-star,
         .purple-thunder,
-        .floating-product-particle {
+        .floating-product-particle,
+        .galaxy-overlay,
+        .galaxy-star,
+        .jay-ghost {
             will-change: transform, opacity;
             backface-visibility: hidden;
             perspective: 1000px;
@@ -555,9 +709,15 @@
             .laser-beam,
             .axy-star,
             .purple-thunder,
-            .floating-product-particle {
+            .floating-product-particle,
+            .galaxy-star,
+            .jay-ghost {
                 animation-duration: 0.5s !important;
                 animation-iteration-count: 1 !important;
+            }
+            
+            .galaxy-overlay {
+                display: none !important;
             }
             
             .indicator-logo {
@@ -1005,6 +1165,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Galaxy/Nebula Starfield Overlay -->
+    <div id="galaxy-overlay" class="galaxy-overlay"></div>
 
     <!-- Navigation -->
     <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
@@ -2388,6 +2551,12 @@
                 }
             }, 50);
             
+            // Initialize Galaxy Starfield
+            initializeGalaxyStarfield();
+            
+            // Initialize Jay Ghost Effect
+            initializeJayGhostEffect();
+            
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -3323,6 +3492,135 @@
                 closeProductModal();
             }
         });
+        
+        // Galaxy Starfield Implementation
+        function initializeGalaxyStarfield() {
+            const galaxyOverlay = document.getElementById('galaxy-overlay');
+            if (!galaxyOverlay) return;
+            
+            console.log('[Galaxy] Initializing starfield with 40-70 stars...');
+            
+            // Create 40-70 stars
+            const starCount = 40 + Math.floor(Math.random() * 31); // 40-70 stars
+            
+            for (let i = 0; i < starCount; i++) {
+                setTimeout(() => {
+                    createGalaxyStar(galaxyOverlay);
+                }, i * 200); // Stagger creation
+            }
+            
+            console.log(`[Galaxy] ${starCount} stars scheduled for creation`);
+        }
+        
+        function createGalaxyStar(container) {
+            const star = document.createElement('div');
+            star.className = 'galaxy-star';
+            
+            // Random position
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Random size and type (with parallax effect)
+            const size = Math.random();
+            let className = 'galaxy-star ';
+            let starSize, opacity, zIndex;
+            
+            if (size < 0.3) {
+                className += 'small';
+                starSize = 1 + Math.random() * 2; // 1-3px
+                opacity = 0.4 + Math.random() * 0.3; // 0.4-0.7
+                zIndex = 1;
+            } else if (size < 0.7) {
+                className += 'medium';
+                starSize = 2 + Math.random() * 2; // 2-4px
+                opacity = 0.5 + Math.random() * 0.3; // 0.5-0.8
+                zIndex = 2;
+            } else {
+                className += 'large';
+                starSize = 3 + Math.random() * 3; // 3-6px
+                opacity = 0.6 + Math.random() * 0.4; // 0.6-1.0
+                zIndex = 3;
+            }
+            
+            star.className = className;
+            
+            // Apply styles
+            star.style.cssText = `
+                left: ${x}%;
+                top: ${y}%;
+                width: ${starSize}px;
+                height: ${starSize}px;
+                opacity: ${opacity};
+                z-index: ${zIndex};
+                animation-delay: ${Math.random() * 4}s;
+            `;
+            
+            container.appendChild(star);
+            
+            console.log(`[Galaxy] Star created: ${className.split(' ')[1]} at (${x.toFixed(1)}%, ${y.toFixed(1)}%)`);
+        }
+        
+        // Jay Ghost Effect Implementation
+        function initializeJayGhostEffect() {
+            console.log('[Jay Ghost] Initializing ghost effect system...');
+            
+            let ghostActive = false;
+            
+            function scheduleNextGhost() {
+                // Random interval between 10-30 seconds
+                const delay = (10 + Math.random() * 20) * 1000;
+                
+                setTimeout(() => {
+                    if (!ghostActive) {
+                        createJayGhost();
+                    }
+                    scheduleNextGhost();
+                }, delay);
+                
+                console.log(`[Jay Ghost] Next ghost scheduled in ${(delay/1000).toFixed(1)} seconds`);
+            }
+            
+            function createJayGhost() {
+                ghostActive = true;
+                
+                const ghost = document.createElement('div');
+                const isGhostForm = Math.random() < 0.2; // 20% chance for ghost silhouette
+                
+                if (isGhostForm) {
+                    ghost.textContent = '👻';
+                    ghost.className = 'jay-ghost ghost-form';
+                    console.log('[Jay Ghost] Creating ghost silhouette 👻');
+                } else {
+                    ghost.textContent = 'Jay';
+                    ghost.className = 'jay-ghost';
+                    console.log('[Jay Ghost] Creating "Jay" text ghost');
+                }
+                
+                // Random position (avoiding edges to prevent cutoff)
+                const x = 10 + Math.random() * 70; // 10-80% from left
+                const y = 10 + Math.random() * 70; // 10-80% from top
+                
+                ghost.style.left = `${x}%`;
+                ghost.style.top = `${y}%`;
+                
+                document.body.appendChild(ghost);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    if (ghost.parentNode) {
+                        ghost.remove();
+                    }
+                    ghostActive = false;
+                    console.log('[Jay Ghost] Ghost effect completed and removed');
+                }, 3000); // Match animation duration
+                
+                console.log(`[Jay Ghost] Ghost positioned at (${x.toFixed(1)}%, ${y.toFixed(1)}%)`);
+            }
+            
+            // Start the ghost effect cycle
+            scheduleNextGhost();
+            console.log('[Jay Ghost] Ghost effect system activated');
+        }
     </script>
 
     <!-- Advanced AI Chatbot -->
