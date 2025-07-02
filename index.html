@@ -437,26 +437,50 @@
             100% { filter: hue-rotate(360deg) brightness(1.5); }
         }
         
-        .particle-explosion {
+
+        
+        /* Water Droplet Cursor Trail Effect */
+        .water-droplet {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(circle, #fff, transparent);
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(100, 200, 255, 0.8) 0%, rgba(50, 150, 255, 0.4) 50%, transparent 100%);
+            border-radius: 50%;
             pointer-events: none;
-            animation: explode 1s ease-out forwards;
+            z-index: 9999;
+            animation: dropletFade 1.5s ease-out forwards;
         }
         
-        @keyframes explode {
+        @keyframes dropletFade {
             0% {
-                transform: translate(0, 0) scale(0);
+                transform: scale(0);
                 opacity: 1;
             }
+            50% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
             100% {
-                transform: translate(var(--x), var(--y)) scale(3);
+                transform: scale(0.3);
                 opacity: 0;
             }
         }
         
+        /* JAY Mode Laser Effects */
+        @keyframes laserSweep {
+            0% {
+                transform: translateX(-100px) rotate(-15deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateX(100px) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
         /* Prevent Layout Shift */
         .hidden-content {
             max-height: 0;
@@ -2268,6 +2292,44 @@
                 }
             }
             
+            // Water Droplet Cursor Trail
+            let isTrailEnabled = true;
+            let lastDropletTime = 0;
+            const dropletDelay = 50; // milliseconds between droplets
+            
+            function createDroplet(x, y) {
+                const droplet = document.createElement('div');
+                droplet.className = 'water-droplet';
+                droplet.style.left = x + 'px';
+                droplet.style.top = y + 'px';
+                document.body.appendChild(droplet);
+                
+                // Remove droplet after animation
+                setTimeout(() => {
+                    if (droplet.parentNode) {
+                        droplet.parentNode.removeChild(droplet);
+                    }
+                }, 1500);
+            }
+            
+            // Mouse move event for water droplet trail
+            document.addEventListener('mousemove', function(e) {
+                const currentTime = Date.now();
+                if (isTrailEnabled && currentTime - lastDropletTime > dropletDelay) {
+                    createDroplet(e.clientX, e.clientY);
+                    lastDropletTime = currentTime;
+                }
+            });
+            
+            // Pause trail during JAY mode to avoid interference
+            function pauseWaterTrail() {
+                isTrailEnabled = false;
+            }
+            
+            function resumeWaterTrail() {
+                isTrailEnabled = true;
+            }
+            
             // Initialize JAY Mode
             initJayMode();
         });
@@ -2309,6 +2371,9 @@
                 console.log('[JAY Mode] Activating!');
                 jayModeActive = true;
                 
+                // Pause water droplet trail during JAY mode
+                pauseWaterTrail();
+                
                 jayOverlay.style.display = 'flex';
                 document.body.classList.add('jay-activated');
                 
@@ -2324,6 +2389,9 @@
                 }
                 
                 createJayParticles();
+                
+                // Add laser effects and enhanced visuals
+                createLaserEffects();
                 
                 jayModeTimer = setTimeout(() => {
                     deactivateJayMode();
@@ -2376,9 +2444,52 @@
                 
                 document.body.classList.remove('jay-activated');
                 
+                // Clean up JAY mode effects
                 document.querySelectorAll('.floating-product-particle').forEach(particle => {
                     particle.remove();
                 });
+                
+                document.querySelectorAll('.laser-beam').forEach(laser => {
+                    laser.remove();
+                });
+                
+                // Resume water droplet trail
+                resumeWaterTrail();
+            }
+            
+            function createLaserEffects() {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const laser = document.createElement('div');
+                        laser.className = 'laser-beam';
+                        laser.style.cssText = `
+                            position: fixed;
+                            width: 2px;
+                            height: 100vh;
+                            background: linear-gradient(to bottom, 
+                                transparent 0%, 
+                                #ff00ff 10%, 
+                                #00ffff 50%, 
+                                #ff00ff 90%, 
+                                transparent 100%);
+                            left: ${Math.random() * 100}%;
+                            top: 0;
+                            z-index: 10000;
+                            opacity: 0.7;
+                            animation: laserSweep 2s ease-in-out infinite;
+                            box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+                        `;
+                        
+                        document.body.appendChild(laser);
+                        
+                        // Remove laser after a while
+                        setTimeout(() => {
+                            if (laser.parentNode) {
+                                laser.remove();
+                            }
+                        }, 25000);
+                    }, i * 1000);
+                }
             }
         }
 
