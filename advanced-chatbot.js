@@ -505,7 +505,19 @@ class AIUtils {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+        
+        // Provide more specific error information for better debugging
+        if (response.status === 405) {
+          throw new Error('Method not allowed: API endpoint requires POST method');
+        } else if (response.status === 500) {
+          throw new Error('Internal server error: AI service is temporarily unavailable');
+        } else if (response.status === 429) {
+          throw new Error('Rate limit exceeded: Please wait a moment before trying again');
+        } else if (response.status === 404) {
+          throw new Error('API endpoint not found: Service may be temporarily offline');
+        } else {
+          throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+        }
       }
 
       const data = await response.json();
@@ -1146,12 +1158,32 @@ class AdvancedChatBot {
       });
     } catch (error) {
       console.error('Chat error:', error);
+      
+      // Provide user-friendly error messages instead of technical ones
+      let userFriendlyMessage;
+      if (error.message.includes('Network error') || error.message.includes('fetch')) {
+        userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
+      } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
+        userFriendlyMessage = "⚙️ There's a temporary technical issue with my AI features. Don't worry - I can still help you with basic questions about our services! For detailed quotes and booking, please call 562-228-9429.";
+      } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
+        userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
+      } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
+        userFriendlyMessage = "⏰ My AI is taking longer than usual to respond. Let me give you some quick help instead! For faster service, please call us at 562-228-9429.";
+      } else {
+        userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
+      }
+      
+      // Add the user-friendly error message instead of technical fallback
+      this.addMessage(userFriendlyMessage, 'bot', 'error');
+      
+      // Then provide a helpful fallback response
       const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
       this.addMessage(fallbackResponse, 'bot');
       
       this.sendAnalyticsEvent('chat_query_error', {
         role: this.currentRole,
-        error: error.message
+        error: error.message,
+        userFriendlyErrorShown: true
       });
     } finally {
       this.isProcessing = false;
