@@ -14,7 +14,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="dist/tailwind.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'manrope': ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#13131a',
+                        accent: '#a855f7',
+                        secondary: '#ec4899',
+                    }
+                },
+            }
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
     
     <style>
@@ -244,3 +261,84 @@
                             <i class="fas fa-check text-green-400 mt-1 mr-3"></i>
                             <div>
                                 <strong>Rupes LHR21 Mark III</strong>
+                                <p class="text-sm text-gray-400">Professional dual action polisher</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Chemical Guys Hex-Logic Pads</strong>
+                                <p class="text-sm text-gray-400">Professional foam pads</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-400 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Krauss Microfiber Towels</strong>
+                                <p class="text-sm text-gray-400">Premium quality towels</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="w-8 h-8 mr-3">
+                        <span class="text-xl font-bold">Jay's Mobile Wash</span>
+                    </div>
+                    <p class="text-gray-400">Professional mobile car detailing service in Los Angeles and Orange County.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Exterior Detailing</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Interior Detailing</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Ceramic Coating</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition-colors">Paint Correction</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Areas</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#locations" class="hover:text-white transition-colors">Los Angeles</a></li>
+                        <li><a href="index.html#locations" class="hover:text-white transition-colors">Orange County</a></li>
+                        <li><a href="index.html#locations" class="hover:text-white transition-colors">Beverly Hills</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="tel:5622289429" class="hover:text-white transition-colors">
+                            <i class="fas fa-phone mr-2"></i>(562) 228-9429
+                        </a></li>
+                        <li><a href="mailto:info@jaysmobilewash.com" class="hover:text-white transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>info@jaysmobilewash.com
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400">&copy; 2024 Jay's Mobile Wash. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-4">Last updated: 2025-06-27 00:36:38</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="spa-seo-head-manager.js"></script>
+</body>
+</html>

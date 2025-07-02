@@ -15,7 +15,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="dist/tailwind.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'manrope': ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#13131a',
+                        accent: '#a855f7',
+                        secondary: '#ec4899',
+                    }
+                },
+            }
+        }
+    </script>
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -298,6 +314,7 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="main.js"></script>
     <script src="scripts.js"></script>
     <script>
         // Update all timestamps with the current date and time
