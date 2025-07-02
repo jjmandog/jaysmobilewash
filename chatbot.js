@@ -1,8 +1,28 @@
 /**
  * Chat Bot - Minimal Version
  */
+
+// Import error handler for browser environment
+(function() {
+  // Helper function to log with centralized error handler if available
+  function logChatInfo(message, additionalData = {}) {
+    if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logInfo) {
+      window.errorHandler.logInfo('ChatBot', message, null, additionalData);
+    } else {
+      console.log(`[JAYS_CHAT_ERROR] [ChatBot] ${message}`);
+    }
+  }
+
+  function logChatError(message, error = null, additionalData = {}) {
+    if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logError) {
+      window.errorHandler.logError('ChatBot', message, error, additionalData);
+    } else {
+      console.error(`[JAYS_CHAT_ERROR] [ChatBot] ${message}`, error);
+    }
+  }
+
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("Chat Bot initialized");
+  logChatInfo("Chat Bot initialized");
   
   const chatToggle = document.getElementById('chat-toggle-btn');
   const chatContainer = document.getElementById('chat-container');
@@ -59,3 +79,5 @@ document.addEventListener('DOMContentLoaded', function() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 });
+
+})(); // End IIFE

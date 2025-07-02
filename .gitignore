@@ -35,6 +35,7 @@ temp/
 
 # Test files (don't deploy to production)
 sms-test-example.html
+error-handler-test.html
 
 # Generated validation reports
 robots-validation-*.json

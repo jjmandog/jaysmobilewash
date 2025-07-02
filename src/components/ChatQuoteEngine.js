@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { routeLLMRequest } from '../utils/chatRouter.js';
 import { DEFAULT_ROLE_ASSIGNMENTS } from '../constants/apiOptions.js';
+import { logError, logWarning, MODULE_CONTEXTS } from '../utils/errorHandler.js';
 
 const ChatQuoteEngine = ({ 
   assignments = DEFAULT_ROLE_ASSIGNMENTS,
@@ -97,12 +98,12 @@ const ChatQuoteEngine = ({
           });
         }
       } catch (analyticsError) {
-        console.warn('Failed to send analytics event:', analyticsError);
+        logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', analyticsError);
       }
 
     } catch (err) {
       setError(`Failed to generate quote: ${err.message}`);
-      console.error('Quote generation error:', err);
+      logError(MODULE_CONTEXTS.QUOTE_ENGINE, 'Quote generation error', err, { formData });
     } finally {
       setIsGenerating(false);
     }

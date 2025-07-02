@@ -8,6 +8,15 @@
  */
 
 (function() {
+    // Helper function to log with centralized error handler if available
+    function logParticleInfo(message, additionalData = {}) {
+        if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logInfo) {
+            window.errorHandler.logInfo('ParticleSystem', message, null, additionalData);
+        } else {
+            console.log(`[JAYS_CHAT_ERROR] [ParticleSystem] ${message}`);
+        }
+    }
+
     // Configuration
     const config = {
         particleCount: 50,
@@ -59,7 +68,7 @@
 
     // Initialize the system
     function init() {
-        console.log('Initializing particle system...');
+        logParticleInfo('Initializing particle system...');
         adjustForPerformance();
         
         if (config.particlesEnabled) createParticles();
@@ -76,7 +85,7 @@
             document.addEventListener('beat', handleBeat);
         }
         
-        console.log('Particle system initialized with performance level: ' + config.performance);
+        logParticleInfo('Particle system initialized with performance level: ' + config.performance);
     }
 
     // Create floating particles

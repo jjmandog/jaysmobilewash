@@ -3,6 +3,8 @@
  * This helper is designed to be imported by SPA components for AI interactions
  */
 
+import { logWarning, MODULE_CONTEXTS } from './errorHandler.js';
+
 /**
  * Query the Hugging Face AI endpoint with a text prompt
  * @param {string} prompt - The text prompt to send to the AI
@@ -58,7 +60,7 @@ export async function isAIServiceAvailable(endpoint = '/api/ai') {
     await queryAI('test', { endpoint });
     return true;
   } catch (error) {
-    console.warn('AI service availability check failed:', error.message);
+    logWarning(MODULE_CONTEXTS.AI_UTILS, 'AI service availability check failed', error);
     return false;
   }
 }

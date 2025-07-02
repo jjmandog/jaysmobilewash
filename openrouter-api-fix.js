@@ -3,12 +3,38 @@
  * - Uses secure serverless endpoint to protect API key
  * - Preserves your original UI completely
  */
+
+// Helper function to log with centralized error handler if available
+function logAPIInfo(message, additionalData = {}) {
+    if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logInfo) {
+        window.errorHandler.logInfo('API', message, null, additionalData);
+    } else {
+        console.log(`[JAYS_CHAT_ERROR] [API] ${message}`);
+    }
+}
+
+function logAPIWarning(message, error = null, additionalData = {}) {
+    if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logWarning) {
+        window.errorHandler.logWarning('API', message, error, additionalData);
+    } else {
+        console.warn(`[JAYS_CHAT_ERROR] [API] ${message}`, error);
+    }
+}
+
+function logAPIError(message, error = null, additionalData = {}) {
+    if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logError) {
+        window.errorHandler.logError('API', message, error, additionalData);
+    } else {
+        console.error(`[JAYS_CHAT_ERROR] [API] ${message}`, error);
+    }
+}
+
 async function callOpenRouterAPI(history) {
-    console.log("Calling secure API with history length:", history.length);
+    logAPIInfo("Calling secure API with history length: " + history.length);
     
     // Offline detection (keeps your original UI)
     if (!navigator.onLine) {
-        console.warn("Device offline - using fallback");
+        logAPIWarning("Device offline - using fallback");
         return getFallbackResponse(history[history.length - 1].content);
     }
     
@@ -29,21 +55,21 @@ async function callOpenRouterAPI(history) {
         // Handle API errors without changing UI
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(`API Error (${response.status}):`, errorText);
+            logAPIError(`API Error (${response.status})`, new Error(errorText), { status: response.status });
             throw new Error(`API error: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log("API response received");
+        logAPIInfo("API response received");
         
         if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-            console.error("Invalid API response format:", data);
+            logAPIError("Invalid API response format", new Error("Invalid response format"), { data });
             throw new Error("Invalid response format");
         }
         
         return data.choices[0].message.content;
     } catch (error) {
-        console.error('API call failed:', error);
+        logAPIError('API call failed', error, { historyLength: history.length });
         return getFallbackResponse(history[history.length - 1].content);
     }
 }

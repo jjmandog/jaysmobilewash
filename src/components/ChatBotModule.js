@@ -9,6 +9,7 @@ import ChatSettingsPanel from './ChatSettingsPanel.js';
 import AIChatBox from './AIChatBox.jsx';
 import { DEFAULT_ROLE_ASSIGNMENTS } from '../constants/apiOptions.js';
 import { routeLLMRequest } from '../utils/chatRouter.js';
+import { logError, logWarning, MODULE_CONTEXTS } from '../utils/errorHandler.js';
 
 const ChatBotModule = ({ 
   className = '',
@@ -30,7 +31,7 @@ const ChatBotModule = ({
         setAssignments(parsed);
       }
     } catch (error) {
-      console.warn('Failed to load saved assignments:', error);
+      logWarning(MODULE_CONTEXTS.STORAGE, 'Failed to load saved assignments', error);
     }
   }, []);
 
@@ -39,7 +40,7 @@ const ChatBotModule = ({
     try {
       localStorage.setItem('chatbot-role-assignments', JSON.stringify(assignments));
     } catch (error) {
-      console.warn('Failed to save assignments:', error);
+      logWarning(MODULE_CONTEXTS.STORAGE, 'Failed to save assignments', error);
     }
   }, [assignments]);
 
@@ -57,7 +58,7 @@ const ChatBotModule = ({
         });
       }
     } catch (error) {
-      console.warn('Failed to send analytics event:', error);
+      logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', error);
     }
   };
 
@@ -82,7 +83,7 @@ const ChatBotModule = ({
           });
         }
       } catch (error) {
-        console.warn('Failed to send analytics event:', error);
+        logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', error);
       }
       
       return response;
@@ -97,9 +98,10 @@ const ChatBotModule = ({
           });
         }
       } catch (analyticsError) {
-        console.warn('Failed to send analytics event:', analyticsError);
+        logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', analyticsError);
       }
       
+      logError(MODULE_CONTEXTS.CHAT_BOT, 'AI query failed', error, { role, prompt: prompt?.substring(0, 100) });
       throw error;
     } finally {
       setIsProcessing(false);
@@ -119,7 +121,7 @@ const ChatBotModule = ({
         });
       }
     } catch (error) {
-      console.warn('Failed to send analytics event:', error);
+      logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', error);
     }
   };
 

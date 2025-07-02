@@ -8,6 +8,23 @@
  */
 
 (function() {
+    // Helper function to log with centralized error handler if available
+    function logBackgroundInfo(message, additionalData = {}) {
+        if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logInfo) {
+            window.errorHandler.logInfo('BackgroundAnimator', message, null, additionalData);
+        } else {
+            console.log(`[JAYS_CHAT_ERROR] [BackgroundAnimator] ${message}`);
+        }
+    }
+
+    function logBackgroundError(message, error = null, additionalData = {}) {
+        if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logError) {
+            window.errorHandler.logError('BackgroundAnimator', message, error, additionalData);
+        } else {
+            console.error(`[JAYS_CHAT_ERROR] [BackgroundAnimator] ${message}`, error);
+        }
+    }
+
     // Configuration
     const config = {
         waveEnabled: true,
@@ -42,7 +59,7 @@
 
     // Initialize
     function init() {
-        console.log('Initializing background animator...');
+        logBackgroundInfo('Initializing background animator...');
         
         // Apply background styles based on section mapping
         applySectionBackgrounds();
@@ -73,7 +90,7 @@
         // Set up resize handler
         window.addEventListener('resize', debounce(handleResize, 200));
         
-        console.log('Background animator initialized');
+        logBackgroundInfo('Background animator initialized');
     }
 
     // Apply background styles to sections

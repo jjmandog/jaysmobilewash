@@ -12,6 +12,7 @@ import {
   getEnabledAPIs,
   validateRoleAssignments 
 } from '../constants/apiOptions.js';
+import { logWarning, MODULE_CONTEXTS } from '../utils/errorHandler.js';
 
 const ChatSettingsPanel = ({ 
   assignments = DEFAULT_ROLE_ASSIGNMENTS,
@@ -87,7 +88,7 @@ const ChatSettingsPanel = ({
         ga('send', 'event', 'chat_settings', eventName, 'api_assignment');
       }
     } catch (error) {
-      console.warn('Failed to send analytics event:', error);
+      logWarning(MODULE_CONTEXTS.ANALYTICS, 'Failed to send analytics event', error);
     }
   };
 

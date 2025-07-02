@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Main JS initialized");
+    // Helper function to log with centralized error handler if available
+    function logMainInfo(message) {
+        if (typeof window !== 'undefined' && window.errorHandler && window.errorHandler.logInfo) {
+            window.errorHandler.logInfo('General', message);
+        } else {
+            console.log(`[JAYS_CHAT_ERROR] [General] ${message}`);
+        }
+    }
+
+    logMainInfo("Main JS initialized");
     
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');

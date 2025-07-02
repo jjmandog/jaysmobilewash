@@ -4,6 +4,36 @@
  * Last Updated: 2025-06-30
  */
 
+// Import error handler if available in module environment
+let errorHandler;
+try {
+  if (typeof module !== 'undefined' && module.exports) {
+    errorHandler = require('./src/utils/errorHandler.js');
+  } else if (typeof window !== 'undefined' && window.errorHandler) {
+    errorHandler = window.errorHandler;
+  }
+} catch (e) {
+  // Fallback to console logging if error handler not available
+  errorHandler = null;
+}
+
+// Helper function to use centralized error handler or fallback to console
+function logAudioError(message, error = null, additionalData = {}) {
+  if (errorHandler && errorHandler.logError) {
+    errorHandler.logError('AudioPlayer', message, error, additionalData);
+  } else {
+    console.error(`[JAYS_CHAT_ERROR] [AudioPlayer] ${message}`, error);
+  }
+}
+
+function logAudioInfo(message, additionalData = {}) {
+  if (errorHandler && errorHandler.logInfo) {
+    errorHandler.logInfo('AudioPlayer', message, null, additionalData);
+  } else {
+    console.log(`[JAYS_CHAT_ERROR] [AudioPlayer] ${message}`);
+  }
+}
+
 class JayAudioPlayer {
     constructor(options = {}) {
         // Audio player configuration
@@ -123,7 +153,7 @@ class JayAudioPlayer {
             this.canvas.style.display = 'none';
         }
         
-        console.log('Jay Audio Player initialized successfully');
+        logAudioInfo('Jay Audio Player initialized successfully');
     }
     
     // Create player element if it doesn't exist
@@ -309,9 +339,9 @@ class JayAudioPlayer {
             // Create data array for analyzer
             this.audioData = new Uint8Array(this.analyser.frequencyBinCount);
             
-            console.log('Audio context initialized successfully');
+            logAudioInfo('Audio context initialized successfully');
         } catch (e) {
-            console.error('Web Audio API is not supported in this browser', e);
+            logAudioError('Web Audio API is not supported in this browser', e);
         }
     }
     
@@ -401,7 +431,7 @@ class JayAudioPlayer {
         // Update active class in playlist
         this.updateActivePlaylistItem();
         
-        console.log(`Loaded song: ${song.title} - ${song.artist}`);
+        logAudioInfo(`Loaded song: ${song.title} - ${song.artist}`, { song });
     }
     
     // Play current song
@@ -805,5 +835,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    console.log('Audio Player initialized with beat synchronization');
+    // Use the logging helper that handles both module and browser environments
+    if (typeof logAudioInfo === 'function') {
+        logAudioInfo('Audio Player initialized with beat synchronization');
+    } else {
+        console.log('[JAYS_CHAT_ERROR] [AudioPlayer] Audio Player initialized with beat synchronization');
+    }
 });

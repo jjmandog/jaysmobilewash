@@ -5,6 +5,7 @@
 
 import { queryAI, isAIServiceAvailable } from './ai.js';
 import { getAPIById, DEFAULT_ROLE_ASSIGNMENTS } from '../constants/apiOptions.js';
+import { logError, logWarning, MODULE_CONTEXTS } from './errorHandler.js';
 
 /**
  * Route LLM request to the appropriate API based on role and current assignments
@@ -43,7 +44,12 @@ export async function routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_A
       throw new Error(`Assigned API '${assignedAPI.name}' is disabled and no valid fallback available`);
     }
     
-    console.warn(`API '${assignedAPI.name}' is disabled, falling back to '${fallbackAPI.name}'`);
+    logWarning(
+      MODULE_CONTEXTS.CHAT_ROUTER, 
+      `API '${assignedAPI.name}' is disabled, falling back to '${fallbackAPI.name}'`,
+      null,
+      { assignedAPI: assignedAPIId, fallbackAPI: fallbackAPIId, role }
+    );
     return await executeAPICall(prompt, fallbackAPI, role, options);
   }
   
@@ -56,11 +62,21 @@ export async function routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_A
       const fallbackAPI = getAPIById(fallbackAPIId);
       
       if (fallbackAPI && fallbackAPI.enabled) {
-        console.warn(`Primary API '${assignedAPI.name}' failed, trying fallback '${fallbackAPI.name}':`, error.message);
+        logWarning(
+          MODULE_CONTEXTS.CHAT_ROUTER,
+          `Primary API '${assignedAPI.name}' failed, trying fallback '${fallbackAPI.name}'`,
+          error,
+          { assignedAPI: assignedAPIId, fallbackAPI: fallbackAPIId, role }
+        );
         try {
           return await executeAPICall(prompt, fallbackAPI, role, options);
         } catch (fallbackError) {
-          console.error(`Fallback API '${fallbackAPI.name}' also failed:`, fallbackError.message);
+          logError(
+            MODULE_CONTEXTS.CHAT_ROUTER,
+            `Both primary API '${assignedAPI.name}' and fallback '${fallbackAPI.name}' failed`,
+            fallbackError,
+            { assignedAPI: assignedAPIId, fallbackAPI: fallbackAPIId, role, primaryError: error.message }
+          );
           throw new Error(`Both primary API '${assignedAPI.name}' and fallback '${fallbackAPI.name}' failed`);
         }
       }
@@ -96,7 +112,12 @@ async function executeAPICall(prompt, api, role, options = {}) {
   } else {
     // For other APIs, we would implement specific API clients here
     // For now, we'll use the existing Hugging Face endpoint as fallback
-    console.warn(`API '${api.name}' not yet implemented, using Hugging Face fallback`);
+    logWarning(
+      MODULE_CONTEXTS.CHAT_ROUTER,
+      `API '${api.name}' not yet implemented, using Hugging Face fallback`,
+      null,
+      { apiId: api.id, role }
+    );
     return await queryAI(enhancedPrompt, { endpoint: '/api/ai' });
   }
 }

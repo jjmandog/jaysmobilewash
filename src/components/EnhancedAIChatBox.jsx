@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { routeLLMRequest } from '../utils/chatRouter.js';
 import { DEFAULT_ROLE_ASSIGNMENTS } from '../constants/apiOptions.js';
+import { logError, MODULE_CONTEXTS } from '../utils/errorHandler.js';
 
 const EnhancedAIChatBox = ({ 
   className = '',
@@ -69,7 +70,11 @@ const EnhancedAIChatBox = ({
       }
 
     } catch (err) {
-      console.error('Enhanced chat error:', err);
+      logError(MODULE_CONTEXTS.CHAT_BOT, 'Enhanced chat error', err, { 
+        selectedRole, 
+        prompt: prompt?.substring(0, 100),
+        roleAssignments 
+      });
       setError(err.message || 'An error occurred while processing your request.');
     } finally {
       setIsLoading(false);
