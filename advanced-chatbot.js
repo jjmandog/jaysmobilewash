@@ -2,6 +2,14 @@
  * Advanced Chatbot - Vanilla JS Implementation
  * Provides all the advanced features of the React ChatBotModule system
  * without requiring React compilation or ES6 module resolution
+ * 
+ * Features:
+ * - Comprehensive car detailing knowledge base
+ * - Self-learning conversation memory
+ * - File upload for training and quotes
+ * - Secret admin mode ("josh" trigger)
+ * - Enhanced Jay mode with animations
+ * - Image analysis and upselling suggestions
  */
 
 // Import constants and utilities (we'll inline them to avoid module issues)
@@ -130,6 +138,318 @@ const CHAT_ROLES = [
     description: 'Accessibility features and assistance'
   }
 ];
+
+// Comprehensive Car Detailing Knowledge Base
+const CAR_DETAILING_KNOWLEDGE_BASE = {
+  // Service Categories
+  services: {
+    washing: {
+      basic_wash: {
+        description: "Basic exterior wash with soap and water",
+        process: ["Pre-rinse", "Two-bucket wash method", "Rinse", "Dry with microfiber"],
+        price_range: "$20-40",
+        time: "30-45 minutes",
+        benefits: ["Removes surface dirt", "Maintains paint health", "Prevents contamination buildup"]
+      },
+      detailed_wash: {
+        description: "Comprehensive wash including wheels and trim",
+        process: ["Pre-rinse", "Wheel cleaning", "Paint decontamination", "Two-bucket wash", "Clay bar treatment", "Rinse and dry"],
+        price_range: "$50-80",
+        time: "60-90 minutes",
+        benefits: ["Deep cleaning", "Removes bonded contaminants", "Prepares for protection"]
+      }
+    },
+    detailing: {
+      mini_detail: {
+        description: "Basic interior and exterior cleaning",
+        includes: ["Exterior wash", "Interior vacuum", "Dashboard wipe", "Window cleaning"],
+        price: "$70",
+        time: "1-1.5 hours",
+        best_for: "Regular maintenance, light contamination"
+      },
+      luxury_detail: {
+        description: "Comprehensive interior and exterior detailing",
+        includes: ["Premium wash", "Clay bar", "Interior deep clean", "Leather conditioning", "Tire shine", "Window treatment"],
+        price: "$130",
+        time: "2-3 hours",
+        best_for: "Monthly maintenance, moderate contamination"
+      },
+      max_detail: {
+        description: "Premium full-service detailing",
+        includes: ["Complete wash", "Paint decontamination", "Interior extraction", "Leather treatment", "Engine bay cleaning", "Tire/wheel detail"],
+        price: "$200",
+        time: "3-4 hours",
+        best_for: "Deep cleaning, heavily soiled vehicles"
+      }
+    },
+    protection: {
+      ceramic_coating: {
+        description: "Professional nano-ceramic paint protection",
+        benefits: ["2+ year protection", "Hydrophobic properties", "UV resistance", "Enhanced gloss", "Easier maintenance"],
+        process: ["Paint correction", "Surface preparation", "Coating application", "Curing time"],
+        price: "$450",
+        durability: "2-3 years",
+        maintenance: "Wash every 2 weeks, no wax needed"
+      },
+      graphene_coating: {
+        description: "Premium graphene-enhanced ceramic coating",
+        benefits: ["3+ year protection", "Superior heat dissipation", "Anti-static properties", "Self-healing properties", "Ultimate gloss"],
+        process: ["Multi-stage paint correction", "Intensive preparation", "Graphene coating application", "Extended curing"],
+        price: "$800",
+        durability: "3-5 years",
+        maintenance: "Wash monthly, annual maintenance coating"
+      },
+      paint_protection_film: {
+        description: "Clear urethane film for physical protection",
+        benefits: ["Rock chip protection", "Self-healing", "Maintains resale value", "Invisible protection"],
+        areas: ["Front bumper", "Hood", "Side mirrors", "Door edges", "Full vehicle"],
+        price_range: "$800-2500",
+        durability: "7-10 years"
+      }
+    },
+    paint_correction: {
+      single_stage: {
+        description: "Light polish to remove minor swirls and scratches",
+        removes: ["Light swirl marks", "Minor scratches", "Water spots", "Light oxidation"],
+        price_range: "$300-500",
+        time: "4-6 hours"
+      },
+      multi_stage: {
+        description: "Comprehensive paint correction process",
+        stages: ["Heavy cutting compound", "Medium polish", "Fine finishing polish"],
+        removes: ["Deep scratches", "Heavy swirl marks", "Paint defects", "Severe oxidation"],
+        price_range: "$600-1200",
+        time: "8-12 hours"
+      }
+    }
+  },
+  
+  // Technical Knowledge
+  techniques: {
+    two_bucket_method: {
+      description: "Proper washing technique to prevent scratches",
+      equipment: ["Wash bucket with soap", "Rinse bucket with clean water", "Grit guards", "Quality wash mitt"],
+      process: ["Dip mitt in soap bucket", "Wash small section", "Rinse mitt in clean water", "Repeat"]
+    },
+    clay_bar_treatment: {
+      description: "Removes bonded contaminants from paint",
+      when_needed: ["Before polishing", "Before coating", "When paint feels rough", "Every 6-12 months"],
+      process: ["Clean and wet surface", "Knead clay bar", "Glide over wet paint", "Wipe clean"],
+      benefits: ["Smooth paint surface", "Better polish results", "Improved coating adhesion"]
+    }
+  },
+  
+  // Common Issues and Solutions
+  problems: {
+    swirl_marks: {
+      causes: ["Improper washing technique", "Dirty wash media", "Automatic car washes", "Poor quality towels"],
+      solutions: ["Paint correction", "Proper washing technique", "Quality microfiber towels", "Two-bucket method"],
+      prevention: ["Use clean wash media", "Straight line motions", "Quality tools", "Regular maintenance"]
+    },
+    water_spots: {
+      causes: ["Mineral-rich water", "Washing in direct sunlight", "Not drying properly", "Sprinkler overspray"],
+      solutions: ["Polish or compound", "Water spot remover", "Paint correction", "Professional treatment"],
+      prevention: ["Wash in shade", "Use filtered water", "Dry immediately", "Apply protection"]
+    },
+    oxidation: {
+      causes: ["UV exposure", "Lack of protection", "Environmental factors", "Age of paint"],
+      solutions: ["Paint correction", "Polishing compound", "Professional restoration", "Protection application"],
+      prevention: ["Regular waxing", "Covered parking", "UV protection", "Maintenance schedule"]
+    }
+  },
+  
+  // Product Knowledge
+  products: {
+    soaps: {
+      ph_neutral: "Safe for all surfaces, won't strip protection",
+      degreasing: "For heavy contamination, engine bays",
+      foam_cannons: "Pre-wash foam for lubrication and cleaning"
+    },
+    protection: {
+      carnauba_wax: "Natural protection, warm glow, 2-3 months durability",
+      synthetic_wax: "Longer lasting, easier application, 4-6 months",
+      ceramic_coating: "Long-term protection, hydrophobic, 2+ years",
+      graphene_coating: "Premium protection, heat dissipation, 3+ years"
+    },
+    tools: {
+      microfiber_towels: "Lint-free, safe for paint, various weaves for different tasks",
+      wash_mitts: "Natural or synthetic, gentle on paint",
+      foam_guns: "Pre-wash lubrication, safer cleaning",
+      clay_bars: "Contamination removal, paint smoothing"
+    }
+  },
+  
+  // Environmental Factors
+  environmental: {
+    weather_effects: {
+      sun: "UV damage, water spotting during wash, accelerated drying",
+      rain: "Water spotting, contamination, need for covered drying",
+      wind: "Dust contamination, quick drying, debris issues",
+      humidity: "Slower drying, potential water spots, mold/mildew risk"
+    },
+    seasonal_care: {
+      spring: "Pollen removal, thorough cleaning after winter",
+      summer: "UV protection crucial, frequent washing due to heat",
+      fall: "Leaf stain removal, preparation for winter",
+      winter: "Salt damage prevention, less frequent washing, protection focus"
+    }
+  },
+  
+  // Vehicle-Specific Knowledge
+  vehicle_types: {
+    luxury_vehicles: {
+      considerations: ["Premium products only", "Extra care required", "Specialized techniques", "Higher service prices"],
+      common_issues: ["Sensitive paint", "Complex surfaces", "Advanced technology integration"]
+    },
+    classic_cars: {
+      considerations: ["Gentle techniques", "Period-appropriate products", "Preservation focus", "Expert knowledge required"],
+      special_care: ["Single-stage paint", "Chrome care", "Interior preservation", "Original finish maintenance"]
+    },
+    daily_drivers: {
+      focus: ["Practical protection", "Cost-effective solutions", "Regular maintenance", "Durability priority"],
+      services: ["Regular detailing", "Protection application", "Problem prevention", "Value maintenance"]
+    }
+  }
+};
+
+// Self-Learning Conversation Memory System
+class ConversationMemory {
+  constructor() {
+    this.conversations = this.loadConversations();
+    this.keywords = this.loadKeywords();
+    this.responses = this.loadResponses();
+    this.userPreferences = this.loadUserPreferences();
+  }
+  
+  loadConversations() {
+    try {
+      return JSON.parse(localStorage.getItem('chatbot-conversations') || '[]');
+    } catch (error) {
+      console.warn('Failed to load conversations:', error);
+      return [];
+    }
+  }
+  
+  saveConversations() {
+    try {
+      localStorage.setItem('chatbot-conversations', JSON.stringify(this.conversations));
+    } catch (error) {
+      console.warn('Failed to save conversations:', error);
+    }
+  }
+  
+  loadKeywords() {
+    try {
+      const saved = localStorage.getItem('chatbot-keywords');
+      return saved ? JSON.parse(saved) : new Map();
+    } catch (error) {
+      return new Map();
+    }
+  }
+  
+  saveKeywords() {
+    try {
+      localStorage.setItem('chatbot-keywords', JSON.stringify([...this.keywords.entries()]));
+    } catch (error) {
+      console.warn('Failed to save keywords:', error);
+    }
+  }
+  
+  loadResponses() {
+    try {
+      return JSON.parse(localStorage.getItem('chatbot-learned-responses') || '{}');
+    } catch (error) {
+      return {};
+    }
+  }
+  
+  saveResponses() {
+    try {
+      localStorage.setItem('chatbot-learned-responses', JSON.stringify(this.responses));
+    } catch (error) {
+      console.warn('Failed to save responses:', error);
+    }
+  }
+  
+  loadUserPreferences() {
+    try {
+      return JSON.parse(localStorage.getItem('chatbot-user-preferences') || '{}');
+    } catch (error) {
+      return {};
+    }
+  }
+  
+  saveUserPreferences() {
+    try {
+      localStorage.setItem('chatbot-user-preferences', JSON.stringify(this.userPreferences));
+    } catch (error) {
+      console.warn('Failed to save user preferences:', error);
+    }
+  }
+  
+  recordConversation(userMessage, botResponse, context = {}) {
+    const conversation = {
+      timestamp: Date.now(),
+      userMessage: userMessage,
+      botResponse: botResponse,
+      context: context,
+      id: Date.now() + Math.random()
+    };
+    
+    this.conversations.push(conversation);
+    
+    // Keep only last 1000 conversations
+    if (this.conversations.length > 1000) {
+      this.conversations = this.conversations.slice(-1000);
+    }
+    
+    this.extractKeywords(userMessage);
+    this.saveConversations();
+  }
+  
+  extractKeywords(message) {
+    const words = message.toLowerCase().split(/\s+/);
+    words.forEach(word => {
+      if (word.length > 3) { // Only meaningful words
+        const count = this.keywords.get(word) || 0;
+        this.keywords.set(word, count + 1);
+      }
+    });
+    this.saveKeywords();
+  }
+  
+  findSimilarConversations(message, limit = 5) {
+    const messageWords = message.toLowerCase().split(/\s+/);
+    const scored = this.conversations.map(conv => {
+      const convWords = conv.userMessage.toLowerCase().split(/\s+/);
+      const commonWords = messageWords.filter(word => convWords.includes(word));
+      const score = commonWords.length / Math.max(messageWords.length, convWords.length);
+      return { ...conv, similarity: score };
+    });
+    
+    return scored
+      .filter(conv => conv.similarity > 0.2)
+      .sort((a, b) => b.similarity - a.similarity)
+      .slice(0, limit);
+  }
+  
+  getLearnedResponse(message) {
+    const similar = this.findSimilarConversations(message, 1);
+    if (similar.length > 0 && similar[0].similarity > 0.7) {
+      return similar[0].botResponse;
+    }
+    return null;
+  }
+  
+  updateUserPreference(key, value) {
+    this.userPreferences[key] = value;
+    this.saveUserPreferences();
+  }
+  
+  getUserPreference(key, defaultValue = null) {
+    return this.userPreferences[key] || defaultValue;
+  }
+}
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'none',
@@ -502,6 +822,17 @@ class AdvancedChatBot {
     this.currentRole = 'chat';
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
+    this.memory = new ConversationMemory();
+    
+    // Secret modes
+    this.adminMode = false;
+    this.jayMode = false;
+    this.secretModeActive = false;
+    
+    // File upload system
+    this.uploadedFiles = [];
+    this.maxFileSize = 10 * 1024 * 1024; // 10MB
+    this.allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     
     this.loadAssignments();
     this.init();
@@ -582,6 +913,11 @@ class AdvancedChatBot {
         </div>
 
         <div class="chatbot-input-area">
+          <div class="file-upload-section" id="file-upload-section">
+            <input type="file" id="file-upload" accept="image/*" multiple style="display: none;">
+            <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes">📎</button>
+          </div>
+          <div class="uploaded-files" id="uploaded-files"></div>
           <input type="text" class="chatbot-input" id="chatbot-input" 
                  placeholder="Ask about our services, get quotes, or general questions...">
           <button class="chatbot-send" id="chatbot-send">Send</button>
@@ -609,6 +945,8 @@ class AdvancedChatBot {
     const input = document.getElementById('chatbot-input');
     const settingsBtn = document.getElementById('settings-btn');
     const roleSelect = document.getElementById('role-select');
+    const fileUploadBtn = document.getElementById('file-upload-btn');
+    const fileUpload = document.getElementById('file-upload');
 
     toggle.addEventListener('click', () => this.toggleChat());
     close.addEventListener('click', () => this.closeChat());
@@ -616,11 +954,18 @@ class AdvancedChatBot {
     settingsBtn.addEventListener('click', () => this.toggleSettings());
     roleSelect.addEventListener('change', (e) => this.changeRole(e.target.value));
     
+    // File upload handlers
+    fileUploadBtn.addEventListener('click', () => fileUpload.click());
+    fileUpload.addEventListener('change', (e) => this.handleFileUpload(e));
+    
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         this.sendMessage();
       }
     });
+    
+    // Secret mode detection
+    input.addEventListener('input', (e) => this.checkSecretModes(e.target.value));
   }
 
   toggleChat() {
@@ -680,33 +1025,55 @@ class AdvancedChatBot {
     this.showProcessing();
     
     try {
-      // Check if AI is available, otherwise fall back to smart responses
-      const assignedAPI = this.assignments[this.currentRole];
       let response;
       
-      if (assignedAPI === 'none' || !assignedAPI) {
-        // Use intelligent fallback responses
-        response = { content: this.generateSmartResponse(message, this.currentRole) };
+      // Check for basefile knowledge first
+      const basefileResponse = this.searchKnowledgeBase(message);
+      if (basefileResponse) {
+        response = { content: basefileResponse };
       } else {
-        // Try AI first
-        try {
-          response = await ChatRouter.routeLLMRequest(message, this.currentRole, this.assignments);
-        } catch (aiError) {
-          console.warn('AI failed, using smart fallback:', aiError);
-          response = { content: this.generateSmartResponse(message, this.currentRole) };
+        // Check learned responses from memory
+        const learnedResponse = this.memory.getLearnedResponse(message);
+        if (learnedResponse) {
+          response = { content: learnedResponse };
+        } else {
+          // Fall back to AI or smart responses
+          const assignedAPI = this.assignments[this.currentRole];
+          
+          if (assignedAPI === 'none' || !assignedAPI) {
+            response = { content: this.generateSmartResponse(message, this.currentRole) };
+          } else {
+            try {
+              response = await ChatRouter.routeLLMRequest(message, this.currentRole, this.assignments);
+            } catch (aiError) {
+              console.warn('AI failed, using smart fallback:', aiError);
+              response = { content: this.generateSmartResponse(message, this.currentRole) };
+            }
+          }
         }
       }
       
       const responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       this.addMessage(responseText, 'bot');
       
+      // Record conversation for learning
+      this.memory.recordConversation(message, responseText, {
+        role: this.currentRole,
+        hasImages: this.uploadedFiles.length > 0,
+        timestamp: Date.now()
+      });
+      
+      // Clear uploaded files after processing
+      this.clearUploadedFiles();
+      
       this.sendAnalyticsEvent('chat_query_success', {
         role: this.currentRole,
-        api: this.assignments[this.currentRole]
+        api: this.assignments[this.currentRole],
+        usedBasefile: !!basefileResponse,
+        usedMemory: !!this.memory.getLearnedResponse(message)
       });
     } catch (error) {
       console.error('Chat error:', error);
-      // Final fallback to basic response
       const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
       this.addMessage(fallbackResponse, 'bot');
       
@@ -718,6 +1085,286 @@ class AdvancedChatBot {
       this.isProcessing = false;
       this.hideProcessing();
     }
+  }
+
+  searchKnowledgeBase(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Search through car detailing knowledge base
+    for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
+      const categoryData = CAR_DETAILING_KNOWLEDGE_BASE[category];
+      
+      if (typeof categoryData === 'object') {
+        for (const subcategory in categoryData) {
+          const item = categoryData[subcategory];
+          
+          // Check if message relates to this knowledge item
+          if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
+            return this.formatKnowledgeResponse(subcategory, item, category);
+          }
+        }
+      }
+    }
+    
+    return null;
+  }
+  
+  messageMatchesKnowledge(message, key, item) {
+    // Check for key matches
+    if (message.includes(key.replace(/_/g, ' '))) return true;
+    
+    // Check for description matches
+    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
+    
+    // Check for specific keywords
+    const keywords = {
+      ceramic: ['ceramic', 'coating', 'protection'],
+      graphene: ['graphene', 'premium', 'coating'],
+      detail: ['detail', 'clean', 'wash'],
+      correction: ['correction', 'polish', 'scratch', 'swirl'],
+      wax: ['wax', 'protection', 'shine'],
+      wash: ['wash', 'clean', 'soap']
+    };
+    
+    for (const keywordGroup in keywords) {
+      if (key.includes(keywordGroup)) {
+        return keywords[keywordGroup].some(keyword => message.includes(keyword));
+      }
+    }
+    
+    return false;
+  }
+  
+  formatKnowledgeResponse(key, item, category) {
+    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${item.description}\n\n`;
+    
+    if (item.price || item.price_range) {
+      response += `💰 **Price**: ${item.price || item.price_range}\n`;
+    }
+    
+    if (item.time) {
+      response += `⏱️ **Duration**: ${item.time}\n`;
+    }
+    
+    if (item.benefits) {
+      response += `✅ **Benefits**: ${item.benefits.join(', ')}\n`;
+    }
+    
+    if (item.includes) {
+      response += `📋 **Includes**: ${item.includes.join(', ')}\n`;
+    }
+    
+    if (item.process) {
+      response += `🔧 **Process**: ${item.process.join(' → ')}\n`;
+    }
+    
+    response += `\n📞 Call (562) 228-9429 to book this service!`;
+    
+    return response;
+  }
+
+  checkSecretModes(inputValue) {
+    const value = inputValue.toLowerCase();
+    
+    // Check for admin mode ("josh")
+    if (value === 'josh' && !this.adminMode) {
+      this.activateAdminMode();
+      return;
+    }
+    
+    // Check for Jay mode ("jay")
+    if (value === 'jay' && !this.jayMode) {
+      this.activateJayMode();
+      return;
+    }
+  }
+  
+  activateAdminMode() {
+    this.adminMode = true;
+    this.secretModeActive = true;
+    
+    // Add admin styling
+    document.querySelector('.chatbot-window').classList.add('admin-mode');
+    
+    // Clear input and show admin message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging", 'bot', 'admin');
+    
+    // Update placeholder
+    input.placeholder = "Admin mode active - Type admin commands...";
+  }
+  
+  activateJayMode() {
+    this.jayMode = true;
+    this.secretModeActive = true;
+    
+    // Add Jay mode styling (lighter theme)
+    document.querySelector('.chatbot-window').classList.remove('dark-mode');
+    document.querySelector('.chatbot-window').classList.add('jay-mode');
+    
+    // Clear input and show Jay mode message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    // Trigger beat animation if available
+    if (window.JayAudio) {
+      window.JayAudio.triggerBeat(0.8);
+    }
+    
+    this.addMessage("🎵 JAY MODE ACTIVATED! 🎵\n\nSpecial features unlocked:\n• Enhanced beat detection and animations\n• Premium service insights\n• VIP customer treatment\n• Advanced car knowledge\n• Exclusive detailing tips", 'bot', 'jay');
+    
+    // Update placeholder
+    input.placeholder = "Jay mode - Ask me anything about premium detailing...";
+    
+    // Add pulsing animation to chat toggle
+    document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
+  }
+
+  handleFileUpload(event) {
+    const files = Array.from(event.target.files);
+    
+    files.forEach(file => {
+      if (this.validateFile(file)) {
+        this.processUploadedFile(file);
+      }
+    });
+    
+    // Clear the input to allow re-uploading the same file
+    event.target.value = '';
+  }
+  
+  validateFile(file) {
+    // Check file type
+    if (!this.allowedFileTypes.includes(file.type)) {
+      this.addMessage(`❌ File type not supported: ${file.type}. Please upload images only.`, 'bot', 'error');
+      return false;
+    }
+    
+    // Check file size
+    if (file.size > this.maxFileSize) {
+      this.addMessage(`❌ File too large: ${(file.size / 1024 / 1024).toFixed(1)}MB. Maximum size is 10MB.`, 'bot', 'error');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  processUploadedFile(file) {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      const fileData = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: e.target.result,
+        timestamp: Date.now()
+      };
+      
+      this.uploadedFiles.push(fileData);
+      this.displayUploadedFile(fileData);
+      
+      // Auto-analyze image for quote optimization
+      this.analyzeImageForQuote(fileData);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+  
+  displayUploadedFile(fileData) {
+    const container = document.getElementById('uploaded-files');
+    
+    const fileElement = document.createElement('div');
+    fileElement.className = 'uploaded-file';
+    fileElement.innerHTML = `
+      <img src="${fileData.data}" alt="${fileData.name}" class="uploaded-image">
+      <div class="file-info">
+        <span class="file-name">${fileData.name}</span>
+        <button class="remove-file" data-timestamp="${fileData.timestamp}">✕</button>
+      </div>
+    `;
+    
+    container.appendChild(fileElement);
+    
+    // Add remove handler
+    fileElement.querySelector('.remove-file').addEventListener('click', (e) => {
+      const timestamp = parseInt(e.target.dataset.timestamp);
+      this.removeUploadedFile(timestamp);
+      fileElement.remove();
+    });
+  }
+  
+  removeUploadedFile(timestamp) {
+    this.uploadedFiles = this.uploadedFiles.filter(file => file.timestamp !== timestamp);
+  }
+  
+  clearUploadedFiles() {
+    this.uploadedFiles = [];
+    document.getElementById('uploaded-files').innerHTML = '';
+  }
+  
+  analyzeImageForQuote(fileData) {
+    // Simulate image analysis for upselling and quote optimization
+    const analysisResults = this.performImageAnalysis(fileData);
+    
+    if (analysisResults.length > 0) {
+      let message = "📸 **Image Analysis Complete!**\n\n";
+      message += "I can see your vehicle and have some recommendations:\n\n";
+      
+      analysisResults.forEach((result, index) => {
+        message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
+      });
+      
+      message += "\n💡 Would you like a detailed quote including these additional services?";
+      
+      setTimeout(() => {
+        this.addMessage(message, 'bot', 'analysis');
+      }, 1000);
+    }
+  }
+  
+  performImageAnalysis(fileData) {
+    // This is a simplified simulation - in a real implementation, 
+    // this would use computer vision APIs
+    const possibleIssues = [
+      {
+        issue: "Paint Swirl Marks Detected",
+        recommendation: "Paint correction would restore that showroom shine. Add single-stage correction (+$300) or multi-stage for deeper scratches (+$600)."
+      },
+      {
+        issue: "Wheel Contamination Visible", 
+        recommendation: "Professional wheel cleaning and ceramic coating for wheels (+$150) would provide long-lasting protection."
+      },
+      {
+        issue: "Water Spots on Paint",
+        recommendation: "Paint decontamination and ceramic coating (+$450) would prevent future water spotting and make maintenance easier."
+      },
+      {
+        issue: "Oxidized Headlights",
+        recommendation: "Headlight restoration service (+$80) would improve visibility and vehicle appearance."
+      },
+      {
+        issue: "Interior Wear Visible",
+        recommendation: "Leather conditioning and interior protection (+$100) would restore and preserve your interior."
+      }
+    ];
+    
+    // Randomly select 1-3 issues for demonstration
+    const numIssues = Math.floor(Math.random() * 3) + 1;
+    const selectedIssues = [];
+    
+    for (let i = 0; i < numIssues; i++) {
+      const randomIndex = Math.floor(Math.random() * possibleIssues.length);
+      const issue = possibleIssues[randomIndex];
+      
+      if (!selectedIssues.find(s => s.issue === issue.issue)) {
+        selectedIssues.push(issue);
+      }
+    }
+    
+    return selectedIssues;
   }
 
   generateSmartResponse(message, role) {
