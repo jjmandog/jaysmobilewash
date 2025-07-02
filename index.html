@@ -766,6 +766,53 @@
                 opacity: 1;
             }
         }
+        
+        /* Jay Mode Activation Button */
+        .jay-mode-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #ff006e, #8338ec);
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .jay-mode-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.5);
+            background: linear-gradient(135deg, #ff006e, #9d4edd);
+        }
+        
+        .jay-mode-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        .jay-mode-button i {
+            font-size: 18px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Hide button when Jay Mode is active */
+        .jay-activated .jay-mode-button {
+            display: none;
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -2144,6 +2191,12 @@
         </div>
     </div>
 
+    <!-- Jay Mode Activation Button -->
+    <button id="jay-mode-button" class="jay-mode-button" title="Activate Jay Mode (or type 'jay')" aria-label="Activate Jay Mode">
+        <i class="fas fa-music"></i>
+        <span>JAY</span>
+    </button>
+
     <!-- Scripts -->
     <script>
         // Initialize everything
@@ -2293,7 +2346,6 @@
             }
             
             // Water Droplet Cursor Trail
-            let isTrailEnabled = true;
             let lastDropletTime = 0;
             const dropletDelay = 50; // milliseconds between droplets
             
@@ -2321,55 +2373,146 @@
                 }
             });
             
-            // Pause trail during JAY mode to avoid interference
-            function pauseWaterTrail() {
-                isTrailEnabled = false;
-            }
-            
-            function resumeWaterTrail() {
-                isTrailEnabled = true;
-            }
-            
             // Initialize JAY Mode
             initJayMode();
         });
 
-        // JAY Mode Implementation with local WAV file (no CORS issues)
+        // Global variables for water trail (accessible by Jay Mode)
+        let isTrailEnabled = true;
+        
+        // Global water trail control functions (accessible by Jay Mode)
+        function pauseWaterTrail() {
+            console.log('[Water Trail] Pausing water trail');
+            isTrailEnabled = false;
+        }
+        
+        function resumeWaterTrail() {
+            console.log('[Water Trail] Resuming water trail');
+            isTrailEnabled = true;
+        }
+
+        // JAY Mode Implementation with enhanced features
         function initJayMode() {
             let jayModeActive = false;
             let jayModeTimer = null;
+            let lastActivationTime = 0;
+            const activationCooldown = 2000; // 2 seconds cooldown to prevent rapid activation
             const jaySequence = ['j', 'a', 'y'];
             let currentSequence = [];
+            let sequenceTimer = null;
             
+            console.log('[JAY Mode] Initializing Jay Mode system...');
+            
+            // Safety check for required elements
             const jayOverlay = document.getElementById('jay-overlay');
+            const jayButton = document.getElementById('jay-mode-button');
+            
+            if (!jayOverlay) {
+                console.error('[JAY Mode] Jay overlay element not found!');
+                return;
+            }
             
             // Use local WAV file to avoid CORS issues
             const audio = new Audio('blp-kosher-jack-and-jill.wav');
             audio.preload = 'auto';
             audio.volume = 0.7;
             
-            document.addEventListener('keypress', handleKeyPress);
+            // Enhanced error handling for audio
+            audio.addEventListener('error', (e) => {
+                console.error('[JAY Mode] Audio loading error:', e);
+                showAudioErrorMessage();
+            });
+            
+            audio.addEventListener('canplaythrough', () => {
+                console.log('[JAY Mode] Audio loaded successfully');
+            });
+            
+            // Universal key detection (works in inputs/forms too)
+            document.addEventListener('keydown', handleKeyPress, true);
+            
+            // Button activation
+            if (jayButton) {
+                jayButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('[JAY Mode] Button activation requested');
+                    activateJayMode();
+                });
+                console.log('[JAY Mode] Button listener added');
+            }
             
             function handleKeyPress(e) {
+                // Safety check: prevent activation if already active or too soon
                 if (jayModeActive) return;
+                
+                const now = Date.now();
+                if (now - lastActivationTime < activationCooldown) {
+                    console.log('[JAY Mode] Activation blocked - cooldown active');
+                    return;
+                }
                 
                 const key = e.key.toLowerCase();
                 
+                // Clear sequence timer if it exists
+                if (sequenceTimer) {
+                    clearTimeout(sequenceTimer);
+                }
+                
                 if (key === jaySequence[currentSequence.length]) {
                     currentSequence.push(key);
+                    console.log(`[JAY Mode] Key sequence progress: ${currentSequence.join('')}/${jaySequence.join('')}`);
                     
                     if (currentSequence.length === jaySequence.length) {
+                        console.log('[JAY Mode] Sequence completed! Activating...');
                         activateJayMode();
                         currentSequence = [];
+                    } else {
+                        // Reset sequence after 3 seconds if not completed
+                        sequenceTimer = setTimeout(() => {
+                            if (currentSequence.length < jaySequence.length) {
+                                console.log('[JAY Mode] Sequence timeout - resetting');
+                                currentSequence = [];
+                            }
+                        }, 3000);
                     }
                 } else {
+                    // Reset sequence, but start new one if 'j' was pressed
                     currentSequence = key === 'j' ? ['j'] : [];
+                    if (key === 'j') {
+                        console.log('[JAY Mode] Starting new sequence with J');
+                        // Reset sequence after 3 seconds if not completed
+                        sequenceTimer = setTimeout(() => {
+                            if (currentSequence.length < jaySequence.length) {
+                                console.log('[JAY Mode] Sequence timeout - resetting');
+                                currentSequence = [];
+                            }
+                        }, 3000);
+                    }
                 }
             }
             
             async function activateJayMode() {
-                console.log('[JAY Mode] Activating!');
+                // Double-check safety conditions
+                if (jayModeActive) {
+                    console.log('[JAY Mode] Already active - ignoring activation request');
+                    return;
+                }
+                
+                const now = Date.now();
+                if (now - lastActivationTime < activationCooldown) {
+                    console.log('[JAY Mode] Activation blocked - cooldown active');
+                    return;
+                }
+                
+                lastActivationTime = now;
+                
+                console.log('[JAY Mode] 🎵 ACTIVATING JAY MODE! 🎵');
                 jayModeActive = true;
+                
+                // Safety check for overlay
+                if (!jayOverlay) {
+                    console.error('[JAY Mode] Overlay missing - cannot activate');
+                    return;
+                }
                 
                 // Pause water droplet trail during JAY mode
                 pauseWaterTrail();
@@ -2378,27 +2521,123 @@
                 document.body.classList.add('jay-activated');
                 
                 setTimeout(() => {
-                    jayOverlay.classList.add('active');
+                    if (jayOverlay) {
+                        jayOverlay.classList.add('active');
+                    }
                 }, 10);
                 
+                // Enhanced audio handling with user-friendly error messages
                 try {
                     await audio.play();
-                    console.log('[JAY Mode] Audio playing!');
+                    console.log('[JAY Mode] 🔊 BLP Kosher beats are pumping! 🔊');
                 } catch (error) {
-                    console.error('[JAY Mode] Audio playback failed:', error);
+                    console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
+                    showAudioPrompt();
                 }
                 
+                // Create visual effects
                 createJayParticles();
-                
-                // Add laser effects and enhanced visuals
                 createLaserEffects();
                 
+                // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
+                    console.log('[JAY Mode] Auto-deactivating after 30 seconds');
                     deactivateJayMode();
                 }, 30000);
+                
+                console.log('[JAY Mode] Activation complete - effects active for 30 seconds');
+            }
+            
+            function showAudioPrompt() {
+                // Create user-friendly popup for audio permission
+                const popup = document.createElement('div');
+                popup.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 20px 30px;
+                    border-radius: 15px;
+                    z-index: 10002;
+                    font-family: 'Manrope', sans-serif;
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    backdrop-filter: blur(10px);
+                `;
+                popup.innerHTML = `
+                    <h3 style="margin: 0 0 10px 0; font-size: 1.5rem;">🎵 Click to enable Jay Mode beats! 🎵</h3>
+                    <p style="margin: 0 0 15px 0; opacity: 0.9;">Your browser blocked autoplay. Click below to start the music!</p>
+                    <button id="enable-audio-btn" style="
+                        background: linear-gradient(135deg, #ff006e, #8338ec);
+                        border: none;
+                        color: white;
+                        padding: 12px 24px;
+                        border-radius: 25px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 1rem;
+                        transition: transform 0.2s ease;
+                    ">🔊 Enable Sound</button>
+                `;
+                
+                document.body.appendChild(popup);
+                
+                const enableBtn = popup.querySelector('#enable-audio-btn');
+                enableBtn.addEventListener('click', async () => {
+                    try {
+                        await audio.play();
+                        console.log('[JAY Mode] 🔊 Audio manually enabled and playing! 🔊');
+                        popup.remove();
+                    } catch (err) {
+                        console.error('[JAY Mode] Manual audio play failed:', err);
+                    }
+                });
+                
+                enableBtn.addEventListener('mouseenter', () => {
+                    enableBtn.style.transform = 'scale(1.05)';
+                });
+                
+                enableBtn.addEventListener('mouseleave', () => {
+                    enableBtn.style.transform = 'scale(1)';
+                });
+                
+                // Auto-remove popup after 10 seconds
+                setTimeout(() => {
+                    if (popup.parentNode) {
+                        popup.remove();
+                    }
+                }, 10000);
+            }
+            
+            function showAudioErrorMessage() {
+                console.error('[JAY Mode] Audio file could not be loaded');
+                const errorMsg = document.createElement('div');
+                errorMsg.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #ef4444;
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    z-index: 10003;
+                    font-family: 'Manrope', sans-serif;
+                    font-weight: 500;
+                `;
+                errorMsg.textContent = '⚠️ Jay Mode audio unavailable';
+                document.body.appendChild(errorMsg);
+                
+                setTimeout(() => {
+                    if (errorMsg.parentNode) {
+                        errorMsg.remove();
+                    }
+                }, 5000);
             }
             
             function createJayParticles() {
+                console.log('[JAY Mode] 🎆 Creating particle effects...');
                 for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         const particle = document.createElement('div');
@@ -2424,40 +2663,73 @@
                         });
                     }, i * 200);
                 }
+                console.log('[JAY Mode] ✨ 20 particles scheduled for creation');
             }
             
             function deactivateJayMode() {
+                console.log('[JAY Mode] 🎵 Deactivating Jay Mode... 🎵');
+                
+                if (!jayModeActive) {
+                    console.log('[JAY Mode] Already inactive - ignoring deactivation request');
+                    return;
+                }
+                
                 jayModeActive = false;
                 
+                // Clear timer safely
                 if (jayModeTimer) {
                     clearTimeout(jayModeTimer);
                     jayModeTimer = null;
+                    console.log('[JAY Mode] Timer cleared');
                 }
                 
-                audio.pause();
-                audio.currentTime = 0;
+                // Stop audio safely
+                try {
+                    if (audio && !audio.paused) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                        console.log('[JAY Mode] 🔇 Audio stopped');
+                    }
+                } catch (error) {
+                    console.error('[JAY Mode] Error stopping audio:', error);
+                }
                 
-                jayOverlay.classList.remove('active');
-                setTimeout(() => {
-                    jayOverlay.style.display = 'none';
-                }, 500);
+                // Hide overlay safely
+                if (jayOverlay) {
+                    jayOverlay.classList.remove('active');
+                    setTimeout(() => {
+                        if (jayOverlay) {
+                            jayOverlay.style.display = 'none';
+                        }
+                    }, 500);
+                    console.log('[JAY Mode] Overlay hidden');
+                }
                 
+                // Remove body class
                 document.body.classList.remove('jay-activated');
                 
-                // Clean up JAY mode effects
-                document.querySelectorAll('.floating-product-particle').forEach(particle => {
+                // Clean up JAY mode effects with enhanced logging
+                const particles = document.querySelectorAll('.floating-product-particle');
+                const lasers = document.querySelectorAll('.laser-beam');
+                
+                console.log(`[JAY Mode] Cleaning up ${particles.length} particles and ${lasers.length} lasers`);
+                
+                particles.forEach(particle => {
                     particle.remove();
                 });
                 
-                document.querySelectorAll('.laser-beam').forEach(laser => {
+                lasers.forEach(laser => {
                     laser.remove();
                 });
                 
                 // Resume water droplet trail
                 resumeWaterTrail();
+                
+                console.log('[JAY Mode] ✅ Deactivation complete - all effects cleaned up');
             }
             
             function createLaserEffects() {
+                console.log('[JAY Mode] ⚡ Creating laser effects...');
                 for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         const laser = document.createElement('div');
@@ -2490,7 +2762,10 @@
                         }, 25000);
                     }, i * 1000);
                 }
+                console.log('[JAY Mode] ⚡ 5 laser beams scheduled for creation');
             }
+            
+            console.log('[JAY Mode] Jay Mode system initialized successfully! 🎵');
         }
 
         // Toggle package details
