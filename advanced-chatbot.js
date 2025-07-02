@@ -479,21 +479,28 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
  */
 class AIUtils {
   static async queryAI(prompt, options = {}) {
-    const { endpoint = '/api/ai' } = options;
+    const { endpoint = '/api/ai', role } = options;
 
     if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
       throw new Error('Prompt is required and must be a non-empty string');
     }
 
     try {
+      const requestBody = {
+        prompt: prompt.trim()
+      };
+      
+      // Include role in request body if provided
+      if (role) {
+        requestBody.role = role;
+      }
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          prompt: prompt.trim()
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!response.ok) {
@@ -602,15 +609,15 @@ class ChatRouter {
     }
     
     if (api.id === 'openai') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai' });
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
     } else if (api.id === 'deepseek') {
-      return await AIUtils.queryAI(enhancedPrompt, apiOptions);
+      return await AIUtils.queryAI(enhancedPrompt, { ...apiOptions, role });
     } else {
       // For other APIs, fall back to OpenAI instead of DeepSeek
       const openaiAPI = this.getAPIById('openai');
       if (openaiAPI && openaiAPI.enabled) {
         console.warn(`API '${api.name}' not yet implemented, using OpenAI fallback`);
-        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai' });
+        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
       } else {
         throw new Error(`API '${api.name}' not implemented and no fallback available`);
       }

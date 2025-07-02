@@ -124,6 +124,67 @@ async function callNewAPIService(prompt, options) {
 }
 ```
 
+## OpenAI API Endpoint Implementation
+
+### Endpoint: `/api/openai`
+
+The OpenAI endpoint is now fully implemented as a serverless function to handle AI chat requests.
+
+#### Request Format
+```javascript
+POST /api/openai
+Content-Type: application/json
+
+{
+  "prompt": "Your message or question here",
+  "role": "chat" // Optional: chat, reasoning, tools, quotes, etc.
+}
+```
+
+#### Response Format
+```javascript
+{
+  "response": "AI assistant response text",
+  "role": "assistant"
+}
+```
+
+#### Error Responses
+```javascript
+// 400 Bad Request
+{
+  "error": "Bad Request",
+  "message": "prompt is required and must be a string"
+}
+
+// 405 Method Not Allowed
+{
+  "error": "Method not allowed",
+  "message": "Only POST requests are supported"
+}
+
+// 500 Internal Server Error
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred while processing your request"
+}
+```
+
+#### Features
+- **CORS Support** - Handles cross-origin requests for local development and production
+- **Request Validation** - Validates prompt length (max 10,000 characters) and format
+- **Role-based Responses** - Tailored responses based on chat role (quotes, reasoning, etc.)
+- **Mock Fallback** - Returns mock responses when OpenAI API key is not configured
+- **Error Handling** - Comprehensive error handling for bad requests and API failures
+
+#### Environment Setup
+To enable actual OpenAI API integration, set the environment variable:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+Without an API key, the endpoint returns contextually appropriate mock responses for testing and development.
+
 ## Settings Panel Features
 
 ### User Interface
