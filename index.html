@@ -792,10 +792,10 @@
         /* Jay Mode Overlay Styles */
         .jay-overlay {
             position: fixed;
-            top: 0;
+            top: 72px;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 72px);
             z-index: 10000;
             background: transparent;
             display: none;
@@ -2693,7 +2693,7 @@
     <!-- Jay Mode Activation Button -->
     <button id="jay-mode-button" class="jay-mode-button" title="Activate Jay Mode (or type 'jay')" aria-label="Activate Jay Mode">
         <i class="fas fa-music"></i>
-        <span>JAY</span>
+        <span>Click me for a surprise!</span>
     </button>
 
     <!-- Persistent Jay Mode Indicator (sticky during Jay Mode) -->
