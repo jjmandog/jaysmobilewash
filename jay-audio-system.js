@@ -19,13 +19,46 @@ class JayAudioSystem {
         this.analyzer = null;
         this.gainNode = null;
         
-        // Beat Detection Parameters
+        // Beat Detection Parameters - Enhanced
         this.beatCutoff = 0;
         this.beatDecayRate = 0.98;
         this.beatMinimum = 0.15;
         this.beatHoldTime = 60; // ms
         this.lastBeatTime = 0;
         this.beatDetected = false;
+        
+        // Enhanced BPM Detection
+        this.bpmHistory = [];
+        this.currentBPM = 120;
+        this.bpmSamples = 20;
+        this.bpmCalculationInterval = 5000; // 5 seconds
+        this.lastBPMCalculation = 0;
+        this.beatTimestamps = [];
+        
+        // Advanced Beat Analysis
+        this.frequencyBands = {
+            bass: { start: 0, end: 10 },
+            lowMid: { start: 10, end: 30 },
+            mid: { start: 30, end: 80 },
+            highMid: { start: 80, end: 150 },
+            treble: { start: 150, end: 256 }
+        };
+        
+        this.bandEnergy = {
+            bass: 0,
+            lowMid: 0,
+            mid: 0,
+            highMid: 0,
+            treble: 0
+        };
+        
+        this.energyHistory = {
+            bass: [],
+            lowMid: [],
+            mid: [],
+            highMid: [],
+            treble: []
+        };
         
         // Visualization 
         this.canvas = null;
@@ -39,13 +72,22 @@ class JayAudioSystem {
         this.isMuted = false;
         this.volume = 0.7;
         
-        // Configuration
+        // Configuration - Enhanced
         this.config = {
             beatSensitivity: 1.2,
             enableVisualization: true,
             useRandomBeats: true,
             randomBeatChance: 0.05,
-            randomBeatInterval: 1000
+            randomBeatInterval: 1000,
+            // Enhanced BPM detection settings
+            bpmSensitivity: 1.5,
+            enableAdvancedBeatDetection: true,
+            multiFrequencyAnalysis: true,
+            adaptiveBeatThreshold: true,
+            visualizationStyle: 'enhanced', // 'basic', 'enhanced', 'spectrum'
+            beatReactiveElements: true,
+            particleSystem: true,
+            bpmVisualization: true
         };
         
         // Initialize the system
@@ -422,37 +464,397 @@ class JayAudioSystem {
         this.detectBeat();
     }
     
-    // Draw audio visualization
+    // Enhanced audio visualization with multiple styles
     drawVisualization() {
         // Clear canvas
         this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Calculate bar width
+        switch (this.config.visualizationStyle) {
+            case 'enhanced':
+                this.drawEnhancedVisualization();
+                break;
+            case 'spectrum':
+                this.drawSpectrumVisualization();
+                break;
+            default:
+                this.drawBasicVisualization();
+        }
+    }
+    
+    // Basic visualization (original)
+    drawBasicVisualization() {
         const barWidth = (this.canvas.width / this.bufferLength) * 2.5;
         let x = 0;
         
-        // Draw frequency bars
         for (let i = 0; i < this.bufferLength; i++) {
             const barHeight = this.dataArray[i] / 4;
             
-            // Create gradient
             const gradient = this.canvasCtx.createLinearGradient(0, 0, 0, this.canvas.height);
             gradient.addColorStop(0, '#4f46e5');
             gradient.addColorStop(0.5, '#a855f7');
             gradient.addColorStop(1, '#ec4899');
             
             this.canvasCtx.fillStyle = gradient;
-            
-            // Draw bar
             this.canvasCtx.fillRect(x, this.canvas.height - barHeight, barWidth, barHeight);
             
-            // Move to next bar position
             x += barWidth + 1;
         }
     }
     
-    // Detect beats in audio
+    // Enhanced visualization with frequency band colors
+    drawEnhancedVisualization() {
+        const barWidth = (this.canvas.width / this.bufferLength) * 2.5;
+        let x = 0;
+        
+        // Draw background gradient
+        const bgGradient = this.canvasCtx.createLinearGradient(0, 0, 0, this.canvas.height);
+        bgGradient.addColorStop(0, 'rgba(31, 41, 55, 0.1)');
+        bgGradient.addColorStop(1, 'rgba(31, 41, 55, 0.3)');
+        this.canvasCtx.fillStyle = bgGradient;
+        this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw frequency bars with band-specific colors
+        for (let i = 0; i < this.bufferLength; i++) {
+            const barHeight = (this.dataArray[i] / 256) * this.canvas.height * 0.8;
+            const intensity = this.dataArray[i] / 256;
+            
+            // Determine frequency band and color
+            const bandColor = this.getFrequencyBandColor(i, intensity);
+            
+            // Create gradient for this bar
+            const gradient = this.canvasCtx.createLinearGradient(0, this.canvas.height - barHeight, 0, this.canvas.height);
+            gradient.addColorStop(0, bandColor.top);
+            gradient.addColorStop(1, bandColor.bottom);
+            
+            this.canvasCtx.fillStyle = gradient;
+            
+            // Add glow effect for high intensity
+            if (intensity > 0.7) {
+                this.canvasCtx.shadowColor = bandColor.glow;
+                this.canvasCtx.shadowBlur = 10;
+            } else {
+                this.canvasCtx.shadowBlur = 0;
+            }
+            
+            this.canvasCtx.fillRect(x, this.canvas.height - barHeight, barWidth, barHeight);
+            
+            x += barWidth + 1;
+        }
+        
+        // Draw BPM indicator
+        this.drawBPMIndicator();
+    }
+    
+    // Spectrum visualization with circular display
+    drawSpectrumVisualization() {
+        const centerX = this.canvas.width / 2;
+        const centerY = this.canvas.height / 2;
+        const radius = Math.min(centerX, centerY) * 0.8;
+        
+        // Clear with dark background
+        this.canvasCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw circular spectrum
+        const angleStep = (Math.PI * 2) / this.bufferLength;
+        
+        for (let i = 0; i < this.bufferLength; i++) {
+            const angle = i * angleStep;
+            const barHeight = (this.dataArray[i] / 256) * radius * 0.5;
+            const intensity = this.dataArray[i] / 256;
+            
+            const x1 = centerX + Math.cos(angle) * radius;
+            const y1 = centerY + Math.sin(angle) * radius;
+            const x2 = centerX + Math.cos(angle) * (radius + barHeight);
+            const y2 = centerY + Math.sin(angle) * (radius + barHeight);
+            
+            const bandColor = this.getFrequencyBandColor(i, intensity);
+            this.canvasCtx.strokeStyle = bandColor.top;
+            this.canvasCtx.lineWidth = 2;
+            
+            if (intensity > 0.6) {
+                this.canvasCtx.shadowColor = bandColor.glow;
+                this.canvasCtx.shadowBlur = 5;
+            } else {
+                this.canvasCtx.shadowBlur = 0;
+            }
+            
+            this.canvasCtx.beginPath();
+            this.canvasCtx.moveTo(x1, y1);
+            this.canvasCtx.lineTo(x2, y2);
+            this.canvasCtx.stroke();
+        }
+        
+        // Draw center circle with BPM
+        this.canvasCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        this.canvasCtx.beginPath();
+        this.canvasCtx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+        this.canvasCtx.fill();
+        
+        this.canvasCtx.fillStyle = '#1f2937';
+        this.canvasCtx.font = '12px monospace';
+        this.canvasCtx.textAlign = 'center';
+        this.canvasCtx.fillText(`${this.currentBPM}`, centerX, centerY - 5);
+        this.canvasCtx.font = '8px monospace';
+        this.canvasCtx.fillText('BPM', centerX, centerY + 8);
+    }
+    
+    // Get color for frequency band
+    getFrequencyBandColor(index, intensity) {
+        const colors = {
+            bass: { 
+                top: `hsla(240, 100%, ${50 + intensity * 30}%, 0.9)`, 
+                bottom: `hsla(260, 100%, ${30 + intensity * 20}%, 0.9)`,
+                glow: '#4f46e5'
+            },
+            lowMid: { 
+                top: `hsla(280, 100%, ${50 + intensity * 30}%, 0.9)`, 
+                bottom: `hsla(300, 100%, ${30 + intensity * 20}%, 0.9)`,
+                glow: '#a855f7'
+            },
+            mid: { 
+                top: `hsla(320, 100%, ${50 + intensity * 30}%, 0.9)`, 
+                bottom: `hsla(340, 100%, ${30 + intensity * 20}%, 0.9)`,
+                glow: '#ec4899'
+            },
+            highMid: { 
+                top: `hsla(20, 100%, ${50 + intensity * 30}%, 0.9)`, 
+                bottom: `hsla(40, 100%, ${30 + intensity * 20}%, 0.9)`,
+                glow: '#f59e0b'
+            },
+            treble: { 
+                top: `hsla(60, 100%, ${50 + intensity * 30}%, 0.9)`, 
+                bottom: `hsla(80, 100%, ${30 + intensity * 20}%, 0.9)`,
+                glow: '#eab308'
+            }
+        };
+        
+        // Determine which band this frequency belongs to
+        if (index < 10) return colors.bass;
+        if (index < 30) return colors.lowMid;
+        if (index < 80) return colors.mid;
+        if (index < 150) return colors.highMid;
+        return colors.treble;
+    }
+    
+    // Draw BPM indicator
+    drawBPMIndicator() {
+        if (!this.config.bpmVisualization) return;
+        
+        const indicatorWidth = 100;
+        const indicatorHeight = 20;
+        const x = this.canvas.width - indicatorWidth - 10;
+        const y = 10;
+        
+        // Draw background
+        this.canvasCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        this.canvasCtx.fillRect(x, y, indicatorWidth, indicatorHeight);
+        
+        // Draw BPM text
+        this.canvasCtx.fillStyle = '#ffffff';
+        this.canvasCtx.font = '12px monospace';
+        this.canvasCtx.textAlign = 'center';
+        this.canvasCtx.fillText(`${this.currentBPM} BPM`, x + indicatorWidth / 2, y + 14);
+        
+        // Draw beat pulse
+        if (Date.now() - this.lastBeatTime < 200) {
+            this.canvasCtx.strokeStyle = '#4f46e5';
+            this.canvasCtx.lineWidth = 2;
+            this.canvasCtx.strokeRect(x - 2, y - 2, indicatorWidth + 4, indicatorHeight + 4);
+        }
+    }
+    
+    // Enhanced beat detection with multi-frequency analysis
     detectBeat() {
+        if (!this.config.enableAdvancedBeatDetection) {
+            return this.basicBeatDetection();
+        }
+        
+        // Calculate energy for each frequency band
+        this.calculateBandEnergies();
+        
+        // Update energy history
+        this.updateEnergyHistory();
+        
+        // Multi-frequency beat detection
+        const currentTime = Date.now();
+        let beatDetected = false;
+        let beatIntensity = 0;
+        
+        // Primary beat detection on bass frequencies
+        const bassEnergy = this.bandEnergy.bass;
+        const bassThreshold = this.calculateAdaptiveThreshold('bass');
+        
+        if (bassEnergy > bassThreshold && bassEnergy > this.beatMinimum) {
+            if (currentTime - this.lastBeatTime > this.beatHoldTime) {
+                beatDetected = true;
+                beatIntensity = Math.max(beatIntensity, bassEnergy * this.config.beatSensitivity);
+                
+                // Record beat timestamp for BPM calculation
+                this.beatTimestamps.push(currentTime);
+                
+                // Keep only recent beat timestamps (last 30 seconds)
+                this.beatTimestamps = this.beatTimestamps.filter(timestamp => 
+                    currentTime - timestamp < 30000
+                );
+            }
+        }
+        
+        // Secondary beat detection on low-mid frequencies
+        const lowMidEnergy = this.bandEnergy.lowMid;
+        const lowMidThreshold = this.calculateAdaptiveThreshold('lowMid');
+        
+        if (lowMidEnergy > lowMidThreshold && lowMidEnergy > this.beatMinimum * 0.8) {
+            if (currentTime - this.lastBeatTime > this.beatHoldTime * 1.5) {
+                beatIntensity = Math.max(beatIntensity, lowMidEnergy * this.config.beatSensitivity * 0.7);
+            }
+        }
+        
+        // Trigger beat if detected
+        if (beatDetected) {
+            this.lastBeatTime = currentTime;
+            this.triggerBeat(beatIntensity);
+        }
+        
+        // Calculate BPM periodically
+        if (currentTime - this.lastBPMCalculation > this.bpmCalculationInterval) {
+            this.calculateBPM();
+            this.lastBPMCalculation = currentTime;
+        }
+        
+        // Update beat cutoffs
+        this.updateBeatCutoffs();
+    }
+    
+    // Calculate energy for each frequency band
+    calculateBandEnergies() {
+        // Reset energies
+        Object.keys(this.bandEnergy).forEach(band => {
+            this.bandEnergy[band] = 0;
+        });
+        
+        // Calculate energy for each band
+        Object.keys(this.frequencyBands).forEach(bandName => {
+            const band = this.frequencyBands[bandName];
+            let energy = 0;
+            
+            for (let i = band.start; i < Math.min(band.end, this.dataArray.length); i++) {
+                energy += this.dataArray[i] * this.dataArray[i];
+            }
+            
+            // Normalize energy
+            const bandWidth = band.end - band.start;
+            this.bandEnergy[bandName] = Math.sqrt(energy / bandWidth) / 256;
+        });
+    }
+    
+    // Update energy history for adaptive thresholding
+    updateEnergyHistory() {
+        Object.keys(this.bandEnergy).forEach(bandName => {
+            this.energyHistory[bandName].push(this.bandEnergy[bandName]);
+            
+            // Keep only recent history (last 100 samples)
+            if (this.energyHistory[bandName].length > 100) {
+                this.energyHistory[bandName].shift();
+            }
+        });
+    }
+    
+    // Calculate adaptive threshold for beat detection
+    calculateAdaptiveThreshold(bandName) {
+        const history = this.energyHistory[bandName];
+        if (history.length < 10) return this.beatMinimum;
+        
+        // Calculate average energy
+        const averageEnergy = history.reduce((sum, energy) => sum + energy, 0) / history.length;
+        
+        // Calculate variance
+        const variance = history.reduce((sum, energy) => sum + Math.pow(energy - averageEnergy, 2), 0) / history.length;
+        const standardDeviation = Math.sqrt(variance);
+        
+        // Adaptive threshold = average + (sensitivity * standard deviation)
+        const threshold = averageEnergy + (this.config.bpmSensitivity * standardDeviation);
+        
+        return Math.max(threshold, this.beatMinimum);
+    }
+    
+    // Calculate BPM from beat timestamps
+    calculateBPM() {
+        if (this.beatTimestamps.length < 4) return;
+        
+        // Calculate intervals between beats
+        const intervals = [];
+        for (let i = 1; i < this.beatTimestamps.length; i++) {
+            intervals.push(this.beatTimestamps[i] - this.beatTimestamps[i - 1]);
+        }
+        
+        // Filter out outliers (beats that are too fast or too slow)
+        const filteredIntervals = intervals.filter(interval => 
+            interval > 200 && interval < 2000 // 30-300 BPM range
+        );
+        
+        if (filteredIntervals.length < 2) return;
+        
+        // Calculate average interval
+        const averageInterval = filteredIntervals.reduce((sum, interval) => sum + interval, 0) / filteredIntervals.length;
+        
+        // Convert to BPM
+        const bpm = Math.round(60000 / averageInterval);
+        
+        // Smooth BPM changes
+        this.bpmHistory.push(bpm);
+        if (this.bpmHistory.length > this.bpmSamples) {
+            this.bpmHistory.shift();
+        }
+        
+        // Calculate smoothed BPM
+        const smoothedBPM = this.bpmHistory.reduce((sum, bpm) => sum + bpm, 0) / this.bpmHistory.length;
+        this.currentBPM = Math.round(smoothedBPM);
+        
+        // Update BPM display if available
+        this.updateBPMDisplay();
+        
+        console.log(`BPM detected: ${this.currentBPM} (raw: ${bpm})`);
+    }
+    
+    // Update BPM display
+    updateBPMDisplay() {
+        if (this.config.bpmVisualization) {
+            // Create or update BPM display
+            let bpmDisplay = document.getElementById('jay-bpm-display');
+            if (!bpmDisplay) {
+                bpmDisplay = document.createElement('div');
+                bpmDisplay.id = 'jay-bpm-display';
+                bpmDisplay.className = 'jay-bpm-display';
+                document.body.appendChild(bpmDisplay);
+            }
+            
+            bpmDisplay.textContent = `${this.currentBPM} BPM`;
+            bpmDisplay.style.opacity = '1';
+            
+            // Fade out after 3 seconds
+            setTimeout(() => {
+                bpmDisplay.style.opacity = '0';
+            }, 3000);
+        }
+    }
+    
+    // Update beat cutoffs for all frequency bands
+    updateBeatCutoffs() {
+        Object.keys(this.bandEnergy).forEach(bandName => {
+            const currentEnergy = this.bandEnergy[bandName];
+            if (currentEnergy > this.beatCutoff) {
+                this.beatCutoff = currentEnergy * 1.2;
+            }
+        });
+        
+        // Reduce beat cutoff over time
+        this.beatCutoff *= this.beatDecayRate;
+        this.beatCutoff = Math.max(this.beatCutoff, this.beatMinimum);
+    }
+    
+    // Fallback basic beat detection
+    basicBeatDetection() {
         // Focus on bass frequencies (0-10)
         let sum = 0;
         for (let i = 0; i < 10; i++) {
