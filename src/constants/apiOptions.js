@@ -6,10 +6,10 @@
 // Available API options (up to 10)
 export const API_OPTIONS = [
   {
-    id: 'openrouter',
-    name: 'OpenRouter',
-    endpoint: '/api/openrouter',
-    description: 'Advanced reasoning via OpenRouter',
+    id: 'none',
+    name: 'None',
+    endpoint: '/api/none',
+    description: 'No AI service (disabled)',
     enabled: true
   },
   {
@@ -133,16 +133,16 @@ export const CHAT_ROLES = [
 
 // Default role assignments (maps role ID to API ID)
 export const DEFAULT_ROLE_ASSIGNMENTS = {
-  reasoning: 'openrouter',        // Advanced reasoning
-  tools: 'openrouter',            // Tool calling
-  quotes: 'openrouter',           // Service quotes
-  photo_uploads: 'openrouter',    // Photo analysis
-  summaries: 'openrouter',        // Summarization
-  search: 'openrouter',           // Search queries
-  chat: 'openrouter',             // General chat
-  fallback: 'openrouter',         // Always available fallback
-  analytics: 'openrouter',        // Data analysis
-  accessibility: 'openrouter'     // Accessibility support
+  reasoning: 'none',        // Advanced reasoning
+  tools: 'none',            // Tool calling
+  quotes: 'none',           // Service quotes
+  photo_uploads: 'none',    // Photo analysis
+  summaries: 'none',        // Summarization
+  search: 'none',           // Search queries
+  chat: 'none',             // General chat
+  fallback: 'none',         // Always available fallback
+  analytics: 'none',        // Data analysis
+  accessibility: 'none'     // Accessibility support
 };
 
 // Get enabled API options

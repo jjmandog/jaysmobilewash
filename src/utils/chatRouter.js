@@ -89,17 +89,27 @@ async function executeAPICall(prompt, api, role, options = {}) {
     ...options
   };
   
-  // For now, we use the existing AI utility which works with OpenRouter and other APIs
+  // Handle 'none' API - return a default message
+  if (api.id === 'none') {
+    return {
+      content: "AI services are currently disabled. Please contact support for assistance.",
+      role: "assistant"
+    };
+  }
+  
   // Route to different APIs based on api.endpoint
-  if (api.id === 'openrouter') {
-    return await queryAI(enhancedPrompt, apiOptions);
-  } else if (api.id === 'deepseek') {
+  if (api.id === 'deepseek') {
     return await queryAI(enhancedPrompt, apiOptions);
   } else {
     // For other APIs, we would implement specific API clients here
-    // For now, we'll use OpenRouter as fallback
-    console.warn(`API '${api.name}' not yet implemented, using OpenRouter fallback`);
-    return await queryAI(enhancedPrompt, { endpoint: '/api/openrouter' });
+    // For now, we'll use deepseek as fallback if available
+    const deepseekAPI = getAPIById('deepseek');
+    if (deepseekAPI && deepseekAPI.enabled) {
+      console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
+      return await queryAI(enhancedPrompt, { endpoint: '/api/deepseek' });
+    } else {
+      throw new Error(`API '${api.name}' not implemented and no fallback available`);
+    }
   }
 }
 
@@ -145,8 +155,13 @@ export async function isRoleAPIAvailable(role, assignments = DEFAULT_ROLE_ASSIGN
   }
   
   try {
-    // Check availability for OpenRouter and DeepSeek
-    if (assignedAPI.id === 'openrouter' || assignedAPI.id === 'deepseek') {
+    // Handle 'none' API - always available
+    if (assignedAPI.id === 'none') {
+      return true;
+    }
+    
+    // Check availability for DeepSeek
+    if (assignedAPI.id === 'deepseek') {
       return await isAIServiceAvailable(assignedAPI.endpoint);
     } else {
       // For other APIs, assume available if enabled
