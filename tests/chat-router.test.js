@@ -198,9 +198,9 @@ describe('API Integration', () => {
   it('should handle disabled API with fallback', async () => {
     const { queryAI } = await import('../src/utils/ai.js');
 
-    // Mock disabled API
+    // Mock disabled API (use cohere which is still disabled)
     const assignments = { 
-      chat: 'anthropic', // disabled in API_OPTIONS
+      chat: 'cohere', // disabled in API_OPTIONS
       fallback: 'none' 
     };
     

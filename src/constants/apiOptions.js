@@ -17,21 +17,21 @@ export const API_OPTIONS = [
     name: 'Anthropic Claude',
     endpoint: '/api/anthropic',
     description: 'Claude AI for detailed analysis',
-    enabled: false
+    enabled: true
   },
   {
     id: 'openai',
     name: 'OpenAI GPT',
     endpoint: '/api/openai',
     description: 'OpenAI GPT models',
-    enabled: false
+    enabled: true
   },
   {
     id: 'google',
     name: 'Google Gemini',
     endpoint: '/api/google',
     description: 'Google Gemini AI',
-    enabled: false
+    enabled: true
   },
   {
     id: 'cohere',
@@ -133,16 +133,16 @@ export const CHAT_ROLES = [
 
 // Default role assignments (maps role ID to API ID)
 export const DEFAULT_ROLE_ASSIGNMENTS = {
-  reasoning: 'none',        // Advanced reasoning
-  tools: 'none',            // Tool calling
-  quotes: 'none',           // Service quotes
-  photo_uploads: 'none',    // Photo analysis
-  summaries: 'none',        // Summarization
-  search: 'none',           // Search queries
-  chat: 'none',             // General chat
-  fallback: 'none',         // Always available fallback
-  analytics: 'none',        // Data analysis
-  accessibility: 'none'     // Accessibility support
+  reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
+  tools: 'openai',             // Tool calling - GPT has good function calling
+  quotes: 'deepseek',          // Service quotes - keep existing
+  photo_uploads: 'google',     // Photo analysis - Gemini has vision capabilities
+  summaries: 'anthropic',      // Summarization - Claude is great at this
+  search: 'google',            // Search queries - Google's strength
+  chat: 'openai',              // General chat - GPT is conversational
+  fallback: 'deepseek',        // Always available fallback
+  analytics: 'deepseek',       // Data analysis - keep existing
+  accessibility: 'openai'      // Accessibility support - GPT is helpful
 };
 
 // Get enabled API options

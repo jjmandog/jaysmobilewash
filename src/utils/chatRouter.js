@@ -36,7 +36,7 @@ export async function routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_A
   
   if (!assignedAPI.enabled) {
     // Fallback to default if assigned API is disabled
-    const fallbackAPIId = assignments.fallback || 'huggingface';
+    const fallbackAPIId = assignments.fallback || 'deepseek';
     const fallbackAPI = getAPIById(fallbackAPIId);
     
     if (!fallbackAPI || !fallbackAPI.enabled) {
@@ -100,6 +100,15 @@ async function executeAPICall(prompt, api, role, options = {}) {
   // Route to different APIs based on api.endpoint
   if (api.id === 'deepseek') {
     return await queryAI(enhancedPrompt, apiOptions);
+  } else if (api.id === 'openai') {
+    // For OpenAI, use the same queryAI function but with openai endpoint
+    return await queryAI(enhancedPrompt, { endpoint: '/api/openai' });
+  } else if (api.id === 'anthropic') {
+    // For Anthropic, use the same queryAI function but with anthropic endpoint
+    return await queryAI(enhancedPrompt, { endpoint: '/api/anthropic' });
+  } else if (api.id === 'google') {
+    // For Google, use the same queryAI function but with google endpoint
+    return await queryAI(enhancedPrompt, { endpoint: '/api/google' });
   } else {
     // For other APIs, we would implement specific API clients here
     // For now, we'll use deepseek as fallback if available
@@ -160,9 +169,15 @@ export async function isRoleAPIAvailable(role, assignments = DEFAULT_ROLE_ASSIGN
       return true;
     }
     
-    // Check availability for DeepSeek
+    // Check availability for different APIs
     if (assignedAPI.id === 'deepseek') {
       return await isAIServiceAvailable(assignedAPI.endpoint);
+    } else if (assignedAPI.id === 'openai') {
+      return await isAIServiceAvailable('/api/openai');
+    } else if (assignedAPI.id === 'anthropic') {
+      return await isAIServiceAvailable('/api/anthropic');
+    } else if (assignedAPI.id === 'google') {
+      return await isAIServiceAvailable('/api/google');
     } else {
       // For other APIs, assume available if enabled
       return true;
