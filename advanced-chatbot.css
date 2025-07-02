@@ -225,9 +225,15 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: #ffffff;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e0 transparent;
+    position: relative;
+    /* Ensure scrolling works properly */
+    -webkit-overscroll-behavior: contain;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
 }
 
 .admin-mode .chatbot-messages {
@@ -1123,6 +1129,48 @@
     overflow: hidden;
 }
 
+/* Lens Flare Effects for Jay Mode */
+.jay-mode::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 217, 61, 0.6) 0%, transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(255, 181, 66, 0.4) 0%, transparent 25%),
+        radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 20%),
+        radial-gradient(circle at 30% 80%, rgba(255, 217, 61, 0.5) 0%, transparent 35%),
+        radial-gradient(circle at 90% 60%, rgba(255, 255, 255, 0.4) 0%, transparent 15%);
+    animation: lensFlareMovement 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes lensFlareMovement {
+    0% {
+        transform: rotate(0deg) scale(0.8);
+        opacity: 0.3;
+    }
+    25% {
+        transform: rotate(90deg) scale(1.1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: rotate(180deg) scale(0.9);
+        opacity: 0.4;
+    }
+    75% {
+        transform: rotate(270deg) scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: rotate(360deg) scale(0.8);
+        opacity: 0.3;
+    }
+}
+
 /* Strobe Effect Background */
 .jay-mode::before {
     content: '';
@@ -1177,8 +1225,11 @@
     background-size: 100px 100px, 150px 150px, 200px 200px;
     animation: laserMove 4s linear infinite, laserPulse 2s ease-in-out infinite;
     pointer-events: none;
-    z-index: 2;
+    z-index: 1; /* Reduced from z-index: 2 to ensure messages are above */
     opacity: 0.6;
+    /* Ensure it doesn't interfere with scrolling */
+    touch-action: none;
+}
 }
 
 @keyframes laserMove {
@@ -1212,7 +1263,7 @@
 /* Enhanced Glow Effects for Jay Mode Messages */
 .jay-mode .message-content {
     position: relative;
-    z-index: 3;
+    z-index: 3; /* Above laser effects */
     box-shadow: 
         0 0 10px rgba(255, 217, 61, 0.3),
         0 0 20px rgba(255, 217, 61, 0.2),
@@ -1241,6 +1292,45 @@
 .jay-mode .chatbot-header {
     animation: jayHeaderPulse 2s ease-in-out infinite;
     box-shadow: 0 0 20px rgba(255, 217, 61, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Additional lens flare for header */
+.jay-mode .chatbot-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.8) 20%,
+        rgba(255, 217, 61, 0.6) 40%,
+        rgba(255, 255, 255, 0.8) 60%,
+        transparent 100%
+    );
+    animation: headerLensFlare 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes headerLensFlare {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
 }
 
 @keyframes jayHeaderPulse {

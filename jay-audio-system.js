@@ -792,11 +792,11 @@ class JayAudioSystem {
         const sortedIntervals = [...intervals].sort((a, b) => a - b);
         const median = sortedIntervals[Math.floor(sortedIntervals.length / 2)];
         const medianDeviation = sortedIntervals.map(interval => Math.abs(interval - median));
-        const madThreshold = medianDeviation.sort((a, b) => a - b)[Math.floor(medianDeviation.length / 2)] * 2.5;
+        const madThreshold = medianDeviation.sort((a, b) => a - b)[Math.floor(medianDeviation.length / 2)] * 2.0; // Reduced for better sensitivity
         
         // Filter out outliers using robust median-based approach
         const robustIntervals = intervals.filter(interval => 
-            interval > 200 && interval < 2000 && // Basic BPM range (30-300 BPM)
+            interval > 150 && interval < 2500 && // Extended BPM range (24-400 BPM) for better detection
             Math.abs(interval - median) <= madThreshold // Median absolute deviation filter
         );
         
@@ -835,8 +835,8 @@ class JayAudioSystem {
             this.currentBPM = Math.round(rawBpm);
         }
         
-        // Clamp BPM to reasonable range
-        this.currentBPM = Math.max(60, Math.min(200, this.currentBPM));
+        // Clamp BPM to reasonable extended range
+        this.currentBPM = Math.max(50, Math.min(250, this.currentBPM)); // Extended from 60-200 to 50-250
         
         // Update BPM display if available
         this.updateBPMDisplay();
