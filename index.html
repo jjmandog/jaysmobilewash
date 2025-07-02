@@ -481,6 +481,107 @@
             }
         }
         
+        /* Enhanced Global Laser Animations */
+        @keyframes laserFromLeft {
+            0% {
+                left: -100px;
+                opacity: 0;
+                transform: rotate(45deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                left: 100vw;
+                opacity: 0;
+                transform: rotate(45deg);
+            }
+        }
+        
+        @keyframes laserFromRight {
+            0% {
+                right: -100px;
+                opacity: 0;
+                transform: rotate(-45deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                right: 100vw;
+                opacity: 0;
+                transform: rotate(-45deg);
+            }
+        }
+        
+        @keyframes laserFromTop {
+            0% {
+                top: -100px;
+                opacity: 0;
+                transform: rotate(90deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(90deg);
+            }
+        }
+        
+        @keyframes laserFromBottom {
+            0% {
+                bottom: -100px;
+                opacity: 0;
+                transform: rotate(-90deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+                transform: rotate(-90deg);
+            }
+        }
+        
+        @keyframes laserDiagonal1 {
+            0% {
+                left: -100px;
+                top: -100px;
+                opacity: 0;
+                transform: rotate(135deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                left: 100vw;
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(135deg);
+            }
+        }
+        
+        @keyframes laserDiagonal2 {
+            0% {
+                right: -100px;
+                top: -100px;
+                opacity: 0;
+                transform: rotate(-135deg);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                right: 100vw;
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(-135deg);
+            }
+        }
+        
         /* Axy Stars Animations */
         @keyframes starTwinkle {
             0%, 100% {
@@ -838,6 +939,129 @@
             }
         }
         
+        /* Enhanced Jay Logo Flying Animations */
+        @keyframes flyAround1 {
+            0% {
+                left: -60px;
+                top: 20%;
+                transform: rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            25% {
+                left: 30%;
+                top: 80%;
+                transform: rotate(90deg) scale(1.2);
+            }
+            50% {
+                left: 80%;
+                top: 10%;
+                transform: rotate(180deg) scale(0.8);
+            }
+            75% {
+                left: 50%;
+                top: 70%;
+                transform: rotate(270deg) scale(1.1);
+            }
+            95% {
+                opacity: 1;
+                left: 110%;
+                top: 40%;
+                transform: rotate(360deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                left: 110%;
+                top: 40%;
+                transform: rotate(360deg) scale(1);
+            }
+        }
+        
+        @keyframes flyAround2 {
+            0% {
+                right: -60px;
+                top: 70%;
+                transform: rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            25% {
+                right: 60%;
+                top: 10%;
+                transform: rotate(-90deg) scale(1.3);
+            }
+            50% {
+                right: 10%;
+                top: 60%;
+                transform: rotate(-180deg) scale(0.9);
+            }
+            75% {
+                right: 70%;
+                top: 90%;
+                transform: rotate(-270deg) scale(1.1);
+            }
+            95% {
+                opacity: 1;
+                right: 110%;
+                top: 30%;
+                transform: rotate(-360deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                right: 110%;
+                top: 30%;
+                transform: rotate(-360deg) scale(1);
+            }
+        }
+        
+        @keyframes flyAround3 {
+            0% {
+                left: 50%;
+                top: -60px;
+                transform: rotate(45deg) scale(1);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            20% {
+                left: 10%;
+                top: 25%;
+                transform: rotate(135deg) scale(1.2);
+            }
+            40% {
+                left: 90%;
+                top: 50%;
+                transform: rotate(225deg) scale(0.8);
+            }
+            60% {
+                left: 20%;
+                top: 80%;
+                transform: rotate(315deg) scale(1.1);
+            }
+            80% {
+                left: 70%;
+                top: 15%;
+                transform: rotate(405deg) scale(1.3);
+            }
+            95% {
+                opacity: 1;
+                left: 50%;
+                top: 110%;
+                transform: rotate(495deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                left: 50%;
+                top: 110%;
+                transform: rotate(495deg) scale(1);
+            }
+        }
+        
         /* Loading screen styles */
         .water-wave {
             position: absolute;
@@ -961,6 +1185,128 @@
         .jay-activated .jay-mode-button {
             display: none;
         }
+        
+        /* Galaxy Starfield Overlay */
+        .galaxy-starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .galaxy-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: galaxyTwinkle 3s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+        
+        .galaxy-star.large {
+            animation: galaxyTwinkle 2s ease-in-out infinite, galaxyDrift 15s linear infinite;
+        }
+        
+        .galaxy-star.medium {
+            animation: galaxyTwinkle 2.5s ease-in-out infinite, galaxyDrift 20s linear infinite;
+        }
+        
+        .galaxy-star.small {
+            animation: galaxyTwinkle 3.5s ease-in-out infinite, galaxyDrift 25s linear infinite;
+        }
+        
+        @keyframes galaxyTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(138, 43, 226, 0.5);
+            }
+        }
+        
+        @keyframes galaxyDrift {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(10px) translateY(-15px) rotate(90deg);
+            }
+            50% {
+                transform: translateX(-8px) translateY(-30px) rotate(180deg);
+            }
+            75% {
+                transform: translateX(12px) translateY(-15px) rotate(270deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(360deg);
+            }
+        }
+        
+        /* Mobile optimization for starfield */
+        @media (max-width: 768px) {
+            .galaxy-star {
+                animation-duration: 4s;
+            }
+            .galaxy-star.large,
+            .galaxy-star.medium,
+            .galaxy-star.small {
+                animation-duration: 4s, 30s;
+            }
+        }
+        
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .galaxy-star {
+                animation: galaxyTwinkle 1s ease-in-out infinite !important;
+            }
+        }
+        
+        /* Ghostly Apparition Effects */
+        @keyframes ghostlyAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+                filter: blur(5px);
+            }
+            15% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2) rotate(5deg);
+                filter: blur(2px);
+            }
+            30% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1) rotate(-3deg);
+                filter: blur(0px);
+            }
+            50% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+                filter: blur(1px);
+            }
+            70% {
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(0.9) rotate(-1deg);
+                filter: blur(2px);
+            }
+            85% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1.3) rotate(3deg);
+                filter: blur(3px);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                filter: blur(8px);
+            }
+        }
     </style>
     
     <!-- Noscript fallback for crawlers -->
@@ -972,6 +1318,11 @@
     </noscript>
 </head>
 <body itemscope itemtype="https://schema.org/AutoRepair">
+    <!-- Galaxy Starfield Overlay -->
+    <div id="galaxy-starfield" class="galaxy-starfield">
+        <!-- Stars will be dynamically generated here -->
+    </div>
+
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center">
         <div class="relative w-80 h-80">
@@ -2529,6 +2880,7 @@
             
             // Initialize JAY Mode
             initJayMode();
+            initGalaxyStarfield();
         });
 
         // Global variables for water trail (accessible by Jay Mode)
@@ -2543,6 +2895,66 @@
         function resumeWaterTrail() {
             console.log('[Water Trail] Resuming water trail');
             isTrailEnabled = true;
+        }
+        
+        // Galaxy Starfield System
+        function initGalaxyStarfield() {
+            console.log('[Galaxy] Initializing galaxy starfield...');
+            const starfield = document.getElementById('galaxy-starfield');
+            if (!starfield) {
+                console.error('[Galaxy] Starfield container not found');
+                return;
+            }
+            
+            // Generate initial stars
+            generateGalaxyStars(starfield, 50); // 50 stars for desktop
+            
+            // Add more stars on mobile with reduced count for performance
+            if (window.innerWidth <= 768) {
+                generateGalaxyStars(starfield, 30); // 30 stars for mobile
+            }
+            
+            console.log('[Galaxy] Galaxy starfield initialized');
+        }
+        
+        function generateGalaxyStars(container, count) {
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'galaxy-star';
+                
+                // Random size classification
+                const sizeRandom = Math.random();
+                let sizeClass, size;
+                if (sizeRandom < 0.6) {
+                    sizeClass = 'small';
+                    size = Math.random() * 2 + 1; // 1-3px
+                } else if (sizeRandom < 0.9) {
+                    sizeClass = 'medium';
+                    size = Math.random() * 3 + 2; // 2-5px
+                } else {
+                    sizeClass = 'large';
+                    size = Math.random() * 4 + 3; // 3-7px
+                }
+                
+                star.classList.add(sizeClass);
+                
+                // Random position across entire viewport
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random animation delay for natural twinkling
+                const delay = Math.random() * 3;
+                
+                star.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}%;
+                    top: ${y}%;
+                    animation-delay: ${delay}s;
+                `;
+                
+                container.appendChild(star);
+            }
         }
 
         // JAY Mode Implementation with enhanced features
@@ -2702,6 +3114,7 @@
                 createLaserEffects();
                 createAxyStars();
                 createPurpleThunder();
+                createGhostlyApparition();
                 
                 // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
@@ -2801,11 +3214,21 @@
             }
             
             function createJayParticles() {
-                console.log('[JAY Mode] 🎆 Creating particle effects...');
-                for (let i = 0; i < 20; i++) {
+                console.log('[JAY Mode] 🎆 Creating flying logo effects...');
+                
+                // Create multiple flying logos with different animations
+                const animations = ['flyAround1', 'flyAround2', 'flyAround3'];
+                
+                for (let i = 0; i < 15; i++) {
                     setTimeout(() => {
                         const particle = document.createElement('div');
-                        particle.className = 'floating-product-particle';
+                        particle.className = 'floating-product-particle flying-jay-logo';
+                        
+                        // Random animation selection
+                        const animationType = animations[Math.floor(Math.random() * animations.length)];
+                        const duration = 8 + Math.random() * 6; // 8-14 seconds
+                        const delay = Math.random() * 2; // 0-2 second delay
+                        
                         particle.style.cssText = `
                             position: fixed;
                             width: 40px;
@@ -2814,10 +3237,41 @@
                             background-size: contain;
                             background-repeat: no-repeat;
                             pointer-events: none;
+                            z-index: 10001;
+                            animation: ${animationType} ${duration}s ease-in-out;
+                            animation-delay: ${delay}s;
+                            filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.8));
+                        `;
+                        
+                        document.body.appendChild(particle);
+                        
+                        // Remove particle after animation completes
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.remove();
+                            }
+                        }, (duration + delay) * 1000);
+                    }, i * 400); // Stagger creation every 400ms
+                }
+                
+                // Also create some traditional floating particles for variety
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const particle = document.createElement('div');
+                        particle.className = 'floating-product-particle';
+                        particle.style.cssText = `
+                            position: fixed;
+                            width: 30px;
+                            height: 30px;
+                            background-image: url('https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png');
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            pointer-events: none;
                             left: ${Math.random() * 100}%;
                             bottom: -50px;
                             z-index: 10001;
                             animation: float-up ${6 + Math.random() * 4}s linear;
+                            filter: drop-shadow(0 0 6px rgba(138, 43, 226, 0.6));
                         `;
                         
                         document.body.appendChild(particle);
@@ -2825,9 +3279,10 @@
                         particle.addEventListener('animationend', () => {
                             particle.remove();
                         });
-                    }, i * 200);
+                    }, i * 800 + 3000); // Start after flying logos
                 }
-                console.log('[JAY Mode] ✨ 20 particles scheduled for creation');
+                
+                console.log('[JAY Mode] ✨ 15 flying logos + 5 traditional particles scheduled for creation');
             }
             
             function deactivateJayMode() {
@@ -2883,8 +3338,9 @@
                 const lasers = document.querySelectorAll('.laser-beam');
                 const stars = document.querySelectorAll('.axy-star');
                 const thunder = document.querySelectorAll('.purple-thunder');
+                const ghosts = document.querySelectorAll('.ghostly-apparition');
                 
-                console.log(`[JAY Mode] Cleaning up ${particles.length} particles, ${lasers.length} lasers, ${stars.length} stars, and ${thunder.length} thunder effects`);
+                console.log(`[JAY Mode] Cleaning up ${particles.length} particles, ${lasers.length} lasers, ${stars.length} stars, ${thunder.length} thunder effects, and ${ghosts.length} ghosts`);
                 
                 particles.forEach(particle => {
                     particle.remove();
@@ -2902,6 +3358,10 @@
                     bolt.remove();
                 });
                 
+                ghosts.forEach(ghost => {
+                    ghost.remove();
+                });
+                
                 // Resume water droplet trail
                 resumeWaterTrail();
                 
@@ -2909,41 +3369,81 @@
             }
             
             function createLaserEffects() {
-                console.log('[JAY Mode] ⚡ Creating laser effects...');
-                for (let i = 0; i < 5; i++) {
+                console.log('[JAY Mode] ⚡ Creating global laser effects...');
+                
+                const laserTypes = [
+                    { animation: 'laserFromLeft', width: '3px', height: '100vh' },
+                    { animation: 'laserFromRight', width: '3px', height: '100vh' },
+                    { animation: 'laserFromTop', width: '100vw', height: '3px' },
+                    { animation: 'laserFromBottom', width: '100vw', height: '3px' },
+                    { animation: 'laserDiagonal1', width: '4px', height: '200vh' },
+                    { animation: 'laserDiagonal2', width: '4px', height: '200vh' },
+                    { animation: 'laserSweep', width: '2px', height: '100vh' }
+                ];
+                
+                for (let i = 0; i < 12; i++) {
                     setTimeout(() => {
                         const laser = document.createElement('div');
                         laser.className = 'laser-beam';
+                        
+                        // Randomly select laser type
+                        const laserType = laserTypes[Math.floor(Math.random() * laserTypes.length)];
+                        const duration = 3 + Math.random() * 4; // 3-7 seconds
+                        
+                        // Random colors
+                        const colors = [
+                            ['#ff00ff', '#00ffff'], // magenta to cyan
+                            ['#ff0080', '#8000ff'], // hot pink to purple
+                            ['#00ff80', '#ff8000'], // green to orange
+                            ['#0080ff', '#ff0040'], // blue to red
+                            ['#80ff00', '#ff0080']  // lime to magenta
+                        ];
+                        const colorPair = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        let positioning = '';
+                        let gradient = '';
+                        
+                        // Set positioning and gradient based on animation type
+                        if (laserType.animation === 'laserFromLeft' || laserType.animation === 'laserFromRight') {
+                            positioning = `top: ${Math.random() * 80 + 10}%;`;
+                            gradient = `linear-gradient(to right, transparent 0%, ${colorPair[0]} 20%, ${colorPair[1]} 50%, ${colorPair[0]} 80%, transparent 100%)`;
+                        } else if (laserType.animation === 'laserFromTop' || laserType.animation === 'laserFromBottom') {
+                            positioning = `left: ${Math.random() * 80 + 10}%;`;
+                            gradient = `linear-gradient(to bottom, transparent 0%, ${colorPair[0]} 20%, ${colorPair[1]} 50%, ${colorPair[0]} 80%, transparent 100%)`;
+                        } else if (laserType.animation.includes('Diagonal')) {
+                            positioning = '';
+                            gradient = `linear-gradient(45deg, transparent 0%, ${colorPair[0]} 20%, ${colorPair[1]} 50%, ${colorPair[0]} 80%, transparent 100%)`;
+                        } else {
+                            // Default sweep
+                            positioning = `left: ${Math.random() * 100}%; top: 0;`;
+                            gradient = `linear-gradient(to bottom, transparent 0%, ${colorPair[0]} 10%, ${colorPair[1]} 50%, ${colorPair[0]} 90%, transparent 100%)`;
+                        }
+                        
                         laser.style.cssText = `
                             position: fixed;
-                            width: 2px;
-                            height: 100vh;
-                            background: linear-gradient(to bottom, 
-                                transparent 0%, 
-                                #ff00ff 10%, 
-                                #00ffff 50%, 
-                                #ff00ff 90%, 
-                                transparent 100%);
-                            left: ${Math.random() * 100}%;
-                            top: 0;
+                            width: ${laserType.width};
+                            height: ${laserType.height};
+                            background: ${gradient};
+                            ${positioning}
                             z-index: 10000;
-                            opacity: 0.7;
-                            animation: laserSweep 2s ease-in-out infinite;
-                            box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
-                            will-change: transform;
+                            opacity: 0;
+                            animation: ${laserType.animation} ${duration}s ease-in-out;
+                            box-shadow: 0 0 10px ${colorPair[0]}, 0 0 20px ${colorPair[1]}, 0 0 30px ${colorPair[0]};
+                            will-change: transform, opacity;
+                            pointer-events: none;
                         `;
                         
                         document.body.appendChild(laser);
                         
-                        // Remove laser after a while
+                        // Remove laser after animation completes
                         setTimeout(() => {
                             if (laser.parentNode) {
                                 laser.remove();
                             }
-                        }, 25000);
-                    }, i * 1000);
+                        }, duration * 1000 + 1000);
+                    }, i * 800); // Stagger every 800ms
                 }
-                console.log('[JAY Mode] ⚡ 5 laser beams scheduled for creation');
+                console.log('[JAY Mode] ⚡ 12 global laser beams scheduled for creation');
             }
             
             function createAxyStars() {
@@ -3036,6 +3536,71 @@
                 }, 1000 + Math.random() * 2000);
                 
                 console.log('[JAY Mode] ⚡ Purple Thunder system activated');
+            }
+            
+            function createGhostlyApparition() {
+                console.log('[JAY Mode] 👻 Creating ghostly apparition effects...');
+                
+                const ghostTexts = [
+                    'Jay...',
+                    'J A Y',
+                    'Mobile Wash...',
+                    'Premium Detail...',
+                    'Jay is here...',
+                    'Wash... Detail... Jay...',
+                    'The legend...',
+                    'Jay\'s Mobile...'
+                ];
+                
+                // Create multiple ghostly text apparitions
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const isGhostEmoji = Math.random() < 0.15; // 15% chance for ghost emoji
+                        const ghost = document.createElement('div');
+                        ghost.className = 'ghostly-apparition';
+                        
+                        const content = isGhostEmoji ? '👻' : ghostTexts[Math.floor(Math.random() * ghostTexts.length)];
+                        const fontSize = isGhostEmoji ? '60px' : `${20 + Math.random() * 30}px`;
+                        const duration = 4 + Math.random() * 6; // 4-10 seconds
+                        
+                        // Random position anywhere on the page
+                        const x = Math.random() * 80 + 10; // 10-90% to avoid edges
+                        const y = Math.random() * 80 + 10; // 10-90% to avoid edges
+                        
+                        ghost.style.cssText = `
+                            position: fixed;
+                            left: ${x}%;
+                            top: ${y}%;
+                            font-size: ${fontSize};
+                            font-family: 'Creepster', 'serif';
+                            color: ${isGhostEmoji ? 'white' : 'rgba(255, 255, 255, 0.9)'};
+                            text-shadow: ${isGhostEmoji ? 
+                                '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(138, 43, 226, 0.6)' :
+                                '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(138, 43, 226, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)'
+                            };
+                            z-index: 10002;
+                            pointer-events: none;
+                            opacity: 0;
+                            transform: translate(-50%, -50%) scale(0.5);
+                            animation: ghostlyAppear ${duration}s ease-in-out;
+                            will-change: transform, opacity;
+                            font-weight: ${isGhostEmoji ? 'normal' : 'bold'};
+                            letter-spacing: ${isGhostEmoji ? 'normal' : '3px'};
+                        `;
+                        
+                        ghost.textContent = content;
+                        document.body.appendChild(ghost);
+                        
+                        // Remove ghost after animation
+                        setTimeout(() => {
+                            if (ghost.parentNode) {
+                                ghost.remove();
+                            }
+                        }, duration * 1000);
+                    }, i * 2000 + Math.random() * 3000); // Stagger with random delay
+                }
+                
+                console.log('[JAY Mode] 👻 8 ghostly apparitions scheduled for manifestation');
             }
             
             console.log('[JAY Mode] Jay Mode system initialized successfully! 🎵');
