@@ -2433,12 +2433,17 @@
             if (jayButton) {
                 jayButton.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('[JAY Mode] Button activation requested');
+                    console.log('[JAY Mode] Button activation requested - activating both modes');
+                    
+                    // Always activate global Jay Mode (visual effects)
+                    activateJayMode();
+                    
+                    // Also activate chatbot Jay Mode if available
                     if (window.advancedChatbot && typeof window.advancedChatbot.activateJayMode === 'function') {
+                        console.log('[JAY Mode] Also activating chatbot Jay Mode');
                         window.advancedChatbot.activateJayMode();
                     } else {
-                        console.warn('[JAY Mode] Chatbot not available, falling back to global Jay Mode');
-                        activateJayMode();
+                        console.warn('[JAY Mode] Chatbot not available, only global Jay Mode activated');
                     }
                 });
                 console.log('[JAY Mode] Button listener added');
@@ -2454,8 +2459,17 @@
                     console.log(`[JAY Mode] Key sequence progress: ${currentSequence.join('')}/${jaySequence.join('')}`);
                     
                     if (currentSequence.length === jaySequence.length) {
-                        console.log('[JAY Mode] Sequence completed! Activating...');
+                        console.log('[JAY Mode] Sequence completed! Activating both modes...');
+                        
+                        // Always activate global Jay Mode (visual effects)
                         activateJayMode();
+                        
+                        // Also activate chatbot Jay Mode if available
+                        if (window.advancedChatbot && typeof window.advancedChatbot.activateJayMode === 'function') {
+                            console.log('[JAY Mode] Also activating chatbot Jay Mode');
+                            window.advancedChatbot.activateJayMode();
+                        }
+                        
                         currentSequence = [];
                     }
                 } else {
