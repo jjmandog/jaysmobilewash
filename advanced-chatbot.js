@@ -1166,9 +1166,13 @@ class AdvancedChatBot {
   checkSecretModes(inputValue) {
     const value = inputValue.toLowerCase();
     
-    // Check for admin mode ("josh")
-    if (value === 'josh' && !this.adminMode) {
-      this.activateAdminMode();
+    // Check for admin mode ("josh") - now toggles on/off
+    if (value === 'josh') {
+      if (this.adminMode) {
+        this.deactivateAdminMode();
+      } else {
+        this.activateAdminMode();
+      }
       return;
     }
     
@@ -1194,6 +1198,31 @@ class AdvancedChatBot {
     
     // Update placeholder
     input.placeholder = "Admin mode active - Type admin commands...";
+  }
+  
+  deactivateAdminMode() {
+    this.adminMode = false;
+    this.secretModeActive = false;
+    
+    // Remove admin styling
+    document.querySelector('.chatbot-window').classList.remove('admin-mode');
+    
+    // Clear input and show deactivation message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    this.addMessage("🔒 ADMIN MODE DEACTIVATED", 'bot');
+    
+    // Restore default placeholder based on current role
+    const rolePlaceholders = {
+      quotes: 'Describe your vehicle and service needs for a quote...',
+      search: 'What information are you looking for?',
+      reasoning: 'Ask me to analyze or reason through something...',
+      summaries: 'What would you like me to summarize?',
+      chat: 'Ask about our services or chat with me...'
+    };
+    
+    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
   }
   
   activateJayMode() {
