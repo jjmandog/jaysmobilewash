@@ -1204,3 +1204,212 @@
     80% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-10px); }
 }
+
+/* Advanced Features Styling */
+
+/* Visual Vehicle Inspector Results */
+.message.analysis .message-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Fleet Management Styling */
+.fleet-summary {
+    background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    margin: 10px 0;
+}
+
+.fleet-vehicle {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border-left: 4px solid #00b894;
+}
+
+/* Learning Stats Display */
+.learning-stats {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    margin: 10px 0;
+}
+
+/* Conversation Analysis Highlights */
+.buying-signal {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    padding: 8px 12px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.doubt-indicator {
+    background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+    padding: 8px 12px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.vip-pattern {
+    background: linear-gradient(135deg, #fdcb6e 0%, #e84393 100%);
+    padding: 8px 12px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* Enhanced Image Upload Area */
+.uploaded-files {
+    max-height: 150px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.uploaded-file {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 8px;
+    margin: 5px 0;
+}
+
+.uploaded-image {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.file-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-name {
+    font-size: 12px;
+    color: #666;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.remove-file {
+    background: #e17055;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.remove-file:hover {
+    background: #d63031;
+}
+
+/* Enhanced Processing Overlay */
+.processing-overlay .processing-message {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+/* Dark Mode Enhancements */
+.chatbot-window.admin-mode .learning-stats,
+.chatbot-window.admin-mode .fleet-summary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* File Upload Button Enhancements */
+.file-upload-btn {
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+}
+
+.file-upload-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.5);
+}
+
+.file-upload-section {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+/* Enhanced chatbot messages for better text visibility */
+.chatbot-messages {
+    scroll-behavior: smooth;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #f8fafc;
+}
+
+.admin-mode .chatbot-messages {
+    background: #1a202c;
+}
+
+.jay-mode .chatbot-messages {
+    background: #ffffff;
+}
+
+/* Ensure text contrast in all modes */
+.user-message .message-content {
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    color: white;
+}
+
+.bot-message .message-content {
+    background: white;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+}
+
+.admin-mode .bot-message .message-content {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.jay-mode .bot-message .message-content {
+    background: #f7fafc;
+    color: #2d3748;
+    border: 1px solid #e2e8f0;
+}
