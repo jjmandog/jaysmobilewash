@@ -4,8 +4,10 @@
   "description": "Jay's Mobile Wash - Premium mobile car detailing service",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Static site build complete'",
-    "dev": "node -e \"console.log('Static site - open index.html')\"",
+    "build": "npm run build:css && echo 'Static site build complete'",
+    "build:css": "postcss src/tailwind.css -o dist/tailwind.css",
+    "build:css:watch": "postcss src/tailwind.css -o dist/tailwind.css --watch",
+    "dev": "npm run build:css:watch & node -e \"console.log('Static site - open index.html')\"",
     "lint": "htmlhint **/*.html",
     "test": "vitest",
     "test:run": "vitest run",
@@ -22,12 +24,17 @@
     "nodemailer": "^6.9.8"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
     "@vitest/ui": "^3.2.4",
+    "autoprefixer": "^10.4.21",
     "chrome-launcher": "^1.2.0",
     "htmlhint": "^1.6.3",
     "jsdom": "^26.1.0",
     "lighthouse": "^12.7.0",
     "node-fetch": "^3.3.2",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.11",
     "vitest": "^3.2.4"
   },
   "keywords": [

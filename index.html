@@ -64,7 +64,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="dist/tailwind.css">
     
     <!-- SPA SEO Head Manager Utility -->
     <script src="spa-seo-head-manager.js"></script>
@@ -3663,7 +3663,14 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
             }
             
             // Initialize secret settings panel
-=======
+            window.secretSettingsPanel = new SecretSettingsPanel();
+            
+            // Setup event listeners for custom events
+            document.addEventListener('settingChanged', (e) => {
+                console.log('Setting changed:', e.detail);
+            });
+        });
+
         // Secret Settings Panel Manager
         class SecretSettingsPanel {
             constructor() {
@@ -4018,10 +4025,7 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
         });
     </script>
 
-    <!-- Production Chat Widget Module with AI Training System -->
-    <script src="trainableBaseTemplate.js"></script>
-    <script src="chatWidget.js"></script>
-    <script src="aiTrainingInterface.js"></script>
+    <!-- Main JavaScript Module -->
     <script src="main.js"></script>
     
     <!-- Enhanced Chatbot Handler - SPA and React Snap Compatible -->
