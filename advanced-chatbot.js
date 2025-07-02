@@ -346,7 +346,11 @@ class ConversationMemory {
   loadKeywords() {
     try {
       const saved = localStorage.getItem('chatbot-keywords');
-      return saved ? JSON.parse(saved) : new Map();
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return new Map(parsed); // Convert array of entries back to Map
+      }
+      return new Map();
     } catch (error) {
       return new Map();
     }
@@ -1615,5 +1619,5 @@ class AdvancedChatBot {
 // Initialize the advanced chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🤖 Initializing Advanced AI Chatbot...');
-  new AdvancedChatBot('chatbot-container');
+  window.advancedChatbot = new AdvancedChatBot('chatbot-container');
 });
