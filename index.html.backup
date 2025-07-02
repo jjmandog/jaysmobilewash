@@ -69,11 +69,6 @@
     <!-- SPA SEO Head Manager Utility -->
     <script src="spa-seo-head-manager.js"></script>
     
-    <!-- Main JavaScript -->
-    <script src="main.js"></script>
-    
-    <!-- Legacy chatbot handler (disabled) -->
-    <script src="chatbot-handler.js"></script>
 
     <!-- Invalid Route Handler (410 Gone) -->
     <script src="invalid-route-handler.js"></script>
@@ -2365,51 +2360,509 @@
     </div>
 
     <style>
-        /* New Chatbot Container Styles */
-        .chatbot-container {
+        /* Chat Widget Styles */
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
+        }
+
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .chat-bubble-text {
+            display: none;
+            margin-left: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .chat-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 420px;
-            z-index: 9999;
+            height: 650px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 9998;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
-        
+
+        .chat-widget.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .chat-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-icon {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .chat-subtitle {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .chat-close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fb;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+            margin-left: auto;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: #007bff;
+            color: white;
+        }
+
+        .message.error .message-avatar {
+            background: #dc3545;
+            color: white;
+        }
+
+        .message-content {
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e5e7eb;
+        }
+
+        .message.user .message-content {
+            background: #007bff;
+            color: white;
+        }
+
+        .message.error .message-content {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .chat-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 24px;
+            outline: none;
+            font-size: 15px;
+            resize: none;
+            min-height: 20px;
+            max-height: 80px;
+            line-height: 1.4;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .send-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .typing-dots::after {
+            content: '...';
+            animation: typing-dots 1.5s ease-in-out infinite;
+        }
+
+        @keyframes typing-dots {
+            0%, 20% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 480px) {
-            .chatbot-container {
+            .chat-widget {
                 width: calc(100vw - 20px);
+                height: calc(100vh - 100px);
                 bottom: 10px;
                 right: 10px;
                 left: 10px;
                 max-width: none;
             }
+
+            .chat-bubble {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .chat-widget {
+                background: #1f2937;
+            }
+
+            .chat-messages {
+                background: #111827;
+            }
+
+            .message.assistant .message-content {
+                background: #374151;
+                color: #e5e7eb;
+                border-color: #4b5563;
+            }
+
+            .chat-input-container {
+                background: #1f2937;
+                border-color: #4b5563;
+            }
+
+            .chat-input {
+                background: #374151;
+                color: #e5e7eb;
+                border-color: #4b5563;
+            }
+
+            .chat-input::placeholder {
+                color: #9ca3af;
+            }
         }
     </style>
 
-    <!-- Scripts for the new chatbot system -->
-    <script type="module">
-        // Initialize new chatbot system
-        import ChatBotModule from './src/components/ChatBotModule.js';
-        
-        // Simple integration to replace legacy system
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('New chatbot system initializing...');
-            
-            // Check if ChatBotModule is available
-            if (typeof ChatBotModule !== 'undefined') {
-                console.log('✅ New ChatBotModule loaded successfully');
-                
-                // Initialize the new chatbot module
-                const container = document.getElementById('chatbot-container');
-                if (container) {
-                    // This would be the React mounting point
-                    container.innerHTML = '<div class="chatbot-placeholder">💬 New chatbot system ready</div>';
-                }
-            } else {
-                console.warn('⚠️ ChatBotModule not loaded - check script imports');
+    <script>
+        class EnhancedChatWidget {
+            constructor() {
+                this.isOpen = false;
+                this.isTyping = false;
+                this.messages = [
+                    {
+                        role: 'system',
+                        content: `You are a helpful assistant for Jay's Mobile Wash, a premium mobile car detailing service in Los Angeles and Orange County. 
+
+Key information about our services:
+- Mobile detailing services that come to the customer
+- Areas served: Los Angeles and Orange County
+- Services: Exterior detailing, interior detailing, ceramic coating, paint correction
+- Phone: 562-228-9429
+- Premium packages available including "Jay's Max Detail"
+- Professional products used: Koch Chemie, BioBomb odor elimination, ceramic coatings
+- Specializes in luxury and exotic vehicles
+- Fully licensed and insured
+
+Always be helpful, professional, and knowledgeable about mobile detailing. Encourage customers to call 562-228-9429 to schedule or for detailed quotes. Focus on the convenience of mobile service and quality of work.`
+                    }
+                ];
+                this.init();
             }
+
+            init() {
+                this.chatBubble = document.getElementById('chat-bubble');
+                this.chatWidget = document.getElementById('chat-widget');
+                this.chatMessages = document.getElementById('chatMessages');
+                this.chatInput = document.getElementById('chatInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.closeButton = document.getElementById('chat-close');
+
+                // Event listeners
+                this.chatBubble.addEventListener('click', () => this.openChat());
+                this.closeButton.addEventListener('click', () => this.closeChat());
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                
+                this.chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+
+                // Auto-resize textarea
+                this.chatInput.addEventListener('input', () => {
+                    this.chatInput.style.height = 'auto';
+                    this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 80) + 'px';
+                });
+
+                // Close on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeChat();
+                    }
+                });
+            }
+
+            openChat() {
+                this.isOpen = true;
+                this.chatBubble.style.display = 'none';
+                this.chatWidget.classList.add('active');
+                this.chatInput.focus();
+            }
+
+            closeChat() {
+                this.isOpen = false;
+                this.chatWidget.classList.remove('active');
+                setTimeout(() => {
+                    this.chatBubble.style.display = 'flex';
+                }, 300);
+            }
+
+            async sendMessage() {
+                const message = this.chatInput.value.trim();
+                if (!message || this.isTyping) return;
+
+                // Add user message
+                this.addMessage(message, 'user');
+                this.chatInput.value = '';
+                this.chatInput.style.height = 'auto';
+
+                // Add user message to conversation history
+                this.messages.push({
+                    role: 'user',
+                    content: message
+                });
+
+                // Show typing indicator
+                this.showTyping();
+
+                try {
+                    // Call our secure API endpoint
+                    const response = await fetch('/api/ai', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            messages: this.messages,
+                            max_tokens: 500,
+                            temperature: 0.7
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    if (data.choices && data.choices[0] && data.choices[0].message) {
+                        const assistantMessage = data.choices[0].message.content;
+                        this.messages.push({
+                            role: 'assistant',
+                            content: assistantMessage
+                        });
+                        this.addMessage(assistantMessage, 'assistant');
+                    } else {
+                        throw new Error('Invalid response format');
+                    }
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    this.addMessage(
+                        "I'm having trouble connecting right now. Please call us directly at 562-228-9429 for immediate assistance!",
+                        'error'
+                    );
+                } finally {
+                    this.hideTyping();
+                }
+            }
+
+            addMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'message-avatar';
+                
+                if (type === 'assistant') {
+                    avatarDiv.innerHTML = '<i class="fas fa-user-tie"></i>';
+                } else if (type === 'user') {
+                    avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
+                } else if (type === 'error') {
+                    avatarDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                }
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                contentDiv.textContent = text;
+
+                messageDiv.appendChild(avatarDiv);
+                messageDiv.appendChild(contentDiv);
+                
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            showTyping() {
+                this.isTyping = true;
+                this.sendButton.disabled = true;
+                
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = '<i class="fas fa-user-tie" style="margin-right: 8px; color: #667eea;"></i>Jay is typing<span class="typing-dots"></span>';
+                this.chatMessages.appendChild(typingDiv);
+                this.scrollToBottom();
+            }
+
+            hideTyping() {
+                this.isTyping = false;
+                this.sendButton.disabled = false;
+                
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+
+            scrollToBottom() {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+        }
+
+        // Initialize enhanced chat widget when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new EnhancedChatWidget();
         });
     </script>
-
 </body>
 </html>
