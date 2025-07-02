@@ -2298,3 +2298,108 @@ textarea.form-control {
         filter: brightness(0.9) contrast(1.1);
     }
 }
+
+/* -------------------------------------------------------------
+ * 24. Surprise Button Fix
+ * -------------------------------------------------------------
+ * Fix for "Click me for a surprise!" button positioning issue
+ * to prevent overlap with navigation elements and improve accessibility
+ */
+
+.surprise-float-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 100; /* Lower than navigation (z-50 = 50) but above content */
+    background: linear-gradient(135deg, #ff006e, #8338ec);
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
+    backdrop-filter: blur(10px);
+    /* Ensure button doesn't block navigation */
+    margin-top: 4px;
+}
+
+.surprise-float-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(255, 0, 110, 0.5);
+    background: linear-gradient(135deg, #ff006e, #9d4edd);
+}
+
+.surprise-float-btn:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.surprise-float-btn i {
+    font-size: 18px;
+    animation: pulse 2s infinite;
+}
+
+/* Override existing jay-mode-button styles for better positioning */
+button.jay-mode-button {
+    position: fixed !important;
+    top: 32px !important;  /* More space from top to avoid nav collision */
+    right: 24px !important;
+    z-index: 45 !important; /* Below navbar z-50 but above content */
+    /* Enhanced gradient and shadow for better visual appeal */
+    background: linear-gradient(135deg, #ff006e, #8338ec) !important;
+    box-shadow: 0 6px 25px rgba(255, 0, 110, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    /* Improved accessibility */
+    margin-top: 0 !important;
+    padding: 15px 20px !important;
+    border-radius: 50px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+button.jay-mode-button:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 8px 35px rgba(255, 0, 110, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+    background: linear-gradient(135deg, #ff006e, #9d4edd) !important;
+}
+
+/* Mobile responsive positioning */
+@media (max-width: 768px) {
+    .surprise-float-btn,
+    button.jay-mode-button {
+        top: 90px !important; /* Move well below mobile navigation */
+        right: 16px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+        border-radius: 40px !important;
+        z-index: 45 !important;
+    }
+    
+    .surprise-float-btn i,
+    button.jay-mode-button i {
+        font-size: 16px !important;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .surprise-float-btn,
+    button.jay-mode-button {
+        top: 80px !important;
+        right: 12px !important;
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+        /* Keep text but make button more compact */
+        border-radius: 35px !important;
+    }
+    
+    button.jay-mode-button span {
+        font-size: 12px !important;
+    }
+}
