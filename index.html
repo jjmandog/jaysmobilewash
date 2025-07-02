@@ -480,6 +480,99 @@
                 opacity: 0;
             }
         }
+        
+        /* Axy Stars Animations */
+        @keyframes starTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+        
+        @keyframes starDrift {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(20px) translateY(-30px) rotate(90deg);
+            }
+            50% {
+                transform: translateX(-15px) translateY(-60px) rotate(180deg);
+            }
+            75% {
+                transform: translateX(30px) translateY(-30px) rotate(270deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(360deg);
+            }
+        }
+        
+        /* Purple Thunder Animations */
+        @keyframes thunderFlash {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            20% {
+                opacity: 0.3;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            40% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        /* Performance Optimizations */
+        .jay-overlay,
+        .jay-mode-indicator,
+        .laser-beam,
+        .axy-star,
+        .purple-thunder,
+        .floating-product-particle {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .jay-overlay,
+            .laser-beam,
+            .axy-star,
+            .purple-thunder,
+            .floating-product-particle {
+                animation-duration: 0.5s !important;
+                animation-iteration-count: 1 !important;
+            }
+            
+            .indicator-logo {
+                animation: none !important;
+            }
+        }
+        
+        /* Efficient GPU acceleration */
+        .jay-mode-button,
+        .jay-content,
+        .exploding-logo,
+        .jay-mode-text {
+            transform: translateZ(0);
+            will-change: transform;
+        }
 
         /* Prevent Layout Shift */
         .hidden-content {
@@ -603,12 +696,13 @@
             width: 100%;
             height: 100%;
             z-index: 10000;
-            background: rgba(0, 0, 0, 0.9);
+            background: transparent;
             display: none;
             justify-content: center;
             align-items: center;
             opacity: 0;
             transition: opacity 0.5s ease;
+            pointer-events: none;
         }
         
         .jay-overlay.active {
@@ -659,6 +753,60 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+        
+        /* Persistent Jay Mode Indicator */
+        .jay-mode-indicator {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 10001;
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(17, 24, 39, 0.98));
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd93d;
+            border-radius: 15px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .jay-mode-indicator.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+        
+        .jay-mode-indicator:not(.hidden) {
+            animation: indicatorPulse 2s ease-in-out infinite;
+        }
+        
+        .indicator-logo {
+            width: 30px;
+            height: 30px;
+            animation: logo-spin 3s linear infinite;
+        }
+        
+        .indicator-text {
+            color: #ffd93d;
+            font-weight: 900;
+            font-size: 12px;
+            text-shadow: 0 0 10px rgba(255, 217, 61, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        @keyframes indicatorPulse {
+            0%, 100% {
+                box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+                border-color: #ffd93d;
+            }
+            50% {
+                box-shadow: 0 8px 35px rgba(255, 217, 61, 0.7);
+                border-color: #ffeb3b;
+            }
         }
         
         /* Floating particles */
@@ -2197,6 +2345,12 @@
         <span>JAY</span>
     </button>
 
+    <!-- Persistent Jay Mode Indicator (sticky during Jay Mode) -->
+    <div id="jay-mode-indicator" class="jay-mode-indicator hidden">
+        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY MODE" class="indicator-logo">
+        <span class="indicator-text">JAY MODE ACTIVE</span>
+    </div>
+
     <!-- Scripts -->
     <script>
         // Initialize everything
@@ -2504,9 +2658,13 @@
                     return;
                 }
                 
+                // Get persistent indicator
+                const jayIndicator = document.getElementById('jay-mode-indicator');
+                
                 // Pause water droplet trail during JAY mode
                 pauseWaterTrail();
                 
+                // Show initial overlay briefly
                 jayOverlay.style.display = 'flex';
                 document.body.classList.add('jay-activated');
                 
@@ -2515,6 +2673,20 @@
                         jayOverlay.classList.add('active');
                     }
                 }, 10);
+                
+                // Hide overlay after 3 seconds and show persistent indicator
+                setTimeout(() => {
+                    if (jayOverlay) {
+                        jayOverlay.classList.remove('active');
+                        setTimeout(() => {
+                            jayOverlay.style.display = 'none';
+                            // Show persistent indicator
+                            if (jayIndicator) {
+                                jayIndicator.classList.remove('hidden');
+                            }
+                        }, 500);
+                    }
+                }, 3000);
                 
                 // Enhanced audio handling with user-friendly error messages
                 try {
@@ -2528,6 +2700,8 @@
                 // Create visual effects
                 createJayParticles();
                 createLaserEffects();
+                createAxyStars();
+                createPurpleThunder();
                 
                 // Auto-deactivate after 30 seconds
                 jayModeTimer = setTimeout(() => {
@@ -2698,11 +2872,19 @@
                 // Remove body class
                 document.body.classList.remove('jay-activated');
                 
+                // Hide persistent indicator
+                const jayIndicator = document.getElementById('jay-mode-indicator');
+                if (jayIndicator) {
+                    jayIndicator.classList.add('hidden');
+                }
+                
                 // Clean up JAY mode effects with enhanced logging
                 const particles = document.querySelectorAll('.floating-product-particle');
                 const lasers = document.querySelectorAll('.laser-beam');
+                const stars = document.querySelectorAll('.axy-star');
+                const thunder = document.querySelectorAll('.purple-thunder');
                 
-                console.log(`[JAY Mode] Cleaning up ${particles.length} particles and ${lasers.length} lasers`);
+                console.log(`[JAY Mode] Cleaning up ${particles.length} particles, ${lasers.length} lasers, ${stars.length} stars, and ${thunder.length} thunder effects`);
                 
                 particles.forEach(particle => {
                     particle.remove();
@@ -2710,6 +2892,14 @@
                 
                 lasers.forEach(laser => {
                     laser.remove();
+                });
+                
+                stars.forEach(star => {
+                    star.remove();
+                });
+                
+                thunder.forEach(bolt => {
+                    bolt.remove();
                 });
                 
                 // Resume water droplet trail
@@ -2740,6 +2930,7 @@
                             opacity: 0.7;
                             animation: laserSweep 2s ease-in-out infinite;
                             box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+                            will-change: transform;
                         `;
                         
                         document.body.appendChild(laser);
@@ -2753,6 +2944,98 @@
                     }, i * 1000);
                 }
                 console.log('[JAY Mode] ⚡ 5 laser beams scheduled for creation');
+            }
+            
+            function createAxyStars() {
+                console.log('[JAY Mode] ⭐ Creating Axy Stars effect...');
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        const star = document.createElement('div');
+                        star.className = 'axy-star';
+                        const size = Math.random() * 8 + 4;
+                        star.style.cssText = `
+                            position: fixed;
+                            width: ${size}px;
+                            height: ${size}px;
+                            background: radial-gradient(circle, 
+                                rgba(255, 255, 255, 1) 0%, 
+                                rgba(138, 43, 226, 0.8) 30%, 
+                                rgba(75, 0, 130, 0.6) 60%, 
+                                transparent 100%);
+                            border-radius: 50%;
+                            left: ${Math.random() * 100}%;
+                            top: ${Math.random() * 100}%;
+                            z-index: 9999;
+                            pointer-events: none;
+                            box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+                            animation: starTwinkle ${2 + Math.random() * 3}s ease-in-out infinite, 
+                                      starDrift ${20 + Math.random() * 10}s linear infinite;
+                            will-change: transform, opacity;
+                        `;
+                        
+                        document.body.appendChild(star);
+                        
+                        // Remove star after 25 seconds
+                        setTimeout(() => {
+                            if (star.parentNode) {
+                                star.remove();
+                            }
+                        }, 25000);
+                    }, i * 300);
+                }
+                console.log('[JAY Mode] ⭐ 15 cosmic stars scheduled for creation');
+            }
+            
+            function createPurpleThunder() {
+                console.log('[JAY Mode] ⚡ Creating Purple Thunder Strikes...');
+                
+                // Create thunder strikes that sync with beat detection
+                const createThunderStrike = () => {
+                    const strike = document.createElement('div');
+                    strike.className = 'purple-thunder';
+                    const isVertical = Math.random() > 0.5;
+                    
+                    strike.style.cssText = `
+                        position: fixed;
+                        ${isVertical ? 
+                            `width: 3px; height: 100vh; left: ${Math.random() * 100}%; top: 0;` :
+                            `width: 100vw; height: 3px; left: 0; top: ${Math.random() * 100}%;`
+                        }
+                        background: linear-gradient(${isVertical ? 'to bottom' : 'to right'}, 
+                            transparent 0%, 
+                            rgba(138, 43, 226, 1) 20%, 
+                            rgba(255, 255, 255, 0.9) 50%, 
+                            rgba(138, 43, 226, 1) 80%, 
+                            transparent 100%);
+                        z-index: 10000;
+                        opacity: 0;
+                        pointer-events: none;
+                        box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 
+                                   0 0 40px rgba(255, 255, 255, 0.5);
+                        animation: thunderFlash 0.3s ease-out;
+                        will-change: opacity;
+                    `;
+                    
+                    document.body.appendChild(strike);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        if (strike.parentNode) {
+                            strike.remove();
+                        }
+                    }, 300);
+                };
+                
+                // Create thunder strikes at intervals
+                const thunderInterval = setInterval(() => {
+                    if (jayModeActive) {
+                        createThunderStrike();
+                    } else {
+                        clearInterval(thunderInterval);
+                    }
+                }, 1000 + Math.random() * 2000);
+                
+                console.log('[JAY Mode] ⚡ Purple Thunder system activated');
             }
             
             console.log('[JAY Mode] Jay Mode system initialized successfully! 🎵');

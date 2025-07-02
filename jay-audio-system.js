@@ -788,33 +788,60 @@ class JayAudioSystem {
             intervals.push(this.beatTimestamps[i] - this.beatTimestamps[i - 1]);
         }
         
-        // Filter out outliers (beats that are too fast or too slow)
-        const filteredIntervals = intervals.filter(interval => 
-            interval > 200 && interval < 2000 // 30-300 BPM range
+        // Enhanced outlier filtering with median-based approach
+        const sortedIntervals = [...intervals].sort((a, b) => a - b);
+        const median = sortedIntervals[Math.floor(sortedIntervals.length / 2)];
+        const medianDeviation = sortedIntervals.map(interval => Math.abs(interval - median));
+        const madThreshold = medianDeviation.sort((a, b) => a - b)[Math.floor(medianDeviation.length / 2)] * 2.5;
+        
+        // Filter out outliers using robust median-based approach
+        const robustIntervals = intervals.filter(interval => 
+            interval > 200 && interval < 2000 && // Basic BPM range (30-300 BPM)
+            Math.abs(interval - median) <= madThreshold // Median absolute deviation filter
         );
         
-        if (filteredIntervals.length < 2) return;
+        if (robustIntervals.length < 2) return;
         
-        // Calculate average interval
-        const averageInterval = filteredIntervals.reduce((sum, interval) => sum + interval, 0) / filteredIntervals.length;
+        // Use weighted average giving more weight to recent intervals
+        let weightedSum = 0;
+        let totalWeight = 0;
+        robustIntervals.forEach((interval, index) => {
+            const weight = Math.pow(1.1, index); // Exponentially weight recent intervals
+            weightedSum += interval * weight;
+            totalWeight += weight;
+        });
+        
+        const weightedAverage = weightedSum / totalWeight;
         
         // Convert to BPM
-        const bpm = Math.round(60000 / averageInterval);
+        const rawBpm = 60000 / weightedAverage;
         
-        // Smooth BPM changes
-        this.bpmHistory.push(bpm);
+        // Enhanced smoothing with adaptive filtering
+        this.bpmHistory.push(rawBpm);
         if (this.bpmHistory.length > this.bpmSamples) {
             this.bpmHistory.shift();
         }
         
-        // Calculate smoothed BPM
-        const smoothedBPM = this.bpmHistory.reduce((sum, bpm) => sum + bpm, 0) / this.bpmHistory.length;
-        this.currentBPM = Math.round(smoothedBPM);
+        // Calculate smoothed BPM with spike reduction
+        if (this.bpmHistory.length >= 3) {
+            // Use median filter for spike reduction
+            const sortedHistory = [...this.bpmHistory].sort((a, b) => a - b);
+            const medianBpm = sortedHistory[Math.floor(sortedHistory.length / 2)];
+            
+            // Apply low-pass filter for smoothing
+            const alpha = 0.3; // Smoothing factor
+            this.currentBPM = Math.round(alpha * medianBpm + (1 - alpha) * this.currentBPM);
+        } else {
+            this.currentBPM = Math.round(rawBpm);
+        }
+        
+        // Clamp BPM to reasonable range
+        this.currentBPM = Math.max(60, Math.min(200, this.currentBPM));
         
         // Update BPM display if available
         this.updateBPMDisplay();
         
-        console.log(`BPM detected: ${this.currentBPM} (raw: ${bpm})`);
+        console.log(`BPM detected: ${this.currentBPM} (raw: ${Math.round(rawBpm)}, samples: ${this.bpmHistory.length})`);
     }
     
     // Update BPM display
