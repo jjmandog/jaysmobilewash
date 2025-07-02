@@ -2774,6 +2774,38 @@
     </div>
 
     <style>
+        /* Chat Widget RGB Glow Animation */
+        @keyframes chatBubbleRgbGlow {
+            0% {
+                background: linear-gradient(135deg, #ff0080 0%, #ff8c00 100%);
+                box-shadow: 0 4px 20px rgba(255, 0, 128, 0.6), 0 0 30px rgba(255, 0, 128, 0.4);
+            }
+            16.66% {
+                background: linear-gradient(135deg, #ff8c00 0%, #ffff00 100%);
+                box-shadow: 0 4px 20px rgba(255, 140, 0, 0.6), 0 0 30px rgba(255, 140, 0, 0.4);
+            }
+            33.33% {
+                background: linear-gradient(135deg, #ffff00 0%, #00ff00 100%);
+                box-shadow: 0 4px 20px rgba(255, 255, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4);
+            }
+            50% {
+                background: linear-gradient(135deg, #00ff00 0%, #00ffff 100%);
+                box-shadow: 0 4px 20px rgba(0, 255, 0, 0.6), 0 0 30px rgba(0, 255, 0, 0.4);
+            }
+            66.66% {
+                background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+                box-shadow: 0 4px 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4);
+            }
+            83.33% {
+                background: linear-gradient(135deg, #0080ff 0%, #8000ff 100%);
+                box-shadow: 0 4px 20px rgba(0, 128, 255, 0.6), 0 0 30px rgba(0, 128, 255, 0.4);
+            }
+            100% {
+                background: linear-gradient(135deg, #8000ff 0%, #ff0080 100%);
+                box-shadow: 0 4px 20px rgba(128, 0, 255, 0.6), 0 0 30px rgba(128, 0, 255, 0.4);
+            }
+        }
+
         /* Chat Widget Styles */
         .chat-bubble {
             position: fixed;
@@ -2789,14 +2821,16 @@
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
             z-index: 9999;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease; /* Keep only transform transition to avoid conflicts */
             color: white;
             font-size: 24px;
+            /* RGB Glow Animation - Always Active */
+            animation: chatBubbleRgbGlow 4s ease-in-out infinite;
         }
 
         .chat-bubble:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+            /* Box-shadow is handled by the RGB animation, so we don't override it here */
         }
 
         .chat-bubble-text {
