@@ -36,7 +36,7 @@ export async function routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_A
   
   if (!assignedAPI.enabled) {
     // Fallback to default if assigned API is disabled
-    const fallbackAPIId = assignments.fallback || 'deepseek';
+    const fallbackAPIId = assignments.fallback || 'openai';
     const fallbackAPI = getAPIById(fallbackAPIId);
     
     if (!fallbackAPI || !fallbackAPI.enabled) {
@@ -111,11 +111,11 @@ async function executeAPICall(prompt, api, role, options = {}) {
     return await queryAI(enhancedPrompt, { endpoint: '/api/google' });
   } else {
     // For other APIs, we would implement specific API clients here
-    // For now, we'll use deepseek as fallback if available
-    const deepseekAPI = getAPIById('deepseek');
-    if (deepseekAPI && deepseekAPI.enabled) {
-      console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
-      return await queryAI(enhancedPrompt, { endpoint: '/api/deepseek' });
+    // For now, we'll use openai as fallback if available
+    const openaiAPI = getAPIById('openai');
+    if (openaiAPI && openaiAPI.enabled) {
+      console.warn(`API '${api.name}' not yet implemented, using OpenAI fallback`);
+      return await queryAI(enhancedPrompt, { endpoint: '/api/openai' });
     } else {
       throw new Error(`API '${api.name}' not implemented and no fallback available`);
     }

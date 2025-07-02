@@ -33,7 +33,7 @@ const API_OPTIONS = [
     name: 'OpenAI GPT',
     endpoint: '/api/openai',
     description: 'OpenAI GPT models',
-    enabled: false
+    enabled: true
   },
   {
     id: 'google',
@@ -82,7 +82,7 @@ const API_OPTIONS = [
     name: 'DeepSeek',
     endpoint: '/api/deepseek',
     description: 'DeepSeek AI models',
-    enabled: true
+    enabled: false
   }
 ];
 
@@ -461,16 +461,16 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'deepseek',             // Auto mode - smart detection using reliable fallback
+  auto: 'openai',              // Auto mode - smart detection using OpenAI
   reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
   tools: 'openai',             // Tool calling - GPT has good function calling
-  quotes: 'deepseek',          // Service quotes - keep existing
+  quotes: 'openai',            // Service quotes - use OpenAI instead of deepseek
   photo_uploads: 'google',     // Photo analysis - Gemini has vision capabilities
   summaries: 'anthropic',      // Summarization - Claude is great at this
   search: 'google',            // Search queries - Google's strength
   chat: 'openai',              // General chat - GPT is conversational
-  fallback: 'deepseek',        // Always available fallback
-  analytics: 'deepseek',       // Data analysis - keep existing
+  fallback: 'openai',          // Always available fallback - use OpenAI instead of deepseek
+  analytics: 'openai',         // Data analysis - use OpenAI instead of deepseek
   accessibility: 'openai'      // Accessibility support - GPT is helpful
 };
 
@@ -601,13 +601,16 @@ class ChatRouter {
       };
     }
     
-    if (api.id === 'deepseek') {
+    if (api.id === 'openai') {
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai' });
+    } else if (api.id === 'deepseek') {
       return await AIUtils.queryAI(enhancedPrompt, apiOptions);
     } else {
-      const deepseekAPI = this.getAPIById('deepseek');
-      if (deepseekAPI && deepseekAPI.enabled) {
-        console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
-        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek' });
+      // For other APIs, fall back to OpenAI instead of DeepSeek
+      const openaiAPI = this.getAPIById('openai');
+      if (openaiAPI && openaiAPI.enabled) {
+        console.warn(`API '${api.name}' not yet implemented, using OpenAI fallback`);
+        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai' });
       } else {
         throw new Error(`API '${api.name}' not implemented and no fallback available`);
       }
