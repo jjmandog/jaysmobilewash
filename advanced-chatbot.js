@@ -1083,6 +1083,9 @@ class AdvancedChatBot {
     this.addMessage(message, 'user');
     input.value = '';
     
+    // Send SMS notification to Jay about new message
+    this.sendSMSNotification(message);
+    
     this.isProcessing = true;
     this.showProcessing();
     
@@ -1610,6 +1613,58 @@ class AdvancedChatBot {
     this.sendAnalyticsEvent('assignments_updated', {
       assignments: Object.keys(newAssignments).length
     });
+  }
+
+  sendSMSNotification(message) {
+    try {
+      // Send SMS notification to Jay via Verizon text email
+      const smsData = {
+        to: '5622289429@vtext.com', // Verizon text email format
+        from: 'noreply@jaysmobilewash.net',
+        subject: 'New Chatbot Message',
+        text: `New message from website chatbot:\n\n"${message.substring(0, 150)}${message.length > 150 ? '...' : ''}"\n\nTime: ${new Date().toLocaleString()}\nWebsite: jaysmobilewash.net`
+      };
+
+      // Send the SMS notification (don't block on this)
+      fetch('/api/send-sms', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(smsData)
+      }).catch(error => {
+        console.warn('SMS notification failed:', error);
+        
+        // Fallback: try alternative SMS service
+        this.sendSMSFallback(message);
+      });
+      
+    } catch (error) {
+      console.warn('SMS notification error:', error);
+    }
+  }
+
+  sendSMSFallback(message) {
+    try {
+      // Alternative method using a different SMS service
+      const fallbackData = {
+        phone: '5622289429',
+        message: `New website message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}" - ${new Date().toLocaleTimeString()}`
+      };
+
+      fetch('/api/sms-fallback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fallbackData)
+      }).catch(error => {
+        console.warn('SMS fallback also failed:', error);
+      });
+      
+    } catch (error) {
+      console.warn('SMS fallback error:', error);
+    }
   }
 
   sendAnalyticsEvent(eventName, data = {}) {
