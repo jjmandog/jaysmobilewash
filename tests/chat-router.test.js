@@ -61,10 +61,10 @@ describe('API Options Constants', () => {
   });
 
   it('should get API by ID correctly', () => {
-    const api = getAPIById('openrouter');
+    const api = getAPIById('none');
     expect(api).toBeDefined();
-    expect(api.id).toBe('openrouter');
-    expect(api.name).toBe('OpenRouter');
+    expect(api.id).toBe('none');
+    expect(api.name).toBe('None');
   });
 
   it('should get role by ID correctly', () => {
@@ -103,7 +103,7 @@ describe('Chat Router', () => {
   });
 
   it('should throw error for unassigned role', async () => {
-    const assignments = { chat: 'openrouter' }; // missing other roles
+    const assignments = { chat: 'none' }; // missing other roles
     await expect(routeLLMRequest('test', 'quotes', assignments)).rejects.toThrow('No API assigned');
   });
 
@@ -111,12 +111,12 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { chat: 'openrouter' };
+    const assignments = { chat: 'deepseek' };
     const result = await routeLLMRequest('test prompt', 'chat', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
       expect.stringContaining('test prompt'),
-      expect.objectContaining({ endpoint: '/api/openrouter' })
+      expect.objectContaining({ endpoint: '/api/deepseek' })
     );
     expect(result).toEqual({ response: 'test response' });
   });
@@ -125,7 +125,7 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { quotes: 'openrouter' };
+    const assignments = { quotes: 'deepseek' };
     await routeLLMRequest('vehicle detail', 'quotes', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
@@ -141,38 +141,41 @@ describe('Chat Router', () => {
       .mockResolvedValueOnce({ response: 'fallback response' });
 
     const assignments = { 
-      chat: 'openrouter', 
-      fallback: 'deepseek' 
+      chat: 'deepseek', 
+      fallback: 'none' 
     };
     
     const result = await routeLLMRequest('test', 'chat', assignments);
-    expect(result).toEqual({ response: 'fallback response' });
-    expect(queryAI).toHaveBeenCalledTimes(2);
+    expect(result).toEqual({ 
+      content: "AI services are currently disabled. Please contact support for assistance.",
+      role: "assistant"
+    });
+    expect(queryAI).toHaveBeenCalledTimes(1); // Only called once since fallback doesn't use queryAI
   });
 
   it('should check role API availability', async () => {
     const { isAIServiceAvailable } = await import('../src/utils/ai.js');
     isAIServiceAvailable.mockResolvedValue(true);
 
-    const assignments = { chat: 'openrouter' };
+    const assignments = { chat: 'deepseek' };
     const available = await isRoleAPIAvailable('chat', assignments);
     
     expect(available).toBe(true);
-    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/openrouter');
+    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/deepseek');
   });
 
   it('should return routing statistics', () => {
     const assignments = {
-      chat: 'openrouter',
+      chat: 'none',
       quotes: 'deepseek',
-      reasoning: 'openrouter'
+      reasoning: 'none'
     };
     
     const stats = getRoutingStats(assignments);
     
-    expect(stats).toHaveProperty('openrouter');
-    expect(stats.openrouter.count).toBe(2);
-    expect(stats.openrouter.roles).toEqual(['chat', 'reasoning']);
+    expect(stats).toHaveProperty('none');
+    expect(stats.none.count).toBe(2);
+    expect(stats.none.roles).toEqual(['chat', 'reasoning']);
     
     expect(stats).toHaveProperty('deepseek');
     expect(stats.deepseek.count).toBe(1);
@@ -194,15 +197,17 @@ describe('API Integration', () => {
 
   it('should handle disabled API with fallback', async () => {
     const { queryAI } = await import('../src/utils/ai.js');
-    queryAI.mockResolvedValue({ response: 'fallback response' });
 
     // Mock disabled API
     const assignments = { 
       chat: 'anthropic', // disabled in API_OPTIONS
-      fallback: 'openrouter' 
+      fallback: 'none' 
     };
     
     const result = await routeLLMRequest('test', 'chat', assignments);
-    expect(result).toEqual({ response: 'fallback response' });
+    expect(result).toEqual({ 
+      content: "AI services are currently disabled. Please contact support for assistance.",
+      role: "assistant"
+    });
   });
 });
