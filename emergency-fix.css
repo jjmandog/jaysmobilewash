@@ -1,6 +1,6 @@
 /* Emergency fix for backgrounds and animation effects */
 .hero-section {
-    background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.95)), url('images/hero-bg.webp') !important;
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.95)), url('images/hero-bg.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     position: relative !important;
@@ -8,7 +8,7 @@
 }
 
 .cta-section {
-    background: linear-gradient(rgba(31, 41, 55, 0.85), rgba(31, 41, 55, 0.95)), url('images/cta-bg.webp') !important;
+    background: linear-gradient(rgba(31, 41, 55, 0.85), rgba(31, 41, 55, 0.95)), url('images/cta-bg.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     position: relative !important;

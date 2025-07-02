@@ -388,7 +388,7 @@ section {
  * -------------------------------------------------------------
  */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/hero-bg.webp');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     color: var(--text-light);
