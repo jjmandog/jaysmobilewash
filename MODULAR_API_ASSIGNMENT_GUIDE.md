@@ -308,20 +308,193 @@ console.log('Assignments updated:', newAssignments);
 console.error('API routing failed:', error);
 ```
 
+## Community API Key Vault & Smart Selection
+
+### Overview
+
+The enhanced system now includes a **Community API Key Vault** that allows users to contribute API keys for shared use across the platform. When combined with **Smart Selection**, the system automatically chooses the optimal provider based on performance metrics.
+
+### Key Features
+
+#### 🏛️ Community Key Vault
+- **Shared API Keys** - Users can contribute API keys to a community pool
+- **Secure Storage** - Keys are validated and stored securely (redacted from logs)
+- **Global Access** - All users benefit from community-contributed keys
+- **Provider Status** - Real-time visibility of which providers have valid keys
+
+#### ⚡ Smart Selection
+- **Automatic Routing** - Intelligently selects the best provider based on:
+  - Response time and reliability
+  - Success rates and error patterns
+  - Current availability and rate limits
+  - Provider-specific strengths for different roles
+- **Performance Tracking** - Continuous monitoring of API performance
+- **Adaptive Fallbacks** - Dynamic fallback selection based on real-time metrics
+
+#### 🎯 Enhanced Role Assignments
+- **Provider Availability** - Visual indicators show which providers have valid keys
+- **Missing Key Alerts** - Clear notifications when API keys are required
+- **One-Click Key Addition** - Modal interface for contributing missing keys
+- **Smart Recommendations** - Suggested assignments based on performance data
+
+### Implementation Details
+
+#### Community Key Management
+
+```javascript
+// Add a new API key to the community vault
+import { addCommunityKey } from '../src/utils/communityKeyVault.js';
+
+const result = await addCommunityKey('openai', 'sk-your-api-key', {
+  contributor: 'user-name'
+});
+
+// Check community key status
+import { getCommunityKeyStatus } from '../src/utils/communityKeyVault.js';
+
+const status = getCommunityKeyStatus();
+console.log(status.openai.isValid); // true if valid key available
+```
+
+#### Smart Selection Usage
+
+```javascript
+// Enable smart selection mode
+import { routeLLMRequest } from '../src/utils/chatRouter.js';
+
+const response = await routeLLMRequest(
+  'Analyze this data',
+  'reasoning',
+  assignments,
+  { smartSelect: true }  // Enable smart selection
+);
+```
+
+#### Performance Analytics
+
+```javascript
+// Track API performance metrics
+import { getAnalyticsData } from '../src/utils/aiAnalytics.js';
+
+const analytics = getAnalyticsData();
+console.log(analytics.providers.openai.performanceScore); // 0-1 score
+console.log(analytics.providers.openai.successRate);     // Success percentage
+```
+
+### API Endpoints
+
+#### GET /api/community-keys
+Get status of all community keys:
+
+```javascript
+const response = await fetch('/api/community-keys');
+const { providers, stats, missing, canEnableSmartSelect } = response.data;
+```
+
+#### POST /api/community-keys
+Add a new community API key:
+
+```javascript
+const response = await fetch('/api/community-keys', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    provider: 'openai',
+    apiKey: 'sk-your-api-key',
+    contributor: 'username'
+  })
+});
+```
+
+### Enhanced UI Components
+
+#### Community Pool Status
+```jsx
+<div className="community-pool-section">
+  <h4>🏛️ Community API Key Pool</h4>
+  <div className="provider-grid">
+    {providers.map(provider => (
+      <ProviderCard 
+        key={provider.id}
+        provider={provider}
+        status={getProviderStatus(provider.id)}
+        onAddKey={() => openKeyModal(provider.id)}
+      />
+    ))}
+  </div>
+</div>
+```
+
+#### Smart Select Toggle
+```jsx
+<div className="smart-select-section">
+  <label className="toggle-switch">
+    <input
+      type="checkbox"
+      checked={smartSelectEnabled}
+      onChange={handleSmartSelectToggle}
+      disabled={!canEnableSmartSelect}
+    />
+    <span className="slider"></span>
+  </label>
+  <div>⚡ Auto: Smart Select</div>
+</div>
+```
+
+### Security & Privacy
+
+- **Key Redaction** - API keys are redacted in logs (first 8 + last 4 chars shown)
+- **Pattern Validation** - Keys validated against provider-specific patterns
+- **Usage Transparency** - All API usage tracked and visible to users
+- **Secure Storage** - Keys stored securely with validation checks
+
+### Analytics Integration
+
+Enhanced GA4 events for comprehensive tracking:
+
+```javascript
+// Community key events
+gtag('event', 'community_key_added', {
+  provider: 'openai',
+  success: true
+});
+
+// Smart selection events
+gtag('event', 'smart_select_toggled', {
+  enabled: true
+});
+
+// Performance tracking
+gtag('event', 'chat_query_completed', {
+  provider: 'openai',
+  role: 'reasoning',
+  success: true,
+  response_time: 1250,
+  fallback_used: false,
+  smart_selected: true
+});
+```
+
 ## Future Enhancements
 
+### Implemented Features ✅
+- **API Performance Monitoring** - ✅ Real-time tracking of response times and success rates
+- **Smart Routing** - ✅ Automatic API selection based on performance metrics
+- **Community Key Management** - ✅ Shared API key pool with secure validation
+
 ### Planned Features
-- **API Performance Monitoring** - Track response times and success rates
-- **Smart Routing** - Automatic API selection based on performance
 - **Bulk Import/Export** - Settings backup and restore
-- **Admin Panel** - Centralized API management
+- **Admin Panel** - Centralized API management dashboard
+- **Usage Analytics Dashboard** - Detailed metrics and insights
+- **API Cost Tracking** - Monitor usage costs across providers
 
 ### Extension Points
 - **Custom Role Types** - Add new specialized roles
 - **API Load Balancing** - Distribute requests across multiple APIs
 - **Context Awareness** - Route based on conversation context
 - **A/B Testing** - Compare API performance for optimization
+- **Rate Limit Management** - Intelligent throttling and queuing
 
 ---
 
-*This implementation provides a robust, scalable foundation for managing multiple AI APIs while maintaining the existing user experience and technical SEO requirements.*
+*This implementation provides a robust, scalable foundation for managing multiple AI APIs while enabling community collaboration and intelligent provider selection. The system maintains backward compatibility while adding powerful new features for enhanced performance and user experience.*

@@ -205,8 +205,90 @@ async function executeAPICall(prompt, api, role, options = {}) {
   }
 }
 
+/**
+ * Execute smart provider selection
+ * @param {string} prompt - The user prompt
+ * @param {string} role - The chat role
+ * @param {Object} assignments - Current role assignments
+ * @param {Object} options - Additional options
+ * @returns {Promise<Object>} - The AI response
+ */
+async function executeSmartSelection(prompt, role, assignments, options) {
+  // Get all enabled APIs with community keys
+  const availableProviders = getEnabledAPIs()
+    .filter(api => api.id !== 'none' && getCommunityKey(api.id) !== null)
+    .map(api => api.id);
+  
+  if (availableProviders.length === 0) {
+    throw new Error('No providers available for smart selection');
+  }
+  
+  // Use smart selection to pick the best provider
+  const selectedProvider = selectBestProvider(availableProviders, role);
+  const selectedAPI = getAPIById(selectedProvider);
+  
+  if (!selectedAPI) {
+    throw new Error('Smart selection failed to find suitable provider');
+  }
+  
+  console.log(`Smart selection chose ${selectedAPI.name} for role ${role}`);
+  
+  const requestTracker = recordRequestStart(selectedAPI.id, role);
+  
+  try {
+    const result = await executeAPICall(prompt, selectedAPI, role, options);
+    recordRequestEnd(requestTracker.id, true, null, false);
+    return result;
+  } catch (error) {
+    recordRequestEnd(requestTracker.id, false, error.message, false);
+    
+    // On smart selection failure, try regular fallback
+    return await executeFallback(prompt, role, assignments, options, `Smart-selected API '${selectedAPI.name}' failed: ${error.message}`);
+  }
+}
 
 /**
+ * Execute fallback logic with analytics tracking
+ * @param {string} prompt - The user prompt
+ * @param {string} role - The chat role
+ * @param {Object} assignments - Current role assignments
+ * @param {Object} options - Additional options
+ * @param {string} reason - Reason for fallback
+ * @returns {Promise<Object>} - The AI response
+ */
+async function executeFallback(prompt, role, assignments, options, reason) {
+  const fallbackAPIId = assignments.fallback || 'openai';
+  const fallbackAPI = getAPIById(fallbackAPIId);
+  
+  if (!fallbackAPI) {
+    throw new Error(`No fallback API available: ${reason}`);
+  }
+  
+  // Check if fallback API has community key or is enabled
+  const fallbackHasKey = getCommunityKey(fallbackAPI.id) !== null;
+  if (!fallbackAPI.enabled && !fallbackHasKey) {
+    throw new Error(`Fallback API '${fallbackAPI.name}' is also unavailable: ${reason}`);
+  }
+  
+  console.warn(`Using fallback '${fallbackAPI.name}': ${reason}`);
+  
+  const requestTracker = recordRequestStart(fallbackAPI.id, role);
+  
+  try {
+    const result = await executeAPICall(prompt, fallbackAPI, role, options);
+    recordRequestEnd(requestTracker.id, true, null, true); // Mark as fallback
+    return result;
+  } catch (fallbackError) {
+    recordRequestEnd(requestTracker.id, false, fallbackError.message, true);
+    throw new Error(`Fallback also failed: ${fallbackError.message}. Original reason: ${reason}`);
+  }
+}
+
+/**
+ * Enhance prompt based on the role context
+ * @param {string} prompt - Original prompt
+ * @param {string} role - Chat role
+ * @returns {string} - Enhanced prompt
  */
 function enhancePromptForRole(prompt, role) {
   const roleEnhancements = {
