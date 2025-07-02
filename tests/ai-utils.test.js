@@ -25,7 +25,7 @@ describe('AI Utility Helper', () => {
 
       const result = await queryAI('Test prompt');
       
-      expect(global.fetch).toHaveBeenCalledWith('/api/ai', {
+      expect(global.fetch).toHaveBeenCalledWith('/api/openrouter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

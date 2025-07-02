@@ -89,15 +89,17 @@ async function executeAPICall(prompt, api, role, options = {}) {
     ...options
   };
   
-  // For now, we use the existing AI utility which works with Hugging Face
-  // In a real implementation, this would route to different APIs based on api.endpoint
-  if (api.id === 'huggingface') {
+  // For now, we use the existing AI utility which works with OpenRouter and other APIs
+  // Route to different APIs based on api.endpoint
+  if (api.id === 'openrouter') {
+    return await queryAI(enhancedPrompt, apiOptions);
+  } else if (api.id === 'deepseek') {
     return await queryAI(enhancedPrompt, apiOptions);
   } else {
     // For other APIs, we would implement specific API clients here
-    // For now, we'll use the existing Hugging Face endpoint as fallback
-    console.warn(`API '${api.name}' not yet implemented, using Hugging Face fallback`);
-    return await queryAI(enhancedPrompt, { endpoint: '/api/ai' });
+    // For now, we'll use OpenRouter as fallback
+    console.warn(`API '${api.name}' not yet implemented, using OpenRouter fallback`);
+    return await queryAI(enhancedPrompt, { endpoint: '/api/openrouter' });
   }
 }
 
@@ -143,9 +145,8 @@ export async function isRoleAPIAvailable(role, assignments = DEFAULT_ROLE_ASSIGN
   }
   
   try {
-    // For now, we only check Hugging Face availability
-    // In a real implementation, we'd check each API separately
-    if (assignedAPI.id === 'huggingface') {
+    // Check availability for OpenRouter and DeepSeek
+    if (assignedAPI.id === 'openrouter' || assignedAPI.id === 'deepseek') {
       return await isAIServiceAvailable(assignedAPI.endpoint);
     } else {
       // For other APIs, assume available if enabled
