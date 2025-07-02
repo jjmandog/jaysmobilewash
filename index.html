@@ -3629,6 +3629,352 @@ Always be helpful, professional, and knowledgeable about mobile detailing. Encou
             }
             
             // Initialize secret settings panel
+=======
+        // Secret Settings Panel Manager
+        class SecretSettingsPanel {
+            constructor() {
+                this.overlay = document.getElementById('secret-settings-overlay');
+                this.closeBtn = document.getElementById('settings-close-btn');
+                this.debugOverlay = document.getElementById('debug-console-overlay');
+                this.debugContent = document.getElementById('debug-content');
+                this.debugClearBtn = document.getElementById('debug-clear-btn');
+                this.seoOverlay = document.getElementById('seo-debug-overlay');
+                this.seoContent = document.getElementById('seo-debug-content');
+                
+                this.settings = {
+                    theme: false,
+                    debug: false,
+                    history: true,
+                    language: false,
+                    seo: false
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                // Load settings from localStorage
+                this.loadSettings();
+                
+                // Setup event listeners
+                this.closeBtn.addEventListener('click', () => this.hide());
+                this.debugClearBtn.addEventListener('click', () => this.clearDebugConsole());
+                
+                // Setup toggle listeners
+                document.getElementById('theme-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('theme', e.target.checked);
+                });
+                
+                document.getElementById('debug-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('debug', e.target.checked);
+                });
+                
+                document.getElementById('history-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('history', e.target.checked);
+                });
+                
+                document.getElementById('language-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('language', e.target.checked);
+                });
+                
+                document.getElementById('seo-toggle').addEventListener('change', (e) => {
+                    this.updateSetting('seo', e.target.checked);
+                });
+                
+                // Close on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.overlay.classList.contains('active')) {
+                        this.hide();
+                    }
+                });
+                
+                // Close on backdrop click
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) {
+                        this.hide();
+                    }
+                });
+                
+                // Initialize debug logging
+                this.setupDebugLogging();
+                
+                // Initialize SEO monitoring
+                this.initSEOMonitoring();
+            }
+            
+            loadSettings() {
+                const saved = localStorage.getItem('secretSettings');
+                if (saved) {
+                    try {
+                        this.settings = { ...this.settings, ...JSON.parse(saved) };
+                    } catch (e) {
+                        console.error('Failed to load settings:', e);
+                    }
+                }
+                
+                // Apply loaded settings
+                Object.keys(this.settings).forEach(key => {
+                    const toggle = document.getElementById(key + '-toggle');
+                    if (toggle) {
+                        toggle.checked = this.settings[key];
+                        this.applySetting(key, this.settings[key], false);
+                    }
+                });
+            }
+            
+            saveSettings() {
+                localStorage.setItem('secretSettings', JSON.stringify(this.settings));
+            }
+            
+            updateSetting(key, value) {
+                this.settings[key] = value;
+                this.saveSettings();
+                this.applySetting(key, value, true);
+            }
+            
+            applySetting(key, value, dispatchEvent = true) {
+                switch (key) {
+                    case 'theme':
+                        this.applyTheme(value);
+                        break;
+                    case 'debug':
+                        this.toggleDebugConsole(value);
+                        break;
+                    case 'seo':
+                        this.toggleSEOOverlay(value);
+                        break;
+                    case 'history':
+                        this.toggleHistoryRetention(value);
+                        break;
+                    case 'language':
+                        this.toggleLanguage(value);
+                        break;
+                }
+                
+                if (dispatchEvent) {
+                    // Dispatch custom event
+                    document.dispatchEvent(new CustomEvent('settingChanged', {
+                        detail: { setting: key, value: value }
+                    }));
+                }
+            }
+            
+            applyTheme(isDark) {
+                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                this.log('Theme switched to: ' + (isDark ? 'Dark' : 'Light'));
+            }
+            
+            toggleDebugConsole(show) {
+                if (show) {
+                    this.debugOverlay.classList.add('active');
+                    this.log('Debug console activated');
+                } else {
+                    this.debugOverlay.classList.remove('active');
+                }
+            }
+            
+            toggleSEOOverlay(show) {
+                if (show) {
+                    this.updateSEOInfo();
+                    this.seoOverlay.classList.add('active');
+                    this.log('SEO debug overlay activated');
+                } else {
+                    this.seoOverlay.classList.remove('active');
+                }
+            }
+            
+            toggleHistoryRetention(retain) {
+                const message = retain ? 'enabled' : 'disabled';
+                this.log('Conversation history retention ' + message);
+                
+                if (!retain) {
+                    // Clear existing history
+                    localStorage.removeItem('chatHistory');
+                }
+            }
+            
+            toggleLanguage(enabled) {
+                const lang = enabled ? 'es' : 'en';
+                document.documentElement.setAttribute('lang', lang);
+                this.log('Language switched to: ' + (enabled ? 'Spanish' : 'English'));
+            }
+            
+            setupDebugLogging() {
+                // Override console methods to capture logs
+                const originalLog = console.log;
+                const originalError = console.error;
+                const originalWarn = console.warn;
+                
+                console.log = (...args) => {
+                    originalLog.apply(console, args);
+                    this.log(args.join(' '), 'info');
+                };
+                
+                console.error = (...args) => {
+                    originalError.apply(console, args);
+                    this.log(args.join(' '), 'error');
+                };
+                
+                console.warn = (...args) => {
+                    originalWarn.apply(console, args);
+                    this.log(args.join(' '), 'warn');
+                };
+            }
+            
+            log(message, type = 'info') {
+                if (!this.settings.debug) return;
+                
+                const timestamp = new Date().toLocaleTimeString();
+                const entry = document.createElement('div');
+                entry.className = `debug-entry ${type}`;
+                entry.textContent = `[${timestamp}] ${message}`;
+                
+                this.debugContent.appendChild(entry);
+                this.debugContent.scrollTop = this.debugContent.scrollHeight;
+                
+                // Limit debug entries to prevent memory issues
+                const entries = this.debugContent.children;
+                if (entries.length > 100) {
+                    entries[0].remove();
+                }
+            }
+            
+            clearDebugConsole() {
+                this.debugContent.innerHTML = '';
+                this.log('Debug console cleared');
+            }
+            
+            initSEOMonitoring() {
+                // Monitor for SEO-related changes
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.target.tagName === 'HEAD' || 
+                            (mutation.target.tagName === 'META' && this.settings.seo)) {
+                            this.updateSEOInfo();
+                        }
+                    });
+                });
+                
+                observer.observe(document.head, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true
+                });
+            }
+            
+            updateSEOInfo() {
+                if (!this.settings.seo) return;
+                
+                const seoData = this.collectSEOData();
+                this.renderSEOInfo(seoData);
+            }
+            
+            collectSEOData() {
+                return {
+                    title: document.title,
+                    description: document.querySelector('meta[name="description"]')?.content || 'Not set',
+                    keywords: document.querySelector('meta[name="keywords"]')?.content || 'Not set',
+                    canonical: document.querySelector('link[rel="canonical"]')?.href || 'Not set',
+                    ogTitle: document.querySelector('meta[property="og:title"]')?.content || 'Not set',
+                    ogDescription: document.querySelector('meta[property="og:description"]')?.content || 'Not set',
+                    ogImage: document.querySelector('meta[property="og:image"]')?.content || 'Not set',
+                    structuredData: document.querySelectorAll('script[type="application/ld+json"]').length,
+                    metaRobots: document.querySelector('meta[name="robots"]')?.content || 'Not set'
+                };
+            }
+            
+            renderSEOInfo(data) {
+                this.seoContent.innerHTML = `
+                    <div class="seo-item">
+                        <div class="seo-label">Title:</div>
+                        <div class="seo-value">${data.title}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Description:</div>
+                        <div class="seo-value">${data.description}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Keywords:</div>
+                        <div class="seo-value">${data.keywords}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Canonical:</div>
+                        <div class="seo-value">${data.canonical}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Title:</div>
+                        <div class="seo-value">${data.ogTitle}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Description:</div>
+                        <div class="seo-value">${data.ogDescription}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">OG Image:</div>
+                        <div class="seo-value">${data.ogImage}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Structured Data Scripts:</div>
+                        <div class="seo-value">${data.structuredData}</div>
+                    </div>
+                    <div class="seo-item">
+                        <div class="seo-label">Meta Robots:</div>
+                        <div class="seo-value">${data.metaRobots}</div>
+                    </div>
+                `;
+            }
+            
+            show() {
+                this.overlay.classList.add('active');
+                this.log('Secret settings panel opened');
+            }
+            
+            hide() {
+                this.overlay.classList.remove('active');
+                this.log('Secret settings panel closed');
+            }
+            
+            toggle() {
+                if (this.overlay.classList.contains('active')) {
+                    this.hide();
+                } else {
+                    this.show();
+                }
+            }
+        }
+
+        // Initialize modular chat widget and secret settings when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize chat widget with multi-adapter support
+            if (typeof ChatWidget !== 'undefined') {
+                const adapters = [];
+                
+                // Add HuggingFace adapter (primary)
+                if (typeof HuggingFaceAdapter !== 'undefined') {
+                    adapters.push(new HuggingFaceAdapter({ endpoint: '/api/ai' }));
+                }
+                
+                // Add DeepSeek adapter as backup
+                if (typeof DeepSeekAdapter !== 'undefined') {
+                    adapters.push(new DeepSeekAdapter({ 
+                        apiKey: 'your-deepseek-api-key-here' // Configure as needed
+                    }));
+                }
+                
+                // Initialize chat widget with fallback strategy
+                window.chatWidget = new ChatWidget({
+                    adapters: adapters.length > 0 ? adapters : [],
+                    strategy: 'failover',
+                    maxRetries: 2,
+                    timeout: 30000
+                });
+                
+                console.log('✅ Chat widget initialized with', adapters.length, 'adapters');
+            } else {
+                console.warn('⚠️ ChatWidget not loaded - check script imports');
+            }
+            
+            // Initialize secret settings panel
             window.secretSettingsPanel = new SecretSettingsPanel();
             
             // Setup event listeners for custom events
