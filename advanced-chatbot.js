@@ -88,6 +88,11 @@ const API_OPTIONS = [
 
 const CHAT_ROLES = [
   {
+    id: 'auto',
+    name: 'Auto Mode',
+    description: 'Smart detection - automatically selects the best mode for your query'
+  },
+  {
     id: 'reasoning',
     name: 'Reasoning',
     description: 'Complex problem solving and logical analysis'
@@ -452,6 +457,7 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
+  auto: 'deepseek',             // Auto mode - smart detection using reliable fallback
   reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
   tools: 'openai',             // Tool calling - GPT has good function calling
   quotes: 'deepseek',          // Service quotes - keep existing
@@ -819,7 +825,7 @@ class AdvancedChatBot {
     this.settingsOpen = false;
     this.messages = [];
     this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
-    this.currentRole = 'chat';
+    this.currentRole = 'auto';
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
@@ -1001,6 +1007,7 @@ class AdvancedChatBot {
     // Update placeholder based on role
     const input = document.getElementById('chatbot-input');
     const rolePlaceholders = {
+      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
       quotes: 'Describe your vehicle and service needs for a quote...',
       search: 'What information are you looking for?',
       reasoning: 'Ask me to analyze or reason through something...',
@@ -1010,6 +1017,47 @@ class AdvancedChatBot {
     
     input.placeholder = rolePlaceholders[newRole] || 'How can I help you?';
     this.sendAnalyticsEvent('role_changed', { role: newRole });
+  }
+
+  /**
+   * Auto-detect the best role for the given message
+   * @param {string} message - User's message
+   * @returns {string} - Best role to handle the message
+   */
+  detectBestRole(message) {
+    const msgLower = message.toLowerCase();
+    
+    // Quote-related keywords
+    if (msgLower.includes('quote') || msgLower.includes('price') || msgLower.includes('cost') || 
+        msgLower.includes('how much') || msgLower.includes('estimate') || msgLower.includes('pricing')) {
+      return 'quotes';
+    }
+    
+    // Search-related keywords
+    if (msgLower.includes('find') || msgLower.includes('search') || msgLower.includes('where') || 
+        msgLower.includes('when') || msgLower.includes('location') || msgLower.includes('hours')) {
+      return 'search';
+    }
+    
+    // Summary-related keywords
+    if (msgLower.includes('summarize') || msgLower.includes('summary') || msgLower.includes('explain') || 
+        msgLower.includes('tell me about') || msgLower.includes('what is')) {
+      return 'summaries';
+    }
+    
+    // Reasoning-related keywords
+    if (msgLower.includes('why') || msgLower.includes('how') || msgLower.includes('analyze') || 
+        msgLower.includes('compare') || msgLower.includes('recommend') || msgLower.includes('best')) {
+      return 'reasoning';
+    }
+    
+    // Photo upload context
+    if (this.uploadedFiles.length > 0) {
+      return 'photo_uploads';
+    }
+    
+    // Default to chat for conversational messages
+    return 'chat';
   }
 
   async sendMessage() {
@@ -1037,17 +1085,24 @@ class AdvancedChatBot {
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
+          // Determine the effective role for processing
+          let effectiveRole = this.currentRole;
+          if (this.currentRole === 'auto') {
+            effectiveRole = this.detectBestRole(message);
+            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
+          }
+          
           // Fall back to AI or smart responses
-          const assignedAPI = this.assignments[this.currentRole];
+          const assignedAPI = this.assignments[effectiveRole];
           
           if (assignedAPI === 'none' || !assignedAPI) {
-            response = { content: this.generateSmartResponse(message, this.currentRole) };
+            response = { content: this.generateSmartResponse(message, effectiveRole) };
           } else {
             try {
-              response = await ChatRouter.routeLLMRequest(message, this.currentRole, this.assignments);
+              response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
             } catch (aiError) {
               console.warn('AI failed, using smart fallback:', aiError);
-              response = { content: this.generateSmartResponse(message, this.currentRole) };
+              response = { content: this.generateSmartResponse(message, effectiveRole) };
             }
           }
         }
@@ -1166,9 +1221,13 @@ class AdvancedChatBot {
   checkSecretModes(inputValue) {
     const value = inputValue.toLowerCase();
     
-    // Check for admin mode ("josh")
-    if (value === 'josh' && !this.adminMode) {
-      this.activateAdminMode();
+    // Check for admin mode toggle ("josh")
+    if (value === 'josh') {
+      if (this.adminMode) {
+        this.deactivateAdminMode();
+      } else {
+        this.activateAdminMode();
+      }
       return;
     }
     
@@ -1194,6 +1253,32 @@ class AdvancedChatBot {
     
     // Update placeholder
     input.placeholder = "Admin mode active - Type admin commands...";
+  }
+
+  deactivateAdminMode() {
+    this.adminMode = false;
+    this.secretModeActive = false;
+    
+    // Remove admin styling
+    document.querySelector('.chatbot-window').classList.remove('admin-mode');
+    
+    // Clear input and show deactivation message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    // Show fun deactivation message
+    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
+    
+    // Restore normal placeholder based on current role
+    const rolePlaceholders = {
+      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
+      quotes: 'Describe your vehicle and service needs for a quote...',
+      search: 'What information are you looking for?',
+      reasoning: 'Ask me to analyze or reason through something...',
+      summaries: 'What would you like me to summarize?',
+      chat: 'Ask about our services or chat with me...'
+    };
+    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
   }
   
   activateJayMode() {
