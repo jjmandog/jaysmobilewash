@@ -452,16 +452,16 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  reasoning: 'none',
-  tools: 'none',
-  quotes: 'none',
-  photo_uploads: 'none',
-  summaries: 'none',
-  search: 'none',
-  chat: 'none',
-  fallback: 'none',
-  analytics: 'none',
-  accessibility: 'none'
+  reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
+  tools: 'openai',             // Tool calling - GPT has good function calling
+  quotes: 'deepseek',          // Service quotes - keep existing
+  photo_uploads: 'google',     // Photo analysis - Gemini has vision capabilities
+  summaries: 'anthropic',      // Summarization - Claude is great at this
+  search: 'google',            // Search queries - Google's strength
+  chat: 'openai',              // General chat - GPT is conversational
+  fallback: 'deepseek',        // Always available fallback
+  analytics: 'deepseek',       // Data analysis - keep existing
+  accessibility: 'openai'      // Accessibility support - GPT is helpful
 };
 
 /**
