@@ -111,12 +111,12 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { chat: 'deepseek' };
+    const assignments = { chat: 'openai' };
     const result = await routeLLMRequest('test prompt', 'chat', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
       expect.stringContaining('test prompt'),
-      expect.objectContaining({ endpoint: '/api/deepseek' })
+      expect.objectContaining({ endpoint: '/api/openai' })
     );
     expect(result).toEqual({ response: 'test response' });
   });
@@ -125,7 +125,7 @@ describe('Chat Router', () => {
     const { queryAI } = await import('../src/utils/ai.js');
     queryAI.mockResolvedValue({ response: 'test response' });
 
-    const assignments = { quotes: 'deepseek' };
+    const assignments = { quotes: 'openai' };
     await routeLLMRequest('vehicle detail', 'quotes', assignments);
     
     expect(queryAI).toHaveBeenCalledWith(
@@ -141,7 +141,7 @@ describe('Chat Router', () => {
       .mockResolvedValueOnce({ response: 'fallback response' });
 
     const assignments = { 
-      chat: 'deepseek', 
+      chat: 'openai', 
       fallback: 'none' 
     };
     
@@ -157,17 +157,17 @@ describe('Chat Router', () => {
     const { isAIServiceAvailable } = await import('../src/utils/ai.js');
     isAIServiceAvailable.mockResolvedValue(true);
 
-    const assignments = { chat: 'deepseek' };
+    const assignments = { chat: 'openai' };
     const available = await isRoleAPIAvailable('chat', assignments);
     
     expect(available).toBe(true);
-    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/deepseek');
+    expect(isAIServiceAvailable).toHaveBeenCalledWith('/api/openai');
   });
 
   it('should return routing statistics', () => {
     const assignments = {
       chat: 'none',
-      quotes: 'deepseek',
+      quotes: 'openai',
       reasoning: 'none'
     };
     
@@ -177,9 +177,9 @@ describe('Chat Router', () => {
     expect(stats.none.count).toBe(2);
     expect(stats.none.roles).toEqual(['chat', 'reasoning']);
     
-    expect(stats).toHaveProperty('deepseek');
-    expect(stats.deepseek.count).toBe(1);
-    expect(stats.deepseek.roles).toEqual(['quotes']);
+    expect(stats).toHaveProperty('openai');
+    expect(stats.openai.count).toBe(1);
+    expect(stats.openai.roles).toEqual(['quotes']);
   });
 });
 

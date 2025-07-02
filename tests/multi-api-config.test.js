@@ -15,15 +15,16 @@ describe('Multi-API Configuration', () => {
   it('should have multiple APIs enabled', () => {
     const enabledAPIs = getEnabledAPIs();
     
-    // Should have more than just 'none' and 'deepseek'
-    expect(enabledAPIs.length).toBeGreaterThan(2);
+    // Should have more than just 'none'
+    expect(enabledAPIs.length).toBeGreaterThan(1);
     
-    // Should include the newly enabled APIs
+    // Should include the currently enabled APIs (openai is now primary)
     const enabledApiIds = enabledAPIs.map(api => api.id);
     expect(enabledApiIds).toContain('openai');
     expect(enabledApiIds).toContain('anthropic');
     expect(enabledApiIds).toContain('google');
-    expect(enabledApiIds).toContain('deepseek');
+    // DeepSeek should no longer be enabled
+    expect(enabledApiIds).not.toContain('deepseek');
   });
 
   it('should have proper role assignments to different APIs', () => {
@@ -36,7 +37,8 @@ describe('Multi-API Configuration', () => {
     expect(uniqueAssignments).toContain('openai');
     expect(uniqueAssignments).toContain('anthropic');
     expect(uniqueAssignments).toContain('google');
-    expect(uniqueAssignments).toContain('deepseek');
+    // DeepSeek should no longer be in use
+    expect(uniqueAssignments).not.toContain('deepseek');
   });
 
   it('should have specialized role assignments', () => {
@@ -52,8 +54,12 @@ describe('Multi-API Configuration', () => {
     // Chat should use OpenAI (conversational)
     expect(DEFAULT_ROLE_ASSIGNMENTS.chat).toBe('openai');
     
-    // Fallback should use DeepSeek (reliable)
-    expect(DEFAULT_ROLE_ASSIGNMENTS.fallback).toBe('deepseek');
+    // Fallback should now use OpenAI (reliable and always enabled)
+    expect(DEFAULT_ROLE_ASSIGNMENTS.fallback).toBe('openai');
+    
+    // Quotes and analytics should now use OpenAI instead of DeepSeek
+    expect(DEFAULT_ROLE_ASSIGNMENTS.quotes).toBe('openai');
+    expect(DEFAULT_ROLE_ASSIGNMENTS.analytics).toBe('openai');
   });
 
   it('should have all assigned APIs enabled', () => {
@@ -65,7 +71,7 @@ describe('Multi-API Configuration', () => {
   });
 
   it('should have proper API endpoints configured', () => {
-    const criticalAPIs = ['openai', 'anthropic', 'google', 'deepseek'];
+    const criticalAPIs = ['openai', 'anthropic', 'google'];
     
     criticalAPIs.forEach(apiId => {
       const api = getAPIById(apiId);
@@ -74,5 +80,10 @@ describe('Multi-API Configuration', () => {
       expect(api.endpoint).toMatch(/^\/api\//);
       expect(api.enabled).toBe(true);
     });
+    
+    // DeepSeek should be disabled
+    const deepseekAPI = getAPIById('deepseek');
+    expect(deepseekAPI).toBeDefined();
+    expect(deepseekAPI.enabled).toBe(false);
   });
 });

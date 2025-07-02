@@ -73,7 +73,7 @@ export const API_OPTIONS = [
     name: 'DeepSeek',
     endpoint: '/api/deepseek',
     description: 'DeepSeek AI models',
-    enabled: true
+    enabled: false
   }
 ];
 
@@ -135,13 +135,13 @@ export const CHAT_ROLES = [
 export const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
   tools: 'openai',             // Tool calling - GPT has good function calling
-  quotes: 'deepseek',          // Service quotes - keep existing
+  quotes: 'openai',            // Service quotes - use OpenAI instead of deepseek
   photo_uploads: 'google',     // Photo analysis - Gemini has vision capabilities
   summaries: 'anthropic',      // Summarization - Claude is great at this
   search: 'google',            // Search queries - Google's strength
   chat: 'openai',              // General chat - GPT is conversational
-  fallback: 'deepseek',        // Always available fallback
-  analytics: 'deepseek',       // Data analysis - keep existing
+  fallback: 'openai',          // Always available fallback - use OpenAI instead of deepseek
+  analytics: 'openai',         // Data analysis - use OpenAI instead of deepseek
   accessibility: 'openai'      // Accessibility support - GPT is helpful
 };
 
