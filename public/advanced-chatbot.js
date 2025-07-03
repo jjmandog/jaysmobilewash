@@ -1622,20 +1622,22 @@ class AdvancedChatBot {
   scrollToBottom() {
     const messagesContainer = document.getElementById('chatbot-messages');
     if (!messagesContainer) return;
-    
+
     // Multiple approaches to ensure scrolling works
     const scrollToEnd = () => {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      // Extra guarantee: scroll last child into view
+      if (messagesContainer.lastElementChild) {
+        messagesContainer.lastElementChild.scrollIntoView({ behavior: 'auto', block: 'end' });
+      }
     };
     
     // Immediate scroll
     scrollToEnd();
-    
     // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToEnd, 10);
-    
-    // Additional fallback for slower rendering
-    setTimeout(scrollToEnd, 100);
+    setTimeout(scrollToEnd, 30);
+    setTimeout(scrollToEnd, 150);
+    setTimeout(scrollToEnd, 400);
   }
 
   showProcessing() {
