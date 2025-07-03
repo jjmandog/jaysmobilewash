@@ -221,17 +221,18 @@
     border-color: #ffd93d;
 }
 
+
 .chatbot-messages {
-    flex: 1;
+    flex: 1 1 0%;
+    min-height: 0;
+    max-height: 100%;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: auto !important;
     overflow-x: hidden;
     background: #ffffff;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e0 transparent;
     position: relative;
-    /* Ensure scrolling works properly */
-    -webkit-overscroll-behavior: contain;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
 }
@@ -278,16 +279,19 @@
     justify-content: flex-end;
 }
 
+
 .user-message .message-content {
     background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    color: white;
+    color: #fff;
     padding: 12px 16px;
     border-radius: 18px 18px 4px 18px;
     max-width: 80%;
     word-wrap: break-word;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 15px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.12);
 }
+
 
 .bot-message .message-content {
     background: #f1f5f9;
@@ -296,8 +300,9 @@
     border-radius: 18px 18px 18px 4px;
     max-width: 80%;
     word-wrap: break-word;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 15px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.08);
 }
 
 .admin-mode .bot-message .message-content {
@@ -564,26 +569,28 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .chatbot-window {
-        width: calc(100vw - 40px);
-        height: calc(100vh - 100px);
-        right: 20px;
-        bottom: 80px;
+        width: 98vw !important;
+        height: 90vh !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        right: 1vw !important;
+        bottom: 2vh !important;
+        border-radius: 10px !important;
+        max-width: 100vw !important;
+        max-height: 100vh !important;
     }
-    
-    .chatbot-input-area {
-        padding: 15px;
-    }
-    
     .chatbot-messages {
-        padding: 15px;
+        padding: 10px !important;
+        font-size: 15px !important;
     }
-    
+    .chatbot-input-area {
+        padding: 10px !important;
+    }
     .uploaded-files {
         flex-direction: column;
     }
-    
     .uploaded-file {
         max-width: 100%;
     }
