@@ -165,7 +165,7 @@ function convertVisionResultsToRecommendations(visionResults, fileData) {
     // Add comprehensive vehicle assessment
     recommendations.push({
       issue: "Complete Vehicle Assessment",
-      recommendation: `Based on image analysis, your ${carLabels[0]?.description || 'vehicle'} would benefit from our comprehensive detailing package. Detected ${labels.length} visual elements with ${objects.length} specific objects. Contact us for a personalized quote!`,
+      recommendation: `Based on image analysis, your ${carLabels[0]?.description || 'vehicle'} would benefit from our comprehensive detailing package ($150-400). Detected ${labels.length} visual elements with ${objects.length} specific objects. Contact us for a personalized quote!`,
       confidence: Math.max(...carLabels.map(l => l.score)),
       category: "comprehensive",
       detectedFeatures: labels.slice(0, 5).map(l => l.description)
@@ -413,33 +413,6 @@ function simulatedImageAnalysis(fileData) {
   
   // Return 2-3 random recommendations
   return possibleIssues.sort(() => Math.random() - 0.5).slice(0, Math.floor(Math.random() * 2) + 2);
-}
-  const possibleIssues = [
-    {
-      issue: "Paint Swirl Marks Detected",
-      recommendation: "Paint correction would restore that showroom shine. Add single-stage correction (+$300) or multi-stage for deeper scratches (+$600).",
-      confidence: 0.7
-    },
-    {
-      issue: "Wheel Contamination Visible", 
-      recommendation: "Professional wheel cleaning and ceramic coating for wheels (+$150) would provide long-lasting protection.",
-      confidence: 0.8
-    },
-    {
-      issue: "Interior Wear Assessment",
-      recommendation: "Consider our interior protection package with leather conditioning and fabric protection (+$100).",
-      confidence: 0.6
-    },
-    {
-      issue: "Paint Protection Opportunity",
-      recommendation: "Your vehicle would benefit from ceramic coating ($450) or our premium Graphene coating ($800) for maximum protection.",
-      confidence: 0.9
-    }
-  ];
-
-  // Return 1-3 random issues for simulation
-  const shuffled = [...possibleIssues].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, Math.floor(Math.random() * 3) + 1);
 }
 
 /**

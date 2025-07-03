@@ -122,9 +122,10 @@ describe('Google Vision API Integration', () => {
       body: JSON.stringify({
         image: { content: 'VGVzdERhdGE=' }, // Should strip the data:image/jpeg;base64, prefix
         features: [
-          { type: 'LABEL_DETECTION', maxResults: 10 },
-          { type: 'OBJECT_LOCALIZATION', maxResults: 10 },
-          { type: 'IMAGE_PROPERTIES' }
+          { type: 'LABEL_DETECTION', maxResults: 15 },
+          { type: 'OBJECT_LOCALIZATION', maxResults: 15 },
+          { type: 'IMAGE_PROPERTIES' },
+          { type: 'SAFE_SEARCH_DETECTION' }
         ]
       })
     });
