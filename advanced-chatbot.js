@@ -26,7 +26,7 @@ const API_OPTIONS = [
     name: 'Anthropic Claude',
     endpoint: '/api/anthropic',
     description: 'Claude AI for detailed analysis',
-    enabled: false
+    enabled: true
   },
   {
     id: 'openai',
@@ -40,7 +40,7 @@ const API_OPTIONS = [
     name: 'Google Gemini',
     endpoint: '/api/google',
     description: 'Google Gemini AI',
-    enabled: false
+    enabled: true
   },
   {
     id: 'cohere',
@@ -1621,7 +1621,28 @@ class AdvancedChatBot {
     `;
     
     messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Ensure scroll happens after DOM update with multiple fallbacks
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    if (!messagesContainer) return;
+    
+    // Multiple approaches to ensure scrolling works
+    const scrollToEnd = () => {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
+    
+    // Immediate scroll
+    scrollToEnd();
+    
+    // Delayed scroll to ensure DOM is updated
+    setTimeout(scrollToEnd, 10);
+    
+    // Additional fallback for slower rendering
+    setTimeout(scrollToEnd, 100);
   }
 
   showProcessing() {
@@ -1629,10 +1650,16 @@ class AdvancedChatBot {
     const apiSpan = document.getElementById('processing-api');
     apiSpan.textContent = this.assignments[this.currentRole] || 'AI';
     overlay.style.display = 'flex';
+    
+    // Ensure scrolling still works when processing is shown
+    this.scrollToBottom();
   }
 
   hideProcessing() {
     document.getElementById('processing-overlay').style.display = 'none';
+    
+    // Ensure scrolling works after hiding processing
+    this.scrollToBottom();
   }
 
   handleAssignmentsChange(newAssignments) {
