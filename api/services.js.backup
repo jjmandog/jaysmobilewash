@@ -9,16 +9,6 @@
  * DELETE /api/services - Remove a service
  */
 
-import {
-  getAllServices,
-  getServiceById,
-  createService,
-  updateService,
-  deleteService,
-  serviceNameExists,
-  getServicesCount
-} from '../database/services.js';
-
 // CORS headers for local development and production
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -26,6 +16,31 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
 };
+
+// TODO: Replace with database storage for production
+// In-memory storage for services - this should be replaced with a proper database
+let services = [
+  {
+    id: 1,
+    name: 'Basic Wash',
+    description: 'Exterior wash and dry with premium soap and microfiber towels',
+    price: 25.00
+  },
+  {
+    id: 2,
+    name: 'Full Detailing',
+    description: 'Complete interior and exterior detailing with wax and tire shine',
+    price: 85.00
+  },
+  {
+    id: 3,
+    name: 'Ceramic Coating',
+    description: 'Professional ceramic coating application for long-lasting protection',
+    price: 299.00
+  }
+];
+
+let nextId = 4; // Counter for new service IDs
 
 /**
  * Validate service data
@@ -77,14 +92,14 @@ function validateService(serviceData, isUpdate = false) {
 }
 
 /**
- * Find service by ID (using database)
+ * Find service by ID
  */
 function findServiceById(id) {
   const numericId = parseInt(id, 10);
   if (isNaN(numericId)) {
     return null;
   }
-  return getServiceById(numericId);
+  return services.find(service => service.id === numericId);
 }
 
 /**
@@ -92,8 +107,6 @@ function findServiceById(id) {
  */
 async function handleGet(req, res) {
   try {
-    const services = getAllServices();
-    
     return res.status(200).json({
       success: true,
       data: services,
@@ -133,8 +146,11 @@ async function handlePost(req, res) {
       });
     }
 
-    // Check for duplicate service name (database will handle this, but we can provide better error message)
-    if (serviceNameExists(serviceData.name)) {
+    // Check for duplicate service name
+    const existingService = services.find(s => 
+      s.name.toLowerCase() === serviceData.name.trim().toLowerCase()
+    );
+    if (existingService) {
       return res.status(409).json({
         error: 'Conflict',
         message: 'A service with this name already exists'
@@ -142,11 +158,14 @@ async function handlePost(req, res) {
     }
 
     // Create new service
-    const newService = createService({
+    const newService = {
+      id: nextId++,
       name: serviceData.name.trim(),
       description: serviceData.description.trim(),
       price: Number(serviceData.price.toFixed(2))
-    });
+    };
+
+    services.push(newService);
 
     return res.status(201).json({
       success: true,
@@ -156,15 +175,6 @@ async function handlePost(req, res) {
 
   } catch (error) {
     console.error('Error creating service:', error);
-    
-    // Handle database constraint errors
-    if (error.message.includes('service with this name already exists')) {
-      return res.status(409).json({
-        error: 'Conflict',
-        message: 'A service with this name already exists'
-      });
-    }
-    
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to create service'
@@ -215,20 +225,30 @@ async function handlePut(req, res) {
     }
 
     // Check for duplicate name if name is being updated
-    if (serviceData.name && serviceNameExists(serviceData.name, serviceData.id)) {
-      return res.status(409).json({
-        error: 'Conflict',
-        message: 'A service with this name already exists'
-      });
+    if (serviceData.name) {
+      const duplicateService = services.find(s => 
+        s.id !== existingService.id && 
+        s.name.toLowerCase() === serviceData.name.trim().toLowerCase()
+      );
+      if (duplicateService) {
+        return res.status(409).json({
+          error: 'Conflict',
+          message: 'A service with this name already exists'
+        });
+      }
     }
 
     // Update service
-    const updateData = {};
-    if (serviceData.name !== undefined) updateData.name = serviceData.name;
-    if (serviceData.description !== undefined) updateData.description = serviceData.description;
-    if (serviceData.price !== undefined) updateData.price = Number(serviceData.price.toFixed(2));
+    const updatedService = {
+      ...existingService,
+      ...(serviceData.name && { name: serviceData.name.trim() }),
+      ...(serviceData.description && { description: serviceData.description.trim() }),
+      ...(serviceData.price !== undefined && { price: Number(serviceData.price.toFixed(2)) })
+    };
 
-    const updatedService = updateService(serviceData.id, updateData);
+    // Replace in array
+    const index = services.findIndex(s => s.id === existingService.id);
+    services[index] = updatedService;
 
     return res.status(200).json({
       success: true,
@@ -238,15 +258,6 @@ async function handlePut(req, res) {
 
   } catch (error) {
     console.error('Error updating service:', error);
-    
-    // Handle database constraint errors
-    if (error.message.includes('service with this name already exists')) {
-      return res.status(409).json({
-        error: 'Conflict',
-        message: 'A service with this name already exists'
-      });
-    }
-    
     return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to update service'
@@ -269,20 +280,22 @@ async function handleDelete(req, res) {
       });
     }
 
-    // Delete service (will return null if not found)
-    const deletedService = deleteService(id);
-    
-    if (!deletedService) {
+    // Find existing service
+    const existingService = findServiceById(id);
+    if (!existingService) {
       return res.status(404).json({
         error: 'Not Found',
         message: 'Service not found'
       });
     }
 
+    // Remove service from array
+    services = services.filter(s => s.id !== existingService.id);
+
     return res.status(200).json({
       success: true,
       message: 'Service deleted successfully',
-      data: deletedService
+      data: existingService
     });
 
   } catch (error) {
