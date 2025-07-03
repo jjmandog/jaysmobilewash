@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove 'output: export' to enable API routes
   trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '' : ''
+  }
 }
 
 export default nextConfig

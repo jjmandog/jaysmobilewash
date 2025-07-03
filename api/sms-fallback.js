@@ -2,41 +2,9 @@
  * SMS Fallback API Endpoint
  * Alternative SMS sending method
  */
-
-export default async function handler(req, res) {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  try {
-    const { phone, message } = req.body;
-
-    // Validate required fields
-    if (!phone || !message) {
-      return res.status(400).json({ error: 'Missing required fields: phone, message' });
-    }
-
-    // Format phone number for different carriers
-    const carriers = [
-      { name: 'Verizon', domain: 'vtext.com' },
-      { name: 'T-Mobile', domain: 'tmomail.net' },
-      { name: 'AT&T', domain: 'txt.att.net' },
-      { name: 'Sprint', domain: 'messaging.sprintpcs.com' }
-    ];
-
-    // Try Verizon first (since that's what the user specified)
-    const verizonEmail = `${phone}@vtext.com`;
-    
-    const emailData = {
-      to: verizonEmail,
-      from: 'chatbot@jaysmobilewash.net',
-      subject: '', // Some carriers prefer empty subject for SMS
-      text: message,
-      html: `<pre>${message}</pre>`
-    };
-
-    // Send the notification
+// SMS fallback API fully disabled for compliance and privacy. All outgoing SMS/email notification code removed.
+export default function handler(req, res) {
+  return res.status(410).json({ error: 'SMS fallback feature is disabled.' });
     const response = await sendSMSViaEmail(emailData);
     
     if (response.success) {

@@ -28,13 +28,7 @@ const API_OPTIONS = [
     description: 'DeepSeek AI models via Hugging Face',
     enabled: true
   },
-  {
-    id: 'openai',
-    name: 'OpenAI GPT',
-    endpoint: '/api/openai',
-    description: 'OpenAI GPT models (disabled - no API key)',
-    enabled: false
-  },
+  // OpenAI API option removed to prevent any frontend calls to /api/openai
   {
     id: 'anthropic',
     name: 'Anthropic Claude',
@@ -485,6 +479,8 @@ class AIUtils {
       throw new Error('Prompt is required and must be a non-empty string');
     }
 
+    console.log(`🌐 AIUtils.queryAI calling endpoint: ${endpoint} with role: ${role}`);
+
     try {
       const requestBody = {
         prompt: prompt.trim()
@@ -495,6 +491,8 @@ class AIUtils {
         requestBody.role = role;
       }
 
+      console.log('📤 Request body:', requestBody);
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -503,8 +501,11 @@ class AIUtils {
         body: JSON.stringify(requestBody)
       });
 
+      console.log(`📥 Response status: ${response.status} ${response.statusText}`);
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('❌ API Error response:', errorData);
         
         // Provide more specific error information for better debugging
         if (response.status === 405) {
@@ -521,8 +522,10 @@ class AIUtils {
       }
 
       const data = await response.json();
+      console.log('✅ API Response data:', data);
       return data;
     } catch (error) {
+      console.error('💥 AIUtils.queryAI error:', error);
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         throw new Error('Network error: Unable to connect to AI service');
       }
@@ -553,59 +556,23 @@ class AIUtils {
  */
 class ChatRouter {
   static async routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_ASSIGNMENTS, options = {}) {
+    // Force all roles to use only DeepSeek (Mistral) and never fallback to any other API
     if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
       throw new Error('Prompt is required and must be a non-empty string');
     }
-    
     if (!role || typeof role !== 'string') {
       throw new Error('Role is required and must be a string');
     }
-    
-    const assignedAPIId = assignments[role];
-    if (!assignedAPIId) {
-      throw new Error(`No API assigned for role: ${role}`);
+    // Always use DeepSeek (Mistral) for every role
+    const deepseekAPI = this.getAPIById('deepseek');
+    if (!deepseekAPI || !deepseekAPI.enabled) {
+      throw new Error('DeepSeek API is not available or not enabled');
     }
-    
-    const assignedAPI = this.getAPIById(assignedAPIId);
-    if (!assignedAPI) {
-      throw new Error(`Unknown API: ${assignedAPIId}`);
-    }
-    
-    if (!assignedAPI.enabled) {
-      const fallbackAPIId = assignments.fallback || 'none';
-      const fallbackAPI = this.getAPIById(fallbackAPIId);
-      
-      if (!fallbackAPI || !fallbackAPI.enabled) {
-        throw new Error(`Assigned API '${assignedAPI.name}' is disabled and no valid fallback available`);
-      }
-      
-      console.warn(`API '${assignedAPI.name}' is disabled, falling back to '${fallbackAPI.name}'`);
-      return await this.executeAPICall(prompt, fallbackAPI, role, options);
-    }
-    
-    try {
-      return await this.executeAPICall(prompt, assignedAPI, role, options);
-    } catch (error) {
-      const fallbackAPIId = assignments.fallback;
-      if (fallbackAPIId && fallbackAPIId !== assignedAPIId) {
-        const fallbackAPI = this.getAPIById(fallbackAPIId);
-        
-        if (fallbackAPI && fallbackAPI.enabled) {
-          console.warn(`Primary API '${assignedAPI.name}' failed, trying fallback '${fallbackAPI.name}':`, error.message);
-          try {
-            return await this.executeAPICall(prompt, fallbackAPI, role, options);
-          } catch (fallbackError) {
-            console.error(`Fallback API '${fallbackAPI.name}' also failed:`, fallbackError.message);
-            throw new Error(`Both primary API '${assignedAPI.name}' and fallback '${fallbackAPI.name}' failed`);
-          }
-        }
-      }
-      
-      throw error;
-    }
+    return await this.executeAPICall(prompt, deepseekAPI, role, options);
   }
 
   static async executeAPICall(prompt, api, role, options = {}) {
+    console.log(`🚀 ChatRouter executing API call: ${api.name} (${api.id}) for role: ${role}`);
     const enhancedPrompt = this.enhancePromptForRole(prompt, role);
     
     const apiOptions = {
@@ -614,6 +581,7 @@ class ChatRouter {
     };
     
     if (api.id === 'none') {
+      console.log('⚠️  API is set to "none" - returning disabled message');
       return {
         content: "AI services are currently disabled. Please contact support for assistance.",
         role: "assistant"
@@ -621,15 +589,18 @@ class ChatRouter {
     }
     
     if (api.id === 'deepseek') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
-    } else if (api.id === 'openai') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
+      console.log('🔮 Calling DeepSeek API at /api/deepseek...');
+      const result = await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+      console.log('🔮 DeepSeek API result:', result);
+      return result;
     } else {
       // For other APIs, fall back to DeepSeek instead of OpenAI
       const deepseekAPI = this.getAPIById('deepseek');
       if (deepseekAPI && deepseekAPI.enabled) {
-        console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
-        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+        console.warn(`⚠️  API '${api.name}' not yet implemented, using DeepSeek fallback`);
+        const result = await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+        console.log('🔮 DeepSeek fallback result:', result);
+        return result;
       } else {
         throw new Error(`API '${api.name}' not implemented and no fallback available`);
       }
@@ -845,9 +816,7 @@ class ChatQuoteEngine {
  */
 class AdvancedChatBot {
   constructor(containerId) {
-    console.log('🔍 Looking for container:', containerId);
     this.container = document.getElementById(containerId);
-    console.log('📦 Container found:', this.container);
     
     if (!this.container) {
       console.error('❌ Container not found! Cannot initialize chatbot.');
@@ -882,10 +851,23 @@ class AdvancedChatBot {
     try {
       const saved = localStorage.getItem('chatbot-role-assignments');
       if (saved) {
-        this.assignments = JSON.parse(saved);
+        const savedAssignments = JSON.parse(saved);
+        
+        // Force update to use DeepSeek for all roles (override any old assignments)
+        // This ensures we're using the working DeepSeek API instead of disabled APIs
+        const updatedAssignments = {};
+        for (const role of Object.keys(DEFAULT_ROLE_ASSIGNMENTS)) {
+          updatedAssignments[role] = 'deepseek';
+        }
+        
+        this.assignments = updatedAssignments;
+        this.saveAssignments(); // Save the corrected assignments
+        console.log('🔄 Reset API assignments to use DeepSeek for all roles');
       }
     } catch (error) {
       console.warn('Failed to load saved assignments:', error);
+      // Use defaults if loading fails
+      this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
     }
   }
 
@@ -904,10 +886,8 @@ class AdvancedChatBot {
   }
 
   createChatWidget() {
-    console.log('🔧 Creating chat widget...');
     const widget = document.createElement('div');
     widget.className = 'advanced-chatbot-widget';
-    console.log('🔧 Widget created:', widget);
     widget.innerHTML = `
       <div class="chatbot-toggle" id="chatbot-toggle">
         <span class="chat-icon">🤖</span>
@@ -969,9 +949,7 @@ class AdvancedChatBot {
       <div class="settings-container" id="settings-container"></div>
     `;
     
-    console.log('🔧 Appending widget to container...');
     this.container.appendChild(widget);
-    console.log('✅ Widget appended successfully!');
     
     // Initialize settings panel
     const settingsContainer = document.getElementById('settings-container');
@@ -1107,7 +1085,7 @@ class AdvancedChatBot {
     this.addMessage(message, 'user');
     input.value = '';
     
-    // SMS notification fully removed for compliance and privacy
+    // SMS notifications fully removed
     
     this.isProcessing = true;
     this.showProcessing();
@@ -1134,21 +1112,25 @@ class AdvancedChatBot {
           
           // Fall back to AI or smart responses
           const assignedAPI = this.assignments[effectiveRole];
+          console.log(`🤖 Using API: ${assignedAPI} for role: ${effectiveRole}`);
           
           if (assignedAPI === 'none' || !assignedAPI) {
+            console.log('📝 Using smart response (no API assigned)');
             response = { content: this.generateSmartResponse(message, effectiveRole) };
           } else {
             try {
+              console.log(`🔗 Calling ChatRouter for ${assignedAPI} API...`);
               response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
+              console.log('✅ AI response received:', response);
             } catch (aiError) {
-              console.warn('AI failed, using smart fallback:', aiError);
+              console.warn('❌ AI failed, using smart fallback:', aiError);
               response = { content: this.generateSmartResponse(message, effectiveRole) };
             }
           }
         }
       }
       
-      const responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
+      const responseText = response.content || response.response || response.generated_text || JSON.stringify(response, null, 2);
       this.addMessage(responseText, 'bot');
       
       // Record conversation for learning
@@ -1685,32 +1667,7 @@ class AdvancedChatBot {
     });
   }
 
-  sendSMSNotification(message) {
-    // SMS notification fully removed for compliance and privacy
-  }
 
-  sendSMSFallback(message) {
-    try {
-      // Alternative method using a different SMS service
-      const fallbackData = {
-        phone: '5622289429',
-        message: `New website message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}" - ${new Date().toLocaleTimeString()}`
-      };
-
-      fetch('/api/sms-fallback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fallbackData)
-      }).catch(error => {
-        console.warn('SMS fallback also failed:', error);
-      });
-      
-    } catch (error) {
-      console.warn('SMS fallback error:', error);
-    }
-  }
 
   sendAnalyticsEvent(eventName, data = {}) {
     try {
@@ -1729,35 +1686,5 @@ class AdvancedChatBot {
 // Initialize the advanced chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🤖 Initializing Advanced AI Chatbot...');
-  
-  // Debug: Check if container exists
-  const container = document.getElementById('chatbot-container');
-  console.log('🔍 Container found:', container);
-  
-  if (container) {
-    try {
-      window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-      console.log('✅ Chatbot initialized successfully');
-    } catch (error) {
-      console.error('❌ Failed to initialize chatbot:', error);
-    }
-  } else {
-    console.error('❌ Chatbot container not found!');
-    
-    // Try to find it after a delay
-    setTimeout(() => {
-      const delayedContainer = document.getElementById('chatbot-container');
-      if (delayedContainer) {
-        console.log('🔍 Container found after delay, initializing...');
-        try {
-          window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-          console.log('✅ Chatbot initialized successfully (delayed)');
-        } catch (error) {
-          console.error('❌ Failed to initialize chatbot (delayed):', error);
-        }
-      } else {
-        console.error('❌ Chatbot container still not found after delay!');
-      }
-    }, 2000);
-  }
+  window.advancedChatbot = new AdvancedChatBot('chatbot-container');
 });

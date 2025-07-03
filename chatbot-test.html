@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test</title>
+    <link rel="stylesheet" href="advanced-chatbot.css">
+</head>
+<body>
+    <h1>Chatbot Test Page</h1>
+    
+    <!-- Chatbot Container -->
+    <div id="chatbot-container">
+        <!-- Advanced chatbot will be rendered here -->
+    </div>
+
+    <!-- Add some debug information -->
+    <div style="padding: 20px; background: #f0f0f0; margin: 20px;">
+        <h3>Debug Info:</h3>
+        <p>Page loaded: <span id="page-status">Loading...</span></p>
+        <p>Chatbot script loaded: <span id="script-status">Loading...</span></p>
+        <p>Chatbot initialized: <span id="chatbot-status">Loading...</span></p>
+        <p>Container found: <span id="container-status">Loading...</span></p>
+    </div>
+
+    <script>
+        document.getElementById('page-status').textContent = 'Ready';
+        
+        // Check if container exists
+        const container = document.getElementById('chatbot-container');
+        document.getElementById('container-status').textContent = container ? 'Found' : 'Not found';
+        
+        // Listen for chatbot initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded');
+            
+            // Check if chatbot script loaded
+            if (typeof AdvancedChatBot !== 'undefined') {
+                document.getElementById('script-status').textContent = 'Loaded';
+                
+                // Check if chatbot was initialized
+                setTimeout(() => {
+                    if (window.advancedChatbot) {
+                        document.getElementById('chatbot-status').textContent = 'Initialized';
+                    } else {
+                        document.getElementById('chatbot-status').textContent = 'Failed to initialize';
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('script-status').textContent = 'Failed to load';
+            }
+        });
+    </script>
+    
+    <!-- Advanced Chatbot Script -->
+    <script src="advanced-chatbot.js"></script>
+</body>
+</html>

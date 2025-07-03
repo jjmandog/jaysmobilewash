@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbot Test</title>
+    <style>
+        .test-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #a855f7;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+        }
+        .test-chatbot:hover {
+            background: #9333ea;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Chatbot Test</h1>
+    <p>This tests if the chatbot button appears at all.</p>
+    
+    <!-- Simple test button -->
+    <div class="test-chatbot" onclick="alert('Chatbot clicked!')">
+        🤖 Test Chat
+    </div>
+    
+    <!-- Chatbot Container -->
+    <div id="chatbot-container"></div>
+
+    <script>
+        console.log('Page loaded');
+        
+        // Test if we can add elements to the container
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('chatbot-container');
+            console.log('Container:', container);
+            
+            if (container) {
+                const testDiv = document.createElement('div');
+                testDiv.innerHTML = `
+                    <div style="position: fixed; bottom: 80px; right: 20px; background: red; color: white; padding: 10px; z-index: 10000;">
+                        Container Test
+                    </div>
+                `;
+                container.appendChild(testDiv);
+                console.log('Test div added');
+            }
+        });
+    </script>
+</body>
+</html>

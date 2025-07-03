@@ -53,3 +53,4 @@ database/test-utils.js
 # Netlify
 .netlify/
 .netlify-cache/
+.vercel
