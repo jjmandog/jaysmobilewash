@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Dashboard Demo - Jay's Mobile Wash</title>
+    <link rel="stylesheet" href="/src/components/APIDashboard.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-sections {
+            display: grid;
+            gap: 30px;
+        }
+        
+        .demo-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-section h2 {
+            margin: 0 0 20px;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        
+        .api-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .api-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        
+        .api-name {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        
+        .api-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .api-categories {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .category-badge {
+            background: #007bff;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .test-section {
+            margin-top: 20px;
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+        }
+        
+        .test-results {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🚀 Plug-and-Play API System Demo</h1>
+            <p>Demonstrating automatic API discovery and intelligent routing</p>
+        </div>
+        
+        <div class="demo-sections">
+            <div class="demo-section">
+                <h2>📋 Discovered APIs</h2>
+                <div id="api-list" class="api-list">
+                    <div class="api-item">
+                        <div class="api-name">Loading APIs...</div>
+                        <div class="api-description">Scanning /api directory for plug-and-play APIs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2>🧠 Intelligent Routing Test</h2>
+                <p>Enter a message to see which APIs would handle it:</p>
+                <div class="test-section">
+                    <input type="text" id="test-input" class="test-input" 
+                           placeholder="Try: 'Get me a quote for car detailing' or 'How much does it cost?'" 
+                           value="Get me a quote for car detailing">
+                    <br>
+                    <button id="test-button" class="test-button">🔍 Test Routing</button>
+                    <div id="test-results" class="test-results" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h2>💬 Live Chat Demo</h2>
+                <p>Experience the dynamic routing in action:</p>
+                <div id="chat-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Demo script to showcase the API system
+        
+        // Mock API data for demo purposes
+        const mockAPIs = [
+            {
+                id: 'quotes',
+                name: 'Service Quotes API',
+                description: 'Generate detailed quotes for mobile car wash services',
+                categories: ['quotes', 'pricing', 'services'],
+                keywords: ['quote', 'price', 'cost', 'estimate'],
+                enabled: true,
+                endpoint: '/api/quotes'
+            },
+            {
+                id: 'openai',
+                name: 'OpenAI GPT',
+                description: 'OpenAI GPT models for conversational AI and general chat',
+                categories: ['chat', 'reasoning', 'tools'],
+                keywords: ['chat', 'conversation', 'ai', 'assistant'],
+                enabled: true,
+                endpoint: '/api/openai'
+            },
+            {
+                id: 'services',
+                name: 'Services Management API',
+                description: 'CRUD operations for mobile wash services',
+                categories: ['services', 'data', 'management'],
+                keywords: ['service', 'manage', 'crud'],
+                enabled: true,
+                endpoint: '/api/services'
+            }
+        ];
+        
+        // Display discovered APIs
+        function displayAPIs() {
+            const apiList = document.getElementById('api-list');
+            apiList.innerHTML = '';
+            
+            mockAPIs.forEach(api => {
+                const apiItem = document.createElement('div');
+                apiItem.className = 'api-item';
+                
+                apiItem.innerHTML = `
+                    <div class="api-name">${api.name}</div>
+                    <div class="api-description">${api.description}</div>
+                    <div class="api-categories">
+                        ${api.categories.map(cat => 
+                            `<span class="category-badge">${cat}</span>`
+                        ).join('')}
+                    </div>
+                `;
+                
+                apiList.appendChild(apiItem);
+            });
+        }
+        
+        // Test routing functionality
+        function testRouting() {
+            const input = document.getElementById('test-input').value;
+            const resultsDiv = document.getElementById('test-results');
+            
+            if (!input.trim()) {
+                alert('Please enter a test message');
+                return;
+            }
+            
+            // Simple matching logic for demo
+            const matches = mockAPIs.filter(api => {
+                const inputLower = input.toLowerCase();
+                return api.keywords.some(keyword => 
+                    inputLower.includes(keyword.toLowerCase())
+                ) || api.categories.some(category => 
+                    inputLower.includes(category.toLowerCase())
+                );
+            }).sort((a, b) => {
+                // Score by keyword matches
+                const scoreA = a.keywords.filter(k => input.toLowerCase().includes(k.toLowerCase())).length;
+                const scoreB = b.keywords.filter(k => input.toLowerCase().includes(k.toLowerCase())).length;
+                return scoreB - scoreA;
+            });
+            
+            let resultsHTML = `
+                <h4>🎯 Routing Results for: "${input}"</h4>
+            `;
+            
+            if (matches.length > 0) {
+                resultsHTML += `
+                    <p><strong>✅ Found ${matches.length} matching API(s):</strong></p>
+                    <div style="margin-left: 20px;">
+                `;
+                
+                matches.forEach((api, index) => {
+                    resultsHTML += `
+                        <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 4px; border-left: 4px solid #007bff;">
+                            <strong>#${index + 1} ${api.name}</strong><br>
+                            <span style="color: #666;">Categories: ${api.categories.join(', ')}</span><br>
+                            <span style="color: #666;">Endpoint: ${api.endpoint}</span>
+                        </div>
+                    `;
+                });
+                
+                resultsHTML += '</div>';
+            } else {
+                resultsHTML += `
+                    <p><strong>❌ No specific APIs matched.</strong></p>
+                    <p>Would fallback to general chat API (OpenAI GPT)</p>
+                `;
+            }
+            
+            resultsDiv.innerHTML = resultsHTML;
+            resultsDiv.style.display = 'block';
+        }
+        
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', () => {
+            displayAPIs();
+            
+            document.getElementById('test-button').addEventListener('click', testRouting);
+            
+            document.getElementById('test-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    testRouting();
+                }
+            });
+            
+            // Add some sample test inputs
+            const sampleInputs = [
+                'Get me a quote for car detailing',
+                'How much does ceramic coating cost?',
+                'What services do you offer?',
+                'Hello, I need help with my car',
+                'Can you manage my service bookings?'
+            ];
+            
+            let currentSample = 0;
+            setInterval(() => {
+                const input = document.getElementById('test-input');
+                if (!input.value || input === document.activeElement) return;
+                
+                input.placeholder = `Try: "${sampleInputs[currentSample]}"`;
+                currentSample = (currentSample + 1) % sampleInputs.length;
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

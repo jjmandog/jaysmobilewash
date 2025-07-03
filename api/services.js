@@ -9,6 +9,60 @@
  * DELETE /api/services - Remove a service
  */
 
+/**
+ * API Metadata - For plug-and-play discovery
+ */
+export const metadata = {
+  name: 'Services Management API',
+  description: 'CRUD operations for mobile wash services',
+  version: '1.0.0',
+  
+  categories: ['services', 'data', 'management'],
+  keywords: ['services', 'crud', 'management', 'detailing', 'car wash'],
+  
+  enabled: true,
+  endpoint: '/api/services',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  
+  input: {
+    type: 'object',
+    properties: {
+      name: { type: 'string', required: true },
+      description: { type: 'string', required: false },
+      price: { type: 'number', required: true },
+      duration: { type: 'number', required: false }
+    }
+  },
+  
+  output: {
+    type: 'object',
+    properties: {
+      services: { type: 'array' },
+      service: { type: 'object' },
+      message: { type: 'string' }
+    }
+  },
+  
+  examples: [
+    {
+      name: 'Get all services',
+      input: {},
+      description: 'Retrieve all available services'
+    },
+    {
+      name: 'Add new service',
+      input: { name: 'Premium Detail', price: 150, description: 'Full premium detailing service' },
+      description: 'Add a new service to the catalog'
+    }
+  ],
+  
+  shouldHandle: (input, context) => {
+    const text = typeof input === 'string' ? input : input.message || '';
+    const serviceKeywords = ['service', 'manage', 'crud', 'add', 'update', 'delete'];
+    return serviceKeywords.some(keyword => text.toLowerCase().includes(keyword));
+  }
+};
+
 import {
   getAllServices,
   getServiceById,
