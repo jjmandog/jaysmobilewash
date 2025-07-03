@@ -6,11 +6,14 @@
 export default async function handler(req, res) {
   // Only allow POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ 
+      error: 'Method not allowed', 
+      message: 'Only POST requests are supported' 
+    });
   }
 
   try {
-    const { to, from, subject, text } = req.body;
+    const { to, from, subject, text } = req.body || {};
 
     // Validate required fields
     if (!to || !text) {
