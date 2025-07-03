@@ -1,6 +1,7 @@
 {
   "name": "jaysmobilewash",
   "version": "1.0.0",
+  "type": "module",
   "description": "Jay's Mobile Wash - Premium mobile car detailing service",
   "main": "index.html",
   "scripts": {
