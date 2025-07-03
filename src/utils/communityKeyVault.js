@@ -59,7 +59,7 @@ const PROVIDER_CONFIGS = {
   },
   deepseek: {
     name: 'DeepSeek',
-    keyPattern: /^sk-[a-zA-Z0-9_-]{40,}$/,
+    keyPattern: /^(sk-[a-zA-Z0-9_-]{40,}|hf_[a-zA-Z0-9_-]{30,})$/,
     testEndpoint: 'https://api.deepseek.com/v1/models',
     required: false
   }

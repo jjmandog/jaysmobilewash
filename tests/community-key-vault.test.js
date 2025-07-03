@@ -31,6 +31,18 @@ describe('Community Key Vault', () => {
       expect(result.isValid).toBe(true);
     });
 
+    it('should add a valid Hugging Face key to DeepSeek provider', async () => {
+      const testKey = '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';
+      const result = await addCommunityKey('deepseek', testKey, { 
+        contributor: 'DeekSeek' 
+      });
+      
+      expect(result.success).toBe(true);
+      expect(result.provider).toBe('deepseek');
+      expect(result.isValid).toBe(true);
+      expect(result.message).toBe('DeepSeek API key added successfully');
+    });
+
     it('should reject invalid key format', async () => {
       const result = await addCommunityKey('openai', 'invalid-key');
       
@@ -192,6 +204,11 @@ describe('Community Key API Patterns', () => {
       provider: 'google',
       validKeys: ['A'.repeat(39), 'a1B2c3D4e5F6g7H8i9J0k1L2m3N4o5P6q7R8s9T'],
       invalidKeys: ['short', 'too-long-key-' + 'a'.repeat(50)]
+    },
+    {
+      provider: 'deepseek',
+      validKeys: ['sk-' + 'a'.repeat(48), 'hf_' + 'a'.repeat(30), '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'],
+      invalidKeys: ['sk-short', 'hf_short', 'invalid-key', 'api-key-123']
     }
   ];
 
