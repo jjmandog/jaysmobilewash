@@ -185,6 +185,317 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 Without an API key, the endpoint returns contextually appropriate mock responses for testing and development.
 
+## Services API Endpoint Implementation
+
+### Endpoint: `/api/services`
+
+The Services endpoint provides full CRUD operations for managing Jay's Mobile Wash car wash services. This production-ready API supports comprehensive service management with robust validation and error handling.
+
+#### Supported Operations
+
+- **GET** `/api/services` - List all services
+- **POST** `/api/services` - Create a new service
+- **PUT** `/api/services` - Update an existing service  
+- **DELETE** `/api/services` - Remove a service
+
+#### Service Object Structure
+
+```javascript
+{
+  id: number,           // Auto-generated unique identifier
+  name: string,         // Service name (1-100 characters)
+  description: string,  // Service description (1-500 characters)
+  price: number         // Service price (0.00-9999.99)
+}
+```
+
+#### Request/Response Examples
+
+##### GET /api/services - List All Services
+
+**Request:**
+```bash
+GET /api/services
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Basic Wash",
+      "description": "Exterior wash and dry with premium soap and microfiber towels",
+      "price": 25.00
+    },
+    {
+      "id": 2,
+      "name": "Full Detailing",
+      "description": "Complete interior and exterior detailing with wax and tire shine",
+      "price": 85.00
+    }
+  ],
+  "count": 2
+}
+```
+
+##### POST /api/services - Create New Service
+
+**Request:**
+```bash
+POST /api/services
+Content-Type: application/json
+
+{
+  "name": "Ceramic Coating",
+  "description": "Professional ceramic coating application for long-lasting protection",
+  "price": 299.00
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Service created successfully",
+  "data": {
+    "id": 3,
+    "name": "Ceramic Coating",
+    "description": "Professional ceramic coating application for long-lasting protection",
+    "price": 299.00
+  }
+}
+```
+
+##### PUT /api/services - Update Service
+
+**Request:**
+```bash
+PUT /api/services
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Premium Ceramic Coating",
+  "price": 349.00
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Service updated successfully",
+  "data": {
+    "id": 3,
+    "name": "Premium Ceramic Coating",
+    "description": "Professional ceramic coating application for long-lasting protection",
+    "price": 349.00
+  }
+}
+```
+
+##### DELETE /api/services - Remove Service
+
+**Request:**
+```bash
+DELETE /api/services
+Content-Type: application/json
+
+{
+  "id": 3
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Service deleted successfully",
+  "data": {
+    "id": 3,
+    "name": "Premium Ceramic Coating",
+    "description": "Professional ceramic coating application for long-lasting protection",
+    "price": 349.00
+  }
+}
+```
+
+#### Error Response Formats
+
+##### Validation Errors (400)
+```json
+{
+  "error": "Validation Error",
+  "message": "Invalid service data",
+  "details": [
+    "name is required and must be a string",
+    "price must be a valid number"
+  ]
+}
+```
+
+##### Not Found (404)
+```json
+{
+  "error": "Not Found",
+  "message": "Service not found"
+}
+```
+
+##### Conflict (409)
+```json
+{
+  "error": "Conflict",
+  "message": "A service with this name already exists"
+}
+```
+
+##### Method Not Allowed (405)
+```json
+{
+  "error": "Method not allowed",
+  "message": "Only GET, POST, PUT, and DELETE requests are supported"
+}
+```
+
+##### Internal Server Error (500)
+```json
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred while processing your request"
+}
+```
+
+#### Validation Rules
+
+**Name Field:**
+- Required for creation
+- Must be a string
+- Cannot be empty after trimming
+- Maximum 100 characters
+- Must be unique (case-insensitive)
+
+**Description Field:**
+- Required for creation
+- Must be a string
+- Cannot be empty after trimming
+- Maximum 500 characters
+
+**Price Field:**
+- Required for creation
+- Must be a valid number
+- Cannot be negative
+- Maximum value: $9,999.99
+- Automatically rounded to 2 decimal places
+
+**ID Field (for updates/deletes):**
+- Must be a positive integer
+- Must reference an existing service
+
+#### CORS Support
+
+The endpoint includes comprehensive CORS support:
+
+```javascript
+{
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400'
+}
+```
+
+#### Data Storage
+
+**Current Implementation:**
+- In-memory storage using JavaScript arrays
+- Service data persists during server runtime
+- Includes pre-populated sample services
+
+**Production Upgrade Path:**
+```javascript
+// TODO: Replace with database storage for production
+// Recommended: PostgreSQL, MongoDB, or similar
+// Implementation should include:
+// - Database connection pooling
+// - Transaction support for consistency
+// - Indexing on name and id fields
+// - Audit logging for all operations
+```
+
+#### Features
+
+- **Full CRUD Operations** - Complete create, read, update, delete functionality
+- **Input Validation** - Comprehensive validation with detailed error messages
+- **Error Handling** - Robust error handling with user-friendly responses
+- **CORS Support** - Cross-origin resource sharing for web applications
+- **Data Consistency** - Prevents duplicate names and maintains referential integrity
+- **Type Safety** - Proper type validation and conversion
+- **Extensible Design** - Ready for database integration and additional features
+
+#### Integration Testing
+
+The endpoint includes comprehensive integration tests covering:
+
+- All CRUD operations
+- Input validation scenarios
+- Error handling paths
+- CORS functionality
+- Data consistency checks
+- Edge cases and boundary conditions
+
+**Test Coverage:**
+- 26 test cases covering all functionality
+- Validates request/response formats
+- Tests error conditions and edge cases
+- Ensures proper HTTP status codes
+- Verifies CORS header configuration
+
+#### Usage Example
+
+```javascript
+// Frontend integration example
+class ServicesAPI {
+  constructor(baseURL = '/api/services') {
+    this.baseURL = baseURL;
+  }
+
+  async getAllServices() {
+    const response = await fetch(this.baseURL);
+    return response.json();
+  }
+
+  async createService(serviceData) {
+    const response = await fetch(this.baseURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(serviceData)
+    });
+    return response.json();
+  }
+
+  async updateService(serviceData) {
+    const response = await fetch(this.baseURL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(serviceData)
+    });
+    return response.json();
+  }
+
+  async deleteService(serviceId) {
+    const response = await fetch(this.baseURL, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: serviceId })
+    });
+    return response.json();
+  }
+}
+```
+
 ## Settings Panel Features
 
 ### User Interface
