@@ -109,5 +109,16 @@ If you're seeing 405 errors when using the APIs:
 }
 ```
 
+## Development Utilities
+
+For development and debugging purposes, the project includes utility functions in `utils/dev-utils.js`:
+
+- `devLog()` - Development logging with timestamps
+- `isDevelopment()` - Environment detection  
+- `devTimer()` - Performance timing utility
+- `isFeatureEnabled()` - Feature flag checking
+
+See `DEVELOPMENT_STATUS.md` for current development branch status.
+
 ## License
 © 2025 Jay's Mobile Wash. All rights reserved.
