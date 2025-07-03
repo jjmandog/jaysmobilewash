@@ -19,7 +19,7 @@ export const metadata = {
   
   enabled: true,
   endpoint: '/api/openai',
-  methods: ['GET', 'POST'],
+  methods: ['POST'],
   
   input: {
     type: 'object',
