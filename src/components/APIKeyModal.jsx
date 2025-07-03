@@ -68,9 +68,9 @@ const APIKeyModal = ({
     },
     deepseek: {
       name: 'DeepSeek',
-      placeholder: 'sk-...',
-      helpText: 'Get your API key from platform.deepseek.com/api_keys',
-      pattern: 'sk-[a-zA-Z0-9_-]{40,}'
+      placeholder: 'sk-... or hf_...',
+      helpText: 'Get your API key from platform.deepseek.com/api_keys or use a Hugging Face API key',
+      pattern: '(sk-[a-zA-Z0-9_-]{40,}|hf_[a-zA-Z0-9_-]{30,})'
     }
   };
 
