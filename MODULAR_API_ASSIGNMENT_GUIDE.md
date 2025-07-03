@@ -409,49 +409,103 @@ The endpoint includes comprehensive CORS support:
 
 #### Data Storage
 
-**Current Implementation:**
-- In-memory storage using JavaScript arrays
-- Service data persists during server runtime
-- Includes pre-populated sample services
+#### Data Storage
 
-**Production Upgrade Path:**
-```javascript
-// TODO: Replace with database storage for production
-// Recommended: PostgreSQL, MongoDB, or similar
-// Implementation should include:
-// - Database connection pooling
-// - Transaction support for consistency
-// - Indexing on name and id fields
-// - Audit logging for all operations
+**Production Implementation (SQLite Database):**
+- SQLite database for persistent, production-ready storage
+- Atomic transactions for data consistency
+- Unique constraints on service names
+- Auto-incrementing primary keys
+- Timestamps for audit trails (created_at, updated_at)
+- In-memory database for testing to ensure test isolation
+
+**Database Schema:**
+```sql
+CREATE TABLE services (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT UNIQUE NOT NULL CHECK(length(name) > 0 AND length(name) <= 100),
+  description TEXT NOT NULL CHECK(length(description) > 0 AND length(description) <= 500),
+  price DECIMAL(7,2) NOT NULL CHECK(price >= 0 AND price < 10000),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 ```
+
+**Setup Instructions:**
+
+1. **Install Dependencies:**
+   ```bash
+   npm install better-sqlite3
+   ```
+
+2. **Database Initialization:**
+   - Database and tables are automatically created on first use
+   - Initial sample services are inserted if database is empty
+   - No manual setup required for development
+
+3. **Environment Configuration:**
+   - Production: Uses persistent SQLite file (`database/services.db`)
+   - Testing: Uses in-memory database for isolation
+   - Automatic detection via `NODE_ENV=test` or `VITEST=true`
+
+4. **Database Management:**
+   ```bash
+   # Reset database to initial state
+   node reset-database.js
+   
+   # Test database functionality
+   node test-production-db.js
+   ```
+
+**Database Features:**
+- **Connection Management** - Automatic connection handling with proper cleanup
+- **Transaction Support** - Built-in transaction support for data consistency  
+- **Constraint Validation** - Database-level constraints for data integrity
+- **Test Isolation** - Separate in-memory database for tests
+- **Migration Ready** - Schema versioning support for future upgrades
 
 #### Features
 
-- **Full CRUD Operations** - Complete create, read, update, delete functionality
-- **Input Validation** - Comprehensive validation with detailed error messages
+- **Full CRUD Operations** - Complete create, read, update, delete functionality with SQLite persistence
+- **Database Storage** - Production-ready SQLite database with automatic schema management
+- **Input Validation** - Comprehensive validation with detailed error messages and database constraints
 - **Error Handling** - Robust error handling with user-friendly responses
 - **CORS Support** - Cross-origin resource sharing for web applications
-- **Data Consistency** - Prevents duplicate names and maintains referential integrity
-- **Type Safety** - Proper type validation and conversion
-- **Extensible Design** - Ready for database integration and additional features
+- **Data Consistency** - Database-enforced unique constraints and referential integrity
+- **Type Safety** - Proper type validation, conversion, and database schema enforcement
+- **Test Isolation** - Separate in-memory database for tests with automatic setup/teardown
+- **Transaction Support** - Atomic operations for data consistency
+- **Audit Trails** - Automatic timestamps for created_at and updated_at fields
 
 #### Integration Testing
 
 The endpoint includes comprehensive integration tests covering:
 
-- All CRUD operations
-- Input validation scenarios
-- Error handling paths
+- All CRUD operations with database persistence
+- Input validation scenarios with database constraints
+- Error handling paths and database error handling
 - CORS functionality
-- Data consistency checks
+- Data consistency checks with database transactions
 - Edge cases and boundary conditions
+- Database setup/teardown for test isolation
 
 **Test Coverage:**
 - 26 test cases covering all functionality
 - Validates request/response formats
-- Tests error conditions and edge cases
+- Tests error conditions and edge cases  
 - Ensures proper HTTP status codes
 - Verifies CORS header configuration
+- Database-backed testing with automatic cleanup
+- Separate in-memory database for test isolation
+
+**Running Tests:**
+```bash
+# Run all services API tests
+npm test tests/services-api-integration.test.js
+
+# Run tests with explicit test environment
+NODE_ENV=test npm test tests/services-api-integration.test.js
+```
 
 #### Usage Example
 

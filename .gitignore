@@ -42,6 +42,14 @@ robots-validation-*.json
 critical-css-audit-*.json
 seo-audit-*.json
 
+# Development and testing scripts
+test-production-db.js
+reset-database.js
+api/services.js.backup
+
+# Database test utilities (keep the actual utilities)
+database/test-utils.js
+
 # Netlify
 .netlify/
 .netlify-cache/
