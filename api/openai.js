@@ -57,6 +57,7 @@ export const metadata = {
 };
 
 // CORS headers for local development and production
+// These headers are set for ALL responses to ensure proper cross-origin access
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -180,25 +181,32 @@ async function callOpenAI(prompt, role) {
 
 /**
  * Main handler function
+ * Handles OpenAI API requests with proper CORS and method validation
  */
 async function handler(req, res) {
+  // Set CORS headers for all responses (including OPTIONS and errors)
+  // This ensures proper cross-origin access for web applications
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+
+  // Log API access for diagnostics
+  console.log(`OpenAI API accessed: ${req.method} request`);
+
   // Handle CORS preflight requests
+  // Browsers send OPTIONS requests before actual requests for CORS validation
   if (req.method === 'OPTIONS') {
     return res.status(200).json({});
   }
 
-  // Only allow POST requests
+  // Only allow POST requests for actual API functionality
+  // This is a security measure to prevent unintended access
   if (req.method !== 'POST') {
     return res.status(405).json({
       error: 'Method not allowed',
       message: 'Only POST requests are supported'
     });
   }
-
-  // Set CORS headers for all responses
-  Object.entries(corsHeaders).forEach(([key, value]) => {
-    res.setHeader(key, value);
-  });
 
   try {
     // Parse and validate request body
