@@ -6,6 +6,56 @@
  * Returns: { response: string, role: "assistant" }
  */
 
+/**
+ * API Metadata - For plug-and-play discovery
+ */
+export const metadata = {
+  name: 'OpenAI GPT',
+  description: 'OpenAI GPT models for conversational AI and general chat',
+  version: '1.0.0',
+  
+  categories: ['chat', 'reasoning', 'tools', 'summaries'],
+  keywords: ['chat', 'conversation', 'gpt', 'openai', 'ai', 'assistant'],
+  
+  enabled: true,
+  endpoint: '/api/openai',
+  methods: ['GET', 'POST'],
+  
+  input: {
+    type: 'object',
+    properties: {
+      prompt: { type: 'string', required: true },
+      role: { type: 'string', required: false, default: 'chat' }
+    }
+  },
+  
+  output: {
+    type: 'object',
+    properties: {
+      response: { type: 'string' },
+      role: { type: 'string' }
+    }
+  },
+  
+  examples: [
+    {
+      name: 'General chat',
+      input: { prompt: 'How can I get my car detailed?' },
+      description: 'Basic conversational request'
+    },
+    {
+      name: 'Reasoning request',
+      input: { prompt: 'What\'s the best way to remove scratches?', role: 'reasoning' },
+      description: 'Analysis and reasoning task'
+    }
+  ],
+  
+  shouldHandle: (input, context) => {
+    // OpenAI can handle most general requests
+    return true;
+  }
+};
+
 // CORS headers for local development and production
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
