@@ -42,13 +42,20 @@ export function resetDatabaseForTests() {
     const database = getDatabase();
     
     try {
-      // Check if table exists first
-      const tableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='services'").get();
-      
-      if (tableExists) {
+      // Reset services table
+      const servicesTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='services'").get();
+      if (servicesTableExists) {
         database.exec('DELETE FROM services');
         // Reset auto-increment counter
         database.exec("DELETE FROM sqlite_sequence WHERE name='services'");
+      }
+      
+      // Reset customers table
+      const customersTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='customers'").get();
+      if (customersTableExists) {
+        database.exec('DELETE FROM customers');
+        // Reset auto-increment counter
+        database.exec("DELETE FROM sqlite_sequence WHERE name='customers'");
       }
     } catch (error) {
       console.error('Error resetting test database:', error);
@@ -86,6 +93,34 @@ function initializeTables() {
   `;
   
   db.exec(createUpdateTrigger);
+  
+  // Create customers table
+  const createCustomersTable = `
+    CREATE TABLE IF NOT EXISTS customers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL CHECK(length(name) > 0 AND length(name) <= 100),
+      email TEXT UNIQUE NOT NULL CHECK(length(email) > 0 AND length(email) <= 255),
+      phone TEXT NOT NULL CHECK(length(phone) > 0 AND length(phone) <= 15),
+      address TEXT CHECK(length(address) <= 255),
+      notes TEXT CHECK(length(notes) <= 500),
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `;
+  
+  db.exec(createCustomersTable);
+  
+  // Create trigger to update customers updated_at timestamp
+  const createCustomersUpdateTrigger = `
+    CREATE TRIGGER IF NOT EXISTS update_customers_updated_at
+    AFTER UPDATE ON customers
+    FOR EACH ROW
+    BEGIN
+      UPDATE customers SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+    END
+  `;
+  
+  db.exec(createCustomersUpdateTrigger);
   
   // Insert initial data if table is empty (not in test mode)
   if (!isTest) {
