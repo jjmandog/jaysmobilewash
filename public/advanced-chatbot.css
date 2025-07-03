@@ -90,6 +90,7 @@
     min-height: 350px;
     max-width: 98vw;
     max-height: 98vh;
+    height: 600px;
 }
 
 .chatbot-window.admin-mode {
@@ -231,7 +232,7 @@
     min-height: 0 !important;
     max-height: 100% !important;
     padding: 20px;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     overflow-x: hidden !important;
     background: #ffffff;
     scrollbar-width: auto;
@@ -414,6 +415,9 @@
     gap: 10px;
     align-items: center;
     min-height: 60px;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
 }
 
 .admin-mode .chatbot-input-area {
@@ -589,17 +593,21 @@
         border-radius: 10px !important;
         max-width: 100vw !important;
         max-height: 100vh !important;
+        height: 90vh !important;
     }
     .chatbot-messages {
         padding: 10px !important;
         font-size: 15px !important;
         min-height: 0 !important;
         max-height: 100% !important;
-        overflow-y: scroll !important;
+        overflow-y: auto !important;
     }
     .chatbot-input-area {
         padding: 10px !important;
         min-height: 50px !important;
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
     }
     .uploaded-files {
         flex-direction: column;
