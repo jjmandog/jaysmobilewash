@@ -1,20 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Auto-redirect to full site after 3 seconds
-    const timer = setTimeout(() => {
-      router.push('/index.html');
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
-
   return (
     <>
       <Head>
@@ -150,11 +137,6 @@ export default function Home() {
           </div>
           
           <div className="space-y-6">
-            <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
-              <div className="animate-spin rounded-full h-4 w-4 border-2 border-purple-500 border-t-transparent"></div>
-              <span>Loading your premium experience...</span>
-            </div>
-            
             <div className="text-center">
               <p className="text-lg mb-2">
                 <span className="text-yellow-400">★★★★★</span> Rated Service
@@ -162,6 +144,12 @@ export default function Home() {
               <p className="text-sm text-gray-400">
                 Call us: <span className="text-white font-semibold">562-228-9429</span>
               </p>
+            </div>
+            
+            <div className="text-center">
+              <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
+                Book Your Service
+              </button>
             </div>
           </div>
         </div>
