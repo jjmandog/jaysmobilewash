@@ -3,12 +3,22 @@
  * Tests all CRUD operations, validation, error handling, and CORS functionality
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterAll } from 'vitest';
+import { resetDatabaseForTests, closeDatabase } from '../database/connection.js';
 
 // Import the handler function
 import handler from '../api/services.js';
 
 describe('Services API Endpoint - Integration Tests', () => {
+  // Reset database state before each test
+  beforeEach(() => {
+    resetDatabaseForTests();
+  });
+
+  // Clean up after all tests
+  afterAll(() => {
+    closeDatabase();
+  });
   // Mock request and response objects
   function createMockReq(method = 'GET', body) {
     return {
