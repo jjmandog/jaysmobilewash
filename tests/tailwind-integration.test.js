@@ -81,13 +81,13 @@ describe('Tailwind CSS Integration', () => {
   });
 
   describe('Build Configuration', () => {
-    it('should have tailwind.config.js', () => {
-      const filePath = path.join(process.cwd(), 'tailwind.config.js');
+    it('should have tailwind.config.cjs', () => {
+      const filePath = path.join(process.cwd(), 'tailwind.config.cjs');
       expect(fs.existsSync(filePath)).toBe(true);
     });
 
-    it('should have postcss.config.js', () => {
-      const filePath = path.join(process.cwd(), 'postcss.config.js');
+    it('should have postcss.config.cjs', () => {
+      const filePath = path.join(process.cwd(), 'postcss.config.cjs');
       expect(fs.existsSync(filePath)).toBe(true);
     });
 
