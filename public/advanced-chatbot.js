@@ -25,57 +25,64 @@ const API_OPTIONS = [
     id: 'deepseek',
     name: 'DeepSeek',
     endpoint: '/api/deepseek',
-    description: 'DeepSeek AI models via Hugging Face',
+    description: 'DeepSeek AI models via OpenRouter (free)',
     enabled: true
-  },
-  // OpenAI API option removed to prevent any frontend calls to /api/openai
-  {
-    id: 'anthropic',
-    name: 'Anthropic Claude',
-    endpoint: '/api/anthropic',
-    description: 'Claude AI for detailed analysis (disabled)',
-    enabled: false
   },
   {
     id: 'google',
     name: 'Google Gemini',
-    endpoint: '/api/google',
-    description: 'Google Gemini AI (disabled)',
+    endpoint: '/api/deepseek',
+    description: 'Google Gemini (free via OpenRouter)',
+    enabled: true
+  },
+  {
+    id: 'mistral',
+    name: 'Mistral AI',
+    endpoint: '/api/deepseek',
+    description: 'Mistral AI (free via OpenRouter)',
+    enabled: true
+  },
+  {
+    id: 'llama',
+    name: 'Llama 3',
+    endpoint: '/api/deepseek',
+    description: 'Meta Llama 3 (free via OpenRouter)',
+    enabled: true
+  },
+  // All other paid or disabled APIs remain disabled
+  {
+    id: 'anthropic',
+    name: 'Anthropic Claude',
+    endpoint: '/api/anthropic',
+    description: 'Claude AI (disabled)',
     enabled: false
   },
   {
     id: 'cohere',
     name: 'Cohere',
     endpoint: '/api/cohere',
-    description: 'Cohere AI for enterprise',
+    description: 'Cohere AI (disabled)',
     enabled: false
   },
   {
     id: 'replicate',
     name: 'Replicate',
     endpoint: '/api/replicate',
-    description: 'Replicate AI models',
+    description: 'Replicate AI models (disabled)',
     enabled: false
   },
   {
     id: 'perplexity',
     name: 'Perplexity',
     endpoint: '/api/perplexity',
-    description: 'Perplexity search-augmented AI',
-    enabled: false
-  },
-  {
-    id: 'mistral',
-    name: 'Mistral AI',
-    endpoint: '/api/mistral',
-    description: 'Mistral AI models',
+    description: 'Perplexity AI (disabled)',
     enabled: false
   },
   {
     id: 'together',
     name: 'Together AI',
     endpoint: '/api/together',
-    description: 'Together AI platform',
+    description: 'Together AI platform (disabled)',
     enabled: false
   }
 ];
@@ -473,26 +480,26 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
  */
 class AIUtils {
   static async queryAI(prompt, options = {}) {
-    const { endpoint = '/api/ai', role } = options;
+    const { endpoint = '/api/ai', role, messages } = options;
 
-    if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
-      throw new Error('Prompt is required and must be a non-empty string');
+    // Support both legacy (prompt) and new (messages) format
+    let requestBody = {};
+    if (Array.isArray(messages) && messages.length > 0) {
+      requestBody.messages = messages;
+    } else {
+      if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
+        throw new Error('Prompt is required and must be a non-empty string');
+      }
+      requestBody.prompt = prompt.trim();
+    }
+    if (role) {
+      requestBody.role = role;
     }
 
     console.log(`🌐 AIUtils.queryAI calling endpoint: ${endpoint} with role: ${role}`);
+    console.log('📤 Request body:', requestBody);
 
     try {
-      const requestBody = {
-        prompt: prompt.trim()
-      };
-      
-      // Include role in request body if provided
-      if (role) {
-        requestBody.role = role;
-      }
-
-      console.log('📤 Request body:', requestBody);
-
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -506,8 +513,6 @@ class AIUtils {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
         console.error('❌ API Error response:', errorData);
-        
-        // Provide more specific error information for better debugging
         if (response.status === 405) {
           throw new Error('Method not allowed: API endpoint requires POST method');
         } else if (response.status === 500) {
@@ -556,9 +561,9 @@ class AIUtils {
  */
 class ChatRouter {
   static async routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_ASSIGNMENTS, options = {}) {
-    // Force all roles to use only DeepSeek (Mistral) and never fallback to any other API
-    if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
-      throw new Error('Prompt is required and must be a non-empty string');
+    // Accepts prompt and/or messages for memory support
+    if ((!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) && (!options.messages || !Array.isArray(options.messages) || options.messages.length === 0)) {
+      throw new Error('Prompt or messages array is required');
     }
     if (!role || typeof role !== 'string') {
       throw new Error('Role is required and must be a string');
@@ -574,12 +579,10 @@ class ChatRouter {
   static async executeAPICall(prompt, api, role, options = {}) {
     console.log(`🚀 ChatRouter executing API call: ${api.name} (${api.id}) for role: ${role}`);
     const enhancedPrompt = this.enhancePromptForRole(prompt, role);
-    
     const apiOptions = {
       endpoint: api.endpoint,
       ...options
     };
-    
     if (api.id === 'none') {
       console.log('⚠️  API is set to "none" - returning disabled message');
       return {
@@ -587,10 +590,12 @@ class ChatRouter {
         role: "assistant"
       };
     }
-    
     if (api.id === 'deepseek') {
       console.log('🔮 Calling DeepSeek API at /api/deepseek...');
-      const result = await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+      // Pass messages array if available for memory support, and model if provided
+      const queryOptions = { endpoint: '/api/deepseek', role, messages: options.messages };
+      if (options.model) queryOptions.model = options.model;
+      const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
       console.log('🔮 DeepSeek API result:', result);
       return result;
     } else {
@@ -598,7 +603,9 @@ class ChatRouter {
       const deepseekAPI = this.getAPIById('deepseek');
       if (deepseekAPI && deepseekAPI.enabled) {
         console.warn(`⚠️  API '${api.name}' not yet implemented, using DeepSeek fallback`);
-        const result = await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+        const queryOptions = { endpoint: '/api/deepseek', role, messages: options.messages };
+        if (options.model) queryOptions.model = options.model;
+        const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
         console.log('🔮 DeepSeek fallback result:', result);
         return result;
       } else {
@@ -817,12 +824,11 @@ class ChatQuoteEngine {
 class AdvancedChatBot {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
-    
     if (!this.container) {
       console.error('❌ Container not found! Cannot initialize chatbot.');
       return;
     }
-    
+
     this.isOpen = false;
     this.isProcessing = false;
     this.settingsOpen = false;
@@ -832,41 +838,63 @@ class AdvancedChatBot {
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
-    
+
     // Secret modes
     this.adminMode = false;
     this.jayMode = false;
     this.secretModeActive = false;
-    
+
     // File upload system
     this.uploadedFiles = [];
     this.maxFileSize = 10 * 1024 * 1024; // 10MB
     this.allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    
+
+    this.selectedModel = '';
+
+
     this.loadAssignments();
     this.init();
+  }
+
+  renderModelDropdown() {
+    // Add a dropdown for model selection above the chat input
+    const modelOptions = [
+      { id: '', name: 'Auto (Let AI choose)', value: '' },
+      { id: 'deepseek/deepseek-r1-0528-qwen3-8b:free', name: 'DeepSeek (Qwen3 8B Free)', value: 'deepseek/deepseek-r1-0528-qwen3-8b:free' },
+      { id: 'google/gemma-7b-it:free', name: 'Gemini (Gemma 7B Free)', value: 'google/gemma-7b-it:free' },
+      { id: 'mistralai/mistral-7b-instruct:free', name: 'Mistral 7B (Free)', value: 'mistralai/mistral-7b-instruct:free' },
+      { id: 'meta-llama/llama-3-8b-instruct:free', name: 'Llama 3 8B (Free)', value: 'meta-llama/llama-3-8b-instruct:free' },
+      { id: 'qwen/qwen3-30b-a3b:free', name: 'Qwen3 30B A3B (Free)', value: 'qwen/qwen3-30b-a3b:free' }
+    ];
+    const dropdown = document.createElement('select');
+    dropdown.id = 'model-select';
+    dropdown.className = 'chatbot-model-select';
+    modelOptions.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.name;
+      dropdown.appendChild(option);
+    });
+    dropdown.addEventListener('change', (e) => {
+      this.selectedModel = e.target.value;
+    });
+    // Insert above input
+    const inputRow = document.getElementById('chatbot-input').parentNode;
+    if (inputRow && !document.getElementById('model-select')) {
+      inputRow.parentNode.insertBefore(dropdown, inputRow);
+    }
   }
 
   loadAssignments() {
     try {
       const saved = localStorage.getItem('chatbot-role-assignments');
       if (saved) {
-        const savedAssignments = JSON.parse(saved);
-        
-        // Force update to use DeepSeek for all roles (override any old assignments)
-        // This ensures we're using the working DeepSeek API instead of disabled APIs
-        const updatedAssignments = {};
-        for (const role of Object.keys(DEFAULT_ROLE_ASSIGNMENTS)) {
-          updatedAssignments[role] = 'deepseek';
-        }
-        
-        this.assignments = updatedAssignments;
-        this.saveAssignments(); // Save the corrected assignments
-        console.log('🔄 Reset API assignments to use DeepSeek for all roles');
+        this.assignments = JSON.parse(saved);
+      } else {
+        this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
       }
     } catch (error) {
       console.warn('Failed to load saved assignments:', error);
-      // Use defaults if loading fails
       this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
     }
   }
@@ -882,6 +910,8 @@ class AdvancedChatBot {
   init() {
     this.createChatWidget();
     this.setupEventListeners();
+    this.hasUserSentFirstMessage = false; // Track if user has sent their first message
+    this.renderModelDropdown();
     this.sendAnalyticsEvent('chat_initialized');
   }
 
@@ -1042,57 +1072,60 @@ class AdvancedChatBot {
    */
   detectBestRole(message) {
     const msgLower = message.toLowerCase();
-    
+    console.log('[AUTO MODE] Analyzing message for best role:', msgLower);
     // Quote-related keywords
     if (msgLower.includes('quote') || msgLower.includes('price') || msgLower.includes('cost') || 
         msgLower.includes('how much') || msgLower.includes('estimate') || msgLower.includes('pricing')) {
+      console.log('[AUTO MODE] Detected role: quotes');
       return 'quotes';
     }
-    
     // Search-related keywords
     if (msgLower.includes('find') || msgLower.includes('search') || msgLower.includes('where') || 
         msgLower.includes('when') || msgLower.includes('location') || msgLower.includes('hours')) {
+      console.log('[AUTO MODE] Detected role: search');
       return 'search';
     }
-    
     // Summary-related keywords
     if (msgLower.includes('summarize') || msgLower.includes('summary') || msgLower.includes('explain') || 
         msgLower.includes('tell me about') || msgLower.includes('what is')) {
+      console.log('[AUTO MODE] Detected role: summaries');
       return 'summaries';
     }
-    
     // Reasoning-related keywords
     if (msgLower.includes('why') || msgLower.includes('how') || msgLower.includes('analyze') || 
         msgLower.includes('compare') || msgLower.includes('recommend') || msgLower.includes('best')) {
+      console.log('[AUTO MODE] Detected role: reasoning');
       return 'reasoning';
     }
-    
     // Photo upload context
     if (this.uploadedFiles.length > 0) {
+      console.log('[AUTO MODE] Detected role: photo_uploads (file uploaded)');
       return 'photo_uploads';
     }
-    
     // Default to chat for conversational messages
+    console.log('[AUTO MODE] Defaulted to role: chat');
     return 'chat';
   }
 
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    
     if (!message || this.isProcessing) return;
-    
+
     this.addMessage(message, 'user');
     input.value = '';
-    
-    // SMS notifications fully removed
-    
+
+    // Only after the first user message, start AI/model analysis and response
+    if (!this.hasUserSentFirstMessage) {
+      this.hasUserSentFirstMessage = true;
+    }
+
     this.isProcessing = true;
     this.showProcessing();
-    
+
     try {
       let response;
-      
+
       // Check for basefile knowledge first
       const basefileResponse = this.searchKnowledgeBase(message);
       if (basefileResponse) {
@@ -1103,46 +1136,65 @@ class AdvancedChatBot {
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
-          // Determine the effective role for processing
+          // On first user message, analyze and select best role/model
           let effectiveRole = this.currentRole;
           if (this.currentRole === 'auto') {
             effectiveRole = this.detectBestRole(message);
-            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
+            if (!this.assignments[effectiveRole]) effectiveRole = 'chat';
+            console.log(`Auto mode: selected role '${effectiveRole}' for message: "${message.substring(0, 50)}..."`);
           }
-          
-          // Fall back to AI or smart responses
-          const assignedAPI = this.assignments[effectiveRole];
-          console.log(`🤖 Using API: ${assignedAPI} for role: ${effectiveRole}`);
-          
-          if (assignedAPI === 'none' || !assignedAPI) {
-            console.log('📝 Using smart response (no API assigned)');
+          // Always call /api/deepseek, but pass the correct role for model selection
+          try {
+            console.log(`🔗 Calling ChatRouter for /api/deepseek with role: ${effectiveRole} and model: ${this.selectedModel}`);
+            response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments, { model: this.selectedModel });
+            console.log('✅ AI response received:', response);
+          } catch (aiError) {
+            console.warn('❌ AI failed, using smart fallback:', aiError);
             response = { content: this.generateSmartResponse(message, effectiveRole) };
-          } else {
-            try {
-              console.log(`🔗 Calling ChatRouter for ${assignedAPI} API...`);
-              response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
-              console.log('✅ AI response received:', response);
-            } catch (aiError) {
-              console.warn('❌ AI failed, using smart fallback:', aiError);
-              response = { content: this.generateSmartResponse(message, effectiveRole) };
-            }
           }
         }
       }
-      
+
+      // Try to extract model info from response (if backend returns it in future)
+      let modelUsed = null;
+      if (response.model) modelUsed = response.model;
+      // If not, infer from role (matches backend modelMap)
+      if (!modelUsed) {
+        const modelMap = {
+          reasoning: 'google/gemma-7b-it:free',
+          tools: 'mistralai/mistral-7b-instruct:free',
+          quotes: 'meta-llama/llama-3-8b-instruct:free',
+          photo_uploads: 'google/gemma-7b-it:free',
+          summaries: 'mistralai/mistral-7b-instruct:free',
+          search: 'google/gemma-7b-it:free',
+          analytics: 'meta-llama/llama-3-8b-instruct:free',
+          accessibility: 'mistralai/mistral-7b-instruct:free',
+          chat: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+          fallback: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+        };
+        let effectiveRole = this.currentRole;
+        if (this.currentRole === 'auto') {
+          effectiveRole = this.detectBestRole(message);
+          if (!this.assignments[effectiveRole]) effectiveRole = 'chat';
+        }
+        modelUsed = modelMap[effectiveRole] || modelMap['fallback'];
+      }
       const responseText = response.content || response.response || response.generated_text || JSON.stringify(response, null, 2);
-      this.addMessage(responseText, 'bot');
-      
+      this.addMessage(responseText, 'bot', 'normal', modelUsed);
+      // Display model used in the UI (e.g., as a badge or in the message)
+      this.displayModelUsed(modelUsed);
+
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
         role: this.currentRole,
         hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        model: modelUsed
       });
-      
+
       // Clear uploaded files after processing
       this.clearUploadedFiles();
-      
+
       this.sendAnalyticsEvent('chat_query_success', {
         role: this.currentRole,
         api: this.assignments[this.currentRole],
@@ -1151,7 +1203,7 @@ class AdvancedChatBot {
       });
     } catch (error) {
       console.error('Chat error:', error);
-      
+
       // Provide user-friendly error messages instead of technical ones
       let userFriendlyMessage;
       if (error.message.includes('Network error') || error.message.includes('fetch')) {
@@ -1165,14 +1217,14 @@ class AdvancedChatBot {
       } else {
         userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
       }
-      
+
       // Add the user-friendly error message instead of technical fallback
       this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
+
       // Then provide a helpful fallback response
       const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
       this.addMessage(fallbackResponse, 'bot');
-      
+
       this.sendAnalyticsEvent('chat_query_error', {
         role: this.currentRole,
         error: error.message,
@@ -1331,6 +1383,13 @@ class AdvancedChatBot {
     document.querySelector('.chatbot-window').classList.remove('dark-mode');
     document.querySelector('.chatbot-window').classList.add('jay-mode');
     
+    this.jayMode = true;
+    this.secretModeActive = true;
+    
+    // Add Jay mode styling (lighter theme)
+    document.querySelector('.chatbot-window').classList.remove('dark-mode');
+    document.querySelector('.chatbot-window').classList.add('jay-mode');
+    
     // Clear input and show Jay mode message
     const input = document.getElementById('chatbot-input');
     input.value = '';
@@ -1432,59 +1491,11 @@ class AdvancedChatBot {
     document.getElementById('uploaded-files').innerHTML = '';
   }
   
+  // Image analysis with Google Vision is deprecated/removed
   analyzeImageForQuote(fileData) {
-    // Use real Google Vision API for image analysis
-    this.performImageAnalysisWithVision(fileData);
-  }
-  
-  async performImageAnalysisWithVision(fileData) {
-    try {
-      // Dynamic import to avoid module resolution issues
-      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
-      
-      // Use real Google Vision API
-      const analysisResults = await analyzeImageWithGoogleVision(fileData);
-      
-      if (analysisResults.length > 0) {
-        let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
-        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
-        
-        analysisResults.forEach((result, index) => {
-          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
-          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
-        });
-        
-        message += "💡 Would you like a detailed quote including these AI-recommended services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
-        }, 1000);
-      }
-    } catch (error) {
-      console.error('Image analysis failed:', error);
-      
-      // Fallback to simulated analysis
-      const analysisResults = this.performImageAnalysis(fileData);
-      
-      if (analysisResults.length > 0) {
-        let message = "📸 **Image Analysis Complete!**\n\n";
-        message += "I can see your vehicle and have some recommendations:\n\n";
-        
-        analysisResults.forEach((result, index) => {
-          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
-        });
-        
-        message += "\n💡 Would you like a detailed quote including these additional services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
-      }
-    }
+    setTimeout(() => {
+      this.addMessage("❌ Image analysis is currently unavailable. Please try again later or contact support.", 'bot', 'error');
+    }, 1000);
   }
   
   performImageAnalysis(fileData) {
@@ -1592,37 +1603,35 @@ class AdvancedChatBot {
     } else if (message.includes('hours') || message.includes('time')) {
       return 'We operate Monday-Friday 8AM-6PM and weekends 9AM-5PM. We schedule appointments at your convenience within our service areas.';
     }
-    
     return 'I can help you find information about our services, coverage areas, pricing, or scheduling. What specific information are you looking for?';
-  }
-
-  generateReasoningResponse(message) {
-    return 'Let me analyze that for you: Based on the information provided, I recommend considering your vehicle\'s condition, usage patterns, and protection goals. For detailed analysis and recommendations, our specialists at (562) 228-9429 can provide personalized advice.';
   }
 
   generateSummaryResponse(message) {
     return 'Here\'s a summary: Jay\'s Mobile Wash offers three main categories: Mobile Detailing ($70-$200), Ceramic Coating ($450), and Graphene Coating ($800). We serve LA/OC areas with mobile convenience. Call (562) 228-9429 for service details.';
   }
 
-  addMessage(content, sender, type = 'normal') {
+  addMessage(content, sender, type = 'normal', modelUsed = null) {
     const messagesContainer = document.getElementById('chatbot-messages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''}`;
+    let modelInfo = '';
+    if (modelUsed) {
+      modelInfo = `<div class="model-used">Model: <span>${modelUsed}</span></div>`;
+    }
     messageDiv.innerHTML = `
       <div class="message-content">${content}</div>
+      ${modelInfo}
       <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
     `;
     
     messagesContainer.appendChild(messageDiv);
-    
-    // Ensure scroll happens after DOM update with multiple fallbacks
     this.scrollToBottom();
   }
 
-  scrollToBottom() {
+  // Display the model used for the last bot message
+  displayModelUsed(modelUsed) {
     const messagesContainer = document.getElementById('chatbot-messages');
     if (!messagesContainer) return;
-
     // Multiple approaches to ensure scrolling works
     const scrollToEnd = () => {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
