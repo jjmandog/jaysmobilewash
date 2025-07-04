@@ -2308,16 +2308,17 @@ textarea.form-control {
 
 .surprise-float-btn {
     position: fixed;
-    top: 24px;
-    right: 24px;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-50%);
     z-index: 100; /* Lower than navigation (z-50 = 50) but above content */
     background: linear-gradient(135deg, #ff006e, #8338ec);
     border: none;
     color: white;
-    padding: 15px 20px;
+    padding: 12px 16px;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -2325,8 +2326,8 @@ textarea.form-control {
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
     backdrop-filter: blur(10px);
-    /* Ensure button doesn't block navigation */
-    margin-top: 4px;
+    /* Positioned on left side to avoid blocking content */
+    margin-left: 4px;
 }
 
 .surprise-float-btn:hover {
@@ -2347,8 +2348,8 @@ textarea.form-control {
 /* Improved jay-mode-button styles for better positioning and accessibility */
 button.jay-mode-button {
     position: fixed !important;
-    bottom: 100px !important;  /* Above the chatbot toggle */
-    right: 20px !important;
+    bottom: 30px !important;  /* Same level as chatbot button */
+    left: 30px !important;    /* Move to left side to avoid overlap */
     transform: none !important;
     z-index: 45 !important; /* Below navbar z-50 but above content */
     /* Enhanced RGB gradient and glow effects */
@@ -2439,10 +2440,17 @@ button.jay-mode-button:hover {
 
 /* Mobile responsive positioning */
 @media (max-width: 768px) {
-    .surprise-float-btn,
+    .surprise-float-btn {
+        top: 20px !important; /* Keep on left side but move up */
+        left: 16px !important;
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+        border-radius: 40px !important;
+    }
+    
     button.jay-mode-button {
-        bottom: 90px !important; /* Above chatbot on mobile */
-        right: 16px !important;
+        bottom: 30px !important; /* Same level as chatbot */
+        left: 16px !important;   /* Left side on mobile too */
         padding: 10px 14px !important;
         font-size: 13px !important;
         border-radius: 40px !important;
@@ -2452,21 +2460,47 @@ button.jay-mode-button:hover {
     button.jay-mode-button i {
         font-size: 14px !important;
     }
+    
+    /* Ensure chatbot button is visible on mobile */
+    .advanced-chatbot-widget .chatbot-toggle {
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 70px !important;
+        height: 70px !important;
+    }
 }
 
 /* Small mobile devices */
 @media (max-width: 480px) {
-    .surprise-float-btn,
-    button.jay-mode-button {
-        bottom: 85px !important;
-        right: 12px !important;
+    .surprise-float-btn {
+        top: 15px !important;
+        left: 12px !important;
         padding: 8px 12px !important;
         font-size: 12px !important;
-        /* Keep text but make button more compact */
+        border-radius: 35px !important;
+    }
+    
+    button.jay-mode-button {
+        bottom: 25px !important;
+        left: 12px !important;
+        padding: 8px 12px !important;
+        font-size: 12px !important;
         border-radius: 35px !important;
     }
     
     button.jay-mode-button span {
         font-size: 11px !important;
+    }
+    
+    /* Smaller chatbot button on small mobile */
+    .advanced-chatbot-widget .chatbot-toggle {
+        bottom: 15px !important;
+        right: 15px !important;
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .advanced-chatbot-widget .chatbot-toggle .chat-icon {
+        font-size: 24px !important;
     }
 }
