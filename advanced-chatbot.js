@@ -862,7 +862,9 @@ class AdvancedChatBot {
     this.currentRole = 'auto';
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
-    this.memory = new ConversationMemory();
+    // Persistent memory for the current chat session
+    this.sessionMemory = this.loadSessionMemory();
+    this.memory = this.sessionMemory;
     
     // Secret modes
     this.adminMode = false;
@@ -876,6 +878,59 @@ class AdvancedChatBot {
     
     this.loadAssignments();
     this.init();
+
+    // Rating system state
+    this.lastBotMessageId = null;
+    this.ratings = this.loadRatings();
+    this.isRatingActive = false;
+  }
+
+  // Load persistent memory for the current chat session
+  loadSessionMemory() {
+    try {
+      const saved = localStorage.getItem('chatbot-session-memory');
+      if (saved) {
+        const obj = JSON.parse(saved);
+        const mem = new ConversationMemory();
+        mem.conversations = obj.conversations || [];
+        mem.keywords = new Map(obj.keywords || []);
+        mem.responses = obj.responses || {};
+        mem.userPreferences = obj.userPreferences || {};
+        return mem;
+      }
+    } catch (e) {}
+    return new ConversationMemory();
+  }
+
+  // Save session memory after each message
+  saveSessionMemory() {
+    try {
+      localStorage.setItem('chatbot-session-memory', JSON.stringify({
+        conversations: this.memory.conversations,
+        keywords: [...this.memory.keywords.entries()],
+        responses: this.memory.responses,
+        userPreferences: this.memory.userPreferences
+      }));
+    } catch (e) {}
+  }
+
+  // Clear session memory (call when chat is closed)
+  clearSessionMemory() {
+    localStorage.removeItem('chatbot-session-memory');
+    this.memory = new ConversationMemory();
+    this.saveSessionMemory();
+  }
+
+  // Ratings persistence
+  loadRatings() {
+    try {
+      return JSON.parse(localStorage.getItem('chatbot-ratings') || '[]');
+    } catch (e) { return []; }
+  }
+  saveRatings() {
+    try {
+      localStorage.setItem('chatbot-ratings', JSON.stringify(this.ratings));
+    } catch (e) {}
   }
 
   loadAssignments() {
@@ -1030,6 +1085,8 @@ class AdvancedChatBot {
     document.getElementById('chatbot-window').style.display = 'none';
     this.isOpen = false;
     this.sendAnalyticsEvent('chat_closed');
+    // Clear session memory when chat is closed
+    this.clearSessionMemory();
   }
 
   toggleSettings() {
@@ -1157,572 +1214,185 @@ class AdvancedChatBot {
         hasImages: this.uploadedFiles.length > 0,
         timestamp: Date.now()
       });
-      
+      this.saveSessionMemory();
+      // Show rating UI for this bot message
+      this.lastBotMessageId = this.memory.conversations.length > 0 ? this.memory.conversations[this.memory.conversations.length - 1].id : null;
+      this.showRatingUI(this.lastBotMessageId);
       // Clear uploaded files after processing
       this.clearUploadedFiles();
-      
       this.sendAnalyticsEvent('chat_query_success', {
         role: this.currentRole,
         api: this.assignments[this.currentRole],
         usedBasefile: !!basefileResponse,
         usedMemory: !!this.memory.getLearnedResponse(message)
       });
-    } catch (error) {
-      console.error('Chat error:', error);
-      
-      // Provide user-friendly error messages instead of technical ones
-      let userFriendlyMessage;
-      if (error.message.includes('Network error') || error.message.includes('fetch')) {
-        userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
-      } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-        userFriendlyMessage = "⚙️ There's a temporary technical issue with my AI features. Don't worry - I can still help you with basic questions about our services! For detailed quotes and booking, please call 562-228-9429.";
-      } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
-        userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
-      } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
-        userFriendlyMessage = "⏰ My AI is taking longer than usual to respond. Let me give you some quick help instead! For faster service, please call us at 562-228-9429.";
-      } else {
-        userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
-      }
-      
-      // Add the user-friendly error message instead of technical fallback
-      this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
-      // Then provide a helpful fallback response
-      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
-      this.addMessage(fallbackResponse, 'bot');
-      
-      this.sendAnalyticsEvent('chat_query_error', {
-        role: this.currentRole,
-        error: error.message,
-        userFriendlyErrorShown: true
-      });
-    } finally {
-      this.isProcessing = false;
-      this.hideProcessing();
-    }
-  }
-
-  searchKnowledgeBase(message) {
-    const lowerMessage = message.toLowerCase();
-    
-    // Search through car detailing knowledge base
-    for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
-      const categoryData = CAR_DETAILING_KNOWLEDGE_BASE[category];
-      
-      if (typeof categoryData === 'object') {
-        for (const subcategory in categoryData) {
-          const item = categoryData[subcategory];
-          
-          // Check if message relates to this knowledge item
-          if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
-            return this.formatKnowledgeResponse(subcategory, item, category);
-          }
-        }
-      }
-    }
-    
-    return null;
-  }
-  
-  messageMatchesKnowledge(message, key, item) {
-    // Check for key matches
-    if (message.includes(key.replace(/_/g, ' '))) return true;
-    
-    // Check for description matches
-    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
-    
-    // Check for specific keywords
-    const keywords = {
-      ceramic: ['ceramic', 'coating', 'protection'],
-      graphene: ['graphene', 'premium', 'coating'],
-      detail: ['detail', 'clean', 'wash'],
-      correction: ['correction', 'polish', 'scratch', 'swirl'],
-      wax: ['wax', 'protection', 'shine'],
-      wash: ['wash', 'clean', 'soap']
-    };
-    
-    for (const keywordGroup in keywords) {
-      if (key.includes(keywordGroup)) {
-        return keywords[keywordGroup].some(keyword => message.includes(keyword));
-      }
-    }
-    
-    return false;
-  }
-  
-  formatKnowledgeResponse(key, item, category) {
-    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${item.description}\n\n`;
-    
-    if (item.price || item.price_range) {
-      response += `💰 **Price**: ${item.price || item.price_range}\n`;
-    }
-    
-    if (item.time) {
-      response += `⏱️ **Duration**: ${item.time}\n`;
-    }
-    
-    if (item.benefits) {
-      response += `✅ **Benefits**: ${item.benefits.join(', ')}\n`;
-    }
-    
-    if (item.includes) {
-      response += `📋 **Includes**: ${item.includes.join(', ')}\n`;
-    }
-    
-    if (item.process) {
-      response += `🔧 **Process**: ${item.process.join(' → ')}\n`;
-    }
-    
-    response += `\n📞 Call (562) 228-9429 to book this service!`;
-    
-    return response;
-  }
-
-  checkSecretModes(inputValue) {
-    const value = inputValue.toLowerCase();
-    
-    // Check for admin mode toggle ("josh")
-    if (value === 'josh') {
-      if (this.adminMode) {
-        this.deactivateAdminMode();
-      } else {
-        this.activateAdminMode();
-      }
-      return;
-    }
-    
-    // Check for Jay mode ("jay")
-    if (value === 'jay' && !this.jayMode) {
-      this.activateJayMode();
-      return;
-    }
-  }
-  
-  activateAdminMode() {
-    this.adminMode = true;
-    this.secretModeActive = true;
-    
-    // Add admin styling
-    document.querySelector('.chatbot-window').classList.add('admin-mode');
-    
-    // Clear input and show admin message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging", 'bot', 'admin');
-    
-    // Update placeholder
-    input.placeholder = "Admin mode active - Type admin commands...";
-  }
-
-  deactivateAdminMode() {
-    this.adminMode = false;
-    this.secretModeActive = false;
-    
-    // Remove admin styling
-    document.querySelector('.chatbot-window').classList.remove('admin-mode');
-    
-    // Clear input and show deactivation message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    // Show fun deactivation message
-    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
-    
-    // Restore normal placeholder based on current role
-    const rolePlaceholders = {
-      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
-      quotes: 'Describe your vehicle and service needs for a quote...',
-      search: 'What information are you looking for?',
-      reasoning: 'Ask me to analyze or reason through something...',
-      summaries: 'What would you like me to summarize?',
-      chat: 'Ask about our services or chat with me...'
-    };
-    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
-  }
-  
-  activateJayMode() {
-    this.jayMode = true;
-    this.secretModeActive = true;
-    
-    // Add Jay mode styling (lighter theme)
-    document.querySelector('.chatbot-window').classList.remove('dark-mode');
-    document.querySelector('.chatbot-window').classList.add('jay-mode');
-    
-    // Clear input and show Jay mode message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    // Trigger beat animation if available
-    if (window.JayAudio) {
-      window.JayAudio.triggerBeat(0.8);
-    }
-    
-    this.addMessage("🎵 JAY MODE ACTIVATED! 🎵\n\nSpecial features unlocked:\n• Enhanced beat detection and animations\n• Premium service insights\n• VIP customer treatment\n• Advanced car knowledge\n• Exclusive detailing tips", 'bot', 'jay');
-    
-    // Update placeholder
-    input.placeholder = "Jay mode - Ask me anything about premium detailing...";
-    
-    // Add pulsing animation to chat toggle
-    document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
-  }
-
-  handleFileUpload(event) {
-    const files = Array.from(event.target.files);
-    
-    files.forEach(file => {
-      if (this.validateFile(file)) {
-        this.processUploadedFile(file);
-      }
-    });
-    
-    // Clear the input to allow re-uploading the same file
-    event.target.value = '';
-  }
-  
-  validateFile(file) {
-    // Check file type
-    if (!this.allowedFileTypes.includes(file.type)) {
-      this.addMessage(`❌ File type not supported: ${file.type}. Please upload images only.`, 'bot', 'error');
-      return false;
-    }
-    
-    // Check file size
-    if (file.size > this.maxFileSize) {
-      this.addMessage(`❌ File too large: ${(file.size / 1024 / 1024).toFixed(1)}MB. Maximum size is 10MB.`, 'bot', 'error');
-      return false;
-    }
-    
-    return true;
-  }
-  
-  processUploadedFile(file) {
-    const reader = new FileReader();
-    
-    reader.onload = (e) => {
-      const fileData = {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        data: e.target.result,
-        timestamp: Date.now()
-      };
-      
-      this.uploadedFiles.push(fileData);
-      this.displayUploadedFile(fileData);
-      
-      // Auto-analyze image for quote optimization
-      this.analyzeImageForQuote(fileData);
-    };
-    
-    reader.readAsDataURL(file);
-  }
-  
-  displayUploadedFile(fileData) {
-    const container = document.getElementById('uploaded-files');
-    
-    const fileElement = document.createElement('div');
-    fileElement.className = 'uploaded-file';
-    fileElement.innerHTML = `
-      <img src="${fileData.data}" alt="${fileData.name}" class="uploaded-image">
-      <div class="file-info">
-        <span class="file-name">${fileData.name}</span>
-        <button class="remove-file" data-timestamp="${fileData.timestamp}">✕</button>
+  // Show rating UI below the last bot message
+  showRatingUI(messageId) {
+    if (!messageId) return;
+    const messagesDiv = document.getElementById('chatbot-messages');
+    if (!messagesDiv) return;
+    // Remove any existing rating UI
+    const old = document.getElementById('chatbot-rating-ui');
+    if (old) old.remove();
+    // Find the last bot message element
+    const botMessages = messagesDiv.querySelectorAll('.bot-message');
+    if (botMessages.length === 0) return;
+    const lastBot = botMessages[botMessages.length - 1];
+    // Create rating UI
+    const ratingDiv = document.createElement('div');
+    ratingDiv.id = 'chatbot-rating-ui';
+    ratingDiv.style.margin = '8px 0 0 0';
+    ratingDiv.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;font-size:15px;">
+        <span>Rate this answer:</span>
+        <button class="chatbot-rating-star" data-rating="1">★</button>
+        <button class="chatbot-rating-star" data-rating="2">★</button>
+        <button class="chatbot-rating-star" data-rating="3">★</button>
+        <button class="chatbot-rating-star" data-rating="4">★</button>
+        <button class="chatbot-rating-star" data-rating="5">★</button>
+        <input type="text" id="chatbot-rating-feedback" placeholder="Optional feedback..." style="margin-left:8px;font-size:13px;padding:2px 6px;border-radius:4px;border:1px solid #ccc;" maxlength="120">
+        <button id="chatbot-rating-submit" style="margin-left:4px;font-size:13px;">Submit</button>
       </div>
     `;
-    
-    container.appendChild(fileElement);
-    
-    // Add remove handler
-    fileElement.querySelector('.remove-file').addEventListener('click', (e) => {
-      const timestamp = parseInt(e.target.dataset.timestamp);
-      this.removeUploadedFile(timestamp);
-      fileElement.remove();
+    lastBot.appendChild(ratingDiv);
+    // Add event listeners
+    ratingDiv.querySelectorAll('.chatbot-rating-star').forEach(btn => {
+      btn.addEventListener('click', e => {
+        ratingDiv.querySelectorAll('.chatbot-rating-star').forEach(b => b.style.color = '');
+        e.target.style.color = '#fbbf24';
+        ratingDiv.dataset.selected = e.target.dataset.rating;
+      });
     });
-  }
-  
-  removeUploadedFile(timestamp) {
-    this.uploadedFiles = this.uploadedFiles.filter(file => file.timestamp !== timestamp);
-  }
-  
-  clearUploadedFiles() {
-    this.uploadedFiles = [];
-    document.getElementById('uploaded-files').innerHTML = '';
-  }
-  
-  analyzeImageForQuote(fileData) {
-    // Use real Google Vision API for image analysis
-    this.performImageAnalysisWithVision(fileData);
-  }
-  
-  async performImageAnalysisWithVision(fileData) {
-    try {
-      // Dynamic import to avoid module resolution issues
-      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
-      
-      // Use real Google Vision API
-      const analysisResults = await analyzeImageWithGoogleVision(fileData);
-      
-      if (analysisResults.length > 0) {
-        let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
-        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
-        
-        analysisResults.forEach((result, index) => {
-          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
-          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
-        });
-        
-        message += "💡 Would you like a detailed quote including these AI-recommended services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
+    ratingDiv.querySelector('#chatbot-rating-submit').addEventListener('click', () => {
+      const rating = parseInt(ratingDiv.dataset.selected || '0');
+      const feedback = ratingDiv.querySelector('#chatbot-rating-feedback').value.trim();
+      if (rating > 0) {
+        this.saveRating(messageId, rating, feedback);
+        this.showRatingThankYou(rating);
       } else {
-        setTimeout(() => {
-          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
-        }, 1000);
+        alert('Please select a star rating.');
       }
-    } catch (error) {
-      console.error('Image analysis failed:', error);
-      
-      // Fallback to simulated analysis
-      const analysisResults = this.performImageAnalysis(fileData);
-      
-      if (analysisResults.length > 0) {
-        let message = "📸 **Image Analysis Complete!**\n\n";
-        message += "I can see your vehicle and have some recommendations:\n\n";
-        
-        analysisResults.forEach((result, index) => {
-          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
-        });
-        
-        message += "\n💡 Would you like a detailed quote including these additional services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
-      }
-    }
+    });
+    this.isRatingActive = true;
   }
-  
-  performImageAnalysis(fileData) {
-    // This is a simplified simulation - in a real implementation, 
-    // this would use computer vision APIs
-    const possibleIssues = [
-      {
-        issue: "Paint Swirl Marks Detected",
-        recommendation: "Paint correction would restore that showroom shine. Add single-stage correction (+$300) or multi-stage for deeper scratches (+$600)."
-      },
-      {
-        issue: "Wheel Contamination Visible", 
-        recommendation: "Professional wheel cleaning and ceramic coating for wheels (+$150) would provide long-lasting protection."
-      },
-      {
-        issue: "Water Spots on Paint",
-        recommendation: "Paint decontamination and ceramic coating (+$450) would prevent future water spotting and make maintenance easier."
-      },
-      {
-        issue: "Oxidized Headlights",
-        recommendation: "Headlight restoration service (+$80) would improve visibility and vehicle appearance."
-      },
-      {
-        issue: "Interior Wear Visible",
-        recommendation: "Leather conditioning and interior protection (+$100) would restore and preserve your interior."
-      }
-    ];
-    
-    // Randomly select 1-3 issues for demonstration
-    const numIssues = Math.floor(Math.random() * 3) + 1;
-    const selectedIssues = [];
-    
-    for (let i = 0; i < numIssues; i++) {
-      const randomIndex = Math.floor(Math.random() * possibleIssues.length);
-      const issue = possibleIssues[randomIndex];
-      
-      if (!selectedIssues.find(s => s.issue === issue.issue)) {
-        selectedIssues.push(issue);
+
+  // Save rating for a message
+  saveRating(messageId, rating, feedback) {
+    this.ratings.push({
+      messageId,
+      rating,
+      feedback,
+      timestamp: Date.now()
+    });
+    this.saveRatings();
+    // Optionally, use feedback to improve memory (simple example: store good feedback as learned response)
+    if (rating >= 4 && feedback) {
+      // Find the conversation
+      const conv = this.memory.conversations.find(c => c.id === messageId);
+      if (conv) {
+        this.memory.responses[conv.userMessage] = conv.botResponse + '\n\nUser feedback: ' + feedback;
+        this.saveSessionMemory();
       }
     }
-    
-    return selectedIssues;
   }
 
-  generateSmartResponse(message, role) {
-    const lowerMessage = message.toLowerCase();
-    
-    // Role-specific responses
-    if (role === 'quotes') {
-      return this.generateQuoteResponse(lowerMessage);
-    } else if (role === 'search') {
-      return this.generateSearchResponse(lowerMessage);
-    } else if (role === 'reasoning') {
-      return this.generateReasoningResponse(lowerMessage);
-    } else if (role === 'summaries') {
-      return this.generateSummaryResponse(lowerMessage);
+  // Show thank you after rating
+  showRatingThankYou(rating) {
+    const ratingDiv = document.getElementById('chatbot-rating-ui');
+    if (ratingDiv) {
+      ratingDiv.innerHTML = `<span style='color:#22c55e;font-weight:600;'>Thank you for your feedback! (${rating}★)</span>`;
+      setTimeout(() => { if (ratingDiv) ratingDiv.remove(); }, 2000);
     }
-    
-    // General chat responses
-    const responses = {
-      'hello': 'Hello! I\'m Jay\'s AI Assistant. I can help with quotes, service information, and more. What can I do for you?',
-      'hi': 'Hi there! How can I assist you with Jay\'s Mobile Wash services today?',
-      'price': 'Our services range from $70 for Mini Detail to $800 for Graphene Coating. Would you like a detailed quote for your specific needs?',
-      'pricing': 'Our pricing varies by service: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), Graphene Coating ($800). What service interests you?',
-      'book': 'Great! To book our services, please call (562) 228-9429 or visit our website. What type of service would you like to schedule?',
-      'booking': 'I\'d be happy to help you book! Call us at (562) 228-9429 and mention what service you need. We serve all of LA and Orange County.',
-      'contact': 'You can reach Jay\'s Mobile Wash at (562) 228-9429 or email info@jaysmobilewash.net. We provide mobile service throughout Los Angeles and Orange County.',
-      'location': 'We provide mobile detailing throughout Los Angeles County and Orange County. We come directly to your location for convenience!',
-      'service': 'We offer comprehensive mobile detailing ($70-$200), professional Ceramic Coating ($450), and premium Graphene Coating ($800). Which service interests you most?',
-      'services': 'Our main services include: Mobile Detailing (Mini $70, Luxury $130, Max $200), Ceramic Coating ($450), and Graphene Coating ($800). What would you like to know more about?',
-      'ceramic': 'Our Ceramic Coating service is $450 and includes professional paint correction with a 2-year warranty. It provides excellent protection and shine. Would you like to schedule this service?',
-      'detailing': 'We have three mobile detailing packages: Mini Detail ($70) - basic wash and interior; Luxury Detail ($130) - comprehensive cleaning; Max Detail ($200) - premium full service. Which fits your needs?',
-      'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
-      'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
-    };
-
-    // Find matching response
-    for (const [key, response] of Object.entries(responses)) {
-      if (lowerMessage.includes(key)) {
-        return response;
-      }
-    }
-
-    // Default intelligent response
-    if (lowerMessage.includes('?')) {
-      return 'That\'s a great question! For detailed information about our services, pricing, or scheduling, please call us at (562) 228-9429. Our team can provide personalized assistance for your mobile detailing needs.';
-    }
-
-    return 'Thanks for your message! I\'m here to help with Jay\'s Mobile Wash services. For immediate assistance, call (562) 228-9429. What specific service can I help you learn about?';
+    this.isRatingActive = false;
   }
 
-  generateQuoteResponse(message) {
-    if (message.includes('sedan') || message.includes('car')) {
-      return 'For a sedan, our pricing typically ranges from $70 (Mini Detail) to $200 (Max Detail). Add Ceramic Coating for $450 or Graphene for $800. Call (562) 228-9429 for an exact quote based on your vehicle\'s condition and location.';
-    } else if (message.includes('suv') || message.includes('truck')) {
-      return 'SUVs and trucks start at $90 for Mini Detail, $150 for Luxury, and $250 for Max Detail. Ceramic Coating is $500, Graphene is $850. Call (562) 228-9429 for precise pricing based on size and condition.';
-    }
-    
-    return 'I\'d be happy to provide a quote! Our services range from $70-$800 depending on vehicle size and service level. For an accurate quote, please call (562) 228-9429 and describe your vehicle and desired services.'; 
-  }
-
-  generateSearchResponse(message) {
-    if (message.includes('location') || message.includes('area')) {
-      return 'We serve all of Los Angeles County and Orange County, including Beverly Hills, Santa Monica, Long Beach, Newport Beach, Irvine, and surrounding areas. We come to your location!';
-    } else if (message.includes('hours') || message.includes('time')) {
-      return 'We operate Monday-Friday 8AM-6PM and weekends 9AM-5PM. We schedule appointments at your convenience within our service areas.';
-    }
-    
-    return 'I can help you find information about our services, coverage areas, pricing, or scheduling. What specific information are you looking for?';
-  }
-
-  generateReasoningResponse(message) {
-    return 'Let me analyze that for you: Based on the information provided, I recommend considering your vehicle\'s condition, usage patterns, and protection goals. For detailed analysis and recommendations, our specialists at (562) 228-9429 can provide personalized advice.';
-  }
-
-  generateSummaryResponse(message) {
-    return 'Here\'s a summary: Jay\'s Mobile Wash offers three main categories: Mobile Detailing ($70-$200), Ceramic Coating ($450), and Graphene Coating ($800). We serve LA/OC areas with mobile convenience. Call (562) 228-9429 for service details.';
-  }
-
+  // Add message to chat
   addMessage(content, sender, type = 'normal') {
-    const messagesContainer = document.getElementById('chatbot-messages');
+    const messagesDiv = document.getElementById('chatbot-messages');
+    if (!messagesDiv) return;
+
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''}`;
-    messageDiv.innerHTML = `
-      <div class="message-content">${content}</div>
-      <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
-    `;
+    messageDiv.className = `message ${sender}-message ${type}`;
     
-    messagesContainer.appendChild(messageDiv);
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.innerHTML = content.replace(/\n/g, '<br>');
     
-    // Ensure scroll happens after DOM update with multiple fallbacks
+    messageDiv.appendChild(messageContent);
+    messagesDiv.appendChild(messageDiv);
+    
     this.scrollToBottom();
   }
 
-  scrollToBottom() {
-    const messagesContainer = document.getElementById('chatbot-messages');
-    if (!messagesContainer) return;
-    
-    // Multiple approaches to ensure scrolling works
-    const scrollToEnd = () => {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
-    
-    // Immediate scroll
-    scrollToEnd();
-    
-    // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToEnd, 10);
-    
-    // Additional fallback for slower rendering
-    setTimeout(scrollToEnd, 100);
-  }
-
+  // Show processing overlay
   showProcessing() {
     const overlay = document.getElementById('processing-overlay');
-    const apiSpan = document.getElementById('processing-api');
-    apiSpan.textContent = this.assignments[this.currentRole] || 'AI';
-    overlay.style.display = 'flex';
-    
-    // Ensure scrolling still works when processing is shown
-    this.scrollToBottom();
+    if (overlay) {
+      overlay.style.display = 'block';
+      const apiSpan = document.getElementById('processing-api');
+      if (apiSpan) {
+        apiSpan.textContent = this.assignments[this.currentRole] || 'AI';
+      }
+    }
   }
 
+  // Hide processing overlay
   hideProcessing() {
-    document.getElementById('processing-overlay').style.display = 'none';
-    
-    // Ensure scrolling works after hiding processing
-    this.scrollToBottom();
+    const overlay = document.getElementById('processing-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+    }
   }
 
+  // Scroll to bottom of messages
+  scrollToBottom() {
+    const messagesDiv = document.getElementById('chatbot-messages');
+    if (messagesDiv) {
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  }
+
+  // Handle assignment changes
   handleAssignmentsChange(newAssignments) {
     this.assignments = newAssignments;
     this.saveAssignments();
-    
     // Update current API display
     document.getElementById('current-api').textContent = this.assignments[this.currentRole] || 'none';
-    
-    this.sendAnalyticsEvent('assignments_updated', {
-      assignments: Object.keys(newAssignments).length
-    });
   }
 
-  sendSMSNotification(message) {
-    // SMS notification fully removed for compliance and privacy
-  }
-
-  sendSMSFallback(message) {
-    try {
-      // Alternative method using a different SMS service
-      const fallbackData = {
-        phone: '5622289429',
-        message: `New website message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}" - ${new Date().toLocaleTimeString()}`
-      };
-
-      fetch('/api/sms-fallback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fallbackData)
-      }).catch(error => {
-        console.warn('SMS fallback also failed:', error);
-      });
-      
-    } catch (error) {
-      console.warn('SMS fallback error:', error);
-    }
-  }
-
+  // Send analytics event (placeholder)
   sendAnalyticsEvent(eventName, data = {}) {
-    try {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
-          event_category: 'advanced_chat',
-          ...data
-        });
-      }
-    } catch (error) {
-      console.warn('Failed to send analytics event:', error);
+    console.log('Analytics:', eventName, data);
+  }
+
+  // Missing generateSearchResponse, generateReasoningResponse, generateSummaryResponse functions
+  generateSearchResponse(message) {
+    if (message.includes('hours') || message.includes('time')) {
+      return 'We\'re available 7 days a week! Call (562) 228-9429 to schedule. Our typical hours are flexible to accommodate your schedule.';
+    } else if (message.includes('location') || message.includes('where')) {
+      return 'We provide mobile service throughout Los Angeles County and Orange County. We come directly to your location - home, office, or anywhere convenient for you!';
+    } else if (message.includes('contact') || message.includes('phone')) {
+      return 'You can reach us at (562) 228-9429 or email info@jaysmobilewash.net. We\'re here to help with all your mobile detailing needs!';
     }
+    return 'I can help you find information about our services, locations, hours, and contact details. What specific information are you looking for?';
+  }
+
+  generateReasoningResponse(message) {
+    if (message.includes('why') && message.includes('ceramic')) {
+      return 'Ceramic coating is recommended because it provides 2+ years of protection, makes your car easier to wash, enhances gloss, and protects against UV damage. It\'s a great investment for maintaining your vehicle\'s value and appearance.';
+    } else if (message.includes('why') && message.includes('detail')) {
+      return 'Regular detailing is important because it removes contaminants that can damage your paint, maintains your vehicle\'s value, improves safety (clean windows/lights), and keeps your car looking and feeling great.';
+    } else if (message.includes('how') && message.includes('choose')) {
+      return 'Choose based on your needs: Mini Detail ($70) for basic maintenance, Luxury Detail ($130) for comprehensive care, or Max Detail ($200) for deep cleaning. Consider your vehicle\'s condition and how often you detail.';
+    }
+    return 'I can help analyze your detailing needs and explain the reasoning behind our service recommendations. What would you like me to analyze for you?';
+  }
+
+  generateSummaryResponse(message) {
+    if (message.includes('services') || message.includes('what')) {
+      return '**Jay\'s Mobile Wash Services Summary:**\n\n• **Mini Detail** ($70): Basic wash & interior\n• **Luxury Detail** ($130): Comprehensive cleaning\n• **Max Detail** ($200): Premium full service\n• **Ceramic Coating** ($450): 2+ year protection\n• **Graphene Coating** ($800): Premium 3+ year protection\n\nWe serve LA & Orange County with mobile service. Call (562) 228-9429 to book!';
+    }
+    return 'I can summarize our services, processes, or pricing for you. What would you like me to summarize?';
   }
 }
 

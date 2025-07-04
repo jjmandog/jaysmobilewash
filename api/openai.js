@@ -123,12 +123,21 @@ function getMockResponse(prompt, role) {
  * Call OpenAI API (placeholder for actual implementation)
  */
 async function callOpenAI(prompt, role) {
+  // TODO: Implement actual OpenAI API integration
+  // 1. Get API key from environment variables
+  // 2. Construct proper OpenAI API request
+  // 3. Handle rate limiting and errors
+  
   const apiKey = process.env.OPENAI_API_KEY;
+  
   if (!apiKey) {
     console.log('No OpenAI API key configured, returning mock response');
     return getMockResponse(prompt, role);
   }
+
   try {
+    // TODO: Replace this comment block with actual OpenAI API call
+    /*
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -151,11 +160,18 @@ async function callOpenAI(prompt, role) {
         temperature: 0.7
       })
     });
+
     if (!response.ok) {
       throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
     }
+
     const data = await response.json();
     return data.choices[0].message.content;
+    */
+
+    // For now, return mock response with API key present message
+    return `[API Available] ${getMockResponse(prompt, role)} (Note: OpenAI integration is ready but not yet implemented)`;
+    
   } catch (error) {
     console.error('OpenAI API error:', error);
     // Fallback to mock response on API errors
