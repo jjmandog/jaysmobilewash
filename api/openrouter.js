@@ -60,6 +60,11 @@ export default async function handler(req, res) {
     }
     // Use provided model or fallback to a default
     const selectedModel = model || 'deepseek/deepseek-r1-0528-qwen3-8b:free';
+
+    // Ensure the selected model is used and log the model and prompt
+    console.log('🔍 Selected model:', selectedModel);
+    console.log('🔍 Prompt:', prompt);
+
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -73,22 +78,41 @@ export default async function handler(req, res) {
         messages: messagesToSend
       })
     });
+
+    console.log('🌐 OpenRouter API response status:', response.status);
+    const data = await response.json();
+    console.log('🌐 OpenRouter API response data:', data);
+
     if (!response.ok) {
       const errorText = await response.text();
+      console.error('❌ OpenRouter API Error:', response.status, errorText);
+      if (response.status === 500 && selectedModel === 'google/gemma-7b-it') {
+        res.writeHead(500, corsHeaders);
+        res.end(JSON.stringify({
+          error: `The selected model (${selectedModel}) may not be supported or is temporarily unavailable. Please try another model.`,
+          model: selectedModel,
+          prompt
+        }));
+        return;
+      }
       res.writeHead(response.status, corsHeaders);
-      res.end(JSON.stringify({ error: errorText }));
+      res.end(JSON.stringify({
+        error: `OpenRouter API Error: ${response.status} - ${errorText}`,
+        model: selectedModel,
+        prompt
+      }));
       return;
     }
-    const data = await response.json();
-    let responseText = '';
-    if (data.choices && data.choices.length > 0 && data.choices[0].message) {
-      responseText = data.choices[0].message.content;
-    } else {
-      responseText = 'I received an unexpected response from the AI. Please try again.';
-    }
-    // Sanitize response text to remove escape characters and ensure proper formatting
+    let responseText = data.choices && data.choices.length > 0 && data.choices[0].message
+      ? data.choices[0].message.content
+      : 'I received an unexpected response from the AI. Please try again.';
+    // Enhanced sanitization to handle all escape characters and ensure proper formatting
     if (responseText) {
-      responseText = responseText.replace(/\\"/g, '"').replace(/\\/g, '').trim();
+      responseText = responseText
+        .replace(/\\"/g, '"') // Replace escaped quotes
+        .replace(/\\/g, '')    // Remove unnecessary backslashes
+        .replace(/\s+/g, ' ')   // Replace multiple spaces with a single space
+        .trim();                 // Trim leading and trailing spaces
     }
     res.writeHead(200, corsHeaders);
     res.end(JSON.stringify({ responseText, selectedModel }));

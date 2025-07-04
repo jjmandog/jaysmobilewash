@@ -901,40 +901,59 @@ class AdvancedChatBot {
       { id: 'deepseek/deepseek-chat', name: 'DeepSeek Chat (Free)', value: 'deepseek/deepseek-chat' },
       { id: 'mistralai/mistral-7b-instruct', name: 'Mistral 7B Instruct (Free)', value: 'mistralai/mistral-7b-instruct' },
       { id: 'meta-llama/llama-3-8b-instruct', name: 'Llama 3 8B Instruct (Free)', value: 'meta-llama/llama-3-8b-instruct' },
-      { id: 'google/gemma-7b-it', name: 'Gemma 7B IT (Free)', value: 'google/gemma-7b-it' },
-      { id: 'anthropic/claude-3-opus', name: 'Claude 3 Opus', value: 'anthropic/claude-3-opus' },
-      { id: 'openai/gpt-3.5-turbo', name: 'GPT-3.5 Turbo', value: 'openai/gpt-3.5-turbo' },
-      { id: 'openai/gpt-4o', name: 'GPT-4o', value: 'openai/gpt-4o' }
+      { id: 'anthropic/claude-2', name: 'Claude 2 (Free)', value: 'anthropic/claude-2' },
+      { id: 'openai/gpt-3.5-turbo', name: 'GPT-3.5 Turbo (Free)', value: 'openai/gpt-3.5-turbo' },
+      { id: 'qwen/qwen-2-7b-instruct', name: 'Qwen 2 7B Instruct (Free)', value: 'qwen/qwen-2-7b-instruct' },
+      { id: 'microsoft/phi-3-medium-4k-instruct', name: 'Phi-3 Medium (Free)', value: 'microsoft/phi-3-medium-4k-instruct' },
+      { id: 'huggingfaceh4/zephyr-7b-beta', name: 'Zephyr 7B Beta (Free)', value: 'huggingfaceh4/zephyr-7b-beta' },
+      { id: 'openchat/openchat-7b', name: 'OpenChat 7B (Free)', value: 'openchat/openchat-7b' },
+      { id: 'nvidia/llama-3.3-nemotron-super-49b-v1', name: 'Llama 3.3 Nemotron Super 49B (Free)', value: 'nvidia/llama-3.3-nemotron-super-49b-v1' }
     ];
+
     const dropdown = document.createElement('select');
     dropdown.id = 'model-select';
-    dropdown.className = 'chatbot-model-select';
-    modelOptions.forEach(opt => {
-      const option = document.createElement('option');
-      option.value = opt.value;
-      option.textContent = opt.name;
-      dropdown.appendChild(option);
+    dropdown.className = 'model-select-dropdown';
+    dropdown.disabled = true; // Make dropdown unclickable by default
+    
+    // Add proper styling for scrolling and disabled state
+    dropdown.style.cssText = `
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      margin: 5px 0;
+      width: 100%;
+      background-color: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+      opacity: 0.6;
+    `;
+
+    modelOptions.forEach(option => {
+      const opt = document.createElement('option');
+      opt.value = option.value;
+      opt.textContent = option.name;
+      dropdown.appendChild(opt);
     });
-    dropdown.addEventListener('change', (e) => {
-      this.selectedModel = e.target.value;
-      console.log(`🎯 Model dropdown changed to: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
-      console.log(`🎯 Selected option text: ${dropdown.options[dropdown.selectedIndex].text}`);
-      // Fun feedback animation
-      dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
-      setTimeout(() => { dropdown.style.transform = ''; }, 180);
-      this.addMessage(`✨ Model preference set to: <b>${dropdown.options[dropdown.selectedIndex].text}</b>!`, 'bot', 'system');
+
+    const container = document.getElementById('chatbot-container');
+    container.insertBefore(dropdown, container.firstChild);
+
+    // Store reference to dropdown for admin mode toggle
+    this.modelDropdown = dropdown;
+    
+    // Add admin mode toggle functionality
+    const input = document.getElementById('chatbot-input');
+    input.addEventListener('input', () => {
+      if (input.value.trim().toLowerCase() === 'josh') {
+        this.activateAdminMode();
+      }
     });
-    // Insert above input
-    const inputRow = document.getElementById('chatbot-input').parentNode;
-    if (inputRow && !document.getElementById('model-select')) {
-      inputRow.parentNode.insertBefore(dropdown, inputRow);
-      // Fun pop-in animation
-      dropdown.animate([
-        { opacity: 0, transform: 'scale(0.7) translateY(-10px)' },
-        { opacity: 1, transform: 'scale(1.05) translateY(2px)' },
-        { opacity: 1, transform: 'scale(1) translateY(0)' }
-      ], { duration: 350, easing: 'cubic-bezier(.68,-0.55,.27,1.55)' });
-    }
+        console.log('Admin mode activated: Model selection enabled.');
+      }
+    });
   }
 
   loadAssignments() {
@@ -985,7 +1004,7 @@ class AdvancedChatBot {
             </div>
           </div>
           <div class="header-actions">
-            <button class="settings-btn" id="settings-btn" title="Settings">⚙️</button>
+            <button class="settings-btn" id="settings-btn" title="Settings (Admin Only)" disabled style="opacity: 0.5; cursor: not-allowed;">⚙️</button>
             <button class="chatbot-close" id="chatbot-close">✕</button>
           </div>
         </div>
@@ -1093,6 +1112,12 @@ class AdvancedChatBot {
   }
 
   toggleSettings() {
+    // Check if admin mode is active
+    if (!this.adminMode) {
+      this.addMessage("🔒 Settings panel is restricted to admin users only. Type 'josh' to activate admin mode.", 'bot', 'warning');
+      return;
+    }
+    
     this.settingsPanel.toggle();
     this.sendAnalyticsEvent('settings_toggled', { opened: this.settingsPanel.isOpen });
   }
@@ -1353,6 +1378,14 @@ class AdvancedChatBot {
     
     // Search through car detailing knowledge base
     for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
+    }
+  }
+
+  searchKnowledgeBase(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Search through car detailing knowledge base
+    for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
       const categoryData = CAR_DETAILING_KNOWLEDGE_BASE[category];
       
       if (typeof categoryData === 'object') {
@@ -1435,8 +1468,12 @@ class AdvancedChatBot {
     }
     
     // Check for Jay mode ("jay")
-    if (value === 'jay' && !this.jayMode) {
-      this.activateJayMode();
+    if (value === 'jay') {
+      if (this.jayMode) {
+        this.deactivateJayMode();
+      } else {
+        this.activateJayMode();
+      }
       return;
     }
   }
@@ -1447,7 +1484,38 @@ class AdvancedChatBot {
     document.querySelector('.chatbot-window').classList.add('admin-mode');
     const input = document.getElementById('chatbot-input');
     input.value = '';
-    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging\n• 'open kb panel' - Open Knowledge Base Editor", 'bot', 'admin');
+    
+    // Enable model dropdown
+    if (this.modelDropdown) {
+      this.modelDropdown.disabled = false;
+      this.modelDropdown.style.cssText = `
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 8px;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        font-size: 14px;
+        margin: 5px 0;
+        width: 100%;
+        background-color: #ffffff;
+        color: #000;
+        cursor: pointer;
+        opacity: 1;
+      `;
+      console.log('✅ Model dropdown enabled');
+    }
+    
+    // Enable settings button
+    const settingsBtn = document.getElementById('settings-btn');
+    if (settingsBtn) {
+      settingsBtn.disabled = false;
+      settingsBtn.style.opacity = '1';
+      settingsBtn.style.cursor = 'pointer';
+      settingsBtn.title = 'Settings (Admin Mode Active)';
+      console.log('✅ Settings button enabled');
+    }
+    
+    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin features unlocked:\n• Model selection dropdown is now enabled\n• Settings panel is now accessible\n• Advanced admin commands available:\n  - 'reset memory' - Clear conversation memory\n  - 'export data' - Download learning data\n  - 'upload training' - Upload training files\n  - 'analytics' - View detailed statistics\n  - 'debug mode' - Enable debug logging\n  - 'open kb panel' - Open Knowledge Base Editor", 'bot', 'admin');
     input.placeholder = "Admin mode active - Type admin commands...";
 
     // Add admin panel button if not present
@@ -1515,12 +1583,42 @@ class AdvancedChatBot {
     // Remove admin styling
     document.querySelector('.chatbot-window').classList.remove('admin-mode');
     
+    // Disable model dropdown
+    if (this.modelDropdown) {
+      this.modelDropdown.disabled = true;
+      this.modelDropdown.style.cssText = `
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        margin: 5px 0;
+        width: 100%;
+        background-color: #f5f5f5;
+        color: #999;
+        cursor: not-allowed;
+        opacity: 0.6;
+      `;
+      console.log('🔒 Model dropdown disabled');
+    }
+    
+    // Disable settings button
+    const settingsBtn = document.getElementById('settings-btn');
+    if (settingsBtn) {
+      settingsBtn.disabled = true;
+      settingsBtn.style.opacity = '0.5';
+      settingsBtn.style.cursor = 'not-allowed';
+      settingsBtn.title = 'Settings (Admin Only)';
+      console.log('🔒 Settings button disabled');
+    }
+    
     // Clear input and show deactivation message
     const input = document.getElementById('chatbot-input');
     input.value = '';
     
     // Show fun deactivation message
-    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
+    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All admin features locked! Model selection and settings are now protected. ✨", 'bot', 'system');
     
     // Restore normal placeholder based on current role
     const rolePlaceholders = {
@@ -1532,6 +1630,12 @@ class AdvancedChatBot {
       chat: 'Ask about our services or chat with me...'
     };
     input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
+    
+    // Remove admin KB panel button
+    const kbBtn = document.getElementById('kb-admin-panel-btn');
+    if (kbBtn) {
+      kbBtn.remove();
+    }
   }
   
   activateJayMode() {
@@ -1565,6 +1669,34 @@ class AdvancedChatBot {
     
     // Add pulsing animation to chat toggle
     document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
+  }
+
+  deactivateJayMode() {
+    this.jayMode = false;
+    this.secretModeActive = false;
+    
+    // Remove Jay mode styling
+    document.querySelector('.chatbot-window').classList.remove('jay-mode');
+    
+    // Clear input and show deactivation message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    this.addMessage("🌟 JAY MODE DEACTIVATED! 🌟\n\nThanks for the premium session! ✨\nReturning to standard chat mode...\n\n🎵 All special features are now disabled until you type 'jay' again! 🎵", 'bot', 'system');
+    
+    // Update placeholder
+    const rolePlaceholders = {
+      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
+      quotes: 'Describe your vehicle and service needs for a quote...',
+      search: 'What information are you looking for?',
+      reasoning: 'Ask me to analyze or reason through something...',
+      summaries: 'What would you like me to summarize?',
+      chat: 'Ask about our services or chat with me...'
+    };
+    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
+    
+    // Remove pulsing animation from chat toggle
+    document.getElementById('chatbot-toggle').classList.remove('jay-mode-pulse');
   }
 
   handleFileUpload(event) {
