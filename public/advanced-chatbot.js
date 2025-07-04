@@ -29,24 +29,87 @@ const API_OPTIONS = [
     enabled: true
   },
   {
+    id: 'llama2',
+    name: 'Llama2 (HuggingFace)',
+    endpoint: '/api/llama2',
+    description: 'Meta Llama2 models via Hugging Face',
+    enabled: true
+  },
+  {
+    id: 'openrouter-gpt4',
+    name: 'GPT-4 (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'OpenAI GPT-4 via OpenRouter',
+    model: 'openai/gpt-4',
+    enabled: true
+  },
+  {
+    id: 'openrouter-claude',
+    name: 'Claude 3.5 Sonnet (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Anthropic Claude 3.5 Sonnet via OpenRouter',
+    model: 'anthropic/claude-3.5-sonnet',
+    enabled: true
+  },
+  {
+    id: 'openrouter-llama',
+    name: 'Llama 3.1 70B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Meta Llama 3.1 70B via OpenRouter',
+    model: 'meta-llama/llama-3.1-70b-instruct',
+    enabled: true
+  },
+  {
+    id: 'openrouter-deepseek',
+    name: 'DeepSeek R1 (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'DeepSeek R1 via OpenRouter',
+    model: 'deepseek/deepseek-r1',
+    enabled: true
+  },
+  {
+    id: 'openrouter-gemini',
+    name: 'Gemini Pro (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Google Gemini Pro via OpenRouter',
+    model: 'google/gemini-pro',
+    enabled: true
+  },
+  {
+    id: 'openrouter-qwen',
+    name: 'Qwen 2.5 72B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Qwen 2.5 72B via OpenRouter',
+    model: 'qwen/qwen-2.5-72b-instruct',
+    enabled: true
+  },
+  {
+    id: 'openrouter-mixtral',
+    name: 'Mixtral 8x7B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Mistral Mixtral 8x7B via OpenRouter',
+    model: 'mistralai/mixtral-8x7b-instruct',
+    enabled: true
+  },
+  {
     id: 'openai',
-    name: 'OpenAI GPT',
+    name: 'OpenAI GPT (Direct)',
     endpoint: '/api/openai',
-    description: 'OpenAI GPT models (disabled - no API key)',
+    description: 'OpenAI GPT models (direct API)',
     enabled: false
   },
   {
     id: 'anthropic',
-    name: 'Anthropic Claude',
+    name: 'Anthropic Claude (Direct)',
     endpoint: '/api/anthropic',
-    description: 'Claude AI for detailed analysis (disabled)',
+    description: 'Claude AI for detailed analysis (direct API)',
     enabled: false
   },
   {
     id: 'google',
-    name: 'Google Gemini',
+    name: 'Google Gemini (Direct)',
     endpoint: '/api/google',
-    description: 'Google Gemini AI (disabled)',
+    description: 'Google Gemini AI (direct API)',
     enabled: false
   },
   {
@@ -72,9 +135,9 @@ const API_OPTIONS = [
   },
   {
     id: 'mistral',
-    name: 'Mistral AI',
+    name: 'Mistral AI (Direct)',
     endpoint: '/api/mistral',
-    description: 'Mistral AI models',
+    description: 'Mistral AI models (direct API)',
     enabled: false
   },
   {
@@ -461,17 +524,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'deepseek',            // Auto mode - smart detection using DeepSeek
-  reasoning: 'deepseek',       // Advanced reasoning - DeepSeek is excellent at reasoning
-  tools: 'deepseek',           // Tool calling - DeepSeek can handle tools
-  quotes: 'deepseek',          // Service quotes - DeepSeek for pricing analysis
-  photo_uploads: 'deepseek',   // Photo analysis - DeepSeek can analyze images
-  summaries: 'deepseek',       // Summarization - DeepSeek is great at this
-  search: 'deepseek',          // Search queries - DeepSeek knowledge
-  chat: 'deepseek',            // General chat - DeepSeek is conversational
-  fallback: 'deepseek',        // Always available fallback - use DeepSeek
-  analytics: 'deepseek',       // Data analysis - DeepSeek excels at analysis
-  accessibility: 'deepseek'    // Accessibility support - DeepSeek is helpful
+  auto: 'openrouter-gpt4',         // Auto mode - GPT-4 for smart detection
+  reasoning: 'openrouter-claude',  // Advanced reasoning - Claude 3.5 Sonnet
+  tools: 'openrouter-gpt4',        // Tool calling - GPT-4 is excellent at tools
+  quotes: 'deepseek',              // Service quotes - DeepSeek for pricing analysis
+  photo_uploads: 'openrouter-gpt4', // Photo analysis - GPT-4 Vision
+  summaries: 'openrouter-claude',  // Summarization - Claude is great at this
+  search: 'openrouter-gemini',     // Search queries - Gemini knowledge
+  chat: 'llama2',                  // General chat - Llama2 for conversation
+  fallback: 'deepseek',           // Always available fallback - use DeepSeek
+  analytics: 'openrouter-claude',  // Data analysis - Claude excels at analysis
+  accessibility: 'openrouter-gpt4' // Accessibility support - GPT-4 is helpful
 };
 
 /**
