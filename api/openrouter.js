@@ -41,20 +41,21 @@ export default async function handler(req, res) {
       res.end(JSON.stringify({ error: 'OPENROUTER_API_KEY environment variable is not set' }));
       return;
     }
-    // Build system prompt with Jay's Mobile Wash info (for all requests)
-    const jaySystemPrompt = `You are Jay's Mobile Wash AI assistant. Jay's Mobile Wash is a premium mobile car detailing service serving Los Angeles and Orange County. Services include: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450, 2-3 year protection), Graphene Coating ($800, 3-5 year protection), Paint Correction, and more. Contact: (562) 228-9429, info@jaysmobilewash.net. Hours: Mon-Fri 8am-6pm, Sat-Sun 9am-5pm. Address: 16845 S Hoover St, Gardena, CA 90247. Always answer in a friendly, human, non-corny tone. Use this info ONLY if the user asks about Jay's company, services, pricing, location, or contact. For all other topics, answer as a general AI assistant.`;
+    // Adjust system prompt to include dynamic context
+    const dynamicSystemPrompt = `You are Jay's Mobile Wash AI assistant. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.`;
+
     let messagesToSend = [];
     if (Array.isArray(messages) && messages.length > 0) {
-      // Prepend system prompt if not already present
+      // Prepend dynamic system prompt if not already present
       if (!messages[0] || messages[0].role !== 'system') {
-        messagesToSend = [{ role: 'system', content: jaySystemPrompt }, ...messages];
+        messagesToSend = [{ role: 'system', content: dynamicSystemPrompt }, ...messages];
       } else {
         messagesToSend = messages;
       }
     } else {
       messagesToSend = [
-        { role: 'system', content: jaySystemPrompt },
-        { role: 'user', content: prompt }
+        { role: 'system', content: dynamicSystemPrompt },
+        { role: role, content: prompt } // Use dynamic role
       ];
     }
     // Use provided model or fallback to a default
@@ -84,6 +85,10 @@ export default async function handler(req, res) {
       responseText = data.choices[0].message.content;
     } else {
       responseText = 'I received an unexpected response from the AI. Please try again.';
+    }
+    // Sanitize response text to remove escape characters and ensure proper formatting
+    if (responseText) {
+      responseText = responseText.replace(/\\"/g, '"').replace(/\\/g, '').trim();
     }
     res.writeHead(200, corsHeaders);
     res.end(JSON.stringify({ responseText, selectedModel }));

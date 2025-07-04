@@ -462,17 +462,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'deepseek',            // Auto mode - smart detection using DeepSeek
-  reasoning: 'deepseek',       // Advanced reasoning - DeepSeek is excellent at reasoning
-  tools: 'deepseek',           // Tool calling - DeepSeek can handle tools
-  quotes: 'deepseek',          // Service quotes - DeepSeek for pricing analysis
-  photo_uploads: 'deepseek',   // Photo analysis - DeepSeek can analyze images
-  summaries: 'deepseek',       // Summarization - DeepSeek is great at this
-  search: 'deepseek',          // Search queries - DeepSeek knowledge
-  chat: 'deepseek',            // General chat - DeepSeek is conversational
-  fallback: 'deepseek',        // Always available fallback - use DeepSeek
-  analytics: 'deepseek',       // Data analysis - DeepSeek excels at analysis
-  accessibility: 'deepseek'    // Accessibility support - DeepSeek is helpful
+  auto: 'mistralai/mistral-7b-instruct', // Auto mode - Mistral 7B Instruct (Free)
+  reasoning: 'mistralai/mistral-7b-instruct', // Advanced reasoning
+  tools: 'mistralai/mistral-7b-instruct', // Tool calling
+  quotes: 'mistralai/mistral-7b-instruct', // Service quotes
+  photo_uploads: 'mistralai/mistral-7b-instruct', // Photo analysis
+  summaries: 'mistralai/mistral-7b-instruct', // Summarization
+  search: 'mistralai/mistral-7b-instruct', // Search queries
+  chat: 'mistralai/mistral-7b-instruct', // General chat
+  fallback: 'mistralai/mistral-7b-instruct', // Always available fallback
+  analytics: 'mistralai/mistral-7b-instruct', // Data analysis
+  accessibility: 'mistralai/mistral-7b-instruct' // Accessibility support
 };
 
 /**
@@ -480,7 +480,7 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
  */
 class AIUtils {
   static async queryAI(prompt, options = {}) {
-    const { endpoint = '/api/ai', role, messages } = options;
+    const { endpoint = '/api/ai', role, messages, model } = options;
 
     // Support both legacy (prompt) and new (messages) format
     let requestBody = {};
@@ -495,9 +495,12 @@ class AIUtils {
     if (role) {
       requestBody.role = role;
     }
+    if (model) {
+      requestBody.model = model;
+    }
 
-    console.log(`🌐 AIUtils.queryAI calling endpoint: ${endpoint} with role: ${role}`);
-    console.log('📤 Request body:', requestBody);
+    console.log(`🌐 AIUtils.queryAI calling endpoint: ${endpoint} with role: ${role} and model: '${model}'`);
+    console.log('📤 Request body:', JSON.stringify(requestBody, null, 2));
 
     try {
       const response = await fetch(endpoint, {
@@ -605,8 +608,9 @@ class ChatRouter {
       console.log('🔗 Calling OpenRouter API at /api/openrouter...');
       const queryOptions = { endpoint: '/api/openrouter', role, messages: options.messages };
       if (options.model) queryOptions.model = options.model;
+      console.log(`🔗 ChatRouter queryOptions:`, queryOptions);
       const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
-      console.log('� OpenRouter API result:', result);
+      console.log('✅ OpenRouter API result:', result);
       return result;
     }
     // Fallback for any other API
@@ -894,15 +898,13 @@ class AdvancedChatBot {
     // Add a dropdown for model selection above the chat input
     const modelOptions = [
       { id: '', name: 'Auto (Let AI choose)', value: '' },
-      { id: 'nvidia/llama-3.3-nemotron-super-49b-v1:free', name: 'NVIDIA Llama-3.3 Nemotron Super 49B (Free)', value: 'nvidia/llama-3.3-nemotron-super-49b-v1:free' },
-      { id: 'deepseek/deepseek-r1-0528-qwen3-8b:free', name: 'DeepSeek (Qwen3 8B Free)', value: 'deepseek/deepseek-r1-0528-qwen3-8b:free' },
-      { id: 'google/gemma-7b-it:free', name: 'Gemini (Gemma 7B Free)', value: 'google/gemma-7b-it:free' },
-      { id: 'mistralai/mistral-7b-instruct:free', name: 'Mistral 7B (Free)', value: 'mistralai/mistral-7b-instruct:free' },
-      { id: 'meta-llama/llama-3-8b-instruct:free', name: 'Llama 3 8B (Free)', value: 'meta-llama/llama-3-8b-instruct:free' },
-      { id: 'qwen/qwen3-30b-a3b:free', name: 'Qwen3 30B A3B (Free)', value: 'qwen/qwen3-30b-a3b:free' },
-      { id: 'qwen/qwen3-235b-a22b:free', name: 'Qwen3 235B A22B (Free)', value: 'qwen/qwen3-235b-a22b:free' },
-      { id: 'baidu/ernie-4.5-300b-a47b', name: 'ERNIE 4.5 300B (Baidu, Free)', value: 'baidu/ernie-4.5-300b-a47b' },
-      { id: 'microsoft/mai-ds-r1:free', name: 'Microsoft MAI-DS R1 (Free)', value: 'microsoft/mai-ds-r1:free' }
+      { id: 'deepseek/deepseek-chat', name: 'DeepSeek Chat (Free)', value: 'deepseek/deepseek-chat' },
+      { id: 'mistralai/mistral-7b-instruct', name: 'Mistral 7B Instruct (Free)', value: 'mistralai/mistral-7b-instruct' },
+      { id: 'meta-llama/llama-3-8b-instruct', name: 'Llama 3 8B Instruct (Free)', value: 'meta-llama/llama-3-8b-instruct' },
+      { id: 'google/gemma-7b-it', name: 'Gemma 7B IT (Free)', value: 'google/gemma-7b-it' },
+      { id: 'anthropic/claude-3-opus', name: 'Claude 3 Opus', value: 'anthropic/claude-3-opus' },
+      { id: 'openai/gpt-3.5-turbo', name: 'GPT-3.5 Turbo', value: 'openai/gpt-3.5-turbo' },
+      { id: 'openai/gpt-4o', name: 'GPT-4o', value: 'openai/gpt-4o' }
     ];
     const dropdown = document.createElement('select');
     dropdown.id = 'model-select';
@@ -915,6 +917,8 @@ class AdvancedChatBot {
     });
     dropdown.addEventListener('change', (e) => {
       this.selectedModel = e.target.value;
+      console.log(`🎯 Model dropdown changed to: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
+      console.log(`🎯 Selected option text: ${dropdown.options[dropdown.selectedIndex].text}`);
       // Fun feedback animation
       dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
       setTimeout(() => { dropdown.style.transform = ''; }, 180);
@@ -1160,6 +1164,20 @@ class AdvancedChatBot {
     const message = input.value.trim();
     if (!message || this.isProcessing) return;
 
+    // DEBUG: Check model selection state
+    const modelDropdown = document.getElementById('model-select');
+    console.log(`🔍 sendMessage() DEBUG:`);
+    console.log(`🔍 this.selectedModel: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
+    console.log(`🔍 modelDropdown exists: ${!!modelDropdown}`);
+    if (modelDropdown) {
+      console.log(`🔍 modelDropdown.value: '${modelDropdown.value}'`);
+      console.log(`🔍 modelDropdown.selectedIndex: ${modelDropdown.selectedIndex}`);
+      console.log(`🔍 modelDropdown.options[selectedIndex].text: '${modelDropdown.options[modelDropdown.selectedIndex]?.text}'`);
+      // FORCE SYNC: Ensure selectedModel matches dropdown value
+      this.selectedModel = modelDropdown.value;
+      console.log(`🔍 FORCE SYNC: this.selectedModel now: '${this.selectedModel}'`);
+    }
+
     // Extract and store user info from this message
     this.extractAndStoreUserInfo(message);
 
@@ -1218,13 +1236,18 @@ class AdvancedChatBot {
           }
           // Call OpenRouter with proper error handling
           try {
-            console.log(`🔗 Calling ChatRouter for OpenRouter with role: ${effectiveRole} and model: ${this.selectedModel}`);
+            console.log(`🔗 Calling ChatRouter for OpenRouter with role: ${effectiveRole} and model: '${this.selectedModel}'`);
+            console.log(`🔗 Model dropdown current value: '${document.getElementById('model-select')?.value}'`);
+            console.log(`🔗 Selected model type: ${typeof this.selectedModel}`);
             response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments, { model: this.selectedModel, messages });
             console.log('✅ AI response received:', response);
             
-            // Log which model was actually used
+            // Log and show which model was actually used
             if (response.model) {
               console.log(`🤖 Model used: ${response.model}`);
+              // Add a small indicator of which model responded
+              const modelName = response.model.split('/').pop().split(':')[0];
+              this.addMessage(`🤖 _Answered by: ${modelName}_`, 'bot', 'model-info');
             }
           } catch (aiError) {
             console.error('❌ AI API Error Details:', aiError);
@@ -1259,8 +1282,8 @@ class AdvancedChatBot {
           search: 'google/gemma-7b-it:free',
           analytics: 'meta-llama/llama-3-8b-instruct:free',
           accessibility: 'mistralai/mistral-7b-instruct:free',
-          chat: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-          fallback: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+          chat: 'deepseek/deepseek-chat',
+          fallback: 'deepseek/deepseek-chat'
         };
         let effectiveRole = this.currentRole;
         if (this.currentRole === 'auto') {

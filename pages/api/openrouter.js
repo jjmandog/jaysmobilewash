@@ -25,6 +25,9 @@ export default async function handler(req, res) {
   try {
     const { prompt, role, messages, model } = req.body;
 
+    console.log(`🔗 OpenRouter API received: role=${role}, model='${model}', hasMessages=${!!messages}, hasPrompt=${!!prompt}`);
+    console.log(`🔗 Full request body:`, JSON.stringify(req.body, null, 2));
+
     if (!prompt && (!messages || !Array.isArray(messages) || messages.length === 0)) {
       console.error('❌ Missing prompt and messages in request body');
       return res.status(400).json({ 
@@ -60,11 +63,15 @@ export default async function handler(req, res) {
       ];
     }
 
-    // Model selection based on role or explicit model parameter
-    let selectedModel = model || 'deepseek/deepseek-r1-0528-qwen3-8b:free';
-    
-    // Role-based model selection if no explicit model provided
-    if (!model && role) {
+    // Model selection based on explicit model parameter, then role
+    let selectedModel = 'deepseek/deepseek-chat'; // Default fallback
+    // [FORCE] Always use the model from the request if present and non-empty
+    if (typeof model === 'string' && model.trim().length > 0) {
+      selectedModel = model.trim();
+      console.log(`🎯 [FORCE] Using user-selected model: '${selectedModel}'`);
+    } else if (role) {
+      // Otherwise use role-based model selection
+      console.log(`🤖 No explicit model provided, using role-based selection for role: '${role}'`);
       const modelMap = {
         reasoning: 'google/gemma-7b-it:free',
         tools: 'mistralai/mistral-7b-instruct:free',
@@ -74,13 +81,16 @@ export default async function handler(req, res) {
         search: 'google/gemma-7b-it:free',
         analytics: 'meta-llama/llama-3-8b-instruct:free',
         accessibility: 'mistralai/mistral-7b-instruct:free',
-        chat: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
-        fallback: 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+        chat: 'deepseek/deepseek-chat',
+        fallback: 'deepseek/deepseek-chat'
       };
       selectedModel = modelMap[role] || selectedModel;
+      console.log(`🤖 Using role-based model for '${role}': ${selectedModel}`);
+    } else {
+      console.log(`🔄 Using default model: ${selectedModel}`);
     }
 
-    console.log(`🔗 OpenRouter API: Using model ${selectedModel} for role ${role}`);
+    console.log(`🔗 [FORCE] FINAL MODEL SELECTION: ${selectedModel} (from model='${model}', role='${role}')`);
     console.log(`📤 Sending ${messagesToSend.length} messages to OpenRouter`);
 
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
