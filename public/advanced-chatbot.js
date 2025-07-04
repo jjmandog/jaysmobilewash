@@ -92,6 +92,102 @@ const API_OPTIONS = [
     enabled: true
   },
   {
+    id: 'openrouter-perplexity',
+    name: 'Perplexity Llama 3.1 Sonar (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Perplexity Llama 3.1 Sonar for web search and reasoning',
+    model: 'perplexity/llama-3.1-sonar-large-128k-online',
+    enabled: true
+  },
+  {
+    id: 'openrouter-gemini-pro',
+    name: 'Gemini Pro 1.5 (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Google Gemini Pro 1.5 via OpenRouter',
+    model: 'google/gemini-pro-1.5',
+    enabled: true
+  },
+  {
+    id: 'openrouter-gpt4o',
+    name: 'GPT-4o (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'OpenAI GPT-4o via OpenRouter',
+    model: 'openai/gpt-4o',
+    enabled: true
+  },
+  {
+    id: 'openrouter-claude-opus',
+    name: 'Claude 3 Opus (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Anthropic Claude 3 Opus via OpenRouter',
+    model: 'anthropic/claude-3-opus',
+    enabled: true
+  },
+  {
+    id: 'openrouter-llama-405b',
+    name: 'Llama 3.1 405B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Meta Llama 3.1 405B Instruct via OpenRouter',
+    model: 'meta-llama/llama-3.1-405b-instruct',
+    enabled: true
+  },
+  {
+    id: 'openrouter-wizard-8x22b',
+    name: 'WizardLM 8x22B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'WizardLM 8x22B via OpenRouter',
+    model: 'microsoft/wizardlm-2-8x22b',
+    enabled: true
+  },
+  {
+    id: 'openrouter-nous-hermes',
+    name: 'Nous Hermes 2 Mixtral (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Nous Research Hermes 2 Mixtral via OpenRouter',
+    model: 'nousresearch/nous-hermes-2-mixtral-8x7b-dpo',
+    enabled: true
+  },
+  {
+    id: 'openrouter-mythomax',
+    name: 'MythoMax 13B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Gryphe MythoMax 13B via OpenRouter',
+    model: 'gryphe/mythomax-l2-13b',
+    enabled: true
+  },
+  {
+    id: 'openrouter-yi-34b',
+    name: 'Yi 34B Chat (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: '01-ai Yi 34B Chat via OpenRouter',
+    model: '01-ai/yi-34b-chat',
+    enabled: true
+  },
+  {
+    id: 'openrouter-dolphin-mixtral',
+    name: 'Dolphin Mixtral 8x7B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Cognitive Computations Dolphin Mixtral via OpenRouter',
+    model: 'cognitivecomputations/dolphin-mixtral-8x7b',
+    enabled: true
+  },
+  {
+    id: 'openrouter-solar-10b',
+    name: 'Solar 10.7B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Upstage Solar 10.7B Instruct via OpenRouter',
+    model: 'upstage/solar-1-mini-chat',
+    enabled: true
+  },
+  {
+    id: 'openrouter-phind-codellama',
+    name: 'Phind CodeLlama 34B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Phind CodeLlama 34B Python via OpenRouter',
+    model: 'phind/phind-codellama-34b',
+    enabled: true
+  },
+  {
     id: 'openai',
     name: 'OpenAI GPT (Direct)',
     endpoint: '/api/openai',
@@ -542,7 +638,7 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
  */
 class AIUtils {
   static async queryAI(prompt, options = {}) {
-    const { endpoint = '/api/ai', role } = options;
+    const { endpoint = '/api/ai', role, model } = options;
 
     if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
       throw new Error('Prompt is required and must be a non-empty string');
@@ -556,6 +652,11 @@ class AIUtils {
       // Include role in request body if provided
       if (role) {
         requestBody.role = role;
+      }
+
+      // Include model in request body if provided (for OpenRouter)
+      if (model) {
+        requestBody.model = model;
       }
 
       const response = await fetch(endpoint, {
@@ -685,8 +786,22 @@ class ChatRouter {
     
     if (api.id === 'deepseek') {
       return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+    } else if (api.id === 'llama2') {
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/llama2', role });
     } else if (api.id === 'openai') {
       return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
+    } else if (api.id.startsWith('openrouter-')) {
+      // All OpenRouter models use the same endpoint but different model parameters
+      const requestBody = {
+        prompt: enhancedPrompt,
+        role: role,
+        model: api.model || 'deepseek/deepseek-r1-0528-qwen3-8b:free'
+      };
+      return await AIUtils.queryAI(enhancedPrompt, { 
+        endpoint: '/api/openrouter', 
+        role: role,
+        model: api.model 
+      });
     } else {
       // For other APIs, fall back to DeepSeek instead of OpenAI
       const deepseekAPI = this.getAPIById('deepseek');
