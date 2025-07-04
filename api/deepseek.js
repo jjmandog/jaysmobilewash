@@ -177,7 +177,9 @@ async function callDeepSeek(prompt, role, messages, explicitModel) {
 
   // Multi-model support: map roles to free OpenRouter models
   const modelMap = {
+    nemotron: 'nvidia/llama-3.3-nemotron-super-49b-v1:free',
     reasoning: 'qwen/qwen3-30b-a3b:free',
+    qwen235b: 'qwen/qwen3-235b-a22b:free',
     tools: 'mistralai/mistral-7b-instruct:free',
     quotes: 'meta-llama/llama-3-8b-instruct:free',
     photo_uploads: 'google/gemma-7b-it:free',
@@ -188,6 +190,7 @@ async function callDeepSeek(prompt, role, messages, explicitModel) {
     chat: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
     fallback: 'mistralai/mistral-7b-instruct:free',
     qwen: 'qwen/qwen3-30b-a3b:free',
+    qwen3_235b: 'qwen/qwen3-235b-a22b:free',
     gemini: 'google/gemma-7b-it:free',
     mistral: 'mistralai/mistral-7b-instruct:free',
     llama: 'meta-llama/llama-3-8b-instruct:free',

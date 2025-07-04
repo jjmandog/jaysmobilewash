@@ -24,28 +24,28 @@ const API_OPTIONS = [
   {
     id: 'deepseek',
     name: 'DeepSeek',
-    endpoint: '/api/deepseek',
+    endpoint: '/api/openrouter',
     description: 'DeepSeek AI models via OpenRouter (free)',
     enabled: true
   },
   {
     id: 'google',
     name: 'Google Gemini',
-    endpoint: '/api/deepseek',
+    endpoint: '/api/openrouter',
     description: 'Google Gemini (free via OpenRouter)',
     enabled: true
   },
   {
     id: 'mistral',
     name: 'Mistral AI',
-    endpoint: '/api/deepseek',
+    endpoint: '/api/openrouter',
     description: 'Mistral AI (free via OpenRouter)',
     enabled: true
   },
   {
     id: 'llama',
     name: 'Llama 3',
-    endpoint: '/api/deepseek',
+    endpoint: '/api/openrouter',
     description: 'Meta Llama 3 (free via OpenRouter)',
     enabled: true
   },
@@ -568,12 +568,16 @@ class ChatRouter {
     if (!role || typeof role !== 'string') {
       throw new Error('Role is required and must be a string');
     }
-    // Always use DeepSeek (Mistral) for every role
-    const deepseekAPI = this.getAPIById('deepseek');
-    if (!deepseekAPI || !deepseekAPI.enabled) {
-      throw new Error('DeepSeek API is not available or not enabled');
+
+    // If this is an image analysis request, route to Hugging Face endpoint
+    if (role === 'photo_uploads' && options.image) {
+      // Call Hugging Face image analysis endpoint
+      return await this.executeAPICall(prompt, { id: 'huggingface', name: 'Hugging Face', endpoint: '/api/image-analysis', enabled: true }, role, options);
     }
-    return await this.executeAPICall(prompt, deepseekAPI, role, options);
+
+    // Use new OpenRouter endpoint for all text chat
+    const openrouterAPI = { id: 'openrouter', name: 'OpenRouter', endpoint: '/api/openrouter', enabled: true };
+    return await this.executeAPICall(prompt, openrouterAPI, role, options);
   }
 
   static async executeAPICall(prompt, api, role, options = {}) {
@@ -590,28 +594,23 @@ class ChatRouter {
         role: "assistant"
       };
     }
-    if (api.id === 'deepseek') {
-      console.log('🔮 Calling DeepSeek API at /api/deepseek...');
-      // Pass messages array if available for memory support, and model if provided
-      const queryOptions = { endpoint: '/api/deepseek', role, messages: options.messages };
+    // All OpenRouter-powered models use /api/openrouter
+    if (
+      api.id === 'openrouter' ||
+      api.id === 'deepseek' ||
+      api.id === 'google' ||
+      api.id === 'mistral' ||
+      api.id === 'llama'
+    ) {
+      console.log('🔗 Calling OpenRouter API at /api/openrouter...');
+      const queryOptions = { endpoint: '/api/openrouter', role, messages: options.messages };
       if (options.model) queryOptions.model = options.model;
       const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
-      console.log('🔮 DeepSeek API result:', result);
+      console.log('� OpenRouter API result:', result);
       return result;
-    } else {
-      // For other APIs, fall back to DeepSeek instead of OpenAI
-      const deepseekAPI = this.getAPIById('deepseek');
-      if (deepseekAPI && deepseekAPI.enabled) {
-        console.warn(`⚠️  API '${api.name}' not yet implemented, using DeepSeek fallback`);
-        const queryOptions = { endpoint: '/api/deepseek', role, messages: options.messages };
-        if (options.model) queryOptions.model = options.model;
-        const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
-        console.log('🔮 DeepSeek fallback result:', result);
-        return result;
-      } else {
-        throw new Error(`API '${api.name}' not implemented and no fallback available`);
-      }
     }
+    // Fallback for any other API
+    throw new Error(`API '${api.name}' not implemented and no fallback available`);
   }
 
   static enhancePromptForRole(prompt, role) {
@@ -822,6 +821,41 @@ class ChatQuoteEngine {
  * Main Advanced ChatBot Component
  */
 class AdvancedChatBot {
+  // Extracts and stores user info (name, car, etc) from user messages
+  extractAndStoreUserInfo(message) {
+    // Name detection (simple regex for "my name is ..." or "I'm ...")
+    const nameMatch = message.match(/(?:my name is|i'm|i am|im)\s+([A-Za-z]{2,30})/i);
+    if (nameMatch) {
+      this.sessionUserInfo = this.sessionUserInfo || {};
+      this.sessionUserInfo.name = nameMatch[1];
+    }
+    // Car detection ("my car is ..." or "i drive a ...")
+    const carMatch = message.match(/(?:my car is|i drive a|i have a)\s+([A-Za-z0-9\- ]{2,40})/i);
+    if (carMatch) {
+      this.sessionUserInfo = this.sessionUserInfo || {};
+      this.sessionUserInfo.car = carMatch[1];
+    }
+  }
+  scrollToBottom() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    if (!messagesContainer) return;
+
+    // Multiple approaches to ensure scrolling works
+    const scrollToEnd = () => {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      // Extra guarantee: scroll last child into view
+      if (messagesContainer.lastElementChild) {
+        messagesContainer.lastElementChild.scrollIntoView({ behavior: 'auto', block: 'end' });
+      }
+    };
+    // Immediate scroll
+    scrollToEnd();
+    // Delayed scroll to ensure DOM is updated
+    setTimeout(scrollToEnd, 30);
+    setTimeout(scrollToEnd, 150);
+    setTimeout(scrollToEnd, 400);
+  }
+
   constructor(containerId) {
     this.container = document.getElementById(containerId);
     if (!this.container) {
@@ -860,11 +894,15 @@ class AdvancedChatBot {
     // Add a dropdown for model selection above the chat input
     const modelOptions = [
       { id: '', name: 'Auto (Let AI choose)', value: '' },
+      { id: 'nvidia/llama-3.3-nemotron-super-49b-v1:free', name: 'NVIDIA Llama-3.3 Nemotron Super 49B (Free)', value: 'nvidia/llama-3.3-nemotron-super-49b-v1:free' },
       { id: 'deepseek/deepseek-r1-0528-qwen3-8b:free', name: 'DeepSeek (Qwen3 8B Free)', value: 'deepseek/deepseek-r1-0528-qwen3-8b:free' },
       { id: 'google/gemma-7b-it:free', name: 'Gemini (Gemma 7B Free)', value: 'google/gemma-7b-it:free' },
       { id: 'mistralai/mistral-7b-instruct:free', name: 'Mistral 7B (Free)', value: 'mistralai/mistral-7b-instruct:free' },
       { id: 'meta-llama/llama-3-8b-instruct:free', name: 'Llama 3 8B (Free)', value: 'meta-llama/llama-3-8b-instruct:free' },
-      { id: 'qwen/qwen3-30b-a3b:free', name: 'Qwen3 30B A3B (Free)', value: 'qwen/qwen3-30b-a3b:free' }
+      { id: 'qwen/qwen3-30b-a3b:free', name: 'Qwen3 30B A3B (Free)', value: 'qwen/qwen3-30b-a3b:free' },
+      { id: 'qwen/qwen3-235b-a22b:free', name: 'Qwen3 235B A22B (Free)', value: 'qwen/qwen3-235b-a22b:free' },
+      { id: 'baidu/ernie-4.5-300b-a47b', name: 'ERNIE 4.5 300B (Baidu, Free)', value: 'baidu/ernie-4.5-300b-a47b' },
+      { id: 'microsoft/mai-ds-r1:free', name: 'Microsoft MAI-DS R1 (Free)', value: 'microsoft/mai-ds-r1:free' }
     ];
     const dropdown = document.createElement('select');
     dropdown.id = 'model-select';
@@ -877,11 +915,21 @@ class AdvancedChatBot {
     });
     dropdown.addEventListener('change', (e) => {
       this.selectedModel = e.target.value;
+      // Fun feedback animation
+      dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
+      setTimeout(() => { dropdown.style.transform = ''; }, 180);
+      this.addMessage(`✨ Model preference set to: <b>${dropdown.options[dropdown.selectedIndex].text}</b>!`, 'bot', 'system');
     });
     // Insert above input
     const inputRow = document.getElementById('chatbot-input').parentNode;
     if (inputRow && !document.getElementById('model-select')) {
       inputRow.parentNode.insertBefore(dropdown, inputRow);
+      // Fun pop-in animation
+      dropdown.animate([
+        { opacity: 0, transform: 'scale(0.7) translateY(-10px)' },
+        { opacity: 1, transform: 'scale(1.05) translateY(2px)' },
+        { opacity: 1, transform: 'scale(1) translateY(0)' }
+      ], { duration: 350, easing: 'cubic-bezier(.68,-0.55,.27,1.55)' });
     }
   }
 
@@ -1112,8 +1160,33 @@ class AdvancedChatBot {
     const message = input.value.trim();
     if (!message || this.isProcessing) return;
 
+    // Extract and store user info from this message
+    this.extractAndStoreUserInfo(message);
+
+
+    // Add user message to local messages array (for memory)
     this.addMessage(message, 'user');
     input.value = '';
+
+    // Build full conversation history for memory, with system message if user info is known
+    const messages = [];
+    if (this.sessionUserInfo && (this.sessionUserInfo.name || this.sessionUserInfo.car)) {
+      let sysMsg = 'You are Jay\'s Mobile Wash AI assistant.';
+      if (this.sessionUserInfo.name) sysMsg += ` The user\'s name is ${this.sessionUserInfo.name}.`;
+      if (this.sessionUserInfo.car) sysMsg += ` Their car is a ${this.sessionUserInfo.car}.`;
+      sysMsg += ' Always use this info to personalize your responses.';
+      messages.push({ role: 'system', content: sysMsg });
+    }
+    for (const msg of this.messages) {
+      if (msg.type === 'user') {
+        messages.push({ role: 'user', content: msg.text });
+      } else if (msg.type === 'bot') {
+        // Only include model/system messages if not a system/model change notification
+        if (!msg.text.startsWith('✨ Model preference set to:')) {
+          messages.push({ role: 'assistant', content: msg.text });
+        }
+      }
+    }
 
     // Only after the first user message, start AI/model analysis and response
     if (!this.hasUserSentFirstMessage) {
@@ -1143,13 +1216,30 @@ class AdvancedChatBot {
             if (!this.assignments[effectiveRole]) effectiveRole = 'chat';
             console.log(`Auto mode: selected role '${effectiveRole}' for message: "${message.substring(0, 50)}..."`);
           }
-          // Always call /api/deepseek, but pass the correct role for model selection
+          // Call OpenRouter with proper error handling
           try {
-            console.log(`🔗 Calling ChatRouter for /api/deepseek with role: ${effectiveRole} and model: ${this.selectedModel}`);
-            response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments, { model: this.selectedModel });
+            console.log(`🔗 Calling ChatRouter for OpenRouter with role: ${effectiveRole} and model: ${this.selectedModel}`);
+            response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments, { model: this.selectedModel, messages });
             console.log('✅ AI response received:', response);
+            
+            // Log which model was actually used
+            if (response.model) {
+              console.log(`🤖 Model used: ${response.model}`);
+            }
           } catch (aiError) {
-            console.warn('❌ AI failed, using smart fallback:', aiError);
+            console.error('❌ AI API Error Details:', aiError);
+            
+            // Show user-friendly error message
+            let errorMessage = 'Sorry, I encountered an error. Let me try to help you anyway.';
+            if (aiError.message.includes('429') || aiError.message.includes('rate limit')) {
+              errorMessage = 'The AI service is busy right now. Please wait a moment and try again.';
+            } else if (aiError.message.includes('404') || aiError.message.includes('not found')) {
+              errorMessage = 'AI service is temporarily offline. Using fallback response.';
+            } else if (aiError.message.includes('network') || aiError.message.includes('fetch')) {
+              errorMessage = 'Connection issue detected. Please check your internet and try again.';
+            }
+            
+            this.addMessage(`⚠️ ${errorMessage}`, 'bot', 'error');
             response = { content: this.generateSmartResponse(message, effectiveRole) };
           }
         }
@@ -1179,10 +1269,9 @@ class AdvancedChatBot {
         }
         modelUsed = modelMap[effectiveRole] || modelMap['fallback'];
       }
-      const responseText = response.content || response.response || response.generated_text || JSON.stringify(response, null, 2);
-      this.addMessage(responseText, 'bot', 'normal', modelUsed);
-      // Display model used in the UI (e.g., as a badge or in the message)
-      this.displayModelUsed(modelUsed);
+    const responseText = response.content || response.response || response.generated_text || JSON.stringify(response, null, 2);
+    this.addMessage(responseText, 'bot', 'normal', modelUsed);
+      // Model used is now shown in the message itself; no need to call displayModelUsed
 
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
@@ -1259,28 +1348,25 @@ class AdvancedChatBot {
   }
   
   messageMatchesKnowledge(message, key, item) {
-    // Check for key matches
-    if (message.includes(key.replace(/_/g, ' '))) return true;
-    
-    // Check for description matches
-    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
-    
-    // Check for specific keywords
-    const keywords = {
-      ceramic: ['ceramic', 'coating', 'protection'],
-      graphene: ['graphene', 'premium', 'coating'],
-      detail: ['detail', 'clean', 'wash'],
-      correction: ['correction', 'polish', 'scratch', 'swirl'],
-      wax: ['wax', 'protection', 'shine'],
-      wash: ['wash', 'clean', 'soap']
-    };
-    
-    for (const keywordGroup in keywords) {
-      if (key.includes(keywordGroup)) {
-        return keywords[keywordGroup].some(keyword => message.includes(keyword));
-      }
+    // Only match for company-specific topics
+    const companyKeywords = [
+      'jay', 'mobile wash', 'jays mobile wash', 'service', 'services', 'pricing', 'price', 'cost', 'quote', 'estimate',
+      'location', 'where', 'area', 'county', 'address', 'contact', 'phone', 'email', 'hours', 'open', 'close',
+      'book', 'booking', 'appointment', 'schedule', 'owner', 'founder', 'team', 'business', 'company', 'detail', 'detailing',
+      'ceramic', 'graphene', 'coating', 'paint correction', 'mini detail', 'luxury detail', 'max detail', 'package', 'packages'
+    ];
+    // Only match if the message contains a company keyword and the key is a service or business info
+    const msgLower = message.toLowerCase();
+    if (companyKeywords.some(kw => msgLower.includes(kw))) {
+      // Only match for service, protection, paint_correction, or direct business info
+      const allowedCategories = [
+        'basic_wash', 'detailed_wash', 'mini_detail', 'luxury_detail', 'max_detail',
+        'ceramic_coating', 'graphene_coating', 'paint_protection_film', 'single_stage', 'multi_stage',
+        'service', 'services', 'pricing', 'price', 'cost', 'quote', 'estimate',
+        'location', 'contact', 'phone', 'email', 'hours', 'package', 'packages'
+      ];
+      if (allowedCategories.some(cat => key.includes(cat))) return true;
     }
-    
     return false;
   }
   
@@ -1335,18 +1421,68 @@ class AdvancedChatBot {
   activateAdminMode() {
     this.adminMode = true;
     this.secretModeActive = true;
-    
-    // Add admin styling
     document.querySelector('.chatbot-window').classList.add('admin-mode');
-    
-    // Clear input and show admin message
     const input = document.getElementById('chatbot-input');
     input.value = '';
-    
-    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging", 'bot', 'admin');
-    
-    // Update placeholder
+    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging\n• 'open kb panel' - Open Knowledge Base Editor", 'bot', 'admin');
     input.placeholder = "Admin mode active - Type admin commands...";
+
+    // Add admin panel button if not present
+    if (!document.getElementById('kb-admin-panel-btn')) {
+      const header = document.querySelector('.chatbot-header .header-actions');
+      const btn = document.createElement('button');
+      btn.id = 'kb-admin-panel-btn';
+      btn.className = 'kb-admin-btn';
+      btn.textContent = '🗂️ KB Editor';
+      btn.title = 'Open Knowledge Base Editor';
+      btn.onclick = () => this.openKnowledgeBasePanel();
+      header.appendChild(btn);
+    }
+  }
+
+  openKnowledgeBasePanel() {
+    // Create or show the KB editor panel
+    let panel = document.getElementById('kb-admin-panel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'kb-admin-panel';
+      panel.className = 'kb-admin-panel';
+      panel.innerHTML = `
+        <div class="kb-panel-header">
+          <span>Knowledge Base Editor</span>
+          <button id="kb-close-btn">✕</button>
+        </div>
+        <textarea id="kb-json-editor" style="width:100%;height:300px;font-size:13px;">${JSON.stringify(CAR_DETAILING_KNOWLEDGE_BASE, null, 2)}</textarea>
+        <div style="margin-top:10px;display:flex;gap:10px;">
+          <button id="kb-save-btn">Save</button>
+          <button id="kb-reload-btn">Reload</button>
+        </div>
+        <div id="kb-save-status" style="margin-top:8px;font-size:12px;"></div>
+      `;
+      document.body.appendChild(panel);
+      document.getElementById('kb-close-btn').onclick = () => panel.remove();
+      document.getElementById('kb-save-btn').onclick = () => this.saveKnowledgeBaseFromEditor();
+      document.getElementById('kb-reload-btn').onclick = () => {
+        document.getElementById('kb-json-editor').value = JSON.stringify(CAR_DETAILING_KNOWLEDGE_BASE, null, 2);
+        document.getElementById('kb-save-status').textContent = '';
+      };
+    } else {
+      panel.style.display = 'block';
+    }
+  }
+
+  saveKnowledgeBaseFromEditor() {
+    const textarea = document.getElementById('kb-json-editor');
+    const status = document.getElementById('kb-save-status');
+    try {
+      const newKB = JSON.parse(textarea.value);
+      window.CAR_DETAILING_KNOWLEDGE_BASE = newKB;
+      status.textContent = '✅ Knowledge base updated (in-memory, reload to reset).';
+      status.style.color = 'green';
+    } catch (e) {
+      status.textContent = '❌ Invalid JSON: ' + e.message;
+      status.style.color = 'red';
+    }
   }
 
   deactivateAdminMode() {
@@ -1628,10 +1764,10 @@ class AdvancedChatBot {
     this.scrollToBottom();
   }
 
-  // Display the model used for the last bot message
-  displayModelUsed(modelUsed) {
+  scrollToBottom() {
     const messagesContainer = document.getElementById('chatbot-messages');
     if (!messagesContainer) return;
+
     // Multiple approaches to ensure scrolling works
     const scrollToEnd = () => {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
