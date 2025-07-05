@@ -3903,6 +3903,21 @@
     
     <!-- Advanced Chatbot Script -->
     <script src="/advanced-chatbot.js?v=1.0.5"></script>
+    
+    <!-- Initialize Advanced Chatbot -->
+    <script>
+    // Initialize the Advanced Chatbot when the page loads
+    window.addEventListener('DOMContentLoaded', function() {
+        console.log('🤖 Initializing Advanced Chatbot...');
+        try {
+            // Create chatbot instance and store it globally
+            window.advancedChatbot = new AdvancedChatBot();
+            console.log('✅ Advanced Chatbot initialized successfully!');
+        } catch (error) {
+            console.error('❌ Failed to initialize Advanced Chatbot:', error);
+        }
+    });
+    </script>
 
     <!-- Review Schema -->
     <script type="application/ld+json">

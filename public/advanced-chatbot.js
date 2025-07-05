@@ -15,199 +15,139 @@
 // Import constants and utilities (we'll inline them to avoid module issues)
 const API_OPTIONS = [
   {
-    id: 'none',
-    name: 'None',
-    endpoint: '/api/none',
-    description: 'No AI service (disabled)',
-    enabled: true
-  },
-  {
-    id: 'deepseek',
-    name: 'DeepSeek',
-    endpoint: '/api/deepseek',
-    description: 'DeepSeek AI models via Hugging Face',
+    id: 'auto',
+    name: 'Auto Mode (Smart Routing)',
+    endpoint: '/api/auto',
+    description: 'Automatically selects the best free model for your request',
     enabled: true
   },
   {
     id: 'llama2',
     name: 'Llama2 (HuggingFace)',
     endpoint: '/api/llama2',
-    description: 'Meta Llama2 models via Hugging Face',
+    description: 'Meta Llama2 models via Hugging Face - Best for business queries',
     enabled: true
   },
   {
-    id: 'openrouter-gpt4',
-    name: 'GPT-4 (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'OpenAI GPT-4 via OpenRouter',
-    model: 'openai/gpt-4',
+    id: 'deepseek-direct',
+    name: 'DeepSeek (Direct)',
+    endpoint: '/api/deepseek',
+    description: 'DeepSeek AI models via direct API - Fast and reliable',
     enabled: true
   },
+  // OpenRouter Free Models
   {
-    id: 'openrouter-claude',
-    name: 'Claude 3.5 Sonnet (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Anthropic Claude 3.5 Sonnet via OpenRouter',
-    model: 'anthropic/claude-3.5-sonnet',
-    enabled: true
-  },
-  {
-    id: 'openrouter-llama',
-    name: 'Llama 3.1 70B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Meta Llama 3.1 70B via OpenRouter',
-    model: 'meta-llama/llama-3.1-70b-instruct',
-    enabled: true
-  },
-  {
-    id: 'openrouter-deepseek',
+    id: 'openrouter-deepseek-r1',
     name: 'DeepSeek R1 (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'DeepSeek R1 via OpenRouter',
-    model: 'deepseek/deepseek-r1',
+    description: 'DeepSeek R1 - Latest reasoning model',
+    model: 'deepseek/deepseek-r1:free',
     enabled: true
   },
   {
-    id: 'openrouter-gemini',
-    name: 'Gemini Pro (OpenRouter)',
+    id: 'openrouter-deepseek-chat',
+    name: 'DeepSeek V3 (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Google Gemini Pro via OpenRouter',
-    model: 'google/gemini-pro',
+    description: 'DeepSeek V3 - Advanced chat model',
+    model: 'deepseek/deepseek-chat:free',
     enabled: true
   },
   {
-    id: 'openrouter-qwen',
+    id: 'openrouter-llama-3.3-70b',
+    name: 'Llama 3.3 70B (OpenRouter)',
+    endpoint: '/api/openrouter',
+    description: 'Meta Llama 3.3 70B - Powerful reasoning',
+    model: 'meta-llama/llama-3.3-70b-instruct:free',
+    enabled: true
+  },
+  {
+    id: 'openrouter-qwen-2.5-72b',
     name: 'Qwen 2.5 72B (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Qwen 2.5 72B via OpenRouter',
-    model: 'qwen/qwen-2.5-72b-instruct',
+    description: 'Qwen 2.5 72B - Excellent for complex tasks',
+    model: 'qwen/qwen-2.5-72b-instruct:free',
     enabled: true
   },
   {
-    id: 'openrouter-mixtral',
-    name: 'Mixtral 8x7B (OpenRouter)',
+    id: 'openrouter-mistral-small',
+    name: 'Mistral Small 3.2 (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Mistral Mixtral 8x7B via OpenRouter',
-    model: 'mistralai/mixtral-8x7b-instruct',
+    description: 'Mistral Small 3.2 24B - Fast and efficient',
+    model: 'mistralai/mistral-small-3.2-24b-instruct:free',
     enabled: true
   },
   {
-    id: 'openrouter-perplexity',
-    name: 'Perplexity Llama 3.1 Sonar (OpenRouter)',
+    id: 'openrouter-gemini-2.0',
+    name: 'Gemini 2.0 Flash (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Perplexity Llama 3.1 Sonar for web search and reasoning',
-    model: 'perplexity/llama-3.1-sonar-large-128k-online',
+    description: 'Google Gemini 2.0 Flash - Fast multimodal',
+    model: 'google/gemini-2.0-flash-exp:free',
     enabled: true
   },
   {
-    id: 'openrouter-gemini-pro',
-    name: 'Gemini Pro 1.5 (OpenRouter)',
+    id: 'openrouter-gemma-3-27b',
+    name: 'Gemma 3 27B (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Google Gemini Pro 1.5 via OpenRouter',
-    model: 'google/gemini-pro-1.5',
+    description: 'Google Gemma 3 27B - Balanced performance',
+    model: 'google/gemma-3-27b-it:free',
     enabled: true
   },
   {
-    id: 'openrouter-gpt4o',
-    name: 'GPT-4o (OpenRouter)',
+    id: 'openrouter-qwq-32b',
+    name: 'QwQ 32B (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'OpenAI GPT-4o via OpenRouter',
-    model: 'openai/gpt-4o',
+    description: 'QwQ 32B - Quantitative reasoning',
+    model: 'qwen/qwq-32b:free',
     enabled: true
   },
   {
-    id: 'openrouter-claude-opus',
-    name: 'Claude 3 Opus (OpenRouter)',
+    id: 'openrouter-mistral-nemo',
+    name: 'Mistral Nemo (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Anthropic Claude 3 Opus via OpenRouter',
-    model: 'anthropic/claude-3-opus',
+    description: 'Mistral Nemo - Lightweight and fast',
+    model: 'mistralai/mistral-nemo:free',
     enabled: true
   },
   {
-    id: 'openrouter-llama-405b',
-    name: 'Llama 3.1 405B (OpenRouter)',
+    id: 'openrouter-mistral-7b',
+    name: 'Mistral 7B (OpenRouter)',
     endpoint: '/api/openrouter',
-    description: 'Meta Llama 3.1 405B Instruct via OpenRouter',
-    model: 'meta-llama/llama-3.1-405b-instruct',
+    description: 'Mistral 7B Instruct - Compact and efficient',
+    model: 'mistralai/mistral-7b-instruct:free',
     enabled: true
+  }
+];
+
+// Auto mode routing logic
+const AUTO_MODE_ROUTING = {
+  // Business queries - route to Llama2 HuggingFace
+  business: {
+    keywords: ['service', 'price', 'cost', 'location', 'appointment', 'contact', 'hours', 'detailing', 'wash', 'ceramic', 'graphene', 'mini', 'luxury', 'max', 'beverly hills', 'orange county', 'los angeles'],
+    model: 'llama2'
   },
-  {
-    id: 'openrouter-wizard-8x22b',
-    name: 'WizardLM 8x22B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'WizardLM 8x22B via OpenRouter',
-    model: 'microsoft/wizardlm-2-8x22b',
-    enabled: true
+  // Creative/writing - route to DeepSeek R1
+  creative: {
+    keywords: ['write', 'story', 'poem', 'creative', 'imagine', 'design', 'art', 'music', 'compose'],
+    model: 'openrouter-deepseek-r1'
   },
-  {
-    id: 'openrouter-nous-hermes',
-    name: 'Nous Hermes 2 Mixtral (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Nous Research Hermes 2 Mixtral via OpenRouter',
-    model: 'nousresearch/nous-hermes-2-mixtral-8x7b-dpo',
-    enabled: true
+  // Technical/coding - route to Qwen 2.5 72B
+  technical: {
+    keywords: ['code', 'programming', 'technical', 'develop', 'debug', 'algorithm', 'software', 'api', 'function'],
+    model: 'openrouter-qwen-2.5-72b'
   },
-  {
-    id: 'openrouter-mythomax',
-    name: 'MythoMax 13B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Gryphe MythoMax 13B via OpenRouter',
-    model: 'gryphe/mythomax-l2-13b',
-    enabled: true
+  // Reasoning/analysis - route to Llama 3.3 70B
+  reasoning: {
+    keywords: ['analyze', 'explain', 'why', 'how', 'reason', 'logic', 'compare', 'evaluate', 'calculate'],
+    model: 'openrouter-llama-3.3-70b'
   },
-  {
-    id: 'openrouter-yi-34b',
-    name: 'Yi 34B Chat (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: '01-ai Yi 34B Chat via OpenRouter',
-    model: '01-ai/yi-34b-chat',
-    enabled: true
-  },
-  {
-    id: 'openrouter-dolphin-mixtral',
-    name: 'Dolphin Mixtral 8x7B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Cognitive Computations Dolphin Mixtral via OpenRouter',
-    model: 'cognitivecomputations/dolphin-mixtral-8x7b',
-    enabled: true
-  },
-  {
-    id: 'openrouter-solar-10b',
-    name: 'Solar 10.7B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Upstage Solar 10.7B Instruct via OpenRouter',
-    model: 'upstage/solar-1-mini-chat',
-    enabled: true
-  },
-  {
-    id: 'openrouter-phind-codellama',
-    name: 'Phind CodeLlama 34B (OpenRouter)',
-    endpoint: '/api/openrouter',
-    description: 'Phind CodeLlama 34B Python via OpenRouter',
-    model: 'phind/phind-codellama-34b',
-    enabled: true
-  },
-  {
-    id: 'openai',
-    name: 'OpenAI GPT (Direct)',
-    endpoint: '/api/openai',
-    description: 'OpenAI GPT models (direct API)',
-    enabled: false
-  },
-  {
-    id: 'anthropic',
-    name: 'Anthropic Claude (Direct)',
-    endpoint: '/api/anthropic',
-    description: 'Claude AI for detailed analysis (direct API)',
-    enabled: false
-  },
-  {
-    id: 'google',
-    name: 'Google Gemini (Direct)',
-    endpoint: '/api/google',
-    description: 'Google Gemini AI (direct API)',
-    enabled: false
-  },
+  // Default fallback - DeepSeek direct
+  fallback: {
+    model: 'deepseek-direct'
+  }
+};
+
+// Legacy disabled options for reference
+const LEGACY_API_OPTIONS = [
   {
     id: 'cohere',
     name: 'Cohere',
@@ -620,17 +560,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'openrouter-gpt4',         // Auto mode - GPT-4 for smart detection
-  reasoning: 'openrouter-claude',  // Advanced reasoning - Claude 3.5 Sonnet
-  tools: 'openrouter-gpt4',        // Tool calling - GPT-4 is excellent at tools
-  quotes: 'deepseek',              // Service quotes - DeepSeek for pricing analysis
-  photo_uploads: 'openrouter-gpt4', // Photo analysis - GPT-4 Vision
-  summaries: 'openrouter-claude',  // Summarization - Claude is great at this
-  search: 'openrouter-gemini',     // Search queries - Gemini knowledge
-  chat: 'llama2',                  // General chat - Llama2 for conversation
-  fallback: 'deepseek',           // Always available fallback - use DeepSeek
-  analytics: 'openrouter-claude',  // Data analysis - Claude excels at analysis
-  accessibility: 'openrouter-gpt4' // Accessibility support - GPT-4 is helpful
+  auto: 'auto',                           // Auto mode - Smart routing to best free model
+  reasoning: 'openrouter-llama-3.3-70b',  // Advanced reasoning - Llama 3.3 70B
+  tools: 'openrouter-qwen-2.5-72b',       // Tool calling - Qwen 2.5 72B is excellent
+  quotes: 'llama2',                       // Service quotes - Llama2 for business focus
+  photo_uploads: 'openrouter-gemini-2.0', // Photo analysis - Gemini 2.0 Flash multimodal
+  summaries: 'openrouter-mistral-small',  // Summarization - Mistral Small is efficient
+  search: 'openrouter-qwen-2.5-72b',      // Search queries - Qwen 2.5 72B knowledge
+  chat: 'auto',                           // General chat - Auto mode for best experience
+  fallback: 'deepseek-direct',            // Always available fallback - DeepSeek direct
+  analytics: 'openrouter-llama-3.3-70b',  // Data analysis - Llama 3.3 70B reasoning
+  accessibility: 'openrouter-gemini-2.0'  // Accessibility support - Gemini 2.0 multimodal
 };
 
 /**
@@ -783,28 +723,23 @@ class ChatRouter {
         role: "assistant"
       };
     }
-    
-    if (api.id === 'deepseek') {
+    if (api.id === 'auto') {
+      // Auto mode: route to /api/auto, which will select the best free model
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/auto', role });
+    } else if (api.id === 'deepseek-direct') {
       return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
     } else if (api.id === 'llama2') {
       return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/llama2', role });
-    } else if (api.id === 'openai') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
     } else if (api.id.startsWith('openrouter-')) {
       // All OpenRouter models use the same endpoint but different model parameters
-      const requestBody = {
-        prompt: enhancedPrompt,
+      return await AIUtils.queryAI(enhancedPrompt, {
+        endpoint: '/api/openrouter',
         role: role,
-        model: api.model || 'deepseek/deepseek-r1-0528-qwen3-8b:free'
-      };
-      return await AIUtils.queryAI(enhancedPrompt, { 
-        endpoint: '/api/openrouter', 
-        role: role,
-        model: api.model 
+        model: api.model
       });
     } else {
-      // For other APIs, fall back to DeepSeek instead of OpenAI
-      const deepseekAPI = this.getAPIById('deepseek');
+      // For other APIs, fall back to DeepSeek direct
+      const deepseekAPI = this.getAPIById('deepseek-direct');
       if (deepseekAPI && deepseekAPI.enabled) {
         console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
         return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
@@ -1140,9 +1075,10 @@ class AdvancedChatBot {
     console.log('🔧 Creating chat widget...');
     const widget = document.createElement('div');
     widget.className = 'advanced-chatbot-widget';
+    widget.style.pointerEvents = 'auto'; // Enable clicks on the widget
     console.log('🔧 Widget created:', widget);
     widget.innerHTML = `
-      <div class="chatbot-toggle" id="chatbot-toggle">
+      <div class="chatbot-toggle" id="chatbot-toggle" style="pointer-events: auto;">
         <span class="chat-icon">🤖</span>
         <span class="chat-text">AI Chat</span>
       </div>
@@ -1404,6 +1340,15 @@ class AdvancedChatBot {
         usedBasefile: !!basefileResponse,
         usedMemory: !!this.memory.getLearnedResponse(message)
       });
+    } catch (error) {
+      console.error('Error in sendMessage:', error);
+      this.addMessage('I encountered an error while processing your request. Please try again.', 'bot');
+    } finally {
+      this.isProcessing = false;
+      this.hideProcessing();
+    }
+  }
+
   // Show rating UI below the last bot message
   showRatingUI(messageId) {
     if (!messageId) return;
@@ -1578,33 +1523,36 @@ class AdvancedChatBot {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🤖 Initializing Advanced AI Chatbot...');
   
-  // Debug: Check if container exists
-  const container = document.getElementById('chatbot-container');
-  console.log('🔍 Container found:', container);
+  // Check if container exists, if not create it
+  let container = document.getElementById('chatbot-container');
+  if (!container) {
+    console.log('� Creating chatbot container...');
+    container = document.createElement('div');
+    container.id = 'chatbot-container';
+    container.style.position = 'fixed';
+    container.style.bottom = '0';
+    container.style.right = '0';
+    container.style.zIndex = '9999';
+    container.style.pointerEvents = 'none'; // Allow clicks to pass through
+    document.body.appendChild(container);
+    console.log('✅ Chatbot container created');
+  }
   
-  if (container) {
-    try {
-      window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-      console.log('✅ Chatbot initialized successfully');
-    } catch (error) {
-      console.error('❌ Failed to initialize chatbot:', error);
-    }
-  } else {
-    console.error('❌ Chatbot container not found!');
+  try {
+    console.log('🚀 Initializing chatbot with container:', container);
+    window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+    console.log('✅ Advanced Chatbot initialized successfully!');
+  } catch (error) {
+    console.error('❌ Failed to initialize Advanced Chatbot:', error);
     
     // Try to find it after a delay
     setTimeout(() => {
-      const delayedContainer = document.getElementById('chatbot-container');
-      if (delayedContainer) {
-        console.log('🔍 Container found after delay, initializing...');
-        try {
-          window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-          console.log('✅ Chatbot initialized successfully (delayed)');
-        } catch (error) {
-          console.error('❌ Failed to initialize chatbot (delayed):', error);
-        }
-      } else {
-        console.error('❌ Chatbot container still not found after delay!');
+      try {
+        console.log('� Retrying chatbot initialization...');
+        window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+        console.log('✅ Chatbot initialized successfully (retry)');
+      } catch (retryError) {
+        console.error('❌ Failed to initialize chatbot (retry):', retryError);
       }
     }, 2000);
   }

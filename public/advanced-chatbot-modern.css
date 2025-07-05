@@ -396,11 +396,15 @@
 }
 
 /* --- Enhanced Chatbot Toggle Button --- */
+.advanced-chatbot-widget {
+  pointer-events: auto !important;
+}
+
 .advanced-chatbot-widget .chatbot-toggle {
   position: fixed !important;
   bottom: 30px !important;
   right: 30px !important;
-  z-index: 9999 !important;
+  z-index: 99999 !important;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border: none !important;
   border-radius: 50% !important;
@@ -419,6 +423,7 @@
   /* Ensure it's always visible */
   opacity: 1 !important;
   visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 @keyframes pulse-glow {
