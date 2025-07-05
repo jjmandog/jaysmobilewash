@@ -8,7 +8,9 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     margin-top: 40px; /* Ensure top is not cut off */
 }
+
 /* Model dropdown styling for visibility and accessibility */
+.chatbot-model-select {
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
