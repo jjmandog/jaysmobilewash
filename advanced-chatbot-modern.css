@@ -1,0 +1,161 @@
+/**
+ * Advanced Chatbot Accessibility CSS
+ * Ensures the chatbot button remains visible and clickable at all times
+ */
+
+/* Ensure chatbot button is always on top and clickable */
+
+/* --- Chatbot Floating Button Styles (Restored) --- */
+#chatbot-toggle, .chatbot-toggle, #advanced-chatbot-toggle, .advanced-chatbot-widget .chatbot-toggle, [class*="chatbot-toggle"] {
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 32px !important;
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%) !important;
+  box-shadow: 0 8px 32px rgba(80, 0, 120, 0.22), 0 2px 8px rgba(168, 85, 247, 0.08) !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.2s, transform 0.15s;
+  border: 2.5px solid #fff !important;
+  font-size: 32px !important;
+  color: #fff !important;
+  overflow: visible !important;
+}
+
+/* Hide the text label for icon-only button */
+.chatbot-toggle .chat-text {
+  display: none !important;
+}
+
+/* Make the icon larger and centered */
+.chatbot-toggle .chat-icon {
+  font-size: 2.2em !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Pulse and hover effects */
+.chatbot-toggle:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 32px 8px #a855f7, 0 0 64px 16px #ec4899 !important;
+}
+
+body.jay-mode-active .chatbot-toggle {
+  animation: chatbot-pulse 2s infinite ease-in-out !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.8), 0 0 40px rgba(236, 72, 153, 0.5) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+@keyframes chatbot-pulse {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.7), 0 0 20px rgba(236, 72, 153, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.9), 0 0 40px rgba(236, 72, 153, 0.6);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.7), 0 0 20px rgba(236, 72, 153, 0.4);
+  }
+}
+
+/* Ensure chatbot container is accessible */
+#advanced-chatbot-container,
+.advanced-chatbot-widget {
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+
+/* Make sure all children of the chatbot toggle are clickable */
+.chatbot-toggle * {
+  pointer-events: auto !important;
+}
+
+/* Make Jay Mode elements click-through so they don't block the chatbot */
+.purple-thunder,
+.ghostly-apparition,
+.cosmic-star,
+[class*="jay-mode-element"],
+.jay-animation-element {
+  pointer-events: none !important;
+}
+
+/* Add special effects when Jay Mode is active to make button more noticeable */
+body.jay-mode-active .chatbot-toggle {
+  animation: chatbot-pulse 2s infinite ease-in-out !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.8),
+              0 0 40px rgba(236, 72, 153, 0.5) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Make button more noticeable on hover */
+.chatbot-toggle:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.9),
+              0 0 50px rgba(236, 72, 153, 0.6) !important;
+}
+
+/* Define pulse animation */
+@keyframes chatbot-pulse {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.7),
+                0 0 20px rgba(236, 72, 153, 0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.9),
+                0 0 40px rgba(236, 72, 153, 0.6);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.7),
+                0 0 20px rgba(236, 72, 153, 0.4);
+  }
+}
+
+/* Fix for any potential conflicting positioning */
+.chatbot-window {
+  position: fixed !important;
+  z-index: 2147483646 !important; /* Just below the toggle button */
+  pointer-events: auto !important;
+}
+
+/* Special priority override for debugging */
+.chatbot-toggle:after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: chatbot-glow 1.5s infinite alternate ease-in-out;
+  z-index: -1;
+}
+
+@keyframes chatbot-glow {
+  from { 
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    opacity: 0.7;
+  }
+  to { 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    opacity: 1;
+  }
+}

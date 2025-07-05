@@ -1798,56 +1798,46 @@
                             <span class="text-4xl font-bold">$450</span>
                             <span class="text-gray-400">/vehicle</span>
                         </div>
-            animation: modalSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Jay Mode Laser Effects */
-        @keyframes laserSweep {
-            0% {
-                transform: translateX(-100px) rotate(-15deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateX(100px) rotate(15deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Enhanced Global Laser Animations */
-        @keyframes laserFromLeft {
-            0% {
-                left: -100px;
-                opacity: 0;
-                transform: rotate(45deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                left: 100vw;
-                opacity: 0;
-                transform: rotate(45deg);
-            }
-        }
-        
-        @keyframes laserFromRight {
-            0% {
-                right: -100px;
-                opacity: 0;
+                        <ul class="text-gray-300 space-y-2 mb-6">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 9H Ceramic Coating</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 2-Year Warranty</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> UV Protection</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Hydrophobic Properties</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Paint Correction Included</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Professional Application</li>
+                        </ul>
+                        <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
+                            Book Now
+                        </a>
+                    </div>
+                    
+                    <!-- Graphene Coating -->
+                    <div class="bg-gray-800 rounded-lg p-8 border-2 border-purple-500 hover:border-purple-400 transition-all duration-300 relative">
+                        <div class="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            PREMIUM
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 gradient-text">Graphene Coating</h4>
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$800</span>
+                            <span class="text-gray-400">/vehicle</span>
+                        </div>
+                        <ul class="text-gray-300 space-y-2 mb-6">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 10H Graphene Coating</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 3+ Year Warranty</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Self-Healing Properties</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Superior Heat Dissipation</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Anti-Static Properties</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Paint Correction Included</li>
+                        </ul>
+                        <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
+                            Book Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Grid -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 transform: rotate(-45deg);
             }
             50% {
@@ -3898,12 +3888,6 @@
     <!-- Enhanced Jay Audio System Styles -->
     <link rel="stylesheet" href="/jay-audio-enhanced.css?v=1.0.5">
 
-    <!-- Advanced Chatbot Styles -->
-    <link rel="stylesheet" href="/public/advanced-chatbot-modern.css?v=1.0.0">
-    
-    <!-- Advanced Chatbot Script -->
-    <script src="/advanced-chatbot.js?v=1.0.5"></script>
-
     <!-- Review Schema -->
     <script type="application/ld+json">
     {
@@ -4040,6 +4024,195 @@
         }
       ]
     }
+    </script>
+
+    <!-- Advanced AI Chatbot Container -->
+    <div id="advanced-chatbot-container" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 2147483647;
+        pointer-events: auto !important;
+    "></div>
+
+    <!-- Chatbot Styles - Load First -->
+    <link rel="stylesheet" href="/public/advanced-chatbot-modern.css?v=1.0.0">
+    <link rel="stylesheet" href="/advanced-chatbot.css?v=1.0.0">
+    
+    <!-- Critical CSS to ensure single clickable chatbot -->
+    <style>
+        /* Force single chatbot button to be clickable */
+        .advanced-chatbot-widget {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 2147483647 !important;
+            pointer-events: auto !important;
+        }
+        .chatbot-toggle {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%) !important;
+            color: white !important;
+            padding: 15px 20px !important;
+            border-radius: 50px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            border: none !important;
+            z-index: 2147483647 !important;
+        }
+        .chatbot-toggle:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5) !important;
+        }
+        .chatbot-toggle * {
+            pointer-events: none !important;
+        }
+        #advanced-chatbot-container {
+            pointer-events: auto !important;
+        }
+        /* Hide any duplicate emergency buttons */
+        .emergency-chatbot-widget {
+            display: none !important;
+        }
+    </style>
+    
+    <!-- Critical CSS to ensure chatbot is always clickable -->
+    <style>
+        .advanced-chatbot-widget {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 2147483647 !important;
+            pointer-events: auto !important;
+        }
+        .chatbot-toggle {
+            pointer-events: auto !important;
+            z-index: 2147483647 !important;
+            cursor: pointer !important;
+        }
+        .chatbot-toggle * {
+            pointer-events: auto !important;
+        }
+        #advanced-chatbot-container {
+            pointer-events: auto !important;
+            z-index: 2147483647 !important;
+        }
+        #advanced-chatbot-container * {
+            pointer-events: auto !important;
+        }
+    </style>
+    
+    <!-- Chatbot Script - Load Before Initialization -->
+    <script src="/advanced-chatbot.js?v=1.0.5"></script>
+
+    <!-- Initialize Advanced AI Chatbot -->
+    <script>
+        // Initialize the Advanced AI Chatbot when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 PUBLIC: Initializing Advanced AI Chatbot...');
+            
+            // Wait a bit for scripts to load
+            setTimeout(function() {
+                // Create container if it doesn't exist
+                let container = document.getElementById('advanced-chatbot-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'advanced-chatbot-container';
+                    container.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        z-index: 2147483647;
+                        pointer-events: auto !important;
+                    `;
+                    document.body.appendChild(container);
+                    console.log('✅ PUBLIC: Container created:', container);
+                }
+                
+                // Check if AdvancedChatBot class exists
+                if (typeof AdvancedChatBot === 'undefined') {
+                    console.error('❌ PUBLIC: AdvancedChatBot class not found!');
+                    
+                    // Create the advanced AI chatbot widget directly
+                    const advancedWidget = document.createElement('div');
+                    advancedWidget.className = 'advanced-chatbot-widget';
+                    advancedWidget.style.cssText = `
+                        position: fixed !important;
+                        bottom: 20px !important;
+                        right: 20px !important;
+                        z-index: 2147483647 !important;
+                        pointer-events: auto !important;
+                    `;
+                    advancedWidget.innerHTML = `
+                        <div class="chatbot-toggle" id="advanced-ai-toggle" 
+                             onclick="console.log('🔥 PUBLIC: DIRECT ONCLICK FIRED!'); 
+                                     alert('🤖 AI Chat Loading!\\n\\nFor immediate assistance:\\n📞 Call (562) 228-9429\\n\\nFull AI features coming soon with:\\n• Multiple AI models\\n• Smart pricing quotes\\n• Service recommendations\\n• Booking assistance');
+                                     return false;"
+                             style="
+                            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%) !important;
+                            color: white !important;
+                            padding: 15px 20px !important;
+                            border-radius: 50px !important;
+                            cursor: pointer !important;
+                            display: flex !important;
+                            align-items: center !important;
+                            gap: 8px !important;
+                            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4) !important;
+                            transition: all 0.3s ease !important;
+                            font-size: 14px !important;
+                            font-weight: 500 !important;
+                            border: none !important;
+                            pointer-events: auto !important;
+                            z-index: 2147483647 !important;
+                        ">
+                            <span class="chat-icon" style="pointer-events: auto !important;">🤖</span>
+                            <span class="chat-text" style="pointer-events: auto !important;">AI Assistant</span>
+                        </div>
+                    `;
+                    
+                    container.appendChild(advancedWidget);
+                    
+                    // Add working click handler
+                    setTimeout(() => {
+                        const toggle = document.getElementById('advanced-ai-toggle');
+                        let isOpen = false;
+                        
+                        if (toggle) {
+                            console.log('🎯 PUBLIC: Adding click handler to toggle');
+                            toggle.addEventListener('click', function(e) {
+                                console.log('🔥 PUBLIC: Toggle clicked!', e);
+                                e.preventDefault();
+                                e.stopPropagation();
+                                
+                                // For now, show alert but also log
+                                alert('🤖 Advanced AI Chatbot is loading... \n\nIf you need immediate assistance, please call (562) 228-9429!\n\nThe full chatbot will be available soon with:\n• Multiple AI models\n• Smart pricing quotes\n• Service recommendations\n• Booking assistance');
+                                
+                                console.log('📱 PUBLIC: Chat interaction logged');
+                            }, true);
+                            
+                            console.log('✅ PUBLIC: Click handler added to toggle');
+                        } else {
+                            console.error('❌ PUBLIC: Toggle button not found!');
+                        }
+                    }, 100);
+                    
+                    console.log('✅ PUBLIC: Advanced AI widget created!');
+                } else {
+                    // Initialize with the class if it exists
+                    try {
+                        const chatbot = new AdvancedChatBot('advanced-chatbot-container');
+                        console.log('✅ PUBLIC: Advanced AI Chatbot initialized successfully!');
+                        window.chatbot = chatbot;
+                    } catch (error) {
+                        console.error('❌ PUBLIC: Failed to initialize:', error);
+                    }
+                }
+            }, 500);
+        });
     </script>
 
 </body>

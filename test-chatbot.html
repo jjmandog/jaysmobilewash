@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test</title>
+    <link rel="stylesheet" href="/public/advanced-chatbot-modern.css">
+</head>
+<body style="background: #f0f0f0; padding: 20px;">
+    <h1>Chatbot Test Page</h1>
+    <p>This is a test page to verify the chatbot is working.</p>
+    
+    <div id="chatbot-container">
+        <!-- Advanced chatbot will be rendered here -->
+    </div>
+    
+    <script src="/advanced-chatbot.js"></script>
+    <script>
+        // Debug initialization
+        console.log('🔍 Starting chatbot test...');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🤖 DOM loaded, initializing chatbot...');
+            
+            try {
+                // Check if AdvancedChatBot class exists
+                if (typeof AdvancedChatBot === 'undefined') {
+                    console.error('❌ AdvancedChatBot class not found!');
+                    return;
+                }
+                
+                // Initialize chatbot
+                window.advancedChatbot = new AdvancedChatBot();
+                console.log('✅ Chatbot initialized successfully!');
+                
+                // Check if chatbot widget was created
+                const widget = document.querySelector('.advanced-chatbot-widget');
+                if (widget) {
+                    console.log('✅ Chatbot widget found in DOM');
+                } else {
+                    console.error('❌ Chatbot widget not found in DOM');
+                }
+                
+            } catch (error) {
+                console.error('❌ Failed to initialize chatbot:', error);
+            }
+        });
+    </script>
+</body>
+</html>
