@@ -1244,6 +1244,11 @@ class AdvancedChatBot {
       let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       responseText = this.sanitizeBotResponse(responseText);
       this.addMessage(responseText, 'bot');
+    } catch (error) {
+      console.error("Error in sendMessage:", error);
+    }
+  }
+
   /**
    * Sanitize bot response to remove unwanted characters and formatting
    * @param {string} text
@@ -1267,6 +1272,12 @@ class AdvancedChatBot {
     return cleaned;
   }
       
+  async sendMessage() {
+    try {
+      // Method implementation here
+      const message = ""; // placeholder
+      const responseText = ""; // placeholder
+
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
         role: this.currentRole,
