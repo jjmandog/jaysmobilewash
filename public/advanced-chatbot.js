@@ -687,18 +687,35 @@ class ChatRouter {
       console.log(`🚀 Calling ${api.name} API at ${api.endpoint}`);
       const result = await AIUtils.queryAI(enhancedPrompt, apiOptions);
       
+      console.log(`📥 Raw API response:`, result);
+      
       // Handle different response formats
-      if (result.content) {
-        return { content: result.content, role: "assistant" };
-      } else if (result.response) {
-        return { content: result.response, role: "assistant" };
-      } else if (result.responseText) {
-        return { content: result.responseText, role: "assistant" };
-      } else if (typeof result === 'string') {
-        return { content: result, role: "assistant" };
+      let responseContent = null;
+      
+      if (result.content && result.content.trim()) {
+        responseContent = result.content;
+      } else if (result.response && result.response.trim()) {
+        responseContent = result.response;
+      } else if (result.responseText && result.responseText.trim()) {
+        responseContent = result.responseText;
+      } else if (result.message && result.message.trim()) {
+        responseContent = result.message;
+      } else if (typeof result === 'string' && result.trim()) {
+        responseContent = result;
+      } else if (result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
+        responseContent = result.choices[0].message.content;
       } else {
-        return { content: JSON.stringify(result), role: "assistant" };
+        // Handle empty or malformed responses
+        console.warn(`⚠️ Empty or malformed response from ${api.name}:`, result);
+        
+        if (result.selectedModel) {
+          throw new Error(`${result.selectedModel} returned an empty response. This might be due to content filtering or a temporary issue with the model.`);
+        } else {
+          throw new Error(`API returned an empty response. Please try a different model or rephrase your question.`);
+        }
       }
+      
+      return { content: responseContent, role: "assistant" };
     } catch (error) {
       console.error(`❌ ${api.name} API failed:`, error.message);
       throw new Error(`${api.name} API failed: ${error.message}`);
