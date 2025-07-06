@@ -47,25 +47,26 @@ export default async function handler(req, res) {
     }
 
     // Map chatbot model IDs to actual HuggingFace model names
+    // Using proven working models and fallback to public models where needed
     const modelMapping = {
-      // Existing assignments - Updated with official Meta models
-      'zephyr_hf': 'meta-llama/Llama-3.1-8B-Instruct',
-      'huggingface': 'meta-llama/Llama-3.1-8B-Instruct',
-      'mistral_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      // Existing assignments - Start with proven working models
+      'zephyr_hf': 'HuggingFaceH4/zephyr-7b-beta',
+      'huggingface': 'microsoft/DialoGPT-medium',
+      'mistral_hf': 'mistralai/Mistral-7B-Instruct-v0.1',
       'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf',
       'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
       'vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
-      'blip2_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'blip2_hf': 'microsoft/DialoGPT-medium',
       
-      // LLAMA 4 MODELS (Official Meta - Gated Access)
-      'llama4_scout_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
-      'llama4_maverick_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct',
-      'llama4_guard_hf': 'meta-llama/Llama-Guard-4-12B',
-      'llama4_chat_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',        // Fast responses
-      'llama4_reasoning_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct', // Complex reasoning
-      'llama4_creative_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
-      'llama4_technical_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct',
-      'llama4_business_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
+      // LLAMA 4 MODELS (Official Meta - Gated Access) - May need access verification
+      'llama4_scout_hf': 'meta-llama/Llama-3.1-8B-Instruct',  // Fallback to 3.1 for now
+      'llama4_maverick_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama4_guard_hf': 'meta-llama/Llama-Guard-3-8B',
+      'llama4_chat_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama4_reasoning_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama4_creative_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama4_technical_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama4_business_hf': 'meta-llama/Llama-3.1-8B-Instruct',
       
       // LLAMA 3.1 MODELS (Official Meta - Various sizes)
       'llama31_8b_hf': 'meta-llama/Llama-3.1-8B-Instruct',
@@ -103,8 +104,8 @@ export default async function handler(req, res) {
       'llama_guard_hf': 'meta-llama/Llama-Guard-3-8B'
     };
 
-    // Use provided model or fallback to a balanced default
-    const selectedModel = modelMapping[model] || model || 'meta-llama/Llama-3.1-8B-Instruct';
+    // Use provided model or fallback to a proven working default
+    const selectedModel = modelMapping[model] || model || 'microsoft/DialoGPT-medium';
 
     // Format prompt for HuggingFace
     const systemPrompt = `You are Jay's Mobile Wash AI assistant. Answer questions about car wash services professionally.
@@ -122,11 +123,11 @@ Website: jaysmobilewash.net`;
 
     let formattedPrompt;
     if (Array.isArray(messages) && messages.length > 0) {
-      // Convert messages to a single prompt for DialoGPT
-      formattedPrompt = messages.map(msg => msg.content).join(' ');
+      // Convert messages to a single prompt
+      formattedPrompt = messages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
     } else {
-      // Simple prompt format for DialoGPT
-      formattedPrompt = prompt;
+      // Simple prompt format
+      formattedPrompt = `User: ${prompt}\nAssistant:`;
     }
 
     console.log('🤗 Using HuggingFace model:', selectedModel);
@@ -141,11 +142,12 @@ Website: jaysmobilewash.net`;
       body: JSON.stringify({
         inputs: formattedPrompt,
         parameters: {
-          max_length: 1024,
+          max_new_tokens: 200,
           temperature: 0.7,
           top_p: 0.9,
           do_sample: true,
-          return_full_text: false
+          return_full_text: false,
+          stop: ["User:", "Human:"]
         }
       })
     });
