@@ -2,7 +2,7 @@
 
 This is the current list of all available free OpenRouter models integrated into Jay's Mobile Wash AI chatbot:
 
-### 🤖 Model List (Total: 10 Free Models)
+### 🤖 Model List (Total: 9 Free Models)
 
 1. **DeepSeek Chat** (`deepseek/deepseek-chat`)
    - Type: General-purpose conversation and reasoning
@@ -19,40 +19,35 @@ This is the current list of all available free OpenRouter models integrated into
    - Strengths: Balanced performance, good reasoning
    - Best for: General chat, informational queries
 
-4. **Claude 2** (`anthropic/claude-2`)
-   - Type: Anthropic's conversational AI
-   - Strengths: Safe, helpful, honest responses
-   - Best for: Customer service, detailed analysis
+4. **Gemma 7B IT** (`google/gemma-7b-it`)
+   - Type: Google's open-source language model
+   - Strengths: Efficient performance, good reasoning
+   - Best for: General conversation, balanced responses
 
-5. **GPT-3.5 Turbo** (`openai/gpt-3.5-turbo`)
-   - Type: OpenAI's fast and efficient model
-   - Strengths: Quick responses, creative writing
-   - Best for: General conversation, creative tasks
-
-6. **Qwen 2 7B Instruct** (`qwen/qwen-2-7b-instruct`)
+5. **Qwen 2 7B Instruct** (`qwen/qwen-2-7b-instruct`)
    - Type: Alibaba's multilingual model
    - Strengths: Multilingual support, technical knowledge
    - Best for: Technical questions, diverse language support
 
-7. **Phi-3 Medium** (`microsoft/phi-3-medium-4k-instruct`)
+6. **Phi-3 Medium** (`microsoft/phi-3-medium-4k-instruct`)
    - Type: Microsoft's efficient small model
    - Strengths: Fast responses, good reasoning for size
    - Best for: Quick answers, resource-efficient processing
 
-8. **Zephyr 7B Beta** (`huggingfaceh4/zephyr-7b-beta`)
+7. **Zephyr 7B Beta** (`huggingfaceh4/zephyr-7b-beta`)
    - Type: Hugging Face's fine-tuned model
    - Strengths: Community-driven improvements
    - Best for: Open-source enthusiasts, experimental features
 
-9. **OpenChat 7B** (`openchat/openchat-7b`)
+8. **OpenChat 7B** (`openchat/openchat-7b`)
    - Type: Optimized for conversational AI
    - Strengths: Natural conversation flow
    - Best for: Casual chat, customer interactions
 
-10. **Llama 3.3 Nemotron Super 49B** (`nvidia/llama-3.3-nemotron-super-49b-v1`)
-    - Type: NVIDIA's enhanced large model
-    - Strengths: Advanced reasoning, complex tasks
-    - Best for: Sophisticated analysis, complex problem-solving
+9. **Llama 3.3 Nemotron Super 49B** (`nvidia/llama-3.3-nemotron-super-49b-v1`)
+   - Type: NVIDIA's enhanced large model
+   - Strengths: Advanced reasoning, complex tasks
+   - Best for: Sophisticated analysis, complex problem-solving
 
 ### 🛡️ Admin Protection Features
 
