@@ -428,11 +428,10 @@ async function handler(req, res) {
     // Call DeepSeek API with memory support and explicit model if provided
     const aiResult = await callDeepSeek(prompt, role, messages, model);
 
-    // Return successful response, include model used
+    // Return clean response format (no metadata visible to customers)
     return res.status(200).json({
-      response: aiResult.responseText,
-      role: 'assistant',
-      model: aiResult.selectedModel
+      content: aiResult.responseText,  // Use 'content' key for consistency
+      role: 'assistant'                // Always assistant role, no model info exposed
     });
 
   } catch (error) {

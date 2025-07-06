@@ -146,10 +146,11 @@ Website: jaysmobilewash.net`;
         .trim();
     }
 
+    // Return clean response format (no metadata visible to customers)
     res.writeHead(200, corsHeaders);
     res.end(JSON.stringify({ 
-      responseText, 
-      selectedModel
+      content: responseText,  // Use 'content' key for consistency
+      role: "assistant"       // Always assistant role, no model info exposed
     }));
 
   } catch (error) {

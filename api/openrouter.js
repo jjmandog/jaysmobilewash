@@ -137,8 +137,13 @@ export default async function handler(req, res) {
         .replace(/\s+/g, ' ')   // Replace multiple spaces with a single space
         .trim();                 // Trim leading and trailing spaces
     }
+
+    // Return clean response format (no metadata visible to customers)
     res.writeHead(200, corsHeaders);
-    res.end(JSON.stringify({ responseText, selectedModel }));
+    res.end(JSON.stringify({ 
+      content: responseText,  // Use 'content' key for consistency
+      role: "assistant"       // Always assistant role, no model info exposed
+    }));
   } catch (error) {
     res.writeHead(500, corsHeaders);
     res.end(JSON.stringify({ error: error.message }));
