@@ -264,6 +264,7 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       }
     },
     paint_correction: {
+      description: "Professional paint correction services to restore your vehicle's finish by removing imperfections and restoring clarity and gloss",
       single_stage: {
         description: "Light polish to remove minor swirls and scratches",
         removes: ["Light swirl marks", "Minor scratches", "Water spots", "Light oxidation"],
@@ -1571,7 +1572,10 @@ Please try your question again in a moment, or call us directly for immediate as
           
           // Check if message relates to this knowledge item
           if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
-            return this.formatKnowledgeResponse(subcategory, item, category);
+            const response = this.formatKnowledgeResponse(subcategory, item, category);
+            if (response) {
+              return response;
+            }
           }
         }
       }
@@ -1607,7 +1611,14 @@ Please try your question again in a moment, or call us directly for immediate as
   }
   
   formatKnowledgeResponse(key, item, category) {
-    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${item.description}\n\n`;
+    // Ensure item exists and has required properties
+    if (!item || typeof item !== 'object') {
+      console.warn(`⚠️ Invalid knowledge base item for key: ${key}`);
+      return null;
+    }
+    
+    const description = item.description || 'Professional detailing service';
+    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${description}\n\n`;
     
     if (item.price || item.price_range) {
       response += `💰 **Price**: ${item.price || item.price_range}\n`;
