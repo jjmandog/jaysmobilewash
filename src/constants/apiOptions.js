@@ -205,11 +205,11 @@ export const CHAT_ROLES = [
 export const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'llama4_maverick',   // Llama 4 Maverick 70B - best for complex reasoning
   tools: 'codellama',             // CodeLlama - specialized for tool/code generation
-  quotes: 'mistral',              // Mistral 7B - good for structured responses like quotes
+  quotes: 'openrouter',              // OpenRouter - reliable access for quotes
   photo_uploads: 'llama33',        // Llama 3.3 for image analysis and vehicle assessment
   summaries: 'llama33',           // Llama 3.3 70B - excellent for summarization
   search: 'llama4_scout',         // Llama 4 Scout - fast exploration & search
-  chat: 'deepseek',               // DeepSeek - conversational and reliable
+  chat: 'openrouter',               // OpenRouter - reliable conversational access
   fallback: 'openrouter',         // OpenRouter - multiple model fallback options
   analytics: 'phi3',              // Phi-3 Medium - good for data analysis
   accessibility: 'llama4_guard'   // Llama 4 Guard - safety-focused responses

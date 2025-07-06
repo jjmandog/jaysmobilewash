@@ -435,11 +435,11 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
   auto: 'auto',               // Auto mode - smart model selection
   reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
   tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
-  quotes: 'mistral',          // Service quotes - Mistral for structured business responses
+  quotes: 'openrouter',          // Service quotes - OpenRouter for reliable access
   photo_uploads: 'llama33',    // Llama 3.3 for image analysis and vehicle assessment
   summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
   search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
-  chat: 'deepseek',           // General chat - DeepSeek great for conversation
+  chat: 'openrouter',           // General chat - OpenRouter for reliable access
   fallback: 'openrouter',     // Multiple model fallback via OpenRouter
   analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
   accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
