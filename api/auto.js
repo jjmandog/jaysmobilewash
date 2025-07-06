@@ -79,6 +79,7 @@ export default async function handler(req, res) {
     const prompt = body.prompt || '';
     const role = body.role || 'auto';
     const messages = body.messages || null;
+    const summary = typeof body.summary !== 'undefined' ? !!body.summary : false;
 
     if (!prompt && (!messages || !Array.isArray(messages) || messages.length === 0)) {
       res.writeHead(400, corsHeaders);
@@ -103,7 +104,68 @@ export default async function handler(req, res) {
     });
 
     // Route to the selected handler
-    const selectedResponse = await routeToHandler(analysis, body);
+    let selectedResponse = await routeToHandler(analysis, body);
+
+    // If summary mode is on and response is long, summarize it
+    if (summary && selectedResponse && typeof selectedResponse.content === 'string' && selectedResponse.content.length > 600) {
+      // Use LLM for abstractive summarization if available, else fallback
+      try {
+        const llmSummary = await abstractiveLLMSummarize(selectedResponse.content, req.body.prompt || '');
+        if (llmSummary && llmSummary.length > 0) {
+          selectedResponse.content = llmSummary;
+          selectedResponse.summary = 'llm';
+        } else {
+          selectedResponse.content = advancedSummarizeText(selectedResponse.content, req.body.prompt || '');
+          selectedResponse.summary = 'extractive';
+        }
+      } catch (e) {
+        selectedResponse.content = advancedSummarizeText(selectedResponse.content, req.body.prompt || '');
+        selectedResponse.summary = 'extractive';
+      }
+    }
+// Abstractive LLM summarization using DeepSeek or OpenRouter endpoint
+async function abstractiveLLMSummarize(longText, userPrompt) {
+  // Try DeepSeek first, fallback to OpenRouter if needed
+  const summaryPrompt = `Summarize the following for a customer in clear, concise, friendly language. Do not miss any key points.\n\n${userPrompt ? 'User request: ' + userPrompt + '\n' : ''}Text: ${longText}`;
+  try {
+    const resp = await fetch('https://jaysmobilewash.net/api/deepseek', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: summaryPrompt,
+        role: 'summaries',
+        model: 'deepseek',
+        max_tokens: 400
+      })
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data && typeof data.content === 'string' && data.content.length > 0) {
+        return data.content.replace(/\n+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      }
+    }
+  } catch (e) {}
+  // Fallback: try OpenRouter
+  try {
+    const resp = await fetch('https://jaysmobilewash.net/api/openrouter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: summaryPrompt,
+        role: 'summaries',
+        model: 'openrouter',
+        max_tokens: 400
+      })
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data && typeof data.content === 'string' && data.content.length > 0) {
+        return data.content.replace(/\n+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      }
+    }
+  } catch (e) {}
+  return '';
+}
 
     // Add auto mode metadata to response
     selectedResponse.autoMode = {
@@ -115,6 +177,44 @@ export default async function handler(req, res) {
 
     res.writeHead(200, corsHeaders);
     res.end(JSON.stringify(selectedResponse));
+// Advanced backend summarizer: extract main points, avoid repetition, keep context
+function advancedSummarizeText(text, prompt) {
+  // 1. Split into sentences
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  if (sentences.length <= 4) return text;
+
+  // 2. Score sentences for importance
+  const keywords = [
+    ...(prompt ? prompt.toLowerCase().split(/\W+/) : []),
+    'important','key','main','summary','note','result','recommend','conclusion','benefit','feature','step','how','why','because','should','must','best','avoid','always','never','tip','warning','note','remember','pro','con','advantage','disadvantage','reason','explain','meaning','purpose','goal','outcome','impact','effect','solution','fix','improve','save','cost','price','value','time','step','process','method','strategy','plan','summary','overview','recap','tl;dr','in short','in summary','briefly','main points'
+  ];
+  const keywordSet = new Set(keywords.filter(Boolean));
+  const scored = sentences.map((s, i) => {
+    let score = 0;
+    const sLower = s.toLowerCase();
+    keywordSet.forEach(k => { if (k && sLower.includes(k)) score += 2; });
+    if (s.length > 60) score += 1;
+    if (i === 0 || i === sentences.length-1) score += 1; // favor first/last
+    return {s, score, i};
+  });
+  // 3. Sort by score, keep order for ties
+  scored.sort((a,b) => b.score - a.score || a.i - b.i);
+  // 4. Select top N sentences, but keep first and last always
+  const keep = new Set([0, sentences.length-1]);
+  for (let i=0; i<scored.length && keep.size<6; ++i) keep.add(scored[i].i);
+  // 5. Re-assemble, in original order, remove near-duplicates
+  const selected = Array.from(keep).sort((a,b)=>a-b).map(i=>sentences[i]);
+  const deduped = [];
+  selected.forEach(s => {
+    if (!deduped.some(existing => s.trim().toLowerCase() === existing.trim().toLowerCase())) deduped.push(s);
+  });
+  // 6. Join and clean up
+  let summary = deduped.join(' ');
+  summary = summary.replace(/\s{2,}/g,' ').replace(/\n+/g,' ').replace(/\*+/g,'').replace(/\s*([.!?])\s*/g,'$1 ');
+  // 7. If still too long, truncate with ellipsis
+  if (summary.length > 700) summary = summary.substring(0, 680) + '...';
+  return summary.trim();
+}
 
   } catch (error) {
     console.error('❌ Auto Mode Error:', error);

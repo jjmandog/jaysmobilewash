@@ -1,4 +1,60 @@
-/**
+graph TD
+  A[Chatbot Roles]
+  A1[auto<br/>(Auto Router)<br/>Summarizer: YES]
+  A2[reasoning<br/>(Reasoning Handler)<br/>Summarizer: YES]
+  A3[tools<br/>(Tools Handler)<br/>Summarizer: MAYBE]
+  A4[quotes<br/>(ChatQuoteEngine)<br/>Summarizer: NO]
+  A5[photo_uploads<br/>(Vision Handler)<br/>Summarizer: MAYBE]
+  A6[summaries<br/>(Summarizer Handler)<br/>Summarizer: N/A]
+  A7[search<br/>(Search Handler)<br/>Summarizer: MAYBE]
+  A8[chat<br/>(Chat Handler)<br/>Summarizer: MAYBE]
+  A9[analytics<br/>(Analytics Handler)<br/>Summarizer: MAYBE]
+  A10[deep_analysis<br/>(Deep Analysis Handler)<br/>Summarizer: YES]
+  A11[multi_language<br/>(Translation Handler)<br/>Summarizer: MAYBE]
+  A12[safety<br/>(Safety Handler)<br/>Summarizer: MAYBE]
+  A13[accessibility<br/>(Accessibility Handler)<br/>Summarizer: MAYBE]
+
+  A --> A1
+  A --> A2
+  A --> A3
+  A --> A4
+  A --> A5
+  A --> A6
+  A --> A7
+  A --> A8
+  A --> A9
+  A --> A10
+  A --> A11
+  A --> A12
+  A --> A13graph TD
+  A[Chatbot Roles]
+  A1[auto<br/>(Auto Router)<br/>Summarizer: YES]
+  A2[reasoning<br/>(Reasoning Handler)<br/>Summarizer: YES]
+  A3[tools<br/>(Tools Handler)<br/>Summarizer: MAYBE]
+  A4[quotes<br/>(ChatQuoteEngine)<br/>Summarizer: NO]
+  A5[photo_uploads<br/>(Vision Handler)<br/>Summarizer: MAYBE]
+  A6[summaries<br/>(Summarizer Handler)<br/>Summarizer: N/A]
+  A7[search<br/>(Search Handler)<br/>Summarizer: MAYBE]
+  A8[chat<br/>(Chat Handler)<br/>Summarizer: MAYBE]
+  A9[analytics<br/>(Analytics Handler)<br/>Summarizer: MAYBE]
+  A10[deep_analysis<br/>(Deep Analysis Handler)<br/>Summarizer: YES]
+  A11[multi_language<br/>(Translation Handler)<br/>Summarizer: MAYBE]
+  A12[safety<br/>(Safety Handler)<br/>Summarizer: MAYBE]
+  A13[accessibility<br/>(Accessibility Handler)<br/>Summarizer: MAYBE]
+
+  A --> A1
+  A --> A2
+  A --> A3
+  A --> A4
+  A --> A5
+  A --> A6
+  A --> A7
+  A --> A8
+  A --> A9
+  A --> A10
+  A --> A11
+  A --> A12
+  A --> A13/**
  * Advanced Chatbot - Vanilla JS Implementation
  * Simple working version for debugging
  */
@@ -508,53 +564,32 @@ class AdvancedChatBot {
     this.container.appendChild(widget);
     console.log('✅ Widget created and appended!');
     
-    // Enhanced model dropdown with tooltips
+    // Model dropdown
     const modelDropdown = document.createElement('select');
     modelDropdown.id = 'chatbot-model-select';
     modelDropdown.className = 'chatbot-model-select';
-    modelDropdown.style.cssText = 'width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;';
-    
     API_OPTIONS.filter(opt => opt.enabled).forEach(opt => {
       const option = document.createElement('option');
       option.value = opt.id;
       option.textContent = opt.name;
-      option.title = opt.description; // Tooltip
       modelDropdown.appendChild(option);
     });
-    
-    // Add model description display
-    const modelDescription = document.createElement('div');
-    modelDescription.id = 'model-description';
-    modelDescription.style.cssText = 'font-size: 12px; color: #666; margin-bottom: 10px; padding: 5px; background: #f5f5f5; border-radius: 3px;';
-    
-    const updateModelDescription = () => {
-      const selectedOption = API_OPTIONS.find(opt => opt.id === modelDropdown.value);
-      modelDescription.textContent = selectedOption ? selectedOption.description : '';
-    };
-    
     // Restore last selected model
     const savedModel = localStorage.getItem('chatbot-selected-model');
     if (savedModel && API_OPTIONS.some(opt => opt.id === savedModel)) {
       modelDropdown.value = savedModel;
       this.selectedModel = savedModel;
     }
-    
-    updateModelDescription();
-    
     modelDropdown.addEventListener('change', (e) => {
       this.selectedModel = e.target.value;
       localStorage.setItem('chatbot-selected-model', this.selectedModel);
-      updateModelDescription();
-      
-      const selectedOption = API_OPTIONS.find(opt => opt.id === this.selectedModel);
-      this.addMessage(`🎯 Model changed to: <b>${selectedOption?.name || this.selectedModel}</b><br><small>${selectedOption?.description || ''}</small>`, 'bot');
+      this.addMessage(`Model set to: <b>${modelDropdown.options[modelDropdown.selectedIndex].text}</b>`, 'bot');
     });
-    // Insert dropdown and description above input
+    // Insert dropdown above input
     setTimeout(() => {
       const inputArea = this.container.querySelector('.chatbot-input-area');
       if (inputArea && !document.getElementById('chatbot-model-select')) {
-        inputArea.parentNode.insertBefore(modelDescription, inputArea);
-        inputArea.parentNode.insertBefore(modelDropdown, modelDescription);
+        inputArea.parentNode.insertBefore(modelDropdown, inputArea);
       }
     }, 0);
   }
@@ -671,8 +706,15 @@ class AdvancedChatBot {
     
     console.log('🎯 Using endpoint:', endpoint, 'for model:', selectedModelId, 'with role:', effectiveRole);
 
-    // Prepare request body with model-specific formatting
-    const requestBody = this.prepareRequestBody(message, effectiveRole, selectedModelId);
+    // Prepare request body
+    const requestBody = {
+      prompt: message,  // Use 'prompt' for auto mode compatibility
+      message: message, // Keep 'message' for other endpoints
+      role: effectiveRole,
+      hasFiles: this.uploadedFiles.length > 0,
+      adminMode: this.adminMode,
+      jayMode: this.jayMode
+    };
 
     // Add file information if present
     if (this.uploadedFiles.length > 0) {
@@ -703,14 +745,14 @@ class AdvancedChatBot {
           loadingMsg.parentNode.removeChild(loadingMsg);
         }
 
-        // Display AI response - handle multiple response formats
-        let aiText = this.extractResponseText(data);
+        // Display AI response
+        let aiText = data.content || data.generated_text || data.response || JSON.stringify(data, null, 2);
         aiText = this.sanitizeBotResponse(aiText);
         
-        // Add model info for better transparency
-        const modelInfo = this.getModelInfo(selectedModelId, data);
-        if (modelInfo) {
-          aiText = modelInfo + aiText;
+        // Add auto mode info if present
+        if (data.autoMode && selectedModelId === 'auto') {
+          const autoInfo = `🤖 *Auto Mode: Selected ${data.autoMode.selectedModel} (${data.autoMode.reason})*\n\n`;
+          aiText = autoInfo + aiText;
         }
         
         // Add special mode prefixes
@@ -735,9 +777,6 @@ class AdvancedChatBot {
           timestamp: Date.now()
         });
         
-        // Track model performance
-        this.trackModelPerformance(selectedModelId, true, Date.now() - loadingMsg.timestamp);
-        
         // Clear uploaded files after successful processing
         this.clearUploadedFiles();
         
@@ -751,8 +790,15 @@ class AdvancedChatBot {
         
         console.error('AI API error:', err);
         
-        // Enhanced error handling with model-specific messages
-        let errorMessage = this.getErrorMessage(err, selectedModelId);
+        // Provide user-friendly error messages
+        let errorMessage;
+        if (err.message.includes('Network error') || err.message.includes('fetch')) {
+          errorMessage = "🔌 I'm having trouble connecting to my AI services right now. Please try again in a moment, or call us at 562-228-9429 for immediate assistance.";
+        } else if (err.message.includes('405') || err.message.includes('Method not allowed')) {
+          errorMessage = "⚙️ I'm experiencing a temporary technical issue. For immediate help, please call 562-228-9429.";
+        } else {
+          errorMessage = "🤖 I'm experiencing a temporary glitch. For immediate assistance, please call 562-228-9429.";
+        }
         
         this.addMessage(errorMessage, 'bot');
         this.isProcessing = false;
@@ -957,202 +1003,6 @@ class AdvancedChatBot {
     
     // Default to chat for conversational messages
     return 'chat';
-  }
-  
-  extractResponseText(data) {
-    // Handle different response formats from various AI models
-    if (data.content) return data.content;
-    if (data.generated_text) return data.generated_text;
-    if (data.response) return data.response;
-    if (data.message) return data.message;
-    if (data.text) return data.text;
-    if (data.output) return data.output;
-    if (data.result) return data.result;
-    if (data.answer) return data.answer;
-    if (data.reply) return data.reply;
-    
-    // For OpenRouter responses
-    if (data.choices && data.choices.length > 0) {
-      if (data.choices[0].message && data.choices[0].message.content) {
-        return data.choices[0].message.content;
-      }
-      if (data.choices[0].text) {
-        return data.choices[0].text;
-      }
-    }
-    
-    // For Hugging Face responses
-    if (Array.isArray(data) && data.length > 0) {
-      if (data[0].generated_text) return data[0].generated_text;
-      if (data[0].text) return data[0].text;
-    }
-    
-    // Fallback to JSON representation
-    return JSON.stringify(data, null, 2);
-  }
-  
-  getModelInfo(selectedModelId, data) {
-    // Show model information for transparency
-    if (selectedModelId === 'auto' && data.autoMode) {
-      return `🤖 *Auto Mode: Selected ${data.autoMode.selectedModel} (${data.autoMode.reason})*\n\n`;
-    }
-    
-    // Show selected model for manual selection
-    if (selectedModelId !== 'auto') {
-      const modelName = API_OPTIONS.find(opt => opt.id === selectedModelId)?.name || selectedModelId;
-      return `🎯 *Using: ${modelName}*\n\n`;
-    }
-    
-    return '';
-  }
-  
-  prepareRequestBody(message, effectiveRole, selectedModelId) {
-    // Base request body
-    const baseBody = {
-      prompt: message,    // For auto mode and some models
-      message: message,   // For standard endpoints
-      text: message,      // For some Hugging Face models
-      role: effectiveRole,
-      hasFiles: this.uploadedFiles.length > 0,
-      adminMode: this.adminMode,
-      jayMode: this.jayMode
-    };
-    
-    // Add file information if present
-    if (this.uploadedFiles.length > 0) {
-      baseBody.fileInfo = this.uploadedFiles.map(f => ({
-        name: f.name,
-        type: f.type,
-        size: f.size
-      }));
-      
-      // Add messages array for vision models
-      baseBody.messages = [{
-        type: 'image',
-        attachments: this.uploadedFiles.map(f => ({ type: f.type, name: f.name }))
-      }];
-    }
-    
-    // Model-specific adjustments
-    switch (selectedModelId) {
-      case 'auto':
-        // Auto mode expects 'prompt' field
-        break;
-        
-      case 'deepseek':
-        // DeepSeek via OpenRouter
-        baseBody.model = 'deepseek/deepseek-chat';
-        break;
-        
-      case 'qwq_32b':
-        // QWQ 32B for reasoning
-        baseBody.model = 'arliai/qwq-32b-preview';
-        baseBody.temperature = 0.7;
-        break;
-        
-      case 'glm_z1_32b':
-        // GLM-Z1 for technical analysis
-        baseBody.model = 'thudm/glm-z1-32b';
-        baseBody.temperature = 0.8;
-        break;
-        
-      case 'kimi_vl_a3b':
-        // Kimi VL for vision
-        baseBody.model = 'moonshot/kimi-vl-a3b';
-        baseBody.temperature = 0.7;
-        break;
-        
-      case 'kimi_dev_72b':
-        // Kimi Dev for development
-        baseBody.model = 'moonshot/kimi-dev-72b';
-        baseBody.temperature = 0.6;
-        break;
-        
-      case 'moonlight_16b':
-        // Moonlight for business queries
-        baseBody.model = 'moonshot/moonlight-16b';
-      case 'nemotron_super_49b':
-        // Nemotron for performance
-        baseBody.model = 'nvidia/llama-3.3-nemotron-super-49b';
-        baseBody.temperature = 0.6;
-        break;
-        
-      case 'llama4_maverick':
-        // Llama 4 Maverick for advanced reasoning
-        baseBody.model = 'meta-llama/llama-4-maverick';
-        baseBody.temperature = 0.7;
-        break;
-        
-      case 'llama4_scout':
-        // Llama 4 Scout for general tasks
-        baseBody.model = 'meta-llama/llama-4-scout';
-        baseBody.temperature = 0.8;
-        break;
-        
-      case 'qwerky_72b':
-        // Qwerky for creative tasks
-        baseBody.model = 'featherless/qwerky-72b';
-        baseBody.temperature = 0.9;
-        break;
-        
-      case 'reka_flash_3':
-        // Reka Flash for quick responses
-        baseBody.model = 'reka/reka-flash-3';
-        baseBody.temperature = 0.8;
-        break;
-        
-      case 'dolphin_mistral_24b':
-        // Dolphin Mistral for assisted tasks
-        baseBody.model = 'cognitivecomputations/dolphin-3.0-r1-mistral-24b';
-        baseBody.temperature = 0.7;
-        break;
-        
-      case 'llama32_vision':
-        // Llama 3.2 Vision for image analysis
-        baseBody.model = 'meta-llama/llama-3.2-11b-vision-instruct';
-        baseBody.temperature = 0.7;
-        break;
-        
-      case 'qwen3_235b':
-        // Qwen 3 for enterprise reasoning
-        baseBody.model = 'alibaba/qwen-3-235b-a22b';
-        baseBody.temperature = 0.6;
-        break;
-        
-      default:
-        // Default handling
-        break;
-    }
-    
-    return baseBody;
-  }
-  
-  getErrorMessage(err, selectedModelId) {
-    const modelName = API_OPTIONS.find(opt => opt.id === selectedModelId)?.name || selectedModelId;
-    
-    // Model-specific error messages
-    if (err.message.includes('Network error') || err.message.includes('fetch')) {
-      return `🔌 I'm having trouble connecting to the ${modelName} service right now. Try switching to a different model or call us at 562-228-9429 for immediate assistance.`;
-    }
-    
-    if (err.message.includes('405') || err.message.includes('Method not allowed')) {
-      return `⚙️ The ${modelName} endpoint is experiencing issues. Please try a different model or call 562-228-9429 for immediate help.`;
-    }
-    
-    if (err.message.includes('401') || err.message.includes('403')) {
-      return `🔐 Authentication issue with ${modelName}. Please try Auto Mode or call 562-228-9429 for assistance.`;
-    }
-    
-    if (err.message.includes('429') || err.message.includes('rate limit')) {
-      return `⏰ ${modelName} is currently busy. Please try again in a moment or switch to a different model.`;
-    }
-    
-    if (err.message.includes('500') || err.message.includes('502') || err.message.includes('503')) {
-      return `🔧 ${modelName} is temporarily unavailable. Please try Auto Mode or another model.`;
-    }
-    
-    // Generic error with model info
-    return `🤖 I'm experiencing a temporary issue with ${modelName}. Please try Auto Mode or call 562-228-9429 for immediate assistance.`;
   }
 }
 
