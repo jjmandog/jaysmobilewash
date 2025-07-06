@@ -954,7 +954,7 @@ class AdvancedChatBot {
 
   renderModelDropdown() {
     // Dynamically generate dropdown options from API_OPTIONS (enabled only)
-    const modelOptions = API_OPTIONS.filter(opt => opt.enabled).map(opt => ({
+    const modelOptions = API_OPTIONS.filter(opt => opt.enabled && !opt.name.toLowerCase().includes('huggingface')).map(opt => ({
       id: opt.id,
       name: `${opt.name}${opt.description && opt.description.toLowerCase().includes('free') ? ' (Free)' : opt.description && opt.description.toLowerCase().includes('gated') ? ' (Your Access)' : ''}`,
       value: opt.id
@@ -1257,8 +1257,7 @@ class AdvancedChatBot {
       .replace(/\\r|\r/g, ' ')
       .replace(/\\t|\t/g, ' ')
       .replace(/\s{2,}/g, ' ') // Collapse multiple spaces
-      .replace(/\*\*/g, '') // Remove markdown bold
-      .replace(/__+/g, '') // Remove markdown underline
+      .replace(/\*\*|__/g, '') // Remove markdown bold and underline
       .replace(/\*|_/g, '') // Remove stray * or _
       .replace(/\[.*?\]\(.*?\)/g, '') // Remove markdown links
       .replace(/`/g, '') // Remove backticks
