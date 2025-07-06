@@ -432,17 +432,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'auto',               // Auto mode - smart model selection
-  reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
-  tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
+  auto: 'auto',                  // Auto mode - smart model selection
+  reasoning: 'llama4_maverick',  // Advanced reasoning - Llama 4 Maverick 70B for complex logic
+  tools: 'codellama',            // Tool calling - CodeLlama specialized for tools/code
   quotes: 'openrouter',          // Service quotes - OpenRouter for reliable access
-  photo_uploads: 'llama33',    // Llama 3.3 for image analysis and vehicle assessment
-  summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
-  search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
-  chat: 'openrouter',           // General chat - OpenRouter for reliable access
-  fallback: 'openrouter',     // Multiple model fallback via OpenRouter
-  analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
-  accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
+  photo_uploads: 'llama33',      // Llama 3.3 for image analysis and vehicle assessment
+  summaries: 'llama33',          // Summarization - Llama 3.3 70B excellent for summaries
+  search: 'llama4_scout',        // Search queries - Llama 4 Scout for fast exploration
+  chat: 'openrouter',            // General chat - OpenRouter for reliable access
+  fallback: 'openrouter',        // Multiple model fallback via OpenRouter
+  analytics: 'phi3',             // Data analysis - Phi-3 Medium for analytics
+  accessibility: 'llama4_guard'  // Accessibility support - Llama 4 Guard for safety
 };
 
 /**

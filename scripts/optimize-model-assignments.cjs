@@ -27,8 +27,28 @@ const MODEL_PROFILES = {
   },
   'llama33': { 
     speed: 6, reasoning: 8, cost: 10, availability: 9, 
-    specialties: ['summarization', 'text_generation'],
-    description: 'Excellent for summarization and text tasks'
+    specialties: ['summarization', 'text_generation', 'image_analysis'],
+    description: 'Llama 3.3 70B - excellent for summarization and vision tasks'
+  },
+  'llama4': { 
+    speed: 7, reasoning: 9, cost: 10, availability: 9, 
+    specialties: ['general', 'conversation', 'reasoning'],
+    description: 'Llama 4 general model (gated access)'
+  },
+  'llama4_scout': { 
+    speed: 9, reasoning: 8, cost: 10, availability: 9, 
+    specialties: ['search', 'exploration', 'quick_responses'],
+    description: 'Llama 4 Scout - fast exploration and quick responses'
+  },
+  'llama4_maverick': { 
+    speed: 5, reasoning: 10, cost: 10, availability: 9, 
+    specialties: ['reasoning', 'analysis', 'complex_tasks'],
+    description: 'Llama 4 Maverick 70B - best for complex reasoning'
+  },
+  'llama4_guard': { 
+    speed: 7, reasoning: 8, cost: 10, availability: 9, 
+    specialties: ['safety', 'moderation', 'accessible'],
+    description: 'Llama 4 Guard - safety and content moderation'
   },
   'nemotron': { 
     speed: 5, reasoning: 9, cost: 10, availability: 8, 
@@ -55,33 +75,17 @@ const MODEL_PROFILES = {
     specialties: ['analytics', 'data', 'medium_tasks'],
     description: 'Good for analytics and data tasks'
   },
-  'vision': { 
-    speed: 6, reasoning: 6, cost: 8, availability: 8, 
-    specialties: ['image_analysis', 'visual'],
-    description: 'Specialized for image and visual analysis'
+  'huggingface': { 
+    speed: 6, reasoning: 7, cost: 10, availability: 8, 
+    specialties: ['image_analysis', 'visual', 'fallback'],
+    description: 'HuggingFace models including vision capabilities'
   },
   'openrouter': { 
     speed: 7, reasoning: 8, cost: 9, availability: 9, 
-    specialties: ['fallback', 'multiple_models'],
+    specialties: ['fallback', 'multiple_models', 'business'],
     description: 'Gateway to multiple models for fallback'
   },
-  
-  // Premium models (require API keys)
-  'openai': { 
-    speed: 9, reasoning: 9, cost: 6, availability: 7, 
-    specialties: ['conversation', 'general', 'premium'],
-    description: 'Premium conversational AI'
-  },
-  'anthropic': { 
-    speed: 8, reasoning: 10, cost: 6, availability: 7, 
-    specialties: ['reasoning', 'safety', 'analysis'],
-    description: 'Top reasoning and safety features'
-  },
-  'google': { 
-    speed: 8, reasoning: 8, cost: 7, availability: 7, 
-    specialties: ['multimodal', 'integration'],
-    description: 'Multimodal capabilities and integration'
-  }
+  // Premium models REMOVED - using free models only
 };
 
 // Role requirements and priorities
@@ -100,7 +104,7 @@ const ROLE_REQUIREMENTS = {
   },
   'photo_uploads': { 
     priorities: ['image_analysis', 'visual'], 
-    weight: { reasoning: 0.2, speed: 0.2, cost: 0.3, availability: 0.3 }
+    weight: { reasoning: 0.3, speed: 0.2, cost: 0.2, availability: 0.3 }
   },
   'summaries': { 
     priorities: ['summarization', 'text_generation'], 
@@ -169,7 +173,7 @@ function optimizeModelAssignments() {
   
   // Sort roles by importance (reasoning and photo_uploads are critical)
   const rolesByImportance = roles.sort((a, b) => {
-    const importanceOrder = ['photo_uploads', 'reasoning', 'quotes', 'fallback', 'chat', 'search', 'summaries', 'tools', 'analytics', 'accessibility'];
+    const importanceOrder = ['reasoning', 'photo_uploads', 'tools', 'quotes', 'chat', 'search', 'summaries', 'fallback', 'analytics', 'accessibility'];
     return importanceOrder.indexOf(a) - importanceOrder.indexOf(b);
   });
   
