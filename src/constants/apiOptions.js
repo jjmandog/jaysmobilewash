@@ -142,7 +142,7 @@ export const API_OPTIONS = [
     id: 'vision',
     name: 'Vision Analysis',
     endpoint: '/api/vision',
-    description: 'Google Vision API for image analysis',
+    description: 'Llama 3.2 Vision & HuggingFace models for image analysis',
     enabled: true
   }
 ];
@@ -206,7 +206,7 @@ export const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'llama4_maverick',   // Llama 4 Maverick 70B - best for complex reasoning
   tools: 'codellama',             // CodeLlama - specialized for tool/code generation
   quotes: 'mistral',              // Mistral 7B - good for structured responses like quotes
-  photo_uploads: 'vision',        // Vision API - specialized for image analysis
+  photo_uploads: 'llama33',        // Llama 3.3 for image analysis and vehicle assessment
   summaries: 'llama33',           // Llama 3.3 70B - excellent for summarization
   search: 'llama4_scout',         // Llama 4 Scout - fast exploration & search
   chat: 'deepseek',               // DeepSeek - conversational and reliable

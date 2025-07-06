@@ -704,7 +704,7 @@ const ChatSettingsPanel = ({
                     <optgroup label="🔥 Free Models (Always Available)">
                       {enabledAPIs.filter(api => 
                         api.description.includes('free') || 
-                        ['deepseek', 'openrouter', 'huggingface', 'auto', 'vision', 'none'].includes(api.id)
+                        ['deepseek', 'openrouter', 'huggingface', 'auto', 'llama33', 'none'].includes(api.id)
                       ).map(api => {
                         const providerStatus = getProviderStatus(api.id);
                         return (

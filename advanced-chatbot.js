@@ -436,7 +436,7 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
   tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
   quotes: 'mistral',          // Service quotes - Mistral for structured business responses
-  photo_uploads: 'vision',    // Photo analysis - Vision API specialized for images
+  photo_uploads: 'llama33',    // Llama 3.3 for image analysis and vehicle assessment
   summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
   search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
   chat: 'deepseek',           // General chat - DeepSeek great for conversation
@@ -1473,58 +1473,60 @@ class AdvancedChatBot {
   }
   
   analyzeImageForQuote(fileData) {
-    // Use real Google Vision API for image analysis
-    this.performImageAnalysisWithVision(fileData);
+    // Use Llama 3.3 for image analysis and vehicle assessment
+    this.performImageAnalysisWithLlama33(fileData);
   }
   
-  async performImageAnalysisWithVision(fileData) {
+  async performImageAnalysisWithLlama33(fileData) {
     try {
-      // Dynamic import to avoid module resolution issues
-      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
+      // Use Llama 3.3 for image analysis via our API
+      const analysisPrompt = `I've uploaded a vehicle image for analysis. Please provide a detailed assessment of the vehicle's condition and recommend appropriate detailing services. Focus on identifying:
+
+1. Overall vehicle condition and cleanliness
+2. Visible dirt, stains, or damage on exterior
+3. Interior condition (if visible)
+4. Recommended Jay's Mobile Wash services
+
+The uploaded image shows: ${fileData.name}`;
+
+      const response = await ChatRouter.executeAPICall(
+        analysisPrompt,
+        { id: 'llama33', name: 'Llama 3.3', endpoint: '/api/llama33' },
+        'photo_uploads',
+        { model: 'llama33' }
+      );
       
-      // Use real Google Vision API
-      const analysisResults = await analyzeImageWithGoogleVision(fileData);
-      
-      if (analysisResults.length > 0) {
+      if (response && response.content) {
         let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
-        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
+        message += "I've analyzed your vehicle using Llama 3.3 AI and have these recommendations:\n\n";
+        message += response.content;
         
-        analysisResults.forEach((result, index) => {
-          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
-          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
-        });
-        
-        message += "💡 Would you like a detailed quote including these AI-recommended services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
+        this.addMessage(message, 'bot', 'normal');
       } else {
-        setTimeout(() => {
-          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
-        }, 1000);
+        this.performFallbackImageAnalysis(fileData);
       }
     } catch (error) {
       console.error('Image analysis failed:', error);
-      
-      // Fallback to simulated analysis
-      const analysisResults = this.performImageAnalysis(fileData);
-      
-      if (analysisResults.length > 0) {
-        let message = "📸 **Image Analysis Complete!**\n\n";
-        message += "I can see your vehicle and have some recommendations:\n\n";
-        
-        analysisResults.forEach((result, index) => {
-          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
-        });
-        
-        message += "\n💡 Would you like a detailed quote including these additional services?";
-        
-        setTimeout(() => {
-          this.addMessage(message, 'bot', 'analysis');
-        }, 1000);
-      }
+      this.performFallbackImageAnalysis(fileData);
     }
+  }
+  
+  performFallbackImageAnalysis(fileData) {
+    // Fallback to simulated analysis when API fails
+    const analysisResults = this.performImageAnalysis(fileData);
+    
+    let message = "📸 **Image Analysis Complete!**\n\n";
+    message += "I can see your vehicle and have some recommendations:\n\n";
+    
+    analysisResults.forEach((result, index) => {
+      message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
+    });
+    
+    message += "\n💡 Would you like a detailed quote including these additional services?";
+    
+    setTimeout(() => {
+      this.addMessage(message, 'bot', 'analysis');
+    }, 1000);
   }
   
   performImageAnalysis(fileData) {

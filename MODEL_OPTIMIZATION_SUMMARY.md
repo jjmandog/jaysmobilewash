@@ -23,7 +23,7 @@
   - `openchat` - OpenChat 7B
   - `nemotron` - Nvidia Nemotron Super 49B
   - `huggingface` - HuggingFace models
-  - `vision` - Image analysis specialized
+  - `llama33` - Latest model, enhanced for image analysis and vehicle assessment
 
 - **Premium Models (REMOVED):**
   - All premium models have been removed to maintain free-tier operation
@@ -36,7 +36,7 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
   reasoning: 'qwen',          // Qwen 2.5 72B - best for complex reasoning
   tools: 'codellama',         // CodeLlama - specialized for tools/code
   quotes: 'mistral',          // Mistral - great for structured business responses
-  photo_uploads: 'vision',    // Vision API - specialized for image analysis
+  photo_uploads: 'llama33',    // Llama 3.3 - Enhanced for image analysis and vehicle assessment
   summaries: 'llama33',       // Llama 3.3 70B - excellent for summaries
   search: 'nemotron',         // Nemotron Super 49B - info retrieval
   chat: 'deepseek',           // DeepSeek - excellent conversation

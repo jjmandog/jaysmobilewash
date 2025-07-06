@@ -51,7 +51,10 @@ export default async function handler(req, res) {
       'zephyr_hf': 'HuggingFaceH4/zephyr-7b-beta',
       'huggingface': 'HuggingFaceH4/zephyr-7b-beta',
       'mistral_hf': 'mistralai/Mistral-7B-Instruct-v0.1',
-      'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf'
+      'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf',
+      'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
+      'vision_hf': 'microsoft/kosmos-2-patch14-224',
+      'blip2_hf': 'Salesforce/blip2-opt-2.7b'
     };
 
     // Use provided model or fallback to a default
