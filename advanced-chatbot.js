@@ -1240,8 +1240,33 @@ class AdvancedChatBot {
         }
       }
       
-      const responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
+      // Clean up bot response to avoid weird characters and formatting
+      let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
+      responseText = this.sanitizeBotResponse(responseText);
       this.addMessage(responseText, 'bot');
+  /**
+   * Sanitize bot response to remove unwanted characters and formatting
+   * @param {string} text
+   * @returns {string}
+   */
+  sanitizeBotResponse(text) {
+    if (!text || typeof text !== 'string') return '';
+    // Replace \n, \r, \t with spaces or line breaks as appropriate
+    let cleaned = text
+      .replace(/\\n|\n/g, ' ') // Remove literal \\n and real \n
+      .replace(/\\r|\r/g, ' ')
+      .replace(/\\t|\t/g, ' ')
+      .replace(/\s{2,}/g, ' ') // Collapse multiple spaces
+      .replace(/\*\*/g, '') // Remove markdown bold
+      .replace(/__+/g, '') // Remove markdown underline
+      .replace(/\*|_/g, '') // Remove stray * or _
+      .replace(/\[.*?\]\(.*?\)/g, '') // Remove markdown links
+      .replace(/`/g, '') // Remove backticks
+      .trim();
+    // Optionally, limit to 2000 chars
+    if (cleaned.length > 2000) cleaned = cleaned.substring(0, 2000) + '...';
+    return cleaned;
+  }
       
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
