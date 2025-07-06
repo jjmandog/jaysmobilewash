@@ -15,10 +15,10 @@
 // Import constants and utilities (we'll inline them to avoid module issues)
 const API_OPTIONS = [
   {
-    id: 'none',
-    name: 'None',
-    endpoint: '/api/none',
-    description: 'No AI service (disabled)',
+    id: 'auto',
+    name: 'Auto (Let AI choose)',
+    endpoint: '/api/auto',
+    description: 'Automatically selects the best AI model for your query',
     enabled: true
   },
   {
@@ -51,51 +51,37 @@ const API_OPTIONS = [
   },
   {
     id: 'huggingface',
-    name: 'HuggingFace',
+    name: 'HuggingFace Models (Free)',
     endpoint: '/api/huggingface',
     description: 'HuggingFace models (free)',
     enabled: true
   },
   {
-    id: 'openrouter',
-    name: 'OpenRouter',
-    endpoint: '/api/openrouter',
-    description: 'OpenRouter free models',
-    enabled: true
-  },
-  {
     id: 'llama2',
-    name: 'Llama 2',
+    name: 'Llama 2 (Your Access)',
     endpoint: '/api/llama2',
     description: 'Meta Llama 2 7B (gated access via HuggingFace)',
     enabled: true
   },
   {
     id: 'llama31',
-    name: 'Llama 3.1',
+    name: 'Llama 3.1 (Your Access)',
     endpoint: '/api/llama31',
     description: 'Meta Llama 3.1 8B (gated access via HuggingFace)',
     enabled: true
   },
   {
     id: 'llama33',
-    name: 'Llama 3.3',
+    name: 'Llama 3.3 (Your Access)',
     endpoint: '/api/llama33',
     description: 'Meta Llama 3.3 70B (gated access)',
     enabled: true
   },
   {
     id: 'llama4',
-    name: 'Llama 4',
+    name: 'Llama 4 (Your Access)',
     endpoint: '/api/llama4',
     description: 'Meta Llama 4 (gated access)',
-    enabled: true
-  },
-  {
-    id: 'auto',
-    name: 'Auto (Let AI choose)',
-    endpoint: '/api/auto',
-    description: 'Automatically selects the best AI model for your query',
     enabled: true
   }
 ];
