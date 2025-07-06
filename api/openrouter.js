@@ -65,7 +65,7 @@ export default async function handler(req, res) {
       'openrouter_mistral': 'mistralai/mistral-7b-instruct:free',
       'openrouter_qwen': 'qwen/qwen-2.5-72b-instruct:free',
       'openrouter_phi3': 'microsoft/phi-3-medium-4k-instruct:free',
-      'openrouter_zephyr': 'huggingfaceh4/zephyr-7b-beta:free',
+      'openrouter_zephyr': 'mistralai/mistral-7b-instruct:free',
       'openrouter_openchat': 'openchat/openchat-7b:free',
       'openrouter_nemotron': 'nvidia/llama-3.1-nemotron-70b-instruct:free',
       'deepseek_r1': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
       'qwen': 'qwen/qwen-2.5-72b-instruct:free',
       'llama33': 'meta-llama/llama-3.3-70b-instruct:free',
       'phi3': 'microsoft/phi-3-medium-4k-instruct:free',
-      'zephyr': 'huggingfaceh4/zephyr-7b-beta:free',
+      'zephyr': 'mistralai/mistral-7b-instruct:free',
       'openchat': 'openchat/openchat-7b:free',
       'nemotron': 'nvidia/llama-3.1-nemotron-70b-instruct:free'
     };

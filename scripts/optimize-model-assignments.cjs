@@ -75,11 +75,6 @@ const MODEL_PROFILES = {
     specialties: ['analytics', 'data', 'medium_tasks'],
     description: 'Good for analytics and data tasks'
   },
-  'huggingface': { 
-    speed: 6, reasoning: 7, cost: 10, availability: 8, 
-    specialties: ['image_analysis', 'visual', 'fallback'],
-    description: 'HuggingFace models including vision capabilities'
-  },
   'openrouter': { 
     speed: 7, reasoning: 8, cost: 9, availability: 9, 
     specialties: ['fallback', 'multiple_models', 'business'],

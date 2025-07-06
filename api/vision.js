@@ -1,5 +1,5 @@
 /**
- * Vision API Handler - Image Analysis using HuggingFace Vision Models
+ * Vision API Handler - Image Analysis using OpenRouter Vision Models
  * Handles POST requests to /api/vision for image analysis functionality
  *
  * Expected request body: { prompt: string, role?: string, model?: string, messages?: array, image?: string }
@@ -40,19 +40,19 @@ export default async function handler(req, res) {
       return;
     }
 
-    const apiKey = process.env.HUGGINGFACE_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
       res.writeHead(500, corsHeaders);
-      res.end(JSON.stringify({ error: 'HUGGINGFACE_API_KEY environment variable is not set' }));
+      res.end(JSON.stringify({ error: 'OPENROUTER_API_KEY environment variable is not set' }));
       return;
     }
 
-    // Vision-capable models mapping
+    // Vision-capable models mapping to OpenRouter
     const visionModels = {
-      'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
-      'vision_hf': 'microsoft/kosmos-2-patch14-224',
-      'blip2_hf': 'Salesforce/blip2-opt-2.7b',
-      'vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct' // Default fallback
+      'llama32_vision': 'meta-llama/llama-3.2-11b-vision-instruct:free',
+      'vision_hf': 'meta-llama/llama-3.2-11b-vision-instruct:free',
+      'blip2_hf': 'meta-llama/llama-3.2-11b-vision-instruct:free',
+      'vision': 'meta-llama/llama-3.2-11b-vision-instruct:free' // Default fallback
     };
 
     const selectedModel = visionModels[model] || visionModels['vision'];
@@ -103,13 +103,27 @@ Always provide specific, actionable recommendations based on visual analysis.`;
       };
     }
 
-    const response = await fetch(`https://api-inference.huggingface.co/models/${selectedModel}`, {
+    const response = await fetch(`https://openrouter.ai/api/v1/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://jaysmobilewash.net',
+        'X-Title': 'Jay\'s Mobile Wash Vision'
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+        model: selectedModel,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: formattedPrompt },
+              { type: 'image_url', image_url: { url: image } }
+            ]
+          }
+        ],
+        max_tokens: 500
+      })
     });
 
     console.log('🌐 Vision API response status:', response.status);

@@ -12,7 +12,7 @@ All requested tasks have been successfully completed and tested. The AI chatbot 
 - ❌ Removed all OpenAI GPT models (gpt-3.5-turbo, gpt-4, gpt-4-turbo, gpt-4o)
 - ❌ Removed all Anthropic Claude models (claude-3-haiku, claude-3-sonnet, claude-3-opus)
 - ❌ Removed all Google Gemini models (gemini-pro, gemini-pro-vision)
-- ✅ Retained only FREE and GATED-ACCESS models (Llama, HuggingFace, OpenRouter free tier)
+- ✅ Retained only FREE models (OpenRouter free tier, DeepSeek)
 
 ### 2. **LLAMA 4 SPECIALIZATION** ✅
 - ✅ Added specialized Llama 4 variants with specific roles:
@@ -23,7 +23,7 @@ All requested tasks have been successfully completed and tested. The AI chatbot 
 
 ### 3. **VISION MODEL REPLACEMENT** ✅
 - ✅ Replaced premium "vision" model with Llama 3.3 (gated access)
-- ✅ Added HuggingFace vision models as fallback:
+- ✅ Added OpenRouter vision models as fallback:
   - Microsoft Kosmos-2 (multimodal)
   - Salesforce BLIP-2 (image captioning)
   - Llama 3.2 Vision (11B, gated access)
@@ -32,7 +32,7 @@ All requested tasks have been successfully completed and tested. The AI chatbot 
 ### 4. **RESPONSE CLEANUP** ✅
 - ✅ Removed all technical metadata from customer responses
 - ✅ Standardized all API responses to clean `{ content, role }` format
-- ✅ Updated 6 API handlers: llama4, llama33, huggingface, vision, openrouter, deepseek
+- ✅ Updated 4 API handlers: llama4, llama33, vision, openrouter, deepseek
 
 ### 5. **UI/UX IMPROVEMENTS** ✅
 - ✅ Fixed settings panel scrolling issues on both desktop and mobile

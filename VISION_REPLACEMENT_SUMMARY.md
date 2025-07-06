@@ -13,7 +13,7 @@
      - `MODEL_OPTIMIZATION_SUMMARY.md`
 
 2. **Enhanced Vision API**
-   - Updated `/api/vision.js` with HuggingFace vision models
+   - Updated `/api/vision.js` with OpenRouter vision models
    - Added support for:
      - `meta-llama/Llama-3.2-11B-Vision-Instruct` (gated access)
      - `microsoft/kosmos-2-patch14-224` (free)
@@ -23,16 +23,16 @@
 3. **Llama 3.3 Enhancement**
    - Enhanced `/api/llama33.js` with image analysis capabilities
    - Added vehicle-specific analysis prompts
-   - Maintains gated access through HuggingFace
+   - Maintains access through OpenRouter
 
-4. **HuggingFace Vision Models**
-   - Added vision-capable models to `/api/huggingface.js`
+4. **OpenRouter Vision Models**
+   - Added vision-capable models to `/api/openrouter.js`
    - Supports both free and gated-access vision models
 
 ### Benefits:
 
 ✅ **No More Premium Dependencies**: Removed Google Vision API dependency
-✅ **Gated Access Models**: Using your HuggingFace gated access for Llama models
+✅ **OpenRouter Access**: Using OpenRouter for all model access
 ✅ **Specialized for Business**: Enhanced prompts for vehicle detailing analysis
 ✅ **Fallback Options**: Multiple vision models available (Llama 3.2, Kosmos-2, BLIP-2)
 ✅ **Cost Effective**: All models are either free or use your existing gated access
@@ -41,7 +41,7 @@
 
 1. **Primary**: Llama 3.3 70B (gated access) - handles most photo analysis
 2. **Vision API**: Llama 3.2 Vision (gated access) - specialized image analysis
-3. **Fallback**: HuggingFace vision models (free) - if gated models unavailable
+3. **Fallback**: OpenRouter vision models (reliable) - primary fallback option
 
 ### Available Vision Models:
 
@@ -60,7 +60,7 @@
 
 - `/api/vision.js` - New vision model implementation
 - `/api/llama33.js` - Enhanced with image analysis
-- `/api/huggingface.js` - Added vision models
+- `/api/openrouter.js` - Added vision models
 - `advanced-chatbot.js` - Updated assignments
 - `public/advanced-chatbot.js` - Updated assignments
 - `src/constants/apiOptions.js` - Updated assignments and descriptions

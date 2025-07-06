@@ -13,14 +13,6 @@ const testEndpoints = [
     }
   },
   {
-    name: 'HuggingFace (Zephyr)',
-    url: 'https://jaysmobilewash.net/api/huggingface',
-    payload: {
-      prompt: 'Hello, this is a test message',
-      model: 'zephyr_hf'
-    }
-  },
-  {
     name: 'None (Disabled)',
     url: 'https://jaysmobilewash.net/api/none',
     payload: {

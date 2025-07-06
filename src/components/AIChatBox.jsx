@@ -45,9 +45,9 @@ const AIChatBox = ({
     try {
       const aiResponse = await queryAI(sanitizedPrompt);
       
-      // Handle Hugging Face response format
+      // Handle AI response format
       if (Array.isArray(aiResponse) && aiResponse.length > 0) {
-        // GPT-2 returns an array with generated_text
+        // Handle array response format
         const generatedText = aiResponse[0].generated_text || 'No response generated';
         setResponse(generatedText);
       } else if (aiResponse.generated_text) {

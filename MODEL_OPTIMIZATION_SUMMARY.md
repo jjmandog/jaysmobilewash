@@ -18,11 +18,11 @@
   - `qwen` - Top-tier reasoning (72B)
   - `gemma` - Google Gemma 7B/27B
   - `phi3` - Microsoft Phi-3 Medium
-  - `zephyr` - HuggingFace Zephyr 7B
+  - `zephyr` - Mistral 7B Instruct
   - `codellama` - Code & tool generation
   - `openchat` - OpenChat 7B
   - `nemotron` - Nvidia Nemotron Super 49B
-  - `huggingface` - HuggingFace models
+  - `openrouter` - OpenRouter models
   - `llama33` - Latest model, enhanced for image analysis and vehicle assessment
 
 - **Premium Models (REMOVED):**
@@ -81,13 +81,13 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
 #### **Model Performance Ranking:**
 1. **Excellent Performers (100% reliability):**
    - auto, deepseek, openrouter, mistral, llama31, llama33
-   - llama4, qwen, gemma, phi3, nemotron, huggingface
+   - llama4, qwen, gemma, phi3, nemotron, openrouter
 
 2. **Fair Performers (60% reliability):**
    - codellama, vision (have occasional API errors but functional)
 
 #### **Speed Champions:**
-- `huggingface`: 507ms average
+- `openrouter`: 423ms average
 - `phi3`: 537ms average  
 - `llama4`: 578ms average
 - `nemotron`: 594ms average

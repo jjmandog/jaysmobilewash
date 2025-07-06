@@ -1,10 +1,10 @@
 /**
- * AI Utility Helper - Pure JS fetch helper for querying the Hugging Face AI endpoint
+ * AI Utility Helper - Pure JS fetch helper for querying the AI endpoint
  * This helper is designed to be imported by SPA components for AI interactions
  */
 
 /**
- * Query the Hugging Face AI endpoint with a text prompt
+ * Query the AI endpoint with a text prompt
  * @param {string} prompt - The text prompt to send to the AI
  * @param {Object} options - Optional configuration
  * @param {string} options.endpoint - Custom endpoint URL (defaults to /api/ai)

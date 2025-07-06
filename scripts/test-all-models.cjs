@@ -129,7 +129,7 @@ class ModelTester {
       { id: 'codellama', endpoint: '/api/openrouter' },
       { id: 'nemotron', endpoint: '/api/openrouter' },
       { id: 'vision', endpoint: '/api/vision' },
-      { id: 'huggingface', endpoint: '/api/huggingface' }
+      { id: 'openrouter', endpoint: '/api/openrouter' }
     ];
 
     for (const model of modelsToTest) {

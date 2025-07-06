@@ -18,8 +18,6 @@ const API_OPTIONS = [
   { id: 'openrouter_openchat', endpoint: '/api/openrouter' },
   { id: 'openrouter_nemotron', endpoint: '/api/openrouter' },
   { id: 'deepseek', endpoint: '/api/openrouter' },
-  // HuggingFace free models
-  { id: 'huggingface', endpoint: '/api/huggingface' },
   // None/disabled
   { id: 'none', endpoint: '/api/none' }
 ];
@@ -32,7 +30,7 @@ const BACKEND_MAPPINGS = {
     'openrouter_mistral': 'mistralai/mistral-7b-instruct:free',
     'openrouter_qwen': 'qwen/qwen-2.5-72b-instruct:free',
     'openrouter_phi3': 'microsoft/phi-3-medium-4k-instruct:free',
-    'openrouter_zephyr': 'huggingfaceh4/zephyr-7b-beta:free',
+    'openrouter_zephyr': 'mistralai/mistral-7b-instruct:free',
     'openrouter_openchat': 'openchat/openchat-7b:free',
     'openrouter_nemotron': 'nvidia/llama-3.1-nemotron-70b-instruct:free',
     'deepseek_r1': 'deepseek/deepseek-r1-0528-qwen3-8b:free',
@@ -43,15 +41,9 @@ const BACKEND_MAPPINGS = {
     'qwen': 'qwen/qwen-2.5-72b-instruct:free',
     'llama33': 'meta-llama/llama-3.3-70b-instruct:free',
     'phi3': 'microsoft/phi-3-medium-4k-instruct:free',
-    'zephyr': 'huggingfaceh4/zephyr-7b-beta:free',
+    'zephyr': 'mistralai/mistral-7b-instruct:free',
     'openchat': 'openchat/openchat-7b:free',
     'nemotron': 'nvidia/llama-3.1-nemotron-70b-instruct:free'
-  },
-  huggingface: {
-    'zephyr_hf': 'HuggingFaceH4/zephyr-7b-beta',
-    'huggingface': 'HuggingFaceH4/zephyr-7b-beta',
-    'mistral_hf': 'mistralai/Mistral-7B-Instruct-v0.1',
-    'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf'
   },
   llama4: {
     'llama4_scout': 'meta-llama/llama-3.3-70b-instruct:free', // fallback

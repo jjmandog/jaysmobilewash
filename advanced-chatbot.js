@@ -25,35 +25,105 @@ const API_OPTIONS = [
     id: 'deepseek',
     name: 'DeepSeek Chat (Free)',
     endpoint: '/api/deepseek',
-    description: 'DeepSeek AI models via Hugging Face',
+    description: 'DeepSeek AI models via OpenRouter',
     enabled: true
   },
   {
-    id: 'mistral',
-    name: 'Mistral 7B Instruct (Free)',
-    endpoint: '/api/openrouter',
-    description: 'Mistral 7B Instruct via OpenRouter (free)',
+    id: 'qwq_32b',
+    name: 'QWQ 32B (Free)',
+    endpoint: '/api/qwq-32b',
+    description: 'ArliAI QWQ 32B ArliAI RPR V1 for advanced reasoning',
     enabled: true
   },
   {
-    id: 'llama3_8b',
-    name: 'Llama 3 8B Instruct (Free)',
-    endpoint: '/api/openrouter',
-    description: 'Meta Llama 3 8B Instruct via OpenRouter (free)',
+    id: 'glm_z1_32b',
+    name: 'GLM-Z1 32B (Free)',
+    endpoint: '/api/glm-z1-32b',
+    description: 'THUDM GLM-Z1 32B for complex analysis',
     enabled: true
   },
   {
-    id: 'gemma',
-    name: 'Gemma 7B IT (Free)',
-    endpoint: '/api/openrouter',
-    description: 'Google Gemma 7B IT via OpenRouter (free)',
+    id: 'kimi_vl_a3b',
+    name: 'Kimi VL A3B (Free)',
+    endpoint: '/api/kimi-vl-a3b',
+    description: 'Moonshot Kimi VL A3B Thinking for visual reasoning',
     enabled: true
   },
   {
-    id: 'huggingface',
-    name: 'HuggingFace Models (Free)',
-    endpoint: '/api/huggingface',
-    description: 'HuggingFace models (free)',
+    id: 'kimi_dev_72b',
+    name: 'Kimi Dev 72B (Free)',
+    endpoint: '/api/kimi-dev-72b',
+    description: 'Moonshot Kimi Dev 72B for development tasks',
+    enabled: true
+  },
+  {
+    id: 'moonlight_16b',
+    name: 'Moonlight 16B (Free)',
+    endpoint: '/api/moonlight-16b',
+    description: 'Moonshot Moonlight 16B A3B Instruct',
+    enabled: true
+  },
+  {
+    id: 'nemotron_super_49b',
+    name: 'Nemotron Super 49B (Free)',
+    endpoint: '/api/nemotron-super-49b',
+    description: 'NVIDIA Llama 3.3 Nemotron Super 49B V1',
+    enabled: true
+  },
+  {
+    id: 'llama4_maverick',
+    name: 'Llama 4 Maverick (Free)',
+    endpoint: '/api/llama4-maverick',
+    description: 'Meta Llama 4 Maverick for advanced reasoning',
+    enabled: true
+  },
+  {
+    id: 'llama4_scout',
+    name: 'Llama 4 Scout (Free)',
+    endpoint: '/api/llama4-scout',
+    description: 'Meta Llama 4 Scout for general tasks',
+    enabled: true
+  },
+  {
+    id: 'qwerky_72b',
+    name: 'Qwerky 72B (Free)',
+    endpoint: '/api/qwerky-72b',
+    description: 'Featherless Qwerky 72B for creative tasks',
+    enabled: true
+  },
+  {
+    id: 'reka_flash_3',
+    name: 'Reka Flash 3 (Free)',
+    endpoint: '/api/reka-flash-3',
+    description: 'Reka AI Reka Flash 3 for fast responses',
+    enabled: true
+  },
+  {
+    id: 'dolphin_mistral_24b',
+    name: 'Dolphin Mistral 24B (Free)',
+    endpoint: '/api/dolphin-mistral-24b',
+    description: 'Cognitive Computations Dolphin 3.0 R1 Mistral 24B',
+    enabled: true
+  },
+  {
+    id: 'llama32_vision',
+    name: 'Llama 3.2 11B Vision (Free)',
+    endpoint: '/api/llama32-vision',
+    description: 'Meta Llama 3.2 11B Vision Instruct for image analysis',
+    enabled: true
+  },
+  {
+    id: 'qwen3_235b',
+    name: 'Qwen 3 235B A22B (Free)',
+    endpoint: '/api/qwen3-235b',
+    description: 'Alibaba Qwen 3 235B A22B for advanced reasoning',
+    enabled: true
+  },
+  {
+    id: 'none',
+    name: 'AI Disabled',
+    endpoint: '/api/none',
+    description: 'Disable AI responses and show contact information',
     enabled: true
   }
 ];
@@ -432,17 +502,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'auto',                  // Auto mode - smart model selection
-  reasoning: 'llama4_maverick',  // Advanced reasoning - Llama 4 Maverick 70B for complex logic
-  tools: 'codellama',            // Tool calling - CodeLlama specialized for tools/code
-  quotes: 'openrouter',          // Service quotes - OpenRouter for reliable access
-  photo_uploads: 'llama33',      // Llama 3.3 for image analysis and vehicle assessment
-  summaries: 'llama33',          // Summarization - Llama 3.3 70B excellent for summaries
-  search: 'llama4_scout',        // Search queries - Llama 4 Scout for fast exploration
-  chat: 'openrouter',            // General chat - OpenRouter for reliable access
-  fallback: 'openrouter',        // Multiple model fallback via OpenRouter
-  analytics: 'phi3',             // Data analysis - Phi-3 Medium for analytics
-  accessibility: 'llama4_guard'  // Accessibility support - Llama 4 Guard for safety
+  auto: 'auto',               // Auto mode - smart model selection
+  reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
+  tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
+  quotes: 'mistral',          // Service quotes - Mistral for structured business responses
+  photo_uploads: 'vision',    // Photo analysis - Vision API specialized for images
+  summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
+  search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
+  chat: 'deepseek',           // General chat - DeepSeek great for conversation
+  fallback: 'openrouter',     // Multiple model fallback via OpenRouter
+  analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
+  accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
 };
 
 /**
@@ -1153,49 +1223,6 @@ class AdvancedChatBot {
             effectiveRole = this.detectBestRole(message);
             console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
           }
-    
-    // Photo upload context
-    if (this.uploadedFiles.length > 0) {
-      return 'photo_uploads';
-    }
-    
-    // Default to chat for conversational messages
-    return 'chat';
-  }
-
-  async sendMessage() {
-    const input = document.getElementById('chatbot-input');
-    const message = input.value.trim();
-    
-    if (!message || this.isProcessing) return;
-    
-    this.addMessage(message, 'user');
-    input.value = '';
-    
-    // SMS notification fully removed for compliance and privacy
-    
-    this.isProcessing = true;
-    this.showProcessing();
-    
-    try {
-      let response;
-      
-      // Check for basefile knowledge first
-      const basefileResponse = this.searchKnowledgeBase(message);
-      if (basefileResponse) {
-        response = { content: basefileResponse };
-      } else {
-        // Check learned responses from memory
-        const learnedResponse = this.memory.getLearnedResponse(message);
-        if (learnedResponse) {
-          response = { content: learnedResponse };
-        } else {
-          // Determine the effective role for processing
-          let effectiveRole = this.currentRole;
-          if (this.currentRole === 'auto') {
-            effectiveRole = this.detectBestRole(message);
-            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
-          }
           
           // Fall back to AI or smart responses
           const assignedAPI = this.assignments[effectiveRole];
@@ -1392,6 +1419,49 @@ class AdvancedChatBot {
     input.value = '';
     
     // Show fun deactivation message
+    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
+    
+    // Restore normal placeholder based on current role
+    const rolePlaceholders = {
+      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
+      quotes: 'Describe your vehicle and service needs for a quote...',
+      search: 'What information are you looking for?',
+      reasoning: 'Ask me to analyze or reason through something...',
+      summaries: 'What would you like me to summarize?',
+      chat: 'Ask about our services or chat with me...'
+    };
+    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
+  }
+  
+  activateJayMode() {
+    this.jayMode = true;
+    this.secretModeActive = true;
+    
+    // Add Jay mode styling (lighter theme)
+    document.querySelector('.chatbot-window').classList.remove('dark-mode');
+    document.querySelector('.chatbot-window').classList.add('jay-mode');
+    
+    // Clear input and show Jay mode message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    // Trigger beat animation if available
+    if (window.JayAudio) {
+      window.JayAudio.triggerBeat(0.8);
+    }
+    
+    this.addMessage("🎵 JAY MODE ACTIVATED! 🎵\n\nSpecial features unlocked:\n• Enhanced beat detection and animations\n• Premium service insights\n• VIP customer treatment\n• Advanced car knowledge\n• Exclusive detailing tips", 'bot', 'jay');
+    
+    // Update placeholder
+    input.placeholder = "Jay mode - Ask me anything about premium detailing...";
+    
+    // Add pulsing animation to chat toggle
+    document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
+  }
+
+  handleFileUpload(event) {
+    const files = Array.from(event.target.files);
+    
     files.forEach(file => {
       if (this.validateFile(file)) {
         this.processUploadedFile(file);
@@ -1473,60 +1543,58 @@ class AdvancedChatBot {
   }
   
   analyzeImageForQuote(fileData) {
-    // Use Llama 3.3 for image analysis and vehicle assessment
-    this.performImageAnalysisWithLlama33(fileData);
+    // Use real Google Vision API for image analysis
+    this.performImageAnalysisWithVision(fileData);
   }
   
-  async performImageAnalysisWithLlama33(fileData) {
+  async performImageAnalysisWithVision(fileData) {
     try {
-      // Use Llama 3.3 for image analysis via our API
-      const analysisPrompt = `I've uploaded a vehicle image for analysis. Please provide a detailed assessment of the vehicle's condition and recommend appropriate detailing services. Focus on identifying:
-
-1. Overall vehicle condition and cleanliness
-2. Visible dirt, stains, or damage on exterior
-3. Interior condition (if visible)
-4. Recommended Jay's Mobile Wash services
-
-The uploaded image shows: ${fileData.name}`;
-
-      const response = await ChatRouter.executeAPICall(
-        analysisPrompt,
-        { id: 'llama33', name: 'Llama 3.3', endpoint: '/api/llama33' },
-        'photo_uploads',
-        { model: 'llama33' }
-      );
+      // Dynamic import to avoid module resolution issues
+      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
       
-      if (response && response.content) {
+      // Use real Google Vision API
+      const analysisResults = await analyzeImageWithGoogleVision(fileData);
+      
+      if (analysisResults.length > 0) {
         let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
-        message += "I've analyzed your vehicle using Llama 3.3 AI and have these recommendations:\n\n";
-        message += response.content;
+        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
         
-        this.addMessage(message, 'bot', 'normal');
+        analysisResults.forEach((result, index) => {
+          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
+          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
+        });
+        
+        message += "💡 Would you like a detailed quote including these AI-recommended services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
       } else {
-        this.performFallbackImageAnalysis(fileData);
+        setTimeout(() => {
+          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
+        }, 1000);
       }
     } catch (error) {
       console.error('Image analysis failed:', error);
-      this.performFallbackImageAnalysis(fileData);
+      
+      // Fallback to simulated analysis
+      const analysisResults = this.performImageAnalysis(fileData);
+      
+      if (analysisResults.length > 0) {
+        let message = "📸 **Image Analysis Complete!**\n\n";
+        message += "I can see your vehicle and have some recommendations:\n\n";
+        
+        analysisResults.forEach((result, index) => {
+          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
+        });
+        
+        message += "\n💡 Would you like a detailed quote including these additional services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
+      }
     }
-  }
-  
-  performFallbackImageAnalysis(fileData) {
-    // Fallback to simulated analysis when API fails
-    const analysisResults = this.performImageAnalysis(fileData);
-    
-    let message = "📸 **Image Analysis Complete!**\n\n";
-    message += "I can see your vehicle and have some recommendations:\n\n";
-    
-    analysisResults.forEach((result, index) => {
-      message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
-    });
-    
-    message += "\n💡 Would you like a detailed quote including these additional services?";
-    
-    setTimeout(() => {
-      this.addMessage(message, 'bot', 'analysis');
-    }, 1000);
   }
   
   performImageAnalysis(fileData) {

@@ -26,7 +26,7 @@ All API endpoints now return a clean, consistent format:
 
 #### **APIs Updated:**
 1. **OpenRouter API** (`/api/openrouter`) ✅
-2. **HuggingFace API** (`/api/huggingface`) ✅  
+2. **OpenRouter API** (`/api/openrouter`) ✅  
 3. **Llama 3.3 API** (`/api/llama33`) ✅
 4. **Llama 4 API** (`/api/llama4`) ✅
 5. **Vision API** (`/api/vision`) ✅

@@ -1,5 +1,5 @@
 /**
- * DeepSeek API via Hugging Face Serverless Function
+ * DeepSeek API via OpenRouter
  * Handles POST requests to /api/deepseek for AI chat functionality
  * 
  * Expected request body: { prompt: string, role?: string }
@@ -10,12 +10,12 @@
  * API Metadata - For plug-and-play discovery
  */
 export const metadata = {
-  name: 'DeepSeek via Hugging Face',
-  description: 'DeepSeek AI models via Hugging Face Inference API',
+  name: 'DeepSeek via OpenRouter',
+  description: 'DeepSeek AI models via OpenRouter API',
   version: '1.0.0',
   
   categories: ['chat', 'reasoning', 'tools', 'summaries'],
-  keywords: ['chat', 'conversation', 'deepseek', 'huggingface', 'ai', 'assistant'],
+  keywords: ['chat', 'conversation', 'deepseek', 'ai', 'assistant'],
   
   enabled: true,
   endpoint: '/api/deepseek',
@@ -94,11 +94,10 @@ function validateRequestBody(body) {
 /**
  * Call DeepSeek via Hugging Face Inference API
  */
-async function callDeepSeek(prompt, role) {
-  const apiKey = process.env.HF_API_KEY;
-  
+async function callDeepSeek(prompt, role) {  const apiKey = process.env.OPENROUTER_API_KEY;
+
   if (!apiKey) {
-    throw new Error('HF_API_KEY environment variable is not set');
+    throw new Error('OPENROUTER_API_KEY environment variable is not set');
   }
 
   // Enhanced prompts based on role
@@ -118,22 +117,18 @@ async function callDeepSeek(prompt, role) {
   const enhancedPrompt = rolePrompts[role] || rolePrompts.chat;
 
   try {
-    // Using DeepSeek R1 model via Hugging Face
-    const response = await fetch('https://api-inference.huggingface.co/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B', {
+    // Using DeepSeek R1 model via OpenRouter
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        inputs: enhancedPrompt,
-        parameters: {
-          max_new_tokens: 500,
-          temperature: 0.7,
-          top_p: 0.9,
-          do_sample: true,
-          return_full_text: false
-        }
+        model: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+        messages: [{ role: 'user', content: enhancedPrompt }],
+        max_tokens: 150,
+        temperature: 0.7
       })
     });
 
@@ -142,7 +137,7 @@ async function callDeepSeek(prompt, role) {
       console.error('DeepSeek API Error:', response.status, errorText);
       
       if (response.status === 401) {
-        throw new Error('Invalid Hugging Face API key');
+        throw new Error('Invalid OpenRouter API key');
       } else if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please try again later.');
       } else if (response.status === 503) {

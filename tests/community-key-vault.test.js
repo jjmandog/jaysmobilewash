@@ -31,17 +31,7 @@ describe('Community Key Vault', () => {
       expect(result.isValid).toBe(true);
     });
 
-    it('should add a valid Hugging Face key to DeepSeek provider', async () => {
-      const testKey = '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';
-      const result = await addCommunityKey('deepseek', testKey, { 
-        contributor: 'DeekSeek' 
-      });
-      
-      expect(result.success).toBe(true);
-      expect(result.provider).toBe('deepseek');
-      expect(result.isValid).toBe(true);
-      expect(result.message).toBe('DeepSeek API key added successfully');
-    });
+    // OpenRouter and DeepSeek only - no additional API keys needed for testing
 
     it('should reject invalid key format', async () => {
       const result = await addCommunityKey('openai', 'invalid-key');
@@ -207,8 +197,8 @@ describe('Community Key API Patterns', () => {
     },
     {
       provider: 'deepseek',
-      validKeys: ['sk-' + 'a'.repeat(48), 'hf_' + 'a'.repeat(30), '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'],
-      invalidKeys: ['sk-short', 'hf_short', 'invalid-key', 'api-key-123']
+      validKeys: ['sk-' + 'a'.repeat(48)],
+      invalidKeys: ['sk-short', 'invalid-key', 'api-key-123']
     }
   ];
 

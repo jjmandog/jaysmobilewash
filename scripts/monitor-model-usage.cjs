@@ -16,11 +16,16 @@ class ModelUsageMonitor {
   }
 
   initializeStats() {
-    // Initialize stats for all available models
+    // Initialize stats for all available models - Updated with new individual endpoints
     const models = [
-      'auto', 'deepseek', 'openrouter', 'mistral', 'llama31', 'llama33', 
-      'llama4', 'qwen', 'gemma', 'phi3', 'zephyr', 'codellama', 
-      'openchat', 'nemotron', 'huggingface', 'vision'
+      // Core handlers
+      'auto', 'deepseek', 'none',
+      
+      // Individual OpenRouter model endpoints
+      'qwq-32b', 'glm-z1-32b', 'llama4-maverick', 'qwen3-235b',
+      'kimi-dev-72b', 'dolphin-mistral-24b', 'qwerky-72b', 'moonlight-16b',
+      'kimi-vl-a3b', 'llama32-vision', 'reka-flash-3', 'llama4-scout', 
+      'nemotron-super-49b'
     ];
 
     models.forEach(model => {
@@ -30,16 +35,44 @@ class ModelUsageMonitor {
         failedRequests: 0,
         averageResponseTime: 0,
         lastUsed: null,
-        roles: []
+        roles: [],
+        specialization: this.getModelSpecialization(model)
       });
 
       this.performanceMetrics.set(model, {
         reliability: 0.95, // Default reliability score
         speed: 0.8,        // Default speed score
         costEfficiency: 0.9, // Default cost efficiency
-        availability: 0.9    // Default availability
+        availability: 0.9,   // Default availability
+        specializationScore: 0.8 // How well it performs its specialized tasks
       });
     });
+  }
+
+  /**
+   * Get model specialization for better balancing
+   */
+  getModelSpecialization(modelId) {
+    const specializations = {
+      'auto': 'intelligent-routing',
+      'deepseek': 'general-reasoning',
+      'none': 'disabled-state',
+      'qwq-32b': 'analytical-reasoning',
+      'glm-z1-32b': 'technical-analysis',
+      'llama4-maverick': 'advanced-problem-solving',
+      'qwen3-235b': 'enterprise-analysis',
+      'kimi-dev-72b': 'development-tasks',
+      'dolphin-mistral-24b': 'assisted-tasks',
+      'qwerky-72b': 'creative-tasks',
+      'moonlight-16b': 'business-queries',
+      'kimi-vl-a3b': 'visual-reasoning',
+      'llama32-vision': 'image-analysis',
+      'reka-flash-3': 'quick-responses',
+      'llama4-scout': 'general-purpose',
+      'nemotron-super-49b': 'performance-tasks'
+    };
+    
+    return specializations[modelId] || 'general-purpose';
   }
 
   /**

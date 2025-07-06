@@ -123,20 +123,21 @@ function validateRequestBody(body) {
  * Call OpenRouter API
  */
 async function callDeepSeek(prompt, role, messages, explicitModel) {
-  // Lightweight ML intent detection using Hugging Face zero-shot-classification
+  // Lightweight ML intent detection using DeepSeek
   async function zeroShotRole(prompt, candidateLabels) {
-    const hfApiKey = process.env.HF_API_KEY;
-    if (!hfApiKey) return null;
+    const openrouterApiKey = process.env.OPENROUTER_API_KEY;
+    if (!openrouterApiKey) return null;
     try {
-      const response = await fetch('https://api-inference.huggingface.co/models/facebook/bart-large-mnli', {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${hfApiKey}`,
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          sequence: prompt,
-          labels: candidateLabels
+          model: 'deepseek/deepseek-r1-0528-qwen3-8b:free',
+          messages: [{ role: 'user', content: `Analyze sentiment: ${prompt}` }],
+          max_tokens: 50
         })
       });
       if (!response.ok) return null;
@@ -149,7 +150,7 @@ async function callDeepSeek(prompt, role, messages, explicitModel) {
       }
       return null;
     } catch (e) {
-      console.error('Hugging Face zero-shot error:', e);
+      console.error('DeepSeek zero-shot error:', e);
       return null;
     }
   }

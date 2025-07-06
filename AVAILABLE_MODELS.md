@@ -34,8 +34,8 @@ This is the current list of all available free OpenRouter models integrated into
    - Strengths: Fast responses, good reasoning for size
    - Best for: Quick answers, resource-efficient processing
 
-7. **Zephyr 7B Beta** (`huggingfaceh4/zephyr-7b-beta`)
-   - Type: Hugging Face's fine-tuned model
+7. **Mistral 7B Instruct** (`openrouter/mistral-7b-instruct`)
+   - Type: Community fine-tuned model
    - Strengths: Community-driven improvements
    - Best for: Open-source enthusiasts, experimental features
 
