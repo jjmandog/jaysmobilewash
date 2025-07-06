@@ -1,3 +1,8 @@
+/* Make chatbot settings panel scrollable if content is too tall */
+.chat-settings-panel {
+  max-height: 80vh;
+  overflow-y: auto;
+}
 /*
 * Jay's Mobile Wash - Main Stylesheet
 * Version: 1.0.0

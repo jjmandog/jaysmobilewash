@@ -1,6 +1,6 @@
 /**
- * HuggingFace API Handler
- * Handles POST requests to /api/huggingface for AI chat functionality
+ * Llama 3.1 API Handler (Gated Access via HuggingFace)
+ * Handles POST requests to /api/llama31 for AI chat functionality using Meta's Llama 3.1 models
  *
  * Expected request body: { prompt: string, role?: string, model?: string, messages?: array }
  * Returns: { responseText: string, selectedModel: string }
@@ -29,7 +29,6 @@ export default async function handler(req, res) {
   try {
     const body = req.body || (typeof req.body === 'string' ? JSON.parse(req.body) : {});
     const prompt = body.prompt || '';
-    const role = body.role || 'chat';
     const model = body.model || null;
     const messages = body.messages || null;
 
@@ -39,6 +38,17 @@ export default async function handler(req, res) {
       return;
     }
 
+    // Map Llama 3.1 model IDs to HuggingFace model names (gated access)
+    const modelMapping = {
+      'llama31_8b': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama31_70b': 'meta-llama/Llama-3.1-70B-Instruct',
+      'llama31_405b': 'meta-llama/Llama-3.1-405B-Instruct', // If available
+      'llama': 'meta-llama/Llama-3.1-8B-Instruct' // Legacy ID support
+    };
+
+    const selectedModel = modelMapping[model] || 'meta-llama/Llama-3.1-8B-Instruct';
+
+    // Use HuggingFace API with gated access
     const apiKey = process.env.HUGGINGFACE_API_KEY;
     if (!apiKey) {
       res.writeHead(500, corsHeaders);
@@ -46,19 +56,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Map chatbot model IDs to actual HuggingFace model names
-    const modelMapping = {
-      'zephyr_hf': 'HuggingFaceH4/zephyr-7b-beta',
-      'huggingface': 'HuggingFaceH4/zephyr-7b-beta',
-      'mistral_hf': 'mistralai/Mistral-7B-Instruct-v0.1',
-      'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf'
-    };
-
-    // Use provided model or fallback to a default
-    const selectedModel = modelMapping[model] || model || 'HuggingFaceH4/zephyr-7b-beta';
-
-    // Format prompt for HuggingFace
-    const systemPrompt = `You are Jay's Mobile Wash AI assistant. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.
+    const systemPrompt = `You are Jay's Mobile Wash AI assistant powered by Llama 3.1. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.
 
 Jay's Mobile Wash Services:
 - Mini Detail: $70 (1-1.5 hours) - Basic interior and exterior cleaning
@@ -71,16 +69,16 @@ Service Areas: Los Angeles, Orange County, Beverly Hills
 Phone: (562) 228-9429
 Website: jaysmobilewash.net`;
 
+    // Format prompt for HuggingFace
     let formattedPrompt;
     if (Array.isArray(messages) && messages.length > 0) {
-      // Convert messages to a single prompt
+      // Convert messages to HuggingFace format
       formattedPrompt = messages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
     } else {
       formattedPrompt = `${systemPrompt}\n\nUser: ${prompt}\nAssistant:`;
     }
 
-    console.log('🤗 Using HuggingFace model:', selectedModel);
-    console.log('🔍 Formatted prompt:', formattedPrompt.substring(0, 200) + '...');
+    console.log('🦙 Using Llama 3.1 model (via HuggingFace):', selectedModel);
 
     const response = await fetch(`https://api-inference.huggingface.co/models/${selectedModel}`, {
       method: 'POST',
@@ -101,10 +99,10 @@ Website: jaysmobilewash.net`;
     });
 
     console.log('🌐 HuggingFace API response status:', response.status);
-    
+
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ HuggingFace API Error:', response.status, errorText);
+      console.error('❌ Llama 3.1 API Error:', response.status, errorText);
       
       if (response.status === 503) {
         res.writeHead(503, corsHeaders);
@@ -117,7 +115,7 @@ Website: jaysmobilewash.net`;
       
       res.writeHead(response.status, corsHeaders);
       res.end(JSON.stringify({
-        error: `HuggingFace API Error: ${response.status} - ${errorText}`,
+        error: `Llama 3.1 API Error: ${response.status} - ${errorText}`,
         model: selectedModel
       }));
       return;
@@ -150,7 +148,7 @@ Website: jaysmobilewash.net`;
     }));
 
   } catch (error) {
-    console.error('❌ HuggingFace API Error:', error);
+    console.error('❌ Llama 3.1 API Error:', error);
     res.writeHead(500, corsHeaders);
     res.end(JSON.stringify({ error: error.message }));
   }
