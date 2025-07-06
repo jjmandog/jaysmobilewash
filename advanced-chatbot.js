@@ -1288,10 +1288,10 @@ class AdvancedChatBot {
       // Clear uploaded files after processing
       this.clearUploadedFiles();
       
+      // ReferenceError fix: basefileResponse is not defined in this scope, so remove it from analytics event
       this.sendAnalyticsEvent('chat_query_success', {
         role: this.currentRole,
         api: this.assignments[this.currentRole],
-        usedBasefile: !!basefileResponse,
         usedMemory: !!this.memory.getLearnedResponse(message)
       });
     } catch (error) {
@@ -1675,7 +1675,8 @@ class AdvancedChatBot {
   }
 
   generateSmartResponse(message, role) {
-    const lowerMessage = message.toLowerCase();
+    // TypeError fix: ensure message is always a string
+    const lowerMessage = (typeof message === 'string' ? message : String(message || 'unknown')).toLowerCase();
     
     // Role-specific responses
     if (role === 'quotes') {
