@@ -1,0 +1,733 @@
+{
+  "timestamp": "2025-07-06T05:06:12.716Z",
+  "summary": {
+    "totalModels": 14,
+    "totalTests": 70,
+    "averageReliability": 0.9428571428571428
+  },
+  "results": {
+    "auto": {
+      "modelId": "auto",
+      "endpoint": "/api/auto",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 703,
+          "responseLength": 95,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Auto-selected response: Hello, how are you?. Smart routing chose the best model for this query...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 829,
+          "responseLength": 161,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Auto-selected response: Explain the difference between ceramic coating and traditional wax for car d..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 721,
+          "responseLength": 160,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Auto-selected response: Calculate the cost-effectiveness of weekly car washes vs monthly detailing s..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 1052,
+          "responseLength": 151,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Auto-selected response: Write a brief description of the benefits of mobile car detailing services....."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 782,
+          "responseLength": 146,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Auto-selected response: List the top 3 car detailing packages and their prices in JSON format.. Smar..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 817.4,
+        "reliability": 1
+      }
+    },
+    "deepseek": {
+      "modelId": "deepseek",
+      "endpoint": "/api/deepseek",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 513,
+          "responseLength": 110,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "DeepSeek response to: Hello, how are you?. This is a comprehensive answer with detailed analysis and..."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 795,
+          "responseLength": 176,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "DeepSeek response to: Explain the difference between ceramic coating and traditional wax for car det..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 643,
+          "responseLength": 175,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "DeepSeek response to: Calculate the cost-effectiveness of weekly car washes vs monthly detailing ser..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 232,
+          "responseLength": 166,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "DeepSeek response to: Write a brief description of the benefits of mobile car detailing services.. T..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 937,
+          "responseLength": 161,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "DeepSeek response to: List the top 3 car detailing packages and their prices in JSON format.. This i..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 624,
+        "reliability": 1
+      }
+    },
+    "openrouter": {
+      "modelId": "openrouter",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 840,
+          "responseLength": 93,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "OpenRouter gateway response: Hello, how are you?. Multi-model routing with optimal selection...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 844,
+          "responseLength": 159,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "OpenRouter gateway response: Explain the difference between ceramic coating and traditional wax for ..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 313,
+          "responseLength": 158,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "OpenRouter gateway response: Calculate the cost-effectiveness of weekly car washes vs monthly detail..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 688,
+          "responseLength": 149,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "OpenRouter gateway response: Write a brief description of the benefits of mobile car detailing servi..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 612,
+          "responseLength": 144,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "OpenRouter gateway response: List the top 3 car detailing packages and their prices in JSON format....."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 659.4,
+        "reliability": 1
+      }
+    },
+    "mistral": {
+      "modelId": "mistral",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 453,
+          "responseLength": 98,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Mistral structured response: Hello, how are you?. Business-focused answer with clear organization...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 298,
+          "responseLength": 164,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Mistral structured response: Explain the difference between ceramic coating and traditional wax for ..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 738,
+          "responseLength": 163,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Mistral structured response: Calculate the cost-effectiveness of weekly car washes vs monthly detail..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 624,
+          "responseLength": 154,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Mistral structured response: Write a brief description of the benefits of mobile car detailing servi..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 1174,
+          "responseLength": 149,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Mistral structured response: List the top 3 car detailing packages and their prices in JSON format....."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 657.4,
+        "reliability": 1
+      }
+    },
+    "llama31": {
+      "modelId": "llama31",
+      "endpoint": "/api/llama31",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 1026,
+          "responseLength": 70,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "llama31 response: Hello, how are you?. Standard AI-generated response...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 1165,
+          "responseLength": 136,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "llama31 response: Explain the difference between ceramic coating and traditional wax for car detaili..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 362,
+          "responseLength": 135,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "llama31 response: Calculate the cost-effectiveness of weekly car washes vs monthly detailing service..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 1063,
+          "responseLength": 126,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "llama31 response: Write a brief description of the benefits of mobile car detailing services.. Stand..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 1041,
+          "responseLength": 121,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "llama31 response: List the top 3 car detailing packages and their prices in JSON format.. Standard A..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 931.4,
+        "reliability": 1
+      }
+    },
+    "llama33": {
+      "modelId": "llama33",
+      "endpoint": "/api/llama33",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 719,
+          "responseLength": 89,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Llama 3.3 summary: Hello, how are you?. Detailed explanation with key points highlighted...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 330,
+          "responseLength": 155,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Llama 3.3 summary: Explain the difference between ceramic coating and traditional wax for car detail..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 1076,
+          "responseLength": 154,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Llama 3.3 summary: Calculate the cost-effectiveness of weekly car washes vs monthly detailing servic..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 907,
+          "responseLength": 145,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Llama 3.3 summary: Write a brief description of the benefits of mobile car detailing services.. Deta..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 612,
+          "responseLength": 140,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Llama 3.3 summary: List the top 3 car detailing packages and their prices in JSON format.. Detailed ..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 728.8,
+        "reliability": 1
+      }
+    },
+    "llama4": {
+      "modelId": "llama4",
+      "endpoint": "/api/llama4",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 906,
+          "responseLength": 69,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "llama4 response: Hello, how are you?. Standard AI-generated response...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 235,
+          "responseLength": 135,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "llama4 response: Explain the difference between ceramic coating and traditional wax for car detailin..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 377,
+          "responseLength": 134,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "llama4 response: Calculate the cost-effectiveness of weekly car washes vs monthly detailing services..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 388,
+          "responseLength": 125,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "llama4 response: Write a brief description of the benefits of mobile car detailing services.. Standa..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 983,
+          "responseLength": 120,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "llama4 response: List the top 3 car detailing packages and their prices in JSON format.. Standard AI..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 577.8,
+        "reliability": 1
+      }
+    },
+    "qwen": {
+      "modelId": "qwen",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 1125,
+          "responseLength": 94,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Qwen 2.5 analysis: Hello, how are you?. Advanced reasoning and technical explanation provided...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 438,
+          "responseLength": 160,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Qwen 2.5 analysis: Explain the difference between ceramic coating and traditional wax for car detail..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 504,
+          "responseLength": 159,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Qwen 2.5 analysis: Calculate the cost-effectiveness of weekly car washes vs monthly detailing servic..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 846,
+          "responseLength": 150,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Qwen 2.5 analysis: Write a brief description of the benefits of mobile car detailing services.. Adva..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 534,
+          "responseLength": 145,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Qwen 2.5 analysis: List the top 3 car detailing packages and their prices in JSON format.. Advanced ..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 689.4,
+        "reliability": 1
+      }
+    },
+    "gemma": {
+      "modelId": "gemma",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 1020,
+          "responseLength": 86,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Gemma helpful response: Hello, how are you?. Accessible and user-friendly explanation...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 1078,
+          "responseLength": 152,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Gemma helpful response: Explain the difference between ceramic coating and traditional wax for car d..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 566,
+          "responseLength": 151,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Gemma helpful response: Calculate the cost-effectiveness of weekly car washes vs monthly detailing s..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 515,
+          "responseLength": 142,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Gemma helpful response: Write a brief description of the benefits of mobile car detailing services....."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 816,
+          "responseLength": 137,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Gemma helpful response: List the top 3 car detailing packages and their prices in JSON format.. Acce..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 799,
+        "reliability": 1
+      }
+    },
+    "phi3": {
+      "modelId": "phi3",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 474,
+          "responseLength": 90,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Phi-3 analytical response: Hello, how are you?. Data-driven insights and metrics provided...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 737,
+          "responseLength": 156,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Phi-3 analytical response: Explain the difference between ceramic coating and traditional wax for ca..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 344,
+          "responseLength": 155,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Phi-3 analytical response: Calculate the cost-effectiveness of weekly car washes vs monthly detailin..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 801,
+          "responseLength": 146,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Phi-3 analytical response: Write a brief description of the benefits of mobile car detailing service..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 327,
+          "responseLength": 141,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Phi-3 analytical response: List the top 3 car detailing packages and their prices in JSON format.. D..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 536.6,
+        "reliability": 1
+      }
+    },
+    "codellama": {
+      "modelId": "codellama",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": false,
+          "error": "Simulated API error for codellama",
+          "prompt": "Hello, how are you?"
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 800,
+          "responseLength": 165,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "CodeLlama technical response: Explain the difference between ceramic coating and traditional wax for..."
+        },
+        "technical": {
+          "passed": false,
+          "error": "Simulated API error for codellama",
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 1155,
+          "responseLength": 155,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "CodeLlama technical response: Write a brief description of the benefits of mobile car detailing serv..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 861,
+          "responseLength": 150,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "CodeLlama technical response: List the top 3 car detailing packages and their prices in JSON format...."
+        }
+      },
+      "overall": {
+        "passed": 3,
+        "failed": 2,
+        "responseTime": 938.6666666666666,
+        "reliability": 0.6
+      }
+    },
+    "nemotron": {
+      "modelId": "nemotron",
+      "endpoint": "/api/openrouter",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 984,
+          "responseLength": 89,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Nemotron search result: Hello, how are you?. Information retrieval with relevant details...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 441,
+          "responseLength": 155,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Nemotron search result: Explain the difference between ceramic coating and traditional wax for car d..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 453,
+          "responseLength": 154,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Nemotron search result: Calculate the cost-effectiveness of weekly car washes vs monthly detailing s..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 607,
+          "responseLength": 145,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "Nemotron search result: Write a brief description of the benefits of mobile car detailing services....."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 485,
+          "responseLength": 140,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "Nemotron search result: List the top 3 car detailing packages and their prices in JSON format.. Info..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 594,
+        "reliability": 1
+      }
+    },
+    "vision": {
+      "modelId": "vision",
+      "endpoint": "/api/vision",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 861,
+          "responseLength": 87,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "Vision API analysis: Hello, how are you?. Image processing and visual analysis results...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 297,
+          "responseLength": 153,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "Vision API analysis: Explain the difference between ceramic coating and traditional wax for car deta..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 1117,
+          "responseLength": 152,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "Vision API analysis: Calculate the cost-effectiveness of weekly car washes vs monthly detailing serv..."
+        },
+        "creative": {
+          "passed": false,
+          "error": "Simulated API error for vision",
+          "prompt": "Write a brief description of the benefits of mobile car detailing services."
+        },
+        "structured": {
+          "passed": false,
+          "error": "Simulated API error for vision",
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format."
+        }
+      },
+      "overall": {
+        "passed": 3,
+        "failed": 2,
+        "responseTime": 758.3333333333334,
+        "reliability": 0.6
+      }
+    },
+    "huggingface": {
+      "modelId": "huggingface",
+      "endpoint": "/api/huggingface",
+      "tests": {
+        "simple": {
+          "passed": true,
+          "responseTime": 718,
+          "responseLength": 74,
+          "hasContent": true,
+          "prompt": "Hello, how are you?",
+          "response": "huggingface response: Hello, how are you?. Standard AI-generated response...."
+        },
+        "reasoning": {
+          "passed": true,
+          "responseTime": 395,
+          "responseLength": 140,
+          "hasContent": true,
+          "prompt": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+          "response": "huggingface response: Explain the difference between ceramic coating and traditional wax for car det..."
+        },
+        "technical": {
+          "passed": true,
+          "responseTime": 298,
+          "responseLength": 139,
+          "hasContent": true,
+          "prompt": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+          "response": "huggingface response: Calculate the cost-effectiveness of weekly car washes vs monthly detailing ser..."
+        },
+        "creative": {
+          "passed": true,
+          "responseTime": 312,
+          "responseLength": 130,
+          "hasContent": true,
+          "prompt": "Write a brief description of the benefits of mobile car detailing services.",
+          "response": "huggingface response: Write a brief description of the benefits of mobile car detailing services.. S..."
+        },
+        "structured": {
+          "passed": true,
+          "responseTime": 812,
+          "responseLength": 125,
+          "hasContent": true,
+          "prompt": "List the top 3 car detailing packages and their prices in JSON format.",
+          "response": "huggingface response: List the top 3 car detailing packages and their prices in JSON format.. Standa..."
+        }
+      },
+      "overall": {
+        "passed": 5,
+        "failed": 0,
+        "responseTime": 507,
+        "reliability": 1
+      }
+    }
+  },
+  "testPrompts": {
+    "simple": "Hello, how are you?",
+    "reasoning": "Explain the difference between ceramic coating and traditional wax for car detailing.",
+    "technical": "Calculate the cost-effectiveness of weekly car washes vs monthly detailing services.",
+    "creative": "Write a brief description of the benefits of mobile car detailing services.",
+    "structured": "List the top 3 car detailing packages and their prices in JSON format."
+  }
+}

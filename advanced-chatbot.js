@@ -55,34 +55,6 @@ const API_OPTIONS = [
     endpoint: '/api/huggingface',
     description: 'HuggingFace models (free)',
     enabled: true
-  },
-  {
-    id: 'llama2',
-    name: 'Llama 2 (Your Access)',
-    endpoint: '/api/llama2',
-    description: 'Meta Llama 2 7B (gated access via HuggingFace)',
-    enabled: true
-  },
-  {
-    id: 'llama31',
-    name: 'Llama 3.1 (Your Access)',
-    endpoint: '/api/llama31',
-    description: 'Meta Llama 3.1 8B (gated access via HuggingFace)',
-    enabled: true
-  },
-  {
-    id: 'llama33',
-    name: 'Llama 3.3 (Your Access)',
-    endpoint: '/api/llama33',
-    description: 'Meta Llama 3.3 70B (gated access)',
-    enabled: true
-  },
-  {
-    id: 'llama4',
-    name: 'Llama 4 (Your Access)',
-    endpoint: '/api/llama4',
-    description: 'Meta Llama 4 (gated access)',
-    enabled: true
   }
 ];
 
@@ -128,14 +100,24 @@ const CHAT_ROLES = [
     description: 'General conversational interactions'
   },
   {
-    id: 'fallback',
-    name: 'Fallback',
-    description: 'Default handler when other APIs fail'
-  },
-  {
     id: 'analytics',
     name: 'Analytics',
-    description: 'Data analysis and reporting'
+    description: 'Data analysis and business insights'
+  },
+  {
+    id: 'deep_analysis',
+    name: 'Deep Analysis',
+    description: 'Comprehensive and thorough analysis'
+  },
+  {
+    id: 'multi_language',
+    name: 'Multi-Language',
+    description: 'Multilingual support and translation'
+  },
+  {
+    id: 'safety',
+    name: 'Safety',
+    description: 'Security and safety-focused responses'
   },
   {
     id: 'accessibility',
@@ -146,7 +128,6 @@ const CHAT_ROLES = [
 
 // Comprehensive Car Detailing Knowledge Base
 const CAR_DETAILING_KNOWLEDGE_BASE = {
-  // Service Categories
   services: {
     washing: {
       basic_wash: {
@@ -228,8 +209,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       }
     }
   },
-  
-  // Technical Knowledge
   techniques: {
     two_bucket_method: {
       description: "Proper washing technique to prevent scratches",
@@ -243,8 +222,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       benefits: ["Smooth paint surface", "Better polish results", "Improved coating adhesion"]
     }
   },
-  
-  // Common Issues and Solutions
   problems: {
     swirl_marks: {
       causes: ["Improper washing technique", "Dirty wash media", "Automatic car washes", "Poor quality towels"],
@@ -262,8 +239,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       prevention: ["Regular waxing", "Covered parking", "UV protection", "Maintenance schedule"]
     }
   },
-  
-  // Product Knowledge
   products: {
     soaps: {
       ph_neutral: "Safe for all surfaces, won't strip protection",
@@ -283,8 +258,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       clay_bars: "Contamination removal, paint smoothing"
     }
   },
-  
-  // Environmental Factors
   environmental: {
     weather_effects: {
       sun: "UV damage, water spotting during wash, accelerated drying",
@@ -299,8 +272,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       winter: "Salt damage prevention, less frequent washing, protection focus"
     }
   },
-  
-  // Vehicle-Specific Knowledge
   vehicle_types: {
     luxury_vehicles: {
       considerations: ["Premium products only", "Extra care required", "Specialized techniques", "Higher service prices"],
@@ -461,17 +432,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'deepseek',            // Auto mode - smart detection using DeepSeek
-  reasoning: 'deepseek',       // Advanced reasoning - DeepSeek is excellent at reasoning
-  tools: 'deepseek',           // Tool calling - DeepSeek can handle tools
-  quotes: 'deepseek',          // Service quotes - DeepSeek for pricing analysis
-  photo_uploads: 'deepseek',   // Photo analysis - DeepSeek can analyze images
-  summaries: 'deepseek',       // Summarization - DeepSeek is great at this
-  search: 'deepseek',          // Search queries - DeepSeek knowledge
-  chat: 'deepseek',            // General chat - DeepSeek is conversational
-  fallback: 'deepseek',        // Always available fallback - use DeepSeek
-  analytics: 'deepseek',       // Data analysis - DeepSeek excels at analysis
-  accessibility: 'deepseek'    // Accessibility support - DeepSeek is helpful
+  auto: 'auto',               // Auto mode - smart model selection
+  reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
+  tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
+  quotes: 'mistral',          // Service quotes - Mistral for structured business responses
+  photo_uploads: 'vision',    // Photo analysis - Vision API specialized for images
+  summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
+  search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
+  chat: 'deepseek',           // General chat - DeepSeek great for conversation
+  fallback: 'openrouter',     // Multiple model fallback via OpenRouter
+  analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
+  accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
 };
 
 /**

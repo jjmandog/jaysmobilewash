@@ -697,20 +697,61 @@ const ChatSettingsPanel = ({
                     className="api-select"
                     value={currentAssignments[role.id] || ''}
                     onChange={(e) => handleRoleChange(role.id, e.target.value)}
+                    style={{ maxHeight: '200px', overflowY: 'auto' }}
                   >
                     <option value="">Select API...</option>
-                    {enabledAPIs.map(api => {
-                      const providerStatus = getProviderStatus(api.id);
-                      return (
-                        <option
-                          key={api.id}
-                          value={api.id}
-                          disabled={!providerStatus.available && api.id !== 'none'}
-                        >
-                          {api.name} {!providerStatus.available && api.id !== 'none' ? '(No Key)' : ''}
-                        </option>
-                      );
-                    })}
+                    {/* Group by category for better UX */}
+                    <optgroup label="🔥 Free Models (Always Available)">
+                      {enabledAPIs.filter(api => 
+                        api.description.includes('free') || 
+                        ['deepseek', 'openrouter', 'huggingface', 'auto', 'vision', 'none'].includes(api.id)
+                      ).map(api => {
+                        const providerStatus = getProviderStatus(api.id);
+                        return (
+                          <option
+                            key={api.id}
+                            value={api.id}
+                            disabled={!providerStatus.available && api.id !== 'none'}
+                          >
+                            {api.name} {!providerStatus.available && api.id !== 'none' ? '(No Key)' : ''}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
+                    <optgroup label="🔐 Premium Models (Requires API Key)">
+                      {enabledAPIs.filter(api => 
+                        api.description.includes('requires API key') || 
+                        ['openai', 'anthropic', 'google'].includes(api.id)
+                      ).map(api => {
+                        const providerStatus = getProviderStatus(api.id);
+                        return (
+                          <option
+                            key={api.id}
+                            value={api.id}
+                            disabled={!providerStatus.available}
+                          >
+                            {api.name} {!providerStatus.available ? '(No Key)' : ''}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
+                    <optgroup label="⚡ Specialized Models">
+                      {enabledAPIs.filter(api => 
+                        api.description.includes('gated') || 
+                        ['llama4', 'codellama', 'phi3', 'nemotron'].includes(api.id)
+                      ).map(api => {
+                        const providerStatus = getProviderStatus(api.id);
+                        return (
+                          <option
+                            key={api.id}
+                            value={api.id}
+                            disabled={!providerStatus.available && api.id !== 'none'}
+                          >
+                            {api.name} {!providerStatus.available && api.id !== 'none' ? '(No Key)' : ''}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
                   </select>
                   {apiStatus && !apiStatus.available && assignedApi.id !== 'none' && (
                     <button

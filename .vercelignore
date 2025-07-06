@@ -1,0 +1,10 @@
+# Ignore Nex
+.js specific files for static deployment
+pages/
+.next/
+next.config.js
+postcss.config.cjs
+tailwind.config.cjs
+
+# Keep only the static files and API routes
+!api/

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jays-mobile-wash-v2';
+const CACHE_NAME = 'jays-mobile-wash-v5-FINAL-FREE-MODELS';
 const urlsToCache = [
     '/',
     '/index.html',

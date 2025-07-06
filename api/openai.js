@@ -124,6 +124,13 @@ function getMockResponse(prompt, role) {
  */
 async function callOpenAI(prompt, role) {
   const apiKey = process.env.OPENAI_API_KEY;
+  
+  // DISABLED: Using mock responses only for free tier
+  // Premium OpenAI models require paid API access
+  console.log('OpenAI API disabled - using mock response for free tier');
+  return getMockResponse(prompt, role);
+  
+  /* COMMENTED OUT - Premium API functionality
   if (!apiKey) {
     console.log('No OpenAI API key configured, returning mock response');
     return getMockResponse(prompt, role);
@@ -136,7 +143,7 @@ async function callOpenAI(prompt, role) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-3.5-turbo-instruct', // Use free tier model
         messages: [
           {
             role: 'system',
@@ -161,6 +168,7 @@ async function callOpenAI(prompt, role) {
     // Fallback to mock response on API errors
     return getMockResponse(prompt, role);
   }
+  */
 }
 
 /**

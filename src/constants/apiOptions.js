@@ -1,9 +1,9 @@
 /**
  * API Options and Role Assignments for Chat Bot
- * Supports up to 10 APIs with configurable role assignments
+ * Supports unlimited APIs/models with configurable role assignments
  */
 
-// Available API options (up to 10)
+// Available API options (unlimited)
 export const API_OPTIONS = [
   {
     id: 'none',
@@ -13,71 +13,141 @@ export const API_OPTIONS = [
     enabled: true
   },
   {
-    id: 'anthropic',
-    name: 'Anthropic Claude',
-    endpoint: '/api/anthropic',
-    description: 'Claude AI for detailed analysis',
+    id: 'auto',
+    name: 'Auto (Smart Select)',
+    endpoint: '/api/auto',
+    description: 'Automatically selects the best AI model for your query',
+    enabled: true
+  },
+  {
+    id: 'huggingface',
+    name: 'HuggingFace Models',
+    endpoint: '/api/huggingface',
+    description: 'HuggingFace models (free)',
+    enabled: true
+  },
+  {
+    id: 'deepseek',
+    name: 'DeepSeek Chat',
+    endpoint: '/api/deepseek',
+    description: 'DeepSeek AI models via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'openrouter',
+    name: 'OpenRouter',
+    endpoint: '/api/openrouter',
+    description: 'OpenRouter API gateway (multiple free models)',
+    enabled: true
+  },
+  {
+    id: 'llama31',
+    name: 'Llama 3.1',
+    endpoint: '/api/llama31',
+    description: 'Llama 3.1 8B Instruct (free)',
+    enabled: true
+  },
+  {
+    id: 'llama33',
+    name: 'Llama 3.3',
+    endpoint: '/api/llama33',
+    description: 'Llama 3.3 70B Instruct (free)',
+    enabled: true
+  },
+  {
+    id: 'llama4',
+    name: 'Llama 4',
+    endpoint: '/api/llama4',
+    description: 'Llama 4 model variants (gated access)',
+    enabled: true
+  },
+  {
+    id: 'mistral',
+    name: 'Mistral 7B',
+    endpoint: '/api/openrouter',
+    description: 'Mistral 7B Instruct via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'gemma',
+    name: 'Google Gemma',
+    endpoint: '/api/openrouter',
+    description: 'Google Gemma 7B/27B IT via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'qwen',
+    name: 'Qwen 2.5',
+    endpoint: '/api/openrouter',
+    description: 'Qwen 2.5 72B Instruct via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'phi3',
+    name: 'Microsoft Phi-3',
+    endpoint: '/api/openrouter',
+    description: 'Microsoft Phi-3 Medium via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'zephyr',
+    name: 'Zephyr 7B',
+    endpoint: '/api/openrouter',
+    description: 'HuggingFace Zephyr 7B Beta via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'codellama',
+    name: 'CodeLlama',
+    endpoint: '/api/openrouter',
+    description: 'CodeLlama 7B Instruct via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'openchat',
+    name: 'OpenChat',
+    endpoint: '/api/openrouter',
+    description: 'OpenChat 7B via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'nemotron',
+    name: 'Nemotron Super',
+    endpoint: '/api/openrouter',
+    description: 'Nvidia Nemotron Super 49B via OpenRouter (free)',
     enabled: true
   },
   {
     id: 'openai',
     name: 'OpenAI GPT',
     endpoint: '/api/openai',
-    description: 'OpenAI GPT models',
-    enabled: true
+    description: 'OpenAI GPT models (requires API key)',
+    enabled: false
+  },
+  {
+    id: 'anthropic',
+    name: 'Anthropic Claude',
+    endpoint: '/api/anthropic',
+    description: 'Anthropic Claude models (requires API key)',
+    enabled: false
   },
   {
     id: 'google',
     name: 'Google Gemini',
     endpoint: '/api/google',
-    description: 'Google Gemini AI',
+    description: 'Google Gemini models (requires API key)',
+    enabled: false
+  },
+  {
+    id: 'vision',
+    name: 'Vision Analysis',
+    endpoint: '/api/vision',
+    description: 'Google Vision API for image analysis',
     enabled: true
-  },
-  {
-    id: 'cohere',
-    name: 'Cohere',
-    endpoint: '/api/cohere',
-    description: 'Cohere AI for enterprise',
-    enabled: false
-  },
-  {
-    id: 'replicate',
-    name: 'Replicate',
-    endpoint: '/api/replicate',
-    description: 'Replicate AI models',
-    enabled: false
-  },
-  {
-    id: 'perplexity',
-    name: 'Perplexity',
-    endpoint: '/api/perplexity',
-    description: 'Perplexity search-augmented AI',
-    enabled: false
-  },
-  {
-    id: 'mistral',
-    name: 'Mistral AI',
-    endpoint: '/api/mistral',
-    description: 'Mistral AI models',
-    enabled: false
-  },
-  {
-    id: 'together',
-    name: 'Together AI',
-    endpoint: '/api/together',
-    description: 'Together AI platform',
-    enabled: false
-  },
-  {
-    id: 'deepseek',
-    name: 'DeepSeek',
-    endpoint: '/api/deepseek',
-    description: 'DeepSeek AI models',
-    enabled: false
   }
 ];
 
-// Chat bot roles (exactly 10 as specified)
+// Chat bot roles (fixed, but API assignment is now unlimited)
 export const CHAT_ROLES = [
   {
     id: 'reasoning',
@@ -131,18 +201,18 @@ export const CHAT_ROLES = [
   }
 ];
 
-// Default role assignments (maps role ID to API ID)
+// Default role assignments (maps role ID to API ID) - Optimized for efficiency
 export const DEFAULT_ROLE_ASSIGNMENTS = {
-  reasoning: 'anthropic',      // Advanced reasoning - Claude excels at this
-  tools: 'openai',             // Tool calling - GPT has good function calling
-  quotes: 'openai',            // Service quotes - use OpenAI instead of deepseek
-  photo_uploads: 'google',     // Photo analysis - Gemini has vision capabilities
-  summaries: 'anthropic',      // Summarization - Claude is great at this
-  search: 'google',            // Search queries - Google's strength
-  chat: 'openai',              // General chat - GPT is conversational
-  fallback: 'openai',          // Always available fallback - use OpenAI instead of deepseek
-  analytics: 'openai',         // Data analysis - use OpenAI instead of deepseek
-  accessibility: 'openai'      // Accessibility support - GPT is helpful
+  reasoning: 'qwen',           // Qwen 2.5 72B - excellent for complex reasoning
+  tools: 'codellama',          // CodeLlama - specialized for tool/code generation
+  quotes: 'mistral',           // Mistral 7B - good for structured responses like quotes
+  photo_uploads: 'vision',     // Vision API - specialized for image analysis
+  summaries: 'llama33',        // Llama 3.3 70B - excellent for summarization
+  search: 'nemotron',          // Nemotron Super 49B - great for information retrieval
+  chat: 'deepseek',            // DeepSeek - conversational and reliable
+  fallback: 'openrouter',      // OpenRouter - multiple model fallback options
+  analytics: 'phi3',           // Phi-3 Medium - good for data analysis
+  accessibility: 'gemma'       // Google Gemma - helpful and accessible responses
 };
 
 // Get enabled API options
@@ -163,13 +233,12 @@ export const getRoleById = (id) => {
 // Validate role assignments
 export const validateRoleAssignments = (assignments) => {
   const errors = [];
-  
   // Check all roles are assigned
   for (const role of CHAT_ROLES) {
     if (!assignments[role.id]) {
       errors.push(`Role '${role.name}' is not assigned to any API`);
     } else {
-      // Check assigned API exists and is enabled
+      // Check assigned API exists and is enabled (no limit on number)
       const api = getAPIById(assignments[role.id]);
       if (!api) {
         errors.push(`Role '${role.name}' is assigned to unknown API '${assignments[role.id]}'`);
@@ -178,6 +247,5 @@ export const validateRoleAssignments = (assignments) => {
       }
     }
   }
-  
   return errors;
 };

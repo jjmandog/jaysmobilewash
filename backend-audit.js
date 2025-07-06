@@ -8,7 +8,7 @@
 
 // Extract API_OPTIONS from chatbot
 const API_OPTIONS = [
-  // OpenRouter models
+  // OpenRouter free/gated models only (matching production dropdown)
   { id: 'openrouter_llama33', endpoint: '/api/openrouter' },
   { id: 'openrouter_gemma', endpoint: '/api/openrouter' },
   { id: 'openrouter_mistral', endpoint: '/api/openrouter' },
@@ -17,28 +17,9 @@ const API_OPTIONS = [
   { id: 'openrouter_zephyr', endpoint: '/api/openrouter' },
   { id: 'openrouter_openchat', endpoint: '/api/openrouter' },
   { id: 'openrouter_nemotron', endpoint: '/api/openrouter' },
-  { id: 'deepseek_r1', endpoint: '/api/openrouter' },
   { id: 'deepseek', endpoint: '/api/openrouter' },
-  { id: 'google', endpoint: '/api/openrouter' },
-  { id: 'mistral', endpoint: '/api/openrouter' },
-  { id: 'llama', endpoint: '/api/openrouter' },
-  { id: 'qwen', endpoint: '/api/openrouter' },
-  { id: 'llama33', endpoint: '/api/openrouter' },
-  { id: 'phi3', endpoint: '/api/openrouter' },
-  { id: 'zephyr', endpoint: '/api/openrouter' },
-  { id: 'openchat', endpoint: '/api/openrouter' },
-  { id: 'nemotron', endpoint: '/api/openrouter' },
-  
-  // HuggingFace models
-  { id: 'zephyr_hf', endpoint: '/api/huggingface' },
+  // HuggingFace free models
   { id: 'huggingface', endpoint: '/api/huggingface' },
-  
-  // Llama models
-  { id: 'llama4_scout', endpoint: '/api/llama4' },
-  { id: 'llama4_maverick', endpoint: '/api/llama4' },
-  { id: 'llama4_guard', endpoint: '/api/llama4' },
-  { id: 'llama2', endpoint: '/api/llama2' },
-  
   // None/disabled
   { id: 'none', endpoint: '/api/none' }
 ];
