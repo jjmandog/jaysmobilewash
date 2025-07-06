@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   try {
     const body = req.body || (typeof req.body === 'string' ? JSON.parse(req.body) : {});
     const prompt = body.prompt || '';
-    const model = body.model || null;
+    const apiId = body.apiId || 'llama4'; // Which specific Llama 4 variant
     const messages = body.messages || null;
 
     if (!prompt && (!messages || !Array.isArray(messages) || messages.length === 0)) {
@@ -38,15 +38,15 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Use HuggingFace gated access for Llama 4 models since user has approved access
-    // Map Llama 4 model IDs to HuggingFace model names
+    // Map specific Llama 4 API IDs to HuggingFace model names
     const modelMapping = {
-      'llama4_scout': 'meta-llama/Llama-3.1-8B-Instruct', // Using Llama 3.1 as closest available
-      'llama4_maverick': 'meta-llama/Llama-3.1-70B-Instruct', // Larger variant
-      'llama4_guard': 'meta-llama/Llama-Guard-3-8B' // Guard model if available
+      'llama4': 'meta-llama/Llama-3.1-8B-Instruct', // Default/auto
+      'llama4_scout': 'meta-llama/Llama-3.1-8B-Instruct', // Fast responses - 8B model
+      'llama4_maverick': 'meta-llama/Llama-3.1-70B-Instruct', // Complex tasks - 70B model
+      'llama4_guard': 'meta-llama/Llama-Guard-3-8B' // Safety & moderation
     };
 
-    const selectedModel = modelMapping[model] || 'meta-llama/Llama-3.1-8B-Instruct';
+    const selectedModel = modelMapping[apiId] || 'meta-llama/Llama-3.1-8B-Instruct';
 
     // Use HuggingFace API with gated access
     const apiKey = process.env.HUGGINGFACE_API_KEY;

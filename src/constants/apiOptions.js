@@ -56,9 +56,30 @@ export const API_OPTIONS = [
   },
   {
     id: 'llama4',
-    name: 'Llama 4',
+    name: 'Llama 4 (Auto)',
     endpoint: '/api/llama4',
     description: 'Llama 4 model variants (gated access)',
+    enabled: true
+  },
+  {
+    id: 'llama4_scout',
+    name: 'Llama 4 Scout',
+    endpoint: '/api/llama4',
+    description: 'Llama 4 Scout - Fast exploration & quick responses (gated)',
+    enabled: true
+  },
+  {
+    id: 'llama4_maverick',
+    name: 'Llama 4 Maverick',
+    endpoint: '/api/llama4',
+    description: 'Llama 4 Maverick - Large model for complex tasks (70B, gated)',
+    enabled: true
+  },
+  {
+    id: 'llama4_guard',
+    name: 'Llama 4 Guard',
+    endpoint: '/api/llama4',
+    description: 'Llama 4 Guard - Safety & content moderation (gated)',
     enabled: true
   },
   {
@@ -182,16 +203,16 @@ export const CHAT_ROLES = [
 
 // Default role assignments (maps role ID to API ID) - Optimized for efficiency
 export const DEFAULT_ROLE_ASSIGNMENTS = {
-  reasoning: 'qwen',           // Qwen 2.5 72B - excellent for complex reasoning
-  tools: 'codellama',          // CodeLlama - specialized for tool/code generation
-  quotes: 'mistral',           // Mistral 7B - good for structured responses like quotes
-  photo_uploads: 'vision',     // Vision API - specialized for image analysis
-  summaries: 'llama33',        // Llama 3.3 70B - excellent for summarization
-  search: 'nemotron',          // Nemotron Super 49B - great for information retrieval
-  chat: 'deepseek',            // DeepSeek - conversational and reliable
-  fallback: 'openrouter',      // OpenRouter - multiple model fallback options
-  analytics: 'phi3',           // Phi-3 Medium - good for data analysis
-  accessibility: 'gemma'       // Google Gemma - helpful and accessible responses
+  reasoning: 'llama4_maverick',   // Llama 4 Maverick 70B - best for complex reasoning
+  tools: 'codellama',             // CodeLlama - specialized for tool/code generation
+  quotes: 'mistral',              // Mistral 7B - good for structured responses like quotes
+  photo_uploads: 'vision',        // Vision API - specialized for image analysis
+  summaries: 'llama33',           // Llama 3.3 70B - excellent for summarization
+  search: 'llama4_scout',         // Llama 4 Scout - fast exploration & search
+  chat: 'deepseek',               // DeepSeek - conversational and reliable
+  fallback: 'openrouter',         // OpenRouter - multiple model fallback options
+  analytics: 'phi3',              // Phi-3 Medium - good for data analysis
+  accessibility: 'llama4_guard'   // Llama 4 Guard - safety-focused responses
 };
 
 // Get enabled API options
