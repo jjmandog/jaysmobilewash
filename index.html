@@ -3034,16 +3034,35 @@
             }
             
             function handleKeyPress(e) {
-                if (jayModeActive) return;
-                
                 const key = e.key.toLowerCase();
                 
+                // If Jay Mode is active, check for "jay" to deactivate
+                if (jayModeActive) {
+                    if (key === jaySequence[currentSequence.length]) {
+                        currentSequence.push(key);
+                        console.log(`[JAY Mode] Deactivation sequence progress: ${currentSequence.join('')}/${jaySequence.join('')}`);
+                        
+                        if (currentSequence.length === jaySequence.length) {
+                            console.log('[JAY Mode] Deactivation sequence completed! Stopping Jay Mode...');
+                            deactivateJayMode();
+                            currentSequence = [];
+                        }
+                    } else {
+                        currentSequence = key === 'j' ? ['j'] : [];
+                        if (key === 'j') {
+                            console.log('[JAY Mode] Starting deactivation sequence with J');
+                        }
+                    }
+                    return;
+                }
+                
+                // If Jay Mode is not active, check for "jay" to activate
                 if (key === jaySequence[currentSequence.length]) {
                     currentSequence.push(key);
-                    console.log(`[JAY Mode] Key sequence progress: ${currentSequence.join('')}/${jaySequence.join('')}`);
+                    console.log(`[JAY Mode] Activation sequence progress: ${currentSequence.join('')}/${jaySequence.join('')}`);
                     
                     if (currentSequence.length === jaySequence.length) {
-                        console.log('[JAY Mode] Sequence completed! Activating both modes...');
+                        console.log('[JAY Mode] Activation sequence completed! Activating both modes...');
                         
                         // Always activate global Jay Mode (visual effects)
                         activateJayMode();
@@ -3134,13 +3153,13 @@
                 createPurpleThunder();
                 createGhostlyApparition();
                 
-                // Auto-deactivate after 30 seconds
+                // Auto-deactivate after 1:11 (71 seconds) - duration of Big Dipper song
                 jayModeTimer = setTimeout(() => {
-                    console.log('[JAY Mode] Auto-deactivating after 30 seconds');
+                    console.log('[JAY Mode] Auto-deactivating after 1:11 (Big Dipper song complete)');
                     deactivateJayMode();
-                }, 30000);
+                }, 71000);
                 
-                console.log('[JAY Mode] Activation complete - effects active for 30 seconds');
+                console.log('[JAY Mode] Activation complete - effects active for 1:11 (Big Dipper song duration)');
             }
             
             function showAudioPrompt() {
