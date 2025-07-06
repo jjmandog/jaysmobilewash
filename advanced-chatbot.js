@@ -1339,25 +1339,35 @@ class AdvancedChatBot {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     if (!message || this.isProcessing) return;
+    
     this.addMessage(message, 'user');
     input.value = '';
     this.isProcessing = true;
     this.showProcessing();
     this.showTypingIndicator();
+    
+    let basefileResponse = null;
+    let learnedResponse = null;
+    
     try {
       let response;
-      const basefileResponse = this.searchKnowledgeBase(message);
+      
+      // Check for knowledge base response
+      basefileResponse = this.searchKnowledgeBase(message);
       if (basefileResponse) {
         response = { content: basefileResponse };
       } else {
-        const learnedResponse = this.memory.getLearnedResponse(message);
+        // Check learned responses from memory
+        learnedResponse = this.memory.getLearnedResponse(message);
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
+          // Determine the effective role for processing
           let effectiveRole = this.currentRole;
           if (this.currentRole === 'auto') {
             effectiveRole = this.detectBestRole(message);
           }
+          
           const assignedAPI = this.assignments[effectiveRole];
           if (assignedAPI === 'none' || !assignedAPI) {
             response = { content: this.generateSmartResponse(message, effectiveRole) };
@@ -1370,11 +1380,45 @@ class AdvancedChatBot {
           }
         }
       }
+      
       let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       responseText = this.sanitizeBotResponse(responseText);
       this.addMessage(responseText, 'bot');
+      
+      // Record conversation for learning
+      this.memory.recordConversation(message, responseText, {
+        role: this.currentRole,
+        hasImages: this.uploadedFiles.length > 0,
+        timestamp: Date.now()
+      });
+      
+      // Clear uploaded files after processing
+      this.clearUploadedFiles();
+      
+      this.sendAnalyticsEvent('chat_query_success', {
+        role: this.currentRole,
+        api: this.assignments[this.currentRole],
+        usedBasefile: !!basefileResponse,
+        usedMemory: !!learnedResponse
+      });
+      
     } catch (error) {
-      console.error("Error in sendMessage:", error);
+      console.error("Chat error:", error);
+      
+      // Provide user-friendly error messages
+      let userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
+      
+      this.addMessage(userFriendlyMessage, 'bot', 'error');
+      
+      // Provide a helpful fallback response
+      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
+      this.addMessage(fallbackResponse, 'bot');
+      
+      this.sendAnalyticsEvent('chat_query_error', {
+        role: this.currentRole,
+        error: error.message,
+        userFriendlyErrorShown: true
+      });
     } finally {
       this.isProcessing = false;
       this.hideProcessing();
@@ -1403,63 +1447,6 @@ class AdvancedChatBot {
     // Optionally, limit to 2000 chars
     if (cleaned.length > 2000) cleaned = cleaned.substring(0, 2000) + '...';
     return cleaned;
-  }
-      
-  async sendMessage() {
-    try {
-      // Method implementation here
-      const message = ""; // placeholder
-      const responseText = ""; // placeholder
-
-      // Record conversation for learning
-      this.memory.recordConversation(message, responseText, {
-        role: this.currentRole,
-        hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now()
-      });
-      
-      // Clear uploaded files after processing
-      this.clearUploadedFiles();
-      
-      this.sendAnalyticsEvent('chat_query_success', {
-        role: this.currentRole,
-        api: this.assignments[this.currentRole],
-        usedBasefile: !!basefileResponse,
-        usedMemory: !!this.memory.getLearnedResponse(message)
-      });
-    } catch (error) {
-      console.error('Chat error:', error);
-      
-      // Provide user-friendly error messages instead of technical ones
-      let userFriendlyMessage;
-      if (error.message.includes('Network error') || error.message.includes('fetch')) {
-        userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
-      } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-        userFriendlyMessage = "⚙️ I'm experiencing a temporary technical issue with my AI features. I can still help you with information about our services! For detailed quotes and booking, please call 562-228-9429.";
-      } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
-        userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
-      } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
-        userFriendlyMessage = "⏰ My AI is taking longer than usual to respond. Let me give you some quick help instead! For faster service, please call us at 562-228-9429.";
-      } else {
-        userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
-      }
-      
-      // Add the user-friendly error message instead of technical fallback
-      this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
-      // Then provide a helpful fallback response
-      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
-      this.addMessage(fallbackResponse, 'bot');
-      
-      this.sendAnalyticsEvent('chat_query_error', {
-        role: this.currentRole,
-        error: error.message,
-        userFriendlyErrorShown: true
-      });
-    } finally {
-      this.isProcessing = false;
-      this.hideProcessing();
-    }
   }
 
   searchKnowledgeBase(message) {
@@ -1808,6 +1795,11 @@ class AdvancedChatBot {
   }
 
   generateSmartResponse(message, role) {
+    // Ensure message is a string
+    if (!message || typeof message !== 'string') {
+      message = String(message || '');
+    }
+    
     const lowerMessage = message.toLowerCase();
     
     // Role-specific responses
