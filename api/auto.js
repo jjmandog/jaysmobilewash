@@ -14,6 +14,7 @@ const corsHeaders = {
 };
 
 export default async function handler(req, res) {
+  console.log('Incoming request:', req.method, req.headers['content-type']);
   if (req.method === 'OPTIONS') {
     res.writeHead(204, corsHeaders);
     res.end();
@@ -27,7 +28,31 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = req.body || (typeof req.body === 'string' ? JSON.parse(req.body) : {});
+    let body = req.body;
+    // For serverless platforms, body may be a string
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        console.error('Failed to parse body as JSON:', body);
+        res.writeHead(400, corsHeaders);
+        res.end(JSON.stringify({ error: 'Invalid JSON in request body' }));
+        return;
+      }
+    } else if (!body) {
+      // Try to read from raw body (for some platforms)
+      let raw = '';
+      await new Promise((resolve) => {
+        req.on('data', (chunk) => { raw += chunk; });
+        req.on('end', resolve);
+      });
+      try {
+        body = JSON.parse(raw);
+      } catch (e) {
+        body = {};
+      }
+    }
+
     const prompt = body.prompt || '';
     const role = body.role || 'auto';
     const messages = body.messages || null;
