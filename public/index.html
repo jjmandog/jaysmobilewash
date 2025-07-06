@@ -3944,6 +3944,24 @@
     <!-- Advanced Chatbot Script -->
     <script src="/advanced-chatbot.js?v=4.0.0-FINAL-FREE-MODELS-ONLY"></script>
 
+    <!-- Initialize Advanced Chatbot -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the advanced chatbot
+            try {
+                console.log('🤖 Initializing Advanced Chatbot...');
+                if (typeof AdvancedChatBot !== 'undefined') {
+                    window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+                    console.log('✅ Advanced Chatbot initialized successfully!');
+                } else {
+                    console.error('❌ AdvancedChatBot class not found!');
+                }
+            } catch (error) {
+                console.error('❌ Failed to initialize chatbot:', error);
+            }
+        });
+    </script>
+
     <!-- Review Schema -->
     <script type="application/ld+json">
     {
