@@ -54,8 +54,10 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
-    <link rel="preload" href="mobile-detailing.PNG" as="image">
-    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
+    <link rel="preload" href="mobile-detailing.PNG" as="image" fetchpriority="high">
+    <link rel="preload" href="ceramic-coating.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="paint-correction.jpg" as="image" fetchpriority="normal">
+    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image" fetchpriority="high">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1346,7 +1348,12 @@
             
             <!-- Logo -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-24 w-24 filter drop-shadow-lg">
+                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
+                     alt="Jay's Mobile Wash" 
+                     class="h-24 w-24 filter drop-shadow-lg"
+                     loading="eager"
+                     decoding="async"
+                     fetchpriority="high">
             </div>
             
             <!-- Progress text -->
@@ -1363,7 +1370,12 @@
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <div class="flex items-center">
                     <a href="/" class="flex-shrink-0 beat-reactive" data-freq="low">
-                        <img class="h-12 sm:h-14 w-auto" src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo">
+                        <img class="h-12 sm:h-14 w-auto" 
+                             src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
+                             alt="Jay's Mobile Wash Logo"
+                             loading="eager"
+                             decoding="async"
+                             fetchpriority="high">
                     </a>
                 </div>
                 <div class="hidden md:block">
@@ -1489,8 +1501,13 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mobile Detailing -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="mobile-detailing.PNG" alt="Mobile Car Detailing Service in Los Angeles" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="mobile-detailing.PNG" 
+                         alt="Mobile Car Detailing Service in Los Angeles" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
                         <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
@@ -1506,8 +1523,13 @@
                 </div>
                 
                 <!-- Ceramic Coating -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="ceramic-coating.jpg" alt="Ceramic Coating Service in Orange County" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="ceramic-coating.jpg" 
+                         alt="Ceramic Coating Service in Orange County" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
                         <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
@@ -1523,8 +1545,13 @@
                 </div>
                 
                 <!-- Paint Correction -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="paint-correction.jpg" alt="Paint Correction Service in Los Angeles and Orange County" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="paint-correction.jpg" 
+                         alt="Paint Correction Service in Los Angeles and Orange County" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="normal">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
                         <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
@@ -2606,7 +2633,11 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
                 <div>
-                    <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="h-16 mb-4">
+                    <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
+                         alt="Jay's Mobile Wash" 
+                         class="h-16 mb-4"
+                         loading="lazy"
+                         decoding="async">
                     <p class="text-gray-400 mb-4">Professional mobile car detailing services in Los Angeles and Orange County.</p>
                     <div class="flex space-x-4">
                         <a href="https://facebook.com/jaysmobilewash" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-purple-400">
@@ -2685,7 +2716,11 @@
     <!-- Jay Mode Overlay (hidden by default) -->
     <div class="jay-overlay" id="jay-overlay">
         <div class="jay-content">
-            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY MODE" class="exploding-logo">
+            <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
+                 alt="JAY MODE" 
+                 class="exploding-logo"
+                 loading="lazy"
+                 decoding="async">
             <h1 class="jay-mode-text">JAY MODE ACTIVATED</h1>
         </div>
     </div>
@@ -2698,7 +2733,11 @@
 
     <!-- Persistent Jay Mode Indicator (sticky during Jay Mode) -->
     <div id="jay-mode-indicator" class="jay-mode-indicator hidden">
-        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY MODE" class="indicator-logo">
+        <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" 
+             alt="JAY MODE" 
+             class="indicator-logo"
+             loading="lazy"
+             decoding="async">
         <span class="indicator-text">JAY MODE ACTIVE</span>
     </div>
 

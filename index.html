@@ -54,8 +54,10 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" as="style">
-    <link rel="preload" href="mobile-detailing.PNG" as="image">
-    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image">
+    <link rel="preload" href="mobile-detailing.PNG" as="image" fetchpriority="high">
+    <link rel="preload" href="ceramic-coating.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="paint-correction.jpg" as="image" fetchpriority="normal">
+    <link rel="preload" href="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" as="image" fetchpriority="high">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1489,8 +1491,13 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mobile Detailing -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="mobile-detailing.PNG" alt="Mobile Car Detailing Service in Los Angeles" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="mobile-detailing.PNG" 
+                         alt="Mobile Car Detailing Service in Los Angeles" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
                         <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
@@ -1506,8 +1513,13 @@
                 </div>
                 
                 <!-- Ceramic Coating -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="ceramic-coating.jpg" alt="Ceramic Coating Service in Orange County" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="ceramic-coating.jpg" 
+                         alt="Ceramic Coating Service in Orange County" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
                         <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
@@ -1523,8 +1535,13 @@
                 </div>
                 
                 <!-- Paint Correction -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="paint-correction.jpg" alt="Paint Correction Service in Los Angeles and Orange County" class="w-full h-48 object-cover" loading="lazy">
+                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    <img src="paint-correction.jpg" 
+                         alt="Paint Correction Service in Los Angeles and Orange County" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="normal">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
                         <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
