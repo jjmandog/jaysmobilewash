@@ -540,13 +540,19 @@ class AIUtils {
 
       console.log(`🔍 Querying AI at ${endpoint} with role: ${role}`);
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 25000); // 25 second timeout
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBody),
+        signal: controller.signal
       });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
@@ -569,8 +575,16 @@ class AIUtils {
       console.log(`✅ AI response received from ${endpoint}`);
       return data;
     } catch (error) {
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      if (error.name === 'AbortError') {
+        throw new Error('Request timeout: AI service is taking too long to respond');
+      } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
         throw new Error('Network error: Unable to connect to AI service');
+      } else if (error.message.includes('504')) {
+        throw new Error('Gateway timeout: AI service is temporarily overloaded');
+      } else if (error.message.includes('503')) {
+        throw new Error('Service unavailable: AI service is temporarily down');
+      } else if (error.message.includes('502')) {
+        throw new Error('Bad gateway: AI service connection error');
       }
       console.error(`❌ AI query failed:`, error.message);
       throw error;
@@ -1396,14 +1410,64 @@ class AdvancedChatBot {
             effectiveRole = this.detectBestRole(message);
           }
           
-          const assignedAPI = this.assignments[effectiveRole];
-          if (assignedAPI === 'none' || !assignedAPI) {
+          // Use user-selected model if available, otherwise use role assignments
+          let selectedAPIId = this.selectedModel || this.assignments[effectiveRole];
+          
+          if (selectedAPIId === 'none' || !selectedAPIId) {
             response = { content: this.generateSmartResponse(message, effectiveRole) };
           } else {
             try {
-              response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
+              // Create temporary assignments with user's selected model
+              const tempAssignments = { ...this.assignments };
+              tempAssignments[effectiveRole] = selectedAPIId;
+              
+              console.log(`🎯 Using selected model: ${selectedAPIId} for role: ${effectiveRole}`);
+              response = await ChatRouter.routeLLMRequest(message, effectiveRole, tempAssignments);
             } catch (aiError) {
-              response = { content: this.generateSmartResponse(message, effectiveRole) };
+              console.error(`❌ Selected model ${selectedAPIId} failed:`, aiError.message);
+              
+              // Try fallback to a different working API
+              const fallbackAPIs = ['auto', 'llama4_maverick', 'qwen3_235b', 'deepseek'];
+              let fallbackSuccess = false;
+              
+              for (const fallbackAPI of fallbackAPIs) {
+                if (fallbackAPI !== selectedAPIId) {
+                  try {
+                    console.log(`🔄 Trying fallback API: ${fallbackAPI}`);
+                    const fallbackAssignments = { ...this.assignments };
+                    fallbackAssignments[effectiveRole] = fallbackAPI;
+                    response = await ChatRouter.routeLLMRequest(message, effectiveRole, fallbackAssignments);
+                    console.log(`✅ Fallback API ${fallbackAPI} succeeded`);
+                    fallbackSuccess = true;
+                    break;
+                  } catch (fallbackError) {
+                    console.warn(`❌ Fallback ${fallbackAPI} also failed:`, fallbackError.message);
+                  }
+                }
+              }
+              
+              if (!fallbackSuccess) {
+                console.log(`🔄 All APIs failed, using enhanced local response`);
+                response = { 
+                  content: `I apologize, but I'm having trouble connecting to the AI services right now. This might be due to high traffic or a temporary service issue. 
+
+Here's what I can help you with regarding Jay's Mobile Wash:
+
+🚗 **Our Services:**
+- Premium exterior detailing
+- Interior deep cleaning  
+- Ceramic coating protection
+- Paint correction
+- We come to your location!
+
+📞 **Contact Information:**
+- Phone: (562) 228-9429
+- Service Areas: Los Angeles & Orange County
+- We're available 7 days a week
+
+Please try your question again in a moment, or call us directly for immediate assistance!` 
+                };
+              }
             }
           }
         }
