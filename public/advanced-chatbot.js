@@ -502,17 +502,19 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'auto',               // Auto mode - smart model selection
-  reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
-  tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
-  quotes: 'mistral',          // Service quotes - Mistral for structured business responses
-  photo_uploads: 'vision',    // Photo analysis - Vision API specialized for images
-  summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
-  search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
-  chat: 'deepseek',           // General chat - DeepSeek great for conversation
-  fallback: 'openrouter',     // Multiple model fallback via OpenRouter
-  analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
-  accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
+  auto: 'auto',                    // Auto mode - smart model selection
+  reasoning: 'deepseek',           // Advanced reasoning - DeepSeek for complex logic
+  tools: 'deepseek',              // Tool calling - DeepSeek for tools/code
+  quotes: 'deepseek',             // Service quotes - DeepSeek for structured business responses
+  photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for images
+  summaries: 'deepseek',          // Summarization - DeepSeek for summaries
+  search: 'deepseek',             // Search queries - DeepSeek for information retrieval
+  chat: 'deepseek',               // General chat - DeepSeek great for conversation
+  fallback: 'deepseek',           // Fallback to reliable DeepSeek
+  analytics: 'deepseek',          // Data analysis - DeepSeek for analytics
+  accessibility: 'deepseek',      // Accessibility support - DeepSeek for helpful responses
+  deep_analysis: 'deepseek',      // Deep analysis - DeepSeek for complex analysis
+  multi_language: 'deepseek'      // Multi-language support - DeepSeek
 };
 
 /**
@@ -536,6 +538,8 @@ class AIUtils {
         requestBody.role = role;
       }
 
+      console.log(`🔍 Querying AI at ${endpoint} with role: ${role}`);
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -551,7 +555,7 @@ class AIUtils {
         if (response.status === 405) {
           throw new Error('Method not allowed: API endpoint requires POST method');
         } else if (response.status === 500) {
-          throw new Error('Internal server error: AI service is temporarily unavailable');
+          throw new Error(`Internal server error: ${errorData.error || 'AI service is temporarily unavailable'}`);
         } else if (response.status === 429) {
           throw new Error('Rate limit exceeded: Please wait a moment before trying again');
         } else if (response.status === 404) {
@@ -562,11 +566,13 @@ class AIUtils {
       }
 
       const data = await response.json();
+      console.log(`✅ AI response received from ${endpoint}`);
       return data;
     } catch (error) {
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         throw new Error('Network error: Unable to connect to AI service');
       }
+      console.error(`❌ AI query failed:`, error.message);
       throw error;
     }
   }
@@ -651,29 +657,37 @@ class ChatRouter {
     
     const apiOptions = {
       endpoint: api.endpoint,
+      role: role,
       ...options
     };
     
     if (api.id === 'none') {
       return {
-        content: "AI services are currently disabled. Please contact support for assistance.",
+        content: "AI services are currently disabled. Please contact Jay's Mobile Wash at (562) 228-9429 for assistance.",
         role: "assistant"
       };
     }
     
-    if (api.id === 'deepseek') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
-    } else if (api.id === 'openai') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
-    } else {
-      // For other APIs, fall back to DeepSeek instead of OpenAI
-      const deepseekAPI = this.getAPIById('deepseek');
-      if (deepseekAPI && deepseekAPI.enabled) {
-        console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
-        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+    // Use the API endpoint directly with proper error handling
+    try {
+      console.log(`🚀 Calling ${api.name} API at ${api.endpoint}`);
+      const result = await AIUtils.queryAI(enhancedPrompt, apiOptions);
+      
+      // Handle different response formats
+      if (result.content) {
+        return { content: result.content, role: "assistant" };
+      } else if (result.response) {
+        return { content: result.response, role: "assistant" };
+      } else if (result.responseText) {
+        return { content: result.responseText, role: "assistant" };
+      } else if (typeof result === 'string') {
+        return { content: result, role: "assistant" };
       } else {
-        throw new Error(`API '${api.name}' not implemented and no fallback available`);
+        return { content: JSON.stringify(result), role: "assistant" };
       }
+    } catch (error) {
+      console.error(`❌ ${api.name} API failed:`, error.message);
+      throw new Error(`${api.name} API failed: ${error.message}`);
     }
   }
 
@@ -1881,7 +1895,16 @@ class AdvancedChatBot {
   }
 
   generateReasoningResponse(message) {
-    return 'Let me analyze that for you: Based on the information provided, I recommend considering your vehicle\'s condition, usage patterns, and protection goals. For detailed analysis and recommendations, our specialists at (562) 228-9429 can provide personalized advice.';
+    // Check for specific topics and provide better responses
+    if (message.includes('ceramic') || message.includes('protection') || message.includes('coating')) {
+      return 'For ceramic coating decisions, consider: **Vehicle Age & Condition** - newer vehicles benefit most from immediate protection. **Usage** - daily drivers in harsh conditions get excellent ROI. **Budget** - ceramic coating ($450) offers 2-3 years protection vs. graphene ($800) with 5+ years. **Maintenance** - both reduce washing frequency. I recommend ceramic coating for most vehicles. Call (562) 228-9429 for a personalized assessment.';
+    }
+    
+    if (message.includes('package') || message.includes('service') || message.includes('which')) {
+      return 'Choosing the right service depends on your needs: **Basic Mobile Detailing** ($70-120) - great for regular maintenance. **Premium Detailing** ($150-200) - for thorough cleaning and restoration. **Ceramic Coating** ($450) - long-term protection investment. **Graphene Coating** ($800) - maximum protection and durability. Consider your budget, vehicle value, and protection goals. Call (562) 228-9429 for expert guidance.';
+    }
+    
+    return 'I can help you make an informed decision. What specific aspect would you like me to analyze - service comparison, pricing, protection options, or maintenance benefits? Call (562) 228-9429 for detailed consultation.';
   }
 
   generateSummaryResponse(message) {
