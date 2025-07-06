@@ -39,10 +39,10 @@ export default async function handler(req, res) {
       return;
     }
 
-    const apiKey = process.env.HUGGINGFACE_API_KEY;
+    const apiKey = process.env.HF_API_KEY;
     if (!apiKey) {
       res.writeHead(500, corsHeaders);
-      res.end(JSON.stringify({ error: 'HUGGINGFACE_API_KEY environment variable is not set' }));
+      res.end(JSON.stringify({ error: 'HF_API_KEY environment variable is not set' }));
       return;
     }
 
