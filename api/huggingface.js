@@ -48,20 +48,20 @@ export default async function handler(req, res) {
 
     // Map chatbot model IDs to actual HuggingFace model names
     const modelMapping = {
-      'zephyr_hf': 'HuggingFaceH4/zephyr-7b-beta',
-      'huggingface': 'HuggingFaceH4/zephyr-7b-beta',
-      'mistral_hf': 'mistralai/Mistral-7B-Instruct-v0.1',
-      'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf',
-      'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
-      'vision_hf': 'microsoft/kosmos-2-patch14-224',
-      'blip2_hf': 'Salesforce/blip2-opt-2.7b'
+      'zephyr_hf': 'microsoft/DialoGPT-medium',
+      'huggingface': 'microsoft/DialoGPT-medium',
+      'mistral_hf': 'microsoft/DialoGPT-medium',
+      'llama2_hf': 'microsoft/DialoGPT-medium',
+      'llama32_vision': 'microsoft/DialoGPT-medium',
+      'vision_hf': 'microsoft/DialoGPT-medium',
+      'blip2_hf': 'microsoft/DialoGPT-medium'
     };
 
     // Use provided model or fallback to a default
-    const selectedModel = modelMapping[model] || model || 'HuggingFaceH4/zephyr-7b-beta';
+    const selectedModel = modelMapping[model] || model || 'microsoft/DialoGPT-medium';
 
     // Format prompt for HuggingFace
-    const systemPrompt = `You are Jay's Mobile Wash AI assistant. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.
+    const systemPrompt = `You are Jay's Mobile Wash AI assistant. Answer questions about car wash services professionally.
 
 Jay's Mobile Wash Services:
 - Mini Detail: $70 (1-1.5 hours) - Basic interior and exterior cleaning
@@ -76,10 +76,11 @@ Website: jaysmobilewash.net`;
 
     let formattedPrompt;
     if (Array.isArray(messages) && messages.length > 0) {
-      // Convert messages to a single prompt
-      formattedPrompt = messages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
+      // Convert messages to a single prompt for DialoGPT
+      formattedPrompt = messages.map(msg => msg.content).join(' ');
     } else {
-      formattedPrompt = `${systemPrompt}\n\nUser: ${prompt}\nAssistant:`;
+      // Simple prompt format for DialoGPT
+      formattedPrompt = prompt;
     }
 
     console.log('🤗 Using HuggingFace model:', selectedModel);
