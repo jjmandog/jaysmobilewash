@@ -1153,6 +1153,49 @@ class AdvancedChatBot {
             effectiveRole = this.detectBestRole(message);
             console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
           }
+    
+    // Photo upload context
+    if (this.uploadedFiles.length > 0) {
+      return 'photo_uploads';
+    }
+    
+    // Default to chat for conversational messages
+    return 'chat';
+  }
+
+  async sendMessage() {
+    const input = document.getElementById('chatbot-input');
+    const message = input.value.trim();
+    
+    if (!message || this.isProcessing) return;
+    
+    this.addMessage(message, 'user');
+    input.value = '';
+    
+    // SMS notification fully removed for compliance and privacy
+    
+    this.isProcessing = true;
+    this.showProcessing();
+    
+    try {
+      let response;
+      
+      // Check for basefile knowledge first
+      const basefileResponse = this.searchKnowledgeBase(message);
+      if (basefileResponse) {
+        response = { content: basefileResponse };
+      } else {
+        // Check learned responses from memory
+        const learnedResponse = this.memory.getLearnedResponse(message);
+        if (learnedResponse) {
+          response = { content: learnedResponse };
+        } else {
+          // Determine the effective role for processing
+          let effectiveRole = this.currentRole;
+          if (this.currentRole === 'auto') {
+            effectiveRole = this.detectBestRole(message);
+            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
+          }
           
           // Fall back to AI or smart responses
           const assignedAPI = this.assignments[effectiveRole];
@@ -1349,49 +1392,6 @@ class AdvancedChatBot {
     input.value = '';
     
     // Show fun deactivation message
-    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
-    
-    // Restore normal placeholder based on current role
-    const rolePlaceholders = {
-      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
-      quotes: 'Describe your vehicle and service needs for a quote...',
-      search: 'What information are you looking for?',
-      reasoning: 'Ask me to analyze or reason through something...',
-      summaries: 'What would you like me to summarize?',
-      chat: 'Ask about our services or chat with me...'
-    };
-    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
-  }
-  
-  activateJayMode() {
-    this.jayMode = true;
-    this.secretModeActive = true;
-    
-    // Add Jay mode styling (lighter theme)
-    document.querySelector('.chatbot-window').classList.remove('dark-mode');
-    document.querySelector('.chatbot-window').classList.add('jay-mode');
-    
-    // Clear input and show Jay mode message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    // Trigger beat animation if available
-    if (window.JayAudio) {
-      window.JayAudio.triggerBeat(0.8);
-    }
-    
-    this.addMessage("🎵 JAY MODE ACTIVATED! 🎵\n\nSpecial features unlocked:\n• Enhanced beat detection and animations\n• Premium service insights\n• VIP customer treatment\n• Advanced car knowledge\n• Exclusive detailing tips", 'bot', 'jay');
-    
-    // Update placeholder
-    input.placeholder = "Jay mode - Ask me anything about premium detailing...";
-    
-    // Add pulsing animation to chat toggle
-    document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
-  }
-
-  handleFileUpload(event) {
-    const files = Array.from(event.target.files);
-    
     files.forEach(file => {
       if (this.validateFile(file)) {
         this.processUploadedFile(file);

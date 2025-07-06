@@ -117,34 +117,71 @@ export const API_OPTIONS = [
     description: 'HuggingFace Zephyr 7B Beta via OpenRouter (free)',
     enabled: true
   },
+  // NEW HUGGINGFACE LLAMA MODELS (Gated Access)
   {
-    id: 'codellama',
-    name: 'CodeLlama',
-    endpoint: '/api/openrouter',
-    description: 'CodeLlama 7B Instruct via OpenRouter (free)',
+    id: 'llama4_scout_hf',
+    name: 'Llama 4 Scout (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 4 Scout 17B via HuggingFace (fast, gated access)',
     enabled: true
   },
   {
-    id: 'openchat',
-    name: 'OpenChat',
-    endpoint: '/api/openrouter',
-    description: 'OpenChat 7B via OpenRouter (free)',
+    id: 'llama4_maverick_hf',
+    name: 'Llama 4 Maverick (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 4 Maverick 17B via HuggingFace (complex reasoning, gated)',
     enabled: true
   },
   {
-    id: 'nemotron',
-    name: 'Nemotron Super',
-    endpoint: '/api/openrouter',
-    description: 'Nvidia Nemotron Super 49B via OpenRouter (free)',
+    id: 'llama4_guard_hf',
+    name: 'Llama 4 Guard (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama Guard 4 12B via HuggingFace (safety, gated)',
     enabled: true
   },
   {
-    id: 'vision',
-    name: 'Vision Analysis',
-    endpoint: '/api/vision',
-    description: 'Llama 3.2 Vision & HuggingFace models for image analysis',
+    id: 'llama31_8b_hf',
+    name: 'Llama 3.1 8B (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 3.1 8B Instruct via HuggingFace (balanced, gated)',
     enabled: true
-  }
+  },
+  {
+    id: 'llama31_70b_hf',
+    name: 'Llama 3.1 70B (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 3.1 70B Instruct via HuggingFace (powerful, gated)',
+    enabled: true
+  },
+  {
+    id: 'llama31_405b_hf',
+    name: 'Llama 3.1 405B (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 3.1 405B Instruct via HuggingFace (most capable, gated)',
+    enabled: true
+  },
+  {
+    id: 'llama32_vision_hf',
+    name: 'Llama 3.2 Vision (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 3.2 11B Vision Instruct via HuggingFace (multimodal, gated)',
+    enabled: true
+  },
+  {
+    id: 'llama2_7b_hf',
+    name: 'Llama 2 7B (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 2 7B Chat via HuggingFace (reliable, gated)',
+    enabled: true
+  },
+  {
+    id: 'llama2_70b_hf',
+    name: 'Llama 2 70B (HF)',
+    endpoint: '/api/huggingface',
+    description: 'Llama 2 70B Chat via HuggingFace (powerful, gated)',
+    enabled: true
+  },
+  // ...existing code...
 ];
 
 // Chat bot roles (fixed, but API assignment is now unlimited)

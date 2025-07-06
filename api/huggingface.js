@@ -48,39 +48,63 @@ export default async function handler(req, res) {
 
     // Map chatbot model IDs to actual HuggingFace model names
     const modelMapping = {
-      // Existing assignments (keep current working models)
-      'zephyr_hf': 'meta-llama/Llama-3.2-1B-Instruct',
-      'huggingface': 'meta-llama/Llama-3.2-1B-Instruct',
-      'mistral_hf': 'meta-llama/Llama-3.2-3B-Instruct',
-      'llama2_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      // Existing assignments - Updated with official Meta models
+      'zephyr_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'huggingface': 'meta-llama/Llama-3.1-8B-Instruct',
+      'mistral_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama2_hf': 'meta-llama/Llama-2-7b-chat-hf',
       'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
       'vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
-      'blip2_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      'blip2_hf': 'meta-llama/Llama-3.1-8B-Instruct',
       
-      // NEW: Llama 4 models (gated access) - Enhanced categories
-      'llama4_chat_hf': 'meta-llama/Llama-4-8B-Instruct',
-      'llama4_reasoning_hf': 'meta-llama/Llama-4-70B-Instruct',
-      'llama4_creative_hf': 'meta-llama/Llama-4-8B-Instruct',
-      'llama4_technical_hf': 'meta-llama/Llama-4-70B-Instruct',
-      'llama4_business_hf': 'meta-llama/Llama-4-8B-Instruct',
+      // LLAMA 4 MODELS (Official Meta - Gated Access)
+      'llama4_scout_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
+      'llama4_maverick_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct',
+      'llama4_guard_hf': 'meta-llama/Llama-Guard-4-12B',
+      'llama4_chat_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',        // Fast responses
+      'llama4_reasoning_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct', // Complex reasoning
+      'llama4_creative_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
+      'llama4_technical_hf': 'meta-llama/Llama-4-Maverick-17B-128E-Instruct',
+      'llama4_business_hf': 'meta-llama/Llama-4-Scout-17B-16E-Instruct',
       
-      // NEW: Specialized Llama 3.3 variants
+      // LLAMA 3.1 MODELS (Official Meta - Various sizes)
+      'llama31_8b_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama31_70b_hf': 'meta-llama/Llama-3.1-70B-Instruct',
+      'llama31_405b_hf': 'meta-llama/Llama-3.1-405B-Instruct',
+      'llama31_chat_hf': 'meta-llama/Llama-3.1-8B-Instruct',
+      'llama31_analysis_hf': 'meta-llama/Llama-3.1-70B-Instruct',
+      'llama31_complex_hf': 'meta-llama/Llama-3.1-405B-Instruct',
+      
+      // LLAMA 2 MODELS (Official Meta)
+      'llama2_7b_hf': 'meta-llama/Llama-2-7b-chat-hf',
+      'llama2_13b_hf': 'meta-llama/Llama-2-13b-chat-hf',
+      'llama2_70b_hf': 'meta-llama/Llama-2-70b-chat-hf',
+      
+      // LLAMA 3.3 MODELS (if available in your access)
       'llama33_chat_hf': 'meta-llama/Llama-3.3-70B-Instruct',
       'llama33_summarize_hf': 'meta-llama/Llama-3.3-70B-Instruct',
       'llama33_analysis_hf': 'meta-llama/Llama-3.3-70B-Instruct',
       
-      // NEW: Different model sizes for performance optimization
-      'llama_fast_hf': 'meta-llama/Llama-3.2-1B-Instruct',        // Fast responses
-      'llama_balanced_hf': 'meta-llama/Llama-3.2-3B-Instruct',     // Balanced performance
-      'llama_powerful_hf': 'meta-llama/Llama-3.2-11B-Instruct',   // More capable
+      // LLAMA 3.2 MODELS (Vision capable)
+      'llama32_1b_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      'llama32_3b_hf': 'meta-llama/Llama-3.2-3B-Instruct',
+      'llama32_11b_hf': 'meta-llama/Llama-3.2-11B-Instruct',
+      'llama32_vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
+      'llama32_vision_90b_hf': 'meta-llama/Llama-3.2-90B-Vision-Instruct',
       
-      // NEW: Vision and multimodal
+      // PERFORMANCE CATEGORIES
+      'llama_fast_hf': 'meta-llama/Llama-3.1-8B-Instruct',           // Fast responses
+      'llama_balanced_hf': 'meta-llama/Llama-3.1-70B-Instruct',      // Balanced performance
+      'llama_powerful_hf': 'meta-llama/Llama-3.1-405B-Instruct',     // Most capable
+      
+      // SPECIALIZED TASKS
       'llama_vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
-      'llama_multimodal_hf': 'meta-llama/Llama-3.2-90B-Vision-Instruct'
+      'llama_multimodal_hf': 'meta-llama/Llama-3.2-90B-Vision-Instruct',
+      'llama_guard_hf': 'meta-llama/Llama-Guard-3-8B'
     };
 
     // Use provided model or fallback to a balanced default
-    const selectedModel = modelMapping[model] || model || 'meta-llama/Llama-3.2-3B-Instruct';
+    const selectedModel = modelMapping[model] || model || 'meta-llama/Llama-3.1-8B-Instruct';
 
     // Format prompt for HuggingFace
     const systemPrompt = `You are Jay's Mobile Wash AI assistant. Answer questions about car wash services professionally.
