@@ -868,12 +868,13 @@ class AdvancedChatBot {
     this.adminMode = false;
     this.jayMode = false;
     this.secretModeActive = false;
-    
-    // File upload system
+      // File upload system
     this.uploadedFiles = [];
     this.maxFileSize = 10 * 1024 * 1024; // 10MB
     this.allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    
+
+    this.selectedModel = 'auto'; // Default to Auto Mode
+
     this.loadAssignments();
     this.init();
   }
@@ -898,9 +899,59 @@ class AdvancedChatBot {
   }
 
   init() {
+    // Restore selected model from localStorage if available
+    const savedModel = localStorage.getItem('chatbot-selected-model');
+    if (savedModel) {
+      this.selectedModel = savedModel;
+    }
     this.createChatWidget();
     this.setupEventListeners();
+    this.hasUserSentFirstMessage = false; // Track if user has sent their first message
+    this.renderModelDropdown();
     this.sendAnalyticsEvent('chat_initialized');
+  }
+
+  renderModelDropdown() {
+    // Dynamically generate dropdown options from API_OPTIONS (enabled only)
+    const modelOptions = API_OPTIONS.filter(opt => opt.enabled).map(opt => ({
+      id: opt.id,
+      name: `${opt.name}${opt.description && opt.description.toLowerCase().includes('free') ? ' (Free)' : opt.description && opt.description.toLowerCase().includes('gated') ? ' (Your Access)' : ''}`,
+      value: opt.id
+    }));
+    const dropdown = document.createElement('select');
+    dropdown.id = 'model-select';
+    dropdown.className = 'chatbot-model-select';
+    modelOptions.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.name;
+      dropdown.appendChild(option);
+    });
+    dropdown.addEventListener('change', (e) => {
+    this.selectedModel = e.target.value;
+    localStorage.setItem('chatbot-selected-model', this.selectedModel);
+    console.log(`🎯 Model dropdown changed to: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
+    console.log(`🎯 Selected option text: ${dropdown.options[dropdown.selectedIndex].text}`);
+    // Fun feedback animation
+    dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
+    setTimeout(() => { dropdown.style.transform = ''; }, 180);
+    this.addMessage(`✨ Model preference set to: <b>${dropdown.options[dropdown.selectedIndex].text}</b>!`, 'bot', 'system');
+    });
+    
+    // Set the dropdown value to match the current selectedModel
+    dropdown.value = this.selectedModel;
+    
+    // Insert above input
+    const inputRow = document.getElementById('chatbot-input').parentNode;
+    if (inputRow && !document.getElementById('model-select')) {
+      inputRow.parentNode.insertBefore(dropdown, inputRow);
+      // Fun pop-in animation
+      dropdown.animate([
+        { opacity: 0, transform: 'scale(0.7) translateY(-10px)' },
+        { opacity: 1, transform: 'scale(1.05) translateY(2px)' },
+        { opacity: 1, transform: 'scale(1) translateY(0)' }
+      ], { duration: 350, easing: 'cubic-bezier(.68,-0.55,.27,1.55)' });
+    }
   }
 
   createChatWidget() {
