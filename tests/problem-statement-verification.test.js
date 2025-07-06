@@ -184,7 +184,7 @@ describe('405 Error Fix Verification', () => {
       } catch (error) {
         // Simulate the chatbot's error handling logic
         if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-          userFriendlyMessage = "⚙️ There's a temporary technical issue with my AI features. Don't worry - I can still help you with basic questions about our services! For detailed quotes and booking, please call 562-228-9429.";
+          userFriendlyMessage = "⚙️ I'm experiencing a temporary technical issue with my AI features. I can still help you with information about our services! For detailed quotes and booking, please call 562-228-9429.";
         }
       }
 

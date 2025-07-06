@@ -1189,7 +1189,7 @@ class AdvancedChatBot {
       if (error.message.includes('Network error') || error.message.includes('fetch')) {
         userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
       } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-        userFriendlyMessage = "⚙️ There's a temporary technical issue with my AI features. Don't worry - I can still help you with basic questions about our services! For detailed quotes and booking, please call 562-228-9429.";
+        userFriendlyMessage = "⚙️ I'm experiencing a temporary technical issue with my AI features. I can still help you with information about our services! For detailed quotes and booking, please call 562-228-9429.";
       } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
         userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
       } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
