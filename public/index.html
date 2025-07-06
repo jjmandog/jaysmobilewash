@@ -3942,60 +3942,36 @@
     <link rel="stylesheet" href="advanced-chatbot.css">
     
     <!-- Advanced Chatbot Script -->
-    <script src="/advanced-chatbot.js?v=4.0.0-FINAL-FREE-MODELS-ONLY"></script>
+    <script src="/advanced-chatbot-simple.js?v=5.0.0-SIMPLE-TEST"></script>
 
     <!-- Initialize Advanced Chatbot -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the advanced chatbot with robust error handling
             console.log('🤖 Initializing Advanced Chatbot...');
             
-            // Check if the class is available
-            if (typeof AdvancedChatBot === 'undefined') {
-                console.error('❌ AdvancedChatBot class not found!');
-                return;
-            }
-            
-            // Check if container exists
-            const container = document.getElementById('chatbot-container');
-            if (!container) {
-                console.error('❌ Chatbot container not found immediately!');
+            // Wait a bit for the script to load
+            setTimeout(() => {
+                // Check if the class is available
+                if (typeof AdvancedChatBot === 'undefined') {
+                    console.error('❌ AdvancedChatBot class not found!');
+                    return;
+                }
                 
-                // Try to find it after a delay
-                setTimeout(() => {
-                    const delayedContainer = document.getElementById('chatbot-container');
-                    if (delayedContainer) {
-                        console.log('🔍 Container found after delay, initializing...');
-                        try {
-                            window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-                            console.log('✅ Chatbot initialized successfully (delayed)');
-                        } catch (error) {
-                            console.error('❌ Failed to initialize chatbot (delayed):', error);
-                        }
-                    } else {
-                        console.error('❌ Chatbot container still not found after delay!');
-                    }
-                }, 2000);
-                return;
-            }
-            
-            // Try immediate initialization
-            try {
-                window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-                console.log('✅ Advanced Chatbot initialized successfully!');
-            } catch (error) {
-                console.error('❌ Failed to initialize chatbot:', error);
+                // Check if container exists
+                const container = document.getElementById('chatbot-container');
+                if (!container) {
+                    console.error('❌ Chatbot container not found!');
+                    return;
+                }
                 
-                // Try again after a short delay in case of timing issues
-                setTimeout(() => {
-                    try {
-                        window.advancedChatbot = new AdvancedChatBot('chatbot-container');
-                        console.log('✅ Chatbot initialized successfully (retry)');
-                    } catch (retryError) {
-                        console.error('❌ Failed to initialize chatbot (retry):', retryError);
-                    }
-                }, 1000);
-            }
+                // Initialize the chatbot
+                try {
+                    window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+                    console.log('✅ Advanced Chatbot initialized successfully!');
+                } catch (error) {
+                    console.error('❌ Failed to initialize chatbot:', error);
+                }
+            }, 100);
         });
     </script>
 
