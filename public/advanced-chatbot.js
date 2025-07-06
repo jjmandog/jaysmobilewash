@@ -885,6 +885,31 @@ class ChatQuoteEngine {
  * Main Advanced ChatBot Component
  */
 class AdvancedChatBot {
+  // Save chat history to localStorage
+  saveChatHistory() {
+    try {
+      const messagesContainer = document.getElementById('chatbot-messages');
+      const messages = Array.from(messagesContainer.querySelectorAll('.message')).map(msg => {
+        const sender = msg.classList.contains('user-message') ? 'user' : 'bot';
+        const content = msg.querySelector('.message-content')?.innerHTML || '';
+        const type = msg.classList.contains('error-message') ? 'error' : (msg.classList[1] || 'normal');
+        return { sender, content, type };
+      });
+      localStorage.setItem('chatbot-history', JSON.stringify(messages));
+    } catch (e) { /* ignore */ }
+  }
+
+  // Restore chat history from localStorage
+  restoreChatHistory() {
+    try {
+      const messages = JSON.parse(localStorage.getItem('chatbot-history') || '[]');
+      const messagesContainer = document.getElementById('chatbot-messages');
+      messagesContainer.innerHTML = '';
+      messages.forEach(msg => {
+        this.addMessage(msg.content, msg.sender, msg.type);
+      });
+    } catch (e) { /* ignore */ }
+  }
   constructor(containerId) {
     console.log('🔍 Looking for container:', containerId);
     this.container = document.getElementById(containerId);
@@ -999,48 +1024,66 @@ class AdvancedChatBot {
     console.log('🔧 Creating chat widget...');
     const widget = document.createElement('div');
     widget.className = 'advanced-chatbot-widget';
+    widget.setAttribute('role', 'region');
+    widget.setAttribute('aria-label', "AI Chatbot");
     console.log('🔧 Widget created:', widget);
     widget.innerHTML = `
-      <div class="chatbot-toggle" id="chatbot-toggle">
+      <div class="chatbot-toggle" id="chatbot-toggle" tabindex="0" aria-label="Open AI Chatbot" role="button">
         <span class="chat-icon">🤖</span>
         <span class="chat-text">AI Chat</span>
       </div>
-      <div class="chatbot-window" id="chatbot-window" style="display: none;">
+      <div class="chatbot-window" id="chatbot-window" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
         <div class="chatbot-header">
           <div class="chatbot-title">
-            <span>Jay's AI Assistant</span>
+            <span id="chatbot-title">Jay's AI Assistant</span>
             <div class="role-indicator">
               Role: <span id="current-role">${this.currentRole}</span> → 
               <span id="current-api">${this.assignments[this.currentRole] || 'none'}</span>
             </div>
           </div>
           <div class="header-actions">
-            <button class="settings-btn" id="settings-btn" title="Settings">⚙️</button>
-            <button class="chatbot-close" id="chatbot-close">✕</button>
+            <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
           </div>
         </div>
         
         <div class="role-selector">
           <label for="role-select">Chat Mode:</label>
-          <select id="role-select">
+          <select id="role-select" aria-describedby="role-help">
             ${CHAT_ROLES.map(role => `
               <option value="${role.id}" ${role.id === this.currentRole ? 'selected' : ''}>
                 ${role.name}
               </option>
             `).join('')}
           </select>
+          <div id="role-help" class="sr-only">Select a chat mode to customize the AI's responses</div>
         </div>
 
-        <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-atomic="false" role="log" aria-label="Chat messages">
           <div class="message bot-message">
-            <div class="message-content">
-              Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
-              Choose a chat mode above and ask me anything!
+            <div class="message-row">
+              <img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />
+              <div class="message-bubble">
+                <div class="message-content">
+                  Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
+                  Choose a chat mode above and ask me anything!
+                </div>
+                <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="processing-overlay" id="processing-overlay" style="display: none;">
+        <div class="typing-indicator" id="typing-indicator" style="display:none;" aria-live="polite" aria-label="Bot is typing">
+          <span class="typing-text">Jay is typing</span>
+          <span class="typing-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </span>
+        </div>
+
+        <div class="processing-overlay" id="processing-overlay" style="display: none;" aria-live="assertive">
           <div class="processing-message">
             Processing with <span id="processing-api">AI</span>...
           </div>
@@ -1048,14 +1091,23 @@ class AdvancedChatBot {
 
         <div class="chatbot-input-area">
           <div class="file-upload-section" id="file-upload-section">
-            <input type="file" id="file-upload" accept="image/*" multiple style="display: none;">
-            <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes">📎</button>
+            <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" aria-describedby="file-help">
+            <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes" aria-label="Upload images for analysis">📎</button>
+            <div id="file-help" class="sr-only">Upload images of your vehicle for better service recommendations</div>
           </div>
-          <div class="uploaded-files" id="uploaded-files"></div>
-          <input type="text" class="chatbot-input" id="chatbot-input" 
-                 placeholder="Ask about our services, get quotes, or general questions...">
-          <button class="chatbot-send" id="chatbot-send">Send</button>
+          <div class="uploaded-files" id="uploaded-files" aria-label="Uploaded files"></div>
+          <div class="input-row">
+            <input type="text" class="chatbot-input" id="chatbot-input" 
+                   placeholder="Ask about our services, get quotes, or general questions..." 
+                   aria-label="Type your message here" 
+                   autocomplete="off"
+                   aria-describedby="input-help">
+            <button class="chatbot-send" id="chatbot-send" aria-label="Send message">Send</button>
+          </div>
+          <div id="input-help" class="sr-only">Type your message and press Enter or click Send</div>
         </div>
+        
+        <div class="quick-replies" id="quick-replies" aria-label="Quick reply options" role="group"></div>
       </div>
 
       <div class="settings-container" id="settings-container"></div>
@@ -1072,6 +1124,10 @@ class AdvancedChatBot {
       this.assignments, 
       (newAssignments) => this.handleAssignmentsChange(newAssignments)
     );
+    
+    // Restore chat history and render quick replies after a short delay
+    setTimeout(() => this.restoreChatHistory(), 0);
+    setTimeout(() => this.renderQuickReplies(), 0);
   }
 
   setupEventListeners() {
@@ -1084,19 +1140,61 @@ class AdvancedChatBot {
     const fileUploadBtn = document.getElementById('file-upload-btn');
     const fileUpload = document.getElementById('file-upload');
 
+    // Enhanced keyboard navigation
     toggle.addEventListener('click', () => this.toggleChat());
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleChat();
+      }
+    });
+    
     close.addEventListener('click', () => this.closeChat());
+    close.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.closeChat();
+      }
+    });
+    
     send.addEventListener('click', () => this.sendMessage());
+    send.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.sendMessage();
+      }
+    });
+    
     settingsBtn.addEventListener('click', () => this.toggleSettings());
+    settingsBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleSettings();
+      }
+    });
+    
     roleSelect.addEventListener('change', (e) => this.changeRole(e.target.value));
     
-    // File upload handlers
+    // File upload handlers with keyboard support
     fileUploadBtn.addEventListener('click', () => fileUpload.click());
+    fileUploadBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileUpload.click();
+      }
+    });
     fileUpload.addEventListener('change', (e) => this.handleFileUpload(e));
     
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         this.sendMessage();
+      }
+    });
+    
+    // Escape key to close chat
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.closeChat();
       }
     });
     
@@ -1106,21 +1204,37 @@ class AdvancedChatBot {
 
   toggleChat() {
     const window = document.getElementById('chatbot-window');
+    const toggle = document.getElementById('chatbot-toggle');
+    
     if (this.isOpen) {
       window.style.display = 'none';
       this.isOpen = false;
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus(); // Return focus to toggle button
     } else {
       window.style.display = 'block';
       this.isOpen = true;
-      document.getElementById('chatbot-input').focus();
+      toggle.setAttribute('aria-expanded', 'true');
+      
+      // Focus management for accessibility
+      const input = document.getElementById('chatbot-input');
+      if (input) {
+        setTimeout(() => input.focus(), 100);
+      }
     }
     
     this.sendAnalyticsEvent('chat_toggled', { opened: this.isOpen });
   }
 
   closeChat() {
-    document.getElementById('chatbot-window').style.display = 'none';
+    const window = document.getElementById('chatbot-window');
+    const toggle = document.getElementById('chatbot-toggle');
+    
+    window.style.display = 'none';
     this.isOpen = false;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus(); // Return focus to toggle button
+    
     this.sendAnalyticsEvent('chat_closed');
   }
 
@@ -1190,30 +1304,75 @@ class AdvancedChatBot {
     return 'chat';
   }
 
+  // Typing indicator control
+  showTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.style.display = '';
+  }
+  hideTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.style.display = 'none';
+  }
+
+  // Quick replies
+  renderQuickReplies() {
+    const quickReplies = [
+      'What are your prices?',
+      'How do I book a service?',
+      'Tell me about ceramic coating',
+      'What areas do you serve?',
+      'Show me your detailing packages',
+      'How long does a service take?'
+    ];
+    const container = document.getElementById('quick-replies');
+    if (!container) return;
+    container.innerHTML = quickReplies.map(q => `<button class="quick-reply-btn" tabindex="0">${q}</button>`).join('');
+    container.querySelectorAll('.quick-reply-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const inputEl = document.getElementById('chatbot-input');
+        if (inputEl) {
+          inputEl.value = btn.textContent;
+          this.sendMessage();
+        }
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const inputEl = document.getElementById('chatbot-input');
+          if (inputEl) {
+            inputEl.value = btn.textContent;
+            this.sendMessage();
+          }
+        }
+      });
+    });
+  }
+
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    
     if (!message || this.isProcessing) return;
     
     this.addMessage(message, 'user');
     input.value = '';
-    
-    // SMS notification fully removed for compliance and privacy
-    
     this.isProcessing = true;
     this.showProcessing();
+    this.showTypingIndicator();
+    
+    let basefileResponse = null;
+    let learnedResponse = null;
     
     try {
       let response;
       
-      // Check for basefile knowledge first
-      const basefileResponse = this.searchKnowledgeBase(message);
+      // Check for knowledge base response
+      basefileResponse = this.searchKnowledgeBase(message);
       if (basefileResponse) {
         response = { content: basefileResponse };
       } else {
         // Check learned responses from memory
-        const learnedResponse = this.memory.getLearnedResponse(message);
+        learnedResponse = this.memory.getLearnedResponse(message);
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
@@ -1221,31 +1380,63 @@ class AdvancedChatBot {
           let effectiveRole = this.currentRole;
           if (this.currentRole === 'auto') {
             effectiveRole = this.detectBestRole(message);
-            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
           }
           
-          // Fall back to AI or smart responses
           const assignedAPI = this.assignments[effectiveRole];
-          
           if (assignedAPI === 'none' || !assignedAPI) {
             response = { content: this.generateSmartResponse(message, effectiveRole) };
           } else {
             try {
               response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
             } catch (aiError) {
-              console.warn('AI failed, using smart fallback:', aiError);
               response = { content: this.generateSmartResponse(message, effectiveRole) };
             }
           }
         }
       }
       
-      // Clean up bot response to avoid weird characters and formatting
       let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       responseText = this.sanitizeBotResponse(responseText);
       this.addMessage(responseText, 'bot');
+      
+      // Record conversation for learning
+      this.memory.recordConversation(message, responseText, {
+        role: this.currentRole,
+        hasImages: this.uploadedFiles.length > 0,
+        timestamp: Date.now()
+      });
+      
+      // Clear uploaded files after processing
+      this.clearUploadedFiles();
+      
+      this.sendAnalyticsEvent('chat_query_success', {
+        role: this.currentRole,
+        api: this.assignments[this.currentRole],
+        usedBasefile: !!basefileResponse,
+        usedMemory: !!learnedResponse
+      });
+      
     } catch (error) {
-      console.error("Error in sendMessage:", error);
+      console.error("Chat error:", error);
+      
+      // Provide user-friendly error messages
+      let userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
+      
+      this.addMessage(userFriendlyMessage, 'bot', 'error');
+      
+      // Provide a helpful fallback response
+      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
+      this.addMessage(fallbackResponse, 'bot');
+      
+      this.sendAnalyticsEvent('chat_query_error', {
+        role: this.currentRole,
+        error: error.message,
+        userFriendlyErrorShown: true
+      });
+    } finally {
+      this.isProcessing = false;
+      this.hideProcessing();
+      this.hideTypingIndicator();
     }
   }
 
@@ -1270,63 +1461,6 @@ class AdvancedChatBot {
     // Optionally, limit to 2000 chars
     if (cleaned.length > 2000) cleaned = cleaned.substring(0, 2000) + '...';
     return cleaned;
-  }
-      
-  async sendMessage() {
-    try {
-      // Method implementation here
-      const message = ""; // placeholder
-      const responseText = ""; // placeholder
-
-      // Record conversation for learning
-      this.memory.recordConversation(message, responseText, {
-        role: this.currentRole,
-        hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now()
-      });
-      
-      // Clear uploaded files after processing
-      this.clearUploadedFiles();
-      
-      this.sendAnalyticsEvent('chat_query_success', {
-        role: this.currentRole,
-        api: this.assignments[this.currentRole],
-        usedBasefile: !!basefileResponse,
-        usedMemory: !!this.memory.getLearnedResponse(message)
-      });
-    } catch (error) {
-      console.error('Chat error:', error);
-      
-      // Provide user-friendly error messages instead of technical ones
-      let userFriendlyMessage;
-      if (error.message.includes('Network error') || error.message.includes('fetch')) {
-        userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
-      } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-        userFriendlyMessage = "⚙️ I'm experiencing a temporary technical issue with my AI features. I can still help you with information about our services! For detailed quotes and booking, please call 562-228-9429.";
-      } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
-        userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
-      } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
-        userFriendlyMessage = "⏰ My AI is taking longer than usual to respond. Let me give you some quick help instead! For faster service, please call us at 562-228-9429.";
-      } else {
-        userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
-      }
-      
-      // Add the user-friendly error message instead of technical fallback
-      this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
-      // Then provide a helpful fallback response
-      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
-      this.addMessage(fallbackResponse, 'bot');
-      
-      this.sendAnalyticsEvent('chat_query_error', {
-        role: this.currentRole,
-        error: error.message,
-        userFriendlyErrorShown: true
-      });
-    } finally {
-      this.isProcessing = false;
-      this.hideProcessing();
-    }
   }
 
   searchKnowledgeBase(message) {
@@ -1675,6 +1809,11 @@ class AdvancedChatBot {
   }
 
   generateSmartResponse(message, role) {
+    // Ensure message is a string
+    if (!message || typeof message !== 'string') {
+      message = String(message || '');
+    }
+    
     const lowerMessage = message.toLowerCase();
     
     // Role-specific responses
@@ -1752,15 +1891,22 @@ class AdvancedChatBot {
   addMessage(content, sender, type = 'normal') {
     const messagesContainer = document.getElementById('chatbot-messages');
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''}`;
+    messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''} ${type}`;
+    // Avatars
+    const avatar = sender === 'user'
+      ? '<img class="chat-avatar user-avatar" src="https://ui-avatars.com/api/?name=You&background=8b5cf6&color=fff&size=32" alt="User" />'
+      : '<img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />';
     messageDiv.innerHTML = `
-      <div class="message-content">${content}</div>
-      <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
+      <div class="message-row">
+        ${avatar}
+        <div class="message-bubble">
+          <div class="message-content">${content}</div>
+          <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
+        </div>
+      </div>
     `;
-    
     messagesContainer.appendChild(messageDiv);
-    
-    // Ensure scroll happens after DOM update with multiple fallbacks
+    this.saveChatHistory();
     this.scrollToBottom();
   }
 
