@@ -48,17 +48,39 @@ export default async function handler(req, res) {
 
     // Map chatbot model IDs to actual HuggingFace model names
     const modelMapping = {
-      'zephyr_hf': 'microsoft/DialoGPT-medium',
-      'huggingface': 'microsoft/DialoGPT-medium',
-      'mistral_hf': 'microsoft/DialoGPT-medium',
-      'llama2_hf': 'microsoft/DialoGPT-medium',
-      'llama32_vision': 'microsoft/DialoGPT-medium',
-      'vision_hf': 'microsoft/DialoGPT-medium',
-      'blip2_hf': 'microsoft/DialoGPT-medium'
+      // Existing assignments (keep current working models)
+      'zephyr_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      'huggingface': 'meta-llama/Llama-3.2-1B-Instruct',
+      'mistral_hf': 'meta-llama/Llama-3.2-3B-Instruct',
+      'llama2_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      'llama32_vision': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
+      'vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
+      'blip2_hf': 'meta-llama/Llama-3.2-1B-Instruct',
+      
+      // NEW: Llama 4 models (gated access) - Enhanced categories
+      'llama4_chat_hf': 'meta-llama/Llama-4-8B-Instruct',
+      'llama4_reasoning_hf': 'meta-llama/Llama-4-70B-Instruct',
+      'llama4_creative_hf': 'meta-llama/Llama-4-8B-Instruct',
+      'llama4_technical_hf': 'meta-llama/Llama-4-70B-Instruct',
+      'llama4_business_hf': 'meta-llama/Llama-4-8B-Instruct',
+      
+      // NEW: Specialized Llama 3.3 variants
+      'llama33_chat_hf': 'meta-llama/Llama-3.3-70B-Instruct',
+      'llama33_summarize_hf': 'meta-llama/Llama-3.3-70B-Instruct',
+      'llama33_analysis_hf': 'meta-llama/Llama-3.3-70B-Instruct',
+      
+      // NEW: Different model sizes for performance optimization
+      'llama_fast_hf': 'meta-llama/Llama-3.2-1B-Instruct',        // Fast responses
+      'llama_balanced_hf': 'meta-llama/Llama-3.2-3B-Instruct',     // Balanced performance
+      'llama_powerful_hf': 'meta-llama/Llama-3.2-11B-Instruct',   // More capable
+      
+      // NEW: Vision and multimodal
+      'llama_vision_hf': 'meta-llama/Llama-3.2-11B-Vision-Instruct',
+      'llama_multimodal_hf': 'meta-llama/Llama-3.2-90B-Vision-Instruct'
     };
 
-    // Use provided model or fallback to a default
-    const selectedModel = modelMapping[model] || model || 'microsoft/DialoGPT-medium';
+    // Use provided model or fallback to a balanced default
+    const selectedModel = modelMapping[model] || model || 'meta-llama/Llama-3.2-3B-Instruct';
 
     // Format prompt for HuggingFace
     const systemPrompt = `You are Jay's Mobile Wash AI assistant. Answer questions about car wash services professionally.
