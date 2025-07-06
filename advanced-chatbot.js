@@ -23,66 +23,80 @@ const API_OPTIONS = [
   },
   {
     id: 'deepseek',
-    name: 'DeepSeek',
+    name: 'DeepSeek Chat (Free)',
     endpoint: '/api/deepseek',
     description: 'DeepSeek AI models via Hugging Face',
     enabled: true
   },
   {
-    id: 'openai',
-    name: 'OpenAI GPT',
-    endpoint: '/api/openai',
-    description: 'OpenAI GPT models (disabled - no API key)',
-    enabled: false
-  },
-  {
-    id: 'anthropic',
-    name: 'Anthropic Claude',
-    endpoint: '/api/anthropic',
-    description: 'Claude AI for detailed analysis (disabled)',
-    enabled: false
-  },
-  {
-    id: 'google',
-    name: 'Google Gemini',
-    endpoint: '/api/google',
-    description: 'Google Gemini AI (disabled)',
-    enabled: false
-  },
-  {
-    id: 'cohere',
-    name: 'Cohere',
-    endpoint: '/api/cohere',
-    description: 'Cohere AI for enterprise',
-    enabled: false
-  },
-  {
-    id: 'replicate',
-    name: 'Replicate',
-    endpoint: '/api/replicate',
-    description: 'Replicate AI models',
-    enabled: false
-  },
-  {
-    id: 'perplexity',
-    name: 'Perplexity',
-    endpoint: '/api/perplexity',
-    description: 'Perplexity search-augmented AI',
-    enabled: false
-  },
-  {
     id: 'mistral',
-    name: 'Mistral AI',
-    endpoint: '/api/mistral',
-    description: 'Mistral AI models',
-    enabled: false
+    name: 'Mistral 7B Instruct (Free)',
+    endpoint: '/api/openrouter',
+    description: 'Mistral 7B Instruct via OpenRouter (free)',
+    enabled: true
   },
   {
-    id: 'together',
-    name: 'Together AI',
-    endpoint: '/api/together',
-    description: 'Together AI platform',
-    enabled: false
+    id: 'llama3_8b',
+    name: 'Llama 3 8B Instruct (Free)',
+    endpoint: '/api/openrouter',
+    description: 'Meta Llama 3 8B Instruct via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'gemma',
+    name: 'Gemma 7B IT (Free)',
+    endpoint: '/api/openrouter',
+    description: 'Google Gemma 7B IT via OpenRouter (free)',
+    enabled: true
+  },
+  {
+    id: 'huggingface',
+    name: 'HuggingFace',
+    endpoint: '/api/huggingface',
+    description: 'HuggingFace models (free)',
+    enabled: true
+  },
+  {
+    id: 'openrouter',
+    name: 'OpenRouter',
+    endpoint: '/api/openrouter',
+    description: 'OpenRouter free models',
+    enabled: true
+  },
+  {
+    id: 'llama2',
+    name: 'Llama 2',
+    endpoint: '/api/llama2',
+    description: 'Meta Llama 2 7B (gated access via HuggingFace)',
+    enabled: true
+  },
+  {
+    id: 'llama31',
+    name: 'Llama 3.1',
+    endpoint: '/api/llama31',
+    description: 'Meta Llama 3.1 8B (gated access via HuggingFace)',
+    enabled: true
+  },
+  {
+    id: 'llama33',
+    name: 'Llama 3.3',
+    endpoint: '/api/llama33',
+    description: 'Meta Llama 3.3 70B (gated access)',
+    enabled: true
+  },
+  {
+    id: 'llama4',
+    name: 'Llama 4',
+    endpoint: '/api/llama4',
+    description: 'Meta Llama 4 (gated access)',
+    enabled: true
+  },
+  {
+    id: 'auto',
+    name: 'Auto (Let AI choose)',
+    endpoint: '/api/auto',
+    description: 'Automatically selects the best AI model for your query',
+    enabled: true
   }
 ];
 
