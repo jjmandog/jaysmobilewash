@@ -1328,9 +1328,23 @@ class AdvancedChatBot {
     if (!container) return;
     container.innerHTML = quickReplies.map(q => `<button class="quick-reply-btn" tabindex="0">${q}</button>`).join('');
     container.querySelectorAll('.quick-reply-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById('chatbot-input').value = btn.textContent;
-        this.sendMessage();
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const inputEl = document.getElementById('chatbot-input');
+        if (inputEl) {
+          inputEl.value = btn.textContent;
+          this.sendMessage();
+        }
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const inputEl = document.getElementById('chatbot-input');
+          if (inputEl) {
+            inputEl.value = btn.textContent;
+            this.sendMessage();
+          }
+        }
       });
     });
   }
