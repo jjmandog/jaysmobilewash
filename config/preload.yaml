@@ -1,0 +1,28 @@
+# LocalAI Model Preload Configuration
+# This file defines which models to automatically load
+
+- name: "gpt-3.5-turbo"
+  url: "https://huggingface.co/microsoft/DialoGPT-medium"
+  backend: "transformers"
+  parameters:
+    max_tokens: 512
+    temperature: 0.7
+
+- name: "gpt-4"
+  url: "https://huggingface.co/microsoft/DialoGPT-large" 
+  backend: "transformers"
+  parameters:
+    max_tokens: 1024
+    temperature: 0.7
+
+- name: "text-embedding-ada-002"
+  url: "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+  backend: "transformers"
+  parameters:
+    model_type: "embeddings"
+
+- name: "whisper-1"
+  url: "https://huggingface.co/openai/whisper-tiny"
+  backend: "whisper"
+  parameters:
+    model_type: "audio"

@@ -1,0 +1,29 @@
+# Docker Compose for LocalAI
+version: '3.8'
+
+services:
+  localai:
+    image: localai/localai:latest
+    container_name: localai
+    ports:
+      - "8080:8080"
+    environment:
+      - DEBUG=true
+      - MODELS_PATH=/models
+      - PRELOAD_MODELS_CONFIG=/config/preload.yaml
+    volumes:
+      - ./models:/models
+      - ./config:/config
+    restart: unless-stopped
+    
+  # Optional: Add a web UI
+  localai-web:
+    image: localai/localai-web:latest
+    container_name: localai-web
+    ports:
+      - "3000:3000"
+    environment:
+      - LOCALAI_ENDPOINT=http://localai:8080
+    depends_on:
+      - localai
+    restart: unless-stopped
