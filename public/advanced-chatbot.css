@@ -886,8 +886,10 @@
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     border: 1px solid #e2e8f0;
-    overflow: hidden;
+    overflow: visible;  /* Changed from hidden to allow content scrolling */
     animation: slideUp 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
 }
 
 .settings-header {
@@ -927,6 +929,12 @@
     padding: 20px;
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
+    /* Better scrolling experience */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 transparent;
 }
 
 .settings-content p {
