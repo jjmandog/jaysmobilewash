@@ -20,8 +20,7 @@ class ModelUsageMonitor {
     const models = [
       'auto', 'deepseek', 'openrouter', 'mistral', 'llama31', 'llama33', 
       'llama4', 'qwen', 'gemma', 'phi3', 'zephyr', 'codellama', 
-      'openchat', 'nemotron', 'huggingface', 'vision', 'openai', 
-      'anthropic', 'google'
+      'openchat', 'nemotron', 'huggingface', 'vision'
     ];
 
     models.forEach(model => {

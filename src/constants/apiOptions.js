@@ -118,27 +118,6 @@ export const API_OPTIONS = [
     enabled: true
   },
   {
-    id: 'openai',
-    name: 'OpenAI GPT',
-    endpoint: '/api/openai',
-    description: 'OpenAI GPT models (requires API key)',
-    enabled: false
-  },
-  {
-    id: 'anthropic',
-    name: 'Anthropic Claude',
-    endpoint: '/api/anthropic',
-    description: 'Anthropic Claude models (requires API key)',
-    enabled: false
-  },
-  {
-    id: 'google',
-    name: 'Google Gemini',
-    endpoint: '/api/google',
-    description: 'Google Gemini models (requires API key)',
-    enabled: false
-  },
-  {
     id: 'vision',
     name: 'Vision Analysis',
     endpoint: '/api/vision',

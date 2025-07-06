@@ -720,8 +720,8 @@ const ChatSettingsPanel = ({
                     </optgroup>
                     <optgroup label="🔐 Premium Models (Requires API Key)">
                       {enabledAPIs.filter(api => 
-                        api.description.includes('requires API key') || 
-                        ['openai', 'anthropic', 'google'].includes(api.id)
+                        api.description.includes('requires API key') && 
+                        !['openai', 'anthropic', 'google'].includes(api.id)
                       ).map(api => {
                         const providerStatus = getProviderStatus(api.id);
                         return (

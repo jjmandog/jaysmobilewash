@@ -65,23 +65,7 @@ const MODEL_PROFILES = {
     specialties: ['fallback', 'multiple_models'],
     description: 'Gateway to multiple models for fallback'
   },
-  
-  // Premium models (require API keys)
-  'openai': { 
-    speed: 9, reasoning: 9, cost: 6, availability: 7, 
-    specialties: ['conversation', 'general', 'premium'],
-    description: 'Premium conversational AI'
-  },
-  'anthropic': { 
-    speed: 8, reasoning: 10, cost: 6, availability: 7, 
-    specialties: ['reasoning', 'safety', 'analysis'],
-    description: 'Top reasoning and safety features'
-  },
-  'google': { 
-    speed: 8, reasoning: 8, cost: 7, availability: 7, 
-    specialties: ['multimodal', 'integration'],
-    description: 'Multimodal capabilities and integration'
-  }
+  // Premium models REMOVED - using free models only
 };
 
 // Role requirements and priorities

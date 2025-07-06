@@ -15,75 +15,46 @@
 // Import constants and utilities (we'll inline them to avoid module issues)
 const API_OPTIONS = [
   {
-    id: 'none',
-    name: 'None',
-    endpoint: '/api/none',
-    description: 'No AI service (disabled)',
+    id: 'auto',
+    name: 'Auto (Let AI choose)',
+    endpoint: '/api/auto',
+    description: 'Automatically selects the best AI model for your query',
     enabled: true
   },
   {
     id: 'deepseek',
-    name: 'DeepSeek',
-    endpoint: '/api/openrouter',
-    description: 'DeepSeek AI models via OpenRouter (free)',
-    enabled: true
-  },
-  {
-    id: 'google',
-    name: 'Google Gemini',
-    endpoint: '/api/openrouter',
-    description: 'Google Gemini (free via OpenRouter)',
+    name: 'DeepSeek Chat (Free)',
+    endpoint: '/api/deepseek',
+    description: 'DeepSeek AI models via Hugging Face',
     enabled: true
   },
   {
     id: 'mistral',
-    name: 'Mistral AI',
+    name: 'Mistral 7B Instruct (Free)',
     endpoint: '/api/openrouter',
-    description: 'Mistral AI (free via OpenRouter)',
+    description: 'Mistral 7B Instruct via OpenRouter (free)',
     enabled: true
   },
   {
-    id: 'llama',
-    name: 'Llama 3',
+    id: 'llama3_8b',
+    name: 'Llama 3 8B Instruct (Free)',
     endpoint: '/api/openrouter',
-    description: 'Meta Llama 3 (free via OpenRouter)',
+    description: 'Meta Llama 3 8B Instruct via OpenRouter (free)',
     enabled: true
   },
-  // All other paid or disabled APIs remain disabled
   {
-    id: 'anthropic',
-    name: 'Anthropic Claude',
-    endpoint: '/api/anthropic',
-    description: 'Claude AI (disabled)',
-    enabled: false
+    id: 'gemma',
+    name: 'Gemma 7B IT (Free)',
+    endpoint: '/api/openrouter',
+    description: 'Google Gemma 7B IT via OpenRouter (free)',
+    enabled: true
   },
   {
-    id: 'cohere',
-    name: 'Cohere',
-    endpoint: '/api/cohere',
-    description: 'Cohere AI (disabled)',
-    enabled: false
-  },
-  {
-    id: 'replicate',
-    name: 'Replicate',
-    endpoint: '/api/replicate',
-    description: 'Replicate AI models (disabled)',
-    enabled: false
-  },
-  {
-    id: 'perplexity',
-    name: 'Perplexity',
-    endpoint: '/api/perplexity',
-    description: 'Perplexity AI (disabled)',
-    enabled: false
-  },
-  {
-    id: 'together',
-    name: 'Together AI',
-    endpoint: '/api/together',
-    description: 'Together AI platform (disabled)',
-    enabled: false
+    id: 'huggingface',
+    name: 'HuggingFace Models (Free)',
+    endpoint: '/api/huggingface',
+    description: 'HuggingFace models (free)',
+    enabled: true
   }
 ];
 
@@ -129,14 +100,24 @@ const CHAT_ROLES = [
     description: 'General conversational interactions'
   },
   {
-    id: 'fallback',
-    name: 'Fallback',
-    description: 'Default handler when other APIs fail'
-  },
-  {
     id: 'analytics',
     name: 'Analytics',
-    description: 'Data analysis and reporting'
+    description: 'Data analysis and business insights'
+  },
+  {
+    id: 'deep_analysis',
+    name: 'Deep Analysis',
+    description: 'Comprehensive and thorough analysis'
+  },
+  {
+    id: 'multi_language',
+    name: 'Multi-Language',
+    description: 'Multilingual support and translation'
+  },
+  {
+    id: 'safety',
+    name: 'Safety',
+    description: 'Security and safety-focused responses'
   },
   {
     id: 'accessibility',
@@ -147,7 +128,6 @@ const CHAT_ROLES = [
 
 // Comprehensive Car Detailing Knowledge Base
 const CAR_DETAILING_KNOWLEDGE_BASE = {
-  // Service Categories
   services: {
     washing: {
       basic_wash: {
@@ -229,8 +209,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       }
     }
   },
-  
-  // Technical Knowledge
   techniques: {
     two_bucket_method: {
       description: "Proper washing technique to prevent scratches",
@@ -244,8 +222,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       benefits: ["Smooth paint surface", "Better polish results", "Improved coating adhesion"]
     }
   },
-  
-  // Common Issues and Solutions
   problems: {
     swirl_marks: {
       causes: ["Improper washing technique", "Dirty wash media", "Automatic car washes", "Poor quality towels"],
@@ -263,8 +239,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       prevention: ["Regular waxing", "Covered parking", "UV protection", "Maintenance schedule"]
     }
   },
-  
-  // Product Knowledge
   products: {
     soaps: {
       ph_neutral: "Safe for all surfaces, won't strip protection",
@@ -284,8 +258,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       clay_bars: "Contamination removal, paint smoothing"
     }
   },
-  
-  // Environmental Factors
   environmental: {
     weather_effects: {
       sun: "UV damage, water spotting during wash, accelerated drying",
@@ -300,8 +272,6 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       winter: "Salt damage prevention, less frequent washing, protection focus"
     }
   },
-  
-  // Vehicle-Specific Knowledge
   vehicle_types: {
     luxury_vehicles: {
       considerations: ["Premium products only", "Extra care required", "Specialized techniques", "Higher service prices"],
@@ -462,17 +432,17 @@ class ConversationMemory {
 }
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
-  auto: 'mistralai/mistral-7b-instruct', // Auto mode - Mistral 7B Instruct (Free)
-  reasoning: 'mistralai/mistral-7b-instruct', // Advanced reasoning
-  tools: 'mistralai/mistral-7b-instruct', // Tool calling
-  quotes: 'mistralai/mistral-7b-instruct', // Service quotes
-  photo_uploads: 'mistralai/mistral-7b-instruct', // Photo analysis
-  summaries: 'mistralai/mistral-7b-instruct', // Summarization
-  search: 'mistralai/mistral-7b-instruct', // Search queries
-  chat: 'mistralai/mistral-7b-instruct', // General chat
-  fallback: 'mistralai/mistral-7b-instruct', // Always available fallback
-  analytics: 'mistralai/mistral-7b-instruct', // Data analysis
-  accessibility: 'mistralai/mistral-7b-instruct' // Accessibility support
+  auto: 'auto',               // Auto mode - smart model selection
+  reasoning: 'qwen',          // Advanced reasoning - Qwen 2.5 72B for complex logic
+  tools: 'codellama',         // Tool calling - CodeLlama specialized for tools/code
+  quotes: 'mistral',          // Service quotes - Mistral for structured business responses
+  photo_uploads: 'vision',    // Photo analysis - Vision API specialized for images
+  summaries: 'llama33',       // Summarization - Llama 3.3 70B excellent for summaries
+  search: 'nemotron',         // Search queries - Nemotron Super 49B for information retrieval
+  chat: 'deepseek',           // General chat - DeepSeek great for conversation
+  fallback: 'openrouter',     // Multiple model fallback via OpenRouter
+  analytics: 'phi3',          // Data analysis - Phi-3 Medium for analytics
+  accessibility: 'gemma'      // Accessibility support - Google Gemma for helpful responses
 };
 
 /**
@@ -480,29 +450,22 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
  */
 class AIUtils {
   static async queryAI(prompt, options = {}) {
-    const { endpoint = '/api/ai', role, messages, model } = options;
+    const { endpoint = '/api/ai', role } = options;
 
-    // Support both legacy (prompt) and new (messages) format
-    let requestBody = {};
-    if (Array.isArray(messages) && messages.length > 0) {
-      requestBody.messages = messages;
-    } else {
-      if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
-        throw new Error('Prompt is required and must be a non-empty string');
-      }
-      requestBody.prompt = prompt.trim();
+    if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
+      throw new Error('Prompt is required and must be a non-empty string');
     }
-    if (role) {
-      requestBody.role = role;
-    }
-    if (model) {
-      requestBody.model = model;
-    }
-
-    console.log(`🌐 AIUtils.queryAI calling endpoint: ${endpoint} with role: ${role} and model: '${model}'`);
-    console.log('📤 Request body:', JSON.stringify(requestBody, null, 2));
 
     try {
+      const requestBody = {
+        prompt: prompt.trim()
+      };
+      
+      // Include role in request body if provided
+      if (role) {
+        requestBody.role = role;
+      }
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -511,11 +474,10 @@ class AIUtils {
         body: JSON.stringify(requestBody)
       });
 
-      console.log(`📥 Response status: ${response.status} ${response.statusText}`);
-
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        console.error('❌ API Error response:', errorData);
+        
+        // Provide more specific error information for better debugging
         if (response.status === 405) {
           throw new Error('Method not allowed: API endpoint requires POST method');
         } else if (response.status === 500) {
@@ -530,10 +492,8 @@ class AIUtils {
       }
 
       const data = await response.json();
-      console.log('✅ API Response data:', data);
       return data;
     } catch (error) {
-      console.error('💥 AIUtils.queryAI error:', error);
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
         throw new Error('Network error: Unable to connect to AI service');
       }
@@ -564,57 +524,87 @@ class AIUtils {
  */
 class ChatRouter {
   static async routeLLMRequest(prompt, role, assignments = DEFAULT_ROLE_ASSIGNMENTS, options = {}) {
-    // Accepts prompt and/or messages for memory support
-    if ((!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) && (!options.messages || !Array.isArray(options.messages) || options.messages.length === 0)) {
-      throw new Error('Prompt or messages array is required');
+    if (!prompt || typeof prompt !== 'string' || prompt.trim().length === 0) {
+      throw new Error('Prompt is required and must be a non-empty string');
     }
+    
     if (!role || typeof role !== 'string') {
       throw new Error('Role is required and must be a string');
     }
-
-    // If this is an image analysis request, route to Hugging Face endpoint
-    if (role === 'photo_uploads' && options.image) {
-      // Call Hugging Face image analysis endpoint
-      return await this.executeAPICall(prompt, { id: 'huggingface', name: 'Hugging Face', endpoint: '/api/image-analysis', enabled: true }, role, options);
+    
+    const assignedAPIId = assignments[role];
+    if (!assignedAPIId) {
+      throw new Error(`No API assigned for role: ${role}`);
     }
-
-    // Use new OpenRouter endpoint for all text chat
-    const openrouterAPI = { id: 'openrouter', name: 'OpenRouter', endpoint: '/api/openrouter', enabled: true };
-    return await this.executeAPICall(prompt, openrouterAPI, role, options);
+    
+    const assignedAPI = this.getAPIById(assignedAPIId);
+    if (!assignedAPI) {
+      throw new Error(`Unknown API: ${assignedAPIId}`);
+    }
+    
+    if (!assignedAPI.enabled) {
+      const fallbackAPIId = assignments.fallback || 'none';
+      const fallbackAPI = this.getAPIById(fallbackAPIId);
+      
+      if (!fallbackAPI || !fallbackAPI.enabled) {
+        throw new Error(`Assigned API '${assignedAPI.name}' is disabled and no valid fallback available`);
+      }
+      
+      console.warn(`API '${assignedAPI.name}' is disabled, falling back to '${fallbackAPI.name}'`);
+      return await this.executeAPICall(prompt, fallbackAPI, role, options);
+    }
+    
+    try {
+      return await this.executeAPICall(prompt, assignedAPI, role, options);
+    } catch (error) {
+      const fallbackAPIId = assignments.fallback;
+      if (fallbackAPIId && fallbackAPIId !== assignedAPIId) {
+        const fallbackAPI = this.getAPIById(fallbackAPIId);
+        
+        if (fallbackAPI && fallbackAPI.enabled) {
+          console.warn(`Primary API '${assignedAPI.name}' failed, trying fallback '${fallbackAPI.name}':`, error.message);
+          try {
+            return await this.executeAPICall(prompt, fallbackAPI, role, options);
+          } catch (fallbackError) {
+            console.error(`Fallback API '${fallbackAPI.name}' also failed:`, fallbackError.message);
+            throw new Error(`Both primary API '${assignedAPI.name}' and fallback '${fallbackAPI.name}' failed`);
+          }
+        }
+      }
+      
+      throw error;
+    }
   }
 
   static async executeAPICall(prompt, api, role, options = {}) {
-    console.log(`🚀 ChatRouter executing API call: ${api.name} (${api.id}) for role: ${role}`);
     const enhancedPrompt = this.enhancePromptForRole(prompt, role);
+    
     const apiOptions = {
       endpoint: api.endpoint,
       ...options
     };
+    
     if (api.id === 'none') {
-      console.log('⚠️  API is set to "none" - returning disabled message');
       return {
         content: "AI services are currently disabled. Please contact support for assistance.",
         role: "assistant"
       };
     }
-    // All OpenRouter-powered models use /api/openrouter
-    if (
-      api.id === 'openrouter' ||
-      api.id === 'deepseek' ||
-      api.id === 'google' ||
-      api.id === 'mistral' ||
-      api.id === 'llama'
-    ) {
-      console.log('🔗 Calling OpenRouter API at /api/openrouter...');
-      const queryOptions = { endpoint: '/api/openrouter', role, messages: options.messages };
-      if (options.model) queryOptions.model = options.model;
-      console.log(`🔗 ChatRouter queryOptions:`, queryOptions);
-      const result = await AIUtils.queryAI(enhancedPrompt, queryOptions);
-      console.log('✅ OpenRouter API result:', result);
-      return result;
+    
+    if (api.id === 'deepseek') {
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+    } else if (api.id === 'openai') {
+      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
+    } else {
+      // For other APIs, fall back to DeepSeek instead of OpenAI
+      const deepseekAPI = this.getAPIById('deepseek');
+      if (deepseekAPI && deepseekAPI.enabled) {
+        console.warn(`API '${api.name}' not yet implemented, using DeepSeek fallback`);
+        return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
+      } else {
+        throw new Error(`API '${api.name}' not implemented and no fallback available`);
+      }
     }
-    // Fallback for any other API
-    throw new Error(`API '${api.name}' not implemented and no fallback available`);
   }
 
   static enhancePromptForRole(prompt, role) {
@@ -825,48 +815,16 @@ class ChatQuoteEngine {
  * Main Advanced ChatBot Component
  */
 class AdvancedChatBot {
-  // Extracts and stores user info (name, car, etc) from user messages
-  extractAndStoreUserInfo(message) {
-    // Name detection (simple regex for "my name is ..." or "I'm ...")
-    const nameMatch = message.match(/(?:my name is|i'm|i am|im)\s+([A-Za-z]{2,30})/i);
-    if (nameMatch) {
-      this.sessionUserInfo = this.sessionUserInfo || {};
-      this.sessionUserInfo.name = nameMatch[1];
-    }
-    // Car detection ("my car is ..." or "i drive a ...")
-    const carMatch = message.match(/(?:my car is|i drive a|i have a)\s+([A-Za-z0-9\- ]{2,40})/i);
-    if (carMatch) {
-      this.sessionUserInfo = this.sessionUserInfo || {};
-      this.sessionUserInfo.car = carMatch[1];
-    }
-  }
-  scrollToBottom() {
-    const messagesContainer = document.getElementById('chatbot-messages');
-    if (!messagesContainer) return;
-
-    // Multiple approaches to ensure scrolling works
-    const scrollToEnd = () => {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      // Extra guarantee: scroll last child into view
-      if (messagesContainer.lastElementChild) {
-        messagesContainer.lastElementChild.scrollIntoView({ behavior: 'auto', block: 'end' });
-      }
-    };
-    // Immediate scroll
-    scrollToEnd();
-    // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToEnd, 30);
-    setTimeout(scrollToEnd, 150);
-    setTimeout(scrollToEnd, 400);
-  }
-
   constructor(containerId) {
+    console.log('🔍 Looking for container:', containerId);
     this.container = document.getElementById(containerId);
+    console.log('📦 Container found:', this.container);
+    
     if (!this.container) {
       console.error('❌ Container not found! Cannot initialize chatbot.');
       return;
     }
-
+    
     this.isOpen = false;
     this.isProcessing = false;
     this.settingsOpen = false;
@@ -876,36 +834,61 @@ class AdvancedChatBot {
     this.settingsPanel = null;
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
-
+    
     // Secret modes
     this.adminMode = false;
     this.jayMode = false;
     this.secretModeActive = false;
-
-    // File upload system
+      // File upload system
     this.uploadedFiles = [];
     this.maxFileSize = 10 * 1024 * 1024; // 10MB
     this.allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
-    this.selectedModel = '';
-
+    this.selectedModel = 'auto'; // Default to Auto Mode
 
     this.loadAssignments();
     this.init();
   }
 
+  loadAssignments() {
+    try {
+      const saved = localStorage.getItem('chatbot-role-assignments');
+      if (saved) {
+        this.assignments = JSON.parse(saved);
+      }
+    } catch (error) {
+      console.warn('Failed to load saved assignments:', error);
+    }
+  }
+
+  saveAssignments() {
+    try {
+      localStorage.setItem('chatbot-role-assignments', JSON.stringify(this.assignments));
+    } catch (error) {
+      console.warn('Failed to save assignments:', error);
+    }
+  }
+
+  init() {
+    // Restore selected model from localStorage if available
+    const savedModel = localStorage.getItem('chatbot-selected-model');
+    if (savedModel) {
+      this.selectedModel = savedModel;
+    }
+    this.createChatWidget();
+    this.setupEventListeners();
+    this.hasUserSentFirstMessage = false; // Track if user has sent their first message
+    this.renderModelDropdown();
+    this.sendAnalyticsEvent('chat_initialized');
+  }
+
   renderModelDropdown() {
-    // Add a dropdown for model selection above the chat input
-    const modelOptions = [
-      { id: '', name: 'Auto (Let AI choose)', value: '' },
-      { id: 'deepseek/deepseek-chat', name: 'DeepSeek Chat (Free)', value: 'deepseek/deepseek-chat' },
-      { id: 'mistralai/mistral-7b-instruct', name: 'Mistral 7B Instruct (Free)', value: 'mistralai/mistral-7b-instruct' },
-      { id: 'meta-llama/llama-3-8b-instruct', name: 'Llama 3 8B Instruct (Free)', value: 'meta-llama/llama-3-8b-instruct' },
-      { id: 'google/gemma-7b-it', name: 'Gemma 7B IT (Free)', value: 'google/gemma-7b-it' },
-      { id: 'anthropic/claude-3-opus', name: 'Claude 3 Opus', value: 'anthropic/claude-3-opus' },
-      { id: 'openai/gpt-3.5-turbo', name: 'GPT-3.5 Turbo', value: 'openai/gpt-3.5-turbo' },
-      { id: 'openai/gpt-4o', name: 'GPT-4o', value: 'openai/gpt-4o' }
-    ];
+    // Dynamically generate dropdown options from API_OPTIONS (enabled only)
+    const modelOptions = API_OPTIONS.filter(opt => opt.enabled).map(opt => ({
+      id: opt.id,
+      name: `${opt.name}${opt.description && opt.description.toLowerCase().includes('free') ? ' (Free)' : opt.description && opt.description.toLowerCase().includes('gated') ? ' (Your Access)' : ''}`,
+      value: opt.id
+    }));
     const dropdown = document.createElement('select');
     dropdown.id = 'model-select';
     dropdown.className = 'chatbot-model-select';
@@ -916,14 +899,19 @@ class AdvancedChatBot {
       dropdown.appendChild(option);
     });
     dropdown.addEventListener('change', (e) => {
-      this.selectedModel = e.target.value;
-      console.log(`🎯 Model dropdown changed to: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
-      console.log(`🎯 Selected option text: ${dropdown.options[dropdown.selectedIndex].text}`);
-      // Fun feedback animation
-      dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
-      setTimeout(() => { dropdown.style.transform = ''; }, 180);
-      this.addMessage(`✨ Model preference set to: <b>${dropdown.options[dropdown.selectedIndex].text}</b>!`, 'bot', 'system');
+    this.selectedModel = e.target.value;
+    localStorage.setItem('chatbot-selected-model', this.selectedModel);
+    console.log(`🎯 Model dropdown changed to: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
+    console.log(`🎯 Selected option text: ${dropdown.options[dropdown.selectedIndex].text}`);
+    // Fun feedback animation
+    dropdown.style.transform = 'scale(1.08) rotate(-2deg)';
+    setTimeout(() => { dropdown.style.transform = ''; }, 180);
+    this.addMessage(`✨ Model preference set to: <b>${dropdown.options[dropdown.selectedIndex].text}</b>!`, 'bot', 'system');
     });
+    
+    // Set the dropdown value to match the current selectedModel
+    dropdown.value = this.selectedModel;
+    
     // Insert above input
     const inputRow = document.getElementById('chatbot-input').parentNode;
     if (inputRow && !document.getElementById('model-select')) {
@@ -937,39 +925,11 @@ class AdvancedChatBot {
     }
   }
 
-  loadAssignments() {
-    try {
-      const saved = localStorage.getItem('chatbot-role-assignments');
-      if (saved) {
-        this.assignments = JSON.parse(saved);
-      } else {
-        this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
-      }
-    } catch (error) {
-      console.warn('Failed to load saved assignments:', error);
-      this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
-    }
-  }
-
-  saveAssignments() {
-    try {
-      localStorage.setItem('chatbot-role-assignments', JSON.stringify(this.assignments));
-    } catch (error) {
-      console.warn('Failed to save assignments:', error);
-    }
-  }
-
-  init() {
-    this.createChatWidget();
-    this.setupEventListeners();
-    this.hasUserSentFirstMessage = false; // Track if user has sent their first message
-    this.renderModelDropdown();
-    this.sendAnalyticsEvent('chat_initialized');
-  }
-
   createChatWidget() {
+    console.log('🔧 Creating chat widget...');
     const widget = document.createElement('div');
     widget.className = 'advanced-chatbot-widget';
+    console.log('🔧 Widget created:', widget);
     widget.innerHTML = `
       <div class="chatbot-toggle" id="chatbot-toggle">
         <span class="chat-icon">🤖</span>
@@ -1031,7 +991,9 @@ class AdvancedChatBot {
       <div class="settings-container" id="settings-container"></div>
     `;
     
+    console.log('🔧 Appending widget to container...');
     this.container.appendChild(widget);
+    console.log('✅ Widget appended successfully!');
     
     // Initialize settings panel
     const settingsContainer = document.getElementById('settings-container');
@@ -1124,99 +1086,57 @@ class AdvancedChatBot {
    */
   detectBestRole(message) {
     const msgLower = message.toLowerCase();
-    console.log('[AUTO MODE] Analyzing message for best role:', msgLower);
+    
     // Quote-related keywords
     if (msgLower.includes('quote') || msgLower.includes('price') || msgLower.includes('cost') || 
         msgLower.includes('how much') || msgLower.includes('estimate') || msgLower.includes('pricing')) {
-      console.log('[AUTO MODE] Detected role: quotes');
       return 'quotes';
     }
+    
     // Search-related keywords
     if (msgLower.includes('find') || msgLower.includes('search') || msgLower.includes('where') || 
         msgLower.includes('when') || msgLower.includes('location') || msgLower.includes('hours')) {
-      console.log('[AUTO MODE] Detected role: search');
       return 'search';
     }
+    
     // Summary-related keywords
     if (msgLower.includes('summarize') || msgLower.includes('summary') || msgLower.includes('explain') || 
         msgLower.includes('tell me about') || msgLower.includes('what is')) {
-      console.log('[AUTO MODE] Detected role: summaries');
       return 'summaries';
     }
+    
     // Reasoning-related keywords
     if (msgLower.includes('why') || msgLower.includes('how') || msgLower.includes('analyze') || 
         msgLower.includes('compare') || msgLower.includes('recommend') || msgLower.includes('best')) {
-      console.log('[AUTO MODE] Detected role: reasoning');
       return 'reasoning';
     }
+    
     // Photo upload context
     if (this.uploadedFiles.length > 0) {
-      console.log('[AUTO MODE] Detected role: photo_uploads (file uploaded)');
       return 'photo_uploads';
     }
+    
     // Default to chat for conversational messages
-    console.log('[AUTO MODE] Defaulted to role: chat');
     return 'chat';
   }
 
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
+    
     if (!message || this.isProcessing) return;
-
-    // DEBUG: Check model selection state
-    const modelDropdown = document.getElementById('model-select');
-    console.log(`🔍 sendMessage() DEBUG:`);
-    console.log(`🔍 this.selectedModel: '${this.selectedModel}' (type: ${typeof this.selectedModel})`);
-    console.log(`🔍 modelDropdown exists: ${!!modelDropdown}`);
-    if (modelDropdown) {
-      console.log(`🔍 modelDropdown.value: '${modelDropdown.value}'`);
-      console.log(`🔍 modelDropdown.selectedIndex: ${modelDropdown.selectedIndex}`);
-      console.log(`🔍 modelDropdown.options[selectedIndex].text: '${modelDropdown.options[modelDropdown.selectedIndex]?.text}'`);
-      // FORCE SYNC: Ensure selectedModel matches dropdown value
-      this.selectedModel = modelDropdown.value;
-      console.log(`🔍 FORCE SYNC: this.selectedModel now: '${this.selectedModel}'`);
-    }
-
-    // Extract and store user info from this message
-    this.extractAndStoreUserInfo(message);
-
-
-    // Add user message to local messages array (for memory)
+    
     this.addMessage(message, 'user');
     input.value = '';
-
-    // Build full conversation history for memory, with system message if user info is known
-    const messages = [];
-    if (this.sessionUserInfo && (this.sessionUserInfo.name || this.sessionUserInfo.car)) {
-      let sysMsg = 'You are Jay\'s Mobile Wash AI assistant.';
-      if (this.sessionUserInfo.name) sysMsg += ` The user\'s name is ${this.sessionUserInfo.name}.`;
-      if (this.sessionUserInfo.car) sysMsg += ` Their car is a ${this.sessionUserInfo.car}.`;
-      sysMsg += ' Always use this info to personalize your responses.';
-      messages.push({ role: 'system', content: sysMsg });
-    }
-    for (const msg of this.messages) {
-      if (msg.type === 'user') {
-        messages.push({ role: 'user', content: msg.text });
-      } else if (msg.type === 'bot') {
-        // Only include model/system messages if not a system/model change notification
-        if (!msg.text.startsWith('✨ Model preference set to:')) {
-          messages.push({ role: 'assistant', content: msg.text });
-        }
-      }
-    }
-
-    // Only after the first user message, start AI/model analysis and response
-    if (!this.hasUserSentFirstMessage) {
-      this.hasUserSentFirstMessage = true;
-    }
-
+    
+    // SMS notification fully removed for compliance and privacy
+    
     this.isProcessing = true;
     this.showProcessing();
-
+    
     try {
       let response;
-
+      
       // Check for basefile knowledge first
       const basefileResponse = this.searchKnowledgeBase(message);
       if (basefileResponse) {
@@ -1227,86 +1147,42 @@ class AdvancedChatBot {
         if (learnedResponse) {
           response = { content: learnedResponse };
         } else {
-          // On first user message, analyze and select best role/model
+          // Determine the effective role for processing
           let effectiveRole = this.currentRole;
           if (this.currentRole === 'auto') {
             effectiveRole = this.detectBestRole(message);
-            if (!this.assignments[effectiveRole]) effectiveRole = 'chat';
-            console.log(`Auto mode: selected role '${effectiveRole}' for message: "${message.substring(0, 50)}..."`);
+            console.log(`Auto mode detected best role: ${effectiveRole} for message: "${message.substring(0, 50)}..."`);
           }
-          // Call OpenRouter with proper error handling
-          try {
-            console.log(`🔗 Calling ChatRouter for OpenRouter with role: ${effectiveRole} and model: '${this.selectedModel}'`);
-            console.log(`🔗 Model dropdown current value: '${document.getElementById('model-select')?.value}'`);
-            console.log(`🔗 Selected model type: ${typeof this.selectedModel}`);
-            response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments, { model: this.selectedModel, messages });
-            console.log('✅ AI response received:', response);
-            
-            // Log and show which model was actually used
-            if (response.model) {
-              console.log(`🤖 Model used: ${response.model}`);
-              // Add a small indicator of which model responded
-              const modelName = response.model.split('/').pop().split(':')[0];
-              this.addMessage(`🤖 _Answered by: ${modelName}_`, 'bot', 'model-info');
-            }
-          } catch (aiError) {
-            console.error('❌ AI API Error Details:', aiError);
-            
-            // Show user-friendly error message
-            let errorMessage = 'Sorry, I encountered an error. Let me try to help you anyway.';
-            if (aiError.message.includes('429') || aiError.message.includes('rate limit')) {
-              errorMessage = 'The AI service is busy right now. Please wait a moment and try again.';
-            } else if (aiError.message.includes('404') || aiError.message.includes('not found')) {
-              errorMessage = 'AI service is temporarily offline. Using fallback response.';
-            } else if (aiError.message.includes('network') || aiError.message.includes('fetch')) {
-              errorMessage = 'Connection issue detected. Please check your internet and try again.';
-            }
-            
-            this.addMessage(`⚠️ ${errorMessage}`, 'bot', 'error');
+          
+          // Fall back to AI or smart responses
+          const assignedAPI = this.assignments[effectiveRole];
+          
+          if (assignedAPI === 'none' || !assignedAPI) {
             response = { content: this.generateSmartResponse(message, effectiveRole) };
+          } else {
+            try {
+              response = await ChatRouter.routeLLMRequest(message, effectiveRole, this.assignments);
+            } catch (aiError) {
+              console.warn('AI failed, using smart fallback:', aiError);
+              response = { content: this.generateSmartResponse(message, effectiveRole) };
+            }
           }
         }
       }
-
-      // Try to extract model info from response (if backend returns it in future)
-      let modelUsed = null;
-      if (response.model) modelUsed = response.model;
-      // If not, infer from role (matches backend modelMap)
-      if (!modelUsed) {
-        const modelMap = {
-          reasoning: 'google/gemma-7b-it:free',
-          tools: 'mistralai/mistral-7b-instruct:free',
-          quotes: 'meta-llama/llama-3-8b-instruct:free',
-          photo_uploads: 'google/gemma-7b-it:free',
-          summaries: 'mistralai/mistral-7b-instruct:free',
-          search: 'google/gemma-7b-it:free',
-          analytics: 'meta-llama/llama-3-8b-instruct:free',
-          accessibility: 'mistralai/mistral-7b-instruct:free',
-          chat: 'deepseek/deepseek-chat',
-          fallback: 'deepseek/deepseek-chat'
-        };
-        let effectiveRole = this.currentRole;
-        if (this.currentRole === 'auto') {
-          effectiveRole = this.detectBestRole(message);
-          if (!this.assignments[effectiveRole]) effectiveRole = 'chat';
-        }
-        modelUsed = modelMap[effectiveRole] || modelMap['fallback'];
-      }
-    const responseText = response.content || response.response || response.generated_text || JSON.stringify(response, null, 2);
-    this.addMessage(responseText, 'bot', 'normal', modelUsed);
-      // Model used is now shown in the message itself; no need to call displayModelUsed
-
+      
+      const responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
+      this.addMessage(responseText, 'bot');
+      
       // Record conversation for learning
       this.memory.recordConversation(message, responseText, {
         role: this.currentRole,
         hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now(),
-        model: modelUsed
+        timestamp: Date.now()
       });
-
+      
       // Clear uploaded files after processing
       this.clearUploadedFiles();
-
+      
       this.sendAnalyticsEvent('chat_query_success', {
         role: this.currentRole,
         api: this.assignments[this.currentRole],
@@ -1315,13 +1191,13 @@ class AdvancedChatBot {
       });
     } catch (error) {
       console.error('Chat error:', error);
-
+      
       // Provide user-friendly error messages instead of technical ones
       let userFriendlyMessage;
       if (error.message.includes('Network error') || error.message.includes('fetch')) {
         userFriendlyMessage = "🔌 I'm having trouble connecting to my AI services right now. Let me help you with what I know! Please try again in a moment, or feel free to call us directly at 562-228-9429 for immediate assistance.";
       } else if (error.message.includes('405') || error.message.includes('Method not allowed')) {
-        userFriendlyMessage = "⚙️ There's a temporary technical issue with my AI features. Don't worry - I can still help you with basic questions about our services! For detailed quotes and booking, please call 562-228-9429.";
+        userFriendlyMessage = "⚙️ I'm experiencing a temporary technical issue with my AI features. I can still help you with information about our services! For detailed quotes and booking, please call 562-228-9429.";
       } else if (error.message.includes('500') || error.message.includes('Internal server error')) {
         userFriendlyMessage = "🛠️ My AI brain is taking a quick break for maintenance. I can still assist you with general information about Jay's Mobile Wash services. For immediate help, please call 562-228-9429!";
       } else if (error.message.includes('timeout') || error.message.includes('Timeout')) {
@@ -1329,14 +1205,14 @@ class AdvancedChatBot {
       } else {
         userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
       }
-
+      
       // Add the user-friendly error message instead of technical fallback
       this.addMessage(userFriendlyMessage, 'bot', 'error');
-
+      
       // Then provide a helpful fallback response
       const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
       this.addMessage(fallbackResponse, 'bot');
-
+      
       this.sendAnalyticsEvent('chat_query_error', {
         role: this.currentRole,
         error: error.message,
@@ -1371,25 +1247,28 @@ class AdvancedChatBot {
   }
   
   messageMatchesKnowledge(message, key, item) {
-    // Only match for company-specific topics
-    const companyKeywords = [
-      'jay', 'mobile wash', 'jays mobile wash', 'service', 'services', 'pricing', 'price', 'cost', 'quote', 'estimate',
-      'location', 'where', 'area', 'county', 'address', 'contact', 'phone', 'email', 'hours', 'open', 'close',
-      'book', 'booking', 'appointment', 'schedule', 'owner', 'founder', 'team', 'business', 'company', 'detail', 'detailing',
-      'ceramic', 'graphene', 'coating', 'paint correction', 'mini detail', 'luxury detail', 'max detail', 'package', 'packages'
-    ];
-    // Only match if the message contains a company keyword and the key is a service or business info
-    const msgLower = message.toLowerCase();
-    if (companyKeywords.some(kw => msgLower.includes(kw))) {
-      // Only match for service, protection, paint_correction, or direct business info
-      const allowedCategories = [
-        'basic_wash', 'detailed_wash', 'mini_detail', 'luxury_detail', 'max_detail',
-        'ceramic_coating', 'graphene_coating', 'paint_protection_film', 'single_stage', 'multi_stage',
-        'service', 'services', 'pricing', 'price', 'cost', 'quote', 'estimate',
-        'location', 'contact', 'phone', 'email', 'hours', 'package', 'packages'
-      ];
-      if (allowedCategories.some(cat => key.includes(cat))) return true;
+    // Check for key matches
+    if (message.includes(key.replace(/_/g, ' '))) return true;
+    
+    // Check for description matches
+    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
+    
+    // Check for specific keywords
+    const keywords = {
+      ceramic: ['ceramic', 'coating', 'protection'],
+      graphene: ['graphene', 'premium', 'coating'],
+      detail: ['detail', 'clean', 'wash'],
+      correction: ['correction', 'polish', 'scratch', 'swirl'],
+      wax: ['wax', 'protection', 'shine'],
+      wash: ['wash', 'clean', 'soap']
+    };
+    
+    for (const keywordGroup in keywords) {
+      if (key.includes(keywordGroup)) {
+        return keywords[keywordGroup].some(keyword => message.includes(keyword));
+      }
     }
+    
     return false;
   }
   
@@ -1444,68 +1323,18 @@ class AdvancedChatBot {
   activateAdminMode() {
     this.adminMode = true;
     this.secretModeActive = true;
+    
+    // Add admin styling
     document.querySelector('.chatbot-window').classList.add('admin-mode');
+    
+    // Clear input and show admin message
     const input = document.getElementById('chatbot-input');
     input.value = '';
-    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging\n• 'open kb panel' - Open Knowledge Base Editor", 'bot', 'admin');
+    
+    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging", 'bot', 'admin');
+    
+    // Update placeholder
     input.placeholder = "Admin mode active - Type admin commands...";
-
-    // Add admin panel button if not present
-    if (!document.getElementById('kb-admin-panel-btn')) {
-      const header = document.querySelector('.chatbot-header .header-actions');
-      const btn = document.createElement('button');
-      btn.id = 'kb-admin-panel-btn';
-      btn.className = 'kb-admin-btn';
-      btn.textContent = '🗂️ KB Editor';
-      btn.title = 'Open Knowledge Base Editor';
-      btn.onclick = () => this.openKnowledgeBasePanel();
-      header.appendChild(btn);
-    }
-  }
-
-  openKnowledgeBasePanel() {
-    // Create or show the KB editor panel
-    let panel = document.getElementById('kb-admin-panel');
-    if (!panel) {
-      panel = document.createElement('div');
-      panel.id = 'kb-admin-panel';
-      panel.className = 'kb-admin-panel';
-      panel.innerHTML = `
-        <div class="kb-panel-header">
-          <span>Knowledge Base Editor</span>
-          <button id="kb-close-btn">✕</button>
-        </div>
-        <textarea id="kb-json-editor" style="width:100%;height:300px;font-size:13px;">${JSON.stringify(CAR_DETAILING_KNOWLEDGE_BASE, null, 2)}</textarea>
-        <div style="margin-top:10px;display:flex;gap:10px;">
-          <button id="kb-save-btn">Save</button>
-          <button id="kb-reload-btn">Reload</button>
-        </div>
-        <div id="kb-save-status" style="margin-top:8px;font-size:12px;"></div>
-      `;
-      document.body.appendChild(panel);
-      document.getElementById('kb-close-btn').onclick = () => panel.remove();
-      document.getElementById('kb-save-btn').onclick = () => this.saveKnowledgeBaseFromEditor();
-      document.getElementById('kb-reload-btn').onclick = () => {
-        document.getElementById('kb-json-editor').value = JSON.stringify(CAR_DETAILING_KNOWLEDGE_BASE, null, 2);
-        document.getElementById('kb-save-status').textContent = '';
-      };
-    } else {
-      panel.style.display = 'block';
-    }
-  }
-
-  saveKnowledgeBaseFromEditor() {
-    const textarea = document.getElementById('kb-json-editor');
-    const status = document.getElementById('kb-save-status');
-    try {
-      const newKB = JSON.parse(textarea.value);
-      window.CAR_DETAILING_KNOWLEDGE_BASE = newKB;
-      status.textContent = '✅ Knowledge base updated (in-memory, reload to reset).';
-      status.style.color = 'green';
-    } catch (e) {
-      status.textContent = '❌ Invalid JSON: ' + e.message;
-      status.style.color = 'red';
-    }
   }
 
   deactivateAdminMode() {
@@ -1535,13 +1364,6 @@ class AdvancedChatBot {
   }
   
   activateJayMode() {
-    this.jayMode = true;
-    this.secretModeActive = true;
-    
-    // Add Jay mode styling (lighter theme)
-    document.querySelector('.chatbot-window').classList.remove('dark-mode');
-    document.querySelector('.chatbot-window').classList.add('jay-mode');
-    
     this.jayMode = true;
     this.secretModeActive = true;
     
@@ -1650,11 +1472,59 @@ class AdvancedChatBot {
     document.getElementById('uploaded-files').innerHTML = '';
   }
   
-  // Image analysis with Google Vision is deprecated/removed
   analyzeImageForQuote(fileData) {
-    setTimeout(() => {
-      this.addMessage("❌ Image analysis is currently unavailable. Please try again later or contact support.", 'bot', 'error');
-    }, 1000);
+    // Use real Google Vision API for image analysis
+    this.performImageAnalysisWithVision(fileData);
+  }
+  
+  async performImageAnalysisWithVision(fileData) {
+    try {
+      // Dynamic import to avoid module resolution issues
+      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
+      
+      // Use real Google Vision API
+      const analysisResults = await analyzeImageWithGoogleVision(fileData);
+      
+      if (analysisResults.length > 0) {
+        let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
+        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
+        
+        analysisResults.forEach((result, index) => {
+          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
+          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
+        });
+        
+        message += "💡 Would you like a detailed quote including these AI-recommended services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
+        }, 1000);
+      }
+    } catch (error) {
+      console.error('Image analysis failed:', error);
+      
+      // Fallback to simulated analysis
+      const analysisResults = this.performImageAnalysis(fileData);
+      
+      if (analysisResults.length > 0) {
+        let message = "📸 **Image Analysis Complete!**\n\n";
+        message += "I can see your vehicle and have some recommendations:\n\n";
+        
+        analysisResults.forEach((result, index) => {
+          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
+        });
+        
+        message += "\n💡 Would you like a detailed quote including these additional services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
+      }
+    }
   }
   
   performImageAnalysis(fileData) {
@@ -1762,50 +1632,50 @@ class AdvancedChatBot {
     } else if (message.includes('hours') || message.includes('time')) {
       return 'We operate Monday-Friday 8AM-6PM and weekends 9AM-5PM. We schedule appointments at your convenience within our service areas.';
     }
+    
     return 'I can help you find information about our services, coverage areas, pricing, or scheduling. What specific information are you looking for?';
+  }
+
+  generateReasoningResponse(message) {
+    return 'Let me analyze that for you: Based on the information provided, I recommend considering your vehicle\'s condition, usage patterns, and protection goals. For detailed analysis and recommendations, our specialists at (562) 228-9429 can provide personalized advice.';
   }
 
   generateSummaryResponse(message) {
     return 'Here\'s a summary: Jay\'s Mobile Wash offers three main categories: Mobile Detailing ($70-$200), Ceramic Coating ($450), and Graphene Coating ($800). We serve LA/OC areas with mobile convenience. Call (562) 228-9429 for service details.';
   }
 
-  addMessage(content, sender, type = 'normal', modelUsed = null) {
+  addMessage(content, sender, type = 'normal') {
     const messagesContainer = document.getElementById('chatbot-messages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''}`;
-    let modelInfo = '';
-    if (modelUsed) {
-      modelInfo = `<div class="model-used">Model: <span>${modelUsed}</span></div>`;
-    }
     messageDiv.innerHTML = `
       <div class="message-content">${content}</div>
-      ${modelInfo}
       <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
     `;
     
     messagesContainer.appendChild(messageDiv);
+    
+    // Ensure scroll happens after DOM update with multiple fallbacks
     this.scrollToBottom();
   }
 
   scrollToBottom() {
     const messagesContainer = document.getElementById('chatbot-messages');
     if (!messagesContainer) return;
-
+    
     // Multiple approaches to ensure scrolling works
     const scrollToEnd = () => {
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      // Extra guarantee: scroll last child into view
-      if (messagesContainer.lastElementChild) {
-        messagesContainer.lastElementChild.scrollIntoView({ behavior: 'auto', block: 'end' });
-      }
     };
     
     // Immediate scroll
     scrollToEnd();
+    
     // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToEnd, 30);
-    setTimeout(scrollToEnd, 150);
-    setTimeout(scrollToEnd, 400);
+    setTimeout(scrollToEnd, 10);
+    
+    // Additional fallback for slower rendering
+    setTimeout(scrollToEnd, 100);
   }
 
   showProcessing() {
@@ -1837,7 +1707,32 @@ class AdvancedChatBot {
     });
   }
 
+  sendSMSNotification(message) {
+    // SMS notification fully removed for compliance and privacy
+  }
 
+  sendSMSFallback(message) {
+    try {
+      // Alternative method using a different SMS service
+      const fallbackData = {
+        phone: '5622289429',
+        message: `New website message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}" - ${new Date().toLocaleTimeString()}`
+      };
+
+      fetch('/api/sms-fallback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fallbackData)
+      }).catch(error => {
+        console.warn('SMS fallback also failed:', error);
+      });
+      
+    } catch (error) {
+      console.warn('SMS fallback error:', error);
+    }
+  }
 
   sendAnalyticsEvent(eventName, data = {}) {
     try {
@@ -1856,5 +1751,35 @@ class AdvancedChatBot {
 // Initialize the advanced chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🤖 Initializing Advanced AI Chatbot...');
-  window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+  
+  // Debug: Check if container exists
+  const container = document.getElementById('chatbot-container');
+  console.log('🔍 Container found:', container);
+  
+  if (container) {
+    try {
+      window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+      console.log('✅ Chatbot initialized successfully');
+    } catch (error) {
+      console.error('❌ Failed to initialize chatbot:', error);
+    }
+  } else {
+    console.error('❌ Chatbot container not found!');
+    
+    // Try to find it after a delay
+    setTimeout(() => {
+      const delayedContainer = document.getElementById('chatbot-container');
+      if (delayedContainer) {
+        console.log('🔍 Container found after delay, initializing...');
+        try {
+          window.advancedChatbot = new AdvancedChatBot('chatbot-container');
+          console.log('✅ Chatbot initialized successfully (delayed)');
+        } catch (error) {
+          console.error('❌ Failed to initialize chatbot (delayed):', error);
+        }
+      } else {
+        console.error('❌ Chatbot container still not found after delay!');
+      }
+    }, 2000);
+  }
 });

@@ -25,10 +25,8 @@
   - `huggingface` - HuggingFace models
   - `vision` - Image analysis specialized
 
-- **Premium Models (API Key Required):**
-  - `openai` - OpenAI GPT models
-  - `anthropic` - Anthropic Claude
-  - `google` - Google Gemini
+- **Premium Models (REMOVED):**
+  - All premium models have been removed to maintain free-tier operation
 
 ### 3. **Optimized Role Assignments**
 Based on efficiency analysis, each role now uses the most suitable model:

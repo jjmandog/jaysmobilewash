@@ -593,8 +593,6 @@ class ChatRouter {
     
     if (api.id === 'deepseek') {
       return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/deepseek', role });
-    } else if (api.id === 'openai') {
-      return await AIUtils.queryAI(enhancedPrompt, { endpoint: '/api/openai', role });
     } else {
       // For other APIs, fall back to DeepSeek instead of OpenAI
       const deepseekAPI = this.getAPIById('deepseek');
