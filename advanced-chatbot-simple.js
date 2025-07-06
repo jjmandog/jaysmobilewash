@@ -652,7 +652,8 @@ class AdvancedChatBot {
 
     // Prepare request body
     const requestBody = {
-      message: message,
+      prompt: message,  // Use 'prompt' for auto mode compatibility
+      message: message, // Keep 'message' for other endpoints
       role: effectiveRole,
       hasFiles: this.uploadedFiles.length > 0,
       adminMode: this.adminMode,
@@ -666,6 +667,11 @@ class AdvancedChatBot {
         type: f.type,
         size: f.size
       }));
+      // Add messages array for auto mode vision detection
+      requestBody.messages = [{
+        type: 'image',
+        attachments: this.uploadedFiles.map(f => ({ type: f.type, name: f.name }))
+      }];
     }
 
     // Show loading message
@@ -687,6 +693,12 @@ class AdvancedChatBot {
         let aiText = data.content || data.generated_text || data.response || JSON.stringify(data, null, 2);
         aiText = this.sanitizeBotResponse(aiText);
         
+        // Add auto mode info if present
+        if (data.autoMode && selectedModelId === 'auto') {
+          const autoInfo = `🤖 *Auto Mode: Selected ${data.autoMode.selectedModel} (${data.autoMode.reason})*\n\n`;
+          aiText = autoInfo + aiText;
+        }
+        
         // Add special mode prefixes
         if (this.jayMode) {
           aiText = `🌟 **Jay:** ${aiText}`;
@@ -704,6 +716,8 @@ class AdvancedChatBot {
           hasFiles: this.uploadedFiles.length > 0,
           adminMode: this.adminMode,
           jayMode: this.jayMode,
+          autoMode: data.autoMode || null,
+          actualModel: data.autoMode ? data.autoMode.selectedModel : selectedModelId,
           timestamp: Date.now()
         });
         
