@@ -1,0 +1,64 @@
+@keyframes modalSlideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes laserSweep {
+    0% { transform: translateX(-100px) rotate(-15deg); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: translateX(100px) rotate(15deg); opacity: 0; }
+}
+
+@keyframes laserFromLeft {
+    0% { left: -100px; opacity: 0; transform: rotate(45deg); }
+    50% { opacity: 0.8; }
+    100% { left: 100vw; opacity: 0; transform: rotate(45deg); }
+}
+
+@keyframes laserFromRight {
+    0% { right: -100px; opacity: 0; transform: rotate(-45deg); }
+    50% { opacity: 0.8; }
+    100% { right: 100vw; opacity: 0; transform: rotate(-45deg); }
+}
+
+.ezpz-ceramic {
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.laser-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.laser-effect::before,
+.laser-effect::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8), transparent);
+    animation: laserSweep 2s infinite;
+}
+
+.laser-beam {
+    position: absolute;
+    width: 2px;
+    height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+}

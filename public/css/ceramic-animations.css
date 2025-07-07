@@ -39,24 +39,6 @@
     100% { right: 100vw; opacity: 0; transform: rotate(-45deg); }
 }
 
-@-webkit-keyframes laserSweep {
-    0% { transform: translateX(-100px) rotate(-15deg); opacity: 0; }
-    50% { opacity: 0.7; }
-    100% { transform: translateX(100px) rotate(15deg); opacity: 0; }
-}
-
-@-webkit-keyframes laserFromLeft {
-    0% { left: -100px; opacity: 0; transform: rotate(45deg); }
-    50% { opacity: 0.8; }
-    100% { left: 100vw; opacity: 0; transform: rotate(45deg); }
-}
-
-@-webkit-keyframes laserFromRight {
-    0% { right: -100px; opacity: 0; transform: rotate(-45deg); }
-    50% { opacity: 0.8; }
-    100% { right: 100vw; opacity: 0; transform: rotate(-45deg); }
-}
-
 .laser-effect {
     position: absolute;
     width: 2px;
@@ -65,17 +47,6 @@
     pointer-events: none;
 }
 
-.laser-sweep {
-    -webkit-animation: laserSweep 1.5s infinite;
-    animation: laserSweep 1.5s infinite;
-}
-
-.laser-left {
-    -webkit-animation: laserFromLeft 2s infinite;
-    animation: laserFromLeft 2s infinite;
-}
-
-.laser-right {
-    -webkit-animation: laserFromRight 2s infinite;
-    animation: laserFromRight 2s infinite;
-}
+.laser-sweep { animation: laserSweep 1.5s infinite; }
+.laser-left { animation: laserFromLeft 2s infinite; }
+.laser-right { animation: laserFromRight 2s infinite; }
