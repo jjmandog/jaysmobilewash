@@ -1,0 +1,52 @@
+/* EZPZ Ceramic Coating Animations */
+.ezpz-coating {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.vehicle-text {
+    color: #aaa;
+    font-size: 1rem;
+}
+
+/* Laser effect animations */
+@keyframes laserSweep {
+    0% { transform: translateX(-100px) rotate(-15deg); opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { transform: translateX(100px) rotate(15deg); opacity: 0; }
+}
+
+@keyframes laserFromLeft {
+    0% { left: -100px; opacity: 0; transform: rotate(45deg); }
+    50% { opacity: 0.8; }
+    100% { left: 100vw; opacity: 0; transform: rotate(45deg); }
+}
+
+@keyframes laserFromRight {
+    0% { right: -100px; opacity: 0; transform: rotate(-45deg); }
+    50% { opacity: 0.8; }
+    100% { right: 100vw; opacity: 0; transform: rotate(-45deg); }
+}
+
+.laser-effect {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #fff, transparent);
+    pointer-events: none;
+}
+
+.laser-sweep { animation: laserSweep 1.5s infinite; }
+.laser-left { animation: laserFromLeft 2s infinite; }
+.laser-right { animation: laserFromRight 2s infinite; }
