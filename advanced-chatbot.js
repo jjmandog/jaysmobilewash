@@ -1534,6 +1534,22 @@ Please try your question again in a moment, or call us directly for immediate as
       
       let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       responseText = this.sanitizeBotResponse(responseText);
+      
+      // If summarizer is active, summarize the AI response
+      if (this.summarizerActive && responseText && !responseText.includes('I\'m experiencing a temporary glitch')) {
+        try {
+          const summarizeResponse = await ChatRouter.routeLLMRequest(
+            `Please provide a clear, concise summary of this response: ${responseText}`,
+            'summarize',
+            this.assignments
+          );
+          responseText = `📝 **Summary**: ${summarizeResponse.content || responseText}`;
+        } catch (summarizeError) {
+          console.error('Error summarizing response:', summarizeError);
+          // If summarization fails, just show the original response
+        }
+      }
+      
       this.addMessage(responseText, 'bot');
       
       // Record conversation for learning
