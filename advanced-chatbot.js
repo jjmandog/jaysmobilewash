@@ -160,6 +160,11 @@ const CHAT_ROLES = [
     description: 'Content summarization and key points'
   },
   {
+    id: 'summarize',
+    name: 'Summarize',
+    description: 'Summarize documents, text, or conversations'
+  },
+  {
     id: 'search',
     name: 'Search',
     description: 'Information search and retrieval'
@@ -504,18 +509,19 @@ class ConversationMemory {
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
   auto: 'auto',                    // Auto mode - smart model selection
-  reasoning: 'deepseek',           // Advanced reasoning - DeepSeek for complex logic
-  tools: 'deepseek',              // Tool calling - DeepSeek for tools/code
-  quotes: 'deepseek',             // Service quotes - DeepSeek for structured business responses
-  photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for images
-  summaries: 'deepseek',          // Summarization - DeepSeek for summaries
+  reasoning: 'qwq_32b',           // Advanced reasoning - QWQ 32B for complex logic and analysis
+  tools: 'kimi_dev_72b',          // Tool calling - Kimi Dev 72B optimized for development/tools
+  quotes: 'llama4_maverick',      // Service quotes - Llama 4 Maverick for structured business responses
+  photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for image analysis
+  summaries: 'reka_flash_3',      // Summarization - Reka Flash 3 for fast, efficient summaries
+  summarize: 'llama33',          // Summarize - Llama 3.3 for excellent text summarization
   search: 'deepseek',             // Search queries - DeepSeek for information retrieval
-  chat: 'deepseek',               // General chat - DeepSeek great for conversation
+  chat: 'llama4_scout',           // General chat - Llama 4 Scout for conversational interactions
   fallback: 'deepseek',           // Fallback to reliable DeepSeek
-  analytics: 'deepseek',          // Data analysis - DeepSeek for analytics
+  analytics: 'glm_z1_32b',        // Data analysis - GLM-Z1 32B for complex analysis
   accessibility: 'deepseek',      // Accessibility support - DeepSeek for helpful responses
-  deep_analysis: 'deepseek',      // Deep analysis - DeepSeek for complex analysis
-  multi_language: 'deepseek'      // Multi-language support - DeepSeek
+  deep_analysis: 'qwen3_235b',    // Deep analysis - Qwen 3 235B for comprehensive analysis
+  multi_language: 'nemotron_super_49b' // Multi-language support - Nemotron Super 49B
 };
 
 /**
@@ -730,6 +736,7 @@ class ChatRouter {
       quotes: "Provide a detailed service quote or pricing estimate for: ",
       photo_uploads: "Analyze this image or photo-related request: ",
       summaries: "Please summarize the key points of: ",
+      summarize: "Please provide a clear, concise summary of: ",
       search: "Search for information and provide relevant details about: ",
       chat: "Have a natural conversation about: ",
       fallback: "Please help with: ",
@@ -1302,6 +1309,7 @@ class AdvancedChatBot {
       search: 'What information are you looking for?',
       reasoning: 'Ask me to analyze or reason through something...',
       summaries: 'What would you like me to summarize?',
+      summarize: 'Enter text, documents, or conversations to summarize...',
       chat: 'Ask about our services or chat with me...'
     };
     
@@ -1931,6 +1939,8 @@ Please try your question again in a moment, or call us directly for immediate as
       return this.generateReasoningResponse(lowerMessage);
     } else if (role === 'summaries') {
       return this.generateSummaryResponse(lowerMessage);
+    } else if (role === 'summarize') {
+      return this.generateSummarizeResponse(lowerMessage);
     }
     
     // General chat responses
@@ -2001,6 +2011,16 @@ Please try your question again in a moment, or call us directly for immediate as
 
   generateSummaryResponse(message) {
     return 'Here\'s a summary: Jay\'s Mobile Wash offers three main categories: Mobile Detailing ($70-$200), Ceramic Coating ($450), and Graphene Coating ($800). We serve LA/OC areas with mobile convenience. Call (562) 228-9429 for service details.';
+  }
+
+  generateSummarizeResponse(message) {
+    if (message.includes('service') || message.includes('pricing')) {
+      return '📋 **Service Summary**: Jay\'s Mobile Wash provides premium mobile detailing across LA & Orange County. **Services**: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), Graphene Coating ($800). **Coverage**: Complete mobile service - we come to you! **Contact**: (562) 228-9429';
+    } else if (message.includes('coating') || message.includes('ceramic') || message.includes('graphene')) {
+      return '✨ **Coating Summary**: **Ceramic Coating ($450)**: 2+ year protection, UV resistance, hydrophobic properties. **Graphene Coating ($800)**: 3+ year protection, superior heat dissipation, self-healing properties. Both include professional paint correction and mobile service.';
+    } else {
+      return '💼 **Jay\'s Mobile Wash Summary**: Premium mobile car detailing serving Los Angeles & Orange County. Specializing in ceramic coatings, paint correction, and comprehensive detailing packages. Professional mobile service brings expertise directly to your location. Call (562) 228-9429 to schedule!';
+    }
   }
 
   addMessage(content, sender, type = 'normal') {
