@@ -1119,97 +1119,88 @@ class AdvancedChatBot {
   }
 
   createChatWidget() {
-    console.log('🔧 Creating chat widget...');
-    const widget = document.createElement('div');
-    widget.className = 'advanced-chatbot-widget';
-    widget.setAttribute('role', 'region');
-    widget.setAttribute('aria-label', "AI Chatbot");
-    console.log('🔧 Widget created:', widget);
-    widget.innerHTML = `
-      <div class="chatbot-toggle" id="chatbot-toggle" tabindex="0" aria-label="Open AI Chatbot" role="button">
-        <span class="chat-icon">🤖</span>
-        <span class="chat-text">AI Chat</span>
-      </div>
-      <div class="chatbot-window" id="chatbot-window" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
-        <div class="chatbot-header">
-          <div class="chatbot-title">
-            <span id="chatbot-title">Jay's AI Assistant</span>
-            <div class="role-indicator">
-              Role: <span id="current-role">${this.currentRole}</span> → 
-              <span id="current-api">${this.assignments[this.currentRole] || 'none'}</span>
+    // Create the chat widget structure
+    const container = document.getElementById(this.containerId);
+    container.innerHTML = `
+      <div class="advanced-chatbot-widget">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-expanded="false">
+          <span class="chat-icon">💬</span>
+          <span class="toggle-text">Chat with Jay</span>
+        </button>
+        
+        <div class="chatbot-window" id="chatbot-window" style="display: none;">
+          <div class="chatbot-header">
+            <div class="header-info">
+              <div class="role-indicator">
+                Role: <span id="current-role">${this.currentRole}</span> → 
+                <span id="current-api">${this.assignments[this.currentRole] || 'none'}</span>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="summarize-toggle-btn" id="summarize-toggle-btn" title="Auto-Summarize Responses" aria-label="Toggle auto-summarize mode">👁️</button>
+              <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
+              <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
             </div>
           </div>
-          <div class="header-actions">
-            <button class="summarize-toggle-btn" id="summarize-toggle-btn" title="Auto-Summarize Responses" aria-label="Toggle auto-summarize mode">👁️</button>
-            <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
-            <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
+          
+          <div class="role-selector">
+            <label for="role-select">Chat Mode:</label>
+            <select id="role-select">
+              ${CHAT_ROLES.map(role => `
+                <option value="${role.id}" ${role.id === this.currentRole ? 'selected' : ''}>
+                  ${role.name}
+                </option>
+              `).join('')}
+            </select>
           </div>
-        </div>
-        
-        <div class="role-selector">
-          <label for="role-select">Chat Mode:</label>
-          <select id="role-select" aria-describedby="role-help">
-            ${CHAT_ROLES.map(role => `
-              <option value="${role.id}" ${role.id === this.currentRole ? 'selected' : ''}>
-                ${role.name}
-              </option>
-            `).join('')}
-          </select>
-          <div id="role-help" class="sr-only">Select a chat mode to customize the AI's responses</div>
-        </div>
 
-        <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-atomic="false" role="log" aria-label="Chat messages">
-          <div class="message bot-message">
-            <div class="message-row">
-              <img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />
-              <div class="message-bubble">
-                <div class="message-content">
-                  Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
-                  Choose a chat mode above and ask me anything!
+          <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+              <div class="message-row">
+                <img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />
+                <div class="message-bubble">
+                  <div class="message-content">
+                    Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
+                    Choose a chat mode above and ask me anything!
+                  </div>
+                  <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
                 </div>
-                <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="typing-indicator" id="typing-indicator" style="display:none;" aria-live="polite" aria-label="Bot is typing">
-          <span class="typing-text">Jay is typing</span>
-          <span class="typing-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </span>
-        </div>
+          <div class="typing-indicator" id="typing-indicator" style="display:none;" aria-live="polite" aria-label="Bot is typing">
+            <span class="typing-text">Jay is typing</span>
+            <span class="typing-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>
+          </div>
 
-        <div class="processing-overlay" id="processing-overlay" style="display: none;" aria-live="assertive">
-          <div class="processing-message">
-            Processing with <span id="processing-api">AI</span>...
+          <div class="processing-overlay" id="processing-overlay" style="display: none;" aria-live="assertive">
+            <div class="processing-message">
+              Processing with <span id="processing-api">AI</span>...
+            </div>
+          </div>
+
+          <div class="chatbot-input-area">
+            <div class="file-upload-section" id="file-upload-section">
+              <input type="file" id="file-upload" accept="image/*" multiple style="display: none;">
+              <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes">📎</button>
+            </div>
+            <textarea 
+              id="chatbot-input"
+              placeholder="Type your message here..."
+              rows="1"
+              aria-label="Chat message input"
+            ></textarea>
+            <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
+              <span class="send-icon">➤</span>
+            </button>
           </div>
         </div>
-
-        <div class="chatbot-input-area">
-          <div class="file-upload-section" id="file-upload-section">
-            <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" aria-describedby="file-help">
-            <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes" aria-label="Upload images for analysis">📎</button>
-            <div id="file-help" class="sr-only">Upload images of your vehicle for better service recommendations</div>
-          </div>
-          <div class="uploaded-files" id="uploaded-files" aria-label="Uploaded files"></div>
-          <div class="input-row">
-            <input type="text" class="chatbot-input" id="chatbot-input" 
-                   placeholder="Ask about our services, get quotes, or general questions..." 
-                   aria-label="Type your message here" 
-                   autocomplete="off"
-                   aria-describedby="input-help">
-            <button class="chatbot-send" id="chatbot-send" aria-label="Send message">Send</button>
-          </div>
-          <div id="input-help" class="sr-only">Type your message and press Enter or click Send</div>
-        </div>
-        
-        <div class="quick-replies" id="quick-replies" aria-label="Quick reply options" role="group"></div>
       </div>
-
-      <div class="settings-container" id="settings-container"></div>
     `;
     
     console.log('🔧 Appending widget to container...');
@@ -1478,189 +1469,73 @@ class AdvancedChatBot {
     });
   }
 
+  /**
+   * Handle sending a message and getting AI response
+   */
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    if (!message || this.isProcessing) return;
     
-    this.addMessage(message, 'user');
+    if (!message) return;
+    
     input.value = '';
-    this.isProcessing = true;
-    this.showProcessing();
+    this.adjustTextareaHeight(input); // Reset height
+    
+    // Add user message
+    this.addMessage(message, 'user');
     this.showTypingIndicator();
     
-    let basefileResponse = null;
-    let learnedResponse = null;
-    
     try {
-      let response;
-      
-      // FIRST: Record the user message for context learning
-      this.memory.addConversation({
-        userMessage: message,
-        botResponse: null, // Will be updated later
-        timestamp: Date.now(),
-        role: this.currentRole,
-        hasImages: this.uploadedFiles.length > 0,
-        usedBasefile: false,
-        usedMemory: false
-      });
-      
-      // Check for knowledge base response
-      basefileResponse = this.searchKnowledgeBase(message);
-      if (basefileResponse) {
-        response = { content: basefileResponse };
-      } else {
-        // Check learned responses from memory
-        learnedResponse = this.memory.getLearnedResponse(message);
-        if (learnedResponse) {
-          response = { content: learnedResponse };
-        } else {
-          // Determine the effective role for processing
-          let effectiveRole = this.currentRole;
-          if (this.currentRole === 'auto') {
-            effectiveRole = this.detectBestRole(message);
-          }
-          
-          // Use user-selected model if available, otherwise use role assignments
-          let selectedAPIId = this.selectedModel || this.assignments[effectiveRole];
-          
-          if (selectedAPIId === 'none' || !selectedAPIId) {
-            response = { content: this.generateSmartResponse(message, effectiveRole) };
-          } else {
-            try {
-              // Create temporary assignments with user's selected model
-              const tempAssignments = { ...this.assignments };
-              tempAssignments[effectiveRole] = selectedAPIId;
-              
-              console.log(`🎯 Using selected model: ${selectedAPIId} for role: ${effectiveRole}`);
-              response = await ChatRouter.routeLLMRequest(message, effectiveRole, tempAssignments);
-            } catch (aiError) {
-              console.error(`❌ Selected model ${selectedAPIId} failed:`, aiError.message);
-              
-              // Try fallback to a different working API
-              const fallbackAPIs = ['auto', 'llama4_maverick', 'qwen3_235b', 'deepseek'];
-              let fallbackSuccess = false;
-              
-              for (const fallbackAPI of fallbackAPIs) {
-                if (fallbackAPI !== selectedAPIId) {
-                  try {
-                    console.log(`🔄 Trying fallback API: ${fallbackAPI}`);
-                    const fallbackAssignments = { ...this.assignments };
-                    fallbackAssignments[effectiveRole] = fallbackAPI;
-                    response = await ChatRouter.routeLLMRequest(message, effectiveRole, fallbackAssignments);
-                    console.log(`✅ Fallback API ${fallbackAPI} succeeded`);
-                    fallbackSuccess = true;
-                    break;
-                  } catch (fallbackError) {
-                    console.warn(`❌ Fallback ${fallbackAPI} also failed:`, fallbackError.message);
-                  }
-                }
-              }
-              
-              if (!fallbackSuccess) {
-                console.log(`🔄 All APIs failed, using enhanced local response`);
-                response = { 
-                  content: `I apologize, but I'm having trouble connecting to the AI services right now. This might be due to high traffic or a temporary service issue. 
-
-Here's what I can help you with regarding Jay's Mobile Wash:
-
-🚗 **Our Services:**
-- Premium exterior detailing
-- Interior deep cleaning  
-- Ceramic coating protection
-- Paint correction
-- We come to your location!
-
-📞 **Contact Information:**
-- Phone: (562) 228-9429
-- Service Areas: Los Angeles & Orange County
-- We're available 7 days a week
-
-Please try your question again in a moment, or call us directly for immediate assistance!` 
-                };
-              }
-            }
-          }
-        }
+      // Determine role based on message content
+      const detectedRole = this.detectMessageRole(message);
+      if (detectedRole !== this.currentRole) {
+        this.changeRole(detectedRole);
       }
+
+      // Get response from selected API
+      const response = await ChatRouter.routeLLMRequest(
+        message,
+        this.currentRole,
+        this.assignments,
+        { model: this.assignments[this.currentRole] }
+      );
+
+      this.hideTypingIndicator();
       
-      let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
-      responseText = this.sanitizeBotResponse(responseText);
+      if (!response || !response.content) {
+        throw new Error('No response received from AI');
+      }
+
+      let finalResponse = response.content;
       
-      // Auto-enable summarizer for long responses (over 500 characters)
-      const shouldAutoSummarize = responseText.length > 500 && !this.summarizerActive;
-      
-      // If summarizer is active OR response is long, summarize the AI response
-      if ((this.summarizerActive || shouldAutoSummarize) && responseText && !responseText.includes('I\'m experiencing a temporary glitch')) {
+      // Always summarize long responses (over 300 characters)
+      if (finalResponse.length > 300) {
         try {
           const summarizeResponse = await ChatRouter.routeLLMRequest(
-            `Please provide a clear, concise summary of this response: ${responseText}`,
+            `Please provide a clear, concise summary of this response while preserving key details: ${finalResponse}`,
             'summarize',
-            this.assignments
+            this.assignments,
+            { model: this.assignments['summarize'] }
           );
           
-          if (shouldAutoSummarize) {
-            responseText = `📝 **Auto-Summary** (Original was ${responseText.length} chars): ${summarizeResponse.content || responseText}`;
-          } else {
-            responseText = `📝 **Summary**: ${summarizeResponse.content || responseText}`;
+          if (summarizeResponse && summarizeResponse.content) {
+            finalResponse = `📝 **Quick Summary**:\n${summarizeResponse.content}\n\n<details>\n<summary>Click to see full response</summary>\n\n${finalResponse}\n</details>`;
           }
         } catch (summarizeError) {
           console.error('Error summarizing response:', summarizeError);
-          // If summarization fails, just show the original response
+          // If summarization fails, just show original with expandable section
+          finalResponse = `⚠️ **Long Response** (${finalResponse.length} chars)\n\n<details>\n<summary>Click to expand full response</summary>\n\n${finalResponse}\n</details>`;
         }
       }
-      
-      this.addMessage(responseText, 'bot');
-      
-      // UPDATE the memory record with the actual response
-      this.memory.updateLastConversation({
-        botResponse: responseText,
-        usedBasefile: !!basefileResponse,
-        usedMemory: !!learnedResponse
-      });
-      
-      // Extract and store keywords for future learning
-      this.memory.addKeyword(message.toLowerCase(), responseText);
-      
-      // Record conversation for analytics (legacy method)
-      this.memory.recordConversation(message, responseText, {
-        role: this.currentRole,
-        hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now()
-      });
-      
-      // Clear uploaded files after processing
-      this.clearUploadedFiles();
-      
-      this.sendAnalyticsEvent('chat_query_success', {
-        role: this.currentRole,
-        api: this.assignments[this.currentRole],
-        usedBasefile: !!basefileResponse,
-        usedMemory: !!learnedResponse
-      });
+
+      // Add the final response
+      this.addMessage(finalResponse, 'bot');
+      this.scrollToBottom();
       
     } catch (error) {
-      console.error("Chat error:", error);
-      
-      // Provide user-friendly error messages
-      let userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
-      
-      this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
-      // Provide a helpful fallback response
-      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
-      this.addMessage(fallbackResponse, 'bot');
-      
-      this.sendAnalyticsEvent('chat_query_error', {
-        role: this.currentRole,
-        error: error.message,
-        userFriendlyErrorShown: true
-      });
-    } finally {
-      this.isProcessing = false;
-      this.hideProcessing();
+      console.error('Error during message processing:', error);
       this.hideTypingIndicator();
+      this.addMessage(`⚠️ Error: ${error.message || 'Failed to get response'}`, 'bot', 'error');
     }
   }
 
@@ -1811,20 +1686,6 @@ Please try your question again in a moment, or call us directly for immediate as
   }
 
   deactivateAdminMode() {
-    this.adminMode = false;
-    this.secretModeActive = false;
-    
-    // Remove admin styling
-    document.querySelector('.chatbot-window').classList.remove('admin-mode');
-    
-    // Clear input and show deactivation message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    // Show fun deactivation message
-    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
-    
-    // Restore normal placeholder based on current role
     const rolePlaceholders = {
       auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
       quotes: 'Describe your vehicle and service needs for a quote...',
