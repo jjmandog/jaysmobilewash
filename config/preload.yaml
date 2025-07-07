@@ -1,0 +1,53 @@
+# LocalAI Model Preload Configuration
+# This file defines which models to automatically load
+
+- name: "gpt-3.5-turbo"
+  url: "http://localai-server/models/DialoGPT-medium"
+  backend: "transformers"
+  parameters:
+    max_tokens: 512
+    temperature: 0.7
+
+- name: "gpt-4"
+  url: "http://localai-server/models/DialoGPT-large"
+  backend: "transformers"
+  parameters:
+    max_tokens: 1024
+    temperature: 0.7
+
+- name: "text-embedding-ada-002"
+  url: "http://localai-server/models/all-MiniLM-L6-v2"
+  backend: "transformers"
+  parameters:
+    model_type: "embeddings"
+
+- name: "whisper-1"
+  url: "http://localai-server/models/whisper-tiny"
+  backend: "whisper"
+  parameters:
+    model_type: "audio"
+
+# EleutherAI Models
+- name: "gpt-j-6b"
+  url: "http://localai-server/models/EleutherAI/gpt-j-6b"
+  backend: "transformers"
+  parameters:
+    max_tokens: 2048
+    temperature: 0.7
+    model_type: "gpt-j"
+
+- name: "gpt-neox-20b"
+  url: "http://localai-server/models/EleutherAI/gpt-neox-20b"
+  backend: "transformers"
+  parameters:
+    max_tokens: 2048
+    temperature: 0.7
+    model_type: "gpt-neox"
+
+- name: "pythia-6.9b"
+  url: "http://localai-server/models/EleutherAI/pythia-6.9b"
+  backend: "transformers"
+  parameters:
+    max_tokens: 2048
+    temperature: 0.7
+    model_type: "pythia"

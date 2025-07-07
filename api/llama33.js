@@ -1,9 +1,9 @@
 /**
- * Llama2 API via OpenRouter
- * Handles POST requests to /api/llama2 for AI chat functionality using Meta's Llama2 models
+ * Llama 3.3 API Handler (OpenRouter Integration)
+ * Handles POST requests to /api/llama33 for AI chat functionality using Meta's Llama 3.3 models
  *
- * Expected request body: { prompt: string, role?: string, model?: string }
- * Returns: { responseText: string, model: string }
+ * Expected request body: { prompt: string, role?: string, model?: string, messages?: array }
+ * Returns: { responseText: string, selectedModel: string }
  */
 
 const corsHeaders = {
@@ -11,17 +11,6 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Max-Age': '86400',
-};
-
-// Available Llama2 models on OpenRouter
-const LLAMA2_MODELS = {
-  'llama2-7b': 'meta-llama/llama-2-7b-chat:free',
-  'llama2-7b-chat': 'meta-llama/llama-2-7b-chat:free',
-  'llama2-13b-chat': 'meta-llama/llama-2-13b-chat:free',
-  'llama2-70b-chat': 'meta-llama/llama-2-70b-chat:free',
-  'code-llama-7b': 'meta-llama/codellama-7b-instruct:free',
-  'code-llama-13b': 'meta-llama/codellama-13b-instruct:free',
-  'code-llama-34b': 'meta-llama/codellama-34b-instruct:free'
 };
 
 export default async function handler(req, res) {
@@ -40,15 +29,24 @@ export default async function handler(req, res) {
   try {
     const body = req.body || (typeof req.body === 'string' ? JSON.parse(req.body) : {});
     const prompt = body.prompt || '';
-    const role = body.role || 'chat';
-    const modelKey = body.model || 'llama2-7b'; // Default to the base Llama-2-7b model
+    const model = body.model || null;
+    const messages = body.messages || null;
 
-    if (!prompt) {
+    if (!prompt && (!messages || !Array.isArray(messages) || messages.length === 0)) {
       res.writeHead(400, corsHeaders);
-      res.end(JSON.stringify({ error: 'Prompt is required' }));
+      res.end(JSON.stringify({ error: 'Prompt or messages array is required' }));
       return;
     }
 
+    // Map Llama 3.3 model IDs to OpenRouter model names
+    const modelMapping = {
+      'llama33_70b': 'meta-llama/llama-3.3-70b-instruct:free',
+      'llama33': 'meta-llama/llama-3.3-70b-instruct:free'
+    };
+
+    const selectedModel = modelMapping[model] || 'meta-llama/llama-3.3-70b-instruct:free';
+
+    // Use OpenRouter API
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
       res.writeHead(500, corsHeaders);
@@ -56,10 +54,13 @@ export default async function handler(req, res) {
       return;
     }
 
-    const modelName = LLAMA2_MODELS[modelKey] || LLAMA2_MODELS['llama2-7b'];
-    
-    // Format prompt for Llama2 chat format
-    const systemPrompt = `You are Jay's Mobile Wash AI assistant. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.
+    const systemPrompt = `You are Jay's Mobile Wash AI assistant powered by Llama 3.3. Always answer in a friendly, human tone. Use Jay's business info ONLY if the user asks about services, pricing, location, or contact. For other topics, answer as a general AI assistant.
+
+When analyzing vehicle photos or images, provide detailed observations about:
+1. VEHICLE CONDITION: Overall cleanliness, visible dirt, stains, or damage
+2. EXTERIOR NEEDS: Paint condition, wheels, chrome, windows, trim
+3. INTERIOR NEEDS: Seats, carpets, dashboard, console condition  
+4. RECOMMENDED SERVICES: Based on observations, recommend appropriate services
 
 Jay's Mobile Wash Services:
 - Mini Detail: $70 (1-1.5 hours) - Basic interior and exterior cleaning
@@ -72,18 +73,16 @@ Service Areas: Los Angeles, Orange County, Beverly Hills
 Phone: (562) 228-9429
 Website: jaysmobilewash.net`;
 
-    // Format prompt differently for base model vs chat model
+    // Format prompt for OpenRouter
     let formattedPrompt;
-    if (modelKey === 'llama2-7b') {
-      // Base model - simpler format
-      formattedPrompt = `${systemPrompt}\n\nUser: ${prompt}\nAssistant:`;
+    if (Array.isArray(messages) && messages.length > 0) {
+      // Convert messages to OpenRouter format
+      formattedPrompt = messages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
     } else {
-      // Chat models - use chat format
-      formattedPrompt = `<s>[INST] <<SYS>>\n${systemPrompt}\n<</SYS>>\n\n${prompt} [/INST]`;
+      formattedPrompt = `${systemPrompt}\n\nUser: ${prompt}\nAssistant:`;
     }
 
-    console.log('🦙 Using Llama2 model:', modelName);
-    console.log('🔍 Formatted prompt:', formattedPrompt.substring(0, 200) + '...');
+    console.log('🦙 Using Llama 3.3 model (via OpenRouter):', selectedModel);
 
     const response = await fetch(`https://openrouter.ai/api/v1/chat/completions`, {
       method: 'POST',
@@ -94,8 +93,10 @@ Website: jaysmobilewash.net`;
         'X-Title': 'Jay\'s Mobile Wash'
       },
       body: JSON.stringify({
-        model: modelName,
-        messages: [{ role: 'user', content: formattedPrompt }],
+        model: selectedModel,
+        messages: Array.isArray(messages) && messages.length > 0 
+          ? messages 
+          : [{ role: 'user', content: formattedPrompt }],
         max_tokens: 1024,
         temperature: 0.7,
         top_p: 0.9,
@@ -104,24 +105,24 @@ Website: jaysmobilewash.net`;
     });
 
     console.log('🌐 OpenRouter API response status:', response.status);
-    
+
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ OpenRouter API Error:', response.status, errorText);
+      console.error('❌ OpenRouter Llama 3.3 API Error:', response.status, errorText);
       
       if (response.status === 503) {
         res.writeHead(503, corsHeaders);
         res.end(JSON.stringify({
           error: 'Model is loading. Please try again in a few minutes.',
-          model: modelName
+          model: selectedModel
         }));
         return;
       }
       
       res.writeHead(response.status, corsHeaders);
       res.end(JSON.stringify({
-        error: `OpenRouter API Error: ${response.status} - ${errorText}`,
-        model: modelName
+        error: `OpenRouter Llama 3.3 API Error: ${response.status} - ${errorText}`,
+        model: selectedModel
       }));
       return;
     }
@@ -141,20 +142,20 @@ Website: jaysmobilewash.net`;
     // Clean up response text
     if (responseText) {
       responseText = responseText
-        .replace(/^\s*\[INST\].*?\[\/INST\]\s*/g, '') // Remove instruction tags
-        .replace(/^<s>|<\/s>$/g, '') // Remove sentence tags
+        .replace(/^\s*User:.*?Assistant:\s*/g, '') // Remove prompt echo
+        .replace(/(<s>|<\/s>)/g, '') // Remove sentence tags
         .trim();
     }
 
+    // Return clean response format (no metadata visible to customers)
     res.writeHead(200, corsHeaders);
     res.end(JSON.stringify({ 
-      responseText, 
-      model: modelName,
-      modelKey: modelKey 
+      content: responseText,  // Use 'content' key for consistency
+      role: "assistant"       // Always assistant role, no model info exposed
     }));
 
   } catch (error) {
-    console.error('❌ Llama2 API Error:', error);
+    console.error('❌ Llama 3.3 API Error:', error);
     res.writeHead(500, corsHeaders);
     res.end(JSON.stringify({ error: error.message }));
   }
