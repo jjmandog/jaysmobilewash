@@ -983,6 +983,9 @@ class AdvancedChatBot {
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
     
+    // Summarizer flag - when true, all AI responses are summarized
+    this.summarizerActive = false;
+    
     // Secret modes
     this.adminMode = false;
     this.jayMode = false;
@@ -1095,6 +1098,7 @@ class AdvancedChatBot {
             </div>
           </div>
           <div class="header-actions">
+            <button class="summarize-toggle-btn" id="summarize-toggle-btn" title="Auto-Summarize Responses" aria-label="Toggle auto-summarize mode">👁️</button>
             <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
             <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
           </div>
@@ -1218,11 +1222,21 @@ class AdvancedChatBot {
       }
     });
     
+    const summarizeToggleBtn = document.getElementById('summarize-toggle-btn');
+    
     settingsBtn.addEventListener('click', () => this.toggleSettings());
     settingsBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         this.toggleSettings();
+      }
+    });
+    
+    summarizeToggleBtn.addEventListener('click', () => this.toggleSummarizer());
+    summarizeToggleBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleSummarizer();
       }
     });
     
@@ -1294,6 +1308,25 @@ class AdvancedChatBot {
   toggleSettings() {
     this.settingsPanel.toggle();
     this.sendAnalyticsEvent('settings_toggled', { opened: this.settingsPanel.isOpen });
+  }
+
+  toggleSummarizer() {
+    this.summarizerActive = !this.summarizerActive;
+    const btn = document.getElementById('summarize-toggle-btn');
+    
+    if (this.summarizerActive) {
+      btn.style.backgroundColor = '#8b5cf6';
+      btn.style.color = 'white';
+      btn.title = 'Auto-Summarize Active - Click to Disable';
+      this.addMessage('🔍 Summary Mode Activated! All AI responses will now be summarized before being sent.', 'bot', 'system');
+    } else {
+      btn.style.backgroundColor = '';
+      btn.style.color = '';
+      btn.title = 'Auto-Summarize Responses';
+      this.addMessage('📝 Summary Mode Deactivated. AI responses will be shown in full.', 'bot', 'system');
+    }
+    
+    this.sendAnalyticsEvent('summarizer_toggled', { active: this.summarizerActive });
   }
 
   changeRole(newRole) {
@@ -1920,7 +1953,7 @@ Please try your question again in a moment, or call us directly for immediate as
     }
     
     return selectedIssues;
-  }
+   }
 
   generateSmartResponse(message, role) {
     // Ensure message is a string
