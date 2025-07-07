@@ -1535,15 +1535,23 @@ Please try your question again in a moment, or call us directly for immediate as
       let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
       responseText = this.sanitizeBotResponse(responseText);
       
-      // If summarizer is active, summarize the AI response
-      if (this.summarizerActive && responseText && !responseText.includes('I\'m experiencing a temporary glitch')) {
+      // Auto-enable summarizer for long responses (over 500 characters)
+      const shouldAutoSummarize = responseText.length > 500 && !this.summarizerActive;
+      
+      // If summarizer is active OR response is long, summarize the AI response
+      if ((this.summarizerActive || shouldAutoSummarize) && responseText && !responseText.includes('I\'m experiencing a temporary glitch')) {
         try {
           const summarizeResponse = await ChatRouter.routeLLMRequest(
             `Please provide a clear, concise summary of this response: ${responseText}`,
             'summarize',
             this.assignments
           );
-          responseText = `📝 **Summary**: ${summarizeResponse.content || responseText}`;
+          
+          if (shouldAutoSummarize) {
+            responseText = `📝 **Auto-Summary** (Original was ${responseText.length} chars): ${summarizeResponse.content || responseText}`;
+          } else {
+            responseText = `📝 **Summary**: ${summarizeResponse.content || responseText}`;
+          }
         } catch (summarizeError) {
           console.error('Error summarizing response:', summarizeError);
           // If summarization fails, just show the original response
