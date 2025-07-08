@@ -22,7 +22,32 @@
         '50% {',
         '100% {',
         'from {',
-        'to {'
+        'to {',
+        'translateX',
+        'translateY',
+        'scale(',
+        'rotate(',
+        'backdrop-filter',
+        'filter:',
+        'cubic-bezier',
+        'ease-in',
+        'ease-in-out',
+        'linear',
+        'infinite',
+        'alternate',
+        'forwards',
+        'backwards',
+        'both',
+        'paused',
+        'running',
+        '@media',
+        'transition:',
+        'duration:',
+        'delay:',
+        'iteration-count:',
+        'direction:',
+        'fill-mode:',
+        'play-state:'
     ];
     
     // Function to aggressively clean any element containing CSS content
@@ -58,17 +83,30 @@
             node.textContent = '';
         });
         
-        // Also check all elements
+        // Also check all elements for CSS content, but be more selective
         document.querySelectorAll('*').forEach(element => {
             const text = element.textContent || '';
-            const hasOnlyCSS = CSS_PATTERNS.some(pattern => text.includes(pattern)) && 
-                              !element.children.length && 
-                              text.length > 50; // Only if it's a substantial amount of CSS
+            const innerHTML = element.innerHTML || '';
             
-            if (hasOnlyCSS) {
-                console.log('Emergency CSS Blocker: Hiding element with CSS content');
+            // Only target elements that look like pure CSS blocks
+            const isLikelyCSS = text.includes('@keyframes') && text.includes('{') && text.includes('}');
+            const hasAnimationCSS = text.includes('animation:') && text.includes('keyframes');
+            
+            // If it's a text-only element with pure CSS content, hide it
+            if ((isLikelyCSS || hasAnimationCSS) && 
+                !element.children.length && 
+                text.length > 50) {
+                
+                console.log('Emergency CSS Blocker: Hiding element with CSS content:', text.substring(0, 100));
                 element.style.display = 'none';
                 element.textContent = '';
+            }
+            
+            // Check for CSS in innerHTML as well
+            if (innerHTML.includes('@keyframes') || innerHTML.includes('animation:')) {
+                console.log('Emergency CSS Blocker: Cleaning innerHTML with CSS');
+                element.innerHTML = element.innerHTML.replace(/@keyframes[^}]+}/g, '');
+                element.innerHTML = element.innerHTML.replace(/animation:[^;]+;/g, '');
             }
         });
     }
