@@ -1729,10 +1729,42 @@
                     </ul>
                     
                     <div class="text-center">
-                        <a href="services-ceramic-coating.html" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <button onclick="togglePackageDetails('ceramic')" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             <i class="fas fa-info-circle mr-2"></i>
-                            Learn More
-                        </a>
+                            <span id="ceramic-button-text">Learn More</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Expandable Details Section -->
+                    <div id="ceramic-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-purple-500/30">
+                        <h4 class="text-xl font-bold text-purple-400 mb-4">Ceramic Coating Process & Benefits</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Application Process:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• Paint decontamination & clay bar treatment</li>
+                                    <li>• Single-stage paint correction if needed</li>
+                                    <li>• Surface preparation with isopropyl alcohol</li>
+                                    <li>• Professional ceramic coating application</li>
+                                    <li>• 24-hour curing period</li>
+                                    <li>• Final inspection & quality check</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Long-term Benefits:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• 2-3 year durability with proper care</li>
+                                    <li>• Reduces washing time by 50%</li>
+                                    <li>• Maintains resale value</li>
+                                    <li>• Protection from bird droppings & tree sap</li>
+                                    <li>• Eliminates need for waxing</li>
+                                    <li>• Professional warranty included</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-purple-900/30 rounded-lg">
+                            <p class="text-purple-300 font-semibold">💎 Perfect for: Daily drivers, lease vehicles, and customers wanting reliable long-term protection</p>
+                        </div>
                     </div>
                 </div>
 
@@ -1782,10 +1814,42 @@
                     </ul>
                     
                     <div class="text-center">
-                        <a href="services-ceramic-coating.html" class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <button onclick="togglePackageDetails('graphene')" class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             <i class="fas fa-info-circle mr-2"></i>
-                            Learn More
-                        </a>
+                            <span id="graphene-button-text">Learn More</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Expandable Details Section -->
+                    <div id="graphene-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-pink-500/30">
+                        <h4 class="text-xl font-bold text-pink-400 mb-4">Graphene Coating Process & Benefits</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Advanced Application:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• Multi-stage paint correction (up to 3 steps)</li>
+                                    <li>• Complete paint decontamination</li>
+                                    <li>• Panel-by-panel precision application</li>
+                                    <li>• Infrared curing process</li>
+                                    <li>• 48-hour controlled environment curing</li>
+                                    <li>• Comprehensive quality inspection</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Premium Benefits:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• 3-5 year durability guarantee</li>
+                                    <li>• Superior heat dissipation properties</li>
+                                    <li>• Self-healing from minor scratches</li>
+                                    <li>• Extreme water beading (contact angle >110°)</li>
+                                    <li>• Maintains showroom finish</li>
+                                    <li>• Premium warranty & maintenance plan</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-gradient-to-r from-pink-900/30 to-orange-900/30 rounded-lg">
+                            <p class="text-pink-300 font-semibold">🚗 Perfect for: Luxury vehicles, sports cars, and customers demanding ultimate protection and performance</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3031,6 +3095,30 @@
             const modal = document.getElementById('product-modal');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
+        }
+        
+        // Toggle package details function
+        function togglePackageDetails(packageType) {
+            const details = document.getElementById(packageType + '-details');
+            const buttonText = document.getElementById(packageType + '-button-text');
+            
+            if (details.classList.contains('hidden')) {
+                // Show details
+                details.classList.remove('hidden');
+                buttonText.textContent = 'Show Less';
+                
+                // Smooth scroll to the details
+                setTimeout(() => {
+                    details.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }, 100);
+            } else {
+                // Hide details
+                details.classList.add('hidden');
+                buttonText.textContent = 'Learn More';
+            }
         }
         
         // Close modal when clicking outside
