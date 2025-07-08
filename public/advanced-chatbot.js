@@ -812,37 +812,37 @@ class ChatSettingsPanel {
   }
 
   render() {
-    // Clear the container
-    while (this.container.firstChild) {
-      this.container.removeChild(this.container.firstChild);
+    // Check if container exists
+    if (!this.container) {
+      console.warn('⚠️ Settings container not found, skipping settings panel initialization');
+      return;
     }
+    
+    this.container.innerHTML = `
+      <div class="chat-settings-panel" style="display: none;">
+        <div class="settings-header">
+          <h3>API Settings</h3>
+          <button class="settings-close" id="settings-close">✕</button>
+        </div>
+        <div class="settings-content">
+          <p>Configure which AI API to use for each chat role:</p>
+          <div class="role-assignments" id="role-assignments">
+            ${this.renderRoleAssignments()}
+          </div>
+          <div class="settings-actions">
+            <button class="btn-primary" id="save-settings">Save Settings</button>
+            <button class="btn-secondary" id="reset-settings">Reset to Default</button>
+          </div>
+        </div>
+      </div>
+    `;
 
-    // Create the settings panel
-    const panel = document.createElement('div');
-    panel.className = 'chat-settings-panel';
-    panel.style.display = 'none';
-
-    // Create the header
-    const header = document.createElement('div');
-    header.className = 'settings-header';
-
-    const title = document.createElement('h3');
-    title.textContent = 'API Settings';
-    header.appendChild(title);
-
-    const closeButton = document.createElement('button');
-    closeButton.className = 'settings-close';
-    closeButton.id = 'settings-close';
-    closeButton.textContent = '✕';
-    header.appendChild(closeButton);
-
-    panel.appendChild(header);
-
-    // Append the panel to the container
-    this.container.appendChild(panel);
+    this.setupEventListeners();
   }
 
   renderRoleAssignments() {
+    // Only show enabled APIs for assignment (except 'none')
+    const enabledAPIs = API_OPTIONS.filter(api => api.enabled && api.id !== 'none');
     return CHAT_ROLES.map(role => {
       const currentAssignment = this.assignments[role.id] || 'none';
       return `
@@ -852,9 +852,10 @@ class ChatSettingsPanel {
             <span class="role-description">${role.description}</span>
           </label>
           <select id="role-${role.id}" data-role="${role.id}">
-            ${API_OPTIONS.map(api => `
+            <option value="none" ${currentAssignment === 'none' ? 'selected' : ''}>None (Disabled)</option>
+            ${enabledAPIs.map(api => `
               <option value="${api.id}" ${api.id === currentAssignment ? 'selected' : ''}>
-                ${api.name} ${api.enabled ? '' : '(Disabled)'}
+                ${api.name}
               </option>
             `).join('')}
           </select>
@@ -1015,6 +1016,7 @@ class AdvancedChatBot {
   }
   constructor(containerId) {
     console.log('🔍 Looking for container:', containerId);
+    this.containerId = containerId;
     this.container = document.getElementById(containerId);
     console.log('📦 Container found:', this.container);
     
@@ -1128,8 +1130,15 @@ class AdvancedChatBot {
 
   createChatWidget() {
     // Create the chat widget structure
-    const container = document.getElementById(this.containerId);
-    container.innerHTML = `
+    console.log('🔧 createChatWidget: this.container =', this.container);
+    console.log('🔧 createChatWidget: this.containerId =', this.containerId);
+    
+    if (!this.container) {
+      console.error('❌ Container not found in createChatWidget!');
+      return;
+    }
+    
+    this.container.innerHTML = `
       <div class="advanced-chatbot-widget">
         <button class="chatbot-toggle" id="chatbot-toggle" aria-expanded="false">
           <span class="chat-icon">💬</span>
@@ -1209,11 +1218,11 @@ class AdvancedChatBot {
           </div>
         </div>
       </div>
+
+      <div class="settings-container" id="settings-container"></div>
     `;
     
-    console.log('🔧 Appending widget to container...');
-    this.container.appendChild(widget);
-    console.log('✅ Widget appended successfully!');
+    console.log('✅ Widget HTML set successfully!');
     
     // Initialize settings panel
     const settingsContainer = document.getElementById('settings-container');
@@ -2471,6 +2480,43 @@ class AdvancedChatBot {
         event_label: eventLabel
       });
     }
+  }
+
+  sendAnalyticsEvent(eventName, data = {}) {
+    try {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, {
+          event_category: 'advanced_chat',
+          ...data
+        });
+      }
+    } catch (error) {
+      console.warn('Failed to send analytics event:', error);
+    }
+  }
+
+  scrollToBottom() {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    if (!messagesContainer) return;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  addMessage(content, sender, type = 'normal', modelUsed = null) {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''}`;
+    let modelInfo = '';
+    if (modelUsed) {
+      modelInfo = `<div class="model-used">Model: <span>${modelUsed}</span></div>`;
+    }
+    messageDiv.innerHTML = `
+      <div class="message-content">${content}</div>
+      ${modelInfo}
+      <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
+    `;
+    
+    messagesContainer.appendChild(messageDiv);
+    this.scrollToBottom();
   }
 }
 

@@ -1427,68 +1427,68 @@
                 </h1>
                 <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto sm:mx-0">
                     Premium mobile car detailing services that come to you. Ceramic coating, paint correction, interior detailing, and more.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
-                    <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low">
-                        <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
-                    </a>
-                    <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
-                        View Packages
-                    </a>
-                </div>
-                <div class="mt-8 text-gray-300 flex flex-wrap items-center justify-center sm:justify-start gap-6">
-                    <div class="flex items-center">
-                        <i class="fas fa-star text-yellow-400 mr-2"></i>
-                        <span>5-Star Rated</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i class="fas fa-certificate text-purple-400 mr-2"></i>
-                        <span>Licensed & Insured</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i class="fas fa-shield-alt text-pink-400 mr-2"></i>
-                        <span>Satisfaction Guaranteed</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                         0 0 40px rgba(236, 72, 153, 0.8),
+                         0 0 60px rgba(168, 85, 247, 0.6),
+                         0 0 80px rgba(236, 72, 153, 0.4);
+            animation: ultra-pulse 1.5s ease-in-out infinite;
+        }
         
-        <!-- Trust Badges -->
-        <div class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-2">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center gap-8 sm:gap-12 items-center">
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">⭐⭐⭐⭐⭐</div>
-                        <p class="text-sm text-gray-300">287+ 5-Star Reviews</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">✅</div>
-                        <p class="text-sm text-gray-300">100% Satisfaction</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">🏆</div>
-                        <p class="text-sm text-gray-300">Premium Products</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">🚗</div>
-                        <p class="text-sm text-gray-300">We Come To You</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Our Services</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We provide premium car detailing services throughout Los Angeles and Orange County.
-                </p>
-            </div>
+        .ultra-glow-button {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8),
+                        0 0 60px rgba(236, 72, 153, 0.6),
+                        0 0 90px rgba(168, 85, 247, 0.4);
+            animation: button-ultra-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes ultra-pulse {
+            0%, 100% {
+                opacity: 1;
+                filter: brightness(1.2);
+            }
+            50% {
+                opacity: 0.9;
+                filter: brightness(1.5);
+            }
+        }
+        
+        @keyframes button-ultra-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.8),
+                            0 0 60px rgba(236, 72, 153, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(168, 85, 247, 1),
+                            0 0 80px rgba(236, 72, 153, 0.8);
+            }
+        }
+        
+        /* Jay Mode Overlay Styles */
+        .jay-overlay {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 72px);
+            z-index: 10000;
+            background: transparent;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .jay-overlay.active {
+            opacity: 1;
+        }
+        
+        .jay-content {
+            text-align: center;
+            animation: fadeInScale 0.5s ease forwards;
+        }
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Mobile Detailing -->
@@ -1804,176 +1804,6 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- Ceramic Coating Packages -->
-            <div class="mt-16">
-                <h3 class="text-2xl font-bold text-center mb-8 gradient-text">Premium Protection Packages</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Ceramic Coating -->
-                    <div class="bg-gray-800 rounded-lg p-8 border-2 border-gray-700 hover:border-purple-500 transition-all duration-300">
-                        <h4 class="text-xl font-bold mb-4 gradient-text">Ceramic Coating</h4>
-                        <div class="mb-6">
-                            <span class="text-4xl font-bold">$450</span>
-                            <span class="text-gray-400">/vehicle</span>
-                        </div>
-            animation: modalSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Jay Mode Laser Effects */
-        @keyframes laserSweep {
-            0% {
-                transform: translateX(-100px) rotate(-15deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateX(100px) rotate(15deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Enhanced Global Laser Animations */
-        @keyframes laserFromLeft {
-            0% {
-                left: -100px;
-                opacity: 0;
-                transform: rotate(45deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                left: 100vw;
-                opacity: 0;
-                transform: rotate(45deg);
-            }
-        }
-        
-        @keyframes laserFromRight {
-            0% {
-                right: -100px;
-                opacity: 0;
-                transform: rotate(-45deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                right: 100vw;
-                opacity: 0;
-                transform: rotate(-45deg);
-            }
-        }
-        
-        @keyframes laserFromTop {
-            0% {
-                top: -100px;
-                opacity: 0;
-                transform: rotate(90deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-                transform: rotate(90deg);
-            }
-        }
-        
-        @keyframes laserFromBottom {
-            0% {
-                bottom: -100px;
-                opacity: 0;
-                transform: rotate(-90deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                bottom: 100vh;
-                opacity: 0;
-                transform: rotate(-90deg);
-            }
-        }
-        
-        @keyframes laserDiagonal1 {
-            0% {
-                left: -100px;
-                top: -100px;
-                opacity: 0;
-                transform: rotate(135deg);
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                left: 100vw;
-                top: 100vh;
-                opacity: 0;
-                transform: rotate(135deg);
-            }
-        }
-        
-        @keyframes laserDiagonal2 {
-            0% {
-                right: -100px;
-                top: -100px;
-                opacity: 0;
-                </div>
-                
-                <!-- EZPZ -->
-                <div class="text-center group cursor-pointer" onclick="showProductModal('ezpz')">
-                    <div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-105">
-                        <h3 class="text-xl font-bold text-white mb-2">EZPZ</h3>
-                        <p class="text-sm text-gray-400">Ceramic Coating</p>
-                        <div class="mt-4 text-purple-400">
-                            <i class="fas fa-gem text-3xl"></i>
-                        </div>
-                        <p class="text-xs text-purple-300 mt-2">Click for details</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product Features -->
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-4">
-                        <i class="fas fa-certificate text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Professional Grade</h3>
-                    <p class="text-gray-300">All products are professional-grade, ensuring superior results compared to consumer products.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-4">
-                        <i class="fas fa-leaf text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Eco-Friendly Options</h3>
-                    <p class="text-gray-300">We prioritize environmentally safe products that deliver exceptional results without harsh chemicals.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-4">
-                        <i class="fas fa-microscope text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Advanced Technology</h3>
-                    <p class="text-gray-300">Cutting-edge formulations including ceramic polymers, graphene, and nano-technology.</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -2129,9 +1959,9 @@
                                 <span class="transition group-open:rotate-180">
                                     <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24" class="text-gray-400">
                                         <path d="m6 9 6 6 6-6"></path>
-                                    </svg>
-                                </span>
-                            </summary>
+            }
+            50% {
+                transform: scale(1.05);
                             <div class="mt-4 text-gray-300">
                                 <p class="mb-4">Yes! We specialize in premium mobile detailing services throughout high-end areas including:</p>
                                 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -3938,8 +3768,11 @@
     <!-- Advanced Chatbot Styles -->
     <link rel="stylesheet" href="/advanced-chatbot-modern.css?v=1.0.1-FINAL">
     
+    <!-- Chatbot Settings Sync -->
+    <script src="/chatbot-settings-sync.js"></script>
+    
     <!-- Advanced Chatbot Script -->
-    <script src="/advanced-chatbot.js?v=4.4.2-PAINT-CORRECTION-FIX"></script>
+    <script src="/advanced-chatbot.js?v=4.6.7-SETTINGS-PANEL-FIX"></script>
 
     <!-- Review Schema -->
     <script type="application/ld+json">
