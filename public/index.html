@@ -3096,11 +3096,23 @@
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
+
+        // Make functions globally accessible
+        window.showProductModal = showProductModal;
+        window.closeProductModal = closeProductModal;
         
-        // Toggle package details function
-        function togglePackageDetails(packageType) {
+        // Toggle package details function - make sure it's globally accessible
+        window.togglePackageDetails = function(packageType) {
             const details = document.getElementById(packageType + '-details');
             const buttonText = document.getElementById(packageType + '-button-text');
+            
+            if (!details || !buttonText) {
+                console.error('Elements not found:', {
+                    details: packageType + '-details',
+                    buttonText: packageType + '-button-text'
+                });
+                return;
+            }
             
             if (details.classList.contains('hidden')) {
                 // Show details
@@ -3119,7 +3131,7 @@
                 details.classList.add('hidden');
                 buttonText.textContent = 'Learn More';
             }
-        }
+        };
         
         // Close modal when clicking outside
         document.addEventListener('click', function(e) {
@@ -4304,41 +4316,10 @@
             }
         };
 
-        // Show product modal
-        function showProductModal(productId) {
-            const modal = document.getElementById('product-modal');
-            const title = document.getElementById('modal-product-title');
-            const content = document.getElementById('modal-product-content');
-            
-            const product = productData[productId];
-            if (product) {
-                title.textContent = product.title;
-                content.innerHTML = product.content;
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // Close product modal
-        function closeProductModal() {
-            const modal = document.getElementById('product-modal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on outside click
-        document.getElementById('product-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeProductModal();
-            }
-        });
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeProductModal();
-            }
-        });
+        // Make functions globally accessible
+        window.showProductModal = showProductModal;
+        window.closeProductModal = closeProductModal;
+        window.togglePackageDetails = togglePackageDetails;
     </script>
 
     <!-- Advanced AI Chatbot -->
