@@ -160,6 +160,11 @@ const CHAT_ROLES = [
     description: 'Content summarization and key points'
   },
   {
+    id: 'summarize',
+    name: 'Summarize',
+    description: 'Summarize documents, text, or conversations'
+  },
+  {
     id: 'search',
     name: 'Search',
     description: 'Information search and retrieval'
@@ -264,6 +269,7 @@ const CAR_DETAILING_KNOWLEDGE_BASE = {
       }
     },
     paint_correction: {
+      description: "Professional paint correction services to restore your vehicle's finish by removing imperfections and restoring clarity and gloss",
       single_stage: {
         description: "Light polish to remove minor swirls and scratches",
         removes: ["Light swirl marks", "Minor scratches", "Water spots", "Light oxidation"],
@@ -437,6 +443,48 @@ class ConversationMemory {
     }
   }
   
+  // Add new conversation with placeholder for response
+  addConversation(conversationData) {
+    const conversation = {
+      ...conversationData,
+      id: Date.now() + Math.random()
+    };
+    
+    this.conversations.push(conversation);
+    
+    // Keep only last 1000 conversations
+    if (this.conversations.length > 1000) {
+      this.conversations = this.conversations.slice(-1000);
+    }
+    
+    this.extractKeywords(conversationData.userMessage);
+    this.saveConversations();
+  }
+  
+  // Update the last conversation with response details
+  updateLastConversation(updateData) {
+    if (this.conversations.length > 0) {
+      const lastConversation = this.conversations[this.conversations.length - 1];
+      Object.assign(lastConversation, updateData);
+      this.saveConversations();
+    }
+  }
+  
+  // Add keyword association
+  addKeyword(keyword, response) {
+    if (!this.responses[keyword]) {
+      this.responses[keyword] = [];
+    }
+    this.responses[keyword].push(response);
+    
+    // Keep only last 5 responses per keyword
+    if (this.responses[keyword].length > 5) {
+      this.responses[keyword] = this.responses[keyword].slice(-5);
+    }
+    
+    this.saveResponses();
+  }
+  
   recordConversation(userMessage, botResponse, context = {}) {
     const conversation = {
       timestamp: Date.now(),
@@ -503,18 +551,19 @@ class ConversationMemory {
 
 const DEFAULT_ROLE_ASSIGNMENTS = {
   auto: 'auto',                    // Auto mode - smart model selection
-  reasoning: 'deepseek',           // Advanced reasoning - DeepSeek for complex logic
-  tools: 'deepseek',              // Tool calling - DeepSeek for tools/code
-  quotes: 'deepseek',             // Service quotes - DeepSeek for structured business responses
-  photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for images
-  summaries: 'deepseek',          // Summarization - DeepSeek for summaries
+  reasoning: 'qwq_32b',           // Advanced reasoning - QWQ 32B for complex logic and analysis
+  tools: 'kimi_dev_72b',          // Tool calling - Kimi Dev 72B optimized for development/tools
+  quotes: 'llama4_maverick',      // Service quotes - Llama 4 Maverick for structured business responses
+  photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for image analysis
+  summaries: 'reka_flash_3',      // Summarization - Reka Flash 3 for fast, efficient summaries
+  summarize: 'llama33',          // Summarize - Llama 3.3 for excellent text summarization
   search: 'deepseek',             // Search queries - DeepSeek for information retrieval
-  chat: 'deepseek',               // General chat - DeepSeek great for conversation
+  chat: 'llama4_scout',           // General chat - Llama 4 Scout for conversational interactions
   fallback: 'deepseek',           // Fallback to reliable DeepSeek
-  analytics: 'deepseek',          // Data analysis - DeepSeek for analytics
+  analytics: 'glm_z1_32b',        // Data analysis - GLM-Z1 32B for complex analysis
   accessibility: 'deepseek',      // Accessibility support - DeepSeek for helpful responses
-  deep_analysis: 'deepseek',      // Deep analysis - DeepSeek for complex analysis
-  multi_language: 'deepseek'      // Multi-language support - DeepSeek
+  deep_analysis: 'qwen3_235b',    // Deep analysis - Qwen 3 235B for comprehensive analysis
+  multi_language: 'nemotron_super_49b' // Multi-language support - Nemotron Super 49B
 };
 
 /**
@@ -729,6 +778,7 @@ class ChatRouter {
       quotes: "Provide a detailed service quote or pricing estimate for: ",
       photo_uploads: "Analyze this image or photo-related request: ",
       summaries: "Please summarize the key points of: ",
+      summarize: "Please provide a clear, concise summary of: ",
       search: "Search for information and provide relevant details about: ",
       chat: "Have a natural conversation about: ",
       fallback: "Please help with: ",
@@ -762,26 +812,34 @@ class ChatSettingsPanel {
   }
 
   render() {
-    this.container.innerHTML = `
-      <div class="chat-settings-panel" style="display: none;">
-        <div class="settings-header">
-          <h3>API Settings</h3>
-          <button class="settings-close" id="settings-close">✕</button>
-        </div>
-        <div class="settings-content">
-          <p>Configure which AI API to use for each chat role:</p>
-          <div class="role-assignments" id="role-assignments">
-            ${this.renderRoleAssignments()}
-          </div>
-          <div class="settings-actions">
-            <button class="btn-primary" id="save-settings">Save Settings</button>
-            <button class="btn-secondary" id="reset-settings">Reset to Default</button>
-          </div>
-        </div>
-      </div>
-    `;
+    // Clear the container
+    while (this.container.firstChild) {
+      this.container.removeChild(this.container.firstChild);
+    }
 
-    this.setupEventListeners();
+    // Create the settings panel
+    const panel = document.createElement('div');
+    panel.className = 'chat-settings-panel';
+    panel.style.display = 'none';
+
+    // Create the header
+    const header = document.createElement('div');
+    header.className = 'settings-header';
+
+    const title = document.createElement('h3');
+    title.textContent = 'API Settings';
+    header.appendChild(title);
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'settings-close';
+    closeButton.id = 'settings-close';
+    closeButton.textContent = '✕';
+    header.appendChild(closeButton);
+
+    panel.appendChild(header);
+
+    // Append the panel to the container
+    this.container.appendChild(panel);
   }
 
   renderRoleAssignments() {
@@ -975,6 +1033,9 @@ class AdvancedChatBot {
     this.quoteEngine = new ChatQuoteEngine();
     this.memory = new ConversationMemory();
     
+    // Summarizer flag - when true, all AI responses are summarized
+    this.summarizerActive = false;
+    
     // Secret modes
     this.adminMode = false;
     this.jayMode = false;
@@ -1024,7 +1085,7 @@ class AdvancedChatBot {
 
   renderModelDropdown() {
     // Dynamically generate dropdown options from API_OPTIONS (enabled only)
-    const modelOptions = API_OPTIONS.filter(opt => opt.enabled && !opt.name.toLowerCase().includes('huggingface')).map(opt => ({
+    const modelOptions = API_OPTIONS.filter(opt => opt.enabled).map(opt => ({
       id: opt.id,
       name: `${opt.name}${opt.description && opt.description.toLowerCase().includes('free') ? ' (Free)' : opt.description && opt.description.toLowerCase().includes('gated') ? ' (Your Access)' : ''}`,
       value: opt.id
@@ -1066,96 +1127,88 @@ class AdvancedChatBot {
   }
 
   createChatWidget() {
-    console.log('🔧 Creating chat widget...');
-    const widget = document.createElement('div');
-    widget.className = 'advanced-chatbot-widget';
-    widget.setAttribute('role', 'region');
-    widget.setAttribute('aria-label', "AI Chatbot");
-    console.log('🔧 Widget created:', widget);
-    widget.innerHTML = `
-      <div class="chatbot-toggle" id="chatbot-toggle" tabindex="0" aria-label="Open AI Chatbot" role="button">
-        <span class="chat-icon">🤖</span>
-        <span class="chat-text">AI Chat</span>
-      </div>
-      <div class="chatbot-window" id="chatbot-window" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
-        <div class="chatbot-header">
-          <div class="chatbot-title">
-            <span id="chatbot-title">Jay's AI Assistant</span>
-            <div class="role-indicator">
-              Role: <span id="current-role">${this.currentRole}</span> → 
-              <span id="current-api">${this.assignments[this.currentRole] || 'none'}</span>
+    // Create the chat widget structure
+    const container = document.getElementById(this.containerId);
+    container.innerHTML = `
+      <div class="advanced-chatbot-widget">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-expanded="false">
+          <span class="chat-icon">💬</span>
+          <span class="toggle-text">Chat with Jay</span>
+        </button>
+        
+        <div class="chatbot-window" id="chatbot-window" style="display: none;">
+          <div class="chatbot-header">
+            <div class="header-info">
+              <div class="role-indicator">
+                Role: <span id="current-role">${this.currentRole}</span> → 
+                <span id="current-api">${this.assignments[this.currentRole] || 'none'}</span>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="summarize-toggle-btn" id="summarize-toggle-btn" title="Auto-Summarize Responses" aria-label="Toggle auto-summarize mode">👁️</button>
+              <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
+              <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
             </div>
           </div>
-          <div class="header-actions">
-            <button class="settings-btn" id="settings-btn" title="Settings" aria-label="Open settings">⚙️</button>
-            <button class="chatbot-close" id="chatbot-close" aria-label="Close chat window">✕</button>
+          
+          <div class="role-selector">
+            <label for="role-select">Chat Mode:</label>
+            <select id="role-select">
+              ${CHAT_ROLES.map(role => `
+                <option value="${role.id}" ${role.id === this.currentRole ? 'selected' : ''}>
+                  ${role.name}
+                </option>
+              `).join('')}
+            </select>
           </div>
-        </div>
-        
-        <div class="role-selector">
-          <label for="role-select">Chat Mode:</label>
-          <select id="role-select" aria-describedby="role-help">
-            ${CHAT_ROLES.map(role => `
-              <option value="${role.id}" ${role.id === this.currentRole ? 'selected' : ''}>
-                ${role.name}
-              </option>
-            `).join('')}
-          </select>
-          <div id="role-help" class="sr-only">Select a chat mode to customize the AI's responses</div>
-        </div>
 
-        <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-atomic="false" role="log" aria-label="Chat messages">
-          <div class="message bot-message">
-            <div class="message-row">
-              <img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />
-              <div class="message-bubble">
-                <div class="message-content">
-                  Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
-                  Choose a chat mode above and ask me anything!
+          <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+              <div class="message-row">
+                <img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />
+                <div class="message-bubble">
+                  <div class="message-content">
+                    Hello! I'm Jay's AI Assistant. I can help with quotes, service information, and more.
+                    Choose a chat mode above and ask me anything!
+                  </div>
+                  <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
                 </div>
-                <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="typing-indicator" id="typing-indicator" style="display:none;" aria-live="polite" aria-label="Bot is typing">
-          <span class="typing-text">Jay is typing</span>
-          <span class="typing-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </span>
-        </div>
+          <div class="typing-indicator" id="typing-indicator" style="display:none;" aria-live="polite" aria-label="Bot is typing">
+            <span class="typing-text">Jay is typing</span>
+            <span class="typing-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>
+          </div>
 
-        <div class="processing-overlay" id="processing-overlay" style="display: none;" aria-live="assertive">
-          <div class="processing-message">
-            Processing with <span id="processing-api">AI</span>...
+          <div class="processing-overlay" id="processing-overlay" style="display: none;" aria-live="assertive">
+            <div class="processing-message">
+              Processing with <span id="processing-api">AI</span>...
+            </div>
+          </div>
+
+          <div class="chatbot-input-area">
+            <div class="file-upload-section" id="file-upload-section">
+              <input type="file" id="file-upload" accept="image/*" multiple style="display: none;">
+              <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes">📎</button>
+            </div>
+            <textarea 
+              id="chatbot-input"
+              placeholder="Type your message here..."
+              rows="1"
+              aria-label="Chat message input"
+            ></textarea>
+            <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
+              <span class="send-icon">➤</span>
+            </button>
           </div>
         </div>
-
-        <div class="chatbot-input-area">
-          <div class="file-upload-section" id="file-upload-section">
-            <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" aria-describedby="file-help">
-            <button class="file-upload-btn" id="file-upload-btn" title="Upload images for better quotes" aria-label="Upload images for analysis">📎</button>
-            <div id="file-help" class="sr-only">Upload images of your vehicle for better service recommendations</div>
-          </div>
-          <div class="uploaded-files" id="uploaded-files" aria-label="Uploaded files"></div>
-          <div class="input-row">
-            <input type="text" class="chatbot-input" id="chatbot-input" 
-                   placeholder="Ask about our services, get quotes, or general questions..." 
-                   aria-label="Type your message here" 
-                   autocomplete="off"
-                   aria-describedby="input-help">
-            <button class="chatbot-send" id="chatbot-send" aria-label="Send message">Send</button>
-          </div>
-          <div id="input-help" class="sr-only">Type your message and press Enter or click Send</div>
-        </div>
-        
-        <div class="quick-replies" id="quick-replies" aria-label="Quick reply options" role="group"></div>
       </div>
-
-      <div class="settings-container" id="settings-container"></div>
     `;
     
     console.log('🔧 Appending widget to container...');
@@ -1210,11 +1263,21 @@ class AdvancedChatBot {
       }
     });
     
+    const summarizeToggleBtn = document.getElementById('summarize-toggle-btn');
+    
     settingsBtn.addEventListener('click', () => this.toggleSettings());
     settingsBtn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         this.toggleSettings();
+      }
+    });
+    
+    summarizeToggleBtn.addEventListener('click', () => this.toggleSummarizer());
+    summarizeToggleBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleSummarizer();
       }
     });
     
@@ -1288,6 +1351,25 @@ class AdvancedChatBot {
     this.sendAnalyticsEvent('settings_toggled', { opened: this.settingsPanel.isOpen });
   }
 
+  toggleSummarizer() {
+    this.summarizerActive = !this.summarizerActive;
+    const btn = document.getElementById('summarize-toggle-btn');
+    
+    if (this.summarizerActive) {
+      btn.style.backgroundColor = '#8b5cf6';
+      btn.style.color = 'white';
+      btn.title = 'Auto-Summarize Active - Click to Disable';
+      this.addMessage('🔍 Summary Mode Activated! All AI responses will now be summarized before being sent.', 'bot', 'system');
+    } else {
+      btn.style.backgroundColor = '';
+      btn.style.color = '';
+      btn.title = 'Auto-Summarize Responses';
+      this.addMessage('📝 Summary Mode Deactivated. AI responses will be shown in full.', 'bot', 'system');
+    }
+    
+    this.sendAnalyticsEvent('summarizer_toggled', { active: this.summarizerActive });
+  }
+
   changeRole(newRole) {
     this.currentRole = newRole;
     document.getElementById('current-role').textContent = newRole;
@@ -1301,6 +1383,7 @@ class AdvancedChatBot {
       search: 'What information are you looking for?',
       reasoning: 'Ask me to analyze or reason through something...',
       summaries: 'What would you like me to summarize?',
+      summarize: 'Enter text, documents, or conversations to summarize...',
       chat: 'Ask about our services or chat with me...'
     };
     
@@ -1394,144 +1477,73 @@ class AdvancedChatBot {
     });
   }
 
+  /**
+   * Handle sending a message and getting AI response
+   */
   async sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    if (!message || this.isProcessing) return;
     
-    this.addMessage(message, 'user');
+    if (!message) return;
+    
     input.value = '';
-    this.isProcessing = true;
-    this.showProcessing();
+    this.adjustTextareaHeight(input); // Reset height
+    
+    // Add user message
+    this.addMessage(message, 'user');
     this.showTypingIndicator();
     
-    let basefileResponse = null;
-    let learnedResponse = null;
-    
     try {
-      let response;
+      // Determine role based on message content
+      const detectedRole = this.detectMessageRole(message);
+      if (detectedRole !== this.currentRole) {
+        this.changeRole(detectedRole);
+      }
+
+      // Get response from selected API
+      const response = await ChatRouter.routeLLMRequest(
+        message,
+        this.currentRole,
+        this.assignments,
+        { model: this.assignments[this.currentRole] }
+      );
+
+      this.hideTypingIndicator();
       
-      // Check for knowledge base response
-      basefileResponse = this.searchKnowledgeBase(message);
-      if (basefileResponse) {
-        response = { content: basefileResponse };
-      } else {
-        // Check learned responses from memory
-        learnedResponse = this.memory.getLearnedResponse(message);
-        if (learnedResponse) {
-          response = { content: learnedResponse };
-        } else {
-          // Determine the effective role for processing
-          let effectiveRole = this.currentRole;
-          if (this.currentRole === 'auto') {
-            effectiveRole = this.detectBestRole(message);
-          }
+      if (!response || !response.content) {
+        throw new Error('No response received from AI');
+      }
+
+      let finalResponse = response.content;
+      
+      // Always summarize long responses (over 300 characters)
+      if (finalResponse.length > 300) {
+        try {
+          const summarizeResponse = await ChatRouter.routeLLMRequest(
+            `Please provide a clear, concise summary of this response while preserving key details: ${finalResponse}`,
+            'summarize',
+            this.assignments,
+            { model: this.assignments['summarize'] }
+          );
           
-          // Use user-selected model if available, otherwise use role assignments
-          let selectedAPIId = this.selectedModel || this.assignments[effectiveRole];
-          
-          if (selectedAPIId === 'none' || !selectedAPIId) {
-            response = { content: this.generateSmartResponse(message, effectiveRole) };
-          } else {
-            try {
-              // Create temporary assignments with user's selected model
-              const tempAssignments = { ...this.assignments };
-              tempAssignments[effectiveRole] = selectedAPIId;
-              
-              console.log(`🎯 Using selected model: ${selectedAPIId} for role: ${effectiveRole}`);
-              response = await ChatRouter.routeLLMRequest(message, effectiveRole, tempAssignments);
-            } catch (aiError) {
-              console.error(`❌ Selected model ${selectedAPIId} failed:`, aiError.message);
-              
-              // Try fallback to a different working API
-              const fallbackAPIs = ['auto', 'llama4_maverick', 'qwen3_235b', 'deepseek'];
-              let fallbackSuccess = false;
-              
-              for (const fallbackAPI of fallbackAPIs) {
-                if (fallbackAPI !== selectedAPIId) {
-                  try {
-                    console.log(`🔄 Trying fallback API: ${fallbackAPI}`);
-                    const fallbackAssignments = { ...this.assignments };
-                    fallbackAssignments[effectiveRole] = fallbackAPI;
-                    response = await ChatRouter.routeLLMRequest(message, effectiveRole, fallbackAssignments);
-                    console.log(`✅ Fallback API ${fallbackAPI} succeeded`);
-                    fallbackSuccess = true;
-                    break;
-                  } catch (fallbackError) {
-                    console.warn(`❌ Fallback ${fallbackAPI} also failed:`, fallbackError.message);
-                  }
-                }
-              }
-              
-              if (!fallbackSuccess) {
-                console.log(`🔄 All APIs failed, using enhanced local response`);
-                response = { 
-                  content: `I apologize, but I'm having trouble connecting to the AI services right now. This might be due to high traffic or a temporary service issue. 
-
-Here's what I can help you with regarding Jay's Mobile Wash:
-
-🚗 **Our Services:**
-- Premium exterior detailing
-- Interior deep cleaning  
-- Ceramic coating protection
-- Paint correction
-- We come to your location!
-
-📞 **Contact Information:**
-- Phone: (562) 228-9429
-- Service Areas: Los Angeles & Orange County
-- We're available 7 days a week
-
-Please try your question again in a moment, or call us directly for immediate assistance!` 
-                };
-              }
-            }
+          if (summarizeResponse && summarizeResponse.content) {
+            finalResponse = `📝 **Quick Summary**:\n${summarizeResponse.content}\n\n<details>\n<summary>Click to see full response</summary>\n\n${finalResponse}\n</details>`;
           }
+        } catch (summarizeError) {
+          console.error('Error summarizing response:', summarizeError);
+          // If summarization fails, just show original with expandable section
+          finalResponse = `⚠️ **Long Response** (${finalResponse.length} chars)\n\n<details>\n<summary>Click to expand full response</summary>\n\n${finalResponse}\n</details>`;
         }
       }
-      
-      let responseText = response.content || response.generated_text || JSON.stringify(response, null, 2);
-      responseText = this.sanitizeBotResponse(responseText);
-      this.addMessage(responseText, 'bot');
-      
-      // Record conversation for learning
-      this.memory.recordConversation(message, responseText, {
-        role: this.currentRole,
-        hasImages: this.uploadedFiles.length > 0,
-        timestamp: Date.now()
-      });
-      
-      // Clear uploaded files after processing
-      this.clearUploadedFiles();
-      
-      this.sendAnalyticsEvent('chat_query_success', {
-        role: this.currentRole,
-        api: this.assignments[this.currentRole],
-        usedBasefile: !!basefileResponse,
-        usedMemory: !!learnedResponse
-      });
+
+      // Add the final response
+      this.addMessage(finalResponse, 'bot');
+      this.scrollToBottom();
       
     } catch (error) {
-      console.error("Chat error:", error);
-      
-      // Provide user-friendly error messages
-      let userFriendlyMessage = "🤖 I'm experiencing a temporary glitch, but I'm still here to help! Let me share what I know about our mobile detailing services, or feel free to call 562-228-9429 for immediate assistance.";
-      
-      this.addMessage(userFriendlyMessage, 'bot', 'error');
-      
-      // Provide a helpful fallback response
-      const fallbackResponse = this.generateSmartResponse(message, this.currentRole);
-      this.addMessage(fallbackResponse, 'bot');
-      
-      this.sendAnalyticsEvent('chat_query_error', {
-        role: this.currentRole,
-        error: error.message,
-        userFriendlyErrorShown: true
-      });
-    } finally {
-      this.isProcessing = false;
-      this.hideProcessing();
+      console.error('Error during message processing:', error);
       this.hideTypingIndicator();
+      this.addMessage(`⚠️ Error: ${error.message || 'Failed to get response'}`, 'bot', 'error');
     }
   }
 
@@ -1571,7 +1583,10 @@ Please try your question again in a moment, or call us directly for immediate as
           
           // Check if message relates to this knowledge item
           if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
-            return this.formatKnowledgeResponse(subcategory, item, category);
+            const response = this.formatKnowledgeResponse(subcategory, item, category);
+            if (response) {
+              return response;
+            }
           }
         }
       }
@@ -1607,7 +1622,14 @@ Please try your question again in a moment, or call us directly for immediate as
   }
   
   formatKnowledgeResponse(key, item, category) {
-    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${item.description}\n\n`;
+    // Ensure item exists and has required properties
+    if (!item || typeof item !== 'object') {
+      console.warn(`⚠️ Invalid knowledge base item for key: ${key}`);
+      return null;
+    }
+    
+    const description = item.description || 'Professional detailing service';
+    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${description}\n\n`;
     
     if (item.price || item.price_range) {
       response += `💰 **Price**: ${item.price || item.price_range}\n`;
@@ -1672,20 +1694,6 @@ Please try your question again in a moment, or call us directly for immediate as
   }
 
   deactivateAdminMode() {
-    this.adminMode = false;
-    this.secretModeActive = false;
-    
-    // Remove admin styling
-    document.querySelector('.chatbot-window').classList.remove('admin-mode');
-    
-    // Clear input and show deactivation message
-    const input = document.getElementById('chatbot-input');
-    input.value = '';
-    
-    // Show fun deactivation message
-    this.addMessage("🎉 ADMIN MODE DEACTIVATED! 🎉\n\nThanks for the admin session, Josh! 🚀\nReturning to normal chat mode...\n\n✨ All systems restored to user-friendly mode! ✨", 'bot', 'system');
-    
-    // Restore normal placeholder based on current role
     const rolePlaceholders = {
       auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
       quotes: 'Describe your vehicle and service needs for a quote...',
@@ -1901,7 +1909,7 @@ Please try your question again in a moment, or call us directly for immediate as
     }
     
     return selectedIssues;
-  }
+   }
 
   generateSmartResponse(message, role) {
     // Ensure message is a string
@@ -1920,6 +1928,8 @@ Please try your question again in a moment, or call us directly for immediate as
       return this.generateReasoningResponse(lowerMessage);
     } else if (role === 'summaries') {
       return this.generateSummaryResponse(lowerMessage);
+    } else if (role === 'summarize') {
+      return this.generateSummarizeResponse(lowerMessage);
     }
     
     // General chat responses
@@ -1966,139 +1976,500 @@ Please try your question again in a moment, or call us directly for immediate as
   }
 
   generateSearchResponse(message) {
-    if (message.includes('location') || message.includes('area')) {
-      return 'We serve all of Los Angeles County and Orange County, including Beverly Hills, Santa Monica, Long Beach, Newport Beach, Irvine, and surrounding areas. We come to your location!';
-    } else if (message.includes('hours') || message.includes('time')) {
-      return 'We operate Monday-Friday 8AM-6PM and weekends 9AM-5PM. We schedule appointments at your convenience within our service areas.';
-    }
-    
-    return 'I can help you find information about our services, coverage areas, pricing, or scheduling. What specific information are you looking for?';
+    return 'We serve all of Los Angeles County and Orange County, including Beverly Hills, Santa Monica, Long Beach, Newport Beach, Irvine, and surrounding areas. We come to your location!';
   }
 
-  generateReasoningResponse(message) {
-    // Check for specific topics and provide better responses
-    if (message.includes('ceramic') || message.includes('protection') || message.includes('coating')) {
-      return 'For ceramic coating decisions, consider: **Vehicle Age & Condition** - newer vehicles benefit most from immediate protection. **Usage** - daily drivers in harsh conditions get excellent ROI. **Budget** - ceramic coating ($450) offers 2-3 years protection vs. graphene ($800) with 5+ years. **Maintenance** - both reduce washing frequency. I recommend ceramic coating for most vehicles. Call (562) 228-9429 for a personalized assessment.';
-    }
-    
-    if (message.includes('package') || message.includes('service') || message.includes('which')) {
-      return 'Choosing the right service depends on your needs: **Basic Mobile Detailing** ($70-120) - great for regular maintenance. **Premium Detailing** ($150-200) - for thorough cleaning and restoration. **Ceramic Coating** ($450) - long-term protection investment. **Graphene Coating** ($800) - maximum protection and durability. Consider your budget, vehicle value, and protection goals. Call (562) 228-9429 for expert guidance.';
-    }
-    
-    return 'I can help you make an informed decision. What specific aspect would you like me to analyze - service comparison, pricing, protection options, or maintenance benefits? Call (562) 228-9429 for detailed consultation.';
+  generateServiceSummary() {
+    return '📋 **Service Summary**: Jay\'s Mobile Wash provides premium mobile detailing across LA & Orange County. **Services**: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($500).';
   }
 
-  generateSummaryResponse(message) {
-    return 'Here\'s a summary: Jay\'s Mobile Wash offers three main categories: Mobile Detailing ($70-$200), Ceramic Coating ($450), and Graphene Coating ($800). We serve LA/OC areas with mobile convenience. Call (562) 228-9429 for service details.';
-  }
-
-  addMessage(content, sender, type = 'normal') {
-    const messagesContainer = document.getElementById('chatbot-messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}-message ${type === 'error' ? 'error-message' : ''} ${type}`;
-    // Avatars
-    const avatar = sender === 'user'
-      ? '<img class="chat-avatar user-avatar" src="https://ui-avatars.com/api/?name=You&background=8b5cf6&color=fff&size=32" alt="User" />'
-      : '<img class="chat-avatar bot-avatar" src="https://ui-avatars.com/api/?name=Jay&background=f1f5f9&color=8b5cf6&size=32" alt="Bot" />';
-    messageDiv.innerHTML = `
-      <div class="message-row">
-        ${avatar}
-        <div class="message-bubble">
-          <div class="message-content">${content}</div>
-          <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
-        </div>
-      </div>
-    `;
-    messagesContainer.appendChild(messageDiv);
-    this.saveChatHistory();
-    this.scrollToBottom();
-  }
-
-  scrollToBottom() {
-    const messagesContainer = document.getElementById('chatbot-messages');
-    if (!messagesContainer) return;
-    
-    // Multiple approaches to ensure scrolling works
-    const scrollToEnd = () => {
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    };
-    
-    // Immediate scroll
-    scrollToEnd();
-    
-    // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToEnd, 10);
-    
-    // Additional fallback for slower rendering
-    setTimeout(scrollToEnd, 100);
-  }
-
-  showProcessing() {
-    const overlay = document.getElementById('processing-overlay');
+  updateProcessingAPI(apiName) {
     const apiSpan = document.getElementById('processing-api');
-    apiSpan.textContent = this.assignments[this.currentRole] || 'AI';
-    overlay.style.display = 'flex';
-    
-    // Ensure scrolling still works when processing is shown
-    this.scrollToBottom();
+    if (apiSpan) {
+      apiSpan.textContent = apiName;
+    }
   }
 
-  hideProcessing() {
-    document.getElementById('processing-overlay').style.display = 'none';
-    
-    // Ensure scrolling works after hiding processing
-    this.scrollToBottom();
-  }
-
-  handleAssignmentsChange(newAssignments) {
-    this.assignments = newAssignments;
-    this.saveAssignments();
-    
-    // Update current API display
-    document.getElementById('current-api').textContent = this.assignments[this.currentRole] || 'none';
-    
-    this.sendAnalyticsEvent('assignments_updated', {
+  updateAssignments(newAssignments) {
+    this.assignments = { ...this.assignments, ...newAssignments };
+    this.onAssignmentsChange({
       assignments: Object.keys(newAssignments).length
     });
   }
 
-  sendSMSNotification(message) {
-    // SMS notification fully removed for compliance and privacy
+  handleSMSFallbackError(error) {
+    console.warn('SMS fallback also failed:', error);
   }
 
-  sendSMSFallback(message) {
-    try {
-      // Alternative method using a different SMS service
-      const fallbackData = {
-        phone: '5622289429',
-        message: `New website message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}" - ${new Date().toLocaleTimeString()}`
-      };
-
-      fetch('/api/sms-fallback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(fallbackData)
-      }).catch(error => {
-        console.warn('SMS fallback also failed:', error);
+  logAdvancedChatEvent(eventAction, eventLabel) {
+    if (window.gtag) {
+      window.gtag('event', eventAction, {
+        event_category: 'advanced_chat',
+        event_label: eventLabel
       });
-      
-    } catch (error) {
-      console.warn('SMS fallback error:', error);
     }
   }
 
-  sendAnalyticsEvent(eventName, data = {}) {
+  /**
+   * Sanitize bot response to remove unwanted characters and formatting
+   * @param {string} text
+   * @returns {string}
+   */
+  sanitizeBotResponse(text) {
+    if (!text || typeof text !== 'string') return '';
+    // Replace \n, \r, \t with spaces or line breaks as appropriate
+    let cleaned = text
+      .replace(/\\n|\n/g, ' ') // Remove literal \\n and real \n
+      .replace(/\\r|\r/g, ' ')
+      .replace(/\\t|\t/g, ' ')
+      .replace(/\s{2,}/g, ' ') // Collapse multiple spaces
+      .replace(/\*\*|__/g, '') // Remove markdown bold and underline
+      .replace(/\*|_/g, '') // Remove stray * or _
+      .replace(/\[.*?\]\(.*?\)/g, '') // Remove markdown links
+      .replace(/`/g, '') // Remove backticks
+      .trim();
+    // Optionally, limit to 2000 chars
+    if (cleaned.length > 2000) cleaned = cleaned.substring(0, 2000) + '...';
+    return cleaned;
+  }
+
+  searchKnowledgeBase(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Search through car detailing knowledge base
+    for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
+      const categoryData = CAR_DETAILING_KNOWLEDGE_BASE[category];
+      
+      if (typeof categoryData === 'object') {
+        for (const subcategory in categoryData) {
+          const item = categoryData[subcategory];
+          
+          // Check if message relates to this knowledge item
+          if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
+            const response = this.formatKnowledgeResponse(subcategory, item, category);
+            if (response) {
+              return response;
+            }
+          }
+        }
+      }
+    }
+    
+    return null;
+  }
+  
+  messageMatchesKnowledge(message, key, item) {
+    // Check for key matches
+    if (message.includes(key.replace(/_/g, ' '))) return true;
+    
+    // Check for description matches
+    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
+    
+    // Check for specific keywords
+    const keywords = {
+      ceramic: ['ceramic', 'coating', 'protection'],
+      graphene: ['graphene', 'premium', 'coating'],
+      detail: ['detail', 'clean', 'wash'],
+      correction: ['correction', 'polish', 'scratch', 'swirl'],
+      wax: ['wax', 'protection', 'shine'],
+      wash: ['wash', 'clean', 'soap']
+    };
+    
+    for (const keywordGroup in keywords) {
+      if (key.includes(keywordGroup)) {
+        return keywords[keywordGroup].some(keyword => message.includes(keyword));
+      }
+    }
+    
+    return false;
+  }
+  
+  formatKnowledgeResponse(key, item, category) {
+    // Ensure item exists and has required properties
+    if (!item || typeof item !== 'object') {
+      console.warn(`⚠️ Invalid knowledge base item for key: ${key}`);
+      return null;
+    }
+    
+    const description = item.description || 'Professional detailing service';
+    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${description}\n\n`;
+    
+    if (item.price || item.price_range) {
+      response += `💰 **Price**: ${item.price || item.price_range}\n`;
+    }
+    
+    if (item.time) {
+      response += `⏱️ **Duration**: ${item.time}\n`;
+    }
+    
+    if (item.benefits) {
+      response += `✅ **Benefits**: ${item.benefits.join(', ')}\n`;
+    }
+    
+    if (item.includes) {
+      response += `📋 **Includes**: ${item.includes.join(', ')}\n`;
+    }
+    
+    if (item.process) {
+      response += `🔧 **Process**: ${item.process.join(' → ')}\n`;
+    }
+    
+    response += `\n📞 Call (562) 228-9429 to book this service!`;
+    
+    return response;
+  }
+
+  checkSecretModes(inputValue) {
+    const value = inputValue.toLowerCase();
+    
+    // Check for admin mode toggle ("josh")
+    if (value === 'josh') {
+      if (this.adminMode) {
+        this.deactivateAdminMode();
+      } else {
+        this.activateAdminMode();
+      }
+      return;
+    }
+    
+    // Check for Jay mode ("jay")
+    if (value === 'jay' && !this.jayMode) {
+      this.activateJayMode();
+      return;
+    }
+  }
+  
+  activateAdminMode() {
+    this.adminMode = true;
+    this.secretModeActive = true;
+    
+    // Add admin styling
+    document.querySelector('.chatbot-window').classList.add('admin-mode');
+    
+    // Clear input and show admin message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    this.addMessage("🔧 ADMIN MODE ACTIVATED 🔧\n\nAdmin commands available:\n• 'reset memory' - Clear conversation memory\n• 'export data' - Download learning data\n• 'upload training' - Upload training files\n• 'analytics' - View detailed statistics\n• 'debug mode' - Enable debug logging", 'bot', 'admin');
+    
+    // Update placeholder
+    input.placeholder = "Admin mode active - Type admin commands...";
+  }
+
+  deactivateAdminMode() {
+    const rolePlaceholders = {
+      auto: 'Ask me anything - I\'ll automatically choose the best way to help you...',
+      quotes: 'Describe your vehicle and service needs for a quote...',
+      search: 'What information are you looking for?',
+      reasoning: 'Ask me to analyze or reason through something...',
+      summaries: 'What would you like me to summarize?',
+      chat: 'Ask about our services or chat with me...'
+    };
+    input.placeholder = rolePlaceholders[this.currentRole] || 'How can I help you?';
+  }
+  
+  activateJayMode() {
+    this.jayMode = true;
+    this.secretModeActive = true;
+    
+    // Add Jay mode styling (lighter theme)
+    document.querySelector('.chatbot-window').classList.remove('dark-mode');
+    document.querySelector('.chatbot-window').classList.add('jay-mode');
+    
+    // Clear input and show Jay mode message
+    const input = document.getElementById('chatbot-input');
+    input.value = '';
+    
+    // Trigger beat animation if available
+    if (window.JayAudio) {
+      window.JayAudio.triggerBeat(0.8);
+    }
+    
+    this.addMessage("🎵 JAY MODE ACTIVATED! 🎵\n\nSpecial features unlocked:\n• Enhanced beat detection and animations\n• Premium service insights\n• VIP customer treatment\n• Advanced car knowledge\n• Exclusive detailing tips", 'bot', 'jay');
+    
+    // Update placeholder
+    input.placeholder = "Jay mode - Ask me anything about premium detailing...";
+    
+    // Add pulsing animation to chat toggle
+    document.getElementById('chatbot-toggle').classList.add('jay-mode-pulse');
+  }
+
+  handleFileUpload(event) {
+    const files = Array.from(event.target.files);
+    
+    files.forEach(file => {
+      if (this.validateFile(file)) {
+        this.processUploadedFile(file);
+      }
+    });
+    
+    // Clear the input to allow re-uploading the same file
+    event.target.value = '';
+  }
+  
+  validateFile(file) {
+    // Check file type
+    if (!this.allowedFileTypes.includes(file.type)) {
+      this.addMessage(`❌ File type not supported: ${file.type}. Please upload images only.`, 'bot', 'error');
+      return false;
+    }
+    
+    // Check file size
+    if (file.size > this.maxFileSize) {
+      this.addMessage(`❌ File too large: ${(file.size / 1024 / 1024).toFixed(1)}MB. Maximum size is 10MB.`, 'bot', 'error');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  processUploadedFile(file) {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      const fileData = {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        data: e.target.result,
+        timestamp: Date.now()
+      };
+      
+      this.uploadedFiles.push(fileData);
+      this.displayUploadedFile(fileData);
+      
+      // Auto-analyze image for quote optimization
+      this.analyzeImageForQuote(fileData);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+  
+  displayUploadedFile(fileData) {
+    const container = document.getElementById('uploaded-files');
+    
+    const fileElement = document.createElement('div');
+    fileElement.className = 'uploaded-file';
+    fileElement.innerHTML = `
+      <img src="${fileData.data}" alt="${fileData.name}" class="uploaded-image">
+      <div class="file-info">
+        <span class="file-name">${fileData.name}</span>
+        <button class="remove-file" data-timestamp="${fileData.timestamp}">✕</button>
+      </div>
+    `;
+    
+    container.appendChild(fileElement);
+    
+    // Add remove handler
+    fileElement.querySelector('.remove-file').addEventListener('click', (e) => {
+      const timestamp = parseInt(e.target.dataset.timestamp);
+      this.removeUploadedFile(timestamp);
+      fileElement.remove();
+    });
+  }
+  
+  removeUploadedFile(timestamp) {
+    this.uploadedFiles = this.uploadedFiles.filter(file => file.timestamp !== timestamp);
+  }
+  
+  clearUploadedFiles() {
+    this.uploadedFiles = [];
+    document.getElementById('uploaded-files').innerHTML = '';
+  }
+  
+  analyzeImageForQuote(fileData) {
+    // Use real Google Vision API for image analysis
+    this.performImageAnalysisWithVision(fileData);
+  }
+  
+  async performImageAnalysisWithVision(fileData) {
     try {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
-          event_category: 'advanced_chat',
-          ...data
+      // Dynamic import to avoid module resolution issues
+      const { analyzeImageWithGoogleVision } = await import('/src/utils/googleVision.js');
+      
+      // Use real Google Vision API
+      const analysisResults = await analyzeImageWithGoogleVision(fileData);
+      
+      if (analysisResults.length > 0) {
+        let message = "📸 **AI-Powered Image Analysis Complete!**\n\n";
+        message += "I've analyzed your vehicle using Google Vision AI and have these recommendations:\n\n";
+        
+        analysisResults.forEach((result, index) => {
+          const confidence = result.confidence ? ` (${Math.round(result.confidence * 100)}% confidence)` : '';
+          message += `${index + 1}. **${result.issue}**${confidence}: ${result.recommendation}\n\n`;
         });
+        
+        message += "💡 Would you like a detailed quote including these AI-recommended services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          this.addMessage("📸 Image uploaded successfully! I can see your vehicle. For the most accurate recommendations, please call (562) 228-9429 to speak with our detailing specialists.", 'bot', 'analysis');
+        }, 1000);
       }
     } catch (error) {
-      console.warn('Failed to send analytics event:', error);
+      console.error('Image analysis failed:', error);
+      
+      // Fallback to simulated analysis
+      const analysisResults = this.performImageAnalysis(fileData);
+      
+      if (analysisResults.length > 0) {
+        let message = "📸 **Image Analysis Complete!**\n\n";
+        message += "I can see your vehicle and have some recommendations:\n\n";
+        
+        analysisResults.forEach((result, index) => {
+          message += `${index + 1}. **${result.issue}**: ${result.recommendation}\n`;
+        });
+        
+        message += "\n💡 Would you like a detailed quote including these additional services?";
+        
+        setTimeout(() => {
+          this.addMessage(message, 'bot', 'analysis');
+        }, 1000);
+      }
+    }
+  }
+  
+  performImageAnalysis(fileData) {
+    // This is a simplified simulation - in a real implementation, 
+    // this would use computer vision APIs
+    const possibleIssues = [
+      {
+        issue: "Paint Swirl Marks Detected",
+        recommendation: "Paint correction would restore that showroom shine. Add single-stage correction (+$300) or multi-stage for deeper scratches (+$600)."
+      },
+      {
+        issue: "Wheel Contamination Visible", 
+        recommendation: "Professional wheel cleaning and ceramic coating for wheels (+$150) would provide long-lasting protection."
+      },
+      {
+        issue: "Water Spots on Paint",
+        recommendation: "Paint decontamination and ceramic coating (+$450) would prevent future water spotting and make maintenance easier."
+      },
+      {
+        issue: "Oxidized Headlights",
+        recommendation: "Headlight restoration service (+$80) would improve visibility and vehicle appearance."
+      },
+      {
+        issue: "Interior Wear Visible",
+        recommendation: "Leather conditioning and interior protection (+$100) would restore and preserve your interior."
+      }
+    ];
+    
+    // Randomly select 1-3 issues for demonstration
+    const numIssues = Math.floor(Math.random() * 3) + 1;
+    const selectedIssues = [];
+    
+    for (let i = 0; i < numIssues; i++) {
+      const randomIndex = Math.floor(Math.random() * possibleIssues.length);
+      const issue = possibleIssues[randomIndex];
+      
+      if (!selectedIssues.find(s => s.issue === issue.issue)) {
+        selectedIssues.push(issue);
+      }
+    }
+    
+    return selectedIssues;
+   }
+
+  generateSmartResponse(message, role) {
+    // Ensure message is a string
+    if (!message || typeof message !== 'string') {
+      message = String(message || '');
+    }
+    
+    const lowerMessage = message.toLowerCase();
+    
+    // Role-specific responses
+    if (role === 'quotes') {
+      return this.generateQuoteResponse(lowerMessage);
+    } else if (role === 'search') {
+      return this.generateSearchResponse(lowerMessage);
+    } else if (role === 'reasoning') {
+      return this.generateReasoningResponse(lowerMessage);
+    } else if (role === 'summaries') {
+      return this.generateSummaryResponse(lowerMessage);
+    } else if (role === 'summarize') {
+      return this.generateSummarizeResponse(lowerMessage);
+    }
+    
+    // General chat responses
+    const responses = {
+      'hello': 'Hello! I\'m Jay\'s AI Assistant. I can help with quotes, service information, and more. What can I do for you?',
+      'hi': 'Hi there! How can I assist you with Jay\'s Mobile Wash services today?',
+      'price': 'Our services range from $70 for Mini Detail to $800 for Graphene Coating. Would you like a detailed quote for your specific needs?',
+      'pricing': 'Our pricing varies by service: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), Graphene Coating ($800). What service interests you?',
+      'book': 'Great! To book our services, please call (562) 228-9429 or visit our website. What type of service would you like to schedule?',
+      'booking': 'I\'d be happy to help you book! Call us at (562) 228-9429 and mention what service you need. We serve all of LA and Orange County.',
+      'contact': 'You can reach Jay\'s Mobile Wash at (562) 228-9429 or email info@jaysmobilewash.net. We provide mobile service throughout Los Angeles and Orange County.',
+      'location': 'We provide mobile detailing throughout Los Angeles County and Orange County. We come directly to your location for convenience!',
+      'service': 'We offer comprehensive mobile detailing ($70-$200), professional Ceramic Coating ($450), and premium Graphene Coating ($800). Which service interests you most?',
+      'services': 'Our main services include: Mobile Detailing (Mini $70, Luxury $130, Max $200), Ceramic Coating ($450), and Graphene Coating ($800). What would you like to know more about?',
+      'ceramic': 'Our Ceramic Coating service is $450 and includes professional paint correction with a 2-year warranty. It provides excellent protection and shine. Would you like to schedule this service?',
+      'detailing': 'We have three mobile detailing packages: Mini Detail ($70) - basic wash and interior; Luxury Detail ($130) - comprehensive cleaning; Max Detail ($200) - premium full service. Which fits your needs?',
+      'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
+      'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
+    };
+
+    // Find matching response
+    for (const [key, response] of Object.entries(responses)) {
+      if (lowerMessage.includes(key)) {
+        return response;
+      }
+    }
+
+    // Default intelligent response
+    if (lowerMessage.includes('?')) {
+      return 'That\'s a great question! For detailed information about our services, pricing, or scheduling, please call us at (562) 228-9429. Our team can provide personalized assistance for your mobile detailing needs.';
+    }
+
+    return 'Thanks for your message! I\'m here to help with Jay\'s Mobile Wash services. For immediate assistance, call (562) 228-9429. What specific service can I help you learn about?';
+  }
+
+  generateQuoteResponse(message) {
+    if (message.includes('sedan') || message.includes('car')) {
+      return 'For a sedan, our pricing typically ranges from $70 (Mini Detail) to $200 (Max Detail). Add Ceramic Coating for $450 or Graphene for $800. Call (562) 228-9429 for an exact quote based on your vehicle\'s condition and location.';
+    } else if (message.includes('suv') || message.includes('truck')) {
+      return 'SUVs and trucks start at $90 for Mini Detail, $150 for Luxury, and $250 for Max Detail. Ceramic Coating is $500, Graphene is $850. Call (562) 228-9429 for precise pricing based on size and condition.';
+    }
+    
+    return 'I\'d be happy to provide a quote! Our services range from $70-$800 depending on vehicle size and service level. For an accurate quote, please call (562) 228-9429 and describe your vehicle and desired services.'; 
+  }
+
+  generateSearchResponse(message) {
+    return 'We serve all of Los Angeles County and Orange County, including Beverly Hills, Santa Monica, Long Beach, Newport Beach, Irvine, and surrounding areas. We come to your location!';
+  }
+
+  generateServiceSummary() {
+    return '📋 **Service Summary**: Jay\'s Mobile Wash provides premium mobile detailing across LA & Orange County. **Services**: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($500).';
+  }
+
+  updateProcessingAPI(apiName) {
+    const apiSpan = document.getElementById('processing-api');
+    if (apiSpan) {
+      apiSpan.textContent = apiName;
+    }
+  }
+
+  updateAssignments(newAssignments) {
+    this.assignments = { ...this.assignments, ...newAssignments };
+    this.onAssignmentsChange({
+      assignments: Object.keys(newAssignments).length
+    });
+  }
+
+  handleSMSFallbackError(error) {
+    console.warn('SMS fallback also failed:', error);
+  }
+
+  logAdvancedChatEvent(eventAction, eventLabel) {
+    if (window.gtag) {
+      window.gtag('event', eventAction, {
+        event_category: 'advanced_chat',
+        event_label: eventLabel
+      });
     }
   }
 }
