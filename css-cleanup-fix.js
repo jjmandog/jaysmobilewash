@@ -1,40 +1,98 @@
-// Fix for CSS injection issue
+// Enhanced CSS injection fix
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to remove any CSS text content that shouldn't be visible
+    console.log('CSS Cleanup Fix: Starting...');
+    
+    // Function to aggressively remove CSS content that shouldn't be visible
     function cleanupCSSContent() {
-        // Find all elements that might contain CSS content as text
-        const allElements = document.querySelectorAll('*');
+        console.log('CSS Cleanup Fix: Running cleanup...');
         
-        allElements.forEach(element => {
-            // Check if the element's text content contains CSS keyframes or animations
-            const textContent = element.textContent || '';
+        // Target the specific EZPZ section
+        const ezpzSection = document.querySelector('.ezpz-ceramic');
+        if (ezpzSection) {
+            console.log('CSS Cleanup Fix: Found EZPZ section');
             
-            // Check for CSS patterns that shouldn't be visible as text
-            if (textContent.includes('@keyframes') || 
-                textContent.includes('animation:') ||
-                textContent.includes('transform:') ||
-                (textContent.includes('modalSlideIn') && textContent.includes('ease-out')) ||
-                textContent.includes('laserSweep') ||
-                textContent.includes('laserFromLeft')) {
+            // Check all text nodes within the EZPZ section
+            const walker = document.createTreeWalker(
+                ezpzSection,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const textNodesToRemove = [];
+            let node;
+            
+            while (node = walker.nextNode()) {
+                const text = node.textContent || '';
                 
-                // If this element only contains CSS and no other meaningful content
-                if (textContent.trim().startsWith('@keyframes') || 
-                    textContent.trim().startsWith('animation:') ||
-                    (textContent.includes('opacity: 0') && textContent.includes('transform:'))) {
+                // Check if this text node contains CSS
+                if (text.includes('@keyframes') || 
+                    text.includes('animation:') ||
+                    text.includes('modalSlideIn') ||
+                    text.includes('laserSweep') ||
+                    text.includes('transform:') ||
+                    text.includes('opacity:') ||
+                    (text.includes('0%') && text.includes('100%')) ||
+                    text.includes('ease-out')) {
                     
-                    console.log('Removing CSS content from element:', element);
-                    element.textContent = '';
-                    element.style.display = 'none';
+                    console.log('CSS Cleanup Fix: Found CSS text node:', text.substring(0, 100) + '...');
+                    textNodesToRemove.push(node);
                 }
             }
+            
+            // Remove the problematic text nodes
+            textNodesToRemove.forEach(node => {
+                console.log('CSS Cleanup Fix: Removing CSS text node');
+                node.textContent = '';
+            });
+        }
+        
+        // Also check all elements for CSS content
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(element => {
+            const textContent = element.textContent || '';
+            const innerHTML = element.innerHTML || '';
+            
+            // If element contains only CSS and no HTML tags
+            if ((textContent.includes('@keyframes') || 
+                 textContent.includes('animation: modalSlideIn') ||
+                 textContent.includes('laserSweep')) &&
+                !innerHTML.includes('<')) {
+                
+                console.log('CSS Cleanup Fix: Found element with CSS content:', element);
+                element.style.display = 'none';
+                element.textContent = '';
+            }
         });
+        
+        console.log('CSS Cleanup Fix: Cleanup complete');
     }
     
-    // Run cleanup immediately
+    // Run cleanup multiple times with different strategies
     cleanupCSSContent();
     
-    // Run cleanup again after a short delay to catch any dynamically added content
+    // Use MutationObserver to watch for dynamic content changes
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                console.log('CSS Cleanup Fix: DOM changed, running cleanup...');
+                setTimeout(cleanupCSSContent, 100);
+            }
+        });
+    });
+    
+    // Start observing
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true
+    });
+    
+    // Run cleanup at intervals
     setTimeout(cleanupCSSContent, 500);
     setTimeout(cleanupCSSContent, 1000);
     setTimeout(cleanupCSSContent, 2000);
+    setTimeout(cleanupCSSContent, 5000);
+    
+    console.log('CSS Cleanup Fix: Initialized');
 });
