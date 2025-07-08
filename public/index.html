@@ -1564,6 +1564,109 @@
         </div>
     </section>
 
+    <!-- Premium Products We Use Section -->
+    <section id="premium-products" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                    Premium Products We Use
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Click on any product to learn more about our professional-grade solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+                <!-- KOCH CHEMIE -->
+                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-flask text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">KOCH CHEMIE</h3>
+                        <p class="text-gray-400 text-sm mb-4">German Engineering</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('koch-chemie')">
+                        Click for details
+                    </button>
+                </div>
+
+                <!-- MADERITE -->
+                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">MADERITE</h3>
+                        <p class="text-gray-400 text-sm mb-4">Professional Grade</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('maderite')">
+                        Click for details
+                    </button>
+                </div>
+
+                <!-- BIOBOMB -->
+                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-leaf text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">BIOBOMB</h3>
+                        <p class="text-gray-400 text-sm mb-4">Odor Elimination</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('biobomb')">
+                        Click for details
+                    </button>
+                </div>
+
+                <!-- ULTRACLEAN -->
+                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-spray-can text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">ULTRACLEAN</h3>
+                        <p class="text-gray-400 text-sm mb-4">Deep Cleaning</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ultraclean')">
+                        Click for details
+                    </button>
+                </div>
+
+                <!-- EZPZ -->
+                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-gem text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">EZPZ</h3>
+                        <p class="text-gray-400 text-sm mb-4">Ceramic Coating</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ezpz')">
+                        Click for details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modal-title" class="text-2xl font-bold text-white"></h3>
+                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-white text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="text-gray-300">
+                    <!-- Content will be dynamically loaded -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Services Section -->
     <section id="services" class="py-20 bg-gray-900">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -2638,6 +2741,181 @@
 
     <!-- Scripts -->
     <script>
+        // Product Modal Functions
+        function showProductModal(productId) {
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            
+            const productData = {
+                'koch-chemie': {
+                    title: 'KOCH CHEMIE',
+                    content: `
+                        <div class="space-y-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-flask text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white">German Engineering Excellence</h4>
+                                    <p class="text-sm text-gray-400">Professional-grade automotive care products</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">KOCH CHEMIE is a German-engineered line of professional automotive detailing products known for their exceptional quality and effectiveness. We use their premium formulations for:</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                                <li><strong>Paint Correction:</strong> Advanced compounds and polishes for flawless finishes</li>
+                                <li><strong>Interior Care:</strong> Specialized cleaners for leather, fabric, and plastics</li>
+                                <li><strong>Wheel & Tire Care:</strong> Professional-strength cleaners and protectants</li>
+                                <li><strong>Glass Treatment:</strong> Crystal-clear visibility products</li>
+                            </ul>
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <p class="text-purple-400 font-semibold">Why We Choose KOCH CHEMIE:</p>
+                                <p class="text-gray-300 text-sm mt-2">Their products deliver consistent, professional results while being safe for all vehicle surfaces. The German engineering ensures optimal performance and long-lasting protection.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'maderite': {
+                    title: 'MADERITE',
+                    content: `
+                        <div class="space-y-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-shield-alt text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white">Professional Grade Protection</h4>
+                                    <p class="text-sm text-gray-400">Advanced coating and protection systems</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">MADERITE represents the cutting edge of automotive protection technology. Their professional-grade products provide superior durability and performance for:</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                                <li><strong>Ceramic Coatings:</strong> Long-lasting paint protection with exceptional gloss</li>
+                                <li><strong>Surface Preparation:</strong> Advanced prep products for optimal coating adhesion</li>
+                                <li><strong>Maintenance Products:</strong> Specialized formulas to maintain coating performance</li>
+                                <li><strong>Multi-Surface Protection:</strong> Solutions for paint, glass, and trim</li>
+                            </ul>
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <p class="text-purple-400 font-semibold">Why We Choose MADERITE:</p>
+                                <p class="text-gray-300 text-sm mt-2">Their professional-grade formulations provide the durability and performance our customers expect, with warranties that back up their claims.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'biobomb': {
+                    title: 'BIOBOMB',
+                    content: `
+                        <div class="space-y-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-leaf text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white">Advanced Odor Elimination</h4>
+                                    <p class="text-sm text-gray-400">Bio-enzymatic odor destruction technology</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">BIOBOMB utilizes advanced bio-enzymatic technology to permanently eliminate odors at the molecular level. This isn't just masking - it's complete odor destruction:</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                                <li><strong>Smoke Odors:</strong> Completely eliminates cigarette and other smoke odors</li>
+                                <li><strong>Pet Odors:</strong> Breaks down organic compounds causing pet-related smells</li>
+                                <li><strong>Food & Beverage:</strong> Removes stubborn spill odors permanently</li>
+                                <li><strong>Mold & Mildew:</strong> Destroys musty odors at their source</li>
+                            </ul>
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <p class="text-purple-400 font-semibold">Why We Choose BIOBOMB:</p>
+                                <p class="text-gray-300 text-sm mt-2">Unlike traditional air fresheners that only mask odors, BIOBOMB's bio-enzymatic formula actually breaks down odor-causing molecules for permanent elimination.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'ultraclean': {
+                    title: 'ULTRACLEAN',
+                    content: `
+                        <div class="space-y-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-spray-can text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white">Deep Cleaning Solutions</h4>
+                                    <p class="text-sm text-gray-400">Industrial-strength cleaning technology</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">ULTRACLEAN products deliver industrial-strength cleaning power while remaining safe for automotive surfaces. Our deep cleaning arsenal includes:</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                                <li><strong>Engine Bay Cleaning:</strong> Powerful degreasers for pristine engine compartments</li>
+                                <li><strong>Heavy-Duty Interior:</strong> Commercial-grade cleaners for stubborn stains</li>
+                                <li><strong>Exterior Decontamination:</strong> Removes tar, sap, and embedded contaminants</li>
+                                <li><strong>Wheel & Tire Deep Clean:</strong> Professional-strength brake dust and grime removal</li>
+                            </ul>
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <p class="text-purple-400 font-semibold">Why We Choose ULTRACLEAN:</p>
+                                <p class="text-gray-300 text-sm mt-2">When standard cleaners aren't enough, ULTRACLEAN delivers the deep-cleaning power needed for the most challenging detailing situations.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'ezpz': {
+                    title: 'EZPZ',
+                    content: `
+                        <div class="space-y-4">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-gem text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white">Premium Ceramic Coating</h4>
+                                    <p class="text-sm text-gray-400">Next-generation protection technology</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">EZPZ represents the pinnacle of ceramic coating technology, providing unmatched protection and aesthetics for your vehicle:</p>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-300">
+                                <li><strong>9H Hardness:</strong> Maximum scratch resistance and durability</li>
+                                <li><strong>Hydrophobic Properties:</strong> Superior water beading and self-cleaning effects</li>
+                                <li><strong>UV Protection:</strong> Prevents paint fading and oxidation</li>
+                                <li><strong>Enhanced Gloss:</strong> Mirror-like finish that lasts for years</li>
+                                <li><strong>Chemical Resistance:</strong> Protection against environmental contaminants</li>
+                            </ul>
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <p class="text-purple-400 font-semibold">Why We Choose EZPZ:</p>
+                                <p class="text-gray-300 text-sm mt-2">EZPZ coatings provide the perfect balance of protection, aesthetics, and longevity. With proper maintenance, these coatings can last 2-5 years while maintaining their performance.</p>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+            
+            const product = productData[productId];
+            if (product) {
+                title.textContent = product.title;
+                content.innerHTML = product.content;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('product-modal');
+            if (e.target === modal) {
+                closeProductModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
         // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
             // Fix favicon
