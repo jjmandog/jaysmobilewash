@@ -1211,7 +1211,7 @@ class AdvancedChatBot {
               placeholder="Type your message here..."
               rows="1"
               aria-label="Chat message input"
-              style="color: #1a202c !important; background: white !important; font-size: 14px !important;"
+              style="color: #1a202c !important; background: white !important; font-size: 14px !important; border: 1px solid #ccc !important; padding: 8px !important; outline: none !important; font-family: Arial, sans-serif !important; line-height: 1.4 !important; text-indent: 0 !important; letter-spacing: normal !important;"
             ></textarea>
             <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
               <span class="send-icon">➤</span>
@@ -1242,7 +1242,18 @@ class AdvancedChatBot {
         textarea.style.fontSize = '14px';
         textarea.style.opacity = '1';
         textarea.style.visibility = 'visible';
+        textarea.style.display = 'block';
+        textarea.style.border = '1px solid #ccc';
+        textarea.style.padding = '8px';
         console.log('🔧 Applied forced styling to textarea');
+        
+        // Test if we can set and see a value
+        textarea.value = 'test';
+        console.log('🔧 Set test value, current value:', textarea.value);
+        setTimeout(() => {
+          textarea.value = '';
+          console.log('🔧 Cleared test value');
+        }, 1000);
       }
     }, 100);
     
@@ -1338,10 +1349,25 @@ class AdvancedChatBot {
     
     input.addEventListener('input', (e) => {
       console.log('🔍 Textarea input event:', e.target.value);
+      // Force the value to be visible
+      e.target.style.color = '#1a202c';
+      e.target.style.backgroundColor = 'white';
     });
     
     input.addEventListener('keydown', (e) => {
       console.log('🔍 Textarea keydown:', e.key);
+    });
+    
+    input.addEventListener('keyup', (e) => {
+      console.log('🔍 Textarea keyup, value:', e.target.value);
+      // Force update display
+      if (e.target.value !== e.target.textContent) {
+        e.target.textContent = e.target.value;
+      }
+    });
+    
+    input.addEventListener('change', (e) => {
+      console.log('🔍 Textarea change event:', e.target.value);
     });
     
     // Escape key to close chat
