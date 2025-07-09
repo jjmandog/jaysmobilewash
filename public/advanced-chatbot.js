@@ -671,12 +671,19 @@ class ChatRouter {
       throw new Error('Role is required and must be a string');
     }
     
+    console.log('🔍 Role assignments received:', assignments);
+    console.log('🎯 Looking for role:', role);
+    
     const assignedAPIId = assignments[role];
+    console.log('🆔 Assigned API ID for role', role, ':', assignedAPIId);
+    
     if (!assignedAPIId) {
       throw new Error(`No API assigned for role: ${role}`);
     }
     
     const assignedAPI = this.getAPIById(assignedAPIId);
+    console.log('🔌 Found API for ID', assignedAPIId, ':', assignedAPI);
+    
     if (!assignedAPI) {
       throw new Error(`Unknown API: ${assignedAPIId}`);
     }
@@ -1057,10 +1064,17 @@ class AdvancedChatBot {
     try {
       const saved = localStorage.getItem('chatbot-role-assignments');
       if (saved) {
-        this.assignments = JSON.parse(saved);
+        const savedAssignments = JSON.parse(saved);
+        // Merge saved assignments with defaults to ensure all roles have assignments
+        this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS, ...savedAssignments };
+      } else {
+        // If no saved assignments, use defaults
+        this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
       }
+      console.log('📋 Loaded assignments:', this.assignments);
     } catch (error) {
-      console.warn('Failed to load saved assignments:', error);
+      console.warn('Failed to load saved assignments, using defaults:', error);
+      this.assignments = { ...DEFAULT_ROLE_ASSIGNMENTS };
     }
   }
 
