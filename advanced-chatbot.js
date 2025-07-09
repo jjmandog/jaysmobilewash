@@ -1564,14 +1564,9 @@ class AdvancedChatBot {
     if (!message) return;
     
     input.value = '';
-    if (typeof this.adjustTextareaHeight === 'function') {
-      this.adjustTextareaHeight(input); // Reset height
-    } else {
-      console.warn('⚠️ adjustTextareaHeight method not found on this:', this);
-      // Fallback: reset height manually
-      input.style.height = 'auto';
-      input.style.height = '40px';
-    }
+    // Reset textarea height manually (simplified approach)
+    input.style.height = 'auto';
+    input.style.height = '40px';
     
     // Add user message
     this.addMessage(message, 'user');
