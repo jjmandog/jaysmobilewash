@@ -1297,7 +1297,7 @@ class AdvancedChatBot {
       }
     });
     
-    send.addEventListener('click', () => this.sendMessage());
+    send.addEventListener('click', () => this.sendMessage.bind(this)());
     send.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -1338,7 +1338,8 @@ class AdvancedChatBot {
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        this.sendMessage();
+        // Bind this context explicitly
+        this.sendMessage.bind(this)();
       }
     });
     
@@ -1553,7 +1554,9 @@ class AdvancedChatBot {
    */
   async sendMessage() {
     console.log('🔍 sendMessage called, this:', this);
+    console.log('🔍 this.constructor.name:', this.constructor.name);
     console.log('🔍 adjustTextareaHeight method exists:', typeof this.adjustTextareaHeight);
+    console.log('🔍 Available methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(this)));
     
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
@@ -1561,8 +1564,13 @@ class AdvancedChatBot {
     if (!message) return;
     
     input.value = '';
-    if (this.adjustTextareaHeight) {
+    if (typeof this.adjustTextareaHeight === 'function') {
       this.adjustTextareaHeight(input); // Reset height
+    } else {
+      console.warn('⚠️ adjustTextareaHeight method not found on this:', this);
+      // Fallback: reset height manually
+      input.style.height = 'auto';
+      input.style.height = '40px';
     }
     
     // Add user message
