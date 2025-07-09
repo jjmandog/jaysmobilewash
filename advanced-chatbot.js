@@ -556,7 +556,7 @@ const DEFAULT_ROLE_ASSIGNMENTS = {
   quotes: 'llama4_maverick',      // Service quotes - Llama 4 Maverick for structured business responses
   photo_uploads: 'llama32_vision', // Photo analysis - Llama 3.2 Vision for image analysis
   summaries: 'reka_flash_3',      // Summarization - Reka Flash 3 for fast, efficient summaries
-  summarize: 'llama33',          // Summarize - Llama 3.3 for excellent text summarization
+  summarize: 'reka_flash_3',      // Summarize - Reka Flash 3 for excellent text summarization (fixed from llama33)
   search: 'deepseek',             // Search queries - DeepSeek for information retrieval
   chat: 'llama4_scout',           // General chat - Llama 4 Scout for conversational interactions
   fallback: 'deepseek',           // Fallback to reliable DeepSeek
