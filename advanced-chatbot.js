@@ -614,7 +614,11 @@ class AIUtils {
         } else if (response.status === 429) {
           throw new Error('Rate limit exceeded: Please wait a moment before trying again');
         } else if (response.status === 404) {
-          throw new Error('API endpoint not found: Service may be temporarily offline');
+          // If API endpoints are not available, provide helpful contact information
+          return {
+            response: "I'm experiencing technical difficulties connecting to our AI service. For immediate assistance with Jay's Mobile Wash services, pricing, or scheduling, please call us at (562) 228-9429. Our team is ready to help with all your mobile detailing needs in LA and Orange County!",
+            role: "assistant"
+          };
         } else {
           throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
         }
@@ -625,15 +629,20 @@ class AIUtils {
       return data;
     } catch (error) {
       if (error.name === 'AbortError') {
-        throw new Error('Request timeout: AI service is taking too long to respond');
+        return {
+          response: "The request is taking longer than expected. For immediate assistance with Jay's Mobile Wash services, please call (562) 228-9429. We're here to help with all your mobile detailing needs!",
+          role: "assistant"
+        };
       } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        throw new Error('Network error: Unable to connect to AI service');
-      } else if (error.message.includes('504')) {
-        throw new Error('Gateway timeout: AI service is temporarily overloaded');
-      } else if (error.message.includes('503')) {
-        throw new Error('Service unavailable: AI service is temporarily down');
-      } else if (error.message.includes('502')) {
-        throw new Error('Bad gateway: AI service connection error');
+        return {
+          response: "I'm having trouble connecting to our systems right now. For pricing, scheduling, or questions about our mobile detailing services in LA and Orange County, please call (562) 228-9429. Our team is ready to assist you!",
+          role: "assistant"
+        };
+      } else if (error.message.includes('504') || error.message.includes('503') || error.message.includes('502')) {
+        return {
+          response: "Our AI assistant is temporarily unavailable. For immediate help with Jay's Mobile Wash services, pricing, or booking, please call (562) 228-9429. We provide premium mobile detailing throughout LA and Orange County!",
+          role: "assistant"
+        };
       }
       console.error(`❌ AI query failed:`, error.message);
       throw error;

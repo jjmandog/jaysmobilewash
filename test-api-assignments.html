@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Assignment Test</title>
+</head>
+<body>
+    <h1>API Assignment Test</h1>
+    <div id="output"></div>
+    
+    <script>
+        // Test script to verify API assignments
+        const DEFAULT_ROLE_ASSIGNMENTS = {
+            auto: 'auto',
+            reasoning: 'qwq_32b',
+            tools: 'kimi_dev_72b',
+            quotes: 'llama4_maverick',
+            photo_uploads: 'llama32_vision',
+            summaries: 'reka_flash_3',
+            summarize: 'reka_flash_3',
+            search: 'deepseek',
+            chat: 'llama4_scout',
+            fallback: 'deepseek',
+            analytics: 'glm_z1_32b',
+            accessibility: 'deepseek',
+            deep_analysis: 'qwen3_235b',
+            multi_language: 'nemotron_super_49b'
+        };
+
+        const API_OPTIONS = [
+            { id: 'auto', name: 'Auto (Let AI choose)', enabled: true },
+            { id: 'deepseek', name: 'DeepSeek Chat (Free)', enabled: true },
+            { id: 'qwq_32b', name: 'QWQ 32B (Free)', enabled: true },
+            { id: 'glm_z1_32b', name: 'GLM-Z1 32B (Free)', enabled: true },
+            { id: 'kimi_vl_a3b', name: 'Kimi VL A3B (Free)', enabled: true },
+            { id: 'kimi_dev_72b', name: 'Kimi Dev 72B (Free)', enabled: true },
+            { id: 'moonlight_16b', name: 'Moonlight 16B (Free)', enabled: true },
+            { id: 'nemotron_super_49b', name: 'Nemotron Super 49B (Free)', enabled: true },
+            { id: 'llama4_maverick', name: 'Llama 4 Maverick (Free)', enabled: true },
+            { id: 'llama4_scout', name: 'Llama 4 Scout (Free)', enabled: true },
+            { id: 'qwerky_72b', name: 'Qwerky 72B (Free)', enabled: true },
+            { id: 'reka_flash_3', name: 'Reka Flash 3 (Free)', enabled: true },
+            { id: 'dolphin_mistral_24b', name: 'Dolphin Mistral 24B (Free)', enabled: true },
+            { id: 'llama32_vision', name: 'Llama 3.2 11B Vision (Free)', enabled: true },
+            { id: 'qwen3_235b', name: 'Qwen 3 235B A22B (Free)', enabled: true },
+            { id: 'none', name: 'AI Disabled', enabled: true }
+        ];
+
+        function validateAssignments() {
+            const output = document.getElementById('output');
+            let html = '<h2>Validation Results:</h2>';
+            let errors = 0;
+
+            Object.entries(DEFAULT_ROLE_ASSIGNMENTS).forEach(([role, apiId]) => {
+                const apiExists = API_OPTIONS.find(api => api.id === apiId);
+                const status = apiExists ? '✅ VALID' : '❌ INVALID';
+                const color = apiExists ? 'green' : 'red';
+                
+                html += `<div style="color: ${color}; margin: 5px 0;">
+                    <strong>${role}</strong> → ${apiId} ${status}
+                    ${apiExists ? `(${apiExists.name})` : '(NOT FOUND)'}
+                </div>`;
+                
+                if (!apiExists) errors++;
+            });
+
+            html += `<h3 style="color: ${errors ? 'red' : 'green'};">
+                ${errors ? `${errors} ERRORS FOUND` : 'ALL ASSIGNMENTS VALID'}
+            </h3>`;
+
+            // Test role detection scenarios
+            html += '<h2>Role Detection Test:</h2>';
+            const testMessages = [
+                { msg: 'Hello', expected: 'chat' },
+                { msg: 'How much does it cost?', expected: 'quotes' },
+                { msg: 'Where are you located?', expected: 'search' },
+                { msg: 'Why should I choose you?', expected: 'reasoning' },
+                { msg: 'Tell me about ceramic coating', expected: 'summaries' }
+            ];
+
+            testMessages.forEach(test => {
+                html += `<div style="margin: 5px 0;">
+                    <strong>"${test.msg}"</strong> → Expected: ${test.expected}, 
+                    API: ${DEFAULT_ROLE_ASSIGNMENTS[test.expected] || 'N/A'}
+                </div>`;
+            });
+
+            output.innerHTML = html;
+        }
+
+        validateAssignments();
+    </script>
+</body>
+</html>
