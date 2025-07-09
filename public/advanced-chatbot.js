@@ -2020,14 +2020,16 @@ class AdvancedChatBot {
     
     // Role-specific responses
     if (role === 'quotes') {
-      'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
-      'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
-    };
+      const responses = {
+        'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
+        'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
+      };
 
-    // Find matching response
-    for (const [key, response] of Object.entries(responses)) {
-      if (lowerMessage.includes(key)) {
-        return response;
+      // Find matching response
+      for (const [key, response] of Object.entries(responses)) {
+        if (lowerMessage.includes(key)) {
+          return response;
+        }
       }
     }
 
