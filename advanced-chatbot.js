@@ -1224,6 +1224,19 @@ class AdvancedChatBot {
     
     console.log('✅ Widget HTML set successfully!');
     
+    // Debug: Check if textarea was created properly
+    setTimeout(() => {
+      const textarea = document.getElementById('chatbot-input');
+      console.log('🔍 Textarea element:', textarea);
+      console.log('🔍 Textarea visible:', textarea ? window.getComputedStyle(textarea).display !== 'none' : 'not found');
+      console.log('🔍 Textarea disabled:', textarea ? textarea.disabled : 'not found');
+      console.log('🔍 Textarea readonly:', textarea ? textarea.readOnly : 'not found');
+      console.log('🔍 Textarea style:', textarea ? textarea.style.cssText : 'not found');
+      if (textarea) {
+        console.log('🔍 Computed styles:', window.getComputedStyle(textarea));
+      }
+    }, 100);
+    
     // Initialize settings panel
     const settingsContainer = document.getElementById('settings-container');
     this.settingsPanel = new ChatSettingsPanel(
@@ -1307,6 +1320,19 @@ class AdvancedChatBot {
         e.preventDefault();
         this.sendMessage();
       }
+    });
+    
+    // Debug: Test if input events are working
+    input.addEventListener('focus', () => {
+      console.log('🔍 Textarea focused!');
+    });
+    
+    input.addEventListener('input', (e) => {
+      console.log('🔍 Textarea input event:', e.target.value);
+    });
+    
+    input.addEventListener('keydown', (e) => {
+      console.log('🔍 Textarea keydown:', e.key);
     });
     
     // Escape key to close chat
