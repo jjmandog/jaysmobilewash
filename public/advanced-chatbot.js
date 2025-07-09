@@ -1593,11 +1593,13 @@ class AdvancedChatBot {
       // Always summarize long responses (over 300 characters)
       if (finalResponse.length > 300) {
         try {
+          // Use 'summaries' role instead of 'summarize' for better compatibility
+          const summarizeRole = this.assignments['summaries'] ? 'summaries' : 'chat';
           const summarizeResponse = await ChatRouter.routeLLMRequest(
             `Please provide a clear, concise summary of this response while preserving key details: ${finalResponse}`,
-            'summarize',
+            summarizeRole,
             this.assignments,
-            { model: this.assignments['summarize'] }
+            { model: this.assignments[summarizeRole] }
           );
           
           if (summarizeResponse && summarizeResponse.content) {
