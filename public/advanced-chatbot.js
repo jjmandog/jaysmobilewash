@@ -1569,7 +1569,7 @@ class AdvancedChatBot {
     
     try {
       // Determine role based on message content
-      const detectedRole = this.detectMessageRole(message);
+      const detectedRole = this.detectBestRole(message);
       if (detectedRole !== this.currentRole) {
         this.changeRole(detectedRole);
       }
