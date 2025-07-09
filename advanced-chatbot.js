@@ -1553,11 +1553,6 @@ class AdvancedChatBot {
    * Handle sending a message and getting AI response
    */
   async sendMessage() {
-    console.log('🔍 sendMessage called, this:', this);
-    console.log('🔍 this.constructor.name:', this.constructor.name);
-    console.log('🔍 adjustTextareaHeight method exists:', typeof this.adjustTextareaHeight);
-    console.log('🔍 Available methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(this)));
-    
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     

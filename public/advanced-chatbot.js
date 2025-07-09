@@ -1211,6 +1211,7 @@ class AdvancedChatBot {
               placeholder="Type your message here..."
               rows="1"
               aria-label="Chat message input"
+              style="color: #1a202c !important; background: white !important; font-size: 14px !important; border: 1px solid #ccc !important; padding: 8px !important; outline: none !important; font-family: Arial, sans-serif !important; line-height: 1.4 !important; text-indent: 0 !important; letter-spacing: normal !important;"
             ></textarea>
             <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
               <span class="send-icon">➤</span>
@@ -1223,6 +1224,38 @@ class AdvancedChatBot {
     `;
     
     console.log('✅ Widget HTML set successfully!');
+    
+    // Debug: Check if textarea was created properly
+    setTimeout(() => {
+      const textarea = document.getElementById('chatbot-input');
+      console.log('🔍 Textarea element:', textarea);
+      console.log('🔍 Textarea visible:', textarea ? window.getComputedStyle(textarea).display !== 'none' : 'not found');
+      console.log('🔍 Textarea disabled:', textarea ? textarea.disabled : 'not found');
+      console.log('🔍 Textarea readonly:', textarea ? textarea.readOnly : 'not found');
+      console.log('🔍 Textarea style:', textarea ? textarea.style.cssText : 'not found');
+      if (textarea) {
+        console.log('🔍 Computed styles:', window.getComputedStyle(textarea));
+        
+        // Force proper styling
+        textarea.style.color = '#1a202c';
+        textarea.style.backgroundColor = 'white';
+        textarea.style.fontSize = '14px';
+        textarea.style.opacity = '1';
+        textarea.style.visibility = 'visible';
+        textarea.style.display = 'block';
+        textarea.style.border = '1px solid #ccc';
+        textarea.style.padding = '8px';
+        console.log('🔧 Applied forced styling to textarea');
+        
+        // Test if we can set and see a value
+        textarea.value = 'test';
+        console.log('🔧 Set test value, current value:', textarea.value);
+        setTimeout(() => {
+          textarea.value = '';
+          console.log('🔧 Cleared test value');
+        }, 1000);
+      }
+    }, 100);
     
     // Initialize settings panel
     const settingsContainer = document.getElementById('settings-container');
@@ -1264,7 +1297,7 @@ class AdvancedChatBot {
       }
     });
     
-    send.addEventListener('click', () => this.sendMessage());
+    send.addEventListener('click', () => this.sendMessage.bind(this)());
     send.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -1304,8 +1337,38 @@ class AdvancedChatBot {
     
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        this.sendMessage();
+        e.preventDefault();
+        // Bind this context explicitly
+        this.sendMessage.bind(this)();
       }
+    });
+    
+    // Debug: Test if input events are working
+    input.addEventListener('focus', () => {
+      console.log('🔍 Textarea focused!');
+    });
+    
+    input.addEventListener('input', (e) => {
+      console.log('🔍 Textarea input event:', e.target.value);
+      // Force the value to be visible
+      e.target.style.color = '#1a202c';
+      e.target.style.backgroundColor = 'white';
+    });
+    
+    input.addEventListener('keydown', (e) => {
+      console.log('🔍 Textarea keydown:', e.key);
+    });
+    
+    input.addEventListener('keyup', (e) => {
+      console.log('🔍 Textarea keyup, value:', e.target.value);
+      // Force update display
+      if (e.target.value !== e.target.textContent) {
+        e.target.textContent = e.target.value;
+      }
+    });
+    
+    input.addEventListener('change', (e) => {
+      console.log('🔍 Textarea change event:', e.target.value);
     });
     
     // Escape key to close chat
@@ -1496,7 +1559,9 @@ class AdvancedChatBot {
     if (!message) return;
     
     input.value = '';
-    this.adjustTextareaHeight(input); // Reset height
+    // Reset textarea height manually (simplified approach)
+    input.style.height = 'auto';
+    input.style.height = '40px';
     
     // Add user message
     this.addMessage(message, 'user');
@@ -1553,6 +1618,31 @@ class AdvancedChatBot {
       console.error('Error during message processing:', error);
       this.hideTypingIndicator();
       this.addMessage(`⚠️ Error: ${error.message || 'Failed to get response'}`, 'bot', 'error');
+    }
+  }
+
+  /**
+   * Adjust textarea height to fit content
+   */
+  adjustTextareaHeight(textarea) {
+    if (!textarea) return;
+    
+    // Reset height to auto to calculate scrollHeight properly
+    textarea.style.height = 'auto';
+    
+    // Set height to scrollHeight with some padding
+    const scrollHeight = textarea.scrollHeight;
+    const minHeight = 40; // Minimum height in pixels
+    const maxHeight = 120; // Maximum height in pixels
+    
+    const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
+    textarea.style.height = newHeight + 'px';
+    
+    // If content exceeds max height, enable scrolling
+    if (scrollHeight > maxHeight) {
+      textarea.style.overflowY = 'scroll';
+    } else {
+      textarea.style.overflowY = 'hidden';
     }
   }
 
@@ -1930,31 +2020,6 @@ class AdvancedChatBot {
     
     // Role-specific responses
     if (role === 'quotes') {
-      return this.generateQuoteResponse(lowerMessage);
-    } else if (role === 'search') {
-      return this.generateSearchResponse(lowerMessage);
-    } else if (role === 'reasoning') {
-      return this.generateReasoningResponse(lowerMessage);
-    } else if (role === 'summaries') {
-      return this.generateSummaryResponse(lowerMessage);
-    } else if (role === 'summarize') {
-      return this.generateSummarizeResponse(lowerMessage);
-    }
-    
-    // General chat responses
-    const responses = {
-      'hello': 'Hello! I\'m Jay\'s AI Assistant. I can help with quotes, service information, and more. What can I do for you?',
-      'hi': 'Hi there! How can I assist you with Jay\'s Mobile Wash services today?',
-      'price': 'Our services range from $70 for Mini Detail to $800 for Graphene Coating. Would you like a detailed quote for your specific needs?',
-      'pricing': 'Our pricing varies by service: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), Graphene Coating ($800). What service interests you?',
-      'book': 'Great! To book our services, please call (562) 228-9429 or visit our website. What type of service would you like to schedule?',
-      'booking': 'I\'d be happy to help you book! Call us at (562) 228-9429 and mention what service you need. We serve all of LA and Orange County.',
-      'contact': 'You can reach Jay\'s Mobile Wash at (562) 228-9429 or email info@jaysmobilewash.net. We provide mobile service throughout Los Angeles and Orange County.',
-      'location': 'We provide mobile detailing throughout Los Angeles County and Orange County. We come directly to your location for convenience!',
-      'service': 'We offer comprehensive mobile detailing ($70-$200), professional Ceramic Coating ($450), and premium Graphene Coating ($800). Which service interests you most?',
-      'services': 'Our main services include: Mobile Detailing (Mini $70, Luxury $130, Max $200), Ceramic Coating ($450), and Graphene Coating ($800). What would you like to know more about?',
-      'ceramic': 'Our Ceramic Coating service is $450 and includes professional paint correction with a 2-year warranty. It provides excellent protection and shine. Would you like to schedule this service?',
-      'detailing': 'We have three mobile detailing packages: Mini Detail ($70) - basic wash and interior; Luxury Detail ($130) - comprehensive cleaning; Max Detail ($200) - premium full service. Which fits your needs?',
       'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
       'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
     };
