@@ -1304,6 +1304,7 @@ class AdvancedChatBot {
     
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         this.sendMessage();
       }
     });
@@ -1490,13 +1491,18 @@ class AdvancedChatBot {
    * Handle sending a message and getting AI response
    */
   async sendMessage() {
+    console.log('🔍 sendMessage called, this:', this);
+    console.log('🔍 adjustTextareaHeight method exists:', typeof this.adjustTextareaHeight);
+    
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     
     if (!message) return;
     
     input.value = '';
-    this.adjustTextareaHeight(input); // Reset height
+    if (this.adjustTextareaHeight) {
+      this.adjustTextareaHeight(input); // Reset height
+    }
     
     // Add user message
     this.addMessage(message, 'user');
@@ -1553,6 +1559,31 @@ class AdvancedChatBot {
       console.error('Error during message processing:', error);
       this.hideTypingIndicator();
       this.addMessage(`⚠️ Error: ${error.message || 'Failed to get response'}`, 'bot', 'error');
+    }
+  }
+
+  /**
+   * Adjust textarea height to fit content
+   */
+  adjustTextareaHeight(textarea) {
+    if (!textarea) return;
+    
+    // Reset height to auto to calculate scrollHeight properly
+    textarea.style.height = 'auto';
+    
+    // Set height to scrollHeight with some padding
+    const scrollHeight = textarea.scrollHeight;
+    const minHeight = 40; // Minimum height in pixels
+    const maxHeight = 120; // Maximum height in pixels
+    
+    const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
+    textarea.style.height = newHeight + 'px';
+    
+    // If content exceeds max height, enable scrolling
+    if (scrollHeight > maxHeight) {
+      textarea.style.overflowY = 'scroll';
+    } else {
+      textarea.style.overflowY = 'hidden';
     }
   }
 
@@ -1930,31 +1961,6 @@ class AdvancedChatBot {
     
     // Role-specific responses
     if (role === 'quotes') {
-      return this.generateQuoteResponse(lowerMessage);
-    } else if (role === 'search') {
-      return this.generateSearchResponse(lowerMessage);
-    } else if (role === 'reasoning') {
-      return this.generateReasoningResponse(lowerMessage);
-    } else if (role === 'summaries') {
-      return this.generateSummaryResponse(lowerMessage);
-    } else if (role === 'summarize') {
-      return this.generateSummarizeResponse(lowerMessage);
-    }
-    
-    // General chat responses
-    const responses = {
-      'hello': 'Hello! I\'m Jay\'s AI Assistant. I can help with quotes, service information, and more. What can I do for you?',
-      'hi': 'Hi there! How can I assist you with Jay\'s Mobile Wash services today?',
-      'price': 'Our services range from $70 for Mini Detail to $800 for Graphene Coating. Would you like a detailed quote for your specific needs?',
-      'pricing': 'Our pricing varies by service: Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), Graphene Coating ($800). What service interests you?',
-      'book': 'Great! To book our services, please call (562) 228-9429 or visit our website. What type of service would you like to schedule?',
-      'booking': 'I\'d be happy to help you book! Call us at (562) 228-9429 and mention what service you need. We serve all of LA and Orange County.',
-      'contact': 'You can reach Jay\'s Mobile Wash at (562) 228-9429 or email info@jaysmobilewash.net. We provide mobile service throughout Los Angeles and Orange County.',
-      'location': 'We provide mobile detailing throughout Los Angeles County and Orange County. We come directly to your location for convenience!',
-      'service': 'We offer comprehensive mobile detailing ($70-$200), professional Ceramic Coating ($450), and premium Graphene Coating ($800). Which service interests you most?',
-      'services': 'Our main services include: Mobile Detailing (Mini $70, Luxury $130, Max $200), Ceramic Coating ($450), and Graphene Coating ($800). What would you like to know more about?',
-      'ceramic': 'Our Ceramic Coating service is $450 and includes professional paint correction with a 2-year warranty. It provides excellent protection and shine. Would you like to schedule this service?',
-      'detailing': 'We have three mobile detailing packages: Mini Detail ($70) - basic wash and interior; Luxury Detail ($130) - comprehensive cleaning; Max Detail ($200) - premium full service. Which fits your needs?',
       'how': 'I can help you with service information, pricing, booking details, and answer questions about our mobile detailing process. What specifically would you like to know?',
       'what': 'Jay\'s Mobile Wash offers premium mobile car detailing and ceramic coating services. We come to your location in LA and Orange County. What service are you interested in?'
     };
