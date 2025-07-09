@@ -541,6 +541,8 @@
     border: 1px solid #e2e8f0;
     border-radius: 25px;
     font-size: 14px;
+    color: #1a202c;
+    background: white;
     outline: none;
     transition: border-color 0.2s ease;
 }

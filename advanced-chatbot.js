@@ -1211,6 +1211,7 @@ class AdvancedChatBot {
               placeholder="Type your message here..."
               rows="1"
               aria-label="Chat message input"
+              style="color: #1a202c !important; background: white !important; font-size: 14px !important;"
             ></textarea>
             <button class="chatbot-send" id="chatbot-send" aria-label="Send message">
               <span class="send-icon">➤</span>
@@ -1234,6 +1235,14 @@ class AdvancedChatBot {
       console.log('🔍 Textarea style:', textarea ? textarea.style.cssText : 'not found');
       if (textarea) {
         console.log('🔍 Computed styles:', window.getComputedStyle(textarea));
+        
+        // Force proper styling
+        textarea.style.color = '#1a202c';
+        textarea.style.backgroundColor = 'white';
+        textarea.style.fontSize = '14px';
+        textarea.style.opacity = '1';
+        textarea.style.visibility = 'visible';
+        console.log('🔧 Applied forced styling to textarea');
       }
     }, 100);
     
