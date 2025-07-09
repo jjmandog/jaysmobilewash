@@ -1484,37 +1484,46 @@ class AdvancedChatBot {
    */
   detectBestRole(message) {
     const msgLower = message.toLowerCase();
+    console.log('🔍 ROLE DETECTION DEBUG 🔍');
+    console.log('📝 Original message:', message);
+    console.log('📝 Lowercase message:', msgLower);
     
     // Quote-related keywords
     if (msgLower.includes('quote') || msgLower.includes('price') || msgLower.includes('cost') || 
         msgLower.includes('how much') || msgLower.includes('estimate') || msgLower.includes('pricing')) {
+      console.log('💰 Detected: quotes role');
       return 'quotes';
     }
     
     // Search-related keywords
     if (msgLower.includes('find') || msgLower.includes('search') || msgLower.includes('where') || 
         msgLower.includes('when') || msgLower.includes('location') || msgLower.includes('hours')) {
+      console.log('🔍 Detected: search role');
       return 'search';
     }
     
     // Summary-related keywords
     if (msgLower.includes('summarize') || msgLower.includes('summary') || msgLower.includes('explain') || 
         msgLower.includes('tell me about') || msgLower.includes('what is')) {
+      console.log('📋 Detected: summaries role');
       return 'summaries';
     }
     
     // Reasoning-related keywords
     if (msgLower.includes('why') || msgLower.includes('how') || msgLower.includes('analyze') || 
         msgLower.includes('compare') || msgLower.includes('recommend') || msgLower.includes('best')) {
+      console.log('🧠 Detected: reasoning role');
       return 'reasoning';
     }
     
     // Photo upload context
     if (this.uploadedFiles.length > 0) {
+      console.log('📸 Detected: photo_uploads role');
       return 'photo_uploads';
     }
     
     // Default to chat for conversational messages
+    console.log('💬 Detected: chat role (default)');
     return 'chat';
   }
 
@@ -1582,11 +1591,23 @@ class AdvancedChatBot {
     this.showTypingIndicator();
     
     try {
+      console.log('🎯 SEND MESSAGE DEBUG START 🎯');
+      console.log('📝 Message:', message);
+      console.log('🎭 Current role before detection:', this.currentRole);
+      console.log('📋 Current assignments:', this.assignments);
+      
       // Determine role based on message content
       const detectedRole = this.detectBestRole(message);
+      console.log('🔍 Detected role:', detectedRole);
+      console.log('🆔 Assignment for detected role:', this.assignments[detectedRole]);
+      
       if (detectedRole !== this.currentRole) {
+        console.log('🔄 Changing role from', this.currentRole, 'to', detectedRole);
         this.changeRole(detectedRole);
       }
+      
+      console.log('🎭 Final role for API call:', this.currentRole);
+      console.log('🌐 Final API assignment:', this.assignments[this.currentRole]);
 
       // Get response from selected API
       const response = await ChatRouter.routeLLMRequest(
