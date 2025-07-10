@@ -14,6 +14,7 @@ Allow: /locations/
 Allow: /sitemap.xml
 Allow: /sitemap-index.xml
 Allow: /sitemap-backlinks.xml
+Allow: /sitemap-backlinks-extended.xml
 Allow: /sitemap-comprehensive.xml
 
 # Block hash URLs and fragments (comprehensive coverage)
@@ -38,10 +39,13 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Sitemaps
+# Sitemaps - Optimized for Maximum SEO Performance
+Sitemap: https://www.jaysmobilewash.net/sitemap-index-enhanced.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-seo-optimized.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-index.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks-extended.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-comprehensive.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml

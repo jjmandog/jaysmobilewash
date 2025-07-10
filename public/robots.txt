@@ -38,7 +38,9 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Sitemaps
+# Sitemaps - Optimized for Maximum SEO Performance
+Sitemap: https://www.jaysmobilewash.net/sitemap-index-enhanced.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-seo-optimized.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-index.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml

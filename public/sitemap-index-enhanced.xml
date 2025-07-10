@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <!-- Primary SEO-Optimized Sitemap -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap-seo-optimized.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+    
+    <!-- Original Main Sitemap -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+    
+    <!-- Location-Specific Pages -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap-locations.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+    
+    <!-- Service Pages -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap-services.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+    
+    <!-- SEO Backlinks -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap-backlinks.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+    
+    <!-- Images Sitemap -->
+    <sitemap>
+        <loc>https://jaysmobilewash.net/sitemap-images.xml</loc>
+        <lastmod>2025-07-10T12:00:00+00:00</lastmod>
+    </sitemap>
+
+</sitemapindex>
