@@ -1444,6 +1444,118 @@ class AdvancedChatBot {
   toggleSettings() {
     this.settingsPanel.toggle();
     this.sendAnalyticsEvent('settings_toggled', { opened: this.settingsPanel.isOpen });
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleSettings();
+      }
+    });
+    
+    summarizeToggleBtn.addEventListener('click', () => this.toggleSummarizer());
+    summarizeToggleBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleSummarizer();
+      }
+    });
+    
+    roleSelect.addEventListener('change', (e) => this.changeRole(e.target.value));
+    
+    // File upload handlers with keyboard support
+    fileUploadBtn.addEventListener('click', () => fileUpload.click());
+    fileUploadBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        fileUpload.click();
+      }
+    });
+    fileUpload.addEventListener('change', (e) => this.handleFileUpload(e));
+    
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        // Bind this context explicitly
+        this.sendMessage.bind(this)();
+      }
+    });
+    
+    // Debug: Test if input events are working
+    input.addEventListener('focus', () => {
+      console.log('🔍 Textarea focused!');
+    });
+    
+    input.addEventListener('input', (e) => {
+      console.log('🔍 Textarea input event:', e.target.value);
+      // Force the value to be visible
+      e.target.style.color = '#1a202c';
+      e.target.style.backgroundColor = 'white';
+    });
+    
+    input.addEventListener('keydown', (e) => {
+      console.log('🔍 Textarea keydown:', e.key);
+    });
+    
+    input.addEventListener('keyup', (e) => {
+      console.log('🔍 Textarea keyup, value:', e.target.value);
+      // Force update display
+      if (e.target.value !== e.target.textContent) {
+        e.target.textContent = e.target.value;
+      }
+    });
+    
+    input.addEventListener('change', (e) => {
+      console.log('🔍 Textarea change event:', e.target.value);
+    });
+    
+    // Escape key to close chat
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.closeChat();
+      }
+    });
+    
+    // Secret mode detection
+    input.addEventListener('input', (e) => this.checkSecretModes(e.target.value));
+  }
+
+  toggleChat() {
+    const window = document.getElementById('chatbot-window');
+    const toggle = document.getElementById('chatbot-toggle');
+    
+    if (this.isOpen) {
+      window.style.display = 'none';
+      this.isOpen = false;
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus(); // Return focus to toggle button
+    } else {
+      window.style.display = 'block';
+      this.isOpen = true;
+      toggle.setAttribute('aria-expanded', 'true');
+      
+      // Focus management for accessibility
+      const input = document.getElementById('chatbot-input');
+      if (input) {
+        setTimeout(() => input.focus(), 100);
+      }
+    }
+    
+    this.sendAnalyticsEvent('chat_toggled', { opened: this.isOpen });
+  }
+
+  closeChat() {
+    const window = document.getElementById('chatbot-window');
+    const toggle = document.getElementById('chatbot-toggle');
+    
+    window.style.display = 'none';
+    this.isOpen = false;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus(); // Return focus to toggle button
+    
+    this.sendAnalyticsEvent('chat_closed');
+  }
+
+  toggleSettings() {
+    this.settingsPanel.toggle();
+    this.sendAnalyticsEvent('settings_toggled', { opened: this.settingsPanel.isOpen });
   }
 
   toggleSummarizer() {
@@ -1673,118 +1785,6 @@ class AdvancedChatBot {
   adjustTextareaHeight(textarea) {
     if (!textarea) return;
     
-    // Reset height to auto to calculate scrollHeight properly
-    textarea.style.height = 'auto';
-    
-    // Set height to scrollHeight with some padding
-    const scrollHeight = textarea.scrollHeight;
-    const minHeight = 40; // Minimum height in pixels
-    const maxHeight = 120; // Maximum height in pixels
-    
-    const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
-    textarea.style.height = newHeight + 'px';
-    
-    // If content exceeds max height, enable scrolling
-    if (scrollHeight > maxHeight) {
-      textarea.style.overflowY = 'scroll';
-    } else {
-      textarea.style.overflowY = 'hidden';
-    }
-  }
-
-  /**
-   * Sanitize bot response to remove unwanted characters and formatting
-   * @param {string} text
-   * @returns {string}
-   */
-  sanitizeBotResponse(text) {
-    if (!text || typeof text !== 'string') return '';
-    // Replace \n, \r, \t with spaces or line breaks as appropriate
-    let cleaned = text
-      .replace(/\\n|\n/g, ' ') // Remove literal \\n and real \n
-      .replace(/\\r|\r/g, ' ')
-      .replace(/\\t|\t/g, ' ')
-      .replace(/\s{2,}/g, ' ') // Collapse multiple spaces
-      .replace(/\*\*|__/g, '') // Remove markdown bold and underline
-      .replace(/\*|_/g, '') // Remove stray * or _
-      .replace(/\[.*?\]\(.*?\)/g, '') // Remove markdown links
-      .replace(/`/g, '') // Remove backticks
-      .trim();
-    // Optionally, limit to 2000 chars
-    if (cleaned.length > 2000) cleaned = cleaned.substring(0, 2000) + '...';
-    return cleaned;
-  }
-
-  searchKnowledgeBase(message) {
-    const lowerMessage = message.toLowerCase();
-    
-    // Search through car detailing knowledge base
-    for (const category in CAR_DETAILING_KNOWLEDGE_BASE) {
-      const categoryData = CAR_DETAILING_KNOWLEDGE_BASE[category];
-      
-      if (typeof categoryData === 'object') {
-        for (const subcategory in categoryData) {
-          const item = categoryData[subcategory];
-          
-          // Check if message relates to this knowledge item
-          if (this.messageMatchesKnowledge(lowerMessage, subcategory, item)) {
-            const response = this.formatKnowledgeResponse(subcategory, item, category);
-            if (response) {
-              return response;
-            }
-          }
-        }
-      }
-    }
-    
-    return null;
-  }
-  
-  messageMatchesKnowledge(message, key, item) {
-    // Check for key matches
-    if (message.includes(key.replace(/_/g, ' '))) return true;
-    
-    // Check for description matches
-    if (item.description && message.includes(item.description.toLowerCase().split(' ')[0])) return true;
-    
-    // Check for specific keywords
-    const keywords = {
-      ceramic: ['ceramic', 'coating', 'protection'],
-      graphene: ['graphene', 'premium', 'coating'],
-      detail: ['detail', 'clean', 'wash'],
-      correction: ['correction', 'polish', 'scratch', 'swirl'],
-      wax: ['wax', 'protection', 'shine'],
-      wash: ['wash', 'clean', 'soap']
-    };
-    
-    for (const keywordGroup in keywords) {
-      if (key.includes(keywordGroup)) {
-        return keywords[keywordGroup].some(keyword => message.includes(keyword));
-      }
-    }
-    
-    return false;
-  }
-  
-  formatKnowledgeResponse(key, item, category) {
-    // Ensure item exists and has required properties
-    if (!item || typeof item !== 'object') {
-      console.warn(`⚠️ Invalid knowledge base item for key: ${key}`);
-      return null;
-    }
-    
-    const description = item.description || 'Professional detailing service';
-    let response = `**${key.replace(/_/g, ' ').toUpperCase()}** - ${description}\n\n`;
-    
-    if (item.price || item.price_range) {
-      response += `💰 **Price**: ${item.price || item.price_range}\n`;
-    }
-    
-    if (item.time) {
-      response += `⏱️ **Duration**: ${item.time}\n`;
-    }
-    
-    if (item.benefits) {
       response += `✅ **Benefits**: ${item.benefits.join(', ')}\n`;
     }
     

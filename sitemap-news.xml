@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
+    
+    <!-- News and Updates Section -->
+    <url>
+        <loc>https://jaysmobilewash.net/news/new-ceramic-coating-technology-2025</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <mobile:mobile/>
+        <news:news>
+            <news:publication>
+                <news:name>Jay's Mobile Wash News</news:name>
+                <news:language>en</news:language>
+            </news:publication>
+            <news:publication_date>2025-07-09T12:00:00+00:00</news:publication_date>
+            <news:title>Advanced Ceramic Coating Technology Now Available in Los Angeles</news:title>
+            <news:keywords>ceramic coating, Los Angeles, car protection, mobile detailing, paint protection</news:keywords>
+            <news:stock_tickers>AUTO</news:stock_tickers>
+        </news:news>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/news/expanded-service-areas-orange-county</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <mobile:mobile/>
+        <news:news>
+            <news:publication>
+                <news:name>Jay's Mobile Wash News</news:name>
+                <news:language>en</news:language>
+            </news:publication>
+            <news:publication_date>2025-07-09T12:00:00+00:00</news:publication_date>
+            <news:title>Service Expansion: Now Serving All of Orange County</news:title>
+            <news:keywords>Orange County, mobile detailing, service expansion, car wash, automotive</news:keywords>
+        </news:news>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/news/summer-2025-detailing-specials</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <mobile:mobile/>
+        <news:news>
+            <news:publication>
+                <news:name>Jay's Mobile Wash News</news:name>
+                <news:language>en</news:language>
+            </news:publication>
+            <news:publication_date>2025-07-09T12:00:00+00:00</news:publication_date>
+            <news:title>Summer 2025 Mobile Detailing Specials and Packages</news:title>
+            <news:keywords>summer specials, mobile detailing, discounts, car care, Los Angeles</news:keywords>
+        </news:news>
+    </url>
+    
+    <!-- Blog/Educational Content -->
+    <url>
+        <loc>https://jaysmobilewash.net/blog/how-to-maintain-ceramic-coating</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/blog/paint-correction-vs-polishing</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/blog/mobile-detailing-benefits</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/blog/choosing-right-car-wax</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <!-- Seasonal Content -->
+    <url>
+        <loc>https://jaysmobilewash.net/seasonal/winter-car-protection-guide</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>seasonal</changefreq>
+        <priority>0.6</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/seasonal/summer-car-care-tips</loc>
+        <lastmod>2025-07-09T12:00:00+00:00</lastmod>
+        <changefreq>seasonal</changefreq>
+        <priority>0.6</priority>
+        <mobile:mobile/>
+    </url>
+
+</urlset>

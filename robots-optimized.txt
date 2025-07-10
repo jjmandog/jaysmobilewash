@@ -1,0 +1,203 @@
+# ===============================================
+# Robots.txt for Jay's Mobile Wash
+# Advanced SEO Configuration with Comprehensive Coverage
+# Generated: 2025-07-09
+# Domain: jaysmobilewash.net
+# ===============================================
+
+# ===============================================
+# PRIMARY USER AGENTS
+# ===============================================
+
+# Global Allow Rules for All Bots
+User-agent: *
+Allow: /
+Allow: /services/
+Allow: /locations/
+Allow: /packages/
+Allow: /products/
+Allow: /gallery/
+Allow: /reviews/
+Allow: /contact/
+Allow: /booking/
+Allow: /pricing/
+Allow: /about/
+Allow: /faq/
+Allow: /blog/
+Allow: /news/
+Allow: /seasonal/
+
+# Allow all sitemap files
+Allow: /sitemap*.xml
+Allow: /robots.txt
+Allow: /.well-known/
+
+# Mobile-friendly content
+Allow: /mobile-detailing/
+Allow: /ceramic-coating/
+Allow: /paint-correction/
+
+# ===============================================
+# BLOCK UNWANTED CONTENT
+# ===============================================
+
+# Block hash URLs and fragments (comprehensive coverage)
+Disallow: /#
+Disallow: /*#*
+Disallow: /*?*utm*
+Disallow: /*?ref*
+Disallow: /*?source*
+Disallow: /*?campaign*
+
+# Block admin and sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /config/
+Disallow: /database/
+Disallow: /logs/
+Disallow: /scripts/
+Disallow: /utils/
+Disallow: /tests/
+Disallow: /.git/
+Disallow: /.env*
+Disallow: /node_modules/
+Disallow: /.next/
+Disallow: /.vercel/
+Disallow: /.vscode/
+
+# Block development files
+Disallow: /*.js$
+Disallow: /*.json$
+Disallow: /*.md$
+Disallow: /*.log$
+Disallow: /*-test.*
+Disallow: /*-backup.*
+
+# Block duplicate content patterns
+Disallow: /print/
+Disallow: /mobile-version/
+Disallow: /amp/
+
+# ===============================================
+# SPECIFIC BOT CONFIGURATIONS
+# ===============================================
+
+# Googlebot - Optimized for fast crawling
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+Request-rate: 10/1m
+
+# Bingbot - Moderate crawling speed
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+Request-rate: 5/1m
+
+# Yahoo bot
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# DuckDuckGo bot
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Yandex bot
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Baidu bot
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 3
+
+# Facebook bot (for social sharing)
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 1
+
+# Twitter bot (for card previews)
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 1
+
+# LinkedIn bot
+User-agent: LinkedInBot
+Allow: /
+Crawl-delay: 2
+
+# ===============================================
+# BLOCK UNWANTED BOTS
+# ===============================================
+
+# Block aggressive scrapers and spam bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# ===============================================
+# SITEMAP DECLARATIONS
+# ===============================================
+
+# Primary optimized sitemap
+Sitemap: https://jaysmobilewash.net/sitemap-optimized.xml
+
+# Sitemap index file
+Sitemap: https://jaysmobilewash.net/sitemap-index-optimized.xml
+
+# Legacy main sitemap (backward compatibility)
+Sitemap: https://jaysmobilewash.net/sitemap.xml
+
+# Specialized sitemaps
+Sitemap: https://jaysmobilewash.net/sitemap-services.xml
+Sitemap: https://jaysmobilewash.net/sitemap-locations.xml
+Sitemap: https://jaysmobilewash.net/sitemap-images-optimized.xml
+Sitemap: https://jaysmobilewash.net/sitemap-news.xml
+Sitemap: https://jaysmobilewash.net/sitemap-backlinks.xml
+
+# Legacy sitemaps (for compatibility)
+Sitemap: https://jaysmobilewash.net/sitemap-images.xml
+Sitemap: https://jaysmobilewash.net/sitemap-pages.xml
+Sitemap: https://jaysmobilewash.net/main-sitemap.xml
+Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/mobile-car-wash-sitemap.xml
+
+# ===============================================
+# ADDITIONAL DIRECTIVES
+# ===============================================
+
+# Cache directive for faster bot processing
+Cache-delay: 3600
+
+# Preferred host
+Host: jaysmobilewash.net
+
+# Microdata and structured data allowed
+Allow: /microdata/
+Allow: /structured-data/
+Allow: /schema/
+
+# ===============================================
+# END OF ROBOTS.TXT
+# ===============================================

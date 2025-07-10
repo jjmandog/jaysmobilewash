@@ -13,6 +13,8 @@ Allow: /products/
 Allow: /locations/
 Allow: /sitemap.xml
 Allow: /sitemap-index.xml
+Allow: /sitemap-backlinks.xml
+Allow: /sitemap-comprehensive.xml
 
 # Block hash URLs and fragments (comprehensive coverage)
 Disallow: /#
@@ -38,5 +40,8 @@ Crawl-delay: 1
 
 # Sitemaps
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-index.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-comprehensive.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml

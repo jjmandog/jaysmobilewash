@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- HOMEPAGE - Maximum Priority -->
+    <url>
+        <loc>https://jaysmobilewash.net/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/mobile-detailing.PNG</image:loc>
+            <image:title>Jay's Mobile Wash - Premium Mobile Car Detailing</image:title>
+            <image:caption>Professional mobile auto detailing services in Los Angeles and Orange County</image:caption>
+            <image:geo_location>Los Angeles, California</image:geo_location>
+        </image:image>
+    </url>
+    
+    <!-- CORE SERVICE PAGES - High Priority -->
+    <url>
+        <loc>https://jaysmobilewash.net/services-exterior-detailing.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/ceramic-coating.jpg</image:loc>
+            <image:title>Exterior Auto Detailing Services</image:title>
+            <image:caption>Complete exterior car detailing and paint protection</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/services-ceramic-coating.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/ceramic-coating.jpg</image:loc>
+            <image:title>Ceramic Coating Services</image:title>
+            <image:caption>Professional ceramic coating for long-lasting paint protection</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/products.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/paint-correction.jpg</image:loc>
+            <image:title>Premium Detailing Products</image:title>
+            <image:caption>High-quality products we use for mobile car detailing</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- LOCATION PAGES - Geographic SEO -->
+    <url>
+        <loc>https://jaysmobilewash.net/locations-los-angeles.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/locations-beverly-hills.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/locations-orange-county.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <!-- INFORMATION PAGES -->
+    <url>
+        <loc>https://jaysmobilewash.net/about.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/privacy.html</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+        <mobile:mobile/>
+    </url>
+    
+    <!-- SEO BACKLINK REFERENCES -->
+    <!-- These external articles link back to our site for SEO authority -->
+    <url>
+        <loc>https://yjfemym.com/why-mobile-car-detailing-is-the-future-of-auto-care-convenience-quality-and-time-saving/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <xhtml:link rel="alternate" href="https://jaysmobilewash.net/" hreflang="en"/>
+    </url>
+    
+    <url>
+        <loc>https://sqklnq.com/the-reason-why-mobile-car-detailing-may-be-the-long-term-associated-with-car-treatment-comfort-high-quality-as-well-as-time-saving/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <xhtml:link rel="alternate" href="https://jaysmobilewash.net/" hreflang="en"/>
+    </url>
+    
+    <url>
+        <loc>https://zbljst.com/exactly-why-mobile-car-detailing-could-be-the-upcoming-regarding-automobile-attention-ease-top-quality-and-also-time-saving/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <xhtml:link rel="alternate" href="https://jaysmobilewash.net/" hreflang="en"/>
+    </url>
+    
+    <url>
+        <loc>https://zmdlmuw.com/precisely-why-mobile-car-detailing-will-be-the-potential-involving-vehicle-proper-care-benefit-good-quality-along-with-time-saving/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <xhtml:link rel="alternate" href="https://jaysmobilewash.net/" hreflang="en"/>
+    </url>
+    
+    <url>
+        <loc>https://dalianshipin.com/the-reason-mobile-car-detailing-would-be-the-foreseeable-future-connected-with-automotive-health-care-advantage-excellent-in-addition-to-time-saving/</loc>
+        <lastmod>2025-07-09T10:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <xhtml:link rel="alternate" href="https://jaysmobilewash.net/" hreflang="en"/>
+    </url>
+
+</urlset>

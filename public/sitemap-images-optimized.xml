@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/mobile-detailing.PNG</image:loc>
+            <image:title>Jay's Mobile Wash - Professional Mobile Car Detailing Los Angeles Orange County</image:title>
+            <image:caption>Premium mobile auto detailing service featuring ceramic coating, paint correction, and complete vehicle restoration in Los Angeles and Orange County</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Service Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/services-ceramic-coating.html</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/ceramic-coating.jpg</image:loc>
+            <image:title>Professional Ceramic Coating Application Process</image:title>
+            <image:caption>High-quality ceramic coating application providing 9H hardness protection, hydrophobic properties, and long-lasting paint protection for vehicles in Los Angeles and Orange County</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/services-exterior-detailing.html</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/paint-correction.jpg</image:loc>
+            <image:title>Professional Paint Correction and Polishing Services</image:title>
+            <image:caption>Expert paint correction, swirl removal, and multi-stage polishing to restore showroom shine and eliminate imperfections on vehicle paint surfaces</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Product and Process Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/products.html</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/mobile-detailing.PNG</image:loc>
+            <image:title>Premium Auto Detailing Products and Equipment</image:title>
+            <image:caption>Professional-grade detailing products, tools, and equipment used for superior mobile car detailing results</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Gallery Images for Different Services -->
+    <url>
+        <loc>https://jaysmobilewash.net/gallery</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/ceramic-coating.jpg</image:loc>
+            <image:title>Before and After Ceramic Coating Results</image:title>
+            <image:caption>Dramatic transformation showing before and after results of professional ceramic coating application on luxury vehicles</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/paint-correction.jpg</image:loc>
+            <image:title>Paint Correction Before and After Gallery</image:title>
+            <image:caption>Professional paint correction results showing removal of swirl marks, scratches, and oxidation from vehicle paint</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/mobile-detailing.PNG</image:loc>
+            <image:title>Mobile Detailing Process Documentation</image:title>
+            <image:caption>Step-by-step mobile detailing process showing professional equipment, techniques, and results achieved on-location</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Location-Based Service Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/locations-los-angeles.html</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/mobile-detailing.PNG</image:loc>
+            <image:title>Mobile Car Detailing Services in Los Angeles</image:title>
+            <image:caption>Professional mobile detailing services throughout Los Angeles including Beverly Hills, Santa Monica, West Hollywood, and surrounding areas</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://jaysmobilewash.net/locations-orange-county.html</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/ceramic-coating.jpg</image:loc>
+            <image:title>Orange County Mobile Car Detailing and Ceramic Coating</image:title>
+            <image:caption>Premium mobile detailing and ceramic coating services in Orange County including Newport Beach, Irvine, Costa Mesa, and Huntington Beach</image:caption>
+            <image:geo_location>Orange County, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Vehicle Type Specific Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/luxury-car-detailing</loc>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/paint-correction.jpg</image:loc>
+            <image:title>Luxury Car Detailing and Paint Correction Services</image:title>
+            <image:caption>Specialized detailing services for luxury vehicles including Ferrari, Lamborghini, Porsche, BMW, Mercedes-Benz, and other high-end automobiles</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+    
+    <!-- Favicon and Brand Images -->
+    <url>
+        <loc>https://jaysmobilewash.net/</loc>
+        <image:image>
+            <image:loc>https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png</image:loc>
+            <image:title>Jay's Mobile Wash Logo and Brand Identity</image:title>
+            <image:caption>Official logo and brand identity for Jay's Mobile Wash premium mobile car detailing services</image:caption>
+            <image:geo_location>Los Angeles, California, United States</image:geo_location>
+            <image:license>https://jaysmobilewash.net/</image:license>
+        </image:image>
+    </url>
+
+</urlset>
