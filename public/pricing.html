@@ -472,334 +472,124 @@
                             <!-- Exterior View -->
                             <div id="exterior-view" class="car-view active">
                                 <div class="car-container bg-gray-800 rounded-xl p-4 min-h-[600px] flex justify-center items-center">
-                                    <!-- Exterior Car Parts Grid -->
-                                    <div class="car-parts-grid grid grid-cols-4 gap-3 max-w-4xl w-full">
-                                        <!-- Row 1: Top -->
-                                        <div class="part-item" data-part="left-mirror" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-mirror text-2xl mb-1"></i>
-                                                <div class="text-xs">Left Mirror</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="windshield" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Windshield</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-window" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Window</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="right-mirror" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-mirror text-2xl mb-1"></i>
-                                                <div class="text-xs">Right Mirror</div>
-                                            </div>
-                                        </div>
+                                    <!-- Car SVG Visualization -->
+                                    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="car-svg">
+                                        <!-- Car Body -->
+                                        <g id="car-body">
+                                            <!-- Main body -->
+                                            <rect x="150" y="150" width="300" height="120" rx="20" class="car-part body-paint" data-part="body" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
+                                            
+                                            <!-- Hood -->
+                                            <rect x="120" y="150" width="50" height="80" rx="10" class="car-part body-paint" data-part="hood" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
+                                            
+                                            <!-- Trunk -->
+                                            <rect x="430" y="150" width="50" height="80" rx="10" class="car-part body-paint" data-part="trunk" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
+                                            
+                                            <!-- Roof -->
+                                            <rect x="180" y="120" width="240" height="50" rx="15" class="car-part body-paint" data-part="roof" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
+                                        </g>
                                         
-                                        <!-- Row 2: Hood/Roof/Trunk -->
-                                        <div class="part-item" data-part="front-left-fender" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Left Fender</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="hood" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-car text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Hood</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="roof" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Roof</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-right-fender" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Right Fender</div>
-                                            </div>
-                                        </div>
+                                        <!-- Windows/Glass -->
+                                        <g id="car-glass">
+                                            <!-- Windshield -->
+                                            <rect x="170" y="125" width="60" height="35" rx="8" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
+                                            
+                                            <!-- Rear window -->
+                                            <rect x="370" y="125" width="60" height="35" rx="8" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
+                                            
+                                            <!-- Side windows -->
+                                            <rect x="250" y="125" width="100" height="35" rx="5" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
+                                        </g>
                                         
-                                        <!-- Row 3: Doors -->
-                                        <div class="part-item" data-part="front-left-door" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-closed text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Left Door</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-bumper" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Bumper</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-bumper" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Bumper</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-right-door" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-closed text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Right Door</div>
-                                            </div>
-                                        </div>
+                                        <!-- Mirrors -->
+                                        <g id="car-mirrors">
+                                            <circle cx="180" cy="140" r="8" class="car-part mirrors" data-part="mirrors" fill="#374151" stroke="#1f2937"/>
+                                            <circle cx="420" cy="140" r="8" class="car-part mirrors" data-part="mirrors" fill="#374151" stroke="#1f2937"/>
+                                        </g>
                                         
-                                        <!-- Row 4: More Doors/Trunk -->
-                                        <div class="part-item" data-part="rear-left-door" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-closed text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Left Door</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="trunk" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-car text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Trunk</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="engine-bay-ext" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-cog text-2xl mb-1"></i>
-                                                <div class="text-xs">Engine Bay</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-right-door" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-closed text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Right Door</div>
-                                            </div>
-                                        </div>
+                                        <!-- Wheels -->
+                                        <g id="car-wheels">
+                                            <!-- Front wheels -->
+                                            <circle cx="180" cy="300" r="35" class="car-part wheels" data-part="wheels" fill="#1f2937" stroke="#000" stroke-width="3"/>
+                                            <circle cx="180" cy="300" r="25" class="car-part rims" data-part="rims" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                                            
+                                            <!-- Rear wheels -->
+                                            <circle cx="420" cy="300" r="35" class="car-part wheels" data-part="wheels" fill="#1f2937" stroke="#000" stroke-width="3"/>
+                                            <circle cx="420" cy="300" r="25" class="car-part rims" data-part="rims" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                                        </g>
                                         
-                                        <!-- Row 5: Wheels -->
-                                        <div class="part-item" data-part="front-left-wheel" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-dharmachakra text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Left Wheel</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-left-tire" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-circle text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Left Tire</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-right-tire" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-circle text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Right Tire</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="front-right-wheel" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-dharmachakra text-2xl mb-1"></i>
-                                                <div class="text-xs">Front Right Wheel</div>
-                                            </div>
-                                        </div>
+                                        <!-- Engine Bay -->
+                                        <g id="engine-bay">
+                                            <rect x="80" y="180" width="40" height="40" rx="5" class="car-part engine" data-part="engine-bay" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+                                            <text x="100" y="205" text-anchor="middle" fill="white" font-size="10" font-weight="bold">ENG</text>
+                                        </g>
                                         
-                                        <!-- Row 6: Rear Wheels -->
-                                        <div class="part-item" data-part="rear-left-wheel" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-dharmachakra text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Left Wheel</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-left-tire" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-circle text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Left Tire</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-right-tire" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-circle text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Right Tire</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-right-wheel" data-category="exterior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-dharmachakra text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Right Wheel</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <!-- Labels -->
+                                        <text x="300" y="50" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Click on car parts to select services</text>
+                                        
+                                        <!-- Part Labels -->
+                                        <text x="145" y="195" fill="white" font-size="12" font-weight="bold">Hood</text>
+                                        <text x="300" y="195" fill="white" font-size="12" font-weight="bold">Body</text>
+                                        <text x="445" y="195" fill="white" font-size="12" font-weight="bold">Trunk</text>
+                                        <text x="300" y="110" fill="white" font-size="12" font-weight="bold">Roof</text>
+                                        <text x="300" y="145" fill="white" font-size="10">Glass</text>
+                                        <text x="180" y="350" fill="white" font-size="10" text-anchor="middle">Wheels</text>
+                                        <text x="420" y="350" fill="white" font-size="10" text-anchor="middle">Wheels</text>
+                                        <text x="100" y="225" fill="white" font-size="8" text-anchor="middle">Engine</text>
+                                    </svg>
                                 </div>
                             </div>
                             
                             <!-- Interior View -->
                             <div id="interior-view" class="car-view">
                                 <div class="car-container bg-gray-800 rounded-xl p-4 min-h-[600px] flex justify-center items-center">
-                                    <!-- Interior Car Parts Grid -->
-                                    <div class="car-parts-grid grid grid-cols-4 gap-3 max-w-4xl w-full">
-                                        <!-- Row 1: Ceiling -->
-                                        <div class="part-item" data-part="sun-visors" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-sun text-2xl mb-1"></i>
-                                                <div class="text-xs">Sun Visors</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="headliner" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Headliner</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="interior-trim" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-border-style text-2xl mb-1"></i>
-                                                <div class="text-xs">Interior Trim</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="dashboard" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-tachometer-alt text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Dashboard</div>
-                                            </div>
-                                        </div>
+                                    <!-- Interior SVG Visualization -->
+                                    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="car-svg">
+                                        <!-- Interior cabin -->
+                                        <rect x="150" y="100" width="300" height="200" rx="15" fill="#2d3748" stroke="#4a5568" stroke-width="3"/>
                                         
-                                        <!-- Row 2: Front Seats -->
-                                        <div class="part-item" data-part="driver-door-panel" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-open text-2xl mb-1"></i>
-                                                <div class="text-xs">Driver Door Panel</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="driver-seat" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-chair text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Driver Seat</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="passenger-seat" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-chair text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Passenger Seat</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="passenger-door-panel" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-open text-2xl mb-1"></i>
-                                                <div class="text-xs">Passenger Door Panel</div>
-                                            </div>
-                                        </div>
+                                        <!-- Dashboard -->
+                                        <rect x="160" y="110" width="280" height="40" rx="8" class="car-part dashboard" data-part="dashboard" fill="#1a202c" stroke="#2d3748" stroke-width="2"/>
+                                        <text x="300" y="135" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Dashboard</text>
                                         
-                                        <!-- Row 3: Console -->
-                                        <div class="part-item" data-part="center-console" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-rectangle-list text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Center Console</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="gear-shifter" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-gear text-2xl mb-1"></i>
-                                                <div class="text-xs">Gear Shifter</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="cup-holders" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-coffee text-2xl mb-1"></i>
-                                                <div class="text-xs">Cup Holders</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-left-door-panel" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-open text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Left Door Panel</div>
-                                            </div>
-                                        </div>
+                                        <!-- Front Seats -->
+                                        <rect x="180" y="170" width="60" height="80" rx="10" class="car-part front-seats" data-part="front-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
+                                        <rect x="360" y="170" width="60" height="80" rx="10" class="car-part front-seats" data-part="front-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
+                                        <text x="210" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Front</text>
+                                        <text x="210" y="228" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Seats</text>
+                                        <text x="390" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Front</text>
+                                        <text x="390" y="228" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Seats</text>
                                         
-                                        <!-- Row 4: Rear Seats -->
-                                        <div class="part-item" data-part="rear-left-seat" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-chair text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Rear Left Seat</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-center-seat" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-chair text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Center Seat</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-right-seat" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-chair text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Rear Right Seat</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-right-door-panel" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-door-open text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Right Door Panel</div>
-                                            </div>
-                                        </div>
+                                        <!-- Rear Seats -->
+                                        <rect x="180" y="270" width="240" height="60" rx="10" class="car-part rear-seats" data-part="rear-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
+                                        <text x="300" y="305" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Rear Seats</text>
                                         
-                                        <!-- Row 5: Floor -->
-                                        <div class="part-item" data-part="driver-floor" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Driver Floor</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="passenger-floor" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Passenger Floor</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="rear-floor" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-square text-2xl mb-1"></i>
-                                                <div class="text-xs">Rear Floor</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="floor-mats" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-grip-lines text-2xl mb-1"></i>
-                                                <div class="text-xs">Floor Mats</div>
-                                            </div>
-                                        </div>
+                                        <!-- Center Console -->
+                                        <rect x="270" y="180" width="60" height="80" rx="8" class="car-part console" data-part="console" fill="#1a202c" stroke="#2d3748" stroke-width="2"/>
+                                        <text x="300" y="225" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Console</text>
                                         
-                                        <!-- Row 6: Cargo -->
-                                        <div class="part-item" data-part="trunk-interior" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-3 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-box text-3xl mb-1"></i>
-                                                <div class="text-sm font-bold">Trunk Interior</div>
-                                            </div>
-                                        </div>
-                                        <div class="part-item" data-part="cargo-area" data-category="interior">
-                                            <div class="part-visual bg-gray-700 rounded p-2 text-center cursor-pointer hover:bg-gray-600 transition-colors">
-                                                <i class="fas fa-luggage-cart text-2xl mb-1"></i>
-                                                <div class="text-xs">Cargo Area</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-span-2 text-center text-gray-400 text-sm">
-                                            Click on any part to select service level
-                                        </div>
-                                    </div>
+                                        <!-- Floor/Carpet -->
+                                        <rect x="160" y="340" width="280" height="30" rx="5" class="car-part flooring" data-part="flooring" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+                                        <text x="300" y="360" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Floor & Carpets</text>
+                                        
+                                        <!-- Door Panels -->
+                                        <rect x="120" y="150" width="25" height="150" rx="5" class="car-part door-panels" data-part="door-panels" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+                                        <rect x="455" y="150" width="25" height="150" rx="5" class="car-part door-panels" data-part="door-panels" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+                                        <text x="132" y="230" text-anchor="middle" fill="white" font-size="8" transform="rotate(-90 132 230)">Door Panels</text>
+                                        <text x="468" y="230" text-anchor="middle" fill="white" font-size="8" transform="rotate(90 468 230)">Door Panels</text>
+                                        
+                                        <!-- Headliner/Ceiling -->
+                                        <rect x="160" y="80" width="280" height="20" rx="8" class="car-part headliner" data-part="headliner" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
+                                        <text x="300" y="95" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Headliner</text>
+                                        
+                                        <!-- Labels -->
+                                        <text x="300" y="50" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Click on interior parts to select services</text>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                                    <rect id="dashboard" x="160" y="120" width="120" height="20" class="car-part not-included" data-part="dashboard" rx="3"/>
-                                    <rect id="carpets" x="180" y="260" width="240" height="20" class="car-part not-included" data-part="carpets" rx="3"/>
-                                </g>
-                                
-                                <!-- Labels -->
-                                <text x="300" y="30" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Click parts to select services</text>
-                                <text x="80" y="380" fill="white" font-size="12">Exterior</text>
-                                <text x="520" y="380" fill="white" font-size="12">Interior</text>
-                            </svg>
-                        </div>
 
                         <!-- Service Level Selector -->
                         <div class="mt-8">
@@ -926,83 +716,28 @@
                 'engine-bay': { name: 'Engine Bay Clean', price: 40, color: '#6366f1', strokeColor: '#4f46e5' }
             },
             carParts: {
-                // Exterior Body Panels
+                // Exterior Components (simplified logical groups)
                 exterior: {
-                    hood: { name: 'Hood', category: 'Body Panels', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    roof: { name: 'Roof', category: 'Body Panels', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    trunk: { name: 'Trunk/Boot', category: 'Body Panels', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'front-left-door': { name: 'Front Left Door', category: 'Body Panels', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'front-right-door': { name: 'Front Right Door', category: 'Body Panels', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'rear-left-door': { name: 'Rear Left Door', category: 'Body Panels', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'rear-right-door': { name: 'Rear Right Door', category: 'Body Panels', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'front-left-fender': { name: 'Front Left Fender', category: 'Body Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'front-right-fender': { name: 'Front Right Fender', category: 'Body Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'rear-left-fender': { name: 'Rear Left Fender', category: 'Body Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'rear-right-fender': { name: 'Rear Right Fender', category: 'Body Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'front-bumper': { name: 'Front Bumper', category: 'Body Panels', multiplier: 0.7, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    'rear-bumper': { name: 'Rear Bumper', category: 'Body Panels', multiplier: 0.7, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'] },
-                    
-                    // Glass & Windows
-                    windshield: { name: 'Windshield', category: 'Glass', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'rear-window': { name: 'Rear Window', category: 'Glass', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'front-left-window': { name: 'Front Left Window', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'front-right-window': { name: 'Front Right Window', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'rear-left-window': { name: 'Rear Left Window', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'rear-right-window': { name: 'Rear Right Window', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    
-                    // Mirrors
-                    'left-mirror': { name: 'Left Side Mirror', category: 'Mirrors', multiplier: 0.2, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'right-mirror': { name: 'Right Side Mirror', category: 'Mirrors', multiplier: 0.2, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    
-                    // Wheels & Tires
-                    'front-left-wheel': { name: 'Front Left Wheel', category: 'Wheels', multiplier: 0.8, services: ['basic-wash', 'wheel-detail', 'tire-shine'] },
-                    'front-right-wheel': { name: 'Front Right Wheel', category: 'Wheels', multiplier: 0.8, services: ['basic-wash', 'wheel-detail', 'tire-shine'] },
-                    'rear-left-wheel': { name: 'Rear Left Wheel', category: 'Wheels', multiplier: 0.8, services: ['basic-wash', 'wheel-detail', 'tire-shine'] },
-                    'rear-right-wheel': { name: 'Rear Right Wheel', category: 'Wheels', multiplier: 0.8, services: ['basic-wash', 'wheel-detail', 'tire-shine'] },
-                    'front-left-tire': { name: 'Front Left Tire', category: 'Tires', multiplier: 0.5, services: ['basic-wash', 'tire-shine'] },
-                    'front-right-tire': { name: 'Front Right Tire', category: 'Tires', multiplier: 0.5, services: ['basic-wash', 'tire-shine'] },
-                    'rear-left-tire': { name: 'Rear Left Tire', category: 'Tires', multiplier: 0.5, services: ['basic-wash', 'tire-shine'] },
-                    'rear-right-tire': { name: 'Rear Right Tire', category: 'Tires', multiplier: 0.5, services: ['basic-wash', 'tire-shine'] },
-                    
-                    // Other Exterior
-                    'engine-bay-ext': { name: 'Engine Bay', category: 'Engine', multiplier: 1.5, services: ['engine-bay', 'steam-cleaning'] }
+                    body: { name: 'Car Body', category: 'Paint & Body', multiplier: 1.5, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'], price: 0, serviceLevel: 'not-included' },
+                    hood: { name: 'Hood', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'], price: 0, serviceLevel: 'not-included' },
+                    roof: { name: 'Roof', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'], price: 0, serviceLevel: 'not-included' },
+                    trunk: { name: 'Trunk', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction'], price: 0, serviceLevel: 'not-included' },
+                    glass: { name: 'All Glass & Windows', category: 'Glass', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail'], price: 0, serviceLevel: 'not-included' },
+                    mirrors: { name: 'Side Mirrors', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'], price: 0, serviceLevel: 'not-included' },
+                    wheels: { name: 'Tires (All 4)', category: 'Wheels & Tires', multiplier: 1.0, services: ['basic-wash', 'tire-shine'], price: 0, serviceLevel: 'not-included' },
+                    rims: { name: 'Rims/Wheels (All 4)', category: 'Wheels & Tires', multiplier: 1.2, services: ['basic-wash', 'wheel-detail', 'tire-shine'], price: 0, serviceLevel: 'not-included' },
+                    'engine-bay': { name: 'Engine Bay', category: 'Engine', multiplier: 1.5, services: ['engine-bay', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' }
                 },
                 
-                // Interior Components
+                // Interior Components (simplified logical groups)
                 interior: {
-                    // Seats
-                    'driver-seat': { name: 'Driver Seat', category: 'Seating', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'] },
-                    'passenger-seat': { name: 'Passenger Seat', category: 'Seating', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'] },
-                    'rear-left-seat': { name: 'Rear Left Seat', category: 'Seating', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'] },
-                    'rear-right-seat': { name: 'Rear Right Seat', category: 'Seating', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'] },
-                    'rear-center-seat': { name: 'Rear Center Seat', category: 'Seating', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'] },
-                    
-                    // Dashboard & Console
-                    dashboard: { name: 'Dashboard', category: 'Dashboard', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'center-console': { name: 'Center Console', category: 'Console', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'gear-shifter': { name: 'Gear Shifter Area', category: 'Console', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'] },
-                    'cup-holders': { name: 'Cup Holders', category: 'Console', multiplier: 0.2, services: ['basic-wash', 'deep-clean', 'steam-cleaning'] },
-                    
-                    // Door Panels
-                    'driver-door-panel': { name: 'Driver Door Panel', category: 'Door Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'leather-conditioning'] },
-                    'passenger-door-panel': { name: 'Passenger Door Panel', category: 'Door Panels', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'leather-conditioning'] },
-                    'rear-left-door-panel': { name: 'Rear Left Door Panel', category: 'Door Panels', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'leather-conditioning'] },
-                    'rear-right-door-panel': { name: 'Rear Right Door Panel', category: 'Door Panels', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'leather-conditioning'] },
-                    
-                    // Floor & Carpeting
-                    'driver-floor': { name: 'Driver Floor Area', category: 'Flooring', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    'passenger-floor': { name: 'Passenger Floor Area', category: 'Flooring', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    'rear-floor': { name: 'Rear Floor Area', category: 'Flooring', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    'floor-mats': { name: 'Floor Mats', category: 'Flooring', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    
-                    // Cargo & Storage
-                    'trunk-interior': { name: 'Trunk Interior', category: 'Cargo', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    'cargo-area': { name: 'Cargo Area', category: 'Cargo', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'] },
-                    
-                    // Ceiling & Trim
-                    headliner: { name: 'Headliner/Ceiling', category: 'Ceiling', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'steam-cleaning'] },
-                    'sun-visors': { name: 'Sun Visors', category: 'Ceiling', multiplier: 0.2, services: ['basic-wash', 'deep-clean'] },
-                    'interior-trim': { name: 'Interior Trim', category: 'Trim', multiplier: 0.4, services: ['basic-wash', 'deep-clean', 'premium-detail'] }
+                    dashboard: { name: 'Dashboard & Controls', category: 'Interior Surfaces', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    'front-seats': { name: 'Front Seats (Both)', category: 'Seating', multiplier: 1.5, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    'rear-seats': { name: 'Rear Seats', category: 'Seating', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    console: { name: 'Center Console', category: 'Interior Surfaces', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    flooring: { name: 'Floor & Carpets', category: 'Floor', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    'door-panels': { name: 'All Door Panels', category: 'Interior Surfaces', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'leather-conditioning', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' },
+                    headliner: { name: 'Headliner/Ceiling', category: 'Interior Surfaces', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'steam-cleaning'], price: 0, serviceLevel: 'not-included' }
                 }
             }
         };
