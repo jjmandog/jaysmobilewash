@@ -318,6 +318,84 @@
                 padding: 10px;
             }
         }
+
+        /* Package Cards Styling */
+        .package-card {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .package-card:hover::before {
+            left: 100%;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .package-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+        }
+
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Package button animations */
+        .package-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .package-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .package-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .package-btn:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body class="text-white">
@@ -442,160 +520,396 @@
             <!-- Header -->
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    <span class="gradient-text">Interactive Pricing Builder</span>
+                    <span class="gradient-text">Professional Mobile Detailing</span>
                 </h1>
                 <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Click on different parts of the car to select services and see real-time pricing. Build your perfect detailing package!
+                    Premium car care services that come to you. From basic washes to premium details and ceramic coatings.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Car Visualization -->
-                <div class="lg:col-span-2">
-                    <div class="service-card rounded-2xl p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold">Select Services</h2>
-                            
-                            <!-- View Toggle -->
-                            <div class="flex space-x-2">
-                                <button id="exterior-view-btn" class="view-toggle-btn active">
-                                    <i class="fas fa-car mr-2"></i>Exterior
-                                </button>
-                                <button id="interior-view-btn" class="view-toggle-btn">
-                                    <i class="fas fa-chair mr-2"></i>Interior
+            <!-- Featured Packages -->
+            <div class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-4 gradient-text">Choose Your Perfect Package</h2>
+                    <p class="text-lg text-gray-300">Professional mobile detailing packages designed for every need and budget</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Basic Package -->
+                    <div class="relative group package-card">
+                        <div class="service-card rounded-2xl p-6 h-full border-2 border-green-500 bg-gradient-to-br from-green-900/20 to-green-800/10 hover:from-green-800/30 hover:to-green-700/20 transition-all duration-300">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center feature-icon">
+                                    <i class="fas fa-spray-can text-2xl text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-green-400 mb-2">Basic Clean</h3>
+                                <div class="text-3xl font-bold text-white mb-4">
+                                    $25-$40
+                                </div>
+                                <ul class="text-sm text-gray-300 space-y-2 mb-6">
+                                    <li>• Exterior wash & dry</li>
+                                    <li>• Interior vacuum</li>
+                                    <li>• Window cleaning</li>
+                                    <li>• Wheel & tire clean</li>
+                                    <li>• Dashboard wipe down</li>
+                                </ul>
+                                <button class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors package-btn">
+                                    Choose Basic
                                 </button>
                             </div>
                         </div>
-                        
-                        <!-- Car Views Container -->
-                        <div class="car-views-container">
-                            <!-- Exterior View -->
-                            <div id="exterior-view" class="car-view active">
-                                <div class="car-container bg-gray-800 rounded-xl p-4 min-h-[600px] flex justify-center items-center">
-                                    <!-- Car SVG Visualization -->
-                                    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="car-svg">
-                                        <!-- Car Body -->
-                                        <g id="car-body">
-                                            <!-- Main body -->
-                                            <rect x="150" y="150" width="300" height="120" rx="20" class="car-part body-paint" data-part="body" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
-                                            
-                                            <!-- Hood -->
-                                            <rect x="120" y="150" width="50" height="80" rx="10" class="car-part body-paint" data-part="hood" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
-                                            
-                                            <!-- Trunk -->
-                                            <rect x="430" y="150" width="50" height="80" rx="10" class="car-part body-paint" data-part="trunk" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
-                                            
-                                            <!-- Roof -->
-                                            <rect x="180" y="120" width="240" height="50" rx="15" class="car-part body-paint" data-part="roof" fill="#6b7280" stroke="#4b5563" stroke-width="3"/>
-                                        </g>
-                                        
-                                        <!-- Windows/Glass -->
-                                        <g id="car-glass">
-                                            <!-- Windshield -->
-                                            <rect x="170" y="125" width="60" height="35" rx="8" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
-                                            
-                                            <!-- Rear window -->
-                                            <rect x="370" y="125" width="60" height="35" rx="8" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
-                                            
-                                            <!-- Side windows -->
-                                            <rect x="250" y="125" width="100" height="35" rx="5" class="car-part glass" data-part="glass" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
-                                        </g>
-                                        
-                                        <!-- Mirrors -->
-                                        <g id="car-mirrors">
-                                            <circle cx="180" cy="140" r="8" class="car-part mirrors" data-part="mirrors" fill="#374151" stroke="#1f2937"/>
-                                            <circle cx="420" cy="140" r="8" class="car-part mirrors" data-part="mirrors" fill="#374151" stroke="#1f2937"/>
-                                        </g>
-                                        
-                                        <!-- Wheels -->
-                                        <g id="car-wheels">
-                                            <!-- Front wheels -->
-                                            <circle cx="180" cy="300" r="35" class="car-part wheels" data-part="wheels" fill="#1f2937" stroke="#000" stroke-width="3"/>
-                                            <circle cx="180" cy="300" r="25" class="car-part rims" data-part="rims" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
-                                            
-                                            <!-- Rear wheels -->
-                                            <circle cx="420" cy="300" r="35" class="car-part wheels" data-part="wheels" fill="#1f2937" stroke="#000" stroke-width="3"/>
-                                            <circle cx="420" cy="300" r="25" class="car-part rims" data-part="rims" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
-                                        </g>
-                                        
-                                        <!-- Engine Bay -->
-                                        <g id="engine-bay">
-                                            <rect x="80" y="180" width="40" height="40" rx="5" class="car-part engine" data-part="engine-bay" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
-                                            <text x="100" y="205" text-anchor="middle" fill="white" font-size="10" font-weight="bold">ENG</text>
-                                        </g>
-                                        
-                                        <!-- Labels -->
-                                        <text x="300" y="50" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Click on car parts to select services</text>
-                                        
-                                        <!-- Part Labels -->
-                                        <text x="145" y="195" fill="white" font-size="12" font-weight="bold">Hood</text>
-                                        <text x="300" y="195" fill="white" font-size="12" font-weight="bold">Body</text>
-                                        <text x="445" y="195" fill="white" font-size="12" font-weight="bold">Trunk</text>
-                                        <text x="300" y="110" fill="white" font-size="12" font-weight="bold">Roof</text>
-                                        <text x="300" y="145" fill="white" font-size="10">Glass</text>
-                                        <text x="180" y="350" fill="white" font-size="10" text-anchor="middle">Wheels</text>
-                                        <text x="420" y="350" fill="white" font-size="10" text-anchor="middle">Wheels</text>
-                                        <text x="100" y="225" fill="white" font-size="8" text-anchor="middle">Engine</text>
-                                    </svg>
+                        <div class="package-badge bg-green-500">
+                            Most Popular
+                        </div>
+                    </div>
+
+                    <!-- Premium Package -->
+                    <div class="relative group package-card">
+                        <div class="service-card rounded-2xl p-6 h-full border-2 border-purple-500 bg-gradient-to-br from-purple-900/20 to-purple-800/10 hover:from-purple-800/30 hover:to-purple-700/20 transition-all duration-300">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-purple-500 rounded-full flex items-center justify-center feature-icon">
+                                    <i class="fas fa-star text-2xl text-white"></i>
                                 </div>
+                                <h3 class="text-xl font-bold text-purple-400 mb-2">Premium Detail</h3>
+                                <div class="text-3xl font-bold text-white mb-4">
+                                    $80
+                                </div>
+                                <ul class="text-sm text-gray-300 space-y-2 mb-6">
+                                    <li>• Everything in Basic</li>
+                                    <li>• Clay bar treatment</li>
+                                    <li>• Paint enhancement</li>
+                                    <li>• Tire shine & dressing</li>
+                                    <li>• Leather conditioning</li>
+                                </ul>
+                                <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn">
+                                    Choose Premium
+                                </button>
                             </div>
-                            
-                            <!-- Interior View -->
-                            <div id="interior-view" class="car-view">
-                                <div class="car-container bg-gray-800 rounded-xl p-4 min-h-[600px] flex justify-center items-center">
-                                    <!-- Interior SVG Visualization -->
-                                    <svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="car-svg">
-                                        <!-- Interior cabin -->
-                                        <rect x="150" y="100" width="300" height="200" rx="15" fill="#2d3748" stroke="#4a5568" stroke-width="3"/>
-                                        
-                                        <!-- Dashboard -->
-                                        <rect x="160" y="110" width="280" height="40" rx="8" class="car-part dashboard" data-part="dashboard" fill="#1a202c" stroke="#2d3748" stroke-width="2"/>
-                                        <text x="300" y="135" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Dashboard</text>
-                                        
-                                        <!-- Front Seats -->
-                                        <rect x="180" y="170" width="60" height="80" rx="10" class="car-part front-seats" data-part="front-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
-                                        <rect x="360" y="170" width="60" height="80" rx="10" class="car-part front-seats" data-part="front-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
-                                        <text x="210" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Front</text>
-                                        <text x="210" y="228" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Seats</text>
-                                        <text x="390" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Front</text>
-                                        <text x="390" y="228" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Seats</text>
-                                        
-                                        <!-- Rear Seats -->
-                                        <rect x="180" y="270" width="240" height="60" rx="10" class="car-part rear-seats" data-part="rear-seats" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
-                                        <text x="300" y="305" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Rear Seats</text>
-                                        
-                                        <!-- Center Console -->
-                                        <rect x="270" y="180" width="60" height="80" rx="8" class="car-part console" data-part="console" fill="#1a202c" stroke="#2d3748" stroke-width="2"/>
-                                        <text x="300" y="225" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Console</text>
-                                        
-                                        <!-- Floor/Carpet -->
-                                        <rect x="160" y="340" width="280" height="30" rx="5" class="car-part flooring" data-part="flooring" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
-                                        <text x="300" y="360" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Floor & Carpets</text>
-                                        
-                                        <!-- Door Panels -->
-                                        <rect x="120" y="150" width="25" height="150" rx="5" class="car-part door-panels" data-part="door-panels" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
-                                        <rect x="455" y="150" width="25" height="150" rx="5" class="car-part door-panels" data-part="door-panels" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
-                                        <text x="132" y="230" text-anchor="middle" fill="white" font-size="8" transform="rotate(-90 132 230)">Door Panels</text>
-                                        <text x="468" y="230" text-anchor="middle" fill="white" font-size="8" transform="rotate(90 468 230)">Door Panels</text>
-                                        
-                                        <!-- Headliner/Ceiling -->
-                                        <rect x="160" y="80" width="280" height="20" rx="8" class="car-part headliner" data-part="headliner" fill="#4a5568" stroke="#2d3748" stroke-width="2"/>
-                                        <text x="300" y="95" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Headliner</text>
-                                        
-                                        <!-- Labels -->
-                                        <text x="300" y="50" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Click on interior parts to select services</text>
-                                    </svg>
+                        </div>
+                        <div class="package-badge bg-purple-500">
+                            Best Value
+                        </div>
+                    </div>
+
+                    <!-- Ceramic Coating Package -->
+                    <div class="package-card">
+                        <div class="service-card rounded-2xl p-6 h-full border-2 border-yellow-500 bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 hover:from-yellow-800/30 hover:to-yellow-700/20 transition-all duration-300">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-yellow-500 rounded-full flex items-center justify-center feature-icon">
+                                    <i class="fas fa-shield-alt text-2xl text-white"></i>
                                 </div>
+                                <h3 class="text-xl font-bold text-yellow-400 mb-2">Ceramic Coating</h3>
+                                <div class="text-3xl font-bold text-white mb-4">
+                                    $150
+                                </div>
+                                <ul class="text-sm text-gray-300 space-y-2 mb-6">
+                                    <li>• Paint decontamination</li>
+                                    <li>• Professional coating</li>
+                                    <li>• 6-month protection</li>
+                                    <li>• Enhanced gloss</li>
+                                    <li>• UV protection</li>
+                                </ul>
+                                <button class="w-full py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition-colors package-btn">
+                                    Choose Ceramic
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Package -->
+                    <div class="package-card">
+                        <div class="service-card rounded-2xl p-6 h-full border-2 border-pink-500 bg-gradient-to-br from-pink-900/20 to-pink-800/10 hover:from-pink-800/30 hover:to-pink-700/20 transition-all duration-300">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center feature-icon">
+                                    <i class="fas fa-palette text-2xl text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-pink-400 mb-2">Custom Package</h3>
+                                <div class="text-3xl font-bold text-white mb-4">
+                                    Build Your Own
+                                </div>
+                                <ul class="text-sm text-gray-300 space-y-2 mb-6">
+                                    <li>• Choose your services</li>
+                                    <li>• Add-on options</li>
+                                    <li>• Engine bay cleaning</li>
+                                    <li>• Pet hair removal</li>
+                                    <li>• Headlight restoration</li>
+                                </ul>
+                                <button class="w-full py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-colors package-btn">
+                                    Build Custom
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                        <!-- Service Level Selector -->
-                        <div class="mt-8">
-                            <h3 class="text-xl font-bold mb-4">Service Levels</h3>
-                            <div id="service-level-buttons" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                <!-- Service level buttons will be populated here -->
+                <!-- Package Features Highlight -->
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-xl text-white"></i>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">100% Mobile</h4>
+                        <p class="text-sm text-gray-400">We come to your location - home, office, or anywhere convenient</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-leaf text-xl text-white"></i>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Eco-Friendly</h4>
+                        <p class="text-sm text-gray-400">Professional products that are safe for you and the environment</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-purple-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-award text-xl text-white"></i>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Guaranteed</h4>
+                        <p class="text-sm text-gray-400">100% satisfaction guarantee on all our detailing services</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Pricing Image and Service Details -->
+                <div class="lg:col-span-2">
+                    <!-- Pricing Image -->
+                    <div class="flex items-center justify-center mb-8">
+                        <img src="/unnamed.png" alt="Jay's Mobile Wash Pricing" class="rounded-2xl shadow-2xl w-full max-w-2xl border-4 border-purple-500">
+                    </div>
+                    
+                    <!-- Service Details -->
+                    <div class="service-card rounded-2xl p-6">
+                        <h2 class="text-2xl font-bold mb-6 gradient-text">What's Included in Our Services</h2>
+                        
+                        <!-- Basic Wash ($25-$40) -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-blue-400">
+                                <i class="fas fa-droplet mr-2"></i>Basic Wash Package
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-800 rounded-lg p-4">
+                                    <h4 class="font-semibold text-green-400 mb-2">Exterior Wash ($25)</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li>• Pre-rinse to remove loose dirt</li>
+                                        <li>• Hand wash with premium soap</li>
+                                        <li>• Wheel and tire cleaning</li>
+                                        <li>• Final rinse and dry</li>
+                                        <li>• Window cleaning (exterior)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4">
+                                    <h4 class="font-semibold text-green-400 mb-2">Interior Clean ($20)</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li>• Vacuum all seats and carpets</li>
+                                        <li>• Dashboard and console wipe down</li>
+                                        <li>• Door panel cleaning</li>
+                                        <li>• Window cleaning (interior)</li>
+                                        <li>• Air freshener application</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-purple-900 bg-opacity-30 rounded-lg p-4">
+                                <h4 class="font-semibold text-purple-400 mb-2">Basic Combo ($40) - Save $5!</h4>
+                                <p class="text-sm text-gray-300">Get both exterior wash and interior clean for the best value on basic maintenance.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Services -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-purple-400">
+                                <i class="fas fa-star mr-2"></i>Premium Detail Services
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-800 rounded-lg p-4">
+                                    <h4 class="font-semibold text-purple-400 mb-2">Premium Detail ($80)</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li>• Everything in Basic Combo</li>
+                                        <li>• Clay bar treatment</li>
+                                        <li>• Paint enhancement polish</li>
+                                        <li>• Tire shine and dressing</li>
+                                        <li>• Interior deep conditioning</li>
+                                        <li>• Leather treatment (if applicable)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4">
+                                    <h4 class="font-semibold text-yellow-400 mb-2">Ceramic Coating ($150)</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li>• Complete paint decontamination</li>
+                                        <li>• Professional ceramic coating application</li>
+                                        <li>• 6-month paint protection</li>
+                                        <li>• Enhanced gloss and hydrophobic properties</li>
+                                        <li>• UV protection</li>
+                                        <li>• Easier maintenance washing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add-On Services -->
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-4 text-yellow-400">
+                                <i class="fas fa-plus mr-2"></i>Additional Services
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                                    <i class="fas fa-engine text-blue-400 text-2xl mb-2"></i>
+                                    <h4 class="font-semibold mb-1">Engine Bay Clean</h4>
+                                    <p class="text-green-400 font-bold">$35</p>
+                                    <p class="text-xs text-gray-400 mt-1">Steam cleaning & degreasing</p>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                                    <i class="fas fa-lightbulb text-yellow-400 text-2xl mb-2"></i>
+                                    <h4 class="font-semibold mb-1">Headlight Restoration</h4>
+                                    <p class="text-green-400 font-bold">$45</p>
+                                    <p class="text-xs text-gray-400 mt-1">Remove cloudiness & yellowing</p>
+                                </div>
+                                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                                    <i class="fas fa-paw text-pink-400 text-2xl mb-2"></i>
+                                    <h4 class="font-semibold mb-1">Pet Hair Removal</h4>
+                                    <p class="text-green-400 font-bold">$25</p>
+                                    <p class="text-xs text-gray-400 mt-1">Specialized pet hair extraction</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Custom Package Builder Explanation -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4 text-pink-400">
+                                <i class="fas fa-palette mr-2"></i>Build Your Custom Package
+                            </h3>
+                            <div class="bg-gradient-to-r from-pink-900 to-purple-900 bg-opacity-30 rounded-lg p-6">
+                                <div class="mb-6">
+                                    <h4 class="text-lg font-semibold text-pink-300 mb-3">How It Works:</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-3">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                                                <div>
+                                                    <h5 class="font-semibold text-white">Start with a Base</h5>
+                                                    <p class="text-sm text-gray-300">Choose either Basic Exterior ($25), Basic Interior ($20), or Basic Combo ($40) as your foundation.</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                                                <div>
+                                                    <h5 class="font-semibold text-white">Add Enhancements</h5>
+                                                    <p class="text-sm text-gray-300">Select from clay bar treatment, paint enhancement, tire shine, leather conditioning, and more.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                                                <div>
+                                                    <h5 class="font-semibold text-white">Include Add-Ons</h5>
+                                                    <p class="text-sm text-gray-300">Engine bay cleaning, headlight restoration, pet hair removal - customize to your exact needs.</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start space-x-3">
+                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                                                <div>
+                                                    <h5 class="font-semibold text-white">Get Your Quote</h5>
+                                                    <p class="text-sm text-gray-300">Call us with your selections and we'll provide an instant quote tailored to your vehicle.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="border-t border-pink-500/30 pt-4">
+                                    <h4 class="text-lg font-semibold text-pink-300 mb-3">Custom Package Examples:</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-gray-800/50 rounded-lg p-4">
+                                            <h5 class="font-semibold text-purple-400 mb-2">"The Weekly Maintainer"</h5>
+                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
+                                                <li>• Basic Combo ($40)</li>
+                                                <li>• Tire Shine (+$10)</li>
+                                                <li>• Interior vacuum upgrade</li>
+                                            </ul>
+                                            <p class="text-green-400 font-bold">Total: ~$50</p>
+                                        </div>
+                                        <div class="bg-gray-800/50 rounded-lg p-4">
+                                            <h5 class="font-semibold text-purple-400 mb-2">"The Pet Owner Special"</h5>
+                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
+                                                <li>• Basic Interior ($20)</li>
+                                                <li>• Pet Hair Removal (+$25)</li>
+                                                <li>• Deep carpet cleaning</li>
+                                            </ul>
+                                            <p class="text-green-400 font-bold">Total: ~$45</p>
+                                        </div>
+                                        <div class="bg-gray-800/50 rounded-lg p-4">
+                                            <h5 class="font-semibold text-purple-400 mb-2">"The Show Car Prep"</h5>
+                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
+                                                <li>• Premium Detail ($80)</li>
+                                                <li>• Engine Bay Clean (+$35)</li>
+                                                <li>• Headlight Restoration (+$45)</li>
+                                            </ul>
+                                            <p class="text-green-400 font-bold">Total: ~$160</p>
+                                        </div>
+                                        <div class="bg-gray-800/50 rounded-lg p-4">
+                                            <h5 class="font-semibold text-purple-400 mb-2">"The Quick Refresh"</h5>
+                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
+                                                <li>• Basic Exterior ($25)</li>
+                                                <li>• Window cleaning inside</li>
+                                                <li>• Dashboard wipe</li>
+                                            </ul>
+                                            <p class="text-green-400 font-bold">Total: ~$30</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 text-center">
+                                    <h4 class="font-bold text-white mb-2">
+                                        <i class="fas fa-phone mr-2"></i>Ready to Build Your Custom Package?
+                                    </h4>
+                                    <p class="text-sm text-gray-100 mb-3">Call us and tell us exactly what your car needs. We'll create the perfect package and give you an instant quote!</p>
+                                    <div class="flex items-center justify-center space-x-4 text-sm">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-clock text-yellow-300"></i>
+                                            <span>Quick quotes</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-dollar-sign text-green-300"></i>
+                                            <span>Fair pricing</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-tools text-blue-300"></i>
+                                            <span>Expert advice</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Features -->
+                        <div class="bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6">
+                            <h3 class="text-lg font-bold mb-4 text-center">
+                                <i class="fas fa-shield-alt mr-2"></i>Why Choose Jay's Mobile Wash?
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>100% mobile service - we come to you</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>Eco-friendly products and techniques</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>Professional equipment and supplies</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>Satisfaction guarantee on all services</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>Flexible scheduling 7 days a week</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-check text-green-400 mt-1"></i>
+                                    <span>Licensed and insured technicians</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -604,45 +918,95 @@
                 <!-- Pricing Panel -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24">
-                        <!-- Current Selection -->
+                        <!-- Contact for Quote -->
                         <div class="price-display rounded-2xl p-6 mb-6">
-                            <h2 class="text-2xl font-bold mb-4 gradient-text">Your Quote</h2>
+                            <h2 class="text-2xl font-bold mb-4 gradient-text">Get Your Quote</h2>
                             
-                            <div class="space-y-3 mb-6">
-                                <div class="flex justify-between">
-                                    <span>Base Package:</span>
-                                    <span id="base-price">$70</span>
+                            <div class="space-y-4 mb-6">
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-green-400 mb-2">Starting at $25</div>
+                                    <p class="text-gray-300">Professional mobile car detailing</p>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span>Selected Services:</span>
-                                    <span id="services-price">$0</span>
-                                </div>
-                                <hr class="border-gray-600">
-                                <div class="flex justify-between text-xl font-bold">
-                                    <span>Total:</span>
-                                    <span id="total-price" class="gradient-text">$70</span>
+                                
+                                <div class="border-t border-gray-600 pt-4">
+                                    <h3 class="font-semibold mb-2">Popular Packages:</h3>
+                                    <div class="space-y-2 text-sm">
+                                        <div class="flex justify-between">
+                                            <span>Basic Exterior</span>
+                                            <span class="text-green-400">$25</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Basic Interior</span>
+                                            <span class="text-green-400">$20</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Basic Combo</span>
+                                            <span class="text-green-400">$40</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Premium Detail</span>
+                                            <span class="text-purple-400">$80</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
                             <button id="get-quote-btn" class="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg">
                                 <i class="fas fa-phone mr-2"></i>
-                                Get This Quote
+                                Call for Service
                             </button>
                         </div>
 
-                        <!-- Service Legend -->
+                        <!-- Contact Information -->
                         <div class="service-card rounded-2xl p-6 mb-6">
-                            <h3 class="text-lg font-bold mb-4">Service Levels</h3>
-                            <div id="service-legend" class="space-y-3">
-                                <!-- Legend will be populated here -->
+                            <h3 class="text-lg font-bold mb-4">
+                                <i class="fas fa-phone mr-2"></i>Contact Us
+                            </h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-phone text-green-400"></i>
+                                    <span>Call or text for booking</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-clock text-blue-400"></i>
+                                    <span>7 days a week service</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-map-marker-alt text-purple-400"></i>
+                                    <span>We come to your location</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-credit-card text-yellow-400"></i>
+                                    <span>Cash, card, and digital payments</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Quick Packages -->
+                        <!-- Service Areas -->
                         <div class="service-card rounded-2xl p-6">
-                            <h3 class="text-lg font-bold mb-4">Quick Packages</h3>
-                            <div id="quick-packages" class="space-y-3">
-                                <!-- Quick packages will be populated here -->
+                            <h3 class="text-lg font-bold mb-4">
+                                <i class="fas fa-map mr-2"></i>Service Areas
+                            </h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-check text-green-400"></i>
+                                    <span>Los Angeles County</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-check text-green-400"></i>
+                                    <span>Orange County</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-check text-green-400"></i>
+                                    <span>Beverly Hills</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-check text-green-400"></i>
+                                    <span>Santa Monica</span>
+                                </div>
+                                <div class="text-gray-400 mt-3 pt-3 border-t border-gray-600">
+                                    <small>Other areas available - call to confirm</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -847,6 +1211,7 @@
             initializePricingTool();
             setupEventListeners();
             setupAdminPanel();
+            setupPackageButtons();
             updateDisplay();
             generateServiceLevelButtons();
             generateServiceLegend();
@@ -863,6 +1228,81 @@
                 updateCarVisualization();
             }
         });
+
+        function setupPackageButtons() {
+            // Add click handlers to package buttons
+            document.querySelectorAll('.package-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const packageType = this.textContent.trim();
+                    
+                    // Add click effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Handle package selection
+                    handlePackageSelection(packageType);
+                });
+            });
+        }
+
+        function handlePackageSelection(packageType) {
+            let targetSection;
+            
+            // Determine which section to scroll to
+            switch(packageType) {
+                case 'Choose Basic':
+                case 'Choose Premium':
+                case 'Choose Ceramic':
+                    // Scroll to the detailed service information
+                    targetSection = document.querySelector('.service-card');
+                    break;
+                case 'Build Custom':
+                    // Scroll to the custom package explanation
+                    targetSection = document.querySelector('h3:has(.fa-palette)');
+                    if (!targetSection) {
+                        // Fallback to service details if custom section not found
+                        targetSection = document.querySelector('.service-card');
+                    }
+                    break;
+                default:
+                    targetSection = document.querySelector('.service-card');
+            }
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+            
+            // Show notification based on package type
+            switch(packageType) {
+                case 'Choose Basic':
+                    showNotification("📞 Call us to book your Basic Clean package ($25-$40)!", "success");
+                    break;
+                case 'Choose Premium':
+                    showNotification("⭐ Premium Detail package selected! Call to schedule ($80)", "success");
+                    break;
+                case 'Choose Ceramic':
+                    showNotification("🛡️ Ceramic Coating protection! Call for appointment ($150)", "success");
+                    break;
+                case 'Build Custom':
+                    showNotification("🎨 Build your perfect custom package! See examples below and call us for a quote", "info");
+                    break;
+            }
+            
+            // Highlight the pricing panel briefly
+            const pricingPanel = document.querySelector('.price-display');
+            if (pricingPanel) {
+                pricingPanel.style.boxShadow = '0 0 30px rgba(168, 85, 247, 0.6)';
+                setTimeout(() => {
+                    pricingPanel.style.boxShadow = '0 0 20px rgba(168, 85, 247, 0.3)';
+                }, 2000);
+            }
+        }
 
         function initializePricingTool() {
             // Set all parts to not-included initially
