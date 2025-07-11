@@ -1,0 +1,237 @@
+/* Performance Optimization CSS */
+
+/* Low Performance Mode - Minimal effects */
+.perf-low .laser-beam,
+.perf-low .purple-thunder,
+.perf-low .axy-star,
+.perf-low .ghostly-apparition {
+    display: none !important;
+}
+
+.perf-low .jay-audio-visualizer-container,
+.perf-low .frequency-bands {
+    display: none !important;
+}
+
+.perf-low .particle,
+.perf-low .floating-product-particle {
+    animation-duration: 20s !important;
+    opacity: 0.3 !important;
+}
+
+.perf-low .beat-reactive.on-beat {
+    animation: none !important;
+    transform: none !important;
+    filter: brightness(1.05) !important;
+}
+
+.perf-low .water-droplet {
+    display: none !important;
+}
+
+/* Remove expensive filters in low performance mode */
+.perf-low * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Medium Performance Mode - Balanced effects */
+.perf-medium .laser-beam {
+    animation-duration: 5s !important;
+    opacity: 0.6 !important;
+}
+
+.perf-medium .particle {
+    animation-duration: 18s !important;
+    opacity: 0.5 !important;
+}
+
+.perf-medium .beat-reactive.on-beat {
+    animation-duration: 0.2s !important;
+}
+
+.perf-medium .purple-thunder {
+    opacity: 0.5 !important;
+}
+
+.perf-medium .ghostly-apparition {
+    animation-duration: 6s !important;
+}
+
+/* Reduce complex filters in medium mode */
+.perf-medium .floating-product-particle {
+    filter: drop-shadow(0 0 4px rgba(138, 43, 226, 0.4)) !important;
+}
+
+/* High Performance Mode - Keep all effects but optimize */
+.perf-high .particle,
+.perf-high .floating-product-particle,
+.perf-high .laser-beam,
+.perf-high .beat-reactive,
+.perf-high .water-droplet {
+    will-change: transform !important;
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* Universal Performance Optimizations */
+.particle,
+.floating-product-particle,
+.laser-beam,
+.beat-reactive,
+.water-droplet {
+    contain: layout style paint !important;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .particle,
+    .floating-product-particle {
+        animation-duration: 30s !important;
+        opacity: 0.2 !important;
+    }
+    
+    .beat-reactive.on-beat {
+        animation-duration: 0.1s !important;
+    }
+    
+    .water-droplet {
+        display: none !important;
+    }
+    
+    .laser-beam,
+    .purple-thunder,
+    .axy-star,
+    .ghostly-apparition {
+        display: none !important;
+    }
+}
+
+/* Battery optimization */
+.battery-low * {
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+.battery-low .particle,
+.battery-low .floating-product-particle,
+.battery-low .water-droplet {
+    display: none !important;
+}
+
+/* Disable scroll effects for performance */
+.no-scroll-effects .navbar {
+    background: #1f2937 !important;
+    transition: none !important;
+}
+
+/* GPU acceleration hints */
+.particle,
+.floating-product-particle,
+.laser-beam,
+.water-droplet {
+    transform: translateZ(0) !important;
+    perspective: 1000px !important;
+}
+
+/* Memory optimization - limit concurrent animations */
+.perf-low .particle:nth-child(n+6),
+.perf-medium .particle:nth-child(n+12) {
+    display: none !important;
+}
+
+/* Reduce expensive gradients in low performance mode */
+.perf-low .bg-gradient-to-r,
+.perf-low .bg-gradient-to-b,
+.perf-low .bg-gradient-to-br {
+    background: #6366f1 !important;
+}
+
+/* Simplify shadows and effects */
+.perf-low .glow-effect,
+.perf-low .hover\\:glow {
+    box-shadow: none !important;
+}
+
+.perf-medium .glow-effect,
+.perf-medium .hover\\:glow {
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Performance monitoring indicator */
+#performance-controls {
+    font-family: 'Courier New', monospace !important;
+    user-select: none !important;
+    pointer-events: auto !important;
+}
+
+#performance-controls button {
+    background: rgba(99, 102, 241, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+
+#performance-controls button:hover {
+    background: rgba(99, 102, 241, 1) !important;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+    .perf-low .particle,
+    .perf-medium .particle:nth-child(n+8) {
+        display: none !important;
+    }
+    
+    .water-droplet {
+        animation-duration: 1s !important;
+    }
+}
+
+/* Very low-end device optimizations */
+@media (max-width: 480px) {
+    .particle:nth-child(n+4) {
+        display: none !important;
+    }
+    
+    .floating-product-particle {
+        animation-duration: 15s !important;
+        opacity: 0.4 !important;
+    }
+}
+
+/* High refresh rate optimization */
+@media (min-resolution: 120dpi) {
+    .perf-high .particle {
+        animation-timing-function: linear !important;
+    }
+}
+
+/* Dark mode performance optimizations */
+@media (prefers-color-scheme: dark) {
+    .perf-low {
+        background: #1a1a1a !important;
+    }
+}
+
+/* Print mode - disable all animations */
+@media print {
+    .particle,
+    .floating-product-particle,
+    .laser-beam,
+    .water-droplet,
+    .purple-thunder,
+    .axy-star,
+    .ghostly-apparition {
+        display: none !important;
+    }
+    
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
