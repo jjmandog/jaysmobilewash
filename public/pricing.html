@@ -33,10 +33,47 @@
         }
         
         .gradient-text {
-            background: linear-gradient(to right, #a855f7, #ec4899);
+            background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b, #6366f1);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmer-gradient 3s linear infinite;
+        }
+        @keyframes shimmer-gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* Card Hover Lift & Glow */
+        .package-card {
+            transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s;
+        }
+        .package-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 8px 32px 0 rgba(168,85,247,0.25), 0 1.5px 8px 0 rgba(236,72,153,0.15);
+            z-index: 2;
+        }
+
+        /* Button Ripple Effect */
+        .package-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background: rgba(255,255,255,0.4);
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
         
         /* Car Parts Styling */
@@ -79,6 +116,26 @@
         
         .car-view.active {
             display: block;
+        }
+        /* RGB Lightning bolt animation */
+        .lightning-bolt {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            width: 4px;
+            height: 120vh;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, red 0%, orange 20%, yellow 40%, green 60%, blue 80%, violet 100%, transparent 100%);
+            opacity: 0.8;
+            filter: blur(1px) drop-shadow(0 0 12px #fff);
+            animation: lightningFlash 0.7s cubic-bezier(.4,2,.3,.7);
+        }
+        @keyframes lightningFlash {
+            0% { opacity: 0; transform: scaleY(0.2) translateY(-40px); }
+            30% { opacity: 1; transform: scaleY(1.1) translateY(0); }
+            70% { opacity: 0.8; }
+            100% { opacity: 0; transform: scaleY(0.5) translateY(40px); }
         }
         
         /* Part Items */
@@ -1091,6 +1148,33 @@
                 }, 300);
             }, 3000);
         }
+        // RGB Lightning Effect Every 6 Seconds
+        function createLightningBolt() {
+            var bolt = document.createElement('div');
+            bolt.className = 'lightning-bolt';
+            // Random horizontal position (5% to 95% of viewport)
+            var left = Math.random() * 90 + 5;
+            bolt.style.left = left + 'vw';
+            // Random height (60vh to 120vh)
+            var height = Math.random() * 60 + 60;
+            bolt.style.height = height + 'vh';
+            // Random rotation (-20deg to 20deg)
+            var rot = (Math.random() * 40 - 20);
+            bolt.style.transform = 'rotate(' + rot + 'deg)';
+            // Randomize RGB gradient direction
+            if (Math.random() > 0.5) {
+                bolt.style.background = 'linear-gradient(180deg, red, orange, yellow, green, blue, violet, transparent)';
+            } else {
+                bolt.style.background = 'linear-gradient(0deg, violet, blue, green, yellow, orange, red, transparent)';
+            }
+            document.body.appendChild(bolt);
+            setTimeout(function() { bolt.remove(); }, 900);
+        }
+        setInterval(createLightningBolt, 6000);
+        // Initial bolt on load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(createLightningBolt, 1000);
+        });
 
         // Default Configuration (Can be modified via admin panel)
         let PRICING_CONFIG = {
@@ -1270,13 +1354,21 @@
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
                     const packageType = this.textContent.trim();
-                    
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    const rect = button.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                    button.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
                     // Add click effect
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 150);
-                    
                     // Handle package selection
                     handlePackageSelection(packageType);
                 });

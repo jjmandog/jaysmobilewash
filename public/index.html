@@ -428,15 +428,26 @@
             }
         }
         
-        /* Jay Trigger Effects */
-        .jay-activated {
-            animation: rainbow-pulse 0.5s ease-in-out infinite;
+
+        /* RGB Lightning Bolt Animation */
+        .lightning-bolt {
+            position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            width: 4px;
+            height: 120vh;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, red 0%, orange 20%, yellow 40%, green 60%, blue 80%, violet 100%, transparent 100%);
+            opacity: 0.8;
+            filter: blur(1px) drop-shadow(0 0 12px #fff);
+            animation: lightningFlash 0.7s cubic-bezier(.4,2,.3,.7);
         }
-        
-        @keyframes rainbow-pulse {
-            0% { filter: hue-rotate(0deg) brightness(1.5); }
-            50% { filter: hue-rotate(180deg) brightness(2); }
-            100% { filter: hue-rotate(360deg) brightness(1.5); }
+        @keyframes lightningFlash {
+            0% { opacity: 0; transform: scaleY(0.2) translateY(-40px); }
+            30% { opacity: 1; transform: scaleY(1.1) translateY(0); }
+            70% { opacity: 0.8; }
+            100% { opacity: 0; transform: scaleY(0.5) translateY(40px); }
         }
         
 
@@ -1319,6 +1330,84 @@
         <meta http-equiv="refresh" content="0;url=https://www.jaysmobilewash.net/static/">
     </noscript>
 </head>
+    <style>
+    /* Animated Gradient Text */
+    .animated-gradient-text {
+        background: linear-gradient(90deg, #7f5af0, #00cfff, #ff61a6, #7f5af0);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientMove 3s ease-in-out infinite;
+        font-weight: bold;
+    }
+    @keyframes gradientMove {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    /* Card Hover Lift & Glow */
+    .service-card, .deionized-section, .review-card {
+        transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    .service-card:hover, .deionized-section:hover, .review-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px 0 rgba(127,90,240,0.25), 0 1.5px 8px 0 rgba(0,207,255,0.12);
+        border-color: #7f5af0;
+    }
+
+    /* Button Ripple Effect */
+    .glow-button, .ultra-glow-button {
+        position: relative;
+        overflow: hidden;
+    }
+    .glow-button:active::after, .ultra-glow-button:active::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(127,90,240,0.25);
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+    }
+    @keyframes ripple {
+        0% {width: 0; height: 0; opacity: 0.7;}
+        80% {width: 200px; height: 200px; opacity: 0.2;}
+        100% {width: 300px; height: 300px; opacity: 0;}
+    }
+    </style>
+    <script>
+    // Button Ripple Effect JS
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.glow-button, .ultra-glow-button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-effect';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '100%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.background = 'rgba(127,90,240,0.25)';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.left = e.offsetX + 'px';
+                ripple.style.top = e.offsetY + 'px';
+                ripple.style.width = ripple.style.height = '0px';
+                ripple.style.opacity = '0.7';
+                ripple.style.zIndex = '1';
+                btn.appendChild(ripple);
+                ripple.animate([
+                    {width: '0px', height: '0px', opacity: 0.7},
+                    {width: '200px', height: '200px', opacity: 0.2},
+                    {width: '300px', height: '300px', opacity: 0}
+                ], {duration: 600, easing: 'linear'});
+                setTimeout(function() { ripple.remove(); }, 600);
+            });
+        });
+    });
+    </script>
 <body itemscope itemtype="https://schema.org/LocalBusiness" itemid="https://www.jaysmobilewash.net/#organization">
     <!-- Galaxy Starfield Overlay -->
     <div id="galaxy-starfield" class="galaxy-starfield">
@@ -2008,6 +2097,22 @@
                     Choose the perfect detailing package for your vehicle and budget.
                 </p>
             </div>
+           <!-- Deionized Water Section -->
+           <div class="deionized-section bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900 rounded-2xl shadow-2xl p-8 mb-16 border-2 border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-8">
+               <div class="flex-1 text-center md:text-left">
+                   <h3 class="text-3xl font-bold mb-4 animated-gradient-text">Deionized Water System</h3>
+                   <p class="text-lg text-gray-200 mb-4">We use advanced deionized water for every wash, ensuring a spot-free, streak-free finish and maximum protection for your vehicle's paint.</p>
+                   <ul class="list-disc pl-6 text-gray-300 space-y-2 mb-4">
+                       <li>Zero mineral deposits – no water spots</li>
+                       <li>Safe for all paint types, wraps, and coatings</li>
+                       <li>Used by luxury dealerships and pro detailers</li>
+                   </ul>
+                   <span class="inline-block px-6 py-2 rounded-full bg-blue-700/60 text-white font-semibold shadow-lg">Included FREE with every service</span>
+               </div>
+               <div class="flex-1 flex justify-center md:justify-end">
+                   <img src="/ceramic-coating.jpg" alt="Deionized Water System" class="w-64 h-40 object-cover rounded-xl shadow-lg border-2 border-blue-500/40 hover:scale-105 transition-transform duration-500" loading="lazy">
+               </div>
+           </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Jay's Mini Detail -->
@@ -2154,19 +2259,23 @@
                         <span class="text-4xl font-bold">$200</span>
                         <span class="text-gray-400">/service</span>
                     </div>
-                    <p class="text-sm text-gray-400 mb-4">Includes BioBomb odor elimination treatment and Koch Chemie clay bar decontamination</p>
+                    <p class="text-sm text-gray-400 mb-4">Ultimate treatment with 6-month hydrophobic sealant, clay bar decontamination, and 100% satisfaction guarantee</p>
                     <ul class="mb-4 space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Everything in Luxury Detail</span>
+                            <span class="text-gray-300">Includes Everything From Both Packages</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Ceramic Hyper Wax/Sealant</span>
+                            <span class="text-gray-300">Ceramic Hyper Wax For Maximum Shine & Protection</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                            <span class="text-gray-300">Interior Steam Cleaning</span>
+                            <span class="text-gray-300">Interior Steam Clean For Deep & Sanitized Finish</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-300">Clay Bar Treatment To Remove Contaminants</span>
                         </li>
                     </ul>
                     
@@ -2175,28 +2284,28 @@
                         <ul class="mb-6 space-y-3">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Clay Bar Treatment</span>
+                                <span class="text-gray-300">6-Month Hydrophobic Foam Sealant With Intense Gloss</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Odor Elimination</span>
-                                                        </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Engine Bay Detailing</span>
+                                <span class="text-gray-300">Intensive Interior Brush & Scrub Cleaning</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Paint Sealant (1-Year Protection)</span>
+                                <span class="text-gray-300">Professional Paint Decontamination Process</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
-                                <span class="text-gray-300">Trunk Deep Clean</span>
+                                <span class="text-gray-300">Engine Bay Deep Clean & Protection</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <span class="text-gray-300">100% Guaranteed Satisfaction For Flawless Finish</span>
                             </li>
                         </ul>
                         <div class="bg-gray-700 p-4 rounded-lg mb-4">
-                            <h4 class="font-semibold mb-2 text-purple-400">Ultimate Protection:</h4>
-                            <p class="text-sm text-gray-300">Our Max Detail is the ultimate treatment featuring BioBomb odor elimination, Koch Chemie clay bar decontamination, and long-lasting ceramic protection. Ideal for luxury vehicles or complete restoration.</p>
+                            <h4 class="font-semibold mb-2 text-purple-400">Ultimate Protection & Perfection:</h4>
+                            <p class="text-sm text-gray-300">Our Max Detail is the pinnacle of mobile detailing excellence. Featuring professional clay bar decontamination, intensive steam cleaning, and our exclusive 6-month hydrophobic sealant with intense gloss enhancers. Every surface is meticulously cleaned and protected with a 100% satisfaction guarantee.</p>
                         </div>
                     </div>
                     
@@ -4899,5 +5008,35 @@
         }
     </script>
 
+
+    <script>
+    // RGB Lightning Effect Every 6 Seconds
+    function createLightningBolt() {
+        var bolt = document.createElement('div');
+        bolt.className = 'lightning-bolt';
+        // Random horizontal position (5% to 95% of viewport)
+        var left = Math.random() * 90 + 5;
+        bolt.style.left = left + 'vw';
+        // Random height (60vh to 120vh)
+        var height = Math.random() * 60 + 60;
+        bolt.style.height = height + 'vh';
+        // Random rotation (-20deg to 20deg)
+        var rot = (Math.random() * 40 - 20);
+        bolt.style.transform = 'rotate(' + rot + 'deg)';
+        // Randomize RGB gradient direction
+        if (Math.random() > 0.5) {
+            bolt.style.background = 'linear-gradient(180deg, red, orange, yellow, green, blue, violet, transparent)';
+        } else {
+            bolt.style.background = 'linear-gradient(0deg, violet, blue, green, yellow, orange, red, transparent)';
+        }
+        document.body.appendChild(bolt);
+        setTimeout(function() { bolt.remove(); }, 900);
+    }
+    setInterval(createLightningBolt, 6000);
+    // Initial bolt on load
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(createLightningBolt, 1000);
+    });
+    </script>
 </body>
 </html>
