@@ -369,16 +369,30 @@
                          0 0 30px rgba(168, 85, 247, 0.4);
             animation: pulse-glow 2s ease-in-out infinite;
         }
-        
+        .important-header-glow {
+            text-shadow: 0 0 24px rgba(168,85,247,0.9), 0 0 48px rgba(236,72,153,0.7), 0 0 72px rgba(168,85,247,0.5);
+            animation: header-glow-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes header-glow-pulse {
+            0%, 100% { filter: brightness(1.2); }
+            50% { filter: brightness(1.5); }
+        }
         .glow-button {
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.5),
                         0 0 40px rgba(236, 72, 153, 0.3);
             animation: button-glow 3s ease-in-out infinite;
         }
-        
-        .glow-button:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8),
-                        0 0 60px rgba(236, 72, 153, 0.5);
+        .glow-btn {
+            box-shadow: 0 0 32px rgba(168,85,247,0.7), 0 0 64px rgba(236,72,153,0.5);
+            animation: btn-glow-pulse 2.2s ease-in-out infinite;
+        }
+        @keyframes btn-glow-pulse {
+            0%, 100% { filter: brightness(1.1); }
+            50% { filter: brightness(1.4); }
+        }
+        .glow-button:hover, .glow-btn:hover {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.8),
+                        0 0 80px rgba(236, 72, 153, 0.6);
         }
         
         .glow-link {
@@ -1522,7 +1536,7 @@
         <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-2">
             <div class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
-                    <span class="gradient-text glow-text">Professional Mobile Car Detailing</span>
+                    <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
                     <br>
                     <span class="text-white">In Los Angeles & Orange County</span>
                 </h1>
@@ -1534,7 +1548,7 @@
                         <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
                     </a>
                     <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
-                        View Packages
+                    View Packages
                     </a>
                 </div>
                 <div class="mt-8 text-gray-300 flex flex-wrap items-center justify-center sm:justify-start gap-6">

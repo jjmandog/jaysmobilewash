@@ -39,6 +39,25 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer-gradient 3s linear infinite;
+            text-shadow: 0 0 16px #a855f7, 0 0 32px #ec4899, 0 0 48px #6366f1;
+        }
+        /* Important Header Glow */
+        .important-header-glow {
+            text-shadow: 0 0 24px #fff, 0 0 48px #a855f7, 0 0 64px #ec4899;
+            animation: headerGlowPulse 2s infinite alternate;
+        }
+        @keyframes headerGlowPulse {
+            0% { text-shadow: 0 0 24px #fff, 0 0 48px #a855f7, 0 0 64px #ec4899; }
+            100% { text-shadow: 0 0 32px #fff, 0 0 64px #a855f7, 0 0 80px #ec4899; }
+        }
+        /* Button Glow Effect */
+        .glow-btn {
+            box-shadow: 0 0 16px #a855f7, 0 0 32px #ec4899, 0 0 48px #6366f1;
+            animation: btnGlowPulse 1.5s infinite alternate;
+        }
+        @keyframes btnGlowPulse {
+            0% { box-shadow: 0 0 16px #a855f7, 0 0 32px #ec4899, 0 0 48px #6366f1; }
+            100% { box-shadow: 0 0 24px #a855f7, 0 0 48px #ec4899, 0 0 64px #6366f1; }
         }
         @keyframes shimmer-gradient {
             0% {background-position: 0% 50%;}
@@ -576,7 +595,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 important-header-glow">
                     <span class="gradient-text">Professional Mobile Detailing</span>
                 </h1>
                 <p class="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -620,8 +639,11 @@
                                     <li>• Spot-Free Water For Flawless Finish</li>
                                 </ul>
                                 <button class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors package-btn">
-                                    Choose Mini
-                                </button>
+                                Choose Mini
+                            </button>
+                            <button class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">
+                                Choose Mini
+                            </button>
                             </div>
                         </div>
                         <div class="package-badge bg-green-500">
@@ -648,8 +670,11 @@
                                     <li>• Leather & Vinyl Conditioning</li>
                                 </ul>
                                 <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn">
-                                    Choose Luxury
-                                </button>
+                                Choose Luxury
+                            </button>
+                            <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">
+                                Choose Luxury
+                            </button>
                             </div>
                         </div>
                         <div class="package-badge bg-purple-500">
@@ -676,8 +701,11 @@
                                     <li>• 100% Guaranteed Satisfaction</li>
                                 </ul>
                                 <button class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors package-btn">
-                                    Choose Max
-                                </button>
+                                Choose Max
+                            </button>
+                            <button class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">
+                                Choose Max
+                            </button>
                             </div>
                         </div>
                     </div>
@@ -702,8 +730,11 @@
                                     <li>• Ultimate protection</li>
                                 </ul>
                                 <button class="w-full py-2 px-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-colors package-btn">
-                                    Choose Protection
-                                </button>
+                                Choose Protection
+                            </button>
+                            <button class="w-full py-2 px-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">
+                                Choose Protection
+                            </button>
                             </div>
                         </div>
                     </div>
@@ -1037,6 +1068,8 @@
                                 <i class="fas fa-phone mr-2"></i>
                                 Call for Service
                             </button>
+                            <button id="get-quote-btn" class="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg glow-btn">
+                            </button>
                         </div>
 
                         <!-- Contact Information -->
@@ -1148,15 +1181,15 @@
                 }, 300);
             }, 3000);
         }
-        // RGB Lightning Effect Every 6 Seconds
-        function createLightningBolt() {
+        // RGB Lightning Effect Every 4 Seconds & Mouse Reactive
+        function createLightningBolt(xPercent = null, yPercent = null) {
             var bolt = document.createElement('div');
             bolt.className = 'lightning-bolt';
-            // Random horizontal position (5% to 95% of viewport)
-            var left = Math.random() * 90 + 5;
+            // If mouse position provided, use it, else random horizontal position (5% to 95% of viewport)
+            var left = xPercent !== null ? xPercent : (Math.random() * 90 + 5);
             bolt.style.left = left + 'vw';
-            // Random height (60vh to 120vh)
-            var height = Math.random() * 60 + 60;
+            // Height: if mouse Y provided, use it for bolt height, else random (60vh to 120vh)
+            var height = yPercent !== null ? (60 + yPercent * 0.6) : (Math.random() * 60 + 60);
             bolt.style.height = height + 'vh';
             // Random rotation (-20deg to 20deg)
             var rot = (Math.random() * 40 - 20);
@@ -1170,10 +1203,23 @@
             document.body.appendChild(bolt);
             setTimeout(function() { bolt.remove(); }, 900);
         }
-        setInterval(createLightningBolt, 6000);
+        // Interval: every 4 seconds
+        setInterval(createLightningBolt, 4000);
         // Initial bolt on load
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(createLightningBolt, 1000);
+        });
+        // Mouse movement triggers extra bolts, more reactive
+        let lastMouseBolt = 0;
+        document.addEventListener('mousemove', function(e) {
+            var now = Date.now();
+            // Only trigger if mouse moves at least 120ms apart
+            if (now - lastMouseBolt > 120) {
+                var xPercent = (e.clientX / window.innerWidth) * 100;
+                var yPercent = (e.clientY / window.innerHeight) * 100;
+                createLightningBolt(xPercent, yPercent);
+                lastMouseBolt = now;
+            }
         });
 
         // Default Configuration (Can be modified via admin panel)
