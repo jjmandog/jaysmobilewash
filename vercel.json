@@ -10,6 +10,31 @@
   },
   "headers": [
     {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
+        },
+        {
+          "key": "Last-Modified",
+          "value": "Fri, 25 Jul 2025 18:30:00 GMT"
+        },
+        {
+          "key": "X-Content-Version",
+          "value": "2025.07.25.v2"
+        }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {

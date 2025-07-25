@@ -10,6 +10,14 @@
     <meta name="keywords" content="car detailing pricing, mobile wash quotes, ceramic coating cost, paint correction pricing, interior detailing cost, full polishing service, biobomb odor elimination, sio2 sealant, trim restoration, clay bar deiron, rim deiron, enzyme degreaser, steam cleaning, custom car scent">
     <meta name="author" content="Jay's Mobile Wash">
     <meta name="robots" content="index, follow">
+    
+    <!-- Cache Busting Headers -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="Fri, 25 Jul 2025 18:30:00 GMT">
+    <meta name="cache-control" content="max-age=0">
+    <meta name="version" content="2025.07.25.v2">
 
     <!-- Open Graph Images for Social Sharing -->
     <meta property="og:image" content="https://jaysmobilewash.net/og-image.jpg">
@@ -446,24 +454,27 @@
         
         .admin-toggle {
             position: fixed;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            background: #a855f7;
-            color: white;
-            border: none;
+            top: 20px;
+            right: 20px;
+            background: rgba(168, 85, 247, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.4);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             cursor: pointer;
-            z-index: 1001;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.15);
             transition: all 0.3s ease;
+            font-size: 12px;
+            backdrop-filter: blur(5px);
         }
         
         .admin-toggle:hover {
-            background: #9333ea;
-            transform: translateY(-50%) scale(1.1);
+            background: rgba(147, 51, 234, 0.5);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25);
         }
         
         .admin-input {
@@ -864,8 +875,8 @@
                   </article>
                 </div>
               </section>
-              <section class="mb-6" aria-label="Additional Services">
-                <h3 class="text-xl font-bold mb-4 text-yellow-400"><i class="fas fa-plus mr-2"></i>Additional Services</h3>
+              <section class="mb-6" aria-label="Deep Detail Addons">
+                <h3 class="text-xl font-bold mb-4 text-yellow-400"><i class="fas fa-plus mr-2"></i>DEEP DETAIL ADDONS</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
                     <i class="fas fa-engine text-blue-400 text-2xl mb-2" aria-hidden="true"></i>
@@ -892,7 +903,7 @@
                     <p class="text-xs text-gray-400 mt-1">Includes clay bar + de-iron prep</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
-                    <i class="fas fa-magic text-yellow-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <i class="fas fa-magic text-purple-400 text-2xl mb-2" aria-hidden="true"></i>
                     <h4 class="font-semibold mb-1">Clay Bar + Full Body De-Iron</h4>
                     <p class="text-green-400 font-bold">$150</p>
                     <p class="text-xs text-gray-400 mt-1">Complete paint decontamination</p>
@@ -905,8 +916,40 @@
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
                     <i class="fas fa-leaf text-green-400 text-2xl mb-2" aria-hidden="true"></i>
-                    <h4 class="font-semibold mb-1">Full Extraction Degreaser</h4>
+                    <h4 class="font-semibold mb-1">Enzyme Degreaser</h4>
+                    <p class="text-green-400 font-bold">$30-80</p>
+                    <p class="text-xs text-gray-400 mt-1">Bio-enzyme grease & oil breakdown</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-fire text-orange-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Steam Cleaning</h4>
+                    <p class="text-green-400 font-bold">$40-50</p>
+                    <p class="text-xs text-gray-400 mt-1">High-temp sanitization & deep clean</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-vacuum text-blue-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Full Extraction</h4>
                     <p class="text-green-400 font-bold">$40-100</p>
+                    <p class="text-xs text-gray-400 mt-1">Deep carpet & upholstery extraction</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-shield-alt text-indigo-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Trim Restoration</h4>
+                    <p class="text-green-400 font-bold">$20-30</p>
+                    <p class="text-xs text-gray-400 mt-1">UV protection for plastic trim</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-spa text-pink-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Custom Scenting</h4>
+                    <p class="text-green-400 font-bold">$15</p>
+                    <p class="text-xs text-gray-400 mt-1">Premium fragrance application</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-bomb text-red-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">BIOBOMB Odor Elimination</h4>
+                    <p class="text-green-400 font-bold">$25-50</p>
+                    <p class="text-xs text-gray-400 mt-1">Complete odor neutralization</p>
+                  </article>
                     <p class="text-xs text-gray-400 mt-1">Based on area & vehicle condition</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">

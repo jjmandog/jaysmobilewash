@@ -1,0 +1,23 @@
+# Cache busting for updated content
+<IfModule mod_headers.c>
+    # Force no cache for HTML files
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+        Header set Last-Modified "Fri, 25 Jul 2025 18:30:00 GMT"
+    </FilesMatch>
+    
+    # Cache static assets but with version control
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
+        Header set Cache-Control "public, max-age=86400"
+        Header set Last-Modified "Fri, 25 Jul 2025 18:30:00 GMT"
+    </FilesMatch>
+</IfModule>
+
+# Force MIME types
+<IfModule mod_mime.c>
+    AddType text/html .html
+    AddType text/css .css
+    AddType application/javascript .js
+</IfModule>
