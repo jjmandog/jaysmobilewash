@@ -159,8 +159,8 @@
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "287",
+        "ratingValue": "4.9",
+        "reviewCount": "116",
         "bestRating": "5"
       },
       "hasOfferCatalog": {
@@ -1137,13 +1137,26 @@
         
         /* Package details animation */
         .package-details {
-            max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
         
+        .package-details.hidden {
+            max-height: 0;
+        }
+        
         .package-details:not(.hidden) {
             transition: max-height 0.5s ease-in;
+        }
+        
+        /* Rotate animation for chevron icons */
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        
+        /* Transition for smooth icon rotation */
+        .fas.fa-chevron-down {
+            transition: transform 0.3s ease;
         }
         
         /* Product modal styles */
@@ -1424,23 +1437,22 @@
     </script>
 <body itemscope itemtype="https://schema.org/LocalBusiness" itemid="https://www.jaysmobilewash.net/#organization">
     <!-- Galaxy Starfield Overlay -->
-    <div id="galaxy-starfield" class="galaxy-starfield">
+    <aside id="galaxy-starfield" class="galaxy-starfield" aria-label="Animated galaxy starfield background">
         <!-- Stars will be dynamically generated here -->
-    </div>
+    </aside>
 
     <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center">
+    <section id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience">
         <div class="relative w-80 h-80">
             <!-- Water tank container -->
             <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
                 <!-- Water fill -->
                 <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear">
-                    <div class="water-wave"></div>
-                    <div class="water-wave water-wave-2"></div>
+                    <div class="water-wave" aria-hidden="true"></div>
+                    <div class="water-wave water-wave-2" aria-hidden="true"></div>
                 </div>
-                
                 <!-- Bubbles -->
-                <div class="bubbles">
+                <div class="bubbles" aria-hidden="true">
                     <div class="bubble"></div>
                     <div class="bubble"></div>
                     <div class="bubble"></div>
@@ -1448,26 +1460,23 @@
                     <div class="bubble"></div>
                 </div>
             </div>
-
             <!-- Logo under Contact Info (fixed aspect ratio) -->
             <div class="w-32 h-16 mx-auto my-6">
-                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="w-full h-full object-contain">
+                <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash company logo" class="w-full h-full object-contain" loading="eager">
             </div>
-            
             <!-- Logo -->
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                 <div class="w-24 h-24 filter drop-shadow-lg">
-                  <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash" class="w-full h-full object-contain">
+                  <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash animated logo" class="w-full h-full object-contain" loading="eager">
                 </div>
             </div>
-            
             <!-- Progress text -->
             <div class="absolute bottom-10 left-0 right-0 text-center text-white">
                 <p class="text-sm font-medium">Loading Experience...</p>
                 <p class="text-xs mt-1"><span id="loading-progress">0</span>%</p>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Navigation -->
     <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
@@ -1520,91 +1529,90 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero-gradient relative">
-        <!-- Video Background (commented out to prevent Google crawling) -->
-        <div class="absolute inset-0 z-0 overflow-hidden">
-            <!-- <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
-                <source src="VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
-            </video> -->
-            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
-        
-        <!-- Particles Container -->
-        <div class="particles-container absolute inset-0 pointer-events-none z-0"></div>
-        
-        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-2">
-            <div class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
-                    <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
-                    <br>
-                    <span class="text-white">In Los Angeles & Orange County</span>
-                </h1>
-                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto sm:mx-0">
-                    Premium mobile car detailing services that come to you. Ceramic coating, paint correction, interior detailing, and more.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
-                    <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low" itemprop="telephone">
-                        <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
-                    </a>
-                    <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
-                    View Packages
-                    </a>
-                </div>
-                <div class="mt-8 text-gray-300 flex flex-wrap items-center justify-center sm:justify-start gap-6">
-                    <div class="flex items-center">
-                        <i class="fas fa-star text-yellow-400 mr-2"></i>
-                        <span>5-Star Rated</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i class="fas fa-certificate text-purple-400 mr-2"></i>
-                        <span>Licensed & Insured</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i class="fas fa-shield-alt text-pink-400 mr-2"></i>
-                        <span>Satisfaction Guaranteed</span>
-                    </div>
-                </div>
+    <!-- Main Content -->
+    <main id="main-content" tabindex="-1">
+        <!-- Hero Section -->
+        <section class="hero-gradient relative" aria-label="Professional Mobile Car Detailing Hero">
+            <!-- Video Background (commented out to prevent Google crawling) -->
+            <div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+                <!-- <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
+                    <source src="VID_20250626031412768%20(1)%20(1).mp4" type="video/mp4">
+                </video> -->
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
             </div>
-        </div>
-        
-        <!-- Trust Badges -->
-        <div class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-2">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center gap-8 sm:gap-12 items-center">
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">⭐⭐⭐⭐⭐</div>
-                        <p class="text-sm text-gray-300">287+ 5-Star Reviews</p>
+            <!-- Particles Container -->
+            <div class="particles-container absolute inset-0 pointer-events-none z-0" aria-hidden="true"></div>
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-2">
+                <header class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
+                        <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
+                        <br>
+                        <span class="text-white">In Los Angeles & Orange County</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto sm:mx-0">
+                        Premium mobile car detailing services that come to you. Ceramic coating, paint correction, interior detailing, and more.
+                    </p>
+                    <nav aria-label="Primary call to action" class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
+                        <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low" itemprop="telephone">
+                            <i class="fas fa-phone-alt mr-2" aria-hidden="true"></i> Call (562) 228-9429
+                        </a>
+                        <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
+                        View Packages
+                        </a>
+                    </nav>
+                    <div class="mt-8 text-gray-300 flex flex-wrap items-center justify-center sm:justify-start gap-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-2" aria-hidden="true"></i>
+                            <span>4.9⭐ Rated</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-purple-400 mr-2" aria-hidden="true"></i>
+                            <span>Licensed & Insured</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-pink-400 mr-2" aria-hidden="true"></i>
+                            <span>Satisfaction Guaranteed</span>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">✅</div>
-                        <p class="text-sm text-gray-300">100% Satisfaction</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">🏆</div>
-                        <p class="text-sm text-gray-300">Premium Products</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl mb-2">🚗</div>
-                        <p class="text-sm text-gray-300">We Come To You</p>
+                </header>
+            </div>
+            <!-- Trust Badges -->
+            <aside class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-2" aria-label="Trust Badges">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-wrap justify-center gap-8 sm:gap-12 items-center">
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">⭐⭐⭐⭐⭐</div>
+                            <p class="text-sm text-gray-300">116+ Reviews (4.9⭐)</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">✅</div>
+                            <p class="text-sm text-gray-300">100% Satisfaction</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">🏆</div>
+                            <p class="text-sm text-gray-300">Premium Products</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2">🚗</div>
+                            <p class="text-sm text-gray-300">We Come To You</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </aside>
+        </section>
+    </main>
 
     <!-- Featured Image Section -->
     <section class="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-30">
+        <div class="absolute inset-0 opacity-30" aria-hidden="true">
             <div class="absolute top-10 left-10 w-20 h-20 bg-purple-500 rounded-full filter blur-xl animate-pulse"></div>
             <div class="absolute bottom-20 right-20 w-32 h-32 bg-pink-500 rounded-full filter blur-xl animate-pulse" style="animation-delay: 1s;"></div>
             <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-blue-500 rounded-full filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
         </div>
-        
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Video Section -->
-                <div class="order-2 lg:order-1">
+                <figure class="order-2 lg:order-1" aria-label="Featured video of mobile car detailing">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                         <video 
                             class="w-full h-auto object-cover"
@@ -1618,21 +1626,20 @@
                             <source src="/VID_20250626031412768 (1) (1).mp4" type="video/mp4">
                             <!-- Fallback image if video doesn't load -->
                             <img src="/mobile-detailing.PNG" 
-                                 alt="Professional Mobile Car Detailing Service" 
+                                 alt="Mobile car detailing service in action" 
                                  class="w-full h-auto object-cover">
                         </video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
-                        <div class="absolute bottom-6 left-6 right-6 pointer-events-none">
+                        <figcaption class="absolute bottom-6 left-6 right-6 pointer-events-none">
                             <div class="bg-black/60 backdrop-blur-sm rounded-lg p-4">
                                 <h3 class="text-white font-semibold text-xl mb-2">Professional Excellence</h3>
                                 <p class="text-gray-200 text-sm">Every detail matters when it comes to your vehicle's care</p>
                             </div>
-                        </div>
+                        </figcaption>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
                     </div>
-                </div>
-                
+                </figure>
                 <!-- Content Section -->
-                <div class="order-1 lg:order-2">
+                <section class="order-1 lg:order-2" aria-label="Jay's Difference content">
                     <div class="text-center lg:text-left">
                         <h2 class="text-4xl md:text-5xl font-bold mb-6">
                             <span class="gradient-text">Experience the</span>
@@ -1642,31 +1649,28 @@
                         <p class="text-xl text-gray-300 mb-8 leading-relaxed">
                             We bring professional-grade detailing directly to your location with state-of-the-art equipment and premium products. Your car deserves the best care, and we deliver it with passion and precision.
                         </p>
-                        
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-center lg:justify-start">
                                 <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-star text-white"></i>
+                                    <i class="fas fa-star text-white" aria-hidden="true"></i>
                                 </div>
                                 <div>
                                     <h4 class="text-white font-semibold">Premium Products</h4>
                                     <p class="text-gray-400 text-sm">Only the finest detailing products for your vehicle</p>
                                 </div>
                             </div>
-                            
                             <div class="flex items-center justify-center lg:justify-start">
                                 <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-mobile-alt text-white"></i>
+                                    <i class="fas fa-mobile-alt text-white" aria-hidden="true"></i>
                                 </div>
                                 <div>
                                     <h4 class="text-white font-semibold">Convenient Service</h4>
                                     <p class="text-gray-400 text-sm">We come to you - home, office, or anywhere you need</p>
                                 </div>
                             </div>
-                            
                             <div class="flex items-center justify-center lg:justify-start">
                                 <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-shield-alt text-white"></i>
+                                    <i class="fas fa-shield-alt text-white" aria-hidden="true"></i>
                                 </div>
                                 <div>
                                     <h4 class="text-white font-semibold">Quality Guarantee</h4>
@@ -1674,428 +1678,16 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button transition-all duration-300">
-                                <i class="fas fa-phone-alt mr-2"></i> Book Now
+                                <i class="fas fa-phone-alt mr-2" aria-hidden="true"></i> Book Now
                             </a>
                             <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md border-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white transition-all duration-300">
                                 View Packages
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Premium Products We Use Section -->
-    <section id="premium-products" class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-                    Premium Products We Use
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Click on any product to learn more about our professional-grade solutions.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-                <!-- KOCH CHEMIE -->
-                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-flask text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">KOCH CHEMIE</h3>
-                        <p class="text-gray-400 text-sm mb-4">German Engineering</p>
-                    </div>
-                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('koch-chemie')">
-                        Click for details
-                    </button>
-                </div>
-
-                <!-- MADERITE -->
-                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-shield-alt text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">MADERITE</h3>
-                        <p class="text-gray-400 text-sm mb-4">Professional Grade</p>
-                    </div>
-                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('maderite')">
-                        Click for details
-                    </button>
-                </div>
-
-                <!-- BIOBOMB -->
-                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-leaf text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">BIOBOMB</h3>
-                        <p class="text-gray-400 text-sm mb-4">Odor Elimination</p>
-                    </div>
-                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('biobomb')">
-                        Click for details
-                    </button>
-                </div>
-
-                <!-- ULTRACLEAN -->
-                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-spray-can text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">ULTRACLEAN</h3>
-                        <p class="text-gray-400 text-sm mb-4">Deep Cleaning</p>
-                    </div>
-                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ultraclean')">
-                        Click for details
-                    </button>
-                </div>
-
-                <!-- EZPZ -->
-                <div class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group">
-                    <div class="mb-6">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-gem text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">EZPZ</h3>
-                        <p class="text-gray-400 text-sm mb-4">Ceramic Coating</p>
-                    </div>
-                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ezpz')">
-                        Click for details
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Product Details Modal -->
-    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 id="modal-title" class="text-2xl font-bold text-white"></h3>
-                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-white text-2xl">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div id="modal-content" class="text-gray-300">
-                    <!-- Content will be dynamically loaded -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Premium Protection Packages Section -->
-    <section id="protection-packages" class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Premium Protection Packages</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Protect your investment with our advanced coating solutions designed for Southern California conditions.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <!-- Ceramic Coating Package -->
-                <div class="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105">
-                    <div class="text-center mb-6">
-                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4">
-                            <i class="fas fa-shield-alt text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Ceramic Coating</h3>
-                        <div class="text-4xl font-bold text-purple-400 mb-2">$450</div>
-                        <p class="text-gray-300">2-3 Year Protection</p>
-                    </div>
-                    
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>9H Hardness Protection</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>UV & Chemical Resistance</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Hydrophobic Water Beading</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Enhanced Gloss & Depth</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Easier Maintenance</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Professional Application</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="text-center">
-                        <button onclick="togglePackageDetails('ceramic')" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            <span id="ceramic-button-text">Learn More</span>
-                        </button>
-                    </div>
-                    
-                    <!-- Expandable Details Section -->
-                    <div id="ceramic-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-purple-500/30">
-                        <h4 class="text-xl font-bold text-purple-400 mb-4">Ceramic Coating Process & Benefits</h4>
-                        <div class="grid md:grid-cols-2 gap-6 text-sm">
-                            <div>
-                                <h5 class="font-semibold text-white mb-3">Application Process:</h5>
-                                <ul class="space-y-2 text-gray-300">
-                                    <li>• Paint decontamination & clay bar treatment</li>
-                                    <li>• Single-stage paint correction if needed</li>
-                                    <li>• Surface preparation with isopropyl alcohol</li>
-                                    <li>• Professional ceramic coating application</li>
-                                    <li>• 24-hour curing period</li>
-                                    <li>• Final inspection & quality check</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h5 class="font-semibold text-white mb-3">Long-term Benefits:</h5>
-                                <ul class="space-y-2 text-gray-300">
-                                    <li>• 2-3 year durability with proper care</li>
-                                    <li>• Reduces washing time by 50%</li>
-                                    <li>• Maintains resale value</li>
-                                    <li>• Protection from bird droppings & tree sap</li>
-                                    <li>• Eliminates need for waxing</li>
-                                    <li>• Professional warranty included</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mt-4 p-4 bg-purple-900/30 rounded-lg">
-                            <p class="text-purple-300 font-semibold">💎 Perfect for: Daily drivers, lease vehicles, and customers wanting reliable long-term protection</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Graphene Coating Package -->
-                <div class="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700 hover:border-pink-500 transition-all duration-300 transform hover:scale-105 relative">
-                    <!-- Popular Badge -->
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                            Most Popular
-                        </span>
-                    </div>
-                    
-                    <div class="text-center mb-6">
-                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full mb-4">
-                            <i class="fas fa-atom text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Graphene Coating</h3>
-                        <div class="text-4xl font-bold text-pink-400 mb-2">$800</div>
-                        <p class="text-gray-300">3-5 Year Protection</p>
-                    </div>
-                    
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>10H+ Hardness Protection</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Superior Heat Dissipation</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Anti-Static Properties</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Extreme Water Repellency</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Self-Healing Technology</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
-                            <span>Unmatched Durability</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="text-center">
-                        <button onclick="togglePackageDetails('graphene')" class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            <i class="fas fa-info-circle mr-2"></i>
-                            <span id="graphene-button-text">Learn More</span>
-                        </button>
-                    </div>
-                    
-                    <!-- Expandable Details Section -->
-                    <div id="graphene-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-pink-500/30">
-                        <h4 class="text-xl font-bold text-pink-400 mb-4">Graphene Coating Process & Benefits</h4>
-                        <div class="grid md:grid-cols-2 gap-6 text-sm">
-                            <div>
-                                <h5 class="font-semibold text-white mb-3">Advanced Application:</h5>
-                                <ul class="space-y-2 text-gray-300">
-                                    <li>• Multi-stage paint correction (up to 3 steps)</li>
-                                    <li>• Complete paint decontamination</li>
-                                    <li>• Panel-by-panel precision application</li>
-                                    <li>• Infrared curing process</li>
-                                    <li>• 48-hour controlled environment curing</li>
-                                    <li>• Comprehensive quality inspection</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h5 class="font-semibold text-white mb-3">Premium Benefits:</h5>
-                                <ul class="space-y-2 text-gray-300">
-                                    <li>• 3-5 year durability guarantee</li>
-                                    <li>• Superior heat dissipation properties</li>
-                                    <li>• Self-healing from minor scratches</li>
-                                    <li>• Extreme water beading (contact angle >110°)</li>
-                                    <li>• Maintains showroom finish</li>
-                                    <li>• Premium warranty & maintenance plan</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mt-4 p-4 bg-gradient-to-r from-pink-900/30 to-orange-900/30 rounded-lg">
-                            <p class="text-pink-300 font-semibold">🚗 Perfect for: Luxury vehicles, sports cars, and customers demanding ultimate protection and performance</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <p class="text-gray-300 mb-6">Ready to protect your vehicle? Get a custom quote today!</p>
-                <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button">
-                    <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Our Services</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We provide premium car detailing services throughout Los Angeles and Orange County.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Mobile Detailing -->
-                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="/mobile-detailing.PNG" 
-                         alt="Mobile Car Detailing Service in Los Angeles" 
-                         class="w-full h-48 object-cover"
-                         loading="eager"
-                         decoding="async"
-                         fetchpriority="high">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
-                        <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Interior & Exterior Detailing</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Full-Service Mobile Car Wash</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Steam Cleaning & Disinfection</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
-                            View Packages
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Ceramic Coating -->
-                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="/ceramic-coating.jpg" 
-                         alt="Ceramic Coating Service in Orange County" 
-                         class="w-full h-48 object-cover"
-                         loading="eager"
-                         decoding="async"
-                         fetchpriority="high">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
-                        <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 9H Ceramic Coating</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Graphene-Infused Options</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> 2-5 Year Protection Warranty</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
-                            View Packages
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Paint Correction -->
-                <div class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <img src="/paint-correction.jpg" 
-                         alt="Paint Correction Service in Los Angeles and Orange County" 
-                         class="w-full h-48 object-cover"
-                         loading="eager"
-                         decoding="async"
-                         fetchpriority="normal">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
-                        <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
-                        <ul class="mb-6 text-gray-400 space-y-1">
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Swirl Mark Removal</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Scratch & Defect Correction</li>
-                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2"></i> Single & Multi-Stage Polishing</li>
-                        </ul>
-                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
-                            View Packages
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">How It Works</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Our easy 3-step process makes getting your car detailed more convenient than ever.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="low">
-                        <i class="fas fa-calendar-check text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">1. Book Your Service</h3>
-                    <p class="text-gray-300">Call us or use our online booking form to schedule your detailing service.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="mid">
-                        <i class="fas fa-truck text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">2. We Come To You</h3>
-                    <p class="text-gray-300">Our mobile detailers arrive at your location with all necessary equipment.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="high">
-                        <i class="fas fa-car text-white text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">3. Enjoy Your Clean Car</h3>
-                    <p class="text-gray-300">Sit back and relax while we transform your vehicle to showroom condition.</p>
-                </div>
+                </section>
             </div>
         </div>
     </section>
@@ -2113,7 +1705,7 @@
             </div>
            <!-- Deionized Water Section -->
            <div class="deionized-section bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900 rounded-2xl shadow-2xl p-8 mb-16 border-2 border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-8">
-               <div class="flex-1 text-center md:text-left">
+               <section class="flex-1 text-center md:text-left" aria-label="Deionized Water System">
                    <h3 class="text-3xl font-bold mb-4 animated-gradient-text">Deionized Water System</h3>
                    <p class="text-lg text-gray-200 mb-4">We use advanced deionized water for every wash, ensuring a spot-free, streak-free finish and maximum protection for your vehicle's paint.</p>
                    <ul class="list-disc pl-6 text-gray-300 space-y-2 mb-4">
@@ -2122,15 +1714,15 @@
                        <li>Used by luxury dealerships and pro detailers</li>
                    </ul>
                    <span class="inline-block px-6 py-2 rounded-full bg-blue-700/60 text-white font-semibold shadow-lg">Included FREE with every service</span>
-               </div>
-               <div class="flex-1 flex justify-center md:justify-end">
-                   <img src="/ceramic-coating.jpg" alt="Deionized Water System" class="w-64 h-40 object-cover rounded-xl shadow-lg border-2 border-blue-500/40 hover:scale-105 transition-transform duration-500" loading="lazy">
-               </div>
+               </section>
+               <figure class="flex-1 flex justify-center md:justify-end" aria-label="Deionized water system image">
+                   <img src="/ceramic-coating.jpg" alt="Deionized water system equipment and results" class="w-64 h-40 object-cover rounded-xl shadow-lg border-2 border-blue-500/40 hover:scale-105 transition-transform duration-500" loading="lazy">
+               </figure>
            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Jay's Mini Detail -->
-                <div class="bg-gray-800 rounded-lg p-8 border-2 border-gray-700 hover:border-purple-500 transition-all duration-300">
+                <article class="bg-gray-800 rounded-lg p-8 border-2 border-gray-700 hover:border-purple-500 transition-all duration-300" aria-label="Jay's Mini Detail Package">
                     <h3 class="text-2xl font-bold mb-4 gradient-text">Jay's Mini Detail</h3>
                     <div class="mb-6">
                         <span class="text-4xl font-bold">$70</span>
@@ -2139,44 +1731,43 @@
                     <p class="text-sm text-gray-400 mb-4">Professional two-step wash with spot-free water and meticulous attention to detail</p>
                     <ul class="mb-4 space-y-3">
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                             <span class="text-gray-300">Two-Step Contact Wash For Deep Clean</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                             <span class="text-gray-300">100% Touchless Or High-GSM Microfiber Hand Dry</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                             <span class="text-gray-300">Meticulous Rim Detailing For Spotless Shine</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                             <span class="text-gray-300">Thorough Interior Wipedown</span>
                         </li>
                     </ul>
-                    
                     <!-- Hidden content -->
                     <div class="package-details hidden" id="mini-details">
                         <ul class="mb-6 space-y-3">
                             <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                                 <span class="text-gray-300">Deep Crevice Vacuuming For Detailed Interior Clean</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                                 <span class="text-gray-300">Door Jamb Cleaning To Eliminate Dirt Buildup</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                                 <span class="text-gray-300">Streak-Free Glass Cleaning For Crystal-Clear Windows</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                                 <span class="text-gray-300">Full Vehicle Compression For Optimal Coverage</span>
                             </li>
                             <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                <i class="fas fa-check text-green-500 mr-3 mt-1" aria-hidden="true"></i>
                                 <span class="text-gray-300">Spot-Free Water Usage For Flawless, Streak-Free Finish</span>
                             </li>
                         </ul>
@@ -2185,16 +1776,14 @@
                             <p class="text-sm text-gray-300">Our signature Mini Detail combines professional-grade techniques with meticulous attention to detail. Using spot-free water and high-GSM microfiber technology, we ensure your vehicle looks pristine inside and out. Ideal for busy professionals who want consistent, reliable results.</p>
                         </div>
                     </div>
-                    
                     <button onclick="togglePackageDetails('mini-details', this)" class="text-purple-400 hover:text-purple-300 text-sm font-medium mb-6 flex items-center">
                         <span>Show More</span>
-                        <i class="fas fa-chevron-down ml-2 transition-transform"></i>
+                        <i class="fas fa-chevron-down ml-2 transition-transform" aria-hidden="true"></i>
                     </button>
-                    
                     <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
                         Book Now
                     </a>
-                </div>
+                </article>
                 
                 <!-- Jay's Luxury Detail -->
                 <div class="bg-gray-800 rounded-lg p-8 border-2 border-purple-500 transform scale-105 shadow-2xl">
@@ -2331,6 +1920,411 @@
                     <a href="tel:+15622289429" class="block text-center py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-md shadow-lg glow-button">
                         Book Now
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Products We Use Section -->
+    <section id="premium-products" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                    Premium Products We Use
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Click on any product to learn more about our professional-grade solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+                <!-- KOCH CHEMIE -->
+                <article class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group" aria-label="KOCH CHEMIE product card">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-flask text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">KOCH CHEMIE</h3>
+                        <p class="text-gray-400 text-sm mb-4">German Engineering</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('koch-chemie')">
+                        Click for details
+                    </button>
+                </article>
+                <!-- MADERITE -->
+                <article class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group" aria-label="MADERITE product card">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">MADERITE</h3>
+                        <p class="text-gray-400 text-sm mb-4">Professional Grade</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('maderite')">
+                        Click for details
+                    </button>
+                </article>
+                <!-- BIOBOMB -->
+                <article class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group" aria-label="BIOBOMB product card">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-leaf text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">BIOBOMB</h3>
+                        <p class="text-gray-400 text-sm mb-4">Odor Elimination</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('biobomb')">
+                        Click for details
+                    </button>
+                </article>
+                <!-- ULTRACLEAN -->
+                <article class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group" aria-label="ULTRACLEAN product card">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-spray-can text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">ULTRACLEAN</h3>
+                        <p class="text-gray-400 text-sm mb-4">Deep Cleaning</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ultraclean')">
+                        Click for details
+                    </button>
+                </article>
+                <!-- EZPZ -->
+                <article class="bg-gray-900 rounded-xl p-8 text-center hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-2 shadow-lg hover:shadow-2xl group" aria-label="EZPZ product card">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-gem text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">EZPZ</h3>
+                        <p class="text-gray-400 text-sm mb-4">Ceramic Coating</p>
+                    </div>
+                    <button class="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-300" onclick="showProductModal('ezpz')">
+                        Click for details
+                    </button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="modal-title" class="text-2xl font-bold text-white"></h3>
+                    <button onclick="closeProductModal()" class="text-gray-400 hover:text-white text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="text-gray-300">
+                    <!-- Content will be dynamically loaded -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Protection Packages Section -->
+    <section id="protection-packages" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text">Premium Protection Packages</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Protect your investment with our advanced coating solutions designed for Southern California conditions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Ceramic Coating Package -->
+                <div class="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700 hover:border-purple-500 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4">
+                            <i class="fas fa-shield-alt text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Ceramic Coating</h3>
+                        <div class="text-4xl font-bold text-purple-400 mb-2">$450</div>
+                        <p class="text-gray-300">2-3 Year Protection</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>9H Hardness Protection</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>UV & Chemical Resistance</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Hydrophobic Water Beading</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Enhanced Gloss & Depth</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Easier Maintenance</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Professional Application</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="text-center">
+                        <button onclick="togglePackageDetails('ceramic-details', this)" class="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span>Learn More</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Expandable Details Section -->
+                    <div id="ceramic-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-purple-500/30">
+                        <h4 class="text-xl font-bold text-purple-400 mb-4">Ceramic Coating Process & Benefits</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Application Process:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• Paint decontamination & clay bar treatment</li>
+                                    <li>• Single-stage paint correction if needed</li>
+                                    <li>• Surface preparation with isopropyl alcohol</li>
+                                    <li>• Professional ceramic coating application</li>
+                                    <li>• 24-hour curing period</li>
+                                    <li>• Final inspection & quality check</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Long-term Benefits:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• 2-3 year durability with proper care</li>
+                                    <li>• Reduces washing time by 50%</li>
+                                    <li>• Maintains resale value</li>
+                                    <li>• Protection from bird droppings & tree sap</li>
+                                    <li>• Eliminates need for waxing</li>
+                                    <li>• Professional warranty included</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-purple-900/30 rounded-lg">
+                            <p class="text-purple-300 font-semibold">💎 Perfect for: Daily drivers, lease vehicles, and customers wanting reliable long-term protection</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphene Coating Package -->
+                <div class="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700 hover:border-pink-500 transition-all duration-300 transform hover:scale-105 relative">
+                    <!-- Popular Badge -->
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            Most Popular
+                        </span>
+                    </div>
+                    
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full mb-4">
+                            <i class="fas fa-atom text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Graphene Coating</h3>
+                        <div class="text-4xl font-bold text-pink-400 mb-2">$800</div>
+                        <p class="text-gray-300">3-5 Year Protection</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>10H+ Hardness Protection</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Superior Heat Dissipation</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Anti-Static Properties</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Extreme Water Repellency</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Self-Healing Technology</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Unmatched Durability</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="text-center">
+                        <button onclick="togglePackageDetails('graphene-details', this)" class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span>Learn More</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Expandable Details Section -->
+                    <div id="graphene-details" class="hidden mt-6 p-6 bg-gray-800 rounded-lg border border-pink-500/30">
+                        <h4 class="text-xl font-bold text-pink-400 mb-4">Graphene Coating Process & Benefits</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Advanced Application:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• Multi-stage paint correction (up to 3 steps)</li>
+                                    <li>• Complete paint decontamination</li>
+                                    <li>• Panel-by-panel precision application</li>
+                                    <li>• Infrared curing process</li>
+                                    <li>• 48-hour controlled environment curing</li>
+                                    <li>• Comprehensive quality inspection</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-white mb-3">Premium Benefits:</h5>
+                                <ul class="space-y-2 text-gray-300">
+                                    <li>• 3-5 year durability guarantee</li>
+                                    <li>• Superior heat dissipation properties</li>
+                                    <li>• Self-healing from minor scratches</li>
+                                    <li>• Extreme water beading (contact angle >110°)</li>
+                                    <li>• Maintains showroom finish</li>
+                                    <li>• Premium warranty & maintenance plan</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-gradient-to-r from-pink-900/30 to-orange-900/30 rounded-lg">
+                            <p class="text-pink-300 font-semibold">🚗 Perfect for: Luxury vehicles, sports cars, and customers demanding ultimate protection and performance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-300 mb-6">Ready to protect your vehicle? Get a custom quote today!</p>
+                <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button">
+                    <i class="fas fa-phone-alt mr-2"></i> Call (562) 228-9429
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text">Our Services</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    We provide premium car detailing services throughout Los Angeles and Orange County.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Mobile Detailing -->
+                <article class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" aria-label="Mobile Detailing Service">
+                    <img src="/mobile-detailing.PNG" 
+                         alt="Mobile car detailing service in Los Angeles, showing a clean vehicle" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Mobile Detailing</h3>
+                        <p class="text-gray-300 mb-4">Our professional detailers come to your location with all equipment needed. No water or electricity required from you.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Interior & Exterior Detailing</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Full-Service Mobile Car Wash</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Steam Cleaning & Disinfection</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
+                            View Packages
+                        </a>
+                    </div>
+                </article>
+                <!-- Ceramic Coating -->
+                <article class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" aria-label="Ceramic Coating Service">
+                    <img src="/ceramic-coating.jpg" 
+                         alt="Ceramic coating service in Orange County, showing glossy paint protection" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Ceramic Coating</h3>
+                        <p class="text-gray-300 mb-4">Professional-grade ceramic coatings that provide ultimate protection and shine for your vehicle's paint.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> 9H Ceramic Coating</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Graphene-Infused Options</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> 2-5 Year Protection Warranty</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
+                            View Packages
+                        </a>
+                    </div>
+                </article>
+                <!-- Paint Correction -->
+                <article class="service-card bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" aria-label="Paint Correction Service">
+                    <img src="/paint-correction.jpg" 
+                         alt="Paint correction service in Los Angeles and Orange County, showing swirl mark removal" 
+                         class="w-full h-48 object-cover"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="normal">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 gradient-text">Paint Correction</h3>
+                        <p class="text-gray-300 mb-4">Professional paint correction to remove swirl marks, scratches, and defects from your vehicle's finish.</p>
+                        <ul class="mb-6 text-gray-400 space-y-1">
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Swirl Mark Removal</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Scratch & Defect Correction</li>
+                            <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2" aria-hidden="true"></i> Single & Multi-Stage Polishing</li>
+                        </ul>
+                        <a href="#packages" class="block text-center py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-md shadow-lg">
+                            View Packages
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text">How It Works</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Our easy 3-step process makes getting your car detailed more convenient than ever.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="low">
+                        <i class="fas fa-calendar-check text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1. Book Your Service</h3>
+                    <p class="text-gray-300">Call us or use our online booking form to schedule your detailing service.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="mid">
+                        <i class="fas fa-truck text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">2. We Come To You</h3>
+                    <p class="text-gray-300">Our mobile detailers arrive at your location with all necessary equipment.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg mb-6 glow-button beat-reactive" data-freq="high">
+                        <i class="fas fa-car text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3. Enjoy Your Clean Car</h3>
+                    <p class="text-gray-300">Sit back and relax while we transform your vehicle to showroom condition.</p>
                 </div>
             </div>
         </div>
@@ -2691,7 +2685,7 @@
                         </div>
                         <p class="text-gray-300 mb-4">Protect your interior from UV damage and wear. Regular conditioning of leather and protection of plastic surfaces maintains value and appearance.</p>
                         <ul class="text-sm text-gray-400 space-y-1">
-                            <li>• Use window tinting for UV protection</li>
+                            <li>• Park in shade when possible for UV protection</li>
                             <li>• Condition leather every 3-6 months</li>
                             <li>• Clean spills immediately to prevent stains</li>
                         </ul>
@@ -2763,9 +2757,52 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     <span class="gradient-text">Customer Reviews</span>
                 </h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
                     See what our satisfied customers have to say about our services.
                 </p>
+                
+                <!-- Real Review Stats -->
+                <div class="bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6 max-w-4xl mx-auto mb-12">
+                    <h3 class="text-lg font-semibold text-purple-300 mb-4">Our Real Review Breakdown</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                            <div class="text-yellow-400 mb-2">
+                                <i class="fab fa-yelp text-2xl"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-white">4.7⭐</div>
+                            <div class="text-sm text-gray-300">31 Reviews</div>
+                            <div class="text-xs text-gray-400">Orange County</div>
+                        </div>
+                        <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                            <div class="text-yellow-400 mb-2">
+                                <i class="fab fa-yelp text-2xl"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-white">5.0⭐</div>
+                            <div class="text-sm text-gray-300">9 Reviews</div>
+                            <div class="text-xs text-gray-400">LA Area</div>
+                        </div>
+                        <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                            <div class="text-green-400 mb-2">
+                                <i class="fas fa-shopping-cart text-2xl"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-white">5.0⭐</div>
+                            <div class="text-sm text-gray-300">58 Reviews</div>
+                            <div class="text-xs text-gray-400">OfferUp</div>
+                        </div>
+                        <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4">
+                            <div class="text-blue-400 mb-2">
+                                <i class="fab fa-google text-2xl"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-white">5.0⭐</div>
+                            <div class="text-sm text-gray-300">18 Reviews</div>
+                            <div class="text-xs text-gray-400">Google</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <div class="text-2xl font-bold text-green-400">116 Total Reviews</div>
+                        <div class="text-lg text-gray-300">4.9⭐ Overall Rating</div>
+                    </div>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -3115,7 +3152,7 @@
                             <i class="fas fa-envelope text-purple-500 text-xl mt-1 mr-4"></i>
                             <div>
                                 <h4 class="font-semibold mb-1">Email</h4>
-                                <a href="mailto:info@jaysmobilewash.net" class="text-gray-300 hover:text-purple-400">info@jaysmobilewash.net</a>
+                                <a href="mailto:jason@jaysmobilewash.net" class="text-gray-300 hover:text-purple-400">jason@jaysmobilewash.net</a>
                             </div>
                         </div>
                         
@@ -3257,7 +3294,7 @@
                         </li>
                         <li class="text-gray-400">
                             <i class="fas fa-envelope mr-2"></i>
-                            <a href="mailto:info@jaysmobilewash.net" class="hover:text-purple-400" itemprop="email">info@jaysmobilewash.net</a>
+                            <a href="mailto:jason@jaysmobilewash.net" class="hover:text-purple-400" itemprop="email">jason@jaysmobilewash.net</a>
                         </li>
                         <li class="text-gray-400">
                             <i class="fas fa-map-marker-alt mr-2"></i>
@@ -3515,38 +3552,6 @@
         // Make functions globally accessible
         window.showProductModal = showProductModal;
         window.closeProductModal = closeProductModal;
-        
-        // Toggle package details function - make sure it's globally accessible
-        window.togglePackageDetails = function(packageType) {
-            const details = document.getElementById(packageType + '-details');
-            const buttonText = document.getElementById(packageType + '-button-text');
-            
-            if (!details || !buttonText) {
-                console.error('Elements not found:', {
-                    details: packageType + '-details',
-                    buttonText: packageType + '-button-text'
-                });
-                return;
-            }
-            
-            if (details.classList.contains('hidden')) {
-                // Show details
-                details.classList.remove('hidden');
-                buttonText.textContent = 'Show Less';
-                
-                // Smooth scroll to the details
-                setTimeout(() => {
-                    details.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest' 
-                    });
-                }, 100);
-            } else {
-                // Hide details
-                details.classList.add('hidden');
-                buttonText.textContent = 'Learn More';
-            }
-        };
         
         // Close modal when clicking outside
         document.addEventListener('click', function(e) {
@@ -4582,21 +4587,51 @@
         // Toggle package details
         function togglePackageDetails(detailsId, button) {
             const details = document.getElementById(detailsId);
-            const icon = button.querySelector('i');
-            const text = button.querySelector('span');
+            
+            // If button is not passed (single parameter call), find it by looking for the button that calls this function
+            if (!button) {
+                // Find all buttons that could toggle this details section
+                const buttons = document.querySelectorAll('button[onclick*="' + detailsId + '"]');
+                button = buttons[0]; // Take the first matching button
+            }
+            
+            if (!details) {
+                console.error('Details section not found:', detailsId);
+                return;
+            }
+            
+            const icon = button ? button.querySelector('i') : null;
+            const text = button ? button.querySelector('span') : null;
             
             if (details.classList.contains('hidden')) {
                 details.classList.remove('hidden');
                 details.style.maxHeight = details.scrollHeight + 'px';
-                icon.classList.add('rotate-180');
-                text.textContent = 'Show Less';
+                if (icon) icon.classList.add('rotate-180');
+                if (text) {
+                    // Handle different button text types
+                    if (text.textContent === 'Show More') {
+                        text.textContent = 'Show Less';
+                    } else if (text.textContent === 'Learn More') {
+                        text.textContent = 'Show Less';
+                    }
+                }
             } else {
                 details.style.maxHeight = '0';
                 setTimeout(() => {
                     details.classList.add('hidden');
                 }, 300);
-                icon.classList.remove('rotate-180');
-                text.textContent = 'Show More';
+                if (icon) icon.classList.remove('rotate-180');
+                if (text) {
+                    // Handle different button text types
+                    if (text.textContent === 'Show Less') {
+                        // Determine original text based on button context
+                        if (detailsId.includes('ceramic') || detailsId.includes('graphene')) {
+                            text.textContent = 'Learn More';
+                        } else {
+                            text.textContent = 'Show More';
+                        }
+                    }
+                }
             }
         }
 
