@@ -1,22 +1,50 @@
-# Robots.txt for Jay's Mobile Wash
-# Advanced SEO Configuration with Hash URL Blocking
-# Generated: 2025-07-01
+# Robots.txt for Jay's Mobile Wash - SEO Optimized
+# Mobile Car Detailing Los Angeles & Orange County
+# Generated: 2025-07-25
 
 User-agent: *
 Allow: /
+
+# HIGH PRIORITY Pages for Search Engine Ranking
+Allow: /pricing.html
+Allow: /locations-orange-county.html
+Allow: /locations-los-angeles.html  
+Allow: /locations-beverly-hills.html
+Allow: /about.html
+Allow: /products.html
+
+# Allow Legacy Service URLs
 Allow: /ceramic-coating/
 Allow: /paint-correction/
 Allow: /mobile-detailing/
 Allow: /mobile-washing/
 Allow: /packages/
-Allow: /products/
 Allow: /locations/
+
+# Sitemap Locations
+Sitemap: https://jaysmobilewash.net/sitemap.xml
 Allow: /sitemap.xml
 Allow: /sitemap-index.xml
 Allow: /sitemap-backlinks.xml
 Allow: /sitemap-comprehensive.xml
 
-# Block hash URLs and fragments (comprehensive coverage)
+# Allow Media for Rich Snippets
+Allow: /images/
+Allow: /static/
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.webp
+
+# Block unnecessary files for better crawl budget
+Disallow: /debug-chatbot.html
+Disallow: /admin/
+Disallow: /test/
+Disallow: /.htaccess
+Disallow: /vercel.json
+Disallow: /package.json
+Disallow: /node_modules/
+
+# Block hash URLs and fragments
 Disallow: /#
 Disallow: /*#*
 Disallow: /*?*

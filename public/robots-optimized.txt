@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Priority Pages for Search Engines
+Allow: /pricing.html
+Allow: /locations-orange-county.html  
+Allow: /locations-los-angeles.html
+Allow: /locations-beverly-hills.html
+Allow: /about.html
+Allow: /products.html
+
+# Sitemap Location
+Sitemap: https://jaysmobilewash.net/sitemap.xml
+
+# Block admin and debug files
+Disallow: /debug-chatbot.html
+Disallow: /admin/
+Disallow: /test/
+Disallow: /.htaccess
+Disallow: /vercel.json
+
+# Allow search engines to index images
+Allow: /images/
+Allow: /static/
+
+# Enhanced crawl delay for better server performance
+Crawl-delay: 1
