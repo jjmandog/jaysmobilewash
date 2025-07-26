@@ -54,18 +54,24 @@
                 <a href="index.html" class="flex items-center">
                     <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash Logo" class="h-14">
                 </a>
-                <nav class="hidden lg:flex space-x-10">
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="index.html#services" class="font-medium hover:text-purple-400 transition-colors hover-glow">Services</a>
                     <a href="index.html#packages" class="font-medium hover:text-purple-400 transition-colors hover-glow">Packages</a>
-                    <a href="index.html#deep-detail" class="font-medium hover:text-purple-400 transition-colors hover-glow">Deep Detail Options</a>
-                    <a href="index.html#mobile-washing" class="font-medium hover:text-purple-400 transition-colors hover-glow">Mobile Washing</a>
+                    <a href="index.html#pricing" class="font-medium hover:text-purple-400 transition-colors hover-glow">Pricing</a>
                     <a href="index.html#products" class="font-medium hover:text-purple-400 transition-colors hover-glow">Products</a>
-                    <a href="index.html#locations" class="font-medium hover:text-purple-400 transition-colors hover-glow">Locations</a>
+                    <a href="index.html#locations" class="font-medium hover:text-purple-400 transition-colors hover-glow">Service Areas</a>
+                    <a href="index.html#reviews" class="font-medium hover:text-purple-400 transition-colors hover-glow">Reviews</a>
+                    <a href="index.html#media" class="font-medium hover:text-purple-400 transition-colors hover-glow">Media</a>
+                    <a href="index.html#faq" class="font-medium hover:text-purple-400 transition-colors hover-glow">FAQ</a>
                 </nav>
                 <div class="flex items-center space-x-4">
-                    <a href="tel:5622289429" class="bg-purple-600 text-white rounded-lg px-6 py-2 font-medium hidden md:block hover:bg-purple-700 transition-colors btn-glow">
+                    <a href="index.html#contact" class="bg-purple-600 text-white rounded-lg px-6 py-2 font-medium hidden md:block hover:bg-purple-700 transition-colors btn-glow">
+                        Contact Us
+                    </a>
+                    <a href="tel:5622289429" class="bg-transparent border border-purple-500 text-purple-400 rounded-lg px-4 py-2 font-medium hidden md:block hover:bg-purple-500/10 transition-colors btn-glow">
                         Call Now
                     </a>
-                    <button id="menu-toggle" class="lg:hidden focus:outline-none">
+                    <button id="menu-toggle" class="lg:hidden focus:outline-none text-white z-50 relative">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -74,11 +80,15 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="lg:hidden hidden bg-gray-900 shadow-xl">
             <div class="max-w-7xl mx-auto px-6 py-4 space-y-3">
+                <a href="index.html#services" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Services</a>
                 <a href="index.html#packages" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Packages</a>
-                <a href="index.html#deep-detail" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Deep Detail Options</a>
-                <a href="index.html#mobile-washing" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Mobile Washing</a>
+                <a href="index.html#pricing" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Pricing</a>
                 <a href="index.html#products" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Products</a>
-                <a href="index.html#locations" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Locations</a>
+                <a href="index.html#locations" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Service Areas</a>
+                <a href="index.html#reviews" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Reviews</a>
+                <a href="index.html#media" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Media</a>
+                <a href="index.html#faq" class="block font-medium hover:text-purple-400 transition-colors hover-glow">FAQ</a>
+                <a href="index.html#contact" class="block font-medium hover:text-purple-400 transition-colors hover-glow">Contact Us</a>
                 <a href="tel:5622289429" class="block text-purple-400 hover-glow">
                     <i class="fas fa-phone-alt mr-2"></i>562-228-9429
                 </a>
@@ -424,5 +434,25 @@
 
     <!-- Scripts -->
     <script src="scripts.js"></script>
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
