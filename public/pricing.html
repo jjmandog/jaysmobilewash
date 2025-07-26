@@ -689,113 +689,6 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* Admin Panel */
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100vh;
-            background: linear-gradient(135deg, #1f2937, #374151);
-            border-left: 2px solid #a855f7;
-            transition: right 0.3s ease;
-            z-index: 1000;
-            overflow-y: auto;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .admin-panel.open {
-            right: 0;
-        }
-        
-        .admin-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(168, 85, 247, 0.3);
-            color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.15);
-            transition: all 0.3s ease;
-            font-size: 12px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .admin-toggle:hover {
-            background: rgba(147, 51, 234, 0.5);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25);
-        }
-        
-        .admin-input {
-            width: 100%;
-            padding: 8px 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            color: white;
-            font-size: 14px;
-        }
-        
-        .admin-input:focus {
-            outline: none;
-            border-color: #a855f7;
-            box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
-        }
-        
-        .admin-button {
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .admin-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-        }
-        
-        .admin-button.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .color-picker-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .color-preview {
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .admin-panel {
-                width: 100%;
-                right: -100%;
-            }
-            
-            .car-container {
-                padding: 10px;
-            }
-        }
-
         /* Package Cards Styling */
         .package-card {
             position: relative;
@@ -898,38 +791,6 @@
       </nav>
     </header>
 
-    <!-- Admin Toggle Button -->
-    <button id="admin-toggle" class="admin-toggle" title="Open Admin Panel">
-        <i class="fas fa-cog"></i>
-    </button>
-
-    <!-- Admin Panel -->
-    <div id="admin-panel" class="admin-panel">
-        <div class="p-6">
-            <h2 class="text-2xl font-bold mb-4 gradient-text">
-                <i class="fas fa-tools mr-2"></i>Admin Settings
-            </h2>
-            
-            <!-- Admin Status Indicator -->
-            <div id="admin-status" class="bg-green-500 bg-opacity-20 border border-green-500 rounded-lg p-3 mb-6">
-                <div class="flex items-center">
-                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
-                    <div class="flex-1">
-                        <span class="text-green-400 font-semibold">
-                            <i class="fas fa-shield-alt mr-2"></i>Admin Authenticated
-                        </span>
-                        <div class="text-sm text-green-300 mt-1">
-                            🌍 Changes will be saved globally for all users
-                        </div>
-                    </div>
-                    <span id="session-timer" class="text-sm text-green-300"></span>
-                </div>
-            </div>
-            
-            <!-- Additional admin controls would go here -->
-        </div>
-    </div>
-            
     <main class="pt-20 pb-10" id="main-content" tabindex="-1">
       <section class="container mx-auto px-4 sm:px-6 lg:px-8">
         <header class="text-center mb-12">
@@ -1141,13 +1002,13 @@
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
                     <i class="fas fa-engine text-blue-400 text-2xl mb-2" aria-hidden="true"></i>
                     <h4 class="font-semibold mb-1">Engine Bay Clean</h4>
-                    <p class="text-green-400 font-bold">$35</p>
-                    <p class="text-xs text-gray-400 mt-1">Steam cleaning & degreasing</p>
+                    <p class="text-green-400 font-bold">$50</p>
+                    <p class="text-xs text-gray-400 mt-1">HAND CLEANED ONLY - NO WATER PRESSURE! Safety is key</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
                     <i class="fas fa-lightbulb text-yellow-400 text-2xl mb-2" aria-hidden="true"></i>
                     <h4 class="font-semibold mb-1">Headlight Restoration</h4>
-                    <p class="text-green-400 font-bold">$45</p>
+                    <p class="text-green-400 font-bold">$20 per headlight</p>
                     <p class="text-xs text-gray-400 mt-1">Remove cloudiness & yellowing</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
@@ -1193,36 +1054,58 @@
                     <p class="text-xs text-gray-400 mt-1">UV protection for plastic trim</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-bomb text-red-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">BIOBOMB Odor Elimination</h4>
+                    <p class="text-green-400 font-bold">$25-50</p>
+                    <p class="text-xs text-gray-400 mt-1">Complete odor neutralization</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
                     <i class="fas fa-spa text-pink-400 text-2xl mb-2" aria-hidden="true"></i>
                     <h4 class="font-semibold mb-1">Custom Scenting</h4>
                     <p class="text-green-400 font-bold">$15</p>
                     <p class="text-xs text-gray-400 mt-1">Premium fragrance application</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
-                    <i class="fas fa-bomb text-red-400 text-2xl mb-2" aria-hidden="true"></i>
-                    <h4 class="font-semibold mb-1">BIOBOMB Odor Elimination</h4>
-                    <p class="text-green-400 font-bold">$25-50</p>
-                    <p class="text-xs text-gray-400 mt-1">Complete odor neutralization</p>
-                  </article>
-                    <p class="text-xs text-gray-400 mt-1">Based on area & vehicle condition</p>
+                    <i class="fas fa-tools text-blue-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Carpet Shampooing</h4>
+                    <p class="text-green-400 font-bold">$40-80</p>
+                    <p class="text-xs text-gray-400 mt-1">Deep carpet cleaning & extraction</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
-                    <i class="fas fa-shield text-purple-400 text-2xl mb-2" aria-hidden="true"></i>
-                    <h4 class="font-semibold mb-1">Exterior Trim Restoration</h4>
-                    <p class="text-green-400 font-bold">$20-30</p>
-                    <p class="text-xs text-gray-400 mt-1">Restore plastic & rubber trim</p>
+                    <i class="fas fa-snowflake text-cyan-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Leather Conditioning</h4>
+                    <p class="text-green-400 font-bold">$30-50</p>
+                    <p class="text-xs text-gray-400 mt-1">Protect & restore leather surfaces</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
-                    <i class="fas fa-spray-can text-pink-400 text-2xl mb-2" aria-hidden="true"></i>
-                    <h4 class="font-semibold mb-1">Custom Scent</h4>
-                    <p class="text-green-400 font-bold">$15</p>
-                    <p class="text-xs text-gray-400 mt-1">Your choice of fragrance</p>
+                    <i class="fas fa-microscope text-green-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Seat Conditioning</h4>
+                    <p class="text-green-400 font-bold">$25-40</p>
+                    <p class="text-xs text-gray-400 mt-1">Deep conditioning for all seat types</p>
                   </article>
                   <article class="bg-gray-800 rounded-lg p-4 text-center">
-                    <i class="fas fa-temperature-high text-orange-400 text-2xl mb-2" aria-hidden="true"></i>
-                    <h4 class="font-semibold mb-1">Professional Steam Cleaning</h4>
-                    <p class="text-green-400 font-bold">$40-50</p>
-                    <p class="text-xs text-gray-400 mt-1">High-temp sanitizing clean</p>
+                    <i class="fas fa-wind text-purple-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Ozone Treatment</h4>
+                    <p class="text-green-400 font-bold">$75-100</p>
+                    <p class="text-xs text-gray-400 mt-1">Eliminate odors at molecular level</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-leaf text-green-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Bio-Enzyme Degreasing</h4>
+                    <p class="text-green-400 font-bold">$20-35</p>
+                    <p class="text-xs text-gray-400 mt-1">Natural stain & grease breakdown</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-gem text-yellow-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Chrome & Metal Polishing</h4>
+                    <p class="text-green-400 font-bold">$25-40</p>
+                    <p class="text-xs text-gray-400 mt-1">Restore shine to metal surfaces</p>
+                  </article>
+                  <article class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-brush text-orange-400 text-2xl mb-2" aria-hidden="true"></i>
+                    <h4 class="font-semibold mb-1">Pressure Washing</h4>
+                    <p class="text-green-400 font-bold">$15-25</p>
+                    <p class="text-xs text-gray-400 mt-1">High-pressure exterior cleaning</p>
                   </article>
                 </div>
                 
@@ -1911,7 +1794,6 @@
             // Then initialize everything else
             initializePricingTool();
             setupEventListeners();
-            setupAdminPanel();
             setupPackageButtons();
             updateDisplay();
             generateServiceLevelButtons();
