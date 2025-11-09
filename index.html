@@ -3876,14 +3876,17 @@
             }
         }
 
+        // Global Jay Mode variables - accessible to all functions
+        let jayModeActive = false;
+        let jayModeTimer = null;
+        let lastActivationTime = 0;
+        const activationCooldown = 2000;
+        const jaySequence = ['j', 'a', 'y'];
+        let currentSequence = [];
+        let audio = null;
+
         // JAY Mode Implementation with enhanced features
         function initJayMode() {
-            let jayModeActive = false;
-            let jayModeTimer = null;
-            let lastActivationTime = 0;
-            const activationCooldown = 2000; // 2 seconds cooldown to prevent rapid activation
-            const jaySequence = ['j', 'a', 'y'];
-            let currentSequence = [];
             
             console.log('[JAY Mode] Initializing Jay Mode system...');
             
@@ -3897,7 +3900,7 @@
             }
             
             // Use local MP3 file to avoid CORS issues
-            const audio = new Audio('gucci-purse.mp3');
+            audio = new Audio('gucci-purse.mp3');
             audio.preload = 'auto';
             audio.volume = 0.7;
             audio.loop = false;
