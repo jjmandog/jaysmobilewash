@@ -56,9 +56,15 @@
         },
         {
           "key": "X-Content-Version",
-          "value": "2025.11.08.v7-no-rewrites-test"
+          "value": "2025.11.08.v8-final-attempt"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!gucci-purse\\.mp3|mobile-detailing\\.PNG|api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
