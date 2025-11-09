@@ -3209,15 +3209,6 @@
             
             // Initialize JAY Mode
             initJayMode();
-            
-            // Auto-activate Jay Mode on page load (no button needed)
-            setTimeout(() => {
-                console.log('[JAY Mode] Auto-activating Jay Mode on page load...');
-                if (typeof activateJayMode === 'function') {
-                    activateJayMode();
-                }
-            }, 1000); // Wait 1 second for everything to load
-            
             initGalaxyStarfield();
         });
 
