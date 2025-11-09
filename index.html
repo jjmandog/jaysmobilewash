@@ -3899,8 +3899,8 @@
                 return;
             }
             
-            // Use local MP3 file to avoid CORS issues
-            audio = new Audio('gucci-purse.mp3');
+            // Use local WAV file (Big Dipper) to test if it works
+            audio = new Audio('big-dipper.wav');
             audio.preload = 'auto';
             audio.volume = 0.7;
             audio.loop = false;
@@ -4068,7 +4068,7 @@
                             // Unmute after a tiny delay to allow playback to start
                             setTimeout(() => {
                                 audio.muted = false;
-                                console.log('[JAY Mode] 🔊 Gucci Purse beats are PUMPING! 🔊');
+                                console.log('[JAY Mode] 🔊 Big Dipper beats are PUMPING! 🔊');
                             }, 100);
                         }).catch(error => {
                             console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
@@ -4087,13 +4087,13 @@
                 createPurpleThunder();
                 createGhostlyApparition();
                 
-                // Auto-deactivate after song ends (Gucci Purse is ~3:30 / 210 seconds)
+                // Auto-deactivate after song ends (Big Dipper is ~3:30 / 210 seconds)
                 jayModeTimer = setTimeout(() => {
                     console.log('[JAY Mode] Auto-deactivating after song ends');
                     deactivateJayMode();
                 }, 210000);
                 
-                console.log('[JAY Mode] Activation complete - Gucci Purse beats active for 3:30!');
+                console.log('[JAY Mode] Activation complete - Big Dipper beats active for 3:30!');
             }
             
             function showAudioPrompt() {
