@@ -3896,10 +3896,12 @@
                 return;
             }
             
-            // Use local WAV file to avoid CORS issues
-            const audio = new Audio('big-dipper.wav');
+            // Use local MP3 file to avoid CORS issues
+            const audio = new Audio('gucci-purse.mp3');
             audio.preload = 'auto';
             audio.volume = 0.7;
+            audio.loop = false;
+            audio.crossOrigin = 'anonymous';
             
             // Enhanced error handling for audio
             audio.addEventListener('error', (e) => {
@@ -4038,12 +4040,27 @@
                     }
                 }, 3000);
                 
-                // Enhanced audio handling with user-friendly error messages
+                // Enhanced audio handling with muted workaround for autoplay restrictions
                 try {
-                    await audio.play();
-                    console.log('[JAY Mode] 🔊 BLP Kosher beats are pumping! 🔊');
+                    // Try with muted first (browsers allow muted autoplay)
+                    audio.muted = true;
+                    const playPromise = audio.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log('[JAY Mode] 🔊 Audio started (muted due to autoplay policy)');
+                            // Unmute after a tiny delay to allow playback to start
+                            setTimeout(() => {
+                                audio.muted = false;
+                                console.log('[JAY Mode] 🔊 Gucci Purse beats are PUMPING! 🔊');
+                            }, 100);
+                        }).catch(error => {
+                            console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
+                            showAudioPrompt();
+                        });
+                    }
                 } catch (error) {
-                    console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
+                    console.warn('[JAY Mode] Audio error:', error.message);
                     showAudioPrompt();
                 }
                 
@@ -4054,13 +4071,13 @@
                 createPurpleThunder();
                 createGhostlyApparition();
                 
-                // Auto-deactivate after 1:11 (71 seconds) - duration of Big Dipper song
+                // Auto-deactivate after song ends (Gucci Purse is ~3:30 / 210 seconds)
                 jayModeTimer = setTimeout(() => {
-                    console.log('[JAY Mode] Auto-deactivating after 1:11 (Big Dipper song complete)');
+                    console.log('[JAY Mode] Auto-deactivating after song ends');
                     deactivateJayMode();
-                }, 71000);
+                }, 210000);
                 
-                console.log('[JAY Mode] Activation complete - effects active for 1:11 (Big Dipper song duration)');
+                console.log('[JAY Mode] Activation complete - Gucci Purse beats active for 3:30!');
             }
             
             function showAudioPrompt() {
@@ -4558,6 +4575,18 @@
             }
             
             console.log('[JAY Mode] Jay Mode system initialized successfully! 🎵');
+            
+            // Auto-activate Jay Mode on page load
+            setTimeout(() => {
+                console.log('[JAY Mode] Auto-activating Jay Mode on page load...');
+                activateJayMode();
+                
+                // Also activate chatbot Jay Mode if available
+                if (window.advancedChatbot && typeof window.advancedChatbot.activateJayMode === 'function') {
+                    console.log('[JAY Mode] Also activating chatbot Jay Mode');
+                    window.advancedChatbot.activateJayMode();
+                }
+            }, 500);
         }
 
         // Toggle package details

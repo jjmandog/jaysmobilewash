@@ -1484,30 +1484,29 @@
                     </div>
                 </div>
                 <div class="flex-1"></div>
-                <div class="-mr-2 flex md:hidden items-center gap-2">
+                <div class="-mr-2 flex md:hidden">
                     <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-purple-300 focus:outline-none" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
-                    <span class="text-white text-sm font-medium">Menu</span>
                 </div>
             </div>
         </div>
 
         <!-- Mobile menu, show/hide based on menu state -->
-        <div class="md:hidden hidden absolute top-16 left-0 right-0 bg-opacity-95 backdrop-filter backdrop-blur-lg bg-gray-900 border-b border-purple-500 z-40" id="mobile-menu">
-            <div class="px-2 py-2 space-y-0 sm:px-3">
-                <a href="#services" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Services</a>
-                <a href="#packages" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Packages</a>
-                <a href="#packages" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800 pricing-nav-link" onclick="scrollToPackagesThenPricing(event)">Pricing</a>
-                <a href="#products" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Products</a>
-                <a href="#locations" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Service Areas</a>
-                <a href="#testimonials" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Reviews</a>
-                <a href="#media" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">Media</a>
-                <a href="#faq" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-purple-300 hover:bg-gray-800">FAQ</a>
-                <a href="#contact" class="block mt-2 mx-2 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-center text-white">Contact Us</a>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Services</a>
+                <a href="#packages" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Packages</a>
+                <a href="#packages" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300 pricing-nav-link" onclick="scrollToPackagesThenPricing(event)">Pricing</a>
+                <a href="#products" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Products</a>
+                <a href="#locations" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Service Areas</a>
+                <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Reviews</a>
+                <a href="#media" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">Media</a>
+                <a href="#faq" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-300">FAQ</a>
+                <a href="#contact" class="block mt-4 mx-2 px-4 py-2 rounded-md text-base font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-center">Contact Us</a>
             </div>
         </div>
     </nav>
@@ -4041,7 +4040,7 @@
                     }
                 }, 3000);
                 
-                // Enhanced audio handling with muting workaround for autoplay restrictions
+                // Enhanced audio handling with muted workaround for autoplay restrictions
                 try {
                     // Try with muted first (browsers allow muted autoplay)
                     audio.muted = true;
