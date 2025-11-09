@@ -3900,7 +3900,7 @@
             }
 
             // Use local MP3 file to avoid CORS issues
-            audio = new Audio('gucci-purse.mp3');
+            audio = new Audio('big-dipper.wav');
             audio.preload = 'auto';
             audio.volume = 0.7;
             audio.loop = false;
@@ -4060,7 +4060,7 @@
                     });
                     audio.muted = true;
                     const playPromise = audio.play();
-                    
+
                     if (playPromise !== undefined) {
                         playPromise.then(() => {
                             console.log('[JAY Mode] 🔊 Audio started (muted due to autoplay policy)');
