@@ -3901,6 +3901,8 @@
             const audio = new Audio('gucci-purse.mp3');
             audio.preload = 'auto';
             audio.volume = 0.7;
+            audio.loop = false;
+            audio.crossOrigin = 'anonymous';
             
             // Enhanced error handling for audio
             audio.addEventListener('error', (e) => {
@@ -4039,12 +4041,27 @@
                     }
                 }, 3000);
                 
-                // Enhanced audio handling with user-friendly error messages
+                // Enhanced audio handling with muting workaround for autoplay restrictions
                 try {
-                    await audio.play();
-                    console.log('[JAY Mode] 🔊 BLP Kosher beats are pumping! 🔊');
+                    // Try with muted first (browsers allow muted autoplay)
+                    audio.muted = true;
+                    const playPromise = audio.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log('[JAY Mode] 🔊 Audio started (muted due to autoplay policy)');
+                            // Unmute after a tiny delay to allow playback to start
+                            setTimeout(() => {
+                                audio.muted = false;
+                                console.log('[JAY Mode] 🔊 Gucci Purse beats are PUMPING! 🔊');
+                            }, 100);
+                        }).catch(error => {
+                            console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
+                            showAudioPrompt();
+                        });
+                    }
                 } catch (error) {
-                    console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
+                    console.warn('[JAY Mode] Audio error:', error.message);
                     showAudioPrompt();
                 }
                 
@@ -4061,7 +4078,7 @@
                     deactivateJayMode();
                 }, 210000);
                 
-                console.log('[JAY Mode] Activation complete - effects active for 1:11 (Big Dipper song duration)');
+                console.log('[JAY Mode] Activation complete - Gucci Purse beats active for 3:30!');
             }
             
             function showAudioPrompt() {
