@@ -3905,6 +3905,12 @@
             audio.volume = 0.7;
             audio.loop = false;
             audio.crossOrigin = 'anonymous';
+            console.log('[JAY Mode INIT] Created audio element:', {
+                src: audio.src,
+                currentSrc: audio.currentSrc,
+                volume: audio.volume,
+                timestamp: new Date().toISOString()
+            });
 
             // Enhanced error handling for audio
             audio.addEventListener('error', (e) => {
@@ -4046,12 +4052,19 @@
                 // Enhanced audio handling with muted workaround for autoplay restrictions
                 try {
                     // Try with muted first (browsers allow muted autoplay)
+                    console.log('[JAY Mode] About to play audio:', {
+                        audioObject: audio,
+                        audioSrc: audio?.src,
+                        audioCurrentSrc: audio?.currentSrc,
+                        audioReadyState: audio?.readyState
+                    });
                     audio.muted = true;
                     const playPromise = audio.play();
-
+                    
                     if (playPromise !== undefined) {
                         playPromise.then(() => {
                             console.log('[JAY Mode] 🔊 Audio started (muted due to autoplay policy)');
+                            console.log('[JAY Mode] Playing audio SRC:', audio.src);
                             // Unmute after a tiny delay to allow playback to start
                             setTimeout(() => {
                                 audio.muted = false;
@@ -4065,9 +4078,7 @@
                 } catch (error) {
                     console.warn('[JAY Mode] Audio error:', error.message);
                     showAudioPrompt();
-                }
-
-                // Create visual effects
+                }                // Create visual effects
                 createJayParticles();
                 createLaserEffects();
                 createAxyStars();
@@ -4582,6 +4593,11 @@
             // Auto-activate Jay Mode on page load
             setTimeout(() => {
                 console.log('[JAY Mode] Auto-activating Jay Mode on page load...');
+                console.log('[JAY Mode] Global audio state before auto-activate:', {
+                    audio: !!audio,
+                    audioSrc: audio?.src,
+                    audioReadyState: audio?.readyState
+                });
                 activateJayMode();
 
                 // Also activate chatbot Jay Mode if available
