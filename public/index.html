@@ -1203,50 +1203,9 @@
         }
         
         /* Jay Mode Activation Button */
+        /* Jay Mode Activation Button - HIDDEN (auto-activates on load) */
         .jay-mode-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            background: linear-gradient(135deg, #ff006e, #8338ec);
-            border: none;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        .jay-mode-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(255, 0, 110, 0.5);
-            background: linear-gradient(135deg, #ff006e, #9d4edd);
-        }
-        
-        .jay-mode-button:active {
-            transform: translateY(-1px) scale(1.02);
-        }
-        
-        .jay-mode-button i {
-            font-size: 18px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        /* Hide button when Jay Mode is active */
-        .jay-activated .jay-mode-button {
-            display: none;
+            display: none !important;
         }
         
         /* Galaxy Starfield Overlay */
@@ -3398,12 +3357,6 @@
         </div>
     </div>
 
-    <!-- Jay Mode Activation Button -->
-    <button id="jay-mode-button" class="jay-mode-button" title="Activate Jay Mode (or type 'jay')" aria-label="Activate Jay Mode">
-        <i class="fas fa-music"></i>
-        <span>Click me for a surprise!</span>
-    </button>
-
     <!-- Persistent Jay Mode Indicator (sticky during Jay Mode) -->
     <div id="jay-mode-indicator" class="jay-mode-indicator hidden">
         <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="JAY MODE" class="indicator-logo">
@@ -3830,6 +3783,15 @@
             
             // Initialize JAY Mode
             initJayMode();
+            
+            // Auto-activate Jay Mode on page load (no button needed)
+            setTimeout(() => {
+                console.log('[JAY Mode] Auto-activating Jay Mode on page load...');
+                if (typeof activateJayMode === 'function') {
+                    activateJayMode();
+                }
+            }, 1000); // Wait 1 second for everything to load
+            
             initGalaxyStarfield();
         });
 
