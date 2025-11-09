@@ -3916,8 +3916,8 @@
                 console.log('[JAY Mode] Audio loaded successfully');
             });
 
-            // Key detection disabled - Jay Mode auto-activates on page load instead
-            // document.addEventListener('keypress', handleKeyPress);
+            // Key detection - Jay Mode can be activated by typing "jay" OR auto-activation on load
+            document.addEventListener('keypress', handleKeyPress);
 
             // Button activation
             if (jayButton) {
