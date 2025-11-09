@@ -1,0 +1,82 @@
+# Git Attributes for Jay's Mobile Wash
+# Ensures consistent line endings and proper diff handling
+
+# Auto detect text files and normalize line endings
+* text=auto
+
+# Source code
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.html text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Configuration files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.eslintrc* text eol=lf
+.prettierrc* text eol=lf
+package.json text eol=lf
+package-lock.json text eol=lf
+tsconfig.json text eol=lf
+vercel.json text eol=lf
+next.config.js text eol=lf
+
+# Documentation
+*.md text eol=lf diff=markdown
+LICENSE text eol=lf
+README text eol=lf
+CHANGELOG text eol=lf
+CONTRIBUTING text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.svg binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.mp4 binary
+*.webm binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.rar binary
+
+# Linguist language statistics
+*.html linguist-detectable=true
+*.css linguist-detectable=true
+*.js linguist-detectable=true
+
+# Treat vendor files as generated
+public/vendor/** linguist-vendored
+node_modules/** linguist-vendored
+
+# Git diff settings
+*.json diff=json
+*.md diff=markdown

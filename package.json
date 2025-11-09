@@ -1,9 +1,30 @@
 {
   "name": "jaysmobilewash",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
-  "description": "Jay's Mobile Wash - Premium mobile car detailing service",
+  "description": "Jay's Mobile Wash - Premium mobile car detailing service in Los Angeles & Orange County",
   "main": "index.html",
+  "keywords": [
+    "mobile car wash",
+    "car detailing",
+    "ceramic coating",
+    "paint correction",
+    "los angeles",
+    "orange county",
+    "mobile detailing",
+    "auto detailing",
+    "car care"
+  ],
+  "author": "Jay's Mobile Wash",
+  "license": "ISC",
+  "homepage": "https://jaysmobilewash.net",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjmandog/jaysmobilewash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jjmandog/jaysmobilewash/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -50,14 +71,7 @@
     "vercel": "^44.2.10",
     "vitest": "^3.2.4"
   },
-  "keywords": [
-    "mobile",
-    "car",
-    "detailing",
-    "wash",
-    "los-angeles",
-    "orange-county"
-  ],
-  "author": "Jay's Mobile Wash",
-  "license": "ISC"
-}
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }

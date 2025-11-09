@@ -115,7 +115,6 @@ export default function Home() {
       {/* External Scripts */}
       <Script src="spa-seo-head-manager.js" strategy="afterInteractive" />
       <Script src="main.js" strategy="afterInteractive" />
-      <Script src="advanced-chatbot.js?v=3.0.0-clean" strategy="afterInteractive" />
       <Script src="invalid-route-handler.js" strategy="afterInteractive" />
       
       {/* Clean auto-redirecting landing page */}

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jays-mobile-wash-v5-FINAL-FREE-MODELS';
+const CACHE_NAME = 'jays-mobile-wash-v6-no-chatbot';
 const urlsToCache = [
     '/',
     '/index.html',

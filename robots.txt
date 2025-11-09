@@ -1,23 +1,19 @@
 # Robots.txt for Jay's Mobile Wash
-# Advanced SEO Configuration with Hash URL Blocking
-# Generated: 2025-07-01
+# SEO Optimized Configuration
+# Last Updated: November 8, 2025
 
 User-agent: *
 Allow: /
+Allow: /services/
 Allow: /ceramic-coating/
 Allow: /paint-correction/
-Allow: /mobile-detailing/
-Allow: /mobile-washing/
+Allow: /interior-detailing/
+Allow: /locations/
 Allow: /packages/
 Allow: /products/
-Allow: /locations/
 Allow: /sitemap.xml
-Allow: /sitemap-index.xml
-Allow: /sitemap-backlinks.xml
-Allow: /sitemap-backlinks-extended.xml
-Allow: /sitemap-comprehensive.xml
 
-# Block hash URLs and fragments (comprehensive coverage)
+# Block hash URLs and query parameters
 Disallow: /#
 Disallow: /*#*
 Disallow: /*?*
@@ -27,25 +23,45 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /tmp/
-Disallow: *.pdf$
+Disallow: /_next/
+Disallow: /node_modules/
 
-# Googlebot specific
+# Block test files
+Disallow: /*-test.html
+Disallow: /chatbot-test.html
+Disallow: /simple-test.html
+Disallow: /debug-*.html
+
+# Block temporary and backup files
+Disallow: /*.bak$
+Disallow: /*.backup$
+Disallow: /*.old$
+Disallow: /*.tmp$
+
+# Googlebot specific rules
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
-# Bingbot specific
+# Bingbot specific rules
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Sitemaps - Optimized for Maximum SEO Performance
-Sitemap: https://www.jaysmobilewash.net/sitemap-index-enhanced.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-seo-optimized.xml
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemaps - Production URLs only
 Sitemap: https://www.jaysmobilewash.net/sitemap.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-index.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks-extended.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-comprehensive.xml
 Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks.xml
+Sitemap: https://www.jaysmobilewash.net/sitemap-comprehensive.xml
