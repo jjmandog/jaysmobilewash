@@ -241,7 +241,8 @@ function getStep1HTML() {
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-purple-300 mb-4">Vehicle Type</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    ${['Sedan', 'SUV', 'Truck', 'Sports Car', 'Luxury', 'Van', 'Motorcycle', 'Other'].map(type => `
+                    <div class="grid grid-cols-3 gap-3">
+                    ${['Sedan', 'SUV', 'Other'].map(type => `
                         <div class="car-type-option p-3 border border-purple-500/30 rounded-lg cursor-pointer hover:border-purple-400 transition-colors text-center" data-car-type="${type.toLowerCase()}">
                             <i class="fas fa-car text-purple-400 mb-2"></i>
                             <div class="text-white text-sm">${type}</div>
