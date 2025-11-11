@@ -1,30 +1,24 @@
 /**
- * 🚀 SMART SERVICE WORKER - ADVANCED PERFORMANCE
- * Jay's Mobile Wash - Revolutionary Caching System
- * Version: v7-lag-buster-rocket
+ * 🚀 CLEAN SERVICE WORKER - JAY'S MOBILE WASH
+ * Version: v8-clean-restore
  */
 
-const CACHE_NAME = 'jays-mobile-wash-v7-lag-buster-rocket';
-const CACHE_VERSION = '2025.11.11-lag-buster';
+const CACHE_NAME = 'jays-mobile-wash-v8-clean-restore';
+const CACHE_VERSION = '2025.11.11-clean';
 
-// Advanced caching strategies
+// Clean caching strategies without LAG BUSTER
 const CACHE_STRATEGIES = {
     // Critical resources - Cache first with network fallback
     critical: [
         '/',
         '/index.html',
-        '/manifest.json',
-        '/instant-performance-loader.js',
-        '/advanced-performance.css',
-        '/lag-buster.js',
-        '/anti-lag.css'
+        '/manifest.json'
     ],
 
     // Booking system - Network first for fresh data
     booking: [
         '/booking-system.js',
-        '/booking-system.css',
-        '/api/book-appointment'
+        '/booking-system.css'
     ],
 
     // Static assets - Cache first
