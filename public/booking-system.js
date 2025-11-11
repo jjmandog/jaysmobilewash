@@ -33,6 +33,18 @@ const PACKAGES = {
         price: 200,
         description: 'Everything in Luxury PLUS Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, Clay Bar Treatment',
         duration: '3 hours'
+    },
+    'ceramic-coating': {
+        name: 'Ceramic Coating Package',
+        price: 450,
+        description: '2-Year Warranty Protection with premium ceramic coating application',
+        duration: '4-6 hours'
+    },
+    'graphene-coating': {
+        name: 'Graphene Coating Package',
+        price: 800,
+        description: '5-Year Warranty Protection with advanced graphene nanotechnology',
+        duration: '6-8 hours'
     }
 };
 
@@ -1046,7 +1058,7 @@ function updateStep1NextButton() {
         const hasPackage = bookingState.packageType;
         const hasServices = bookingState.packageType !== 'custom' || bookingState.customServices.length > 0;
         const hasCarType = bookingState.carType;
-        
+
         // Check if "Other" is selected and input is filled
         let hasValidCarType = hasCarType;
         if (bookingState.carType === 'other') {
@@ -1101,7 +1113,7 @@ function validateStep2() {
     // Combine address fields for display
     bookingState.customerData.address = `${formData.get('streetAddress')}, ${formData.get('city')}, CA ${formData.get('zipCode')}`;
     bookingState.customerData.carType = bookingState.carType;
-    
+
     // Include custom vehicle type if "Other" is selected
     if (bookingState.carType === 'other') {
         const otherInput = document.getElementById('other-vehicle-type');

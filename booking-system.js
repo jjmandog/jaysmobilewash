@@ -32,6 +32,18 @@ const PACKAGES = {
         price: 200,
         description: 'Everything in Luxury PLUS Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, Clay Bar Treatment',
         duration: '3 hours'
+    },
+    'ceramic-coating': {
+        name: 'Ceramic Coating Package',
+        price: 450,
+        description: '2-Year Warranty Protection with premium ceramic coating application',
+        duration: '4-6 hours'
+    },
+    'graphene-coating': {
+        name: 'Graphene Coating Package',
+        price: 800,
+        description: '5-Year Warranty Protection with advanced graphene nanotechnology',
+        duration: '6-8 hours'
     }
 };
 
