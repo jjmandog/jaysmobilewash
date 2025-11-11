@@ -144,11 +144,11 @@
 }
 
 /* Form Input Styles */
-input[type="text"], 
-input[type="email"], 
-input[type="tel"], 
-input[type="date"], 
-select, 
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
 textarea {
     transition: all 0.3s ease;
 }
@@ -237,6 +237,7 @@ button:hover::before {
 #booking-modal {
     backdrop-filter: blur(8px);
     animation: fadeIn 0.3s ease-out;
+    z-index: 99999 !important; /* Force highest z-index */
 }
 
 @keyframes fadeIn {
@@ -269,18 +270,18 @@ button:hover::before {
     .step-indicator {
         font-size: 0.75rem;
     }
-    
+
     .step-circle {
         width: 32px;
         height: 32px;
         font-size: 0.875rem;
     }
-    
+
     #booking-modal > div > div {
         margin: 1rem;
         max-height: calc(100vh - 2rem);
     }
-    
+
     .package-option, .custom-service-item {
         padding: 1rem;
     }
@@ -301,7 +302,7 @@ button:hover::before {
         border: 3px solid #ffffff;
         background: #000000;
     }
-    
+
     .step-indicator.active .step-circle {
         border: 2px solid #ffffff;
     }
@@ -314,7 +315,7 @@ button:hover::before {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
+
     .floating-book-button {
         animation: none;
     }
@@ -326,7 +327,7 @@ button:hover::before {
         background: #1f2937;
         border-color: #4b5563;
     }
-    
+
     input, select, textarea {
         background: #1f2937 !important;
         border-color: #4b5563 !important;
@@ -398,11 +399,11 @@ button:hover::before {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
     }
-    
+
     #photo-upload-area {
         padding: 1.5rem;
     }
-    
+
     #photo-upload-area p {
         font-size: 0.875rem;
     }

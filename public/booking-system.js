@@ -152,7 +152,7 @@ function addFloatingBookButton() {
  */
 function createBookingModal() {
     const modalHTML = `
-        <div id="booking-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-sm">
+        <div id="booking-modal" class="fixed inset-0 z-[99999] hidden overflow-y-auto bg-black/80 backdrop-blur-sm">
             <div class="flex min-h-screen items-center justify-center p-4">
                 <div class="bg-gray-900 border border-purple-500/30 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
                     <!-- Modal Header -->
