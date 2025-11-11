@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test ntfy</title>
+</head>
+<body>
+    <h1>Testing ntfy notification...</h1>
+    <script>
+        // Send test notification
+        fetch('https://ntfy.sh/jays-mobile-wash-bookings-2025', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: "🧪 Test from Jay's Mobile Wash",
+                message: "Your ntfy integration is working! Setup is almost complete! 🎉",
+                tags: ["test", "car", "success"],
+                priority: 3
+            })
+        }).then(response => {
+            if (response.ok) {
+                document.body.innerHTML += '<p style="color: green; font-size: 20px;">✅ Test notification sent! Check your phone!</p>';
+            } else {
+                document.body.innerHTML += '<p style="color: red; font-size: 20px;">❌ Failed to send notification</p>';
+            }
+        });
+    </script>
+</body>
+</html>

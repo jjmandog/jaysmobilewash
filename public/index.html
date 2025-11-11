@@ -97,6 +97,10 @@
     <!-- Main JavaScript -->
     <script src="/main.js?v=2025.07.25.v2"></script>
 
+    <!-- Booking System Styles and Scripts -->
+    <link rel="stylesheet" href="/booking-system.css?v=2025.11.09.v1">
+    <script src="/booking-system.js?v=2025.11.09.v1" defer></script>
+
     <!-- Legacy chatbot handler (disabled) -->
 
 
@@ -1329,6 +1333,97 @@
                 filter: blur(8px);
             }
         }
+
+        /* Floating Reviews Animation - Optimized for Performance */
+        .floating-review {
+            animation: floatGhost 12s ease-in-out infinite;
+            opacity: 0;
+            transform: translate3d(0, 100px, 0);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        @keyframes floatGhost {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 100px, 0) scale(0.8);
+            }
+            10% {
+                opacity: 0.7;
+                transform: translate3d(5px, 0, 0) scale(1);
+            }
+            25% {
+                opacity: 0.9;
+                transform: translate3d(-3px, -15px, 0) scale(1.02);
+            }
+            50% {
+                opacity: 1;
+                transform: translate3d(8px, -25px, 0) scale(1);
+            }
+            75% {
+                opacity: 0.8;
+                transform: translate3d(-5px, 10px, 0) scale(0.98);
+            }
+            90% {
+                opacity: 0.3;
+                transform: translate3d(10px, -40px, 0) scale(0.9);
+            }
+            100% {
+                opacity: 0;
+                transform: translate3d(15px, -100px, 0) scale(0.7);
+            }
+        }
+
+        /* Individual review optimized delays and variations */
+        .review-1 {
+            animation-duration: 14s;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .review-2 {
+            animation-duration: 16s;
+            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .review-3 {
+            animation-duration: 13s;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .review-4 {
+            animation-duration: 15s;
+            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .review-5 {
+            animation-duration: 17s;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .review-6 {
+            animation-duration: 12s;
+            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Performance optimizations */
+        .floating-review .review-card {
+            transform: translateZ(0);
+            will-change: transform;
+            contain: layout;
+        }
+
+        /* Mobile responsive - hide on small screens to avoid clutter */
+        @media (max-width: 768px) {
+            .floating-review {
+                display: none;
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .floating-review {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                opacity: 0.7 !important;
+                transform: none !important;
+            }
+        }
     </style>
 
     <!-- Noscript fallback for crawlers -->
@@ -1524,7 +1619,7 @@
             </div>
             <!-- Particles Container -->
             <div class="particles-container absolute inset-0 pointer-events-none z-0" aria-hidden="true"></div>
-            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 z-2">
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20 md:pt-48 md:pb-28 z-2">
                 <header class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
                         <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
@@ -1538,6 +1633,9 @@
                         <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low" itemprop="telephone">
                             <i class="fas fa-phone-alt mr-2" aria-hidden="true"></i> Call (562) 228-9429
                         </a>
+                        <button onclick="window.JaysBookingSystem?.openBookingModal()" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg glow-button transform hover:scale-105 transition-all duration-300">
+                            <i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> Book Now - Free Quote
+                        </button>
                         <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
                         View Packages
                         </a>
@@ -1558,6 +1656,7 @@
                     </div>
                 </header>
             </div>
+
             <!-- Trust Badges -->
             <aside class="bg-gray-900 bg-opacity-50 py-6 mt-8 relative z-2" aria-label="Trust Badges">
                 <div class="container mx-auto px-4">
@@ -1583,6 +1682,69 @@
             </aside>
         </section>
     </main>
+
+    <!-- Floating Reviews positioned to viewport -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-30" aria-hidden="true">
+        <div class="floating-review review-1" style="position: fixed; top: 20vh; right: 5vw; animation-delay: 0s;">
+            <div class="review-card bg-purple-600 bg-opacity-20 backdrop-blur-sm border border-purple-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-medium">"Amazing ceramic coating! My car looks brand new!"</p>
+                <p class="text-purple-300 text-xs mt-1">- Maria L.</p>
+            </div>
+        </div>
+
+        <div class="floating-review review-2" style="position: fixed; top: 35vh; right: 8vw; animation-delay: 2s;">
+            <div class="review-card bg-pink-600 bg-opacity-20 backdrop-blur-sm border border-pink-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-medium italic">"Professional service, came right to my office!"</p>
+                <p class="text-pink-300 text-xs mt-1">- David R.</p>
+            </div>
+        </div>
+
+        <div class="floating-review review-3" style="position: fixed; top: 50vh; right: 3vw; animation-delay: 4s;">
+            <div class="review-card bg-blue-600 bg-opacity-20 backdrop-blur-sm border border-blue-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-bold">"Best detailing service in Orange County!"</p>
+                <p class="text-blue-300 text-xs mt-1">- Jennifer K.</p>
+            </div>
+        </div>
+
+        <div class="floating-review review-4" style="position: fixed; top: 25vh; right: 12vw; animation-delay: 6s;">
+            <div class="review-card bg-green-600 bg-opacity-20 backdrop-blur-sm border border-green-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-light">"Interior cleaning was incredible. Highly recommend!"</p>
+                <p class="text-green-300 text-xs mt-1">- Mike T.</p>
+            </div>
+        </div>
+
+        <div class="floating-review review-5" style="position: fixed; top: 40vh; right: 15vw; animation-delay: 8s;">
+            <div class="review-card bg-orange-600 bg-opacity-20 backdrop-blur-sm border border-orange-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-semibold">"Paint correction made my car shine like a mirror!"</p>
+                <p class="text-orange-300 text-xs mt-1">- Sarah M.</p>
+            </div>
+        </div>
+
+        <div class="floating-review review-6" style="position: fixed; top: 60vh; right: 6vw; animation-delay: 10s;">
+            <div class="review-card bg-indigo-600 bg-opacity-20 backdrop-blur-sm border border-indigo-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
+                <div class="flex items-center mb-2">
+                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p class="text-white text-sm font-mono">"Quick, efficient, and spotless results every time!"</p>
+                <p class="text-indigo-300 text-xs mt-1">- Carlos P.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Featured Image Section -->
     <section class="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
@@ -1994,7 +2156,7 @@
         <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-90vh overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 id="modal-title" class="text-2xl font-bold text-white"></h3>
+                    <h3 id="modal-title" class="text-2xl font-bold text-white">Product Details</h3>
                     <button onclick="closeProductModal()" class="text-gray-400 hover:text-white text-2xl">
                         <i class="fas fa-times"></i>
                     </button>
@@ -2317,7 +2479,7 @@
         <div class="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-start mb-4">
-                    <h3 id="modal-product-title" class="text-2xl font-bold gradient-text"></h3>
+                    <h3 id="modal-product-title" class="text-2xl font-bold gradient-text">Product Information</h3>
                     <button onclick="closeProductModal()" class="text-gray-400 hover:text-white">
                         <i class="fas fa-times text-xl"></i>
                     </button>
@@ -3922,8 +4084,8 @@
                 console.log('[JAY Mode] Audio loaded successfully');
             });
 
-            // Key detection - Jay Mode can be activated by typing "jay" OR auto-activation on load
-            document.addEventListener('keypress', handleKeyPress);
+            // Key detection - Jay Mode disabled to prevent conflict with Gucci Purse audio
+            // document.addEventListener('keypress', handleKeyPress);
 
             // Button activation
             if (jayButton) {
@@ -4049,35 +4211,20 @@
                     }
                 }, 3000);
 
-                // Enhanced audio handling with muted workaround for autoplay restrictions
+                // Enhanced audio handling - only play when user activates Jay Mode
                 try {
-                    // Try with muted first (browsers allow muted autoplay)
-                    console.log('[JAY Mode] About to play audio:', {
-                        audioObject: audio,
-                        audioSrc: audio?.src,
-                        audioCurrentSrc: audio?.currentSrc,
-                        audioReadyState: audio?.readyState
-                    });
-                    audio.muted = true;
+                    console.log('[JAY Mode] About to play audio:', audio.src);
                     const playPromise = audio.play();
 
                     if (playPromise !== undefined) {
                         playPromise.then(() => {
-                            console.log('[JAY Mode] 🔊 Audio started (muted due to autoplay policy)');
-                            console.log('[JAY Mode] Playing audio SRC:', audio.src);
-                            // Unmute after a tiny delay to allow playback to start
-                            setTimeout(() => {
-                                audio.muted = false;
-                                console.log('[JAY Mode] 🔊 Gucci Purse beats are PUMPING! 🔊');
-                            }, 100);
+                            console.log('[JAY Mode] 🔊 Big Dipper beats are PUMPING! 🔊');
                         }).catch(error => {
-                            console.warn('[JAY Mode] Audio autoplay blocked:', error.message);
-                            showAudioPrompt();
+                            console.warn('[JAY Mode] Audio play failed:', error.message);
                         });
                     }
                 } catch (error) {
                     console.warn('[JAY Mode] Audio error:', error.message);
-                    showAudioPrompt();
                 }                // Create visual effects
                 createJayParticles();
                 createLaserEffects();
@@ -4085,76 +4232,13 @@
                 createPurpleThunder();
                 createGhostlyApparition();
 
-                // Auto-deactivate after song ends (Gucci Purse is ~3:30 / 210 seconds)
+                // Auto-deactivate after song ends (Big Dipper is ~3:30 / 210 seconds)
                 jayModeTimer = setTimeout(() => {
                     console.log('[JAY Mode] Auto-deactivating after song ends');
                     deactivateJayMode();
                 }, 210000);
 
-                console.log('[JAY Mode] Activation complete - Gucci Purse beats active for 3:30!');
-            }
-
-            function showAudioPrompt() {
-                // Create user-friendly popup for audio permission
-                const popup = document.createElement('div');
-                popup.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    padding: 20px 30px;
-                    border-radius: 15px;
-                    z-index: 10002;
-                    font-family: 'Manrope', sans-serif;
-                    text-align: center;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                    backdrop-filter: blur(10px);
-                `;
-                popup.innerHTML = `
-                    <h3 style="margin: 0 0 10px 0; font-size: 1.5rem;">🎵 Click to enable Jay Mode beats! 🎵</h3>
-                    <p style="margin: 0 0 15px 0; opacity: 0.9;">Your browser blocked autoplay. Click below to start the music!</p>
-                    <button id="enable-audio-btn" style="
-                        background: linear-gradient(135deg, #ff006e, #8338ec);
-                        border: none;
-                        color: white;
-                        padding: 12px 24px;
-                        border-radius: 25px;
-                        cursor: pointer;
-                        font-weight: bold;
-                        font-size: 1rem;
-                        transition: transform 0.2s ease;
-                    ">🔊 Enable Sound</button>
-                `;
-
-                document.body.appendChild(popup);
-
-                const enableBtn = popup.querySelector('#enable-audio-btn');
-                enableBtn.addEventListener('click', async () => {
-                    try {
-                        await audio.play();
-                        console.log('[JAY Mode] 🔊 Audio manually enabled and playing! 🔊');
-                        popup.remove();
-                    } catch (err) {
-                        console.error('[JAY Mode] Manual audio play failed:', err);
-                    }
-                });
-
-                enableBtn.addEventListener('mouseenter', () => {
-                    enableBtn.style.transform = 'scale(1.05)';
-                });
-
-                enableBtn.addEventListener('mouseleave', () => {
-                    enableBtn.style.transform = 'scale(1)';
-                });
-
-                // Auto-remove popup after 10 seconds
-                setTimeout(() => {
-                    if (popup.parentNode) {
-                        popup.remove();
-                    }
-                }, 10000);
+                console.log('[JAY Mode] Activation complete - Big Dipper beats active for 3:30!');
             }
 
             function showAudioErrorMessage() {
@@ -4589,23 +4673,6 @@
             }
 
             console.log('[JAY Mode] Jay Mode system initialized successfully! 🎵');
-
-            // Auto-activate Jay Mode on page load
-            setTimeout(() => {
-                console.log('[JAY Mode] Auto-activating Jay Mode on page load...');
-                console.log('[JAY Mode] Global audio state before auto-activate:', {
-                    audio: !!audio,
-                    audioSrc: audio?.src,
-                    audioReadyState: audio?.readyState
-                });
-                activateJayMode();
-
-                // Also activate chatbot Jay Mode if available
-                if (window.advancedChatbot && typeof window.advancedChatbot.activateJayMode === 'function') {
-                    console.log('[JAY Mode] Also activating chatbot Jay Mode');
-                    window.advancedChatbot.activateJayMode();
-                }
-            }, 500);
         }
 
         // Toggle package details
@@ -5100,5 +5167,80 @@
         setTimeout(createLightningBolt, 1000);
     });
     </script>
+
+    <!-- Jay Typing Trigger Script -->
+    <script>
+    // Audio setup for "jay" trigger
+    const jayAudio = new Audio('/gucci-purse.mp3');
+    jayAudio.preload = 'auto';
+    jayAudio.volume = 0.7;
+
+    // Typing detection
+    let typedText = '';
+    let lastKeyTime = Date.now();
+
+    // Listen for keystrokes anywhere on the page
+    document.addEventListener('keydown', function(event) {
+        const currentTime = Date.now();
+
+        // Reset if more than 2 seconds between keystrokes
+        if (currentTime - lastKeyTime > 2000) {
+            typedText = '';
+        }
+
+        lastKeyTime = currentTime;
+
+        // Only track actual letter keys (not special keys)
+        if (event.key && event.key.length === 1 && event.key.match(/[a-zA-Z]/)) {
+            typedText += event.key.toLowerCase();
+
+            // Keep only last 10 characters to prevent memory issues
+            if (typedText.length > 10) {
+                typedText = typedText.slice(-10);
+            }
+
+            // Check if "jay" was typed
+            if (typedText.includes('jay')) {
+                // Play the Gucci Purse audio
+                jayAudio.currentTime = 0; // Reset to beginning
+                jayAudio.play().catch(function(error) {
+                    console.log('Audio play failed:', error);
+                });
+
+                // Clear the typed text to prevent repeat triggers
+                typedText = '';
+
+                // Optional: Add visual effect
+                document.body.style.animation = 'jay-flash 0.3s ease-in-out';
+                setTimeout(function() {
+                    document.body.style.animation = '';
+                }, 300);
+            }
+        }
+    });
+
+    // Optional: Also trigger on input fields
+    document.addEventListener('input', function(event) {
+        if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+            const value = event.target.value.toLowerCase();
+            if (value.includes('jay')) {
+                jayAudio.currentTime = 0;
+                jayAudio.play().catch(function(error) {
+                    console.log('Audio play failed:', error);
+                });
+            }
+        }
+    });
+    </script>
+
+    <!-- Jay Flash Effect CSS -->
+    <style>
+    @keyframes jay-flash {
+        0% { filter: brightness(1); }
+        50% { filter: brightness(1.3) hue-rotate(45deg); }
+        100% { filter: brightness(1); }
+    }
+    </style>
+
 </body>
 </html>

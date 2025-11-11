@@ -383,13 +383,44 @@
         }
         
         .gradient-text {
-            background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b, #6366f1);
-            background-size: 200% 200%;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer-gradient 3s linear infinite;
-            text-shadow: 0 0 16px #a855f7, 0 0 32px #ec4899, 0 0 48px #6366f1;
+            animation: shimmer-gradient 2s linear infinite;
+            text-shadow: 
+                0 0 10px #ff0000, 
+                0 0 20px #ff7f00, 
+                0 0 30px #ffff00, 
+                0 0 40px #00ff00, 
+                0 0 50px #0000ff, 
+                0 0 60px #4b0082, 
+                0 0 70px #9400d3;
+            animation: rgbGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes rgbGlow {
+            0% { 
+                text-shadow: 
+                    0 0 10px #ff0000, 
+                    0 0 20px #ff7f00, 
+                    0 0 30px #ffff00, 
+                    0 0 40px #00ff00, 
+                    0 0 50px #0000ff, 
+                    0 0 60px #4b0082, 
+                    0 0 70px #9400d3;
+            }
+            100% { 
+                text-shadow: 
+                    0 0 20px #ff0000, 
+                    0 0 30px #ff7f00, 
+                    0 0 40px #ffff00, 
+                    0 0 50px #00ff00, 
+                    0 0 60px #0000ff, 
+                    0 0 70px #4b0082, 
+                    0 0 80px #9400d3;
+            }
         }
         /* Important Header Glow */
         .important-header-glow {
@@ -411,7 +442,9 @@
         }
         @keyframes shimmer-gradient {
             0% {background-position: 0% 50%;}
+            25% {background-position: 25% 50%;}
             50% {background-position: 100% 50%;}
+            75% {background-position: 75% 50%;}
             100% {background-position: 0% 50%;}
         }
 
@@ -717,6 +750,29 @@
         .package-btn:active {
             transform: scale(0.98);
         }
+
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation highlight for active section */
+        .nav-active {
+            color: #a855f7 !important;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 4px;
+            padding: 4px 8px;
+        }
+
+        /* Back to top button animation */
+        #back-to-top {
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+
+        #back-to-top.show {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="text-white">
@@ -743,6 +799,21 @@
     </header>
 
     <main class="pt-20 pb-10" id="main-content" tabindex="-1">
+      <!-- Sticky Navigation for Pricing Sections -->
+      <nav class="sticky top-16 z-40 bg-black bg-opacity-90 backdrop-blur-lg border-b border-purple-500/30 mb-8" aria-label="Pricing Page Navigation">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex overflow-x-auto py-3 space-x-6">
+            <a href="#quick-packages" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">📦 Quick Packages</a>
+            <a href="#how-it-works" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">📋 How It Works</a>
+            <a href="#jay-features" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">⭐ Why Jay's</a>
+            <a href="#pricing-calculator" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">🧮 Pricing Calculator</a>
+            <a href="#custom-builder" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">🔧 Custom Builder</a>
+            <a href="#add-ons" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">➕ Add-Ons</a>
+            <a href="#deionized-water" class="whitespace-nowrap text-sm font-medium text-white hover:text-purple-300 transition-colors">💧 Water Quality</a>
+          </div>
+        </div>
+      </nav>
+
       <section class="container mx-auto px-4 sm:px-6 lg:px-8">
         <header class="text-center mb-12">
           <h1 class="text-4xl md:text-5xl font-bold mb-4 important-header-glow">
@@ -752,39 +823,9 @@
             ★★★★★ 4.9/5 Stars (116+ Reviews) | Premium mobile car detailing from $60-$800 | Ceramic coating, paint correction, steam cleaning, enzyme extraction | We come to YOU in LA & OC!
           </p>
         </header>
-        <section class="how-it-works bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6 mb-10" aria-label="How It Works">
-          <h2 class="text-2xl font-bold mb-3 gradient-text">How Mobile Car Detailing Works - 3 Easy Steps</h2>
-          <ol class="list-decimal list-inside text-lg text-gray-200 space-y-2">
-            <li>Start by choosing a base package—Basic, Luxury, or Jay's Max. This is your foundation.</li>
-            <li>Once you've selected your base, build your own custom package by adding or removing services to fit your needs.</li>
-            <li>Personalize your detailing experience, starting with your preferred base and customizing everything else.</li>
-          </ol>
-        </section>
         
-        <!-- Jay's Unique Features Section -->
-        <section class="jay-features bg-gradient-to-r from-green-900 to-blue-900 bg-opacity-30 rounded-lg p-6 mb-10" aria-label="Why Choose Jay's">
-          <h2 class="text-2xl font-bold mb-4 gradient-text">💧 JAY'S MOBILE WASH – LUXURY DETAILING AT YOUR DOORSTEP!</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="feature-highlight">
-              <h3 class="text-lg font-bold text-green-400 mb-2">🔋 Eco-Friendly & Self-Sufficient</h3>
-              <p class="text-gray-300">We bring our own power supply and use spot-free deionized water for a flawless, zero-residue finish.</p>
-            </div>
-            <div class="feature-highlight">
-              <h3 class="text-lg font-bold text-blue-400 mb-2">🌪️ Tornador Z-007 Technology</h3>
-              <p class="text-gray-300">Precision cleaning for vents, seams, and hidden areas - included in every Basic package!</p>
-            </div>
-            <div class="feature-highlight">
-              <h3 class="text-lg font-bold text-purple-400 mb-2">👥 The Jay Team</h3>
-              <p class="text-gray-300">Every employee starts with the letter J. If a Jay didn't wash it, then it ain't washed right! ✨</p>
-            </div>
-          </div>
-          <div class="mt-6 p-4 bg-yellow-900/20 rounded-lg border border-yellow-500/30">
-            <h3 class="text-xl font-bold text-yellow-400 mb-2">⚡ Quality Guarantee</h3>
-            <p class="text-gray-300 mb-2"><strong>DAYLIGHT REVEALS PERFECTION – WE DELIVER IT.</strong></p>
-            <p class="text-sm text-gray-400">Note: 92% of detailing flaws occur in low light (LA Detailing Institute, 2023). We guarantee results in proper lighting conditions.</p>
-          </div>
-        </section>
-        <section class="mb-16" aria-label="Featured Packages">
+        <!-- Quick Packages Section -->
+        <section id="quick-packages" class="mb-16" aria-label="Featured Packages">
           <header class="text-center mb-10">
             <h2 class="text-3xl font-bold mb-4 gradient-text">Choose Your Perfect Package</h2>
             <p class="text-lg text-gray-300">Professional mobile detailing packages designed for every need and budget</p>
@@ -828,14 +869,6 @@
                     <li>• Vinyl Restoration & Trim Restore</li>
                   </ul>
                   <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Luxury</button>
-                </header>
-              </div>
-            </article>
-                    <li>• Exterior Trim Restoration</li>
-                    <li>• Leather & Vinyl Conditioning</li>
-                  </ul>
-                  <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn">Choose Luxury</button>
-                  <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Luxury</button>
                 </header>
               </div>
               <div class="package-badge bg-purple-500">Best Value</div>
@@ -910,7 +943,43 @@
             </article>
           </section>
         </section>
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8" aria-label="Pricing and Service Details">
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6 mb-16" aria-label="How It Works">
+          <h2 class="text-2xl font-bold mb-3 gradient-text">How Mobile Car Detailing Works - 3 Easy Steps</h2>
+          <ol class="list-decimal list-inside text-lg text-gray-200 space-y-2">
+            <li>Start by choosing a base package—Basic, Luxury, or Jay's Max. This is your foundation.</li>
+            <li>Once you've selected your base, build your own custom package by adding or removing services to fit your needs.</li>
+            <li>Personalize your detailing experience, starting with your preferred base and customizing everything else.</li>
+          </ol>
+        </section>
+        
+        <!-- Jay's Unique Features Section -->
+        <section id="jay-features" class="jay-features bg-gradient-to-r from-green-900 to-blue-900 bg-opacity-30 rounded-lg p-6 mb-16" aria-label="Why Choose Jay's">
+          <h2 class="text-2xl font-bold mb-4 gradient-text">💧 JAY'S MOBILE WASH – LUXURY DETAILING AT YOUR DOORSTEP!</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="feature-highlight">
+              <h3 class="text-lg font-bold text-green-400 mb-2">🔋 Eco-Friendly & Self-Sufficient</h3>
+              <p class="text-gray-300">We bring our own power supply and use spot-free deionized water for a flawless, zero-residue finish.</p>
+            </div>
+            <div class="feature-highlight">
+              <h3 class="text-lg font-bold text-blue-400 mb-2">🌪️ Tornador Z-007 Technology</h3>
+              <p class="text-gray-300">Precision cleaning for vents, seams, and hidden areas - included in every Basic package!</p>
+            </div>
+            <div class="feature-highlight">
+              <h3 class="text-lg font-bold text-purple-400 mb-2">👥 The Jay Team</h3>
+              <p class="text-gray-300">Every employee starts with the letter J. If a Jay didn't wash it, then it ain't washed right! ✨</p>
+            </div>
+          </div>
+          <div class="mt-6 p-4 bg-yellow-900/20 rounded-lg border border-yellow-500/30">
+            <h3 class="text-xl font-bold text-yellow-400 mb-2">⚡ Quality Guarantee</h3>
+            <p class="text-gray-300 mb-2"><strong>DAYLIGHT REVEALS PERFECTION – WE DELIVER IT.</strong></p>
+            <p class="text-sm text-gray-400">Note: 92% of detailing flaws occur in low light (LA Detailing Institute, 2023). We guarantee results in proper lighting conditions.</p>
+          </div>
+        </section>
+
+        <!-- Pricing Calculator Section -->
+        <section id="pricing-calculator" class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16" aria-label="Pricing and Service Details">
           <div class="lg:col-span-2">
             <figure class="flex items-center justify-center mb-8">
               <img src="/unnamed.png" alt="Jay's Mobile Wash pricing chart and service packages" class="rounded-2xl shadow-2xl w-full max-w-2xl border-4 border-purple-500">
@@ -1255,1577 +1324,106 @@
                 <div class="bg-gradient-to-r from-pink-900 to-purple-900 bg-opacity-30 rounded-lg p-6">
                   <div class="mb-6">
                     <h4 class="text-lg font-semibold text-pink-300 mb-3">How It Works:</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                          <div>
+                            <h5 class="font-semibold text-white">Start with a Package</h5>
+                            <p class="text-sm text-gray-300">Choose Mini Detail ($70), Luxury Detail ($130), or Max Detail ($200) as your foundation.</p>
+                          </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                          <div>
+                            <h5 class="font-semibold text-white">Add Services</h5>
+                            <p class="text-sm text-gray-300">Customize with paint enhancement, ceramic treatments, and protection coatings.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                          <div>
+                            <h5 class="font-semibold text-white">Include Add-Ons</h5>
+                            <p class="text-sm text-gray-300">Engine bay cleaning, headlight restoration, pet hair removal.</p>
+                          </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                          <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                          <div>
+                            <h5 class="font-semibold text-white">Get Your Quote</h5>
+                            <p class="text-sm text-gray-300">Call us for an instant quote tailored to your vehicle: (562) 228-9429</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="border-t border-pink-500/30 pt-4"></div>
+                  <div class="border-t border-pink-500/30 pt-4">
+                    <div class="text-center">
+                      <a href="tel:+15622289429" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-phone mr-2"></i>
+                        Call (562) 228-9429 for Custom Quote
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </section>
-              <section class="bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6" aria-label="Service Features">
-                <h3 class="text-lg font-bold mb-4 text-center"></h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"></div>
               </section>
             </article>
           </div>
           <aside class="lg:col-span-1">
             <div class="sticky top-24">
-              <section class="price-display rounded-2xl p-6 mb-6" aria-label="Contact for Quote"></section>
+              <section class="price-display rounded-2xl p-6 mb-6 bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-500/30" aria-label="Contact for Quote">
+                <h3 class="text-xl font-bold text-center mb-4 gradient-text">Get Your Quote</h3>
+                <div class="text-center space-y-4">
+                  <p class="text-gray-300">Call us for instant pricing and scheduling</p>
+                  <a href="tel:+15622289429" class="block w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-lg transition-all duration-300">
+                    <i class="fas fa-phone mr-2"></i>(562) 228-9429
+                  </a>
+                  <div class="text-sm text-gray-400">
+                    <p>🕒 Available 7 Days a Week</p>
+                    <p>📍 Los Angeles & Orange County</p>
+                  </div>
+                </div>
+              </section>
             </div>
           </aside>
         </section>
       </section>
     </main>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Add-On Services -->
-                        <div class="mb-6">
-                            <h3 class="text-xl font-bold mb-4 text-yellow-400">
-                                <i class="fas fa-plus mr-2"></i>Additional Services
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                                    <i class="fas fa-engine text-blue-400 text-2xl mb-2"></i>
-                                    <h4 class="font-semibold mb-1">Engine Bay Clean</h4>
-                                    <p class="text-green-400 font-bold">$35</p>
-                                    <p class="text-xs text-gray-400 mt-1">Steam cleaning & degreasing</p>
-                                </div>
-                                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                                    <i class="fas fa-lightbulb text-yellow-400 text-2xl mb-2"></i>
-                                    <h4 class="font-semibold mb-1">Headlight Restoration</h4>
-                                    <p class="text-green-400 font-bold">$45</p>
-                                    <p class="text-xs text-gray-400 mt-1">Remove cloudiness & yellowing</p>
-                                </div>
-                                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                                    <i class="fas fa-paw text-pink-400 text-2xl mb-2"></i>
-                                    <h4 class="font-semibold mb-1">Pet Hair Removal</h4>
-                                    <p class="text-green-400 font-bold">$25</p>
-                                    <p class="text-xs text-gray-400 mt-1">Specialized pet hair extraction</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Custom Package Builder Explanation -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold mb-4 text-pink-400">
-                                <i class="fas fa-palette mr-2"></i>Build Your Custom Package
-                            </h3>
-                            <div class="bg-gradient-to-r from-pink-900 to-purple-900 bg-opacity-30 rounded-lg p-6">
-                                <div class="mb-6">
-                                    <h4 class="text-lg font-semibold text-pink-300 mb-3">How It Works:</h4>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div class="space-y-3">
-                                            <div class="flex items-start space-x-3">
-                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
-                                                <div>
-                                                    <h5 class="font-semibold text-white">Start with a Package</h5>
-                                                    <p class="text-sm text-gray-300">Choose Mini Detail ($70), Luxury Detail ($130), or Max Detail ($200) as your foundation package.</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-start space-x-3">
-                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
-                                                <div>
-                                                    <h5 class="font-semibold text-white">Customize Your Package</h5>
-                                                    <p class="text-sm text-gray-300">Add or remove services like paint enhancement, interior upgrades, ceramic treatments, and protection coatings.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="space-y-3">
-                                            <div class="flex items-start space-x-3">
-                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
-                                                <div>
-                                                    <h5 class="font-semibold text-white">Include Add-Ons</h5>
-                                                    <p class="text-sm text-gray-300">Engine bay cleaning, headlight restoration, pet hair removal - customize to your exact needs.</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-start space-x-3">
-                                                <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
-                                                <div>
-                                                    <h5 class="font-semibold text-white">Get Your Quote</h5>
-                                                    <p class="text-sm text-gray-300">Call us with your selections and we'll provide an instant quote tailored to your vehicle.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="border-t border-pink-500/30 pt-4">
-                                    <h4 class="text-lg font-semibold text-pink-300 mb-3">Custom Package Examples:</h4>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div class="bg-gray-800/50 rounded-lg p-4">
-                                            <h5 class="font-semibold text-purple-400 mb-2">"The Weekly Maintainer"</h5>
-                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
-                                                <li>• Mini Detail Package ($70)</li>
-                                                <li>• Add: Tire Shine (+$10)</li>
-                                                <li>• Add: Interior UV Protection (+$15)</li>
-                                            </ul>
-                                            <p class="text-green-400 font-bold">Total: $95</p>
-                                        </div>
-                                        <div class="bg-gray-800/50 rounded-lg p-4">
-                                            <h5 class="font-semibold text-purple-400 mb-2">"The Pet Owner Special"</h5>
-                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
-                                                <li>• Luxury Detail Package ($130)</li>
-                                                <li>• Add: Pet Hair Removal (+$25)</li>
-                                                <li>• Add: Odor Elimination (+$20)</li>
-                                            </ul>
-                                            <p class="text-green-400 font-bold">Total: $175</p>
-                                        </div>
-                                        <div class="bg-gray-800/50 rounded-lg p-4">
-                                            <h5 class="font-semibold text-purple-400 mb-2">"The Show Car Prep"</h5>
-                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
-                                                <li>• Max Detail Package ($200)</li>
-                                                <li>• Add: Engine Bay Detailing (+$35)</li>
-                                                <li>• Add: Headlight Restoration (+$45)</li>
-                                            </ul>
-                                            <p class="text-green-400 font-bold">Total: $280</p>
-                                        </div>
-                                        <div class="bg-gray-800/50 rounded-lg p-4">
-                                            <h5 class="font-semibold text-purple-400 mb-2">"The Professional Protection Package"</h5>
-                                            <ul class="text-sm text-gray-300 space-y-1 mb-2">
-                                                <li>• Luxury Detail Package ($130)</li>
-                                                <li>• Add: 6-Month SiO2 Sealant w/ Prep ($100)</li>
-                                                <li>• Add: De-Iron Rims ($50)</li>
-                                                <li>• Add: Exterior Trim Restoration ($25)</li>
-                                                <li>• Add: Steam Cleaning ($45)</li>
-                                                <li>• Add: Custom Scent ($15)</li>
-                                            </ul>
-                                            <p class="text-green-400 font-bold">Total: $365</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 text-center">
-                                    <h4 class="font-bold text-white mb-2">
-                                        <i class="fas fa-phone mr-2"></i>Ready to Build Your Custom Package?
-                                    </h4>
-                                    <p class="text-sm text-gray-100 mb-3">Call us and tell us exactly what your car needs. We'll create the perfect package and give you an instant quote!</p>
-                                    <div class="flex items-center justify-center space-x-4 text-sm">
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fas fa-clock text-yellow-300"></i>
-                                            <span>Quick quotes</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fas fa-dollar-sign text-green-300"></i>
-                                            <span>Fair pricing</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fas fa-tools text-blue-300"></i>
-                                            <span>Expert advice</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Service Features -->
-                        <div class="bg-gradient-to-r from-purple-900 to-pink-900 bg-opacity-30 rounded-lg p-6">
-                            <h3 class="text-lg font-bold mb-4 text-center">
-                                <i class="fas fa-shield-alt mr-2"></i>Why Choose Jay's Mobile Wash?
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>100% mobile service - we come to you</span>
-                                </div>
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>Eco-friendly products and techniques</span>
-                                </div>
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>Professional equipment and supplies</span>
-                                </div>
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>Satisfaction guarantee on all services</span>
-                                </div>
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>Flexible scheduling 7 days a week</span>
-                                </div>
-                                <div class="flex items-start space-x-2">
-                                    <i class="fas fa-check text-green-400 mt-1"></i>
-                                    <span>Licensed and insured technicians</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pricing Panel -->
-                <div class="lg:col-span-1">
-                    <div class="sticky top-24">
-                        <!-- Contact for Quote -->
-                        <div class="price-display rounded-2xl p-6 mb-6">
-                            <h2 class="text-2xl font-bold mb-4 gradient-text">Get Your Quote</h2>
-                            
-                            <div class="space-y-4 mb-6">
-                                <div class="text-center">
-                                    <div class="text-3xl font-bold text-green-400 mb-2">Starting at $70</div>
-                                    <p class="text-gray-300">Professional mobile car detailing</p>
-                                </div>
-                                
-                                <div class="border-t border-gray-600 pt-4">
-                                    <h3 class="font-semibold mb-2">Our Packages:</h3>
-                                    <div class="space-y-2 text-sm">
-                                        <div class="flex justify-between">
-                                            <span>Mini Detail</span>
-                                            <span class="text-green-400">$70</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Luxury Detail</span>
-                                            <span class="text-purple-400">$130</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Max Detail</span>
-                                            <span class="text-blue-400">$200</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Ceramic Coating</span>
-                                            <span class="text-yellow-400">$450</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Graphene Coating</span>
-                                            <span class="text-orange-400">$800</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button id="get-quote-btn" class="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg">
-                                <i class="fas fa-phone mr-2"></i>
-                                Call for Service
-                            </button>
-                            <button id="get-quote-btn" class="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg shadow-lg glow-btn">
-                            </button>
-                        </div>
-
-                        <!-- Contact Information -->
-                        <div class="service-card rounded-2xl p-6 mb-6">
-                            <h3 class="text-lg font-bold mb-4">
-                                <i class="fas fa-phone mr-2"></i>Contact Us
-                            </h3>
-                            <div class="space-y-3 text-sm">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-phone text-green-400"></i>
-                                    <span>Call or text for booking</span>
-                                </div>
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-clock text-blue-400"></i>
-                                    <span>7 days a week service</span>
-                                </div>
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-map-marker-alt text-purple-400"></i>
-                                    <span>We come to your location</span>
-                                </div>
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-credit-card text-yellow-400"></i>
-                                    <span>Cash, card, and digital payments</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Service Areas -->
-                        <div class="service-card rounded-2xl p-6">
-                            <h3 class="text-lg font-bold mb-4">
-                                <i class="fas fa-map mr-2"></i>Service Areas
-                            </h3>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-check text-green-400"></i>
-                                    <span>Los Angeles County</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-check text-green-400"></i>
-                                    <span>Orange County</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-check text-green-400"></i>
-                                    <span>Beverly Hills</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-check text-green-400"></i>
-                                    <span>Santa Monica</span>
-                                </div>
-                                <div class="text-gray-400 mt-3 pt-3 border-t border-gray-600">
-                                    <small>Other areas available - call to confirm</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section id="deionized-water-pricing" class="py-10 bg-gradient-to-r from-blue-50 to-purple-50" aria-label="Deionized Water Highlight">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-2xl font-bold text-blue-600 mb-3">Why We Use Deionized Water</h2>
-        <p class="text-base text-gray-700 mb-5">All packages include a deionized water rinse for a spot-free, mirror-like shine. No water spots, no mineral residue—just pure, safe cleaning for your vehicle.</p>
-        <img src="/images/deionized-water.jpg" alt="Deionized water rinse for spot-free car cleaning" class="mx-auto rounded-lg shadow-md w-1/2">
-      </div>
-    </section>
-
-    <script>
-        // Show notification system
-        function showNotification(message, type = "info") {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 10px;
-                color: white;
-                font-weight: bold;
-                z-index: 10000;
-                font-family: 'Manrope', sans-serif;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                transition: all 0.3s ease;
-                transform: translateX(100%);
-                opacity: 0;
-                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 
-                           type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 
-                           'linear-gradient(135deg, #6366f1, #4f46e5)'};
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            // Slide in animation
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-                notification.style.opacity = '1';
-            }, 10);
-
-            // Auto remove after 3 seconds
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                notification.style.opacity = '0';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 300);
-            }, 3000);
-        }
-        // RGB Lightning Effect Every 4 Seconds & Mouse Reactive
-        function createLightningBolt(xPercent = null, yPercent = null) {
-            var bolt = document.createElement('div');
-            bolt.className = 'lightning-bolt';
-            // If mouse position provided, use it, else random horizontal position (5% to 95% of viewport)
-            var left = xPercent !== null ? xPercent : (Math.random() * 90 + 5);
-            bolt.style.left = left + 'vw';
-            // Height: if mouse Y provided, use it for bolt height, else random (60vh to 120vh)
-            var height = yPercent !== null ? (60 + yPercent * 0.6) : (Math.random() * 60 + 60);
-            bolt.style.height = height + 'vh';
-            // Random rotation (-20deg to 20deg)
-            var rot = (Math.random() * 40 - 20);
-            bolt.style.transform = 'rotate(' + rot + 'deg)';
-            // Randomize RGB gradient direction
-            if (Math.random() > 0.5) {
-                bolt.style.background = 'linear-gradient(180deg, red, orange, yellow, green, blue, violet, transparent)';
-            } else {
-                bolt.style.background = 'linear-gradient(0deg, violet, blue, green, yellow, orange, red, transparent)';
-            }
-            document.body.appendChild(bolt);
-            setTimeout(function() { bolt.remove(); }, 900);
-        }
-        // Interval: every 4 seconds
-        setInterval(createLightningBolt, 4000);
-        // Initial bolt on load
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(createLightningBolt, 1000);
-        });
-        // Mouse movement triggers extra bolts, more reactive
-        let lastMouseBolt = 0;
-        document.addEventListener('mousemove', function(e) {
-            var now = Date.now();
-            // Only trigger if mouse moves at least 120ms apart
-            if (now - lastMouseBolt > 120) {
-                var xPercent = (e.clientX / window.innerWidth) * 100;
-                var yPercent = (e.clientY / window.innerHeight) * 100;
-                createLightningBolt(xPercent, yPercent);
-                lastMouseBolt = now;
-            }
-        });
-
-        // Default Configuration (Can be modified via admin panel)
-        let PRICING_CONFIG = {
-            basePrices: {
-                exterior: { name: 'Basic Exterior', price: 30, description: 'Exterior wash & shine' },
-                interior: { name: 'Basic Interior', price: 30, description: 'Interior vacuum & wipe-down' },
-                combo: { name: 'Basic Combo', price: 60, description: 'Exterior + Interior package' },
-                max: { name: 'Max Detail', price: 200, description: 'Ultimate treatment' }
-            },
-            serviceLevels: {
-                'not-included': { name: 'Not Included', price: 0, color: '#ef4444', strokeColor: '#dc2626' },
-                'basic-wash': { name: 'Basic Wash', price: 0, color: '#22c55e', strokeColor: '#16a34a' },
-                'deep-clean': { name: 'Deep Clean', price: 15, color: '#3b82f6', strokeColor: '#2563eb' },
-                'premium-detail': { name: 'Premium Detail', price: 30, color: '#a855f7', strokeColor: '#9333ea' },
-                'ceramic-coating': { name: 'Ceramic Coating', price: 100, color: '#f59e0b', strokeColor: '#d97706' },
-                'paint-correction': { name: 'Paint Correction', price: 150, color: '#ec4899', strokeColor: '#db2777' },
-                'shampoo-treatment': { name: 'Shampoo Treatment', price: 25, color: '#06b6d4', strokeColor: '#0891b2' },
-                'leather-conditioning': { name: 'Leather Conditioning', price: 35, color: '#8b5cf6', strokeColor: '#7c3aed' },
-                'steam-cleaning': { name: 'Steam Cleaning', price: 45, color: '#10b981', strokeColor: '#059669' },
-                'full-polishing': { name: 'Full Polishing', price: 40, color: '#84cc16', strokeColor: '#65a30d' },
-                'biobomb-odor': { name: 'BIOBOMB Odor Elimination', price: 25, color: '#14b8a6', strokeColor: '#0f766e' },
-                'sio2-sealant': { name: '6-Month SiO2 Sealant (Includes Clay Bar + De-Iron)', price: 100, color: '#06b6d4', strokeColor: '#0891b2' },
-                'custom-scent': { name: 'Scent of Your Choosing', price: 15, color: '#f472b6', strokeColor: '#ec4899' },
-                'trim-restoration': { name: 'Exterior Trim Restoration', price: 25, color: '#a78bfa', strokeColor: '#8b5cf6' },
-                'clay-bar-deiron': { name: 'Clay Bar with Full Body De-Iron', price: 75, color: '#f59e0b', strokeColor: '#d97706' },
-                'rim-deiron': { name: 'De-Iron Rims', price: 30, color: '#ef4444', strokeColor: '#dc2626' },
-                'enzyme-degreaser': { name: 'Full Extraction Enzyme Degreaser', price: 70, color: '#fb7185', strokeColor: '#f43f5e' },
-                'tire-shine': { name: 'Tire Shine & Dressing', price: 10, color: '#f97316', strokeColor: '#ea580c' },
-                'wheel-detail': { name: 'Wheel Deep Detail', price: 20, color: '#ef4444', strokeColor: '#dc2626' },
-                'engine-bay': { name: 'Engine Bay Clean', price: 40, color: '#6366f1', strokeColor: '#4f46e5' }
-            },
-            carParts: {
-                // Exterior Components (simplified logical groups)
-                exterior: {
-                    body: { name: 'Car Body', category: 'Paint & Body', multiplier: 1.5, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction', 'full-polishing', 'sio2-sealant', 'clay-bar-deiron'], price: 0, serviceLevel: 'not-included' },
-                    hood: { name: 'Hood', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction', 'full-polishing', 'sio2-sealant', 'clay-bar-deiron'], price: 0, serviceLevel: 'not-included' },
-                    roof: { name: 'Roof', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction', 'full-polishing', 'sio2-sealant', 'clay-bar-deiron'], price: 0, serviceLevel: 'not-included' },
-                    trunk: { name: 'Trunk', category: 'Paint & Body', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'premium-detail', 'ceramic-coating', 'paint-correction', 'full-polishing', 'sio2-sealant', 'clay-bar-deiron'], price: 0, serviceLevel: 'not-included' },
-                    glass: { name: 'All Glass & Windows', category: 'Glass', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'premium-detail'], price: 0, serviceLevel: 'not-included' },
-                    mirrors: { name: 'Side Mirrors', category: 'Glass', multiplier: 0.3, services: ['basic-wash', 'deep-clean', 'premium-detail'], price: 0, serviceLevel: 'not-included' },
-                    trim: { name: 'Exterior Trim & Plastics', category: 'Trim & Plastics', multiplier: 0.7, services: ['basic-wash', 'deep-clean', 'trim-restoration'], price: 0, serviceLevel: 'not-included' },
-                    wheels: { name: 'Tires (All 4)', category: 'Wheels & Tires', multiplier: 1.0, services: ['basic-wash', 'tire-shine'], price: 0, serviceLevel: 'not-included' },
-                    rims: { name: 'Rims/Wheels (All 4)', category: 'Wheels & Tires', multiplier: 1.2, services: ['basic-wash', 'wheel-detail', 'tire-shine', 'rim-deiron'], price: 0, serviceLevel: 'not-included' },
-                    'engine-bay': { name: 'Engine Bay', category: 'Engine', multiplier: 1.5, services: ['engine-bay', 'steam-cleaning', 'enzyme-degreaser'], price: 0, serviceLevel: 'not-included' }
-                },
-                
-                // Interior Components (simplified logical groups)
-                interior: {
-                    dashboard: { name: 'Dashboard & Controls', category: 'Interior Surfaces', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'steam-cleaning', 'biobomb-odor', 'trim-restoration', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    'front-seats': { name: 'Front Seats (Both)', category: 'Seating', multiplier: 1.5, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning', 'biobomb-odor', 'enzyme-degreaser', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    'rear-seats': { name: 'Rear Seats', category: 'Seating', multiplier: 1.2, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'leather-conditioning', 'steam-cleaning', 'biobomb-odor', 'enzyme-degreaser', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    console: { name: 'Center Console', category: 'Interior Surfaces', multiplier: 0.5, services: ['basic-wash', 'deep-clean', 'steam-cleaning', 'biobomb-odor', 'trim-restoration', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    flooring: { name: 'Floor & Carpets', category: 'Floor', multiplier: 1.0, services: ['basic-wash', 'deep-clean', 'shampoo-treatment', 'steam-cleaning', 'biobomb-odor', 'enzyme-degreaser', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    'door-panels': { name: 'All Door Panels', category: 'Interior Surfaces', multiplier: 0.8, services: ['basic-wash', 'deep-clean', 'leather-conditioning', 'steam-cleaning', 'biobomb-odor', 'trim-restoration', 'custom-scent'], price: 0, serviceLevel: 'not-included' },
-                    headliner: { name: 'Headliner/Ceiling', category: 'Interior Surfaces', multiplier: 0.6, services: ['basic-wash', 'deep-clean', 'steam-cleaning', 'biobomb-odor', 'custom-scent'], price: 0, serviceLevel: 'not-included' }
-                }
-            }
-        };
-
-        // Global Admin Session Management
-        let currentAdminPassword = null;
-
-        // State Management
-        let currentState = {
-            selectedLevel: 'basic-clean',
-            partServices: {},
-            basePrice: PRICING_CONFIG.basePrices.mini.price,
-            totalPrice: PRICING_CONFIG.basePrices.mini.price
-        };
-
-        // Load configuration from server (global for all users)
-        async function loadConfiguration() {
-            try {
-                showNotification("🔄 Loading latest pricing configuration...", "info");
-                
-                const response = await fetch('/api/pricing-config', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success && result.config) {
-                        PRICING_CONFIG = result.config;
-                        console.log('✅ Loaded global configuration from server');
-                        showNotification("✅ Latest pricing loaded successfully!", "success");
-                        return true;
-                    }
-                } else {
-                    throw new Error(`Server responded with status: ${response.status}`);
-                }
-            } catch (error) {
-                console.warn('⚠️ Failed to load server configuration, using defaults:', error);
-                showNotification("⚠️ Using local defaults - server unavailable", "info");
-                
-                // Fallback to localStorage if server is unavailable
-                const saved = localStorage.getItem('jayPricingConfig');
-                if (saved) {
-                    try {
-                        PRICING_CONFIG = JSON.parse(saved);
-                        console.log('📱 Loaded backup configuration from localStorage');
-                    } catch (localError) {
-                        console.warn('Failed to load localStorage backup, using hardcoded defaults');
-                    }
-                }
-                return false;
-            }
-        }
-
-        // Save configuration to server (global for all users)
-        async function saveConfiguration(adminPassword = null) {
-            try {
-                // Always save locally as backup
-                localStorage.setItem('jayPricingConfig', JSON.stringify(PRICING_CONFIG));
-                
-                // If no admin password provided, just save locally
-                if (!adminPassword) {
-                    console.log('📱 Configuration saved locally only');
-                    return true;
-                }
-
-                showNotification("🔄 Saving global configuration...", "info");
-
-                const response = await fetch('/api/pricing-config', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        password: adminPassword,
-                        config: PRICING_CONFIG
-                    })
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    console.log('✅ Configuration saved globally for all users');
-                    showNotification("🌍 Configuration saved globally for all users!", "success");
-                    return true;
-                } else {
-                    console.error('❌ Failed to save globally:', result.message);
-                    showNotification(`❌ Global save failed: ${result.message}`, "error");
-                    return false;
-                }
-
-            } catch (error) {
-                console.error('❌ Error saving configuration:', error);
-                showNotification("❌ Failed to save globally - check connection", "error");
-                return false;
-            }
-        }
-
-        // Initialize the pricing tool
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Load configuration from server first
-            await loadConfiguration();
-            
-            // Then initialize everything else
-            initializePricingTool();
-            setupEventListeners();
-            setupPackageButtons();
-            updateDisplay();
-            generateServiceLevelButtons();
-            generateServiceLegend();
-            generateQuickPackages();
-            updateCarPartColors();
-            
-            // Initialize car views - set default to exterior
-            if (document.getElementById('exterior-view')) {
-                switchCarView('exterior');
-            }
-            
-            // Update car visualization
-            if (typeof updateCarVisualization === 'function') {
-                updateCarVisualization();
-            }
-        });
-
-        function setupPackageButtons() {
-            // Add click handlers to package buttons
-            document.querySelectorAll('.package-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const packageType = this.textContent.trim();
-                    // Ripple effect
-                    const ripple = document.createElement('span');
-                    ripple.className = 'ripple';
-                    const rect = button.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-                    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-                    button.appendChild(ripple);
-                    ripple.addEventListener('animationend', () => ripple.remove());
-                    // Add click effect
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                    // Handle package selection
-                    handlePackageSelection(packageType);
-                });
-            });
-        }
-
-        function handlePackageSelection(packageType) {
-            let targetSection;
-            
-            // Determine which section to scroll to
-            switch(packageType) {
-                case 'Choose Mini':
-                case 'Choose Luxury':
-                case 'Choose Max':
-                case 'Choose Protection':
-                    // Scroll to the detailed service information
-                    targetSection = document.querySelector('.service-card');
-                    break;
-                case 'Build Custom':
-                    // Scroll to the custom package explanation
-                    targetSection = document.querySelector('h3:has(.fa-palette)');
-                    if (!targetSection) {
-                        // Fallback to service details if custom section not found
-                        targetSection = document.querySelector('.service-card');
-                    }
-                    break;
-                default:
-                    targetSection = document.querySelector('.service-card');
-            }
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-            }
-            
-            // Show notification based on package type
-            switch(packageType) {
-                case 'Choose Mini':
-                    showNotification("📞 Call us to book your Mini Detail package ($70)!", "success");
-                    break;
-                case 'Choose Luxury':
-                    showNotification("⭐ Luxury Detail package selected! Call to schedule ($130)", "success");
-                    break;
-                case 'Choose Max':
-                    showNotification("� Max Detail - Ultimate service! Call for appointment ($200)", "success");
-                    break;
-                case 'Choose Protection':
-                    showNotification("🛡️ Protection Coatings! Ceramic ($450) or Graphene ($800) - Call us!", "success");
-                    break;
-                case 'Build Custom':
-                    showNotification("🎨 Build your perfect custom package! See examples below and call us for a quote", "info");
-                    break;
-            }
-            
-            // Highlight the pricing panel briefly
-            const pricingPanel = document.querySelector('.price-display');
-            if (pricingPanel) {
-                pricingPanel.style.boxShadow = '0 0 30px rgba(168, 85, 247, 0.6)';
-                setTimeout(() => {
-                    pricingPanel.style.boxShadow = '0 0 20px rgba(168, 85, 247, 0.3)';
-                }, 2000);
-            }
-        }
-
-        function initializePricingTool() {
-            // Set all parts to not-included initially
-            const carParts = document.querySelectorAll('.car-part');
-            carParts.forEach(part => {
-                currentState.partServices[part.dataset.part] = 'not-included';
-            });
-        }
-
-        function setupEventListeners() {
-            // Car part click handlers
-            document.querySelectorAll('.car-part').forEach(part => {
-                part.addEventListener('click', function() {
-                    const partName = this.dataset.part;
-                    applyServiceToPart(partName, currentState.selectedLevel);
-                    updateDisplay();
-                });
-
-                // Hover tooltips
-                part.addEventListener('mouseenter', function() {
-                    showTooltip(this, this.dataset.part);
-                });
-
-                part.addEventListener('mouseleave', function() {
-                    hideTooltip();
-                });
-            });
-
-            // Get quote button
-            document.getElementById('get-quote-btn').addEventListener('click', function() {
-                generateQuote();
-            });
-        }
-
-        function setupAdminPanel() {
-            const adminToggle = document.getElementById('admin-toggle');
-            const adminPanel = document.getElementById('admin-panel');
-            const sessionTimer = document.getElementById('session-timer');
-            let adminAuthenticated = false;
-            let sessionTimeout = null;
-            let sessionStartTime = null;
-            let timerInterval = null;
-            const SESSION_DURATION = 30 * 60 * 1000; // 30 minutes
-
-            function updateSessionTimer() {
-                if (!adminAuthenticated || !sessionStartTime) return;
-                
-                const elapsed = Date.now() - sessionStartTime;
-                const remaining = Math.max(0, SESSION_DURATION - elapsed);
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                
-                if (remaining > 0) {
-                    sessionTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')} remaining`;
-                } else {
-                    sessionTimer.textContent = 'Session expired';
-                }
-            }
-
-            function clearAdminSession() {
-                adminAuthenticated = false;
-                sessionStartTime = null;
-                currentAdminPassword = null; // Clear global password
-                adminPanel.classList.remove('open');
-                if (sessionTimeout) {
-                    clearTimeout(sessionTimeout);
-                    sessionTimeout = null;
-                }
-                if (timerInterval) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                }
-            }
-
-            function startAdminSession(password) {
-                adminAuthenticated = true;
-                sessionStartTime = Date.now();
-                currentAdminPassword = password; // Store password globally
-                
-                // Clear any existing timeout/interval
-                if (sessionTimeout) clearTimeout(sessionTimeout);
-                if (timerInterval) clearInterval(timerInterval);
-                
-                // Set new timeout
-                sessionTimeout = setTimeout(() => {
-                    showNotification("⏰ Admin session expired. Please login again.", "info");
-                    clearAdminSession();
-                }, SESSION_DURATION);
-                
-                // Start timer update interval
-                timerInterval = setInterval(updateSessionTimer, 1000);
-                updateSessionTimer();
-            }
-
-            adminToggle.addEventListener('click', function() {
-                // Check if admin is already authenticated or needs authentication
-                if (!adminAuthenticated) {
-                    const password = prompt("🔒 Enter admin password to access pricing controls:");
-                    if (password === "piepie") {
-                        startAdminSession(password);
-                        showNotification("✅ Admin access granted! (30 min session)", "success");
-                        adminPanel.classList.add('open');
-                    } else if (password !== null) { // User didn't cancel
-                        showNotification("❌ Incorrect password. Access denied.", "error");
-                        return;
-                    }
-                } else {
-                    // Already authenticated, just toggle panel
-                    adminPanel.classList.toggle('open');
-                }
-            });
-
-            // Admin logout functionality
-            document.getElementById('admin-logout').addEventListener('click', function() {
-                if (confirm('Are you sure you want to logout from admin mode?')) {
-                    clearAdminSession();
-                    showNotification("👋 Admin logged out successfully.", "info");
-                }
-            });
-
-            // Close admin panel when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!adminPanel.contains(e.target) && !adminToggle.contains(e.target)) {
-                    adminPanel.classList.remove('open');
-                }
-            });
-
-            // Populate admin panel
-            populateServiceLevels();
-            populateBasePackages();
-            populateCarParts();
-
-            // Admin event listeners with global save capability
-            setupAdminEventListeners();
-        }
-
-        function setupAdminEventListeners() {
-            // Add service level
-            document.getElementById('add-service-level').addEventListener('click', function() {
-                addServiceLevel();
-            });
-
-            // Add base package
-            document.getElementById('add-base-package').addEventListener('click', function() {
-                addBasePackage();
-            });
-
-            // Export settings
-            document.getElementById('export-settings').addEventListener('click', function() {
-                exportSettings();
-            });
-
-            // Import settings
-            document.getElementById('import-settings-btn').addEventListener('click', function() {
-                document.getElementById('import-settings').click();
-            });
-
-            document.getElementById('import-settings').addEventListener('change', function(e) {
-                importSettings(e.target.files[0]);
-            });
-
-            // Reset settings
-            document.getElementById('reset-settings').addEventListener('click', async function() {
-                if (confirm('Are you sure you want to reset all settings to default?')) {
-                    await resetToDefaults();
-                }
-            });
-
-            // Save changes
-            document.getElementById('save-changes').addEventListener('click', async function() {
-                // Use the stored admin password for global save
-                const success = await saveConfiguration(currentAdminPassword);
-                
-                if (success) {
-                    updateDisplay();
-                    generateServiceLevelButtons();
-                    generateServiceLegend();
-                    generateQuickPackages();
-                    updateCarPartColors();
-                }
-            });
-        }
-
-        function populateServiceLevels() {
-            const container = document.getElementById('service-levels-list');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.serviceLevels).forEach(([key, level]) => {
-                if (key === 'not-included') return; // Skip not-included as it's fixed
-
-                const div = document.createElement('div');
-                div.className = 'p-4 bg-gray-800 rounded-lg border border-gray-600';
-                div.innerHTML = `
-                    <div class="flex items-center justify-between mb-3">
-                        <input type="text" value="${level.name}" class="admin-input flex-1 mr-3" 
-                               onchange="updateServiceLevel('${key}', 'name', this.value)">
-                        <button onclick="removeServiceLevel('${key}')" class="text-red-400 hover:text-red-300">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Price</label>
-                            <input type="number" value="${level.price}" class="admin-input" 
-                                   onchange="updateServiceLevel('${key}', 'price', parseInt(this.value))">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Color</label>
-                            <div class="color-picker-container">
-                                <div class="color-preview" style="background-color: ${level.color}"
-                                     onclick="openColorPicker('${key}', 'color')"></div>
-                                <input type="color" value="${level.color}" class="hidden" id="color-${key}"
-                                       onchange="updateServiceLevel('${key}', 'color', this.value)">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1">Stroke Color</label>
-                        <div class="color-picker-container">
-                            <div class="color-preview" style="background-color: ${level.strokeColor}"
-                                 onclick="openColorPicker('${key}', 'strokeColor')"></div>
-                            <input type="color" value="${level.strokeColor}" class="hidden" id="stroke-${key}"
-                                   onchange="updateServiceLevel('${key}', 'strokeColor', this.value)">
-                        </div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function populateBasePackages() {
-            const container = document.getElementById('base-packages-list');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.basePrices).forEach(([key, pkg]) => {
-                const div = document.createElement('div');
-                div.className = 'p-4 bg-gray-800 rounded-lg border border-gray-600';
-                div.innerHTML = `
-                    <div class="flex items-center justify-between mb-3">
-                        <input type="text" value="${pkg.name}" class="admin-input flex-1 mr-3" 
-                               onchange="updateBasePackage('${key}', 'name', this.value)">
-                        <button onclick="removeBasePackage('${key}')" class="text-red-400 hover:text-red-300">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Price</label>
-                            <input type="number" value="${pkg.price}" class="admin-input" 
-                                   onchange="updateBasePackage('${key}', 'price', parseInt(this.value))">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Description</label>
-                            <input type="text" value="${pkg.description}" class="admin-input" 
-                                   onchange="updateBasePackage('${key}', 'description', this.value)">
-                        </div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function populateCarParts() {
-            const container = document.getElementById('car-parts-list');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.partMultipliers).forEach(([key, multiplier]) => {
-                const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3 bg-gray-800 rounded-lg border border-gray-600';
-                div.innerHTML = `
-                    <span class="text-sm font-medium">${formatPartName(key)}</span>
-                    <input type="number" value="${multiplier}" step="0.1" min="0" max="5" class="admin-input w-20" 
-                           onchange="updatePartMultiplier('${key}', parseFloat(this.value))">
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // Update functions
-        function updateServiceLevel(key, property, value) {
-            PRICING_CONFIG.serviceLevels[key][property] = value;
-            if (property === 'color' || property === 'strokeColor') {
-                updateColorPreview(key, property, value);
-            }
-        }
-
-        function updateBasePackage(key, property, value) {
-            PRICING_CONFIG.basePrices[key][property] = value;
-        }
-
-        function updatePartMultiplier(key, value) {
-            PRICING_CONFIG.partMultipliers[key] = value;
-        }
-
-        function updateColorPreview(key, property, color) {
-            const preview = document.querySelector(`[onclick="openColorPicker('${key}', '${property}')"]`);
-            if (preview) {
-                preview.style.backgroundColor = color;
-            }
-        }
-
-        function openColorPicker(key, property) {
-            const input = document.getElementById(`${property === 'color' ? 'color' : 'stroke'}-${key}`);
-            if (input) {
-                input.click();
-            }
-        }
-
-        // Add/Remove functions
-        function addServiceLevel() {
-            const key = `custom-${Date.now()}`;
-            PRICING_CONFIG.serviceLevels[key] = {
-                name: 'New Service',
-                price: 50,
-                color: '#6366f1',
-                strokeColor: '#4f46e5'
-            };
-            populateServiceLevels();
-        }
-
-        function removeServiceLevel(key) {
-            if (confirm('Are you sure you want to remove this service level?')) {
-                delete PRICING_CONFIG.serviceLevels[key];
-                populateServiceLevels();
-            }
-        }
-
-        function addBasePackage() {
-            const key = `custom-${Date.now()}`;
-            PRICING_CONFIG.basePrices[key] = {
-                name: 'New Package',
-                price: 100,
-                description: 'Custom package description'
-            };
-            populateBasePackages();
-        }
-
-        function removeBasePackage(key) {
-            if (confirm('Are you sure you want to remove this package?')) {
-                delete PRICING_CONFIG.basePrices[key];
-                populateBasePackages();
-            }
-        }
-
-        // Import/Export functions
-        function exportSettings() {
-            const dataStr = JSON.stringify(PRICING_CONFIG, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'jay-pricing-settings.json';
-            link.click();
-            URL.revokeObjectURL(url);
-            showToast('Settings exported successfully!', 'success');
-        }
-
-        function importSettings(file) {
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    PRICING_CONFIG = imported;
-                    await saveConfiguration(currentAdminPassword);
-                    populateServiceLevels();
-                    populateBasePackages();
-                    populateCarParts();
-                    updateDisplay();
-                    generateServiceLevelButtons();
-                    generateServiceLegend();
-                    generateQuickPackages();
-                    updateCarPartColors();
-                    showNotification('Settings imported and saved globally!', 'success');
-                } catch (error) {
-                    showToast('Error importing settings. Please check the file format.', 'error');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        async function resetToDefaults() {
-            // Reset to original defaults
-            PRICING_CONFIG = {
-                basePrices: {
-                    mini: { name: 'Mini Detail', price: 70, description: 'Basic exterior & interior' },
-                    luxury: { name: 'Luxury Detail', price: 130, description: 'Premium clean + protection' },
-                    max: { name: 'Max Detail', price: 200, description: 'Ultimate treatment' }
-                },
-                serviceLevels: {
-                    'not-included': { name: 'Not Included', price: 0, color: '#ef4444', strokeColor: '#dc2626' },
-                    'basic-clean': { name: 'Basic Clean', price: 0, color: '#22c55e', strokeColor: '#16a34a' },
-                    'premium-clean': { name: 'Premium Clean', price: 20, color: '#3b82f6', strokeColor: '#2563eb' },
-                    'luxury-treatment': { name: 'Luxury Treatment', price: 40, color: '#a855f7', strokeColor: '#9333ea' },
-                    'ceramic-protection': { name: 'Ceramic Protection', price: 150, color: '#f59e0b', strokeColor: '#d97706' },
-                    'graphene-shield': { name: 'Graphene Shield', price: 300, color: '#ec4899', strokeColor: '#db2777' }
-                },
-                partMultipliers: {
-                    'hood': 1.0, 'roof': 1.0, 'trunk': 1.0, 'front-door': 0.8, 'rear-door': 0.8, 'driver-door': 0.8,
-                    'front-bumper': 0.6, 'rear-bumper': 0.6, 'windshield': 0.5, 'rear-window': 0.5,
-                    'front-side-window': 0.3, 'rear-side-window': 0.3, 'driver-side-window': 0.3,
-                    'front-wheel': 0.7, 'rear-wheel': 0.7, 'front-seats': 1.2, 'rear-seats': 1.0,
-                    'dashboard': 0.8, 'carpets': 1.0
-                }
-            };
-            
-            await saveConfiguration(currentAdminPassword);
-            populateServiceLevels();
-            populateBasePackages();
-            populateCarParts();
-            updateDisplay();
-            generateServiceLevelButtons();
-            generateServiceLegend();
-            generateQuickPackages();
-            updateCarPartColors();
-            showNotification('Settings reset to defaults and saved globally!', 'success');
-        }
-
-        // Update car part colors based on current service levels
-        function updateCarPartColors() {
-            // Create dynamic CSS for service level colors
-            let css = '';
-            Object.entries(PRICING_CONFIG.serviceLevels).forEach(([key, level]) => {
-                css += `.${key} { fill: ${level.color}; stroke: ${level.strokeColor}; }\n`;
-            });
-
-            // Remove existing dynamic styles
-            const existingStyle = document.getElementById('dynamic-colors');
-            if (existingStyle) {
-                existingStyle.remove();
-            }
-
-            // Add new dynamic styles
-            const style = document.createElement('style');
-            style.id = 'dynamic-colors';
-            style.textContent = css;
-            document.head.appendChild(style);
-        }
-
-        // Generate service level buttons
-        function generateServiceLevelButtons() {
-            const container = document.getElementById('service-level-buttons');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.serviceLevels).forEach(([key, level]) => {
-                if (key === 'not-included') return;
-
-                const button = document.createElement('button');
-                button.className = 'service-level-btn p-4 rounded-lg border-2 border-gray-600 hover:border-purple-500 transition-all';
-                button.dataset.level = key;
-                button.innerHTML = `
-                    <div class="w-4 h-4 rounded mx-auto mb-2" style="background-color: ${level.color}"></div>
-                    <div class="font-semibold">${level.name}</div>
-                    <div class="text-sm text-gray-400">${level.price > 0 ? `+$${level.price}` : 'Included'}</div>
-                `;
-
-                button.addEventListener('click', function() {
-                    currentState.selectedLevel = key;
-                    updateServiceLevelButtons();
-                });
-
-                container.appendChild(button);
-            });
-        }
-
-        // Generate service legend
-        function generateServiceLegend() {
-            const container = document.getElementById('service-legend');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.serviceLevels).forEach(([key, level]) => {
-                const div = document.createElement('div');
-                div.className = 'legend-item';
-                div.innerHTML = `
-                    <div class="legend-color" style="background-color: ${level.color}; border-color: ${level.strokeColor}"></div>
-                    <span class="text-sm">${level.name} ${level.price > 0 ? `(+$${level.price})` : ''}</span>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // Generate quick packages
-        function generateQuickPackages() {
-            const container = document.getElementById('quick-packages');
-            container.innerHTML = '';
-
-            Object.entries(PRICING_CONFIG.basePrices).forEach(([key, pkg]) => {
-                const button = document.createElement('button');
-                button.className = 'quick-package w-full text-left p-3 rounded-lg border border-gray-600 hover:border-purple-500 transition-all';
-                button.dataset.package = key;
-                button.innerHTML = `
-                    <div class="font-semibold">${pkg.name} - $${pkg.price}</div>
-                    <div class="text-sm text-gray-400">${pkg.description}</div>
-                `;
-
-                button.addEventListener('click', function() {
-                    applyQuickPackage(key);
-                });
-
-                container.appendChild(button);
-            });
-        }
-
-        // Rest of the existing pricing logic functions...
-        function applyServiceToPart(partName, serviceLevel) {
-            currentState.partServices[partName] = serviceLevel;
-            
-            const partElement = document.querySelector(`[data-part="${partName}"]`);
-            if (partElement) {
-                // Remove all service level classes
-                Object.keys(PRICING_CONFIG.serviceLevels).forEach(level => {
-                    partElement.classList.remove(level);
-                });
-                // Add new service level class
-                partElement.classList.add(serviceLevel);
-            }
-        }
-
-        function updateServiceLevelButtons() {
-            document.querySelectorAll('.service-level-btn').forEach(btn => {
-                btn.classList.remove('border-purple-500', 'bg-purple-500', 'bg-opacity-20');
-                if (btn.dataset.level === currentState.selectedLevel) {
-                    btn.classList.add('border-purple-500', 'bg-purple-500', 'bg-opacity-20');
-                }
-            });
-        }
-
-        function applyQuickPackage(packageType) {
-            const config = {
-                mini: { exterior: 'basic-clean', interior: 'basic-clean', windows: 'basic-clean', wheels: 'basic-clean' },
-                luxury: { exterior: 'premium-clean', interior: 'premium-clean', windows: 'premium-clean', wheels: 'premium-clean' },
-                max: { exterior: 'luxury-treatment', interior: 'luxury-treatment', windows: 'luxury-treatment', wheels: 'luxury-treatment' }
-            };
-
-            const packageConfig = config[packageType];
-            if (!packageConfig) return;
-
-            Object.keys(currentState.partServices).forEach(partName => {
-                let serviceLevel = 'not-included';
-                
-                if (['hood', 'roof', 'trunk', 'front-door', 'rear-door', 'driver-door', 'front-bumper', 'rear-bumper'].includes(partName)) {
-                    serviceLevel = packageConfig.exterior;
-                } else if (['front-seats', 'rear-seats', 'dashboard', 'carpets'].includes(partName)) {
-                    serviceLevel = packageConfig.interior;
-                } else if (['windshield', 'rear-window', 'front-side-window', 'rear-side-window', 'driver-side-window'].includes(partName)) {
-                    serviceLevel = packageConfig.windows;
-                } else if (['front-wheel', 'rear-wheel'].includes(partName)) {
-                    serviceLevel = packageConfig.wheels;
-                }
-                
-                applyServiceToPart(partName, serviceLevel);
-            });
-
-            currentState.basePrice = PRICING_CONFIG.basePrices[packageType].price;
-            updateDisplay();
-        }
-
-        function calculatePrice() {
-            let servicesTotal = 0;
-            
-            Object.entries(currentState.partServices).forEach(([partName, serviceLevel]) => {
-                if (serviceLevel !== 'not-included') {
-                    const servicePrice = PRICING_CONFIG.serviceLevels[serviceLevel]?.price || 0;
-                    const multiplier = PRICING_CONFIG.partMultipliers[partName] || 1;
-                    servicesTotal += servicePrice * multiplier;
-                }
-            });
-            
-            currentState.totalPrice = currentState.basePrice + servicesTotal;
-            return {
-                base: currentState.basePrice,
-                services: servicesTotal,
-                total: currentState.totalPrice
-            };
-        }
-
-        function updateDisplay() {
-            const pricing = calculatePrice();
-            
-            document.getElementById('base-price').textContent = `$${pricing.base}`;
-            document.getElementById('services-price').textContent = `$${Math.round(pricing.services)}`;
-            document.getElementById('total-price').textContent = `$${Math.round(pricing.total)}`;
-            
-            updateServiceLevelButtons();
-        }
-
-        function showTooltip(element, partName) {
-            const tooltip = document.createElement('div');
-            tooltip.id = 'part-tooltip';
-            tooltip.className = 'absolute bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg text-sm z-50 border border-purple-500';
-            tooltip.innerHTML = `
-                <div class="font-semibold">${formatPartName(partName)}</div>
-                <div class="text-gray-400">Current: ${formatServiceLevel(currentState.partServices[partName])}</div>
-            `;
-            
-            const rect = element.getBoundingClientRect();
-            tooltip.style.left = (rect.left + rect.width / 2) + 'px';
-            tooltip.style.top = (rect.top - 10) + 'px';
-            tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
-            
-            document.body.appendChild(tooltip);
-        }
-
-        function hideTooltip() {
-            const tooltip = document.getElementById('part-tooltip');
-            if (tooltip) {
-                tooltip.remove();
-            }
-        }
-
-        function formatPartName(partName) {
-            return partName.split('-').map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-        }
-
-        function formatServiceLevel(level) {
-            return PRICING_CONFIG.serviceLevels[level]?.name || 'Unknown';
-        }
-
-        function generateQuote() {
-            const services = [];
-            const pricing = calculatePrice();
-            
-            Object.entries(currentState.partServices).forEach(([partName, serviceLevel]) => {
-                if (serviceLevel !== 'not-included') {
-                    services.push(`${formatPartName(partName)}: ${formatServiceLevel(serviceLevel)}`);
-                }
-            });
-            
-            const quoteData = {
-                total: Math.round(pricing.total),
-                basePrice: pricing.base,
-                servicesPrice: Math.round(pricing.services),
-                services: services,
-                timestamp: new Date().toLocaleString()
-            };
-            
-            const message = `Mobile Detailing Quote Request:
-            
-Total: $${quoteData.total}
-Base Package: $${quoteData.basePrice}
-Additional Services: $${quoteData.servicesPrice}
-
-Selected Services:
-${quoteData.services.join('\n')}
-
-Generated: ${quoteData.timestamp}`;
-            
-            const phoneNumber = '15622289429';
-            const encodedMessage = encodeURIComponent(message);
-            
-            if (navigator.userAgent.match(/Mobile|Android|iPhone/)) {
-                window.open(`sms:${phoneNumber}?body=${encodedMessage}`);
-            } else {
-                showQuoteModal(quoteData, message);
-            }
-        }
-
-        function showQuoteModal(quoteData, message) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4';
-            modal.innerHTML = `
-                <div class="bg-gray-900 rounded-2xl p-8 max-w-md w-full border border-purple-500">
-                    <h3 class="text-2xl font-bold mb-4 gradient-text">Your Custom Quote</h3>
-                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
-                        <div class="text-3xl font-bold text-center gradient-text mb-2">$${quoteData.total}</div>
-                        <div class="text-center text-gray-400">Total Price</div>
-                    </div>
-                    <div class="space-y-2 mb-6 text-sm">
-                        <div class="flex justify-between">
-                            <span>Base Package:</span>
-                            <span>$${quoteData.basePrice}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Services:</span>
-                            <span>$${quoteData.servicesPrice}</span>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <a href="tel:+15622289429" class="block w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg text-center">
-                            <i class="fas fa-phone mr-2"></i>
-                            Call (562) 228-9429
-                        </a>
-                        <button onclick="copyQuote('${message.replace(/'/g, "\\'")}'); this.parentElement.parentElement.parentElement.remove();" class="w-full py-2 px-4 border border-purple-500 text-purple-400 rounded-lg hover:bg-purple-500 hover:text-white">
-                            Copy Quote Details
-                        </button>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="w-full py-2 px-4 text-gray-400 hover:text-white">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-        }
-
-        function copyQuote(message) {
-            navigator.clipboard.writeText(message).then(() => {
-                showToast('Quote copied to clipboard!', 'success');
-            });
-        }
-
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            const bgColor = type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600';
-            toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg z-50 shadow-lg`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
-
-        // Make functions globally accessible
-        window.copyQuote = copyQuote;
-        window.updateServiceLevel = updateServiceLevel;
-        window.updateBasePackage = updateBasePackage;
-        window.updatePartMultiplier = updatePartMultiplier;
-        window.openColorPicker = openColorPicker;
-        window.removeServiceLevel = removeServiceLevel;
-        window.removeBasePackage = removeBasePackage;
-
-        // Car parts visualization functions
-        function updateCarVisualization() {
-            // Get all part elements
-            const parts = document.querySelectorAll('.part-visual');
-            
-            parts.forEach(part => {
-                const partName = part.dataset.part;
-                const partConfig = getCurrentPartConfig(partName);
-                
-                if (partConfig) {
-                    // Remove all existing service level classes
-                    const serviceClasses = ['not-included', 'basic-wash', 'deep-clean', 'premium-detail', 
-                                            'ceramic-coating', 'paint-correction', 'shampoo-treatment', 
-                                            'leather-conditioning', 'steam-cleaning', 'tire-shine', 
-                                            'wheel-detail', 'engine-bay'];
-                    serviceClasses.forEach(cls => part.classList.remove(cls));
-                    
-                    // Add current service level class
-                    part.classList.add(partConfig.serviceLevel);
-                    
-                    // Update part name display
-                    const partNameEl = part.querySelector('.part-name');
-                    if (partNameEl) {
-                        partNameEl.textContent = partConfig.name;
-                    }
-                    
-                    // Update price display
-                    const priceEl = part.querySelector('.part-price');
-                    if (priceEl) {
-                        priceEl.textContent = `$${partConfig.price}`;
-                    }
-                }
-            });
-        }
-
-        function getCurrentPartConfig(partName) {
-            const currentView = document.querySelector('.car-view.active').id.replace('-view', '');
-            const partConfig = PRICING_CONFIG.carParts[currentView]?.[partName];
-            
-            if (partConfig) {
-                return {
-                    name: partConfig.name,
-                    price: partConfig.price,
-                    serviceLevel: partConfig.serviceLevel
-                };
-            }
-            
-            return null;
-        }
-
-        function switchCarView(view) {
-            // Hide all views
-            document.querySelectorAll('.car-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.view-toggle-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // Show selected view
-            document.getElementById(`${view}-view`).classList.add('active');
-            document.querySelector(`[onclick="switchCarView('${view}')"]`).classList.add('active');
-            
-            // Update visualization
-            updateCarVisualization();
-        }
-
-        function openPartModal(partName) {
-            const currentView = document.querySelector('.car-view.active').id.replace('-view', '');
-            const partConfig = PRICING_CONFIG.carParts[currentView]?.[partName];
-            
-            if (!partConfig) return;
-            
-            // Set modal title
-            document.getElementById('part-modal-title').textContent = partConfig.name;
-            
-            // Generate service options
-            const optionsContainer = document.getElementById('service-options');
-            optionsContainer.innerHTML = '';
-            
-            // Service descriptions for detailed explanations
-            const serviceDescriptions = {
-                'sio2-sealant': 'Complete 6-month hydrophobic SiO2 sealant application that INCLUDES full clay bar decontamination and body de-iron treatment. Clay bar and de-iron are ESSENTIAL before any wax or sealant application because they remove embedded contaminants, brake dust, and iron particles that would otherwise prevent proper bonding. This ensures maximum adhesion, longevity, and performance of the protective coating.',
-                'custom-scent': 'Choose from our premium collection of automotive fragrances or bring your preferred scent. We apply it professionally throughout the interior for a lasting, pleasant aroma.',
-                'trim-restoration': 'Professional restoration for all exterior trim, plastic, and rubber surfaces. Restores original appearance, prevents fading, and provides UV protection.',
-                'clay-bar-deiron': 'Complete paint decontamination using clay bar treatment combined with full-body iron removal. Eliminates embedded contaminants, brake dust, and iron particles for ultra-smooth paint surface.',
-                'rim-deiron': 'Specialized iron removal treatment for wheels and rims. Safely dissolves brake dust and iron contamination that regular washing cannot remove.',
-                'enzyme-degreaser': 'Professional-grade enzyme-based degreaser that breaks down organic matter, grease, and stubborn stains at the molecular level. Pricing varies $40-100 based on area size and vehicle condition.',
-                'steam-cleaning': 'High-temperature steam sanitization that kills bacteria, removes allergens, and penetrates deep into fabric and surfaces. Chemical-free cleaning that\'s safe for all materials. Pricing $40-50 based on area coverage.',
-                'biobomb-odor': 'Advanced bio-enzymatic technology that permanently eliminates odors at the source. Destroys smoke, pet, food, and other organic odors - not just masking them.',
-                'paint-correction': 'Multi-stage polishing process to remove scratches, swirl marks, and paint imperfections. Restores paint clarity and depth for a showroom-quality finish.',
-                'full-polishing': 'Complete paint polishing service using premium compounds and polishes. Enhances gloss, removes minor imperfections, and prepares surface for protection.'
-            };
-
-            const serviceOptions = [
-                { id: 'not-included', name: 'Not Included', price: 0, color: '#ef4444' },
-                { id: 'basic-wash', name: 'Basic Wash', price: 5, color: '#22c55e' },
-                { id: 'deep-clean', name: 'Deep Clean', price: 12, color: '#3b82f6' },
-                { id: 'premium-detail', name: 'Premium Detail', price: 25, color: '#a855f7' },
-                { id: 'ceramic-coating', name: 'Ceramic Coating', price: 50, color: '#f59e0b' },
-                { id: 'paint-correction', name: 'Paint Correction', price: 75, color: '#ec4899' },
-                { id: 'full-polishing', name: 'Full Polishing', price: 35, color: '#84cc16' },
-                { id: 'sio2-sealant', name: '6-Month SiO2 Sealant (Includes Clay+De-Iron)', price: 100, color: '#06b6d4' },
-                { id: 'clay-bar-deiron', name: 'Clay Bar with Full Body De-Iron', price: 70, color: '#f59e0b' },
-                { id: 'shampoo-treatment', name: 'Shampoo Treatment', price: 20, color: '#06b6d4' },
-                { id: 'leather-conditioning', name: 'Leather Conditioning', price: 15, color: '#8b5cf6' },
-                { id: 'steam-cleaning', name: 'Steam Cleaning ($40-50)', price: 45, color: '#10b981' },
-                { id: 'biobomb-odor', name: 'BIOBOMB Odor Elimination', price: 22, color: '#14b8a6' },
-                { id: 'custom-scent', name: 'Scent of Your Choosing', price: 12, color: '#f472b6' },
-                { id: 'trim-restoration', name: 'Exterior Trim Restoration', price: 25, color: '#a78bfa' },
-                { id: 'rim-deiron', name: 'De-Iron Rims', price: 25, color: '#ef4444' },
-                { id: 'enzyme-degreaser', name: 'Full Extraction ($40-100)', price: 70, color: '#fb7185' },
-                { id: 'tire-shine', name: 'Tire Shine', price: 8, color: '#f97316' },
-                { id: 'wheel-detail', name: 'Wheel Detail', price: 12, color: '#ef4444' },
-                { id: 'engine-bay', name: 'Engine Bay Cleaning', price: 30, color: '#6366f1' }
-            ];
-            
-            serviceOptions.forEach(option => {
-                const isSelected = partConfig.serviceLevel === option.id;
-                const optionEl = document.createElement('div');
-                optionEl.className = `service-option ${isSelected ? 'selected' : ''}`;
-                optionEl.style.borderColor = isSelected ? option.color : 'transparent';
-                optionEl.onclick = () => selectServiceOption(partName, option.id, option.price);
-                
-                // Add description tooltip if available
-                const description = serviceDescriptions[option.id];
-                if (description) {
-                    optionEl.title = description;
-                    optionEl.style.cursor = 'help';
-                }
-                
-                optionEl.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <div style="width: 20px; height: 20px; background: ${option.color}; border-radius: 50%;"></div>
-                        <span style="color: white; font-weight: 500;">${option.name}</span>
-                        ${description ? '<i class="fas fa-info-circle" style="color: #6b7280; margin-left: 4px; font-size: 12px;"></i>' : ''}
-                    </div>
-                    <span style="color: #a855f7; font-weight: bold;">$${option.price}</span>
-                `;
-                
-                optionsContainer.appendChild(optionEl);
-            });
-            
-            // Show modal
-            document.getElementById('part-modal').classList.add('active');
-        }
-
-        function selectServiceOption(partName, serviceLevel, price) {
-            const currentView = document.querySelector('.car-view.active').id.replace('-view', '');
-            
-            // Update the configuration
-            if (!PRICING_CONFIG.carParts[currentView]) {
-                PRICING_CONFIG.carParts[currentView] = {};
-            }
-            
-            if (!PRICING_CONFIG.carParts[currentView][partName]) {
-                PRICING_CONFIG.carParts[currentView][partName] = {
-                    name: partName.charAt(0).toUpperCase() + partName.slice(1),
-                    price: 0,
-                    serviceLevel: 'not-included'
-                };
-            }
-            
-            PRICING_CONFIG.carParts[currentView][partName].serviceLevel = serviceLevel;
-            PRICING_CONFIG.carParts[currentView][partName].price = price;
-            
-            // Update visual indicators
-            document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-            event.target.closest('.service-option').classList.add('selected');
-            
-            // Close modal
-            closePartModal();
-            
-            // Update car visualization
-            updateCarVisualization();
-            
-            // Auto-save configuration
-            saveConfiguration();
-        }
-
-        function closePartModal() {
-            document.getElementById('part-modal').classList.remove('active');
-        }
-
-        // Make functions globally available
-        window.switchCarView = switchCarView;
-        window.openPartModal = openPartModal;
-        window.closePartModal = closePartModal;
-        window.updateCarVisualization = updateCarVisualization;
-    </script>
+    <!-- TailwindCSS 4.1.11 (Latest) via CDN -->
+    <script src=" https://cdn.tailwindcss.com?v=4.1.11\></script>
+
+ <!-- Pricing Calculator Script -->
+ <script>
+ let selectedPackage = null;
+ let vehicleType = \small\;
+ let isCustomPackage = false;
+ 
+ // Package pricing
+ const packagePricing = {
+ \basic\: { small: 60, large: 70 },
+ \luxury\: { small: 130, large: 140 },
+ \max\: { small: 200, large: 210 }
+ };
+ 
+ function selectPackage(package) {
+ selectedPackage = package;
+ isCustomPackage = false;
+ updatePricing();
+ }
+ 
+ function updatePricing() {
+ if (selectedPackage && packagePricing[selectedPackage]) {
+ const price = packagePricing[selectedPackage][vehicleType];
+ document.getElementById(\package-price\).textContent = \$\ + price;
+ document.getElementById(\total-price\).textContent = \$\ + price;
+ }
+ }
+ 
+ // Initialize
+ selectPackage(\basic\);
+ </script>
 
     <!-- Schema Markup for Pricing Page -->
     <script type="application/ld+json">

@@ -12,12 +12,13 @@ class PerformanceOptimizer {
     }
 
     init() {
-        console.log('[Performance] Initializing performance optimizer...');
+        console.log('[Performance] Initializing performance optimizer in HIGH PERFORMANCE mode...');
+        this.performanceMode = 'high'; // Force high performance
         this.detectDeviceCapabilities();
         this.determineOptimalSettings();
         this.applyOptimizations();
         this.setupPerformanceMonitoring();
-        this.addPerformanceControls();
+        // Removed addPerformanceControls() - no UI needed
     }
 
     /**
@@ -135,17 +136,9 @@ class PerformanceOptimizer {
      * Determine optimal performance settings
      */
     determineOptimalSettings() {
-        const score = this.deviceCapabilities.performanceScore;
-        
-        if (score >= 70) {
-            this.performanceMode = 'high';
-        } else if (score >= 45) {
-            this.performanceMode = 'medium';
-        } else {
-            this.performanceMode = 'low';
-        }
-        
-        console.log(`[Performance] Optimal mode determined: ${this.performanceMode}`);
+        // Force high performance mode for optimal user experience
+        this.performanceMode = 'high';
+        console.log(`[Performance] Performance mode set to: ${this.performanceMode} (optimized for best experience)`);
     }
 
     /**
@@ -438,59 +431,14 @@ class PerformanceOptimizer {
     }
 
     /**
-     * Add performance controls to UI
+     * Setup performance monitoring (no UI controls)
      */
-    addPerformanceControls() {
-        const controlsHtml = `
-            <div id="performance-controls" style="
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 10px;
-                border-radius: 8px;
-                font-size: 12px;
-                z-index: 10004;
-                font-family: monospace;
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            ">
-                <div style="margin-bottom: 8px;">
-                    <strong>Performance Mode: ${this.performanceMode.toUpperCase()}</strong>
-                </div>
-                <div style="margin-bottom: 8px;">
-                    Score: ${this.deviceCapabilities.performanceScore}/100
-                </div>
-                <div>
-                    <button onclick="performanceOptimizer.setPerformanceMode('low')" style="margin-right: 5px; padding: 2px 6px; font-size: 10px;">Low</button>
-                    <button onclick="performanceOptimizer.setPerformanceMode('medium')" style="margin-right: 5px; padding: 2px 6px; font-size: 10px;">Med</button>
-                    <button onclick="performanceOptimizer.setPerformanceMode('high')" style="padding: 2px 6px; font-size: 10px;">High</button>
-                </div>
-            </div>
-        `;
-        
-        document.body.insertAdjacentHTML('beforeend', controlsHtml);
-        
-        // Auto-hide controls after 10 seconds
-        setTimeout(() => {
-            const controls = document.getElementById('performance-controls');
-            if (controls) {
-                controls.style.opacity = '0.3';
-                controls.style.pointerEvents = 'none';
-                
-                // Show on hover
-                controls.addEventListener('mouseenter', () => {
-                    controls.style.opacity = '1';
-                    controls.style.pointerEvents = 'auto';
-                });
-                
-                controls.addEventListener('mouseleave', () => {
-                    controls.style.opacity = '0.3';
-                    controls.style.pointerEvents = 'none';
-                });
-            }
-        }, 10000);
+    setupAdvancedMonitoring() {
+        // Monitor performance metrics silently
+        this.startFPSMonitoring();
+        this.monitorMemoryUsage();
+        this.trackLoadTimes();
+        console.log('[Performance] Advanced monitoring enabled in high performance mode');
     }
 
     /**

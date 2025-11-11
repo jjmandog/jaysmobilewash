@@ -1,0 +1,235 @@
+/* Enhanced Booking System Styles */
+
+/* Selected package/option styling */
+.package-option.selected {
+    border-color: #a855f7 !important;
+    background-color: rgba(168, 85, 247, 0.2) !important;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.car-type-option.selected {
+    border-color: #a855f7 !important;
+    background-color: rgba(168, 85, 247, 0.2) !important;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+/* Custom checkbox styling */
+.custom-service-item {
+    position: relative;
+}
+
+.custom-service-item input:checked + .checkbox-custom::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #a855f7;
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Step indicators */
+.step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.step-indicator.active {
+    opacity: 1;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #a855f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+}
+
+.step-indicator.active .step-circle {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+/* Progress indicator line */
+.step-indicator::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: calc(100% - 40px);
+    height: 2px;
+    background: #4b5563;
+    z-index: -1;
+}
+
+.step-indicator:last-child::after {
+    display: none;
+}
+
+.step-indicator.active::after {
+    background: linear-gradient(90deg, #a855f7, #ec4899);
+}
+
+/* Address validation styling */
+.border-green-500 {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.border-yellow-500 {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.border-red-500 {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* Enhanced confirm button animation */
+@keyframes confirmPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.8);
+    }
+}
+
+#confirm-booking {
+    animation: confirmPulse 2s infinite;
+}
+
+#confirm-booking:hover {
+    animation: none;
+    transform: scale(1.08) !important;
+}
+
+/* Terms checkbox styling */
+#terms-agree {
+    transform: scale(1.2);
+}
+
+#terms-agree:checked {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .step-indicator {
+        font-size: 12px;
+    }
+    
+    .step-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    #confirm-booking {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+}
+
+/* Photo upload enhancements */
+#photo-upload-area:hover {
+    border-color: #a855f7;
+    background-color: rgba(168, 85, 247, 0.1);
+}
+
+.group:hover .opacity-0 {
+    opacity: 1;
+}
+
+/* Form validation messages */
+.validation-message {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.validation-message::before {
+    content: '⚠️';
+    margin-right: 4px;
+}
+
+.success-message {
+    color: #10b981;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.success-message::before {
+    content: '✅';
+    margin-right: 4px;
+}
+
+/* Loading states */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Accessibility improvements */
+.package-option:focus,
+.car-type-option:focus {
+    outline: 2px solid #a855f7;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .step-indicator.active .step-circle {
+        background: #ffffff;
+        color: #000000;
+        border-color: #ffffff;
+    }
+    
+    .package-option.selected,
+    .car-type-option.selected {
+        border-color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+}

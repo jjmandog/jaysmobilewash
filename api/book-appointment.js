@@ -5,6 +5,7 @@
  */
 
 import nodemailer from 'nodemailer';
+import { createBooking, isTimeSlotAvailable } from '../database/bookings.js';
 
 // CORS headers for cross-origin requests
 const corsHeaders = {
@@ -95,6 +96,17 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    // Check for time slot availability if date and time are provided
+    if (preferredDate && preferredTime) {
+      const isAvailable = isTimeSlotAvailable(preferredDate, preferredTime);
+      if (!isAvailable) {
+        return res.status(409).json({ 
+          error: 'Time slot not available', 
+          message: `The requested time slot (${preferredTime}) on ${preferredDate} is already booked. Please choose a different time.` 
+        });
+      }
+    }
+
     // Calculate total price and service details
     let totalPrice = 0;
     let serviceDetails = [];
@@ -139,6 +151,34 @@ export default async function handler(req, res) {
       photoCount: carPhotos.length,
       bookingDate: new Date().toISOString()
     };
+
+    // Store booking in database (this will check for conflicts again as a safety measure)
+    try {
+      const bookingData = {
+        bookingId: appointmentDetails.bookingId,
+        customerName,
+        customerPhone,
+        customerEmail,
+        carType,
+        packageType,
+        customServices: Array.isArray(customServices) ? customServices.join(', ') : customServices,
+        totalPrice,
+        preferredDate,
+        preferredTime,
+        address,
+        specialInstructions,
+        photoCount: carPhotos.length
+      };
+      
+      createBooking(bookingData);
+      console.log('✅ Booking stored in database:', appointmentDetails.bookingId);
+    } catch (dbError) {
+      console.error('❌ Database error:', dbError);
+      return res.status(409).json({ 
+        error: 'Booking conflict', 
+        message: dbError.message || 'This time slot is no longer available. Please choose a different time.' 
+      });
+    }
 
     // Send email notification to business owner
     await sendBusinessNotification(appointmentDetails);

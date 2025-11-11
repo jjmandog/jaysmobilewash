@@ -1,9 +1,21 @@
-const CACHE_NAME = 'jays-mobile-wash-v6-no-chatbot';
+const CACHE_NAME = 'jays-mobile-wash-v8-keyword-domination';
 const urlsToCache = [
     '/',
     '/index.html',
+    '/orange-county-mobile-car-detailing.html',
+    '/los-angeles-mobile-car-detailing.html',
+    '/pricing.html',
+    '/about.html',
+    '/products.html',
+    '/privacy.html',
+    '/terms.html',
+    '/favicon.ico',
+    '/favicon-16x16.png',
+    '/favicon-32x32.png',
+    '/apple-touch-icon.png',
     'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+    'https://cdn.tailwindcss.com/3.3.0'
 ];
 
 // Install service worker
@@ -24,9 +36,9 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
-    
+
     // Skip chrome-extension and non-http(s) requests
-    if (event.request.url.startsWith('chrome-extension://') || 
+    if (event.request.url.startsWith('chrome-extension://') ||
         !event.request.url.startsWith('http')) {
         return;
     }

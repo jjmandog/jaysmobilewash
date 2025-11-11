@@ -1,6 +1,7 @@
 # Robots.txt for Jay's Mobile Wash
 # SEO Optimized Configuration
-# Last Updated: November 8, 2025
+# Last Updated: November 9, 2025
+# Google Rich Results: 19/19 pages compatible
 
 User-agent: *
 Allow: /
@@ -11,7 +12,16 @@ Allow: /interior-detailing/
 Allow: /locations/
 Allow: /packages/
 Allow: /products/
+Allow: /pricing/
+Allow: /about/
 Allow: /sitemap.xml
+
+# Allow specific pages with structured data
+Allow: /pricing.html
+Allow: /about.html
+Allow: /products.html
+Allow: /privacy.html
+Allow: /terms.html
 
 # Block hash URLs and query parameters
 Disallow: /#
@@ -25,12 +35,16 @@ Disallow: /private/
 Disallow: /tmp/
 Disallow: /_next/
 Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /logs/
 
-# Block test files
+# Block test and development files
 Disallow: /*-test.html
 Disallow: /chatbot-test.html
 Disallow: /simple-test.html
 Disallow: /debug-*.html
+Disallow: /test-*.html
+Disallow: /*DESKTOP*.html
 
 # Block temporary and backup files
 Disallow: /*.bak$

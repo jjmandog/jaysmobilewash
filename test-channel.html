@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🧪 Test ntfy Channel - jays-wash-alerts-2025</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, #b530ff 0%, #6c5ce7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .channel-info {
+            background: #f8f9fa;
+            border: 2px solid #b530ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .channel-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #b530ff;
+            background: #f0e6ff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #b530ff 0%, #6c5ce7 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(181, 48, 255, 0.3);
+        }
+        
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .instructions {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            color: #b530ff;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Your ntfy Channel</h1>
+        
+        <div class="channel-info">
+            <p><strong>Your Channel Name:</strong></p>
+            <div class="channel-name">jays-wash-alerts-2025</div>
+            <p><small>Subscribe to this exact name in your ntfy app</small></p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📱 Before Testing:</h3>
+            <ol>
+                <li><strong>Install ntfy app</strong> on your phone (if not done yet)</li>
+                <li><strong>Open ntfy app</strong></li>
+                <li><strong>Tap "+" button</strong></li>
+                <li><strong>Enter exactly:</strong> <code>jays-wash-alerts-2025</code></li>
+                <li><strong>Subscribe</strong> to the channel</li>
+                <li><strong>Then come back and test below</strong></li>
+            </ol>
+        </div>
+        
+        <button onclick="sendTestNotification()">🧪 Send Test Notification</button>
+        <button onclick="sendBookingSimulation()">🚗 Send Booking Simulation</button>
+        
+        <div id="result"></div>
+        
+        <div class="info">
+            <strong>✅ If notifications work here:</strong><br>
+            Your booking system will also work! The same channel is now connected to your website.
+        </div>
+    </div>
+
+    <script>
+        async function sendTestNotification() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="info">📤 Sending test notification...</div>';
+            
+            try {
+                await fetch('https://ntfy.sh/jays-wash-alerts-2025', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: "🧪 Test from Jay's Mobile Wash",
+                        message: "Your ntfy channel 'jays-wash-alerts-2025' is working perfectly! 🎉",
+                        tags: ["test", "success"],
+                        priority: 3,
+                        click: "https://jaysmobilewash.net"
+                    })
+                });
+                
+                resultDiv.innerHTML = '<div class="success">✅ Test notification sent! Check your phone!</div>';
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error">❌ Failed to send test notification</div>';
+                console.error('Test error:', error);
+            }
+        }
+        
+        async function sendBookingSimulation() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="info">📤 Sending booking simulation...</div>';
+            
+            try {
+                await fetch('https://ntfy.sh/jays-wash-alerts-2025', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: "NEW BOOKING",
+                        message: "John Doe - (555) 123-4567 - $150 - Nov 15, 2025 10:00 AM",
+                        tags: ["booking"],
+                        priority: 4
+                    })
+                });
+                
+                resultDiv.innerHTML = '<div class="success">✅ Booking simulation sent! This is what real bookings will look like!</div>';
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error">❌ Failed to send booking simulation</div>';
+                console.error('Simulation error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

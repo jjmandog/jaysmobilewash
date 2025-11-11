@@ -57,6 +57,14 @@ export function resetDatabaseForTests() {
         // Reset auto-increment counter
         database.exec("DELETE FROM sqlite_sequence WHERE name='customers'");
       }
+      
+      // Reset bookings table
+      const bookingsTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='bookings'").get();
+      if (bookingsTableExists) {
+        database.exec('DELETE FROM bookings');
+        // Reset auto-increment counter
+        database.exec("DELETE FROM sqlite_sequence WHERE name='bookings'");
+      }
     } catch (error) {
       console.error('Error resetting test database:', error);
       // If there's an error, reinitialize the database
@@ -121,6 +129,44 @@ function initializeTables() {
   `;
   
   db.exec(createCustomersUpdateTrigger);
+  
+  // Create bookings table
+  const createBookingsTable = `
+    CREATE TABLE IF NOT EXISTS bookings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      booking_id TEXT UNIQUE NOT NULL,
+      customer_name TEXT NOT NULL CHECK(length(customer_name) > 0 AND length(customer_name) <= 100),
+      customer_phone TEXT NOT NULL CHECK(length(customer_phone) > 0 AND length(customer_phone) <= 15),
+      customer_email TEXT NOT NULL CHECK(length(customer_email) > 0 AND length(customer_email) <= 255),
+      car_type TEXT NOT NULL CHECK(length(car_type) > 0 AND length(car_type) <= 50),
+      package_type TEXT CHECK(length(package_type) <= 50),
+      custom_services TEXT CHECK(length(custom_services) <= 1000),
+      total_price DECIMAL(7,2) NOT NULL CHECK(total_price >= 0 AND total_price < 10000),
+      preferred_date DATE NOT NULL,
+      preferred_time TEXT NOT NULL CHECK(length(preferred_time) > 0 AND length(preferred_time) <= 20),
+      address TEXT NOT NULL CHECK(length(address) > 0 AND length(address) <= 500),
+      special_instructions TEXT CHECK(length(special_instructions) <= 1000),
+      photo_count INTEGER DEFAULT 0 CHECK(photo_count >= 0),
+      status TEXT DEFAULT 'confirmed' CHECK(status IN ('confirmed', 'cancelled', 'completed')),
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(preferred_date, preferred_time)
+    )
+  `;
+  
+  db.exec(createBookingsTable);
+  
+  // Create trigger to update bookings updated_at timestamp
+  const createBookingsUpdateTrigger = `
+    CREATE TRIGGER IF NOT EXISTS update_bookings_updated_at
+    AFTER UPDATE ON bookings
+    FOR EACH ROW
+    BEGIN
+      UPDATE bookings SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+    END
+  `;
+  
+  db.exec(createBookingsUpdateTrigger);
   
   // Insert initial data if table is empty (not in test mode)
   if (!isTest) {
