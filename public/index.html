@@ -101,6 +101,12 @@
     <link rel="stylesheet" href="/booking-system.css?v=2025.11.09.v1">
     <script src="/booking-system.js?v=2025.11.09.v1" defer></script>
 
+    <!-- LAG BUSTER SYSTEM 🚀 - Revolutionary Performance Enhancement -->
+    <link rel="stylesheet" href="/anti-lag.css?v=2025.11.11.lag-buster" media="all">
+    <link rel="stylesheet" href="/advanced-performance.css?v=2025.11.11.lag-buster" media="all">
+    <script src="/instant-performance-loader.js?v=2025.11.11.lag-buster" async></script>
+    <script src="/lag-buster.js?v=2025.11.11.lag-buster" defer></script>
+
     <!-- Legacy chatbot handler (disabled) -->
 
 
@@ -5792,6 +5798,21 @@
         100% { filter: brightness(1); }
     }
     </style>
+
+    <!-- LAG BUSTER Service Worker Registration 🚀 -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.lag-buster')
+            .then(function(registration) {
+                console.log('LAG BUSTER Service Worker registered successfully:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
+        });
+    }
+    </script>
 
 </body>
 </html>

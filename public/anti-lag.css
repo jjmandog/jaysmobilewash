@@ -1,0 +1,267 @@
+/**
+ * 🔥 ANTI-LAG CSS - ULTIMATE PERFORMANCE STYLES
+ * Eliminates lag and makes everything buttery smooth
+ * Version: 2025.11.11
+ */
+
+/* FORCE HARDWARE ACCELERATION ON ALL INTERACTIVE ELEMENTS */
+.glow-button,
+.floating-book-button,
+button,
+a,
+.hover-scale,
+.transform,
+.transition-all {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* OPTIMIZED TRANSITIONS - ULTRA SMOOTH */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.transition-all {
+    transition-duration: 0.15s !important; /* Faster transitions = less lag */
+}
+
+/* SCROLL OPTIMIZATION */
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll lag */
+}
+
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+}
+
+/* PREVENT LAYOUT SHIFTS THAT CAUSE LAG */
+img {
+    height: auto;
+    max-width: 100%;
+    display: block;
+}
+
+/* OPTIMIZE ANIMATIONS FOR 60FPS */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* OPTIMIZED HOVER EFFECTS */
+.glow-button:hover {
+    transform: translateZ(0) scale(1.05) !important;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* PREVENT REPAINTS THAT CAUSE LAG */
+.floating-book-button {
+    position: fixed;
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+    .mobile-optimized * {
+        transition-duration: 0.1s !important; /* Even faster on mobile */
+    }
+
+    .mobile-optimized .glow-button:hover {
+        transform: translateZ(0) scale(1.02) !important; /* Smaller scale on mobile */
+    }
+
+    /* Reduce complex animations on mobile */
+    .mobile-optimized .lightning-bolt {
+        display: none !important;
+    }
+
+    .mobile-optimized .rgb-laser {
+        display: none !important;
+    }
+}
+
+/* TABLET OPTIMIZATIONS */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .tablet-optimized * {
+        transition-duration: 0.12s !important;
+    }
+}
+
+/* DESKTOP OPTIMIZATIONS */
+@media (min-width: 1025px) {
+    .desktop-optimized * {
+        transition-duration: 0.15s !important;
+    }
+
+    /* Enable full effects on desktop */
+    .desktop-optimized .lightning-bolt,
+    .desktop-optimized .rgb-laser {
+        display: block !important;
+    }
+}
+
+/* PREVENT FLASH OF UNSTYLED CONTENT */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+/* OPTIMIZED GRADIENTS - LESS LAG */
+.bg-gradient-to-r {
+    background-attachment: fixed;
+    will-change: auto; /* Let browser decide */
+}
+
+/* MEMORY OPTIMIZATION */
+.hidden {
+    display: none !important; /* Use display: none instead of opacity for hidden elements */
+}
+
+/* IMPROVE PAINTING PERFORMANCE */
+.container {
+    contain: layout style paint;
+}
+
+/* OPTIMIZE TEXT RENDERING */
+body {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* REDUCE REFLOW/REPAINT */
+.nav-item,
+.button,
+.card {
+    contain: layout;
+}
+
+/* INTERSECTION OBSERVER ANIMATIONS */
+.visible.fade-in {
+    animation-delay: 0s;
+}
+
+.visible.slide-up {
+    animation-delay: 0.1s;
+}
+
+/* CRITICAL LOADING STYLES */
+.critical-content {
+    contain: strict;
+    will-change: auto;
+}
+
+/* PREVENT FORM LAG */
+input,
+textarea,
+select {
+    will-change: auto;
+    transform: translateZ(0);
+}
+
+input:focus,
+textarea:focus {
+    transition: border-color 0.1s ease !important;
+}
+
+/* BUTTON RESPONSIVENESS */
+button:active {
+    transform: translateZ(0) scale(0.98) !important;
+    transition: transform 0.05s ease !important;
+}
+
+/* LOADING STATES */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* PROGRESSIVE IMAGE LOADING */
+.progressive-img {
+    filter: blur(2px);
+    transition: filter 0.3s ease;
+}
+
+.progressive-img.loaded {
+    filter: none;
+}
+
+/* REDUCE ANIMATION COMPLEXITY ON LOW-END DEVICES */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* FORCE GPU ACCELERATION FOR CRITICAL ELEMENTS */
+.hero-section,
+.nav,
+.footer,
+.booking-modal {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* OPTIMIZE SCROLLING PERFORMANCE */
+.scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/* PREVENT LAG DURING NAVIGATION */
+.page-transition {
+    transition: opacity 0.15s ease-out;
+}
+
+/* OPTIMIZED Z-INDEX LAYERS */
+.z-index-optimized {
+    isolation: isolate; /* Create new stacking context */
+}
+
+/* MEMORY-EFFICIENT ANIMATIONS */
+@keyframes efficient-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.efficient-animation {
+    animation: efficient-pulse 2s ease-in-out infinite;
+    will-change: opacity; /* Only animate opacity */
+}
+
+/* CRITICAL PERFORMANCE HINT */
+.performance-critical {
+    contain: strict;
+    will-change: auto;
+    transform: translateZ(0);
+}
