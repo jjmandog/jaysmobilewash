@@ -56,6 +56,7 @@ const SERVICES = {
 
 export default async function handler(req, res) {
   console.log('API route called:', req.method, req.url);
+  console.log('Request body:', JSON.stringify(req.body, null, 2));
 
   // Set CORS headers for all responses
   Object.keys(corsHeaders).forEach(key => {
@@ -98,14 +99,12 @@ export default async function handler(req, res) {
     }
 
     // Check for time slot availability if date and time are provided
+    // Note: For serverless deployment, we'll skip database conflicts for now
+    // and rely on ntfy notifications and manual conflict resolution
     if (preferredDate && preferredTime) {
-      const isAvailable = isTimeSlotAvailable(preferredDate, preferredTime);
-      if (!isAvailable) {
-        return res.status(409).json({
-          error: 'Time slot not available',
-          message: `The requested time slot (${preferredTime}) on ${preferredDate} is already booked. Please choose a different time.`
-        });
-      }
+      console.log(`Time slot requested: ${preferredTime} on ${preferredDate}`);
+      // For now, assume all slots are available due to serverless limitations
+      // TODO: Implement external database or conflict checking service
     }
 
     // Calculate total price and service details
@@ -157,6 +156,7 @@ export default async function handler(req, res) {
     };
 
     // Store booking in database (this will check for conflicts again as a safety measure)
+    // Note: For serverless deployment, we'll skip database for now
     try {
       const bookingData = {
         bookingId: appointmentDetails.bookingId,
@@ -175,14 +175,17 @@ export default async function handler(req, res) {
         photoCount: carPhotos.length
       };
 
-      createBooking(bookingData);
-      console.log('✅ Booking stored in database:', appointmentDetails.bookingId);
+      // For serverless deployment, log booking data instead of database storage
+      console.log('📋 BOOKING DATA TO BE STORED:', JSON.stringify(bookingData, null, 2));
+      
+      // TODO: In production, integrate with external database service (e.g., Vercel KV, PlanetScale)
+      // createBooking(bookingData);
+      
+      console.log('✅ Booking logged successfully:', appointmentDetails.bookingId);
     } catch (dbError) {
-      console.error('❌ Database error:', dbError);
-      return res.status(409).json({
-        error: 'Booking conflict',
-        message: dbError.message || 'This time slot is no longer available. Please choose a different time.'
-      });
+      console.error('❌ Booking logging error:', dbError);
+      // Don't fail the booking if logging fails
+      console.log('⚠️  Continuing without database storage...');
     }
 
     // Send email notification to business owner

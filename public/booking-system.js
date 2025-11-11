@@ -464,7 +464,7 @@ function getStep3HTML() {
     // Calculate surcharge for Sedan vehicles
     const sedanSurcharge = bookingState.customerData.carType === 'Sedan' ? 10 : 0;
     const subtotal = totalPrice + sedanSurcharge;
-    
+
     // Apply Thanksgiving discount (15% off)
     const thanksgivingDiscount = Math.round(subtotal * 0.15);
     const finalTotal = subtotal - thanksgivingDiscount;
@@ -559,7 +559,7 @@ function getStep3HTML() {
                     <i class="fas fa-exclamation-triangle mr-3 text-2xl"></i>
                     🦃 IMPORTANT: CONDITIONAL SURCHARGES 🍂
                 </h4>
-                
+
                 <!-- Thanksgiving Discount Banner -->
                 <div class="bg-green-900/40 border border-green-500/50 rounded-lg p-4 mb-4">
                     <div class="text-center">
