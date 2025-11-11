@@ -101,12 +101,6 @@
     <link rel="stylesheet" href="/booking-system.css?v=2025.11.09.v1">
     <script src="/booking-system.js?v=2025.11.09.v1" defer></script>
 
-    <!-- LAG BUSTER SYSTEM 🚀 - Revolutionary Performance Enhancement -->
-    <link rel="stylesheet" href="/anti-lag.css?v=2025.11.11.lag-buster" media="all">
-    <link rel="stylesheet" href="/advanced-performance.css?v=2025.11.11.lag-buster" media="all">
-    <script src="/instant-performance-loader.js?v=2025.11.11.lag-buster" async></script>
-    <script src="/lag-buster.js?v=2025.11.11.lag-buster" defer></script>
-
     <!-- Legacy chatbot handler (disabled) -->
 
 
@@ -2125,7 +2119,7 @@
     </section>
 
     <!-- Navigation -->
-    <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar" style="visibility: visible !important; display: block !important;">
+    <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-16 sm:h-20">
                 <div class="flex items-center">
@@ -4295,37 +4289,25 @@
             const loadingProgress = document.getElementById('loading-progress');
             let progress = 0;
 
-            // FAILSAFE: Force hide loading screen after 5 seconds maximum
-            setTimeout(() => {
-                if (loadingScreen && loadingScreen.style.display !== 'none') {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                        console.log('Loading screen forcibly hidden by failsafe');
-                    }, 500);
-                }
-            }, 5000);
-
-            // Update loading progress - Extended timing for better user experience
+            // Update loading progress
             const updateProgress = setInterval(() => {
-                progress += Math.random() * 8; // Slower progress for better visibility
+                progress += Math.random() * 15;
                 if (progress > 100) progress = 100;
 
-                if (loadingProgress) loadingProgress.textContent = Math.floor(progress);
-                if (waterFill) waterFill.style.height = `${progress}%`;
+                loadingProgress.textContent = Math.floor(progress);
+                waterFill.style.height = `${progress}%`;
 
                 if (progress >= 100) {
                     clearInterval(updateProgress);
                     setTimeout(() => {
-                        if (loadingScreen) loadingScreen.style.opacity = '0';
+                        loadingScreen.style.opacity = '0';
                         setTimeout(() => {
-                            if (loadingScreen) loadingScreen.style.display = 'none';
+                            loadingScreen.style.display = 'none';
                             document.body.style.overflow = 'auto';
-                        }, 800); // Extended fade out time
-                    }, 1500); // Extended display time at 100% - now people can see the beautiful screen!
+                        }, 500);
+                    }, 300);
                 }
-            }, 120); // Slower interval for better visibility
+            }, 50);
 
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -5810,21 +5792,6 @@
         100% { filter: brightness(1); }
     }
     </style>
-
-    <!-- LAG BUSTER Service Worker Registration 🚀 -->
-    <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.lag-buster')
-            .then(function(registration) {
-                console.log('LAG BUSTER Service Worker registered successfully:', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
-            });
-        });
-    }
-    </script>
 
 </body>
 </html>
