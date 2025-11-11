@@ -5793,26 +5793,17 @@
     }
     </style>
 
-    <!-- Clean Service Worker Registration - Clear old LAG BUSTER cache -->
+    <!-- Clean Service Worker Registration -->
     <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            // Clear old LAG BUSTER cache first
-            caches.keys().then(function(cacheNames) {
-                return Promise.all(
-                    cacheNames.filter(function(cacheName) {
-                        return cacheName.includes('lag-buster') || cacheName.includes('v7');
-                    }).map(function(cacheName) {
-                        console.log('Deleting old cache:', cacheName);
-                        return caches.delete(cacheName);
-                    })
-                );
-            }).then(function() {
-                // Register clean service worker
-                return navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.clean');
-            }).then(function(registration) {
+            navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.clean-fixed')
+            .then(function(registration) {
                 console.log('Clean Service Worker registered successfully:', registration.scope);
-            }).catch(function(error) {
+                // Update if needed
+                registration.update();
+            })
+            .catch(function(error) {
                 console.log('Service Worker registration failed:', error);
             });
         });

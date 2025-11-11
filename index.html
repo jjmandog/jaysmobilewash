@@ -5459,6 +5459,23 @@
     }
     </style>
 
+    <!-- Clean Service Worker Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.clean-fixed')
+            .then(function(registration) {
+                console.log('Clean Service Worker registered successfully:', registration.scope);
+                // Update if needed
+                registration.update();
+            })
+            .catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
+        });
+    }
+    </script>
+
     <!-- 🚀 ULTIMATE SPEED ROCKET FOR GOOGLE DOMINATION 🚀 -->
     <script src="/ULTIMATE_SPEED_ROCKET.js" defer></script>
 
