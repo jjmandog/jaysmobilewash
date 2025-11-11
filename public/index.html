@@ -1483,6 +1483,65 @@
         80% {width: 200px; height: 200px; opacity: 0.2;}
         100% {width: 300px; height: 300px; opacity: 0;}
     }
+
+    /* Thanksgiving Theme Animations */
+    .thanksgiving-leaves {
+        position: absolute;
+        font-size: 20px;
+        animation: fallDown 6s infinite linear;
+        pointer-events: none;
+    }
+    
+    .thanksgiving-leaves:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+    }
+    
+    .thanksgiving-leaves:nth-child(2) {
+        left: 50%;
+        animation-delay: 2s;
+    }
+    
+    .thanksgiving-leaves:nth-child(3) {
+        left: 80%;
+        animation-delay: 4s;
+    }
+    
+    @keyframes fallDown {
+        0% {
+            opacity: 1;
+            top: -10%;
+            transform: translateX(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateX(10px) rotate(90deg);
+        }
+        50% {
+            transform: translateX(-10px) rotate(180deg);
+        }
+        75% {
+            transform: translateX(5px) rotate(270deg);
+        }
+        100% {
+            opacity: 0;
+            top: 110%;
+            transform: translateX(0px) rotate(360deg);
+        }
+    }
+    
+    /* Thanksgiving Special Pulse */
+    #thanksgiving-banner {
+        animation: thanksgivingPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes thanksgivingPulse {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
+        }
+        50% {
+            box-shadow: 0 0 0 10px rgba(251, 146, 60, 0);
+        }
+    }
     </style>
     <script>
     // Button Ripple Effect JS
@@ -1513,6 +1572,31 @@
     });
     </script>
 <body itemscope itemtype="https://schema.org/LocalBusiness" itemid="https://www.jaysmobilewash.net/#organization">
+
+    <!-- Thanksgiving Banner 2025 -->
+    <div id="thanksgiving-banner" class="relative bg-gradient-to-r from-purple-900/95 via-orange-900/95 to-purple-900/95 border-b-2 border-orange-500/30 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-center text-center">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl animate-bounce">🦃</span>
+                    <div class="text-white">
+                        <span class="text-lg font-bold bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">
+                            Thanksgiving Special!
+                        </span>
+                        <span class="text-orange-200 ml-2">Get your car detailed before the holidays!</span>
+                        <span class="text-lg font-bold text-yellow-300 ml-2">🍂 15% OFF 🍂</span>
+                    </div>
+                    <span class="text-2xl animate-bounce">🍂</span>
+                </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div class="thanksgiving-leaves" style="animation-delay: 0s;">🍁</div>
+                <div class="thanksgiving-leaves" style="animation-delay: 2s;">🍂</div>
+                <div class="thanksgiving-leaves" style="animation-delay: 4s;">🍃</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Galaxy Starfield Overlay -->
     <aside id="galaxy-starfield" class="galaxy-starfield" aria-label="Animated galaxy starfield background">
         <!-- Stars will be dynamically generated here -->
@@ -1621,20 +1705,29 @@
             <div class="particles-container absolute inset-0 pointer-events-none z-0" aria-hidden="true"></div>
             <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20 md:pt-48 md:pb-28 z-2">
                 <header class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
+                    <!-- Thanksgiving Decoration -->
+                    <div class="mb-4 text-center sm:text-left">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-orange-900/40 border border-orange-500/30 text-orange-200 text-sm font-medium backdrop-blur-sm">
+                            🦃 Thanksgiving Special - 15% OFF Until Nov 28th! 🍂
+                        </span>
+                    </div>
+                    
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
                         <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
                         <br>
                         <span class="text-white">In Los Angeles & Orange County</span>
+                        <br>
+                        <span class="text-orange-300 text-3xl sm:text-4xl md:text-5xl">🦃 Give Thanks with a Clean Car! 🍂</span>
                     </h1>
                     <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto sm:mx-0">
-                        Premium mobile car detailing services that come to you. Ceramic coating, paint correction, interior detailing, and more.
+                        Get your car holiday-ready for Thanksgiving gatherings! Premium mobile detailing services that come to you. 🦃✨
                     </p>
                     <nav aria-label="Primary call to action" class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
                         <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low" itemprop="telephone">
                             <i class="fas fa-phone-alt mr-2" aria-hidden="true"></i> Call (562) 228-9429
                         </a>
                         <button onclick="window.JaysBookingSystem?.openBookingModal()" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg glow-button transform hover:scale-105 transition-all duration-300">
-                            <i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> Book Now - Free Quote
+                            <i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> 🦃 Book Thanksgiving Special! 🍂
                         </button>
                         <a href="#packages" class="px-8 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
                         View Packages
@@ -1839,12 +1932,22 @@
     <!-- Enhanced Packages Section with Show More -->
     <section id="packages" class="py-20 bg-gray-900">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Thanksgiving Special Header -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-900/60 to-yellow-900/60 border-2 border-orange-500/40 backdrop-blur-sm mb-4">
+                    <span class="text-2xl mr-3">🦃</span>
+                    <span class="text-orange-200 font-bold text-lg">THANKSGIVING SPECIAL - 15% OFF ALL PACKAGES!</span>
+                    <span class="text-2xl ml-3">🍂</span>
+                </div>
+                <p class="text-orange-300 text-sm">*Valid until November 28th, 2025. Give thanks with a spotless car! 🦃</p>
+            </div>
+            
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     <span class="gradient-text">Our Packages</span>
                 </h2>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Choose the perfect detailing package for your vehicle and budget.
+                    Choose the perfect detailing package for your vehicle and budget. 🦃 Holiday-ready in hours! 🍂
                 </p>
             </div>
            <!-- Deionized Water Section -->
@@ -2359,10 +2462,10 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="gradient-text">Our Services</span>
+                    <span class="gradient-text">🦃 Our Thanksgiving Services 🍂</span>
                 </h2>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    We provide premium car detailing services throughout Los Angeles and Orange County.
+                    We provide premium car detailing services throughout Los Angeles and Orange County. Perfect for holiday gatherings! 🦃✨
                 </p>
             </div>
 
@@ -5165,6 +5268,32 @@
     // Initial bolt on load
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createLightningBolt, 1000);
+        
+        // Thanksgiving Banner Auto-Hide Functionality
+        const thanksgivingDate = new Date('2025-11-28T23:59:59');
+        const currentDate = new Date();
+        
+        if (currentDate > thanksgivingDate) {
+            // Hide Thanksgiving elements after November 28th
+            const thanksgivingBanner = document.getElementById('thanksgiving-banner');
+            const thanksgivingSpecial = document.querySelector('.text-orange-200');
+            
+            if (thanksgivingBanner) {
+                thanksgivingBanner.style.display = 'none';
+            }
+            
+            // Remove Thanksgiving pricing headers
+            const pricingHeaders = document.querySelectorAll('.bg-gradient-to-r.from-orange-900\\/60');
+            pricingHeaders.forEach(header => {
+                header.style.display = 'none';
+            });
+            
+            // Restore original button text
+            const bookButton = document.querySelector('button[onclick*="openBookingModal"]');
+            if (bookButton) {
+                bookButton.innerHTML = '<i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> Book Now - Free Quote';
+            }
+        }
     });
     </script>
 
