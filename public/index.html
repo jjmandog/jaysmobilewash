@@ -1162,6 +1162,401 @@
             }
         }
 
+        /* AMAZING THANKSGIVING LOADING SCREEN ANIMATIONS! */
+
+        /* Thanksgiving Background */
+        .thanksgiving-loading-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b14 25%, #1a1a1a 50%, #2d1b14 75%, #1a1a1a 100%);
+            background-size: 400% 400%;
+            animation: thanksgivingGradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes thanksgivingGradientShift {
+            0%, 100% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+
+        /* Thanksgiving Elements Container */
+        .thanksgiving-loading-elements {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Floating Pumpkins */
+        .floating-pumpkin {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: floatPumpkin 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .pumpkin-1 {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .pumpkin-2 {
+            top: 70%;
+            right: 10%;
+            animation-delay: 2s;
+            animation-duration: 8s;
+        }
+
+        .pumpkin-3 {
+            top: 40%;
+            left: 85%;
+            animation-delay: 4s;
+            animation-duration: 7s;
+        }
+
+        @keyframes floatPumpkin {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-30px) rotate(5deg) scale(1.1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(-3deg) scale(0.9);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateY(-40px) rotate(8deg) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Flying Turkey Feathers */
+        .turkey-feather {
+            position: absolute;
+            font-size: 1.8rem;
+            animation: flyFeather 5s linear infinite;
+            z-index: 2;
+        }
+
+        .feather-1 {
+            top: 5%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+
+        .feather-2 {
+            top: 25%;
+            left: 5%;
+            animation-delay: 3s;
+            animation-duration: 7s;
+        }
+
+        .feather-3 {
+            top: 80%;
+            right: 30%;
+            animation-delay: 0s;
+        }
+
+        .feather-4 {
+            top: 60%;
+            left: 80%;
+            animation-delay: 4s;
+            animation-duration: 6s;
+        }
+
+        @keyframes flyFeather {
+            0% {
+                transform: translateX(-50px) translateY(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 50px)) translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Spinning Corn */
+        .spinning-corn {
+            position: absolute;
+            font-size: 2rem;
+            animation: spinCorn 4s linear infinite;
+            z-index: 1;
+        }
+
+        .corn-1 {
+            top: 20%;
+            right: 60%;
+            animation-delay: 1.5s;
+        }
+
+        .corn-2 {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 3.5s;
+            animation-duration: 6s;
+        }
+
+        @keyframes spinCorn {
+            0% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        /* Loading Autumn Leaves */
+        .loading-leaf {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: fallLeaf 8s linear infinite;
+            z-index: 1;
+        }
+
+        .leaf-1 { left: 10%; animation-delay: 0s; }
+        .leaf-2 { left: 30%; animation-delay: 1s; animation-duration: 10s; }
+        .leaf-3 { left: 50%; animation-delay: 2s; animation-duration: 9s; }
+        .leaf-4 { left: 70%; animation-delay: 3s; }
+        .leaf-5 { left: 90%; animation-delay: 4s; animation-duration: 11s; }
+        .leaf-6 { left: 25%; animation-delay: 5s; animation-duration: 7s; }
+
+        @keyframes fallLeaf {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Bouncing Acorns */
+        .bouncing-acorn {
+            position: absolute;
+            font-size: 1.3rem;
+            animation: bounceAcorn 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .acorn-1 {
+            bottom: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .acorn-2 {
+            bottom: 50%;
+            right: 15%;
+            animation-delay: 4s;
+            animation-duration: 4s;
+        }
+
+        @keyframes bounceAcorn {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            25% {
+                transform: translateY(-40px) scale(1.1);
+            }
+            50% {
+                transform: translateY(-60px) scale(0.9);
+            }
+            75% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        /* Thanksgiving Tank Enhancements */
+        .thanksgiving-tank-container {
+            animation: tankGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes tankGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(255, 165, 0, 0.6));
+            }
+        }
+
+        .thanksgiving-tank-border {
+            border-color: #f97316 !important;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+            animation: borderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(249, 115, 22, 0.8);
+            }
+        }
+
+        /* Thanksgiving Water */
+        .thanksgiving-water {
+            background: linear-gradient(to top, #ea580c, #fb923c) !important;
+        }
+
+        .thanksgiving-wave {
+            background: rgba(255, 200, 100, 0.3) !important;
+        }
+
+        .thanksgiving-wave-2 {
+            background: rgba(255, 165, 0, 0.2) !important;
+        }
+
+        /* Thanksgiving Bubbles */
+        .thanksgiving-bubble {
+            background: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            animation: thanksgivingBubbleRise 4s linear infinite;
+        }
+
+        @keyframes thanksgivingBubbleRise {
+            0% {
+                bottom: 10px;
+                opacity: 1;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                bottom: 100%;
+                opacity: 0;
+                transform: scale(0.6);
+            }
+        }
+
+        /* Thanksgiving Sparkles */
+        .thanksgiving-sparkles {
+            position: absolute;
+            inset: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .sparkle-1 { top: 20%; left: 20%; animation-delay: 0s; }
+        .sparkle-2 { top: 60%; right: 25%; animation-delay: 0.5s; }
+        .sparkle-3 { bottom: 30%; left: 60%; animation-delay: 1s; }
+        .sparkle-4 { top: 40%; right: 40%; animation-delay: 1.5s; }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3) rotate(180deg);
+            }
+        }
+
+        /* Logo Enhancements */
+        .thanksgiving-logo-glow {
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.8));
+            }
+        }
+
+        .thanksgiving-main-logo {
+            animation: mainLogoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes mainLogoFloat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -55%) scale(1.05);
+            }
+        }
+
+        .thanksgiving-logo-bounce {
+            animation: logoBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes logoBounce {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.1) rotate(2deg);
+            }
+            75% {
+                transform: scale(0.95) rotate(-2deg);
+            }
+        }
+
+        /* Thanksgiving Text Animations */
+        .thanksgiving-loading-text {
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+                color: #fed7aa;
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 165, 0, 0.9);
+                color: #fff;
+            }
+        }
+
+        .thanksgiving-progress-text {
+            animation: progressBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes progressBounce {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
         /* Package details animation */
         .package-details {
             overflow: hidden;
@@ -1522,38 +1917,79 @@
     </aside>
 
     <!-- Loading Screen -->
-    <section id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience">
-        <div class="relative w-80 h-80">
+    <section id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center thanksgiving-loading-bg" aria-label="Loading Experience">
+        <!-- Thanksgiving Animated Background Elements -->
+        <div class="thanksgiving-loading-elements">
+            <!-- Floating Pumpkins -->
+            <div class="floating-pumpkin pumpkin-1">🎃</div>
+            <div class="floating-pumpkin pumpkin-2">🎃</div>
+            <div class="floating-pumpkin pumpkin-3">🎃</div>
+
+            <!-- Flying Turkey Feathers -->
+            <div class="turkey-feather feather-1">🪶</div>
+            <div class="turkey-feather feather-2">🪶</div>
+            <div class="turkey-feather feather-3">🪶</div>
+            <div class="turkey-feather feather-4">🪶</div>
+
+            <!-- Spinning Corn -->
+            <div class="spinning-corn corn-1">🌽</div>
+            <div class="spinning-corn corn-2">🌽</div>
+
+            <!-- Autumn Leaves for Loading -->
+            <div class="loading-leaf leaf-1">🍂</div>
+            <div class="loading-leaf leaf-2">🍁</div>
+            <div class="loading-leaf leaf-3">🍂</div>
+            <div class="loading-leaf leaf-4">🍁</div>
+            <div class="loading-leaf leaf-5">🍂</div>
+            <div class="loading-leaf leaf-6">🍁</div>
+
+            <!-- Acorns -->
+            <div class="bouncing-acorn acorn-1">🌰</div>
+            <div class="bouncing-acorn acorn-2">🌰</div>
+        </div>
+
+        <div class="relative w-80 h-80 thanksgiving-tank-container">
             <!-- Water tank container -->
-            <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
-                <!-- Water fill -->
-                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-100 ease-linear">
-                    <div class="water-wave" aria-hidden="true"></div>
-                    <div class="water-wave water-wave-2" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-orange-500 thanksgiving-tank-border overflow-hidden">
+                <!-- Thanksgiving Water fill (orange themed) -->
+                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-600 to-orange-400 transition-all duration-100 ease-linear thanksgiving-water">
+                    <div class="water-wave thanksgiving-wave" aria-hidden="true"></div>
+                    <div class="water-wave water-wave-2 thanksgiving-wave-2" aria-hidden="true"></div>
                 </div>
-                <!-- Bubbles -->
-                <div class="bubbles" aria-hidden="true">
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
-                    <div class="bubble"></div>
+                <!-- Thanksgiving Bubbles -->
+                <div class="bubbles thanksgiving-bubbles" aria-hidden="true">
+                    <div class="bubble thanksgiving-bubble">🦃</div>
+                    <div class="bubble thanksgiving-bubble">🥧</div>
+                    <div class="bubble thanksgiving-bubble">🌽</div>
+                    <div class="bubble thanksgiving-bubble">🍂</div>
+                    <div class="bubble thanksgiving-bubble">🎃</div>
+                </div>
+
+                <!-- Thanksgiving Sparkles -->
+                <div class="thanksgiving-sparkles">
+                    <div class="sparkle sparkle-1">✨</div>
+                    <div class="sparkle sparkle-2">⭐</div>
+                    <div class="sparkle sparkle-3">✨</div>
+                    <div class="sparkle sparkle-4">⭐</div>
                 </div>
             </div>
+
             <!-- Logo under Contact Info (fixed aspect ratio) -->
-            <div class="w-32 h-16 mx-auto my-6">
+            <div class="w-32 h-16 mx-auto my-6 thanksgiving-logo-glow">
                 <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash company logo" class="w-full h-full object-contain" loading="eager">
             </div>
+
             <!-- Logo -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 thanksgiving-main-logo">
                 <div class="w-24 h-24 filter drop-shadow-lg">
-                  <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash animated logo" class="w-full h-full object-contain" loading="eager">
+                  <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash animated logo" class="w-full h-full object-contain thanksgiving-logo-bounce" loading="eager">
                 </div>
             </div>
-            <!-- Progress text -->
-            <div class="absolute bottom-10 left-0 right-0 text-center text-white">
-                <p class="text-sm font-medium">Loading Experience...</p>
-                <p class="text-xs mt-1"><span id="loading-progress">0</span>%</p>
+
+            <!-- Thanksgiving Progress text -->
+            <div class="absolute bottom-10 left-0 right-0 text-center text-orange-200">
+                <p class="text-sm font-medium thanksgiving-loading-text">🦃 Loading Thanksgiving Experience... 🍂</p>
+                <p class="text-xs mt-1 thanksgiving-progress-text">🎃 <span id="loading-progress">0</span>% Complete! 🌽</p>
             </div>
         </div>
     </section>
