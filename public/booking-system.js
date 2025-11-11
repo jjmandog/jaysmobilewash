@@ -240,14 +240,22 @@ function getStep1HTML() {
             <!-- Car Type Selection -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-purple-300 mb-4">Vehicle Type</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="grid grid-cols-3 gap-3">
+                <div class="grid grid-cols-3 gap-3">
                     ${['Sedan', 'SUV', 'Other'].map(type => `
                         <div class="car-type-option p-3 border border-purple-500/30 rounded-lg cursor-pointer hover:border-purple-400 transition-colors text-center" data-car-type="${type.toLowerCase()}">
                             <i class="fas fa-car text-purple-400 mb-2"></i>
                             <div class="text-white text-sm">${type}</div>
                         </div>
                     `).join('')}
+                </div>
+                <!-- Other Vehicle Type Input -->
+                <div id="other-vehicle-input" class="hidden mt-4">
+                    <label class="block text-purple-300 font-medium mb-2">Please specify your vehicle type:</label>
+                    <input type="text" id="other-vehicle-type" class="w-full p-3 bg-gray-800 border border-purple-500/30 rounded-lg text-white focus:border-purple-400 focus:outline-none" placeholder="e.g., Truck, Van, Motorcycle, RV, etc." maxlength="50">
+                </div>
+                <div class="mt-3 text-xs text-yellow-300 bg-yellow-900/20 p-2 rounded">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    <strong>Pricing:</strong> Sedan +$10 surcharge | SUV prices shown | Other - We'll contact you after booking for quote
                 </div>
             </div>
 
@@ -873,13 +881,22 @@ function setupBookingEventListeners() {
     document.addEventListener('click', (e) => {
         if (e.target.closest('.car-type-option')) {
             const carOption = e.target.closest('.car-type-option');
+            const carType = carOption.dataset.carType;
 
             // Remove previous selections
             document.querySelectorAll('.car-type-option').forEach(el => el.classList.remove('selected'));
 
             // Add selection
             carOption.classList.add('selected');
-            bookingState.carType = carOption.dataset.carType;
+            bookingState.carType = carType;
+
+            // Show/hide "Other" input field
+            const otherInput = document.getElementById('other-vehicle-input');
+            if (carType === 'other' && otherInput) {
+                otherInput.classList.remove('hidden');
+            } else if (otherInput) {
+                otherInput.classList.add('hidden');
+            }
 
             updateStep1NextButton();
         }
@@ -898,6 +915,13 @@ function setupBookingEventListeners() {
             }
 
             updateCustomTotal();
+            updateStep1NextButton();
+        }
+    });
+
+    // Other vehicle type input
+    document.addEventListener('input', (e) => {
+        if (e.target.id === 'other-vehicle-type') {
             updateStep1NextButton();
         }
     });
@@ -1022,8 +1046,15 @@ function updateStep1NextButton() {
         const hasPackage = bookingState.packageType;
         const hasServices = bookingState.packageType !== 'custom' || bookingState.customServices.length > 0;
         const hasCarType = bookingState.carType;
+        
+        // Check if "Other" is selected and input is filled
+        let hasValidCarType = hasCarType;
+        if (bookingState.carType === 'other') {
+            const otherInput = document.getElementById('other-vehicle-type');
+            hasValidCarType = otherInput && otherInput.value.trim().length > 0;
+        }
 
-        nextButton.disabled = !(hasPackage && hasServices && hasCarType);
+        nextButton.disabled = !(hasPackage && hasServices && hasValidCarType);
     }
 }
 
@@ -1070,6 +1101,12 @@ function validateStep2() {
     // Combine address fields for display
     bookingState.customerData.address = `${formData.get('streetAddress')}, ${formData.get('city')}, CA ${formData.get('zipCode')}`;
     bookingState.customerData.carType = bookingState.carType;
+    
+    // Include custom vehicle type if "Other" is selected
+    if (bookingState.carType === 'other') {
+        const otherInput = document.getElementById('other-vehicle-type');
+        bookingState.customerData.customVehicleType = otherInput ? otherInput.value.trim() : '';
+    }
 
     return true;
 }
@@ -1172,6 +1209,7 @@ async function submitBooking() {
             customerPhone: bookingState.customerData.customerPhone,
             customerEmail: bookingState.customerData.customerEmail,
             carType: bookingState.customerData.carType,
+            customVehicleType: bookingState.customerData.customVehicleType || '',
             packageType: bookingState.packageType,
             customServices: bookingState.customServices,
             preferredDate: bookingState.customerData.preferredDate,
