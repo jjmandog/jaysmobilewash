@@ -1216,6 +1216,14 @@ async function submitBooking() {
     confirmButton.classList.remove('animate-pulse');
 
     try {
+        // Calculate surcharge for Sedan vehicles
+        const surcharge = bookingState.customerData.carType === 'Sedan' ? 10 : 0;
+        
+        // Format full address
+        const fullAddress = bookingState.customerData.streetAddress && bookingState.customerData.city && bookingState.customerData.zipCode
+            ? `${bookingState.customerData.streetAddress}, ${bookingState.customerData.city}, ${bookingState.customerData.zipCode}`
+            : bookingState.customerData.address || '';
+
         const bookingData = {
             customerName: bookingState.customerData.customerName,
             customerPhone: bookingState.customerData.customerPhone,
@@ -1224,14 +1232,12 @@ async function submitBooking() {
             customVehicleType: bookingState.customerData.customVehicleType || '',
             packageType: bookingState.packageType,
             customServices: bookingState.customServices,
+            surcharge: surcharge, // Add surcharge field
             preferredDate: bookingState.customerData.preferredDate,
             preferredTime: bookingState.customerData.preferredTime,
-            address: bookingState.customerData.address,
-            streetAddress: bookingState.customerData.streetAddress,
-            city: bookingState.customerData.city,
-            zipCode: bookingState.customerData.zipCode,
-            specialInstructions: bookingState.customerData.specialInstructions,
-            carPhotos: bookingState.carPhotos, // Include photo data
+            address: fullAddress, // Use properly formatted address
+            specialInstructions: bookingState.customerData.specialInstructions || '',
+            carPhotos: bookingState.carPhotos || [], // Include photo data with fallback
             termsAccepted: true,
             submittedAt: new Date().toISOString()
         };
