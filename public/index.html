@@ -4295,9 +4295,9 @@
             const loadingProgress = document.getElementById('loading-progress');
             let progress = 0;
 
-            // Update loading progress
+            // Update loading progress - Extended timing for better user experience
             const updateProgress = setInterval(() => {
-                progress += Math.random() * 15;
+                progress += Math.random() * 8; // Slower progress for better visibility
                 if (progress > 100) progress = 100;
 
                 loadingProgress.textContent = Math.floor(progress);
@@ -4310,10 +4310,10 @@
                         setTimeout(() => {
                             loadingScreen.style.display = 'none';
                             document.body.style.overflow = 'auto';
-                        }, 500);
-                    }, 300);
+                        }, 800); // Extended fade out time
+                    }, 1500); // Extended display time at 100% - now people can see the beautiful screen!
                 }
-            }, 50);
+            }, 120); // Slower interval for better visibility
 
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
