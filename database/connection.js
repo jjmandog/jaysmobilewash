@@ -22,14 +22,14 @@ let db = null;
 export function getDatabase() {
   if (!db) {
     db = new Database(DB_PATH);
-    
+
     // Enable foreign key constraints
     db.pragma('foreign_keys = ON');
-    
+
     // Initialize database tables
     initializeTables();
   }
-  
+
   return db;
 }
 
@@ -40,7 +40,7 @@ export function resetDatabaseForTests() {
   if (isTest) {
     // Ensure database is initialized
     const database = getDatabase();
-    
+
     try {
       // Reset services table
       const servicesTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='services'").get();
@@ -49,7 +49,7 @@ export function resetDatabaseForTests() {
         // Reset auto-increment counter
         database.exec("DELETE FROM sqlite_sequence WHERE name='services'");
       }
-      
+
       // Reset customers table
       const customersTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='customers'").get();
       if (customersTableExists) {
@@ -57,7 +57,7 @@ export function resetDatabaseForTests() {
         // Reset auto-increment counter
         database.exec("DELETE FROM sqlite_sequence WHERE name='customers'");
       }
-      
+
       // Reset bookings table
       const bookingsTableExists = database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='bookings'").get();
       if (bookingsTableExists) {
@@ -87,9 +87,9 @@ function initializeTables() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `;
-  
+
   db.exec(createServicesTable);
-  
+
   // Create trigger to update updated_at timestamp
   const createUpdateTrigger = `
     CREATE TRIGGER IF NOT EXISTS update_services_updated_at
@@ -99,9 +99,9 @@ function initializeTables() {
       UPDATE services SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
     END
   `;
-  
+
   db.exec(createUpdateTrigger);
-  
+
   // Create customers table
   const createCustomersTable = `
     CREATE TABLE IF NOT EXISTS customers (
@@ -115,9 +115,9 @@ function initializeTables() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `;
-  
+
   db.exec(createCustomersTable);
-  
+
   // Create trigger to update customers updated_at timestamp
   const createCustomersUpdateTrigger = `
     CREATE TRIGGER IF NOT EXISTS update_customers_updated_at
@@ -127,9 +127,9 @@ function initializeTables() {
       UPDATE customers SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
     END
   `;
-  
+
   db.exec(createCustomersUpdateTrigger);
-  
+
   // Create bookings table
   const createBookingsTable = `
     CREATE TABLE IF NOT EXISTS bookings (
@@ -141,6 +141,7 @@ function initializeTables() {
       car_type TEXT NOT NULL CHECK(length(car_type) > 0 AND length(car_type) <= 50),
       package_type TEXT CHECK(length(package_type) <= 50),
       custom_services TEXT CHECK(length(custom_services) <= 1000),
+      surcharge DECIMAL(5,2) DEFAULT 0 CHECK(surcharge >= 0 AND surcharge < 1000),
       total_price DECIMAL(7,2) NOT NULL CHECK(total_price >= 0 AND total_price < 10000),
       preferred_date DATE NOT NULL,
       preferred_time TEXT NOT NULL CHECK(length(preferred_time) > 0 AND length(preferred_time) <= 20),
@@ -153,9 +154,9 @@ function initializeTables() {
       UNIQUE(preferred_date, preferred_time)
     )
   `;
-  
+
   db.exec(createBookingsTable);
-  
+
   // Create trigger to update bookings updated_at timestamp
   const createBookingsUpdateTrigger = `
     CREATE TRIGGER IF NOT EXISTS update_bookings_updated_at
@@ -165,9 +166,9 @@ function initializeTables() {
       UPDATE bookings SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
     END
   `;
-  
+
   db.exec(createBookingsUpdateTrigger);
-  
+
   // Insert initial data if table is empty (not in test mode)
   if (!isTest) {
     insertInitialData();
@@ -188,13 +189,13 @@ export function reinitializeTables() {
  */
 function insertInitialData() {
   const count = db.prepare('SELECT COUNT(*) as count FROM services').get();
-  
+
   if (count.count === 0) {
     const insertService = db.prepare(`
       INSERT INTO services (name, description, price)
       VALUES (?, ?, ?)
     `);
-    
+
     const initialServices = [
       {
         name: 'Basic Wash',
@@ -212,7 +213,7 @@ function insertInitialData() {
         price: 299.00
       }
     ];
-    
+
     for (const service of initialServices) {
       insertService.run(service.name, service.description, service.price);
     }
@@ -234,10 +235,10 @@ export function closeDatabase() {
  */
 export function getTestDatabase() {
   const testDb = new Database(':memory:');
-  
+
   // Enable foreign key constraints
   testDb.pragma('foreign_keys = ON');
-  
+
   // Initialize tables
   const createServicesTable = `
     CREATE TABLE IF NOT EXISTS services (
@@ -249,9 +250,9 @@ export function getTestDatabase() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `;
-  
+
   testDb.exec(createServicesTable);
-  
+
   // Create trigger to update updated_at timestamp
   const createUpdateTrigger = `
     CREATE TRIGGER IF NOT EXISTS update_services_updated_at
@@ -261,8 +262,8 @@ export function getTestDatabase() {
       UPDATE services SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
     END
   `;
-  
+
   testDb.exec(createUpdateTrigger);
-  
+
   return testDb;
 }

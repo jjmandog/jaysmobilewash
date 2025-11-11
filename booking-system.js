@@ -15,44 +15,44 @@ let bookingState = {
 
 // Service packages and their prices
 const PACKAGES = {
-    'basic-wash': { 
-        name: 'Basic Wash & Vacuum', 
+    'basic-wash': {
+        name: 'Basic Wash & Vacuum',
         price: 80,
         description: 'Exterior wash, dry, and interior vacuum',
         duration: '45 min'
     },
-    'interior-detail': { 
-        name: 'Interior Detail Package', 
+    'interior-detail': {
+        name: 'Interior Detail Package',
         price: 150,
         description: 'Steam cleaning, vacuum, dashboard treatment',
         duration: '90 min'
     },
-    'exterior-detail': { 
-        name: 'Exterior Detail Package', 
+    'exterior-detail': {
+        name: 'Exterior Detail Package',
         price: 180,
         description: 'Wash, wax, tire shine, trim restoration',
         duration: '2 hours'
     },
-    'full-detail': { 
-        name: 'Full Detail Package', 
+    'full-detail': {
+        name: 'Full Detail Package',
         price: 250,
         description: 'Complete interior + exterior detailing',
         duration: '3 hours'
     },
-    'ceramic-coating': { 
-        name: 'Ceramic Coating Package', 
+    'ceramic-coating': {
+        name: 'Ceramic Coating Package',
         price: 400,
         description: '9H ceramic coating with 2-year warranty',
         duration: '4-6 hours'
     },
-    'paint-correction': { 
-        name: 'Paint Correction Package', 
+    'paint-correction': {
+        name: 'Paint Correction Package',
         price: 350,
         description: 'Multi-stage paint correction and protection',
         duration: '4-5 hours'
     },
-    'premium-detail': { 
-        name: 'Premium Detail Package', 
+    'premium-detail': {
+        name: 'Premium Detail Package',
         price: 320,
         description: 'Ultimate detailing with ceramic boost',
         duration: '4 hours'
@@ -83,10 +83,10 @@ const SERVICES = {
 function initBookingSystem() {
     // Add booking button to all relevant pages
     addBookNowButtons();
-    
+
     // Create booking modal HTML
     createBookingModal();
-    
+
     // Add event listeners
     setupBookingEventListeners();
 }
@@ -102,7 +102,7 @@ function addBookNowButtons() {
         { selector: '.services-section', position: 'append' },
         { selector: 'header nav', position: 'append' }
     ];
-    
+
     locations.forEach(location => {
         const container = document.querySelector(location.selector);
         if (container) {
@@ -114,7 +114,7 @@ function addBookNowButtons() {
             }
         }
     });
-    
+
     // Add floating book now button
     addFloatingBookButton();
 }
@@ -138,11 +138,11 @@ function createBookNowButton(variant = 'primary') {
  */
 function getBookButtonClasses(variant = 'primary') {
     const baseClasses = 'px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500/50';
-    
+
     if (variant === 'floating') {
         return `${baseClasses} fixed bottom-6 right-6 z-50 bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl hover:shadow-purple-500/25 animate-pulse`;
     }
-    
+
     return `${baseClasses} bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/25 glow-effect`;
 }
 
@@ -172,7 +172,7 @@ function createBookingModal() {
                             <i class="fas fa-times text-xl"></i>
                         </button>
                     </div>
-                    
+
                     <!-- Progress Indicator -->
                     <div class="px-6 py-4 border-b border-purple-500/30">
                         <div class="flex items-center justify-between">
@@ -190,7 +190,7 @@ function createBookingModal() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Modal Content -->
                     <div id="booking-content" class="p-6">
                         ${getStep1HTML()}
@@ -199,7 +199,7 @@ function createBookingModal() {
             </div>
         </div>
     `;
-    
+
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
@@ -210,7 +210,7 @@ function getStep1HTML() {
     return `
         <div class="step-content" data-step="1">
             <h3 class="text-xl font-bold text-white mb-6">Choose Your Service</h3>
-            
+
             <!-- Package Selection -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-purple-300 mb-4">Popular Packages</h4>
@@ -230,7 +230,7 @@ function getStep1HTML() {
                     `).join('')}
                 </div>
             </div>
-            
+
             <!-- Custom Package Option -->
             <div class="mb-8">
                 <div class="package-option p-4 border border-purple-500/30 rounded-lg cursor-pointer hover:border-purple-400 transition-colors" data-package="custom">
@@ -243,7 +243,7 @@ function getStep1HTML() {
                     </div>
                 </div>
             </div>
-            
+
             <!-- Custom Services (Hidden by default) -->
             <div id="custom-services" class="hidden mb-8">
                 <h4 class="text-lg font-semibold text-purple-300 mb-4">Select Services</h4>
@@ -255,20 +255,25 @@ function getStep1HTML() {
                     </div>
                 </div>
             </div>
-            
+
             <!-- Car Type Selection -->
             <div class="mb-8">
                 <h4 class="text-lg font-semibold text-purple-300 mb-4">Vehicle Type</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    ${['Sedan', 'SUV', 'Truck', 'Sports Car', 'Luxury', 'Van', 'Motorcycle', 'Other'].map(type => `
+                <div class="grid grid-cols-3 gap-3">
+                    ${['Sedan', 'SUV', 'Other'].map(type => `
                         <div class="car-type-option p-3 border border-purple-500/30 rounded-lg cursor-pointer hover:border-purple-400 transition-colors text-center" data-car-type="${type.toLowerCase()}">
                             <i class="fas fa-car text-purple-400 mb-2"></i>
                             <div class="text-white text-sm">${type}</div>
                         </div>
                     `).join('')}
                 </div>
+                <div class="mt-3 text-xs text-yellow-300 bg-yellow-900/20 p-2 rounded">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    <strong>Sedan vehicles:</strong> $10 surcharge applies
+                    <a href="#packages" class="text-purple-300 underline hover:text-purple-200">View pricing details</a>
+                </div>
             </div>
-            
+
             <div class="flex justify-end">
                 <button id="step1-next" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Continue <i class="fas fa-arrow-right ml-2"></i>
@@ -283,7 +288,7 @@ function getStep1HTML() {
  */
 function renderCustomServices() {
     const categories = [...new Set(Object.values(SERVICES).map(s => s.category))];
-    
+
     return categories.map(category => `
         <div class="mb-6">
             <h5 class="font-semibold text-white mb-3">${category} Services</h5>
@@ -312,7 +317,7 @@ function getStep2HTML() {
     return `
         <div class="step-content" data-step="2">
             <h3 class="text-xl font-bold text-white mb-6">Your Information</h3>
-            
+
             <form id="customer-details-form" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -324,12 +329,12 @@ function getStep2HTML() {
                         <input type="tel" name="customerPhone" required class="w-full p-3 bg-gray-800 border border-purple-500/30 rounded-lg text-white focus:border-purple-400 focus:outline-none" placeholder="(555) 123-4567" autocomplete="tel">
                     </div>
                 </div>
-                
+
                 <div>
                     <label class="block text-purple-300 font-medium mb-2">Email Address *</label>
                     <input type="email" name="customerEmail" required class="w-full p-3 bg-gray-800 border border-purple-500/30 rounded-lg text-white focus:border-purple-400 focus:outline-none" placeholder="your.email@example.com" autocomplete="email">
                 </div>
-                
+
                 <div>
                     <label class="block text-purple-300 font-medium mb-2">Service Address *</label>
                     <div class="space-y-3">
@@ -353,7 +358,7 @@ function getStep2HTML() {
                         </div>
                     </div>
                 </div>
-                
+
                 <div>
                     <label class="block text-purple-300 font-medium mb-2">Preferred Date</label>
                     <input type="date" name="preferredDate" class="w-full p-3 bg-gray-800 border border-purple-500/30 rounded-lg text-white focus:border-purple-400 focus:outline-none" min="${new Date().toISOString().split('T')[0]}" onchange="updateAvailableTimeSlots()">
@@ -367,12 +372,12 @@ function getStep2HTML() {
                         <i class="fas fa-spinner animate-spin mr-1"></i>Loading available times...
                     </div>
                 </div>
-                
+
                 <div>
                     <label class="block text-purple-300 font-medium mb-2">Special Instructions</label>
                     <textarea name="specialInstructions" rows="3" class="w-full p-3 bg-gray-800 border border-purple-500/30 rounded-lg text-white focus:border-purple-400 focus:outline-none" placeholder="Any special requests or instructions for our team..."></textarea>
                 </div>
-                
+
                 <!-- Car Photos Upload Section -->
                 <div class="mt-8">
                     <h4 class="text-lg font-semibold text-purple-300 mb-4">
@@ -381,7 +386,7 @@ function getStep2HTML() {
                     <p class="text-gray-400 text-sm mb-4">
                         Upload photos of your car to help us provide a more accurate quote and prepare the right equipment.
                     </p>
-                    
+
                     <!-- Photo Upload Area -->
                     <div id="photo-upload-area" class="border-2 border-dashed border-purple-500/30 rounded-lg p-6 text-center hover:border-purple-400 transition-colors cursor-pointer">
                         <div id="upload-prompt">
@@ -394,10 +399,10 @@ function getStep2HTML() {
                         </div>
                         <input type="file" id="car-photos-input" multiple accept="image/*,.heic" class="hidden">
                     </div>
-                    
+
                     <!-- Photo Previews -->
                     <div id="photo-previews" class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 hidden"></div>
-                    
+
                     <!-- Upload Progress -->
                     <div id="upload-progress" class="mt-4 hidden">
                         <div class="bg-gray-700 rounded-lg p-4">
@@ -412,7 +417,7 @@ function getStep2HTML() {
                     </div>
                 </div>
             </form>
-            
+
             <div class="flex justify-between mt-8">
                 <button id="step2-back" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors">
                     <i class="fas fa-arrow-left mr-2"></i> Back
@@ -431,31 +436,36 @@ function getStep2HTML() {
 function getStep3HTML() {
     const selectedPackage = bookingState.packageType;
     const isCustom = selectedPackage === 'custom';
-    
+
     let services = [];
-    let totalPrice = 0;
-    
+    let basePrice = 0;
+
     if (isCustom) {
         services = bookingState.customServices.map(serviceId => {
             const service = SERVICES[serviceId];
             if (service) {
-                totalPrice += service.price;
+                basePrice += service.price;
                 return service.name;
             }
         }).filter(Boolean);
     } else if (PACKAGES[selectedPackage]) {
         services = [PACKAGES[selectedPackage].name];
-        totalPrice = PACKAGES[selectedPackage].price;
+        basePrice = PACKAGES[selectedPackage].price;
     }
-    
+
+    // Calculate surcharge for Sedan
+    const isSedan = bookingState.customerData.carType === 'sedan';
+    const surcharge = isSedan ? 10 : 0;
+    const totalPrice = basePrice + surcharge;
+
     return `
         <div class="step-content" data-step="3">
             <h3 class="text-xl font-bold text-white mb-6">Confirm Your Booking</h3>
-            
+
             <!-- Booking Summary -->
             <div class="bg-purple-900/30 rounded-lg p-6 mb-6">
                 <h4 class="text-lg font-semibold text-white mb-4">Booking Summary</h4>
-                
+
                 <div class="space-y-3 text-gray-300">
                     <div class="flex justify-between">
                         <span>Services:</span>
@@ -500,15 +510,41 @@ function getStep3HTML() {
                     </div>
                     ` : ''}
                 </div>
-                
+
                 <div class="border-t border-purple-500/30 mt-4 pt-4">
-                    <div class="flex justify-between text-lg font-bold">
+                    <div class="flex justify-between text-lg">
+                        <span class="text-white">Base Price:</span>
+                        <span class="text-gray-300">$${basePrice}</span>
+                    </div>
+                    ${surcharge > 0 ? `
+                    <div class="flex justify-between text-sm">
+                        <span class="text-yellow-300">Sedan Surcharge:</span>
+                        <span class="text-yellow-300">$${surcharge}</span>
+                    </div>
+                    ` : ''}
+                    <div class="flex justify-between text-lg font-bold mt-2">
                         <span class="text-white">Total:</span>
                         <span class="text-green-400">$${totalPrice}</span>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Surcharge Reminder -->
+            ${surcharge > 0 ? `
+            <div class="bg-yellow-900/30 border border-yellow-500/50 rounded-lg p-4 mb-6">
+                <h5 class="text-yellow-300 font-semibold mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Important: Sedan Vehicle Surcharge
+                </h5>
+                <p class="text-yellow-200 text-sm mb-2">
+                    A $10 surcharge applies to all sedan vehicles due to additional time and materials required for proper detailing.
+                </p>
+                <a href="#pricing" class="text-purple-300 underline hover:text-purple-200 text-sm">
+                    View complete pricing details →
+                </a>
+            </div>
+            ` : ''}
+
             <!-- Terms and Conditions -->
             <div class="bg-gray-800/50 rounded-lg p-4 mb-6">
                 <h5 class="text-white font-semibold mb-2">Terms & Conditions</h5>
@@ -519,7 +555,7 @@ function getStep3HTML() {
                     <li>• 24-hour cancellation notice required</li>
                 </ul>
             </div>
-            
+
             <div class="flex justify-between mt-8">
                 <button id="step3-back" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors">
                     <i class="fas fa-arrow-left mr-2"></i> Back
@@ -532,13 +568,13 @@ function getStep3HTML() {
                     </div>
                 </button>
             </div>
-            
+
             <!-- Mandatory Confirmation Checkbox -->
             <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-500/50 rounded-lg">
                 <label class="flex items-start cursor-pointer">
                     <input type="checkbox" id="terms-agree" required class="mt-1 mr-3 h-5 w-5 text-green-600 bg-gray-800 border-yellow-500 rounded focus:ring-green-500">
                     <div class="text-white">
-                        <span class="font-bold text-yellow-300">MANDATORY:</span> I confirm all information is correct and agree to the terms of service. 
+                        <span class="font-bold text-yellow-300">MANDATORY:</span> I confirm all information is correct and agree to the terms of service.
                         <span class="text-yellow-300 font-semibold">You MUST check this box to proceed.</span>
                     </div>
                 </label>
@@ -571,60 +607,60 @@ async function handleFileUpload(files) {
     const maxFiles = 5;
     const maxFileSize = 10 * 1024 * 1024; // 10MB
     const allowedTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/jpg'];
-    
+
     // Check if we already have max files
     if (bookingState.carPhotos.length >= maxFiles) {
         alert(`Maximum ${maxFiles} photos allowed. Please remove some photos first.`);
         return;
     }
-    
+
     const validFiles = [];
-    
+
     for (let file of files) {
         // Check file type
         if (!allowedTypes.includes(file.type.toLowerCase())) {
             alert(`${file.name}: Only JPG, PNG, and HEIC images are allowed.`);
             continue;
         }
-        
+
         // Check file size
         if (file.size > maxFileSize) {
             alert(`${file.name}: File size must be less than 10MB.`);
             continue;
         }
-        
+
         // Check total count
         if (bookingState.carPhotos.length + validFiles.length >= maxFiles) {
             alert(`Maximum ${maxFiles} photos allowed.`);
             break;
         }
-        
+
         validFiles.push(file);
     }
-    
+
     if (validFiles.length === 0) return;
-    
+
     // Process files
     showUploadProgress();
-    
+
     for (let i = 0; i < validFiles.length; i++) {
         const file = validFiles[i];
-        
+
         try {
             // Convert to base64 for storage and display
             const photoData = await processImageFile(file);
             bookingState.carPhotos.push(photoData);
-            
+
             // Update progress
             const progress = ((i + 1) / validFiles.length) * 100;
             updateUploadProgress(progress);
-            
+
         } catch (error) {
             console.error('Error processing file:', file.name, error);
             alert(`Error processing ${file.name}. Please try again.`);
         }
     }
-    
+
     // Hide progress and update UI
     setTimeout(() => {
         hideUploadProgress();
@@ -639,19 +675,19 @@ async function handleFileUpload(files) {
 function processImageFile(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        
+
         reader.onload = function(e) {
             const img = new Image();
-            
+
             img.onload = function() {
                 // Create canvas for resizing
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
-                
+
                 // Calculate new dimensions (max 1200px width/height)
                 const maxSize = 1200;
                 let { width, height } = img;
-                
+
                 if (width > height) {
                     if (width > maxSize) {
                         height = (height * maxSize) / width;
@@ -663,16 +699,16 @@ function processImageFile(file) {
                         height = maxSize;
                     }
                 }
-                
+
                 canvas.width = width;
                 canvas.height = height;
-                
+
                 // Draw and compress
                 ctx.drawImage(img, 0, 0, width, height);
-                
+
                 // Convert to base64 (JPEG with 85% quality)
                 const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                
+
                 resolve({
                     id: Date.now() + Math.random(),
                     name: file.name,
@@ -684,11 +720,11 @@ function processImageFile(file) {
                     compressedHeight: height
                 });
             };
-            
+
             img.onerror = reject;
             img.src = e.target.result;
         };
-        
+
         reader.onerror = reject;
         reader.readAsDataURL(file);
     });
@@ -700,12 +736,12 @@ function processImageFile(file) {
 function updatePhotoPreview() {
     const previewContainer = document.getElementById('photo-previews');
     if (!previewContainer) return;
-    
+
     if (bookingState.carPhotos.length === 0) {
         previewContainer.classList.add('hidden');
         return;
     }
-    
+
     previewContainer.classList.remove('hidden');
     previewContainer.innerHTML = bookingState.carPhotos.map(photo => `
         <div class="relative group">
@@ -738,7 +774,7 @@ function updateUploadArea() {
     const uploadArea = document.getElementById('photo-upload-area');
     const uploadPrompt = document.getElementById('upload-prompt');
     if (!uploadArea || !uploadPrompt) return;
-    
+
     if (bookingState.carPhotos.length >= 5) {
         uploadPrompt.innerHTML = `
             <i class="fas fa-check-circle text-4xl text-green-400 mb-4"></i>
@@ -777,7 +813,7 @@ function showUploadProgress() {
 function updateUploadProgress(percentage) {
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
-    
+
     if (progressBar) progressBar.style.width = `${percentage}%`;
     if (progressText) progressText.textContent = `${Math.round(percentage)}%`;
 }
@@ -802,14 +838,14 @@ function setupBookingEventListeners() {
             closeBookingModal();
         }
     });
-    
+
     // Address validation events
     document.addEventListener('input', (e) => {
         if (['street-address-input', 'city-input', 'zip-input'].includes(e.target.id)) {
             debounceAddressValidation();
         }
     });
-    
+
     // Photo upload events
     document.addEventListener('click', (e) => {
         if (e.target.closest('#photo-upload-area')) {
@@ -817,14 +853,14 @@ function setupBookingEventListeners() {
             if (fileInput) fileInput.click();
         }
     });
-    
+
     // File input change event
     document.addEventListener('change', (e) => {
         if (e.target.id === 'car-photos-input') {
             handleFileUpload(e.target.files);
         }
     });
-    
+
     // Drag and drop events
     document.addEventListener('dragover', (e) => {
         const uploadArea = document.getElementById('photo-upload-area');
@@ -833,14 +869,14 @@ function setupBookingEventListeners() {
             uploadArea.classList.add('border-purple-400', 'bg-purple-900/20');
         }
     });
-    
+
     document.addEventListener('dragleave', (e) => {
         const uploadArea = document.getElementById('photo-upload-area');
         if (uploadArea && !uploadArea.contains(e.relatedTarget)) {
             uploadArea.classList.remove('border-purple-400', 'bg-purple-900/20');
         }
     });
-    
+
     document.addEventListener('drop', (e) => {
         const uploadArea = document.getElementById('photo-upload-area');
         if (uploadArea && uploadArea.contains(e.target)) {
@@ -849,20 +885,20 @@ function setupBookingEventListeners() {
             handleFileUpload(e.dataTransfer.files);
         }
     });
-    
+
     // Package selection
     document.addEventListener('click', (e) => {
         if (e.target.closest('.package-option')) {
             const packageOption = e.target.closest('.package-option');
             const packageType = packageOption.dataset.package;
-            
+
             // Remove previous selections
             document.querySelectorAll('.package-option').forEach(el => el.classList.remove('selected'));
-            
+
             // Add selection
             packageOption.classList.add('selected');
             bookingState.packageType = packageType;
-            
+
             // Show/hide custom services
             const customServices = document.getElementById('custom-services');
             if (packageType === 'custom') {
@@ -871,44 +907,44 @@ function setupBookingEventListeners() {
                 customServices.classList.add('hidden');
                 bookingState.customServices = [];
             }
-            
+
             updateStep1NextButton();
         }
     });
-    
+
     // Car type selection
     document.addEventListener('click', (e) => {
         if (e.target.closest('.car-type-option')) {
             const carOption = e.target.closest('.car-type-option');
-            
+
             // Remove previous selections
             document.querySelectorAll('.car-type-option').forEach(el => el.classList.remove('selected'));
-            
+
             // Add selection
             carOption.classList.add('selected');
             bookingState.carType = carOption.dataset.carType;
-            
+
             updateStep1NextButton();
         }
     });
-    
+
     // Custom service selection
     document.addEventListener('change', (e) => {
         if (e.target.classList.contains('service-checkbox')) {
             const serviceId = e.target.dataset.service;
             const price = parseInt(e.target.dataset.price);
-            
+
             if (e.target.checked) {
                 bookingState.customServices.push(serviceId);
             } else {
                 bookingState.customServices = bookingState.customServices.filter(id => id !== serviceId);
             }
-            
+
             updateCustomTotal();
             updateStep1NextButton();
         }
     });
-    
+
     // Step navigation
     document.addEventListener('click', (e) => {
         if (e.target.id === 'step1-next') {
@@ -943,35 +979,35 @@ async function validateAndShowAddress() {
     const zipInput = document.getElementById('zip-input');
     const mapPreview = document.getElementById('address-map-preview');
     const validatedAddress = document.getElementById('validated-address');
-    
+
     if (!streetInput || !cityInput || !zipInput) return;
-    
+
     const street = streetInput.value.trim();
     const city = cityInput.value.trim();
     const zip = zipInput.value.trim();
-    
+
     // Only validate if we have basic address info
     if (street.length < 3 || city.length < 2) {
         mapPreview?.classList.add('hidden');
         return;
     }
-    
+
     const fullAddress = `${street}, ${city}, CA ${zip}`;
-    
+
     try {
         // Simple client-side validation for now
         const isValidAddress = validateAddressFormat(street, city, zip);
-        
+
         if (isValidAddress && mapPreview && validatedAddress) {
             validatedAddress.textContent = fullAddress;
             mapPreview.classList.remove('hidden');
-            
+
             // Add success styling to inputs
             [streetInput, cityInput, zipInput].forEach(input => {
                 input.classList.remove('border-red-500', 'border-yellow-500');
                 input.classList.add('border-green-500');
             });
-            
+
             console.log('✅ Address format validated:', fullAddress);
         } else {
             // Address format seems incomplete
@@ -985,7 +1021,7 @@ async function validateAndShowAddress() {
     } catch (error) {
         console.error('Address validation error:', error);
         mapPreview?.classList.add('hidden');
-        
+
         // Reset input styling on error
         [streetInput, cityInput, zipInput].forEach(input => {
             input.classList.remove('border-green-500', 'border-yellow-500');
@@ -1001,7 +1037,7 @@ function validateAddressFormat(street, city, zip) {
     const streetValid = street.length >= 5 && /\d/.test(street); // Has numbers
     const cityValid = city.length >= 2 && /^[a-zA-Z\s]+$/.test(city); // Letters only
     const zipValid = /^\d{5}(-\d{4})?$/.test(zip); // 5 or 9 digit ZIP
-    
+
     return streetValid && cityValid && zipValid;
 }
 
@@ -1013,7 +1049,7 @@ function updateCustomTotal() {
         const service = SERVICES[serviceId];
         return sum + (service ? service.price : 0);
     }, 0);
-    
+
     const totalElement = document.getElementById('custom-total');
     if (totalElement) {
         totalElement.textContent = `$${total}`;
@@ -1029,7 +1065,7 @@ function updateStep1NextButton() {
         const hasPackage = bookingState.packageType;
         const hasServices = bookingState.packageType !== 'custom' || bookingState.customServices.length > 0;
         const hasCarType = bookingState.carType;
-        
+
         nextButton.disabled = !(hasPackage && hasServices && hasCarType);
     }
 }
@@ -1040,10 +1076,10 @@ function updateStep1NextButton() {
 function validateStep2() {
     const form = document.getElementById('customer-details-form');
     if (!form) return false;
-    
+
     const formData = new FormData(form);
     const required = ['customerName', 'customerPhone', 'customerEmail', 'streetAddress', 'city', 'zipCode'];
-    
+
     for (const field of required) {
         const value = formData.get(field);
         if (!value || value.trim() === '') {
@@ -1052,7 +1088,7 @@ function validateStep2() {
             return false;
         }
     }
-    
+
     // Validate email format
     const email = formData.get('customerEmail');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1060,7 +1096,7 @@ function validateStep2() {
         alert('❌ Please enter a valid email address.');
         return false;
     }
-    
+
     // Validate phone format (basic)
     const phone = formData.get('customerPhone');
     const phoneRegex = /[\d\s\-\(\)\+]{10,}/;
@@ -1068,16 +1104,16 @@ function validateStep2() {
         alert('❌ Please enter a valid phone number (at least 10 digits).');
         return false;
     }
-    
+
     // Store form data
     for (const [key, value] of formData) {
         bookingState.customerData[key] = value;
     }
-    
+
     // Combine address fields for display
     bookingState.customerData.address = `${formData.get('streetAddress')}, ${formData.get('city')}, CA ${formData.get('zipCode')}`;
     bookingState.customerData.carType = bookingState.carType;
-    
+
     return true;
 }
 
@@ -1086,12 +1122,12 @@ function validateStep2() {
  */
 function goToStep(stepNumber) {
     bookingState.step = stepNumber;
-    
+
     // Update progress indicators
     document.querySelectorAll('.step-indicator').forEach((el, index) => {
         el.classList.toggle('active', index + 1 <= stepNumber);
     });
-    
+
     // Update content
     const content = document.getElementById('booking-content');
     if (content) {
@@ -1102,7 +1138,7 @@ function goToStep(stepNumber) {
         } else if (stepNumber === 3) {
             content.innerHTML = getStep3HTML();
         }
-        
+
         // Restore selections if going back
         if (stepNumber === 1) {
             restoreStep1Selections();
@@ -1119,10 +1155,10 @@ function restoreStep1Selections() {
         const packageOption = document.querySelector(`[data-package="${bookingState.packageType}"]`);
         if (packageOption) {
             packageOption.classList.add('selected');
-            
+
             if (bookingState.packageType === 'custom') {
                 document.getElementById('custom-services').classList.remove('hidden');
-                
+
                 // Restore service selections
                 bookingState.customServices.forEach(serviceId => {
                     const checkbox = document.querySelector(`[data-service="${serviceId}"]`);
@@ -1130,12 +1166,12 @@ function restoreStep1Selections() {
                         checkbox.checked = true;
                     }
                 });
-                
+
                 updateCustomTotal();
             }
         }
     }
-    
+
     // Restore car type selection
     if (bookingState.carType) {
         const carOption = document.querySelector(`[data-car-type="${bookingState.carType}"]`);
@@ -1143,7 +1179,7 @@ function restoreStep1Selections() {
             carOption.classList.add('selected');
         }
     }
-    
+
     updateStep1NextButton();
 }
 
@@ -1152,7 +1188,7 @@ function restoreStep1Selections() {
  */
 async function submitBooking() {
     if (bookingState.isSubmitting) return;
-    
+
     // Check mandatory terms checkbox
     const termsCheckbox = document.getElementById('terms-agree');
     if (!termsCheckbox || !termsCheckbox.checked) {
@@ -1160,20 +1196,24 @@ async function submitBooking() {
         termsCheckbox?.focus();
         return;
     }
-    
+
     bookingState.isSubmitting = true;
-    
+
     // Update button state
     const confirmButton = document.getElementById('confirm-booking');
     const confirmText = document.getElementById('confirm-text');
     const confirmSpinner = document.getElementById('confirm-spinner');
-    
+
     confirmButton.disabled = true;
     confirmText.textContent = '🔄 Processing Booking...';
     confirmSpinner.classList.remove('hidden');
     confirmButton.classList.remove('animate-pulse');
-    
+
     try {
+        // Calculate surcharge for Sedan
+        const isSedan = bookingState.customerData.carType === 'sedan';
+        const surcharge = isSedan ? 10 : 0;
+
         const bookingData = {
             customerName: bookingState.customerData.customerName,
             customerPhone: bookingState.customerData.customerPhone,
@@ -1181,6 +1221,7 @@ async function submitBooking() {
             carType: bookingState.customerData.carType,
             packageType: bookingState.packageType,
             customServices: bookingState.customServices,
+            surcharge: surcharge, // Include surcharge amount
             preferredDate: bookingState.customerData.preferredDate,
             preferredTime: bookingState.customerData.preferredTime,
             address: bookingState.customerData.address,
@@ -1192,7 +1233,7 @@ async function submitBooking() {
             termsAccepted: true,
             submittedAt: new Date().toISOString()
         };
-        
+
         const response = await fetch('/api/book-appointment', {
             method: 'POST',
             headers: {
@@ -1200,20 +1241,20 @@ async function submitBooking() {
             },
             body: JSON.stringify(bookingData)
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             showSuccessMessage(result.bookingId);
             closeBookingModal();
         } else {
             throw new Error(result.error || 'Booking failed');
         }
-        
+
     } catch (error) {
         console.error('Booking error:', error);
         alert('❌ Sorry, there was an error processing your booking. Please call us directly at (855) 529-7627 or try again.');
-        
+
         // Reset button state
         confirmButton.disabled = false;
         confirmText.textContent = '🚀 CONFIRM BOOKING NOW!';
@@ -1229,25 +1270,25 @@ async function submitBooking() {
 function showSuccessMessage(bookingId) {
     const successHTML = `
         <div class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-            <div class="bg-gray-900 border border-green-500/30 rounded-2xl p-8 max-w-md mx-4 text-center">
-                <div class="text-green-400 text-6xl mb-4">
+            <div class="bg-gray-900 border border-green-500/30 rounded-2xl p-8 max-w-md mx-4 text-center relative">
+                <div class="text-green-400 text-6xl mb-4 relative z-10">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-white mb-4">Booking Confirmed!</h3>
-                <p class="text-gray-300 mb-4">
+                <h3 class="text-2xl font-bold text-white mb-4 relative z-10">Booking Confirmed!</h3>
+                <p class="text-gray-300 mb-4 relative z-10">
                     Your appointment has been booked successfully.<br>
                     <strong class="text-green-400">Booking ID: ${bookingId}</strong>
                 </p>
-                <p class="text-sm text-gray-400 mb-6">
+                <p class="text-sm text-gray-400 mb-6 relative z-10">
                     We will contact you at ${bookingState.customerData.customerPhone} within 2 hours to confirm your appointment.
                 </p>
-                <button onclick="this.parentElement.parentElement.remove()" class="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300">
-                    Great! <i class="fas fa-thumbs-up ml-2"></i>
+                <button onclick="this.closest('.fixed').remove(); event.stopPropagation();" class="relative z-20 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 border-green-400/50 pointer-events-auto">
+                    <i class="fas fa-thumbs-up ml-2"></i> Great!
                 </button>
             </div>
         </div>
     `;
-    
+
     document.body.insertAdjacentHTML('beforeend', successHTML);
 }
 
@@ -1282,28 +1323,28 @@ async function updateAvailableTimeSlots() {
     const dateInput = document.querySelector('input[name="preferredDate"]');
     const timeSelect = document.querySelector('select[name="preferredTime"]');
     const loadingDiv = document.getElementById('time-loading');
-    
+
     if (!dateInput || !timeSelect || !loadingDiv) return;
-    
+
     const selectedDate = dateInput.value;
-    
+
     if (!selectedDate) {
         timeSelect.innerHTML = '<option value="">Select a date first</option>';
         return;
     }
-    
+
     // Show loading
     loadingDiv.classList.remove('hidden');
     timeSelect.disabled = true;
-    
+
     try {
         const response = await fetch(`/api/available-slots?date=${selectedDate}`);
         const data = await response.json();
-        
+
         if (response.ok) {
             // Populate available time slots
             timeSelect.innerHTML = '<option value="">Select time</option>';
-            
+
             if (data.availableSlots.length === 0) {
                 timeSelect.innerHTML = '<option value="">No times available for this date</option>';
             } else {
@@ -1314,7 +1355,7 @@ async function updateAvailableTimeSlots() {
                     timeSelect.appendChild(option);
                 });
             }
-            
+
             console.log(`Loaded ${data.availableSlots.length} available slots for ${selectedDate}`);
         } else {
             console.error('Failed to load time slots:', data.error);

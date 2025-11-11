@@ -10,25 +10,25 @@ import { getDatabase } from './connection.js';
  */
 export function createBooking(bookingData) {
   const db = getDatabase();
-  
+
   // Check for time slot conflict
   const existingBooking = db.prepare(`
-    SELECT id FROM bookings 
+    SELECT id FROM bookings
     WHERE preferred_date = ? AND preferred_time = ? AND status != 'cancelled'
   `).get(bookingData.preferredDate, bookingData.preferredTime);
-  
+
   if (existingBooking) {
     throw new Error(`Time slot ${bookingData.preferredTime} on ${bookingData.preferredDate} is already booked`);
   }
-  
+
   const insertBooking = db.prepare(`
     INSERT INTO bookings (
       booking_id, customer_name, customer_phone, customer_email, car_type,
-      package_type, custom_services, total_price, preferred_date, preferred_time,
+      package_type, custom_services, surcharge, total_price, preferred_date, preferred_time,
       address, special_instructions, photo_count, status
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  
+
   const result = insertBooking.run(
     bookingData.bookingId,
     bookingData.customerName,
@@ -37,6 +37,7 @@ export function createBooking(bookingData) {
     bookingData.carType,
     bookingData.packageType || null,
     bookingData.customServices || null,
+    bookingData.surcharge || 0,
     bookingData.totalPrice,
     bookingData.preferredDate,
     bookingData.preferredTime,
@@ -45,7 +46,7 @@ export function createBooking(bookingData) {
     bookingData.photoCount || 0,
     'confirmed'
   );
-  
+
   return getBookingById(result.lastInsertRowid);
 }
 
@@ -91,12 +92,12 @@ export function getBookingsByDate(date) {
 export function getBookedTimeSlots(date) {
   const db = getDatabase();
   const bookings = db.prepare(`
-    SELECT preferred_time 
-    FROM bookings 
+    SELECT preferred_time
+    FROM bookings
     WHERE preferred_date = ? AND status != 'cancelled'
     ORDER BY preferred_time
   `).all(date);
-  
+
   return bookings.map(booking => booking.preferred_time);
 }
 
@@ -106,10 +107,10 @@ export function getBookedTimeSlots(date) {
 export function isTimeSlotAvailable(date, time) {
   const db = getDatabase();
   const existingBooking = db.prepare(`
-    SELECT id FROM bookings 
+    SELECT id FROM bookings
     WHERE preferred_date = ? AND preferred_time = ? AND status != 'cancelled'
   `).get(date, time);
-  
+
   return !existingBooking;
 }
 
@@ -120,11 +121,11 @@ export function updateBookingStatus(bookingId, status) {
   const db = getDatabase();
   const updateBooking = db.prepare('UPDATE bookings SET status = ? WHERE booking_id = ?');
   const result = updateBooking.run(status, bookingId);
-  
+
   if (result.changes === 0) {
     throw new Error(`Booking ${bookingId} not found`);
   }
-  
+
   return getBookingByBookingId(bookingId);
 }
 
@@ -142,11 +143,11 @@ export function searchBookings(query) {
   const db = getDatabase();
   const searchQuery = `%${query}%`;
   const bookings = db.prepare(`
-    SELECT * FROM bookings 
+    SELECT * FROM bookings
     WHERE customer_name LIKE ? OR customer_phone LIKE ? OR customer_email LIKE ?
     ORDER BY created_at DESC
   `).all(searchQuery, searchQuery, searchQuery);
-  
+
   return bookings;
 }
 
@@ -156,11 +157,11 @@ export function searchBookings(query) {
 export function getBookingsByDateRange(startDate, endDate) {
   const db = getDatabase();
   const bookings = db.prepare(`
-    SELECT * FROM bookings 
+    SELECT * FROM bookings
     WHERE preferred_date BETWEEN ? AND ?
     ORDER BY preferred_date, preferred_time
   `).all(startDate, endDate);
-  
+
   return bookings;
 }
 
@@ -179,9 +180,9 @@ export function getUpcomingBookings() {
   const today = new Date();
   const nextWeek = new Date(today);
   nextWeek.setDate(today.getDate() + 7);
-  
+
   const startDate = today.toISOString().split('T')[0];
   const endDate = nextWeek.toISOString().split('T')[0];
-  
+
   return getBookingsByDateRange(startDate, endDate);
 }

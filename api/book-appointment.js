@@ -37,7 +37,7 @@ const SERVICES = {
   'paint-rim-deiron': { name: 'Paint & Rim Deiron', price: 45 },
   'clay-bar': { name: 'Clay Bar', price: 60 },
   'sap-removal': { name: 'Sap Removal', price: 30 },
-  
+
   // Interior Services
   'odor-elimination': { name: 'Odor Elimination', price: 75 },
   'gum-removal': { name: 'Gum Removal', price: 35 },
@@ -48,7 +48,7 @@ const SERVICES = {
   'textile-cleaning': { name: 'Textile Cleaning', price: 55 },
   'cabin-air-filter-cleaning': { name: 'Cabin Air Filter Cleaning', price: 25 },
   'interior-compression': { name: 'Interior Compression (Z007 Tornador)', price: 65 },
-  
+
   // Protection Services
   'hand-wax': { name: 'Hand Wax', price: 50 },
   'foam-sealant': { name: 'Foam Sealant', price: 40 }
@@ -56,7 +56,7 @@ const SERVICES = {
 
 export default async function handler(req, res) {
   console.log('API route called:', req.method, req.url);
-  
+
   // Set CORS headers for all responses
   Object.keys(corsHeaders).forEach(key => {
     res.setHeader(key, corsHeaders[key]);
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
   }
 
   console.log('Processing POST request...');
-  
+
   try {
     const {
       customerName,
@@ -84,6 +84,7 @@ export default async function handler(req, res) {
       carType,
       packageType,
       customServices = [],
+      surcharge = 0, // New surcharge field
       preferredDate,
       preferredTime,
       address,
@@ -100,9 +101,9 @@ export default async function handler(req, res) {
     if (preferredDate && preferredTime) {
       const isAvailable = isTimeSlotAvailable(preferredDate, preferredTime);
       if (!isAvailable) {
-        return res.status(409).json({ 
-          error: 'Time slot not available', 
-          message: `The requested time slot (${preferredTime}) on ${preferredDate} is already booked. Please choose a different time.` 
+        return res.status(409).json({
+          error: 'Time slot not available',
+          message: `The requested time slot (${preferredTime}) on ${preferredDate} is already booked. Please choose a different time.`
         });
       }
     }
@@ -126,6 +127,9 @@ export default async function handler(req, res) {
         }
       });
     }
+
+    // Add surcharge for Sedan vehicles
+    totalPrice += surcharge;
 
     // Create appointment details
     const appointmentDetails = {
@@ -162,6 +166,7 @@ export default async function handler(req, res) {
         carType,
         packageType,
         customServices: Array.isArray(customServices) ? customServices.join(', ') : customServices,
+        surcharge, // Include surcharge in database
         totalPrice,
         preferredDate,
         preferredTime,
@@ -169,14 +174,14 @@ export default async function handler(req, res) {
         specialInstructions,
         photoCount: carPhotos.length
       };
-      
+
       createBooking(bookingData);
       console.log('✅ Booking stored in database:', appointmentDetails.bookingId);
     } catch (dbError) {
       console.error('❌ Database error:', dbError);
-      return res.status(409).json({ 
-        error: 'Booking conflict', 
-        message: dbError.message || 'This time slot is no longer available. Please choose a different time.' 
+      return res.status(409).json({
+        error: 'Booking conflict',
+        message: dbError.message || 'This time slot is no longer available. Please choose a different time.'
       });
     }
 
@@ -270,7 +275,7 @@ Booked on: ${new Date(appointment.bookingDate).toLocaleString()}
   // Log notification for immediate visibility
   console.log('=== NEW BOOKING NOTIFICATION ===');
   console.log(emailContent);
-  
+
   // Send SMS-style notification via email-to-SMS gateway (if configured)
   try {
     // Example using Gmail SMTP (you'll need to configure with app password)
@@ -281,7 +286,7 @@ Booked on: ${new Date(appointment.bookingDate).toLocaleString()}
         pass: process.env.EMAIL_APP_PASSWORD // Gmail App Password (not regular password)
       }
     });
-    
+
     // Send to your email for immediate notification
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -290,12 +295,12 @@ Booked on: ${new Date(appointment.bookingDate).toLocaleString()}
       text: emailContent,
       html: emailContent.replaceAll('\n', '<br>')
     });
-    
+
     // SMS via Verizon email-to-SMS gateway
     const smsGateways = [
       '15622289429@vtext.com', // Verizon
     ];
-    
+
     const smsText = `
 🚗 NEW BOOKING ALERT!
 ${appointment.customerName}
@@ -304,7 +309,7 @@ ${appointment.services.join(', ')}
 $${appointment.totalPrice}
 Booking: ${appointment.bookingId}
     `.trim();
-    
+
     for (const gateway of smsGateways) {
       if (gateway) {
         await transporter.sendMail({
@@ -315,7 +320,7 @@ Booking: ${appointment.bookingId}
         });
       }
     }
-    
+
   } catch (error) {
     console.error('Email notification failed:', error);
     // Don't fail the booking if email fails
@@ -360,7 +365,7 @@ Follow: @jaysmobilewash
 
   console.log('=== CUSTOMER CONFIRMATION ===');
   console.log(emailContent);
-  
+
   // Send actual confirmation email to customer
   try {
     const transporter = nodemailer.createTransporter({
@@ -370,7 +375,7 @@ Follow: @jaysmobilewash
         pass: process.env.EMAIL_APP_PASSWORD
       }
     });
-    
+
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: appointment.customerEmail,
@@ -378,7 +383,7 @@ Follow: @jaysmobilewash
       text: emailContent,
       html: emailContent.replaceAll('\n', '<br>')
     });
-    
+
   } catch (error) {
     console.error('Customer confirmation email failed:', error);
     // Don't fail the booking if email fails
