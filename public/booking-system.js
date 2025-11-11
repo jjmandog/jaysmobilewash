@@ -1,5 +1,6 @@
 /**
- * Jay's Mobile Wash - Advanced Booking System
+ * Jay's Mobile Wash - Advanced Booking System v2.1
+ * Last updated: November 2025
  * Interactive booking form with package selection and custom services
  */
 
