@@ -1,6 +1,6 @@
-# Robots.txt for Jay's Mobile Wash
-# SEO Optimized Configuration
-# Last Updated: November 9, 2025
+# 🚀 ROBOTS.TXT - JAY'S MOBILE WASH - SEO OPTIMIZED 🚀
+# Maximum Orange County & Los Angeles Visibility Configuration
+# Last Updated: November 10, 2025
 # Google Rich Results: 19/19 pages compatible
 
 User-agent: *
@@ -14,16 +14,42 @@ Allow: /packages/
 Allow: /products/
 Allow: /pricing/
 Allow: /about/
+Allow: /news/
+Allow: /specials/
+Allow: /gallery/
+Allow: /reviews/
 Allow: /sitemap.xml
 
-# Allow specific pages with structured data
-Allow: /pricing.html
-Allow: /about.html
-Allow: /products.html
-Allow: /privacy.html
-Allow: /terms.html
+# 🎯 PRIORITY KEYWORD PAGES - MAXIMUM CRAWLING
+Allow: /orange-county-mobile-car-detailing
+Allow: /los-angeles-mobile-car-detailing
+Allow: /mobile-car-detailing-near-me
+Allow: /ceramic-coating-near-me
+Allow: /best-mobile-car-detailing-orange-county
+Allow: /professional-mobile-car-detailing-los-angeles
+Allow: /thanksgiving-special-2025
 
-# Block hash URLs and query parameters
+# 📍 HIGH-VALUE LOCATION PAGES
+Allow: /locations-orange-county
+Allow: /locations-los-angeles
+Allow: /locations-beverly-hills
+Allow: /mobile-car-detailing-newport-beach
+Allow: /mobile-car-detailing-santa-monica
+Allow: /mobile-car-detailing-irvine
+Allow: /mobile-car-detailing-huntington-beach
+Allow: /ceramic-coating-orange-county
+Allow: /ceramic-coating-los-angeles
+Allow: /luxury-car-detailing-beverly-hills
+Allow: /exotic-car-detailing-newport-beach
+
+# ⚡ SPEED OPTIMIZATION - Allow critical resources
+Allow: /manifest.json
+Allow: /service-worker.js
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+Allow: /android-chrome-*.png
+
+# 🚫 BLOCK NON-ESSENTIAL CRAWLING
 Disallow: /#
 Disallow: /*#*
 Disallow: /*?*
@@ -45,6 +71,7 @@ Disallow: /simple-test.html
 Disallow: /debug-*.html
 Disallow: /test-*.html
 Disallow: /*DESKTOP*.html
+Disallow: /*backup*
 
 # Block temporary and backup files
 Disallow: /*.bak$
@@ -52,17 +79,17 @@ Disallow: /*.backup$
 Disallow: /*.old$
 Disallow: /*.tmp$
 
-# Googlebot specific rules
+# 🤖 GOOGLEBOT OPTIMIZATION - Priority Access
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
-# Bingbot specific rules
+# Bingbot optimization
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
 
-# Block bad bots
+# 🚫 BLOCK BAD BOTS (SEO Protection)
 User-agent: AhrefsBot
 Disallow: /
 
@@ -72,10 +99,19 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
-# Sitemaps - Production URLs only
-Sitemap: https://www.jaysmobilewash.net/sitemap.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-index.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-services.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-locations.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-backlinks.xml
-Sitemap: https://www.jaysmobilewash.net/sitemap-comprehensive.xml
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SiteLockSpider
+Disallow: /
+
+# 🗺️ SITEMAPS - Fresh November 2025 Updates
+Sitemap: https://jaysmobilewash.net/sitemap.xml
+Sitemap: https://jaysmobilewash.net/sitemap-master-2025.xml
+Sitemap: https://jaysmobilewash.net/sitemap-pages.xml
+Sitemap: https://jaysmobilewash.net/sitemap-services.xml
+Sitemap: https://jaysmobilewash.net/sitemap-locations.xml
+Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/mobile-car-wash-sitemap.xml
+Sitemap: https://jaysmobilewash.net/image-sitemap.xml

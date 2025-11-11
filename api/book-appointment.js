@@ -177,10 +177,10 @@ export default async function handler(req, res) {
 
       // For serverless deployment, log booking data instead of database storage
       console.log('📋 BOOKING DATA TO BE STORED:', JSON.stringify(bookingData, null, 2));
-      
+
       // TODO: In production, integrate with external database service (e.g., Vercel KV, PlanetScale)
       // createBooking(bookingData);
-      
+
       console.log('✅ Booking logged successfully:', appointmentDetails.bookingId);
     } catch (dbError) {
       console.error('❌ Booking logging error:', dbError);

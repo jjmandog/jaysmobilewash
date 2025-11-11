@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
+    <!-- 🚀 JAY'S MOBILE WASH - MASTER SITEMAP 2025 🚀 -->
+    <!-- MAXIMUM SEO OPTIMIZATION FOR ORANGE COUNTY & LA DOMINATION -->
+    <!-- Last Updated: November 10, 2025 -->
+
+    <!-- 🎯 PRIORITY #1 - HOME PAGE -->
+    <url>
+        <loc>https://jaysmobilewash.net/</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <mobile:mobile/>
+        <image:image>
+            <image:loc>https://jaysmobilewash.net/images/mobile-detailing-los-angeles.jpg</image:loc>
+            <image:title>Mobile Car Detailing Service Los Angeles Orange County - Jay's Mobile Wash</image:title>
+            <image:caption>Professional mobile auto detailing in Los Angeles and Orange County with ceramic coating and paint correction</image:caption>
+            <image:geo_location>Los Angeles, California</image:geo_location>
+        </image:image>
+    </url>
+
+    <!-- 🎯 PRIORITY #2 - ORANGE COUNTY KEYWORD DOMINATION -->
+    <url>
+        <loc>https://jaysmobilewash.net/orange-county-mobile-car-detailing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🎯 PRIORITY #3 - LOS ANGELES KEYWORD DOMINATION -->
+    <url>
+        <loc>https://jaysmobilewash.net/los-angeles-mobile-car-detailing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 📱 BOOKING & PRICING (HIGH CONVERSION) -->
+    <url>
+        <loc>https://jaysmobilewash.net/pricing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.98</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 📰 LATEST NEWS - THANKSGIVING SPECIAL -->
+    <url>
+        <loc>https://jaysmobilewash.net/news-2025-november</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🚗 CORE SERVICES - MAXIMUM PRIORITY -->
+    <url>
+        <loc>https://jaysmobilewash.net/ceramic-coating</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/paint-correction</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/interior-detailing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.90</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 📍 LOCATION PAGES - ORANGE COUNTY -->
+    <url>
+        <loc>https://jaysmobilewash.net/locations-orange-county</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.92</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/locations-beverly-hills</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.90</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/locations-los-angeles</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.92</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🔥 HIGH-INTENT LOCAL KEYWORDS -->
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-car-detailing-newport-beach</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-car-detailing-santa-monica</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-car-detailing-irvine</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-car-detailing-huntington-beach</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.88</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/ceramic-coating-orange-county</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.87</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/ceramic-coating-los-angeles</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.87</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 💎 PREMIUM SERVICES -->
+    <url>
+        <loc>https://jaysmobilewash.net/luxury-car-detailing-beverly-hills</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/exotic-car-detailing-newport-beach</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🏢 BUSINESS PAGES -->
+    <url>
+        <loc>https://jaysmobilewash.net/about</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.82</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/products</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.78</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/privacy</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.30</priority>
+    </url>
+
+    <!-- 🔥 SPECIAL THANKSGIVING LANDING -->
+    <url>
+        <loc>https://jaysmobilewash.net/thanksgiving-special-2025</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.93</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🎯 LONG-TAIL KEYWORDS FOR LOCAL DOMINATION -->
+    <url>
+        <loc>https://jaysmobilewash.net/best-mobile-car-detailing-orange-county</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.86</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/professional-mobile-car-detailing-los-angeles</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.86</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-auto-detailing-near-me</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.84</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/ceramic-coating-near-me</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.84</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 📱 MOBILE-FIRST KEYWORDS -->
+    <url>
+        <loc>https://jaysmobilewash.net/mobile-car-wash-service</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.83</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/on-demand-car-detailing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.83</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- 🎯 VOICE SEARCH OPTIMIZATION -->
+    <url>
+        <loc>https://jaysmobilewash.net/car-detailing-open-now</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.81</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://jaysmobilewash.net/same-day-car-detailing</loc>
+        <lastmod>2025-11-10T22:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.81</priority>
+        <mobile:mobile/>
+    </url>
+
+</urlset>
