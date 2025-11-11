@@ -11,7 +11,7 @@ class LagBuster {
             loadTime: 0,
             interactionDelay: 0
         };
-        
+
         this.init();
     }
 
@@ -32,7 +32,7 @@ class LagBuster {
         this.optimizeMemory();
         this.debounceEvents();
         this.prefetchCriticalContent();
-        
+
         console.log('🚀 Lag Buster: All optimizations active!');
     }
 
@@ -59,7 +59,7 @@ class LagBuster {
 
         // CSS smooth scrolling enhancement
         document.documentElement.style.scrollBehavior = 'smooth';
-        
+
         // Intersection Observer for lazy animations
         this.setupIntersectionObserver();
 
@@ -72,7 +72,7 @@ class LagBuster {
     optimizeAnimations() {
         // Force hardware acceleration on all animated elements
         const animatedElements = document.querySelectorAll(`
-            .glow-button, .floating-book-button, .hero-title, 
+            .glow-button, .floating-book-button, .hero-title,
             .fade-in, .slide-up, .hover-scale, .transform
         `);
 
@@ -93,13 +93,13 @@ class LagBuster {
      */
     optimizeImages() {
         const images = document.querySelectorAll('img');
-        
+
         images.forEach(img => {
             // Add loading optimization
             if (!img.loading) {
                 img.loading = 'lazy';
             }
-            
+
             // Progressive image enhancement
             if (!img.complete) {
                 this.addProgressiveLoading(img);
@@ -118,13 +118,13 @@ class LagBuster {
     optimizeInteractions() {
         // Debounce button clicks to prevent multiple rapid submits
         const buttons = document.querySelectorAll('button, .btn, .glow-button');
-        
+
         buttons.forEach(button => {
             let clickTimeout;
-            
+
             button.addEventListener('click', (e) => {
                 if (clickTimeout) return; // Prevent rapid clicks
-                
+
                 clickTimeout = setTimeout(() => {
                     clickTimeout = null;
                 }, 300);
@@ -134,7 +134,7 @@ class LagBuster {
             button.addEventListener('mousedown', () => {
                 button.style.transform = 'scale(0.98)';
             });
-            
+
             button.addEventListener('mouseup', () => {
                 button.style.transform = '';
             });
@@ -149,10 +149,10 @@ class LagBuster {
     optimizeMemory() {
         // Clean up unused event listeners
         this.cleanupEventListeners();
-        
+
         // Optimize DOM queries
         this.cacheCommonElements();
-        
+
         // Garbage collection hints
         if (window.gc) {
             setInterval(() => {
@@ -199,16 +199,16 @@ class LagBuster {
     prefetchCriticalContent() {
         // Prefetch pricing page
         this.prefetchPage('/pricing.html');
-        
+
         // Prefetch important CSS/JS
         this.prefetchResource('/booking-system.css');
         this.prefetchResource('/booking-system.js');
-        
+
         // Prefetch critical images
         const criticalImages = [
             // Add paths to your most important images
         ];
-        
+
         criticalImages.forEach(src => {
             const link = document.createElement('link');
             link.rel = 'prefetch';
@@ -247,28 +247,28 @@ class LagBuster {
                 *, *::before, *::after {
                     transform-style: preserve-3d;
                 }
-                
+
                 .glow-button, .floating-book-button {
                     will-change: transform, opacity;
                     transform: translateZ(0);
                 }
-                
+
                 .smooth-scroll {
                     scroll-behavior: smooth;
                 }
-                
+
                 /* OPTIMIZED TRANSITIONS */
                 .transition-optimized {
                     transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
                                opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
                 }
-                
+
                 /* PREVENT LAYOUT SHIFTS */
                 img {
                     height: auto;
                     max-width: 100%;
                 }
-                
+
                 /* GPU ACCELERATION */
                 .gpu-accelerated {
                     transform: translateZ(0);
@@ -283,7 +283,7 @@ class LagBuster {
         // Add blur effect while loading
         img.style.filter = 'blur(2px)';
         img.style.transition = 'filter 0.3s';
-        
+
         img.addEventListener('load', () => {
             img.style.filter = 'none';
         });
@@ -318,7 +318,7 @@ class LagBuster {
     updateScrollBasedAnimations() {
         // Update any scroll-based animations efficiently
         const scrollTop = window.pageYOffset;
-        
+
         // Only update animations for visible elements
         const visibleElements = document.querySelectorAll('.visible');
         visibleElements.forEach(element => {
@@ -339,7 +339,7 @@ class LagBuster {
     optimizeForCurrentViewport() {
         // Optimize based on current viewport size
         const width = window.innerWidth;
-        
+
         if (width < 768) {
             // Mobile optimizations
             this.enableMobileOptimizations();
@@ -386,24 +386,24 @@ class LagBuster {
         // Monitor FPS
         let lastTime = performance.now();
         let frameCount = 0;
-        
+
         const measureFPS = (currentTime) => {
             frameCount++;
-            
+
             if (currentTime >= lastTime + 1000) {
                 this.performanceMetrics.fps = Math.round(frameCount * 1000 / (currentTime - lastTime));
                 frameCount = 0;
                 lastTime = currentTime;
-                
+
                 // Log if FPS drops below 50
                 if (this.performanceMetrics.fps < 50) {
                     console.warn(`⚠️ Low FPS detected: ${this.performanceMetrics.fps}`);
                 }
             }
-            
+
             requestAnimationFrame(measureFPS);
         };
-        
+
         requestAnimationFrame(measureFPS);
     }
 }

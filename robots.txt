@@ -1,117 +1,221 @@
-# 🚀 ROBOTS.TXT - JAY'S MOBILE WASH - SEO OPTIMIZED 🚀
-# Maximum Orange County & Los Angeles Visibility Configuration
-# Last Updated: November 10, 2025
-# Google Rich Results: 19/19 pages compatible
+# 🚀 Jay's Mobile Wash - Optimized Robots.txt
+# Last Updated: November 11, 2025
+# Version: v2.5.0 with LAG BUSTER OPTIMIZATION
 
-User-agent: *
-Allow: /
-Allow: /services/
-Allow: /ceramic-coating/
-Allow: /paint-correction/
-Allow: /interior-detailing/
-Allow: /locations/
-Allow: /packages/
-Allow: /products/
-Allow: /pricing/
-Allow: /about/
-Allow: /news/
-Allow: /specials/
-Allow: /gallery/
-Allow: /reviews/
-Allow: /sitemap.xml
+# ===========================================
+# PRIMARY SEARCH ENGINES - MAXIMUM PRIORITY
+# ===========================================
 
-# 🎯 PRIORITY KEYWORD PAGES - MAXIMUM CRAWLING
-Allow: /orange-county-mobile-car-detailing
-Allow: /los-angeles-mobile-car-detailing
-Allow: /mobile-car-detailing-near-me
-Allow: /ceramic-coating-near-me
-Allow: /best-mobile-car-detailing-orange-county
-Allow: /professional-mobile-car-detailing-los-angeles
-Allow: /thanksgiving-special-2025
-
-# 📍 HIGH-VALUE LOCATION PAGES
-Allow: /locations-orange-county
-Allow: /locations-los-angeles
-Allow: /locations-beverly-hills
-Allow: /mobile-car-detailing-newport-beach
-Allow: /mobile-car-detailing-santa-monica
-Allow: /mobile-car-detailing-irvine
-Allow: /mobile-car-detailing-huntington-beach
-Allow: /ceramic-coating-orange-county
-Allow: /ceramic-coating-los-angeles
-Allow: /luxury-car-detailing-beverly-hills
-Allow: /exotic-car-detailing-newport-beach
-
-# ⚡ SPEED OPTIMIZATION - Allow critical resources
-Allow: /manifest.json
-Allow: /service-worker.js
-Allow: /favicon.ico
-Allow: /apple-touch-icon.png
-Allow: /android-chrome-*.png
-
-# 🚫 BLOCK NON-ESSENTIAL CRAWLING
-Disallow: /#
-Disallow: /*#*
-Disallow: /*?*
-
-# Block sensitive directories
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /tmp/
-Disallow: /_next/
-Disallow: /node_modules/
-Disallow: /.git/
-Disallow: /logs/
-
-# Block test and development files
-Disallow: /*-test.html
-Disallow: /chatbot-test.html
-Disallow: /simple-test.html
-Disallow: /debug-*.html
-Disallow: /test-*.html
-Disallow: /*DESKTOP*.html
-Disallow: /*backup*
-
-# Block temporary and backup files
-Disallow: /*.bak$
-Disallow: /*.backup$
-Disallow: /*.old$
-Disallow: /*.tmp$
-
-# 🤖 GOOGLEBOT OPTIMIZATION - Priority Access
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
+Crawl-delay: 1
+Request-rate: 10/1m
 
-# Bingbot optimization
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 0.5
+Crawl-delay: 2
+Request-rate: 8/1m
 
-# 🚫 BLOCK BAD BOTS (SEO Protection)
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# ===========================================
+# PRIORITY PAGES FOR MAXIMUM CRAWLING
+# ===========================================
+
+# CRITICAL BUSINESS PAGES
+User-agent: *
+Allow: /
+Allow: /pricing.html
+Allow: /about.html
+Allow: /products.html
+Allow: /ceramic-coating.html
+Allow: /paint-correction.html
+Allow: /interior-detailing.html
+
+# HIGH-VALUE LOCAL PAGES
+Allow: /orange-county-mobile-car-detailing.html
+Allow: /los-angeles-mobile-car-detailing.html
+Allow: /locations-beverly-hills.html
+Allow: /locations-orange-county.html
+Allow: /locations-los-angeles.html
+
+# NEWS & UPDATES
+Allow: /news-2025-november.html
+
+# ESSENTIAL ASSETS
+Allow: /manifest.json
+Allow: /service-worker.js
+Allow: /instant-performance-loader.js
+Allow: /lag-buster.js
+Allow: /anti-lag.css
+Allow: /advanced-performance.css
+
+# ===========================================
+# BLOCK IRRELEVANT CRAWLERS & RESOURCES
+# ===========================================
+
+# BLOCK BAD BOTS
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
 User-agent: AhrefsBot
 Disallow: /
 
 User-agent: SemrushBot
 Disallow: /
 
-User-agent: DotBot
-Disallow: /
-
 User-agent: MJ12bot
 Disallow: /
 
-User-agent: SiteLockSpider
+User-agent: DotBot
 Disallow: /
 
-# 🗺️ SITEMAPS - Fresh November 2025 Updates
-Sitemap: https://jaysmobilewash.net/sitemap.xml
-Sitemap: https://jaysmobilewash.net/sitemap-master-2025.xml
-Sitemap: https://jaysmobilewash.net/sitemap-pages.xml
-Sitemap: https://jaysmobilewash.net/sitemap-services.xml
-Sitemap: https://jaysmobilewash.net/sitemap-locations.xml
-Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
+User-agent: BLEXBot
+Disallow: /
+
+# BLOCK TESTING & DEVELOPMENT FILES
+Disallow: /test-*
+Disallow: /*.test.js
+Disallow: /*.test.html
+Disallow: /debug/
+Disallow: /dev/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.next/
+Disallow: /api-*test*
+Disallow: /chatbot-test.html
+Disallow: /booking-test*
+Disallow: /auto-mode-test.js
+
+# BLOCK PRIVATE/ADMIN FILES
+Disallow: /private/
+Disallow: /admin/
+Disallow: /.env*
+Disallow: /config/
+Disallow: /scripts/
+
+# BLOCK DUPLICATE/OLD CONTENT
+Disallow: /*?
+Disallow: /index.html?*
+Disallow: /*.php
+Disallow: /wp-*
+Disallow: /old/
+Disallow: /backup/
+Disallow: /archive/
+
+# ===========================================
+# SITEMAPS - MAXIMUM SEO POWER
+# ===========================================
+
+# PRIMARY SITEMAP
+Sitemap: https://jaysmobilewash.net/main-sitemap.xml
+
+# SPECIALIZED LOCATION SITEMAPS (November 2025)
+Sitemap: https://jaysmobilewash.net/la-detailing-sitemap-2025.xml
+Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap-2025.xml
+Sitemap: https://jaysmobilewash.net/mobile-car-wash-sitemap-2025.xml
+
+# LEGACY SITEMAPS
 Sitemap: https://jaysmobilewash.net/la-detailing-sitemap.xml
+Sitemap: https://jaysmobilewash.net/oc-detailing-sitemap.xml
 Sitemap: https://jaysmobilewash.net/mobile-car-wash-sitemap.xml
+
+# SPECIALIZED SITEMAPS
 Sitemap: https://jaysmobilewash.net/image-sitemap.xml
+Sitemap: https://jaysmobilewash.net/geo.xml
+
+# ===========================================
+# PERFORMANCE & CRAWL OPTIMIZATION
+# ===========================================
+
+# CRAWL RATE CONTROL
+Crawl-delay: 1
+
+# REQUEST RATE LIMITS
+Request-rate: 10/60s
+
+# ===========================================
+# LOCAL SEO ENHANCEMENT
+# ===========================================
+
+# Allow all major local search crawlers
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# ===========================================
+# SPECIAL INSTRUCTIONS
+# ===========================================
+
+# Google-specific optimizations
+User-agent: Googlebot
+Allow: /css/
+Allow: /js/
+Allow: *.css
+Allow: *.js
+Allow: *.woff
+Allow: *.woff2
+Allow: *.ttf
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.webp
+Allow: *.gif
+Allow: *.svg
+
+# Mobile-first indexing support
+User-agent: Googlebot-Mobile
+Allow: /
+Crawl-delay: 1
+
+# Image indexing
+User-agent: Googlebot-Image
+Allow: /
+
+# ===========================================
+# TRAFFIC ANALYTICS & SECURITY
+# ===========================================
+
+# Block suspicious crawlers
+User-agent: SiteAuditBot
+Disallow: /
+
+User-agent: MauiBot
+Disallow: /
+
+User-agent: AlexaToolbar
+Disallow: /
+
+User-agent: ia_archiver
+Disallow: /
+
+# ===========================================
+# END OF ROBOTS.TXT
+# ===========================================
+
+# This robots.txt is optimized for:
+# ✅ Maximum Google & Bing crawling efficiency
+# ✅ Local SEO domination in LA & Orange County
+# ✅ Premium mobile car detailing visibility
+# ✅ Performance optimization for LAG BUSTER system
+# ✅ Bad bot protection and security
+# ✅ Fresh November 2025 sitemap integration

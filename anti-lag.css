@@ -86,16 +86,16 @@ img {
     .mobile-optimized * {
         transition-duration: 0.1s !important; /* Even faster on mobile */
     }
-    
+
     .mobile-optimized .glow-button:hover {
         transform: translateZ(0) scale(1.02) !important; /* Smaller scale on mobile */
     }
-    
+
     /* Reduce complex animations on mobile */
     .mobile-optimized .lightning-bolt {
         display: none !important;
     }
-    
+
     .mobile-optimized .rgb-laser {
         display: none !important;
     }
@@ -113,7 +113,7 @@ img {
     .desktop-optimized * {
         transition-duration: 0.15s !important;
     }
-    
+
     /* Enable full effects on desktop */
     .desktop-optimized .lightning-bolt,
     .desktop-optimized .rgb-laser {
