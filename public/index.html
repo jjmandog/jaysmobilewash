@@ -2125,7 +2125,7 @@
     </section>
 
     <!-- Navigation -->
-    <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar">
+    <nav class="bg-opacity-20 backdrop-filter backdrop-blur-lg fixed w-full z-50 transition-all duration-300 ease-in-out" id="navbar" style="visibility: visible !important; display: block !important;">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-16 sm:h-20">
                 <div class="flex items-center">
@@ -4295,20 +4295,32 @@
             const loadingProgress = document.getElementById('loading-progress');
             let progress = 0;
 
+            // FAILSAFE: Force hide loading screen after 5 seconds maximum
+            setTimeout(() => {
+                if (loadingScreen && loadingScreen.style.display !== 'none') {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                        console.log('Loading screen forcibly hidden by failsafe');
+                    }, 500);
+                }
+            }, 5000);
+
             // Update loading progress - Extended timing for better user experience
             const updateProgress = setInterval(() => {
                 progress += Math.random() * 8; // Slower progress for better visibility
                 if (progress > 100) progress = 100;
 
-                loadingProgress.textContent = Math.floor(progress);
-                waterFill.style.height = `${progress}%`;
+                if (loadingProgress) loadingProgress.textContent = Math.floor(progress);
+                if (waterFill) waterFill.style.height = `${progress}%`;
 
                 if (progress >= 100) {
                     clearInterval(updateProgress);
                     setTimeout(() => {
-                        loadingScreen.style.opacity = '0';
+                        if (loadingScreen) loadingScreen.style.opacity = '0';
                         setTimeout(() => {
-                            loadingScreen.style.display = 'none';
+                            if (loadingScreen) loadingScreen.style.display = 'none';
                             document.body.style.overflow = 'auto';
                         }, 800); // Extended fade out time
                     }, 1500); // Extended display time at 100% - now people can see the beautiful screen!
