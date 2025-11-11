@@ -257,8 +257,7 @@ function getStep1HTML() {
                 </div>
                 <div class="mt-3 text-xs text-yellow-300 bg-yellow-900/20 p-2 rounded">
                     <i class="fas fa-info-circle mr-1"></i>
-                    <strong>Sedan vehicles:</strong> $10 surcharge applies
-                    <a href="#packages" class="text-purple-300 underline hover:text-purple-200">View pricing details</a>
+                    <strong>Pricing:</strong> Sedan +$10 surcharge | SUV prices shown | Other - We'll contact you after booking for quote
                 </div>
             </div>
 
@@ -524,12 +523,20 @@ function getStep3HTML() {
                     <i class="fas fa-exclamation-triangle mr-2"></i>
                     Important: Sedan Vehicle Surcharge
                 </h5>
-                <p class="text-yellow-200 text-sm mb-2">
-                    A $10 surcharge applies to all sedan vehicles due to additional time and materials required for proper detailing.
+                <p class="text-yellow-200 text-sm">
+                    A $10 surcharge applies to sedan vehicles.
                 </p>
-                <a href="#pricing" class="text-purple-300 underline hover:text-purple-200 text-sm">
-                    View complete pricing details →
-                </a>
+            </div>
+            ` : ''}
+            ${bookingState.customerData.carType === 'other' ? `
+            <div class="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 mb-6">
+                <h5 class="text-blue-300 font-semibold mb-2">
+                    <i class="fas fa-phone mr-2"></i>
+                    Custom Vehicle Quote
+                </h5>
+                <p class="text-blue-200 text-sm">
+                    We'll contact you after booking to provide an accurate quote for your vehicle type. Pricing varies based on vehicle size and condition.
+                </p>
             </div>
             ` : ''}
 
