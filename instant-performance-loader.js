@@ -17,7 +17,7 @@ class InstantPerformanceLoader {
         this.setupProgressiveBooking();
         this.setupCriticalAssetPreloading();
         this.setupPerformanceMonitoring();
-        
+
         console.log('🚀 Instant Performance Loader initialized!');
     }
 
@@ -27,26 +27,26 @@ class InstantPerformanceLoader {
      */
     setupHoverPreloading() {
         let hoverTimeout;
-        
+
         document.addEventListener('mouseover', (e) => {
             clearTimeout(hoverTimeout);
-            
+
             hoverTimeout = setTimeout(() => {
                 // Preload booking modal on hover
                 if (e.target.closest('.book-button, .floating-book-button, button[onclick*="openBookingModal"]')) {
                     this.preloadBookingModal();
                 }
-                
+
                 // Preload pricing page content
                 if (e.target.closest('a[href*="pricing"], .pricing-nav')) {
                     this.preloadPricingContent();
                 }
-                
+
                 // Preload service pages
                 if (e.target.closest('a[href*="ceramic"], a[href*="paint"], a[href*="interior"]')) {
                     this.preloadServiceContent(e.target.href);
                 }
-                
+
                 // Preload gallery images
                 if (e.target.closest('.gallery-item, .portfolio-image')) {
                     this.preloadGalleryImages();
@@ -60,16 +60,16 @@ class InstantPerformanceLoader {
      */
     async preloadBookingModal() {
         if (this.preloadedContent.has('booking-modal')) return;
-        
+
         try {
             // Preload booking system assets
             const bookingAssets = [
                 '/booking-system.js',
                 '/booking-system.css'
             ];
-            
+
             await Promise.all(bookingAssets.map(asset => this.preloadAsset(asset)));
-            
+
             // Preload booking modal HTML structure if not already loaded
             if (!document.getElementById('booking-modal')) {
                 const bookingScript = document.querySelector('script[src*="booking-system"]');
@@ -80,7 +80,7 @@ class InstantPerformanceLoader {
                     }
                 }
             }
-            
+
             this.preloadedContent.set('booking-modal', true);
             console.log('⚡ Booking modal preloaded successfully');
         } catch (error) {
@@ -208,23 +208,23 @@ class InstantPerformanceLoader {
      */
     loadImageOptimized(img) {
         const src = img.dataset.src || img.src;
-        
+
         // Create optimized image with blur-to-sharp transition
         const tempImg = new Image();
-        
+
         tempImg.onload = () => {
             // Apply smooth transition
             img.style.filter = 'blur(5px)';
             img.style.transition = 'filter 0.3s ease';
-            
+
             img.src = tempImg.src;
-            
+
             // Remove blur once loaded
             setTimeout(() => {
                 img.style.filter = 'none';
             }, 50);
         };
-        
+
         // Check for WebP support and use optimized format
         if (this.supportsWebP()) {
             tempImg.src = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
@@ -248,7 +248,7 @@ class InstantPerformanceLoader {
                         // Parse and preload any assets in the step
                         const tempDiv = document.createElement('div');
                         tempDiv.innerHTML = stepContent;
-                        
+
                         tempDiv.querySelectorAll('img, script, link').forEach(asset => {
                             const src = asset.src || asset.href;
                             if (src) this.preloadAsset(src);
@@ -258,7 +258,7 @@ class InstantPerformanceLoader {
                     console.warn('Step preload failed:', error);
                 }
             }
-            
+
             this.preloadedContent.set(`step-${stepNumber}`, true);
         }, 100);
     }
@@ -270,7 +270,7 @@ class InstantPerformanceLoader {
         // Warm up frequently accessed content
         const warmupUrls = [
             '/pricing',
-            '/about', 
+            '/about',
             '/products',
             '/ceramic-coating',
             '/paint-correction'
@@ -290,19 +290,19 @@ class InstantPerformanceLoader {
      */
     optimizeScrollPerformance() {
         let scrollTimeout;
-        
+
         window.addEventListener('scroll', () => {
             // Use passive listener for better performance
             clearTimeout(scrollTimeout);
-            
+
             scrollTimeout = setTimeout(() => {
                 // Trigger progressive loading based on scroll position
                 const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-                
+
                 if (scrollPercent > 0.3) {
                     this.preloadBookingModal();
                 }
-                
+
                 if (scrollPercent > 0.7) {
                     this.preloadPricingContent();
                 }
@@ -315,11 +315,11 @@ class InstantPerformanceLoader {
      */
     supportsWebP() {
         if (this._webpSupport !== undefined) return this._webpSupport;
-        
+
         const canvas = document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 1;
-        
+
         this._webpSupport = canvas.toDataURL('image/webp', 0.1).indexOf('data:image/webp') === 0;
         return this._webpSupport;
     }
@@ -329,7 +329,7 @@ class InstantPerformanceLoader {
      */
     async preloadPricingContent() {
         if (this.preloadedContent.has('pricing-content')) return;
-        
+
         try {
             await this.preloadAsset('/pricing');
             this.preloadedContent.set('pricing-content', true);
@@ -344,14 +344,14 @@ class InstantPerformanceLoader {
      */
     preloadGalleryImages() {
         if (this.preloadedContent.has('gallery-images')) return;
-        
+
         // Preload next few gallery images
         const galleryImages = document.querySelectorAll('.gallery-item img, .portfolio-image');
-        
+
         Array.from(galleryImages).slice(0, 5).forEach(img => {
             this.preloadAsset(img.src || img.dataset.src);
         });
-        
+
         this.preloadedContent.set('gallery-images', true);
     }
 }
