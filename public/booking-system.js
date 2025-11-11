@@ -15,34 +15,25 @@ let bookingState = {
 
 // Service packages and their prices
 const PACKAGES = {
-    'basic-wash': { 
-        name: 'Basic Wash & Vacuum', 
-        price: 80,
-        description: 'Exterior wash, dry, and interior vacuum',
-        duration: '45 min'
+    'mini-detail': {
+        name: "Jay's Mini Detail",
+        price: 70,
+        description: '2-Step Hand Contact Wash, Interior Wipe-Down & Shine, Deep Vacuuming, Ceramic SiO₂ Rim Cleaning',
+        duration: '1 hour'
     },
-    'interior-detail': { 
-        name: 'Interior Detail Package', 
-        price: 150,
-        description: 'Steam cleaning, vacuum, dashboard treatment',
-        duration: '90 min'
-    },
-    'exterior-detail': { 
-        name: 'Exterior Detail Package', 
-        price: 180,
-        description: 'Wash, wax, tire shine, trim restoration',
+    'luxury-detail': {
+        name: "Jay's Luxury Detail",
+        price: 130,
+        description: 'Everything in Mini Detail PLUS Ceramic Spray Wax/Sealant, SiO₂ Interior Cleanser, Vinyl Restoration',
         duration: '2 hours'
     },
-    'full-detail': { 
-        name: 'Full Detail Package', 
-        price: 250,
-        description: 'Complete interior + exterior detailing',
+    'max-detail': {
+        name: "Jay's Max Detail",
+        price: 200,
+        description: 'Everything in Luxury PLUS Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, Clay Bar Treatment',
         duration: '3 hours'
-    },
-    'ceramic-coating': { 
-        name: 'Ceramic Coating Package', 
-        price: 400,
-        description: '9H ceramic coating with 2-year warranty',
+    }
+};
         duration: '4-6 hours'
     },
     'paint-correction': { 
