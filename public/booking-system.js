@@ -57,10 +57,6 @@ const SERVICES = {
     'leather-condition': { name: 'Leather Conditioning', price: 10, category: 'Interior' },
     'vinyl-shine': { name: 'Vinyl Interior Shine', price: 10, category: 'Interior' }
 };
-    'pet-hair-removal': { name: 'Pet Hair Removal', price: 50, category: 'Interior' },
-    'odor-removal': { name: 'Bio-Bomb Odor Removal', price: 100, category: 'Interior' },
-    'wax-sealant': { name: 'Wax & Sealant', price: 60, category: 'Protection' }
-};
 
 /**
  * Initialize booking system
