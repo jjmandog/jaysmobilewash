@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jays-mobile-wash-v8-keyword-domination';
+const CACHE_NAME = 'jays-mobile-wash-v9-coating-packages';
 const urlsToCache = [
     '/',
     '/index.html',
