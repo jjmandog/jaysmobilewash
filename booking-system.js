@@ -15,66 +15,54 @@ let bookingState = {
 
 // Service packages and their prices
 const PACKAGES = {
-    'basic-wash': {
-        name: 'Basic Wash & Vacuum',
-        price: 80,
-        description: 'Exterior wash, dry, and interior vacuum',
-        duration: '45 min'
+    'mini-detail': {
+        name: "Jay's Mini Detail",
+        price: 70,
+        description: '2-Step Hand Contact Wash, Interior Wipe-Down & Shine, Deep Vacuuming, Ceramic SiO₂ Rim Cleaning',
+        duration: '1 hour'
     },
-    'interior-detail': {
-        name: 'Interior Detail Package',
-        price: 150,
-        description: 'Steam cleaning, vacuum, dashboard treatment',
-        duration: '90 min'
-    },
-    'exterior-detail': {
-        name: 'Exterior Detail Package',
-        price: 180,
-        description: 'Wash, wax, tire shine, trim restoration',
+    'luxury-detail': {
+        name: "Jay's Luxury Detail",
+        price: 130,
+        description: 'Everything in Mini Detail PLUS Ceramic Spray Wax/Sealant, SiO₂ Interior Cleanser, Vinyl Restoration',
         duration: '2 hours'
     },
-    'full-detail': {
-        name: 'Full Detail Package',
-        price: 250,
-        description: 'Complete interior + exterior detailing',
+    'max-detail': {
+        name: "Jay's Max Detail",
+        price: 200,
+        description: 'Everything in Luxury PLUS Ceramic Hyper Wax/Sealant, Interior Steam Cleaning, Clay Bar Treatment',
         duration: '3 hours'
     },
     'ceramic-coating': {
         name: 'Ceramic Coating Package',
-        price: 400,
-        description: '9H ceramic coating with 2-year warranty',
+        price: 450,
+        description: '2-Year Warranty Protection with premium ceramic coating application',
         duration: '4-6 hours'
     },
-    'paint-correction': {
-        name: 'Paint Correction Package',
-        price: 350,
-        description: 'Multi-stage paint correction and protection',
-        duration: '4-5 hours'
-    },
-    'premium-detail': {
-        name: 'Premium Detail Package',
-        price: 320,
-        description: 'Ultimate detailing with ceramic boost',
-        duration: '4 hours'
+    'graphene-coating': {
+        name: 'Graphene Coating Package',
+        price: 800,
+        description: '5-Year Warranty Protection with advanced graphene nanotechnology',
+        duration: '6-8 hours'
     }
 };
 
 // Individual services for custom packages
 const SERVICES = {
-    'wash-dry': { name: 'Wash & Dry', price: 40, category: 'Exterior' },
-    'vacuum-interior': { name: 'Vacuum Interior', price: 30, category: 'Interior' },
-    'steam-clean': { name: 'Steam Clean Interior', price: 60, category: 'Interior' },
-    'enzyme-extraction': { name: 'Enzyme Extraction', price: 80, category: 'Interior' },
-    'ceramic-coating-single': { name: 'Ceramic Coating Application', price: 200, category: 'Protection' },
-    'paint-correction-single': { name: 'Paint Correction', price: 150, category: 'Exterior' },
-    'headlight-restoration': { name: 'Headlight Restoration', price: 60, category: 'Exterior' },
-    'clay-bar': { name: 'Clay Bar Treatment', price: 70, category: 'Exterior' },
-    'iron-removal': { name: 'Iron Removal', price: 50, category: 'Exterior' },
-    'trim-restoration': { name: 'Trim Restoration', price: 40, category: 'Exterior' },
-    'engine-bay': { name: 'Engine Bay Cleaning', price: 80, category: 'Engine' },
-    'pet-hair-removal': { name: 'Pet Hair Removal', price: 50, category: 'Interior' },
-    'odor-removal': { name: 'Bio-Bomb Odor Removal', price: 100, category: 'Interior' },
-    'wax-sealant': { name: 'Wax & Sealant', price: 60, category: 'Protection' }
+    'exterior-wash': { name: 'Exterior Wash', price: 25, category: 'Exterior' },
+    'interior-vacuum': { name: 'Interior Vacuum', price: 15, category: 'Interior' },
+    'interior-detail': { name: 'Interior Detail', price: 35, category: 'Interior' },
+    'steam-clean': { name: 'Steam Clean Interior', price: 40, category: 'Interior' },
+    'shampoo-extraction': { name: 'Shampoo Extraction', price: 100, category: 'Interior' },
+    'headlight-restoration': { name: 'Ceramic Headlight Restoration (2yr warranty)', price: 30, category: 'Exterior' },
+    'polish-car': { name: 'Polish (Car)', price: 160, category: 'Exterior' },
+    'polish-suv': { name: 'Polish (SUV)', price: 180, category: 'Exterior' },
+    'wax-spray': { name: 'Spray Wax', price: 20, category: 'Protection' },
+    'ceramic-hand-applied': { name: 'Hand Applied Ceramic Base', price: 40, category: 'Protection' },
+    'engine-bay': { name: 'Engine Bay Cleaning (All by Hand)', price: 50, category: 'Engine' },
+    'odor-elimination': { name: 'Odor Elimination', price: 30, category: 'Interior' },
+    'leather-condition': { name: 'Leather Conditioning', price: 10, category: 'Interior' },
+    'vinyl-shine': { name: 'Vinyl Interior Shine', price: 10, category: 'Interior' }
 };
 
 /**
