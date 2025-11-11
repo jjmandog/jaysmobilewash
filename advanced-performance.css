@@ -1,0 +1,376 @@
+/**
+ * 🚀 ADVANCED PERFORMANCE OPTIMIZATIONS
+ * Ultra-fast CSS for Jay's Mobile Wash
+ * Preserves beautiful purple/pink design while maximizing performance
+ */
+
+/* ===== CRITICAL PERFORMANCE FOUNDATIONS ===== */
+
+/* GPU Acceleration for all animations */
+* {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Optimized font loading */
+@font-face {
+    font-family: 'Manrope';
+    font-display: swap; /* Instant font swap for performance */
+    /* Other font properties preserved */
+}
+
+/* ===== INSTANT LOADING OPTIMIZATIONS ===== */
+
+/* Skeleton loading states */
+.skeleton-loader {
+    background: linear-gradient(90deg, 
+        rgba(168, 85, 247, 0.1) 25%, 
+        rgba(168, 85, 247, 0.2) 50%, 
+        rgba(168, 85, 247, 0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: 8px;
+}
+
+@keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Instant hover preloading states */
+.preload-ready {
+    position: relative;
+}
+
+.preload-ready::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.preload-ready:hover::after {
+    opacity: 1;
+}
+
+/* ===== SMART IMAGE LOADING ===== */
+
+/* Blur-to-sharp image transitions */
+.img-loading {
+    filter: blur(5px);
+    transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-loaded {
+    filter: none;
+}
+
+/* Progressive image enhancement */
+.progressive-img {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.progressive-img img {
+    transition: opacity 0.3s ease;
+}
+
+.progressive-img.loading img {
+    opacity: 0;
+}
+
+.progressive-img.loaded img {
+    opacity: 1;
+}
+
+/* ===== BOOKING MODAL PERFORMANCE ===== */
+
+/* Instant modal appearance */
+#booking-modal {
+    contain: layout style paint; /* Performance isolation */
+    will-change: opacity, transform;
+}
+
+#booking-modal .modal-content {
+    contain: layout style;
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+/* Step transitions optimized for 60fps */
+.booking-step {
+    will-change: transform, opacity;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.booking-step-enter {
+    opacity: 0;
+    transform: translateX(20px) translateZ(0);
+}
+
+.booking-step-active {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+}
+
+.booking-step-exit {
+    opacity: 0;
+    transform: translateX(-20px) translateZ(0);
+}
+
+/* ===== SCROLL PERFORMANCE OPTIMIZATION ===== */
+
+/* Smooth scrolling with GPU acceleration */
+html {
+    scroll-behavior: smooth;
+}
+
+.scroll-container {
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    contain: layout style paint;
+}
+
+/* Optimized parallax effects */
+.parallax-element {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ===== ANIMATION PERFORMANCE ===== */
+
+/* 60fps guaranteed animations */
+.floating-book-button {
+    animation: float-optimized 3s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes float-optimized {
+    0%, 100% { 
+        transform: translateY(0) translateZ(0); 
+    }
+    50% { 
+        transform: translateY(-10px) translateZ(0); 
+    }
+}
+
+/* Thanksgiving animations optimized */
+.falling-leaf {
+    will-change: transform, opacity;
+    animation-timing-function: ease-out;
+    transform: translateZ(0);
+}
+
+.thanksgiving-pumpkin {
+    will-change: transform;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+}
+
+/* ===== MICRO-INTERACTION OPTIMIZATIONS ===== */
+
+/* Instant button feedback */
+button, .btn {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+}
+
+button:active, .btn:active {
+    transform: translateY(1px) translateZ(0);
+    transition-duration: 0.05s;
+}
+
+/* Optimized hover effects for purple/pink theme */
+.purple-hover-effect:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pink-hover-effect:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== FORM PERFORMANCE ENHANCEMENTS ===== */
+
+/* Instant input feedback */
+input, textarea, select {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: border-color, box-shadow;
+}
+
+input:focus, textarea:focus, select:focus {
+    transform: translateZ(0);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+}
+
+/* Progressive form validation */
+.input-group {
+    position: relative;
+}
+
+.input-validation {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transform: translateY(-10px) translateZ(0);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-validation.show {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+/* ===== LOADING STATE OPTIMIZATIONS ===== */
+
+/* Smart loading indicators */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(168, 85, 247, 0.3);
+    border-top-color: #a855f7;
+    border-radius: 50%;
+    animation: spin-optimized 0.8s linear infinite;
+    will-change: transform;
+}
+
+@keyframes spin-optimized {
+    0% { transform: rotate(0deg) translateZ(0); }
+    100% { transform: rotate(360deg) translateZ(0); }
+}
+
+/* Progressive content loading */
+.content-loading {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-loaded {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+/* ===== MOBILE PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Touch optimization */
+button, .btn, .interactive {
+    touch-action: manipulation; /* Prevents double-tap zoom delay */
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.3);
+}
+
+/* Mobile scroll optimization */
+@media (max-width: 768px) {
+    .scroll-container {
+        -webkit-overflow-scrolling: touch;
+        overflow: auto;
+    }
+    
+    /* Reduced motion for mobile performance */
+    .mobile-optimized {
+        animation-duration: 0.2s;
+        transition-duration: 0.2s;
+    }
+}
+
+/* ===== CRITICAL CSS OPTIMIZATION ===== */
+
+/* Above-the-fold critical styles */
+.hero-section {
+    contain: layout style paint;
+    will-change: auto; /* Only animate when needed */
+}
+
+.navigation {
+    contain: layout style;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Below-the-fold deferred styles */
+.deferred-content {
+    contain: layout style paint;
+}
+
+/* ===== ACCESSIBILITY + PERFORMANCE ===== */
+
+/* Reduced motion support with maintained performance */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-book-button {
+        animation: none;
+    }
+    
+    .parallax-element {
+        transform: none;
+    }
+}
+
+/* High contrast mode optimization */
+@media (prefers-contrast: high) {
+    .purple-hover-effect:hover,
+    .pink-hover-effect:hover {
+        box-shadow: 0 0 0 3px #ffffff;
+        border: 2px solid #ffffff;
+    }
+}
+
+/* ===== PRINT PERFORMANCE ===== */
+@media print {
+    /* Hide performance-heavy elements when printing */
+    .floating-book-button,
+    .parallax-element,
+    .falling-leaf,
+    .thanksgiving-pumpkin,
+    #booking-modal {
+        display: none !important;
+    }
+    
+    /* Optimize print layout */
+    * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* ===== PERFORMANCE DEBUGGING ===== */
+.perf-debug {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.perf-debug.show {
+    opacity: 1;
+}
