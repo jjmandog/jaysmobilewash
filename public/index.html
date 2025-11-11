@@ -1334,95 +1334,14 @@
             }
         }
 
-        /* Floating Reviews Animation - Optimized for Performance */
-        .floating-review {
-            animation: floatGhost 12s ease-in-out infinite;
-            opacity: 0;
-            transform: translate3d(0, 100px, 0);
-            will-change: transform, opacity;
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-
-        @keyframes floatGhost {
-            0% {
-                opacity: 0;
-                transform: translate3d(0, 100px, 0) scale(0.8);
-            }
-            10% {
-                opacity: 0.7;
-                transform: translate3d(5px, 0, 0) scale(1);
-            }
-            25% {
-                opacity: 0.9;
-                transform: translate3d(-3px, -15px, 0) scale(1.02);
-            }
-            50% {
-                opacity: 1;
-                transform: translate3d(8px, -25px, 0) scale(1);
-            }
-            75% {
-                opacity: 0.8;
-                transform: translate3d(-5px, 10px, 0) scale(0.98);
-            }
-            90% {
-                opacity: 0.3;
-                transform: translate3d(10px, -40px, 0) scale(0.9);
-            }
-            100% {
-                opacity: 0;
-                transform: translate3d(15px, -100px, 0) scale(0.7);
-            }
-        }
-
-        /* Individual review optimized delays and variations */
-        .review-1 {
-            animation-duration: 14s;
-            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .review-2 {
-            animation-duration: 16s;
-            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .review-3 {
-            animation-duration: 13s;
-            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .review-4 {
-            animation-duration: 15s;
-            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .review-5 {
-            animation-duration: 17s;
-            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .review-6 {
-            animation-duration: 12s;
-            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* Performance optimizations */
-        .floating-review .review-card {
-            transform: translateZ(0);
-            will-change: transform;
-            contain: layout;
-        }
-
-        /* Mobile responsive - hide on small screens to avoid clutter */
-        @media (max-width: 768px) {
-            .floating-review {
-                display: none;
-            }
-        }
-
         /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
-            .floating-review {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                opacity: 0.7 !important;
-                transform: none !important;
-            }
+            /* Other elements animation control can go here */
+        }
+
+        /* Hide floating reviews completely */
+        .floating-review {
+            display: none !important;
         }
     </style>
 
@@ -1491,22 +1410,22 @@
         animation: fallDown 6s infinite linear;
         pointer-events: none;
     }
-    
+
     .thanksgiving-leaves:nth-child(1) {
         left: 10%;
         animation-delay: 0s;
     }
-    
+
     .thanksgiving-leaves:nth-child(2) {
         left: 50%;
         animation-delay: 2s;
     }
-    
+
     .thanksgiving-leaves:nth-child(3) {
         left: 80%;
         animation-delay: 4s;
     }
-    
+
     @keyframes fallDown {
         0% {
             opacity: 1;
@@ -1528,12 +1447,12 @@
             transform: translateX(0px) rotate(360deg);
         }
     }
-    
+
     /* Thanksgiving Special Pulse */
     #thanksgiving-banner {
         animation: thanksgivingPulse 3s ease-in-out infinite;
     }
-    
+
     @keyframes thanksgivingPulse {
         0%, 100% {
             box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
@@ -1711,7 +1630,7 @@
                             🦃 Thanksgiving Special - 15% OFF Until Nov 28th! 🍂
                         </span>
                     </div>
-                    
+
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
                         <span class="gradient-text glow-text important-header-glow">Professional Mobile Car Detailing</span>
                         <br>
@@ -1775,69 +1694,6 @@
             </aside>
         </section>
     </main>
-
-    <!-- Floating Reviews positioned to viewport -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-30" aria-hidden="true">
-        <div class="floating-review review-1" style="position: fixed; top: 20vh; right: 5vw; animation-delay: 0s;">
-            <div class="review-card bg-purple-600 bg-opacity-20 backdrop-blur-sm border border-purple-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-medium">"Amazing ceramic coating! My car looks brand new!"</p>
-                <p class="text-purple-300 text-xs mt-1">- Maria L.</p>
-            </div>
-        </div>
-
-        <div class="floating-review review-2" style="position: fixed; top: 35vh; right: 8vw; animation-delay: 2s;">
-            <div class="review-card bg-pink-600 bg-opacity-20 backdrop-blur-sm border border-pink-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-medium italic">"Professional service, came right to my office!"</p>
-                <p class="text-pink-300 text-xs mt-1">- David R.</p>
-            </div>
-        </div>
-
-        <div class="floating-review review-3" style="position: fixed; top: 50vh; right: 3vw; animation-delay: 4s;">
-            <div class="review-card bg-blue-600 bg-opacity-20 backdrop-blur-sm border border-blue-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-bold">"Best detailing service in Orange County!"</p>
-                <p class="text-blue-300 text-xs mt-1">- Jennifer K.</p>
-            </div>
-        </div>
-
-        <div class="floating-review review-4" style="position: fixed; top: 25vh; right: 12vw; animation-delay: 6s;">
-            <div class="review-card bg-green-600 bg-opacity-20 backdrop-blur-sm border border-green-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-light">"Interior cleaning was incredible. Highly recommend!"</p>
-                <p class="text-green-300 text-xs mt-1">- Mike T.</p>
-            </div>
-        </div>
-
-        <div class="floating-review review-5" style="position: fixed; top: 40vh; right: 15vw; animation-delay: 8s;">
-            <div class="review-card bg-orange-600 bg-opacity-20 backdrop-blur-sm border border-orange-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-semibold">"Paint correction made my car shine like a mirror!"</p>
-                <p class="text-orange-300 text-xs mt-1">- Sarah M.</p>
-            </div>
-        </div>
-
-        <div class="floating-review review-6" style="position: fixed; top: 60vh; right: 6vw; animation-delay: 10s;">
-            <div class="review-card bg-indigo-600 bg-opacity-20 backdrop-blur-sm border border-indigo-400 border-opacity-30 rounded-lg p-3 shadow-lg max-w-xs">
-                <div class="flex items-center mb-2">
-                    <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                </div>
-                <p class="text-white text-sm font-mono">"Quick, efficient, and spotless results every time!"</p>
-                <p class="text-indigo-300 text-xs mt-1">- Carlos P.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Featured Image Section -->
     <section class="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
@@ -1941,7 +1797,7 @@
                 </div>
                 <p class="text-orange-300 text-sm">*Valid until November 28th, 2025. Give thanks with a spotless car! 🦃</p>
             </div>
-            
+
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     <span class="gradient-text">Our Packages</span>
@@ -5268,26 +5124,26 @@
     // Initial bolt on load
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createLightningBolt, 1000);
-        
+
         // Thanksgiving Banner Auto-Hide Functionality
         const thanksgivingDate = new Date('2025-11-28T23:59:59');
         const currentDate = new Date();
-        
+
         if (currentDate > thanksgivingDate) {
             // Hide Thanksgiving elements after November 28th
             const thanksgivingBanner = document.getElementById('thanksgiving-banner');
             const thanksgivingSpecial = document.querySelector('.text-orange-200');
-            
+
             if (thanksgivingBanner) {
                 thanksgivingBanner.style.display = 'none';
             }
-            
+
             // Remove Thanksgiving pricing headers
             const pricingHeaders = document.querySelectorAll('.bg-gradient-to-r.from-orange-900\\/60');
             pricingHeaders.forEach(header => {
                 header.style.display = 'none';
             });
-            
+
             // Restore original button text
             const bookButton = document.querySelector('button[onclick*="openBookingModal"]');
             if (bookButton) {
