@@ -461,6 +461,14 @@ function getStep3HTML() {
         totalPrice = PACKAGES[selectedPackage].price;
     }
 
+    // Calculate surcharge for Sedan vehicles
+    const sedanSurcharge = bookingState.customerData.carType === 'Sedan' ? 10 : 0;
+    const subtotal = totalPrice + sedanSurcharge;
+    
+    // Apply Thanksgiving discount (15% off)
+    const thanksgivingDiscount = Math.round(subtotal * 0.15);
+    const finalTotal = subtotal - thanksgivingDiscount;
+
     return `
         <div class="step-content" data-step="3">
             <h3 class="text-xl font-bold text-white mb-6">Confirm Your Booking</h3>
@@ -515,10 +523,104 @@ function getStep3HTML() {
                 </div>
 
                 <div class="border-t border-purple-500/30 mt-4 pt-4">
-                    <div class="flex justify-between text-lg font-bold">
-                        <span class="text-white">Total:</span>
-                        <span class="text-green-400">$${totalPrice}</span>
+                    <div class="space-y-2 text-gray-300">
+                        <div class="flex justify-between">
+                            <span>Package Price:</span>
+                            <span class="text-white">$${totalPrice}</span>
+                        </div>
+                        ${sedanSurcharge > 0 ? `
+                        <div class="flex justify-between">
+                            <span>Sedan Surcharge:</span>
+                            <span class="text-yellow-400">+$${sedanSurcharge}</span>
+                        </div>
+                        ` : ''}
+                        <div class="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span class="text-white">$${subtotal}</span>
+                        </div>
+                        <div class="flex justify-between text-green-400">
+                            <span>🦃 Thanksgiving Discount (15% OFF):</span>
+                            <span>-$${thanksgivingDiscount}</span>
+                        </div>
                     </div>
+                    <div class="border-t border-green-500/30 mt-3 pt-3">
+                        <div class="flex justify-between text-xl font-bold">
+                            <span class="text-white">🍂 TOTAL (After Thanksgiving Savings):</span>
+                            <span class="text-green-400">$${finalTotal}</span>
+                        </div>
+                        <p class="text-center text-green-300 text-sm mt-2">🦃 You saved $${thanksgivingDiscount} with our Thanksgiving special! 🍂</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMPORTANT: CONDITIONAL SURCHARGES & FEES NOTICE -->
+            <div class="bg-gradient-to-r from-red-900/30 to-orange-900/30 border border-red-500/40 rounded-lg p-6 mb-6">
+                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-3 text-2xl"></i>
+                    🦃 IMPORTANT: CONDITIONAL SURCHARGES 🍂
+                </h4>
+                
+                <!-- Thanksgiving Discount Banner -->
+                <div class="bg-green-900/40 border border-green-500/50 rounded-lg p-4 mb-4">
+                    <div class="text-center">
+                        <h5 class="font-bold text-green-300 mb-2 flex items-center justify-center">
+                            <span class="mr-2">🦃</span>
+                            THANKSGIVING SPECIAL - 15% OFF!
+                            <span class="ml-2">🍂</span>
+                        </h5>
+                        <p class="text-green-200 text-sm">Applied automatically until November 28th! Get your car holiday-ready! 🦃✨</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center">
+                        <h5 class="font-bold text-red-300 mb-2">🧹 Heavy Dirt/Grime</h5>
+                        <p class="text-2xl font-bold text-red-400">+30%</p>
+                        <p class="text-xs text-gray-300 mt-1">Added to base price for embedded grime, gum, or excessive dirt</p>
+                    </div>
+                    <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center">
+                        <h5 class="font-bold text-red-300 mb-2">☣️ Biohazards</h5>
+                        <p class="text-2xl font-bold text-red-400">+50%</p>
+                        <p class="text-xs text-gray-300 mt-1">Vomit, urine, mold, or other biohazardous materials</p>
+                    </div>
+                    <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center">
+                        <h5 class="font-bold text-red-300 mb-2">🌙 After-Dark Work</h5>
+                        <p class="text-2xl font-bold text-red-400">+$50</p>
+                        <p class="text-xs text-gray-300 mt-1">Professional lighting provided (Quality guarantee void)</p>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-900/30 border border-yellow-500/40 rounded-lg p-4">
+                    <h5 class="font-bold text-yellow-400 mb-3 flex items-center">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Additional Fees
+                    </h5>
+                    <ul class="text-sm text-gray-300 space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-percentage text-yellow-400 mr-2 mt-0.5 text-xs"></i>
+                            <strong>1.75% card processing fee</strong> applies to all credit/debit card transactions
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-road text-yellow-400 mr-2 mt-0.5 text-xs"></i>
+                            <strong>$10 travel fee</strong> for every 10 miles beyond 30 miles from service center
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-calculator text-yellow-400 mr-2 mt-0.5 text-xs"></i>
+                            <strong>Custom vehicle quotes:</strong> Motorcycles 🏍️ • RVs 🚐 • Buses 🚌 • Vans 🚚
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-car text-green-400 mr-2 mt-0.5 text-xs"></i>
+                            <strong>Sedan surcharge:</strong> Already included in your quote above (+$10)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-4 p-3 bg-orange-900/30 border border-orange-500/40 rounded-lg">
+                    <p class="text-orange-200 text-sm text-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong>These surcharges are only applied if conditions are present during service.</strong><br>
+                        Your base quote above does not include conditional surcharges unless already noted.
+                    </p>
                 </div>
             </div>
 
@@ -1218,7 +1320,7 @@ async function submitBooking() {
     try {
         // Calculate surcharge for Sedan vehicles
         const surcharge = bookingState.customerData.carType === 'Sedan' ? 10 : 0;
-        
+
         // Format full address
         const fullAddress = bookingState.customerData.streetAddress && bookingState.customerData.city && bookingState.customerData.zipCode
             ? `${bookingState.customerData.streetAddress}, ${bookingState.customerData.city}, ${bookingState.customerData.zipCode}`
