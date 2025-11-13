@@ -144,11 +144,11 @@
 }
 
 /* Form Input Styles */
-input[type="text"], 
-input[type="email"], 
-input[type="tel"], 
-input[type="date"], 
-select, 
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
 textarea {
     transition: all 0.3s ease;
 }
@@ -188,78 +188,94 @@ button:hover::before {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Loading Spinner */
+/* Loading Spinner - Hardware Accelerated */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate3d(0, 0, 1, 0deg); }
+    100% { transform: rotate3d(0, 0, 1, 360deg); }
 }
 
 .animate-spin {
     animation: spin 1s linear infinite;
+    will-change: transform;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
-/* Pulse Animation for Important Buttons */
+/* Pulse Animation for Important Buttons - Optimized */
 @keyframes pulse {
     0%, 100% {
         opacity: 1;
         box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        transform: scale3d(1, 1, 1);
     }
     50% {
         opacity: 0.8;
         box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        transform: scale3d(1.02, 1.02, 1);
     }
 }
 
 .animate-pulse {
-    animation: pulse 2s infinite;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: transform, opacity, box-shadow;
+    transform: translateZ(0);
 }
 
-/* Success Animation */
+/* Success Animation - Hardware Accelerated */
 @keyframes bounceIn {
     0% {
-        transform: scale(0);
+        transform: scale3d(0, 0, 1);
         opacity: 0;
     }
     50% {
-        transform: scale(1.1);
+        transform: scale3d(1.1, 1.1, 1);
     }
     100% {
-        transform: scale(1);
+        transform: scale3d(1, 1, 1);
         opacity: 1;
     }
 }
 
 .success-icon {
-    animation: bounceIn 0.6s ease-out;
+    animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
-/* Modal Backdrop */
+/* Modal Backdrop - Optimized for Performance */
 #booking-modal {
     backdrop-filter: blur(8px);
-    animation: fadeIn 0.3s ease-out;
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99999 !important;
+    will-change: opacity;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateZ(0);
     }
     to {
         opacity: 1;
+        transform: translateZ(0);
     }
 }
 
-/* Modal Content Animation */
+/* Modal Content Animation - GPU Accelerated */
 #booking-modal > div > div {
-    animation: slideUp 0.4s ease-out;
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 @keyframes slideUp {
     from {
-        transform: translateY(30px);
+        transform: translate3d(0, 30px, 0);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
         opacity: 1;
     }
 }
@@ -269,18 +285,18 @@ button:hover::before {
     .step-indicator {
         font-size: 0.75rem;
     }
-    
+
     .step-circle {
         width: 32px;
         height: 32px;
         font-size: 0.875rem;
     }
-    
+
     #booking-modal > div > div {
         margin: 1rem;
         max-height: calc(100vh - 2rem);
     }
-    
+
     .package-option, .custom-service-item {
         padding: 1rem;
     }
@@ -301,7 +317,7 @@ button:hover::before {
         border: 3px solid #ffffff;
         background: #000000;
     }
-    
+
     .step-indicator.active .step-circle {
         border: 2px solid #ffffff;
     }
@@ -314,7 +330,7 @@ button:hover::before {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
+
     .floating-book-button {
         animation: none;
     }
@@ -326,7 +342,7 @@ button:hover::before {
         background: #1f2937;
         border-color: #4b5563;
     }
-    
+
     input, select, textarea {
         background: #1f2937 !important;
         border-color: #4b5563 !important;
@@ -398,11 +414,11 @@ button:hover::before {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
     }
-    
+
     #photo-upload-area {
         padding: 1.5rem;
     }
-    
+
     #photo-upload-area p {
         font-size: 0.875rem;
     }
@@ -456,4 +472,60 @@ button:hover::before {
 *:focus-visible {
     outline: 2px solid #a855f7;
     outline-offset: 2px;
+}
+
+/* Smooth Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, visibility;
+    transform: translateZ(0);
+}
+
+.loading-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Enhanced Loading Spinner */
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(168, 85, 247, 0.3);
+    border-top: 4px solid rgba(168, 85, 247, 1);
+    border-radius: 50%;
+    animation: smoothSpin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+@keyframes smoothSpin {
+    0% { transform: rotate3d(0, 0, 1, 0deg); }
+    100% { transform: rotate3d(0, 0, 1, 360deg); }
+}
+
+/* Performance Optimization for All Elements */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Optimize hover effects for smooth performance */
+.package-option:hover,
+.car-type-option:hover,
+.custom-service-item:hover {
+    transform: translate3d(0, -2px, 0);
+    will-change: transform;
 }
