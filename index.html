@@ -1178,6 +1178,48 @@
             }
         }
 
+        /* Thanksgiving Loading Screen Animations */
+        .thanksgiving-leaf {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            animation: thanksgivingLeafFall 8s linear infinite;
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            pointer-events: none;
+        }
+
+        @keyframes thanksgivingLeafFall {
+            0% {
+                transform: translate3d(0, -50px, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            25% {
+                transform: translate3d(20px, 25vh, 0) rotate(90deg);
+            }
+            50% {
+                transform: translate3d(-15px, 50vh, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate3d(10px, 75vh, 0) rotate(270deg);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(0, 100vh, 0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Thanksgiving themed bubbles */
+        .bubble {
+            background: rgba(255, 165, 0, 0.4); /* Orange thanksgiving bubbles */
+        }
+
         /* Package details animation */
         .package-details {
             overflow: hidden;
@@ -1625,13 +1667,20 @@
         <!-- Stars will be dynamically generated here -->
     </aside>
 
-    <!-- Loading Screen - Hardware Accelerated -->
-    <section id="loading-screen" class="fixed inset-0 bg-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience" style="will-change: opacity; transform: translateZ(0);">
+    <!-- Loading Screen - Hardware Accelerated with Thanksgiving Theme -->
+    <section id="loading-screen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-orange-900/20 to-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience" style="will-change: opacity; transform: translateZ(0);">
+        <!-- Thanksgiving Floating Leaves -->
+        <div class="thanksgiving-loading-leaves absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="thanksgiving-leaf" style="left: 10%; animation-delay: 0s;">🍁</div>
+            <div class="thanksgiving-leaf" style="left: 30%; animation-delay: 1s;">🍂</div>
+            <div class="thanksgiving-leaf" style="left: 70%; animation-delay: 2s;">🍃</div>
+            <div class="thanksgiving-leaf" style="left: 90%; animation-delay: 3s;">🍁</div>
+        </div>
         <div class="relative w-80 h-80">
             <!-- Water tank container -->
             <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
-                <!-- Water fill - Optimized -->
-                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-blue-400" style="transition: height 0.1s cubic-bezier(0.4, 0, 0.2, 1); will-change: height; transform: translateZ(0);">
+                <!-- Thanksgiving Themed Water fill - Optimized -->
+                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-600 via-yellow-500 to-orange-400" style="transition: height 0.1s cubic-bezier(0.4, 0, 0.2, 1); will-change: height; transform: translateZ(0);">
                     <div class="water-wave" aria-hidden="true"></div>
                     <div class="water-wave water-wave-2" aria-hidden="true"></div>
                 </div>
@@ -1654,10 +1703,14 @@
                   <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash animated logo" class="w-full h-full object-contain" loading="eager">
                 </div>
             </div>
-            <!-- Progress text -->
+            <!-- Progress text with Thanksgiving Theme -->
             <div class="absolute bottom-10 left-0 right-0 text-center text-white">
-                <p class="text-sm font-medium">Loading Experience...</p>
-                <p class="text-xs mt-1"><span id="loading-progress">0</span>%</p>
+                <p class="text-sm font-medium flex items-center justify-center">
+                    <span class="mr-2 animate-bounce">🦃</span>
+                    Loading Thanksgiving Experience...
+                    <span class="ml-2 animate-bounce">🍂</span>
+                </p>
+                <p class="text-xs mt-1 text-orange-200">Get ready for 15% OFF! <span id="loading-progress">0</span>% Complete</p>
             </div>
         </div>
     </section>
@@ -3951,7 +4004,7 @@
             function updateProgress() {
                 const elapsed = Date.now() - startTime;
                 const duration = 2000; // 2 seconds total
-                
+
                 // Smooth easing function
                 const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
                 const normalizedTime = Math.min(elapsed / duration, 1);
@@ -3966,7 +4019,7 @@
                     requestAnimationFrame(() => {
                         loadingScreen.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                         loadingScreen.style.opacity = '0';
-                        
+
                         setTimeout(() => {
                             loadingScreen.style.display = 'none';
                             document.body.style.overflow = 'auto';
