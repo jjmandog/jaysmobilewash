@@ -942,7 +942,7 @@
                     <li>• Deep Vacuuming & Cup Holder Cleaning</li>
                     <li>• Spot-Free Deionized Water Rinse</li>
                   </ul>
-                  <button class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Basic</button>
+                  <button onclick="openPackageModal('basic')" class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Basic</button>
                 </header>
               </div>
               <div class="package-badge bg-green-500">Most Popular</div>
@@ -962,7 +962,7 @@
                     <li>• SiO₂ Interior Cleanser with Dust Repellent</li>
                     <li>• Vinyl Restoration & Trim Restore</li>
                   </ul>
-                  <button class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Luxury</button>
+                  <button onclick="openPackageModal('luxury')" class="w-full py-2 px-4 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Luxury</button>
                 </header>
               </div>
               <div class="package-badge bg-purple-500">Best Value</div>
@@ -985,7 +985,7 @@
                     <li>• 6-Month Foam Seal Treatment</li>
                     <li>• Brand-New Car Scent</li>
                   </ul>
-                  <button class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Max</button>
+                  <button onclick="openPackageModal('max')" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Jay's Max</button>
                 </header>
               </div>
             </article>
@@ -1008,7 +1008,7 @@
                     <li>• Ultimate protection</li>
                   </ul>
                   <button class="w-full py-2 px-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-colors package-btn">Choose Protection</button>
-                  <button class="w-full py-2 px-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Protection</button>
+                  <button onclick="openPackageModal('protection')" class="w-full py-2 px-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-colors package-btn glow-btn">Choose Protection</button>
                 </header>
               </div>
             </article>
@@ -1500,35 +1500,279 @@
     <!-- TailwindCSS 4.1.11 (Latest) via CDN -->
     <script src=" https://cdn.tailwindcss.com?v=4.1.11\></script>
 
- <!-- Pricing Calculator Script -->
+ <!-- Package Details Modal Script -->
  <script>
- let selectedPackage = null;
- let vehicleType = \small\;
- let isCustomPackage = false;
-
- // Package pricing
- const packagePricing = {
- \basic\: { small: 60, large: 70 },
- \luxury\: { small: 130, large: 140 },
- \max\: { small: 200, large: 210 }
+ // Comprehensive package details with service explanations
+ const packageDetails = {
+   basic: {
+     title: "Jay's Basic Package - Essential Shine & Clean",
+     pricing: "Small Car: $60 | SUV: $70",
+     description: "Our foundational package that delivers professional-grade cleaning with attention to detail. Perfect for regular maintenance and keeping your vehicle looking its best.",
+     services: [
+       {
+         name: "2-Step Hand Contact Wash",
+         description: "We use the proper two-bucket method with high-quality microfiber mitts. First bucket contains sudsy water for cleaning, second bucket is clean rinse water. This prevents cross-contamination and ensures we're not putting dirt back on your car. Each panel is washed methodically from top to bottom.",
+         benefit: "Prevents swirl marks and scratches that automated car washes cause"
+       },
+       {
+         name: "Tornador Z-007 Compressed Air Blast",
+         description: "Professional-grade pneumatic tool that uses compressed air and cleaning solution to reach impossible areas. The Tornador creates a tornado-like cleaning action that pulls dirt out of vents, seams, crevices, cup holders, and detailed areas that traditional cleaning can't reach.",
+         benefit: "Deep cleans areas other detailers can't access, removing 95% more debris than traditional methods"
+       },
+       {
+         name: "Alkaline & Ceramic SiO₂ Rim Cleaning",
+         description: "We use specialized alkaline cleaners to break down brake dust and road grime, followed by ceramic SiO₂ treatment for protection. Each rim is hand-cleaned with dedicated brushes for spokes, barrels, and wheel wells. The ceramic treatment adds a protective layer.",
+         benefit: "Removes stubborn brake dust while protecting wheels from future contamination"
+       },
+       {
+         name: "Interior Wipe-Down & Shine",
+         description: "Complete interior surface cleaning using premium microfiber cloths and appropriate cleaners for each surface type - plastic, vinyl, leather, or wood grain. All surfaces are treated with UV protectant to prevent fading and cracking.",
+         benefit: "Protects interior from UV damage while maintaining factory appearance"
+       },
+       {
+         name: "Deep Vacuuming & Cup Holder Cleaning",
+         description: "High-powered vacuum extraction of all seats, carpets, floor mats, trunk, and storage compartments. Cup holders and small compartments are detailed with specialized tools. We move seats to access areas typically missed.",
+         benefit: "Removes embedded dirt and debris that regular vacuuming misses"
+       },
+       {
+         name: "Spot-Free Deionized Water Rinse",
+         description: "Final rinse using deionized water that has had all minerals removed. This eliminates water spots completely as there are no dissolved solids to leave residue when water evaporates. Results in a perfect, mirror-like finish.",
+         benefit: "Guarantees zero water spots for flawless shine that lasts longer"
+       }
+     ],
+     timeEstimate: "45-60 minutes",
+     warranty: "7-day satisfaction guarantee"
+   },
+   luxury: {
+     title: "Jay's Luxury Package - Superior Gloss & Protection",
+     pricing: "Small Car: $130 | SUV: $140",
+     description: "Everything from Basic plus advanced protection and restoration services. This package provides enhanced gloss, longer-lasting protection, and interior conditioning.",
+     services: [
+       {
+         name: "All Jay's Basic Services",
+         description: "Complete Basic package foundation with 2-step wash, Tornador cleaning, rim treatment, interior detailing, deep vacuuming, and deionized water rinse.",
+         benefit: "Full professional foundation with advanced additions"
+       },
+       {
+         name: "Ceramic Spray Wax/Sealant",
+         description: "Professional ceramic-infused spray sealant applied to all paint surfaces. Creates a hydrophobic barrier that causes water to bead and roll off. Contains SiO₂ (silicon dioxide) particles that bond to paint at microscopic level for 2-3 month protection.",
+         benefit: "Superior gloss, water beading, and protection that lasts 2-3 months"
+       },
+       {
+         name: "SiO₂ Interior Cleanser with Dust Repellent",
+         description: "Advanced interior treatment using ceramic technology. SiO₂ particles create an anti-static barrier on dashboard, console, and trim surfaces that actively repels dust and makes future cleaning easier. Safe for all interior materials.",
+         benefit: "Interior stays cleaner longer with anti-static dust repelling properties"
+       },
+       {
+         name: "Vinyl Restoration & Trim Restore",
+         description: "Professional restoration treatment for exterior vinyl, rubber, and plastic trim pieces. Removes oxidation, restores original color, and applies UV protection. Brings faded trim back to deep black appearance and prevents future fading.",
+         benefit: "Restores faded trim to like-new appearance while preventing future deterioration"
+       }
+     ],
+     timeEstimate: "90-120 minutes",
+     warranty: "14-day satisfaction guarantee with 60-day wax protection"
+   },
+   max: {
+     title: "Jay's Max Package - Ultimate Showroom Finish",
+     pricing: "Small Car: $200 | SUV: $210",
+     description: "Our premium service that includes everything from Luxury plus advanced treatments for showroom-quality results. Perfect for special occasions or maintaining luxury vehicles.",
+     services: [
+       {
+         name: "All Jay's Luxury Services",
+         description: "Complete Luxury package including Basic services, ceramic wax, SiO₂ interior treatment, and trim restoration.",
+         benefit: "Full premium foundation plus ultimate enhancements"
+       },
+       {
+         name: "Graphene Hyper Wax/Sealant",
+         description: "Next-generation protection using graphene-enhanced coating technology. Graphene provides superior heat dissipation, water beading, and durability compared to traditional waxes. Creates an ultra-slick surface that stays cleaner longer and provides 4-6 month protection.",
+         benefit: "Longest-lasting protection with superior gloss and self-cleaning properties"
+       },
+       {
+         name: "Luxury Steam Sanitization",
+         description: "High-temperature steam treatment (200°F+) that penetrates fabric and surfaces to eliminate bacteria, allergens, and odors without chemicals. Steam cleaning reaches deep into seat fibers, carpets, and air vents for complete sanitization.",
+         benefit: "Chemical-free sanitization that kills 99.9% of bacteria and allergens"
+       },
+       {
+         name: "Full Leather Conditioning",
+         description: "Professional leather treatment using pH-balanced conditioners that penetrate deep into leather pores. Restores natural oils, prevents cracking, and maintains suppleness. Each piece is hand-treated with appropriate products for the specific leather type.",
+         benefit: "Extends leather life while maintaining factory softness and appearance"
+       },
+       {
+         name: "Bio-Bomb Odor Neutralizer",
+         description: "Advanced enzyme-based odor elimination that breaks down odor-causing molecules at the source. Unlike air fresheners that mask odors, Bio-Bomb permanently eliminates smoke, pet, food, and other organic odors by destroying the compounds that cause them.",
+         benefit: "Permanently eliminates odors rather than masking them"
+       },
+       {
+         name: "6-Month Foam Seal Treatment",
+         description: "Professional foam sealant application that creates a long-lasting protective barrier on paint. Applied in thin, even coats and cured properly for maximum durability. Provides hydrophobic protection, UV resistance, and enhanced gloss for 6 months.",
+         benefit: "Extended 6-month protection with superior water beading and UV resistance"
+       },
+       {
+         name: "Brand-New Car Scent",
+         description: "Professional automotive fragrance application that recreates the luxurious new car smell. Long-lasting, subtle fragrance that won't overpower but provides that premium automotive atmosphere every time you enter your vehicle.",
+         benefit: "Luxury new car experience that enhances driving pleasure"
+       }
+     ],
+     timeEstimate: "3-4 hours",
+     warranty: "30-day satisfaction guarantee with 6-month protection warranty"
+   },
+   protection: {
+     title: "Ceramic & Graphene Coatings - Ultimate Protection",
+     pricing: "Ceramic: $450 | Graphene: $800",
+     description: "Professional-grade nano-coatings that provide years of protection with minimal maintenance. These coatings chemically bond to your paint for permanent protection.",
+     services: [
+       {
+         name: "Complete Paint Decontamination",
+         description: "Multi-step process including clay bar treatment to remove embedded contaminants, iron removal to eliminate brake dust particles, and thorough washing to ensure a perfectly clean surface. This preparation is critical for proper coating adhesion.",
+         benefit: "Ensures maximum coating adhesion and longevity"
+       },
+       {
+         name: "Paint Correction (Single Stage)",
+         description: "Machine polishing to remove swirl marks, light scratches, and oxidation. Creates a flawless surface for coating application. We use progressive polishing compounds and professional equipment to restore paint clarity and depth.",
+         benefit: "Removes 90% of paint imperfections for showroom finish"
+       },
+       {
+         name: "Professional Nano-Ceramic Coating",
+         description: "9H hardness ceramic coating applied in controlled environment. Creates a permanent glass-like layer that bonds to paint at molecular level. Provides incredible gloss, hydrophobic properties, chemical resistance, and UV protection for 2+ years.",
+         benefit: "Permanent protection that makes washing easier and prevents paint damage"
+       },
+       {
+         name: "Graphene-Enhanced Coating (Premium)",
+         description: "Revolutionary graphene-infused coating that provides superior heat dissipation, anti-static properties, and 3-5 year durability. Graphene's single-atom thickness creates the ultimate protective barrier while maintaining perfect clarity.",
+         benefit: "Longest-lasting protection with self-healing properties and superior performance"
+       },
+       {
+         name: "Multi-Year Warranty",
+         description: "Ceramic coatings include 2-year warranty against defects and premature failure. Graphene coatings include 3-year warranty. Warranty covers re-application if coating fails under normal conditions when maintenance guidelines are followed.",
+         benefit: "Peace of mind with professional warranty backing"
+       }
+     ],
+     timeEstimate: "6-8 hours (ceramic) | 8-10 hours (graphene)",
+     warranty: "2-year warranty (ceramic) | 3-year warranty (graphene)",
+     maintenance: "Annual inspection recommended, coating can last 3-5+ years with proper care"
+   }
  };
 
- function selectPackage(package) {
- selectedPackage = package;
- isCustomPackage = false;
- updatePricing();
+ function openPackageModal(packageType) {
+   const modal = document.getElementById('package-modal');
+   const modalTitle = document.getElementById('modal-title');
+   const modalContent = document.getElementById('modal-content');
+   
+   const package = packageDetails[packageType];
+   if (!package) return;
+   
+   modalTitle.innerHTML = `<i class="fas fa-star mr-2"></i>${package.title}`;
+   
+   let content = `
+     <div class="mb-6">
+       <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-lg p-4 mb-4">
+         <div class="text-xl font-bold text-purple-300 mb-2">${package.pricing}</div>
+         <p class="text-gray-300">${package.description}</p>
+         <div class="mt-3 flex flex-wrap gap-4 text-sm">
+           <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
+             <i class="fas fa-clock mr-1"></i>Time: ${package.timeEstimate}
+           </span>
+           <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full">
+             <i class="fas fa-shield-alt mr-1"></i>${package.warranty}
+           </span>`;
+   
+   if (package.maintenance) {
+     content += `
+           <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full">
+             <i class="fas fa-tools mr-1"></i>${package.maintenance}
+           </span>`;
+   }
+   
+   content += `
+         </div>
+       </div>
+     </div>
+     
+     <div class="space-y-4">
+       <h3 class="text-xl font-bold text-white mb-4">
+         <i class="fas fa-list-check mr-2"></i>What's Included - Detailed Breakdown:
+       </h3>`;
+   
+   package.services.forEach((service, index) => {
+     content += `
+       <div class="bg-gray-800/50 rounded-lg p-4 border-l-4 border-purple-500">
+         <div class="flex items-start space-x-3">
+           <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+             ${index + 1}
+           </div>
+           <div class="flex-1">
+             <h4 class="text-lg font-semibold text-purple-300 mb-2">${service.name}</h4>
+             <p class="text-gray-300 mb-3 leading-relaxed">${service.description}</p>
+             <div class="bg-green-900/30 border border-green-500/30 rounded p-2">
+               <p class="text-green-300 text-sm">
+                 <i class="fas fa-check-circle mr-1"></i>
+                 <strong>Why this matters:</strong> ${service.benefit}
+               </p>
+             </div>
+           </div>
+         </div>
+       </div>`;
+   });
+   
+   content += `
+     </div>
+     
+     <div class="mt-8 bg-gradient-to-r from-green-900/30 to-blue-900/30 rounded-lg p-6 border border-green-500/30">
+       <h3 class="text-xl font-bold text-green-300 mb-3">
+         <i class="fas fa-trophy mr-2"></i>The Jay's Difference
+       </h3>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+         <div class="flex items-center space-x-2">
+           <i class="fas fa-droplet text-blue-400"></i>
+           <span>Deionized water for spot-free finish</span>
+         </div>
+         <div class="flex items-center space-x-2">
+           <i class="fas fa-leaf text-green-400"></i>
+           <span>Eco-friendly professional products</span>
+         </div>
+         <div class="flex items-center space-x-2">
+           <i class="fas fa-mobile-alt text-purple-400"></i>
+           <span>100% mobile - we come to you</span>
+         </div>
+         <div class="flex items-center space-x-2">
+           <i class="fas fa-award text-yellow-400"></i>
+           <span>4.9/5 stars with 116+ reviews</span>
+         </div>
+       </div>
+       <div class="mt-4 text-center">
+         <p class="text-gray-300 italic">
+           "If a Jay didn't wash it, then it ain't washed right!" ✨
+         </p>
+       </div>
+     </div>`;
+   
+   modalContent.innerHTML = content;
+   modal.classList.remove('hidden');
+   document.body.style.overflow = 'hidden';
  }
-
- function updatePricing() {
- if (selectedPackage && packagePricing[selectedPackage]) {
- const price = packagePricing[selectedPackage][vehicleType];
- document.getElementById(\package-price\).textContent = \$\ + price;
- document.getElementById(\total-price\).textContent = \$\ + price;
+ 
+ function closePackageModal() {
+   const modal = document.getElementById('package-modal');
+   modal.classList.add('hidden');
+   document.body.style.overflow = 'auto';
  }
- }
-
- // Initialize
- selectPackage(\basic\);
+ 
+ // Close modal when clicking outside
+ document.addEventListener('DOMContentLoaded', function() {
+   const modal = document.getElementById('package-modal');
+   modal.addEventListener('click', function(e) {
+     if (e.target === modal) {
+       closePackageModal();
+     }
+   });
+   
+   // Close modal with Escape key
+   document.addEventListener('keydown', function(e) {
+     if (e.key === 'Escape') {
+       closePackageModal();
+     }
+   });
+ });
  </script>
 
     <!-- Schema Markup for Pricing Page -->
@@ -1549,15 +1793,20 @@
     }
     </script>
 
-    <!-- Part Selection Modal -->
-    <div id="part-modal" class="part-modal">
-        <div class="part-modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 id="part-modal-title" style="color: white; font-size: 1.25rem; font-weight: bold; margin: 0;">Select Service Level</h3>
-                <button onclick="closePartModal()" style="background: none; border: none; color: #a855f7; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">&times;</button>
+    <!-- Package Details Modal -->
+    <div id="package-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto border-2 border-purple-500 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-2xl font-bold text-white"></h2>
+                <button onclick="closePackageModal()" class="text-gray-400 hover:text-white text-3xl font-bold leading-none">&times;</button>
             </div>
-            <div id="service-options">
-                <!-- Service options will be populated by JavaScript -->
+            <div id="modal-content" class="text-gray-300">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="mt-8 text-center">
+                <a href="tel:562-228-9429" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-phone mr-2"></i>Book Now: (562) 228-9429
+                </a>
             </div>
         </div>
     </div>

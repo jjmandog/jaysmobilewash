@@ -5459,18 +5459,40 @@
     }
     </style>
 
-    <!-- Clean Service Worker Registration -->
+    <!-- EMERGENCY CACHE CLEAR - Force complete cleanup -->
     <script>
+    // AGGRESSIVE CACHE CLEARING FOR LAG BUSTER CLEANUP
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js?v=2025.11.11.clean-fixed')
-            .then(function(registration) {
-                console.log('Clean Service Worker registered successfully:', registration.scope);
-                // Update if needed
-                registration.update();
-            })
-            .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
+            // Step 1: Unregister ALL service workers
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                const unregisterPromises = registrations.map(registration => {
+                    console.log('Unregistering service worker:', registration.scope);
+                    return registration.unregister();
+                });
+                return Promise.all(unregisterPromises);
+            }).then(function() {
+                // Step 2: Clear ALL caches
+                return caches.keys();
+            }).then(function(cacheNames) {
+                const deletePromises = cacheNames.map(function(cacheName) {
+                    console.log('Deleting cache:', cacheName);
+                    return caches.delete(cacheName);
+                });
+                return Promise.all(deletePromises);
+            }).then(function() {
+                // Step 3: Force reload to clear everything
+                console.log('All caches cleared! Reloading...');
+                // Small delay to ensure cleanup completes
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 1000);
+            }).catch(function(error) {
+                console.log('Cache cleanup error:', error);
+                // Try to reload anyway
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 2000);
             });
         });
     }

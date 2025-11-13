@@ -163,8 +163,8 @@ async function cacheFirstStrategy(request) {
         const networkResponse = await fetch(request);
         performanceMetrics.networkRequests++;
 
-        // Cache successful responses (but not partial responses - status 206)
-        if (networkResponse.ok && networkResponse.status !== 206) {
+        // Cache successful responses
+        if (networkResponse.ok) {
             await cache.put(request, networkResponse.clone());
         }
 
@@ -182,8 +182,8 @@ async function networkFirstStrategy(request) {
         const networkResponse = await fetch(request);
         performanceMetrics.networkRequests++;
 
-        // Cache successful responses (but not partial responses - status 206)
-        if (networkResponse.ok && networkResponse.status !== 206) {
+        // Cache successful responses
+        if (networkResponse.ok) {
             const cache = await caches.open(CACHE_NAME);
             await cache.put(request, networkResponse.clone());
         }
