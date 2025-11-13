@@ -667,16 +667,16 @@ function getStep3HTML() {
  */
 function openBookingModal() {
     const modal = document.getElementById('booking-modal');
-    
+
     // Force browser reflow before showing modal
     modal.style.display = 'flex';
     modal.offsetHeight; // Trigger reflow
-    
+
     // Use requestAnimationFrame for smooth transition
     requestAnimationFrame(() => {
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-        
+
         // Prevent scrolling on iOS
         document.body.style.position = 'fixed';
         document.body.style.width = '100%';
@@ -688,21 +688,21 @@ function openBookingModal() {
  */
 function closeBookingModal() {
     const modal = document.getElementById('booking-modal');
-    
+
     // Add closing animation class
     modal.style.opacity = '0';
-    
+
     // Wait for animation to complete before hiding
     setTimeout(() => {
         modal.classList.add('hidden');
         modal.style.opacity = '';
         modal.style.display = '';
-        
+
         // Restore body scroll
         document.body.style.overflow = 'auto';
         document.body.style.position = '';
         document.body.style.width = '';
-        
+
         resetBookingState();
     }, 300); // Match animation duration
 }
