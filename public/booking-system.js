@@ -463,11 +463,7 @@ function getStep3HTML() {
 
     // Calculate surcharge for Sedan vehicles
     const sedanSurcharge = bookingState.customerData.carType === 'Sedan' ? 10 : 0;
-    const subtotal = totalPrice + sedanSurcharge;
-
-    // Apply Thanksgiving discount (15% off)
-    const thanksgivingDiscount = Math.round(subtotal * 0.15);
-    const finalTotal = subtotal - thanksgivingDiscount;
+    const finalTotal = totalPrice + sedanSurcharge;
 
     return `
         <div class="step-content" data-step="3">
@@ -534,21 +530,12 @@ function getStep3HTML() {
                             <span class="text-yellow-400">+$${sedanSurcharge}</span>
                         </div>
                         ` : ''}
-                        <div class="flex justify-between">
-                            <span>Subtotal:</span>
-                            <span class="text-white">$${subtotal}</span>
-                        </div>
-                        <div class="flex justify-between text-green-400">
-                            <span>🦃 Thanksgiving Discount (15% OFF):</span>
-                            <span>-$${thanksgivingDiscount}</span>
-                        </div>
                     </div>
-                    <div class="border-t border-green-500/30 mt-3 pt-3">
+                    <div class="border-t border-purple-500/30 mt-3 pt-3">
                         <div class="flex justify-between text-xl font-bold">
-                            <span class="text-white">🍂 TOTAL (After Thanksgiving Savings):</span>
+                            <span class="text-white">TOTAL:</span>
                             <span class="text-green-400">$${finalTotal}</span>
                         </div>
-                        <p class="text-center text-green-300 text-sm mt-2">🦃 You saved $${thanksgivingDiscount} with our Thanksgiving special! 🍂</p>
                     </div>
                 </div>
             </div>
@@ -557,20 +544,8 @@ function getStep3HTML() {
             <div class="bg-gradient-to-r from-red-900/30 to-orange-900/30 border border-red-500/40 rounded-lg p-6 mb-6">
                 <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center">
                     <i class="fas fa-exclamation-triangle mr-3 text-2xl"></i>
-                    🦃 IMPORTANT: CONDITIONAL SURCHARGES 🍂
+                    IMPORTANT: CONDITIONAL SURCHARGES
                 </h4>
-
-                <!-- Thanksgiving Discount Banner -->
-                <div class="bg-green-900/40 border border-green-500/50 rounded-lg p-4 mb-4">
-                    <div class="text-center">
-                        <h5 class="font-bold text-green-300 mb-2 flex items-center justify-center">
-                            <span class="mr-2">🦃</span>
-                            THANKSGIVING SPECIAL - 15% OFF!
-                            <span class="ml-2">🍂</span>
-                        </h5>
-                        <p class="text-green-200 text-sm">Applied automatically until November 28th! Get your car holiday-ready! 🦃✨</p>
-                    </div>
-                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center">
@@ -667,16 +642,16 @@ function getStep3HTML() {
  */
 function openBookingModal() {
     const modal = document.getElementById('booking-modal');
-
+    
     // Force browser reflow before showing modal
     modal.style.display = 'flex';
     modal.offsetHeight; // Trigger reflow
-
+    
     // Use requestAnimationFrame for smooth transition
     requestAnimationFrame(() => {
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-
+        
         // Prevent scrolling on iOS
         document.body.style.position = 'fixed';
         document.body.style.width = '100%';
@@ -688,21 +663,21 @@ function openBookingModal() {
  */
 function closeBookingModal() {
     const modal = document.getElementById('booking-modal');
-
+    
     // Add closing animation class
     modal.style.opacity = '0';
-
+    
     // Wait for animation to complete before hiding
     setTimeout(() => {
         modal.classList.add('hidden');
         modal.style.opacity = '';
         modal.style.display = '';
-
+        
         // Restore body scroll
         document.body.style.overflow = 'auto';
         document.body.style.position = '';
         document.body.style.width = '';
-
+        
         resetBookingState();
     }, 300); // Match animation duration
 }

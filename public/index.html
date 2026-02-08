@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🏆 #1 Orange County Mobile Car Detailing | Los Angeles Mobile Car Detailing | Jay's Mobile Wash | BEST 2025</title>
-    <meta name="description" content="🥇 #1 ORANGE COUNTY MOBILE CAR DETAILING & LOS ANGELES MOBILE CAR DETAILING! 4.9⭐ (150+ reviews) Premium ceramic coating, paint correction. WE DOMINATE OC & LA! Call 562-228-9429 INSTANT booking!"">
+    <meta name="description" content="🥇 #1 ORANGE COUNTY MOBILE CAR DETAILING & LOS ANGELES MOBILE CAR DETAILING! 4.9⭐ (150+ reviews) Premium ceramic coating, paint correction. WE DOMINATE OC & LA! Call 562-228-9429 INSTANT booking!">
 
     <!-- ULTIMATE SEO Meta Tags for Search Domination -->
     <meta name="keywords" content="orange county mobile car detailing, los angeles mobile car detailing, #1 mobile car detailing orange county, #1 mobile car detailing los angeles, best orange county mobile car detailing, best los angeles mobile car detailing, orange county auto detailing, los angeles auto detailing, ceramic coating orange county, ceramic coating los angeles, paint correction orange county, paint correction los angeles, mobile detailing near me, car detailing near me, OC mobile detailing, LA mobile detailing, mobile car wash orange county, mobile car wash los angeles">
@@ -19,7 +19,7 @@
     <meta name="business.type" content="Mobile Car Detailing Service">
     <meta name="business.phone" content="562-228-9429">
     <meta name="business.email" content="jason@jaysmobilewash.net">
-    <meta name="business.hours" content="Monday-Sunday 7AM-7PM">
+    <meta name="business.hours" content="Monday-Friday 8AM-6PM, Saturday-Sunday 9AM-5PM">
     <meta name="business.rating" content="4.9">
     <meta name="business.review-count" content="150">
     <meta name="business.price-range" content="$80-$400">
@@ -34,14 +34,9 @@
     <meta name="geo.state" content="California">
     <meta name="location" content="Los Angeles County, Orange County, California">
 
-    <!-- Cache Busting Headers -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="Sun, 10 Nov 2025 21:15:00 GMT">
-    <meta name="cache-control" content="max-age=0">
-    <meta name="version" content="2025.11.10.v3">
-    <meta name="ICBM" content="33.8743, -118.2827">
+    <!-- Cache Headers - Allow search engine caching -->
+    <meta http-equiv="Last-Modified" content="Mon, 26 Jan 2026 22:00:00 GMT">
+    <meta name="version" content="2026.01.26.v1">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Mobile Detailing Los Angeles & Orange County | Jay's Mobile Wash">
@@ -183,12 +178,7 @@
       "sameAs": [
         "https://www.facebook.com/jaysmobilewash",
         "https://www.instagram.com/jaysmobilewash",
-        "https://www.yelp.com/biz/jays-mobile-wash-los-angeles",
-        "https://yjfemym.com/why-mobile-car-detailing-is-the-future-of-auto-care-convenience-quality-and-time-saving/",
-        "https://sqklnq.com/the-reason-why-mobile-car-detailing-may-be-the-long-term-associated-with-car-treatment-comfort-high-quality-as-well-as-time-saving/",
-        "https://zbljst.com/exactly-why-mobile-car-detailing-could-be-the-upcoming-regarding-automobile-attention-ease-top-quality-and-also-time-saving/",
-        "https://zmdlmuw.com/precisely-why-mobile-car-detailing-will-be-the-potential-involving-vehicle-proper-care-benefit-good-quality-along-with-time-saving/",
-        "https://dalianshipin.com/the-reason-mobile-car-detailing-would-be-the-foreseeable-future-connected-with-automotive-health-care-advantage-excellent-in-addition-to-time-saving/"
+        "https://www.yelp.com/biz/jays-mobile-wash-los-angeles"
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -366,6 +356,15 @@
             font-family: 'Manrope', sans-serif;
             margin: 0;
             padding: 0;
+        }
+
+        /* Scroll offset for fixed navbar - ensures anchor links scroll to correct position */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        section[id] {
+            scroll-margin-top: 100px;
         }
 
         .gradient-text {
@@ -1178,46 +1177,9 @@
             }
         }
 
-        /* Thanksgiving Loading Screen Animations */
-        .thanksgiving-leaf {
-            position: absolute;
-            top: -50px;
-            font-size: 24px;
-            animation: thanksgivingLeafFall 8s linear infinite;
-            will-change: transform, opacity;
-            transform: translateZ(0);
-            pointer-events: none;
-        }
-
-        @keyframes thanksgivingLeafFall {
-            0% {
-                transform: translate3d(0, -50px, 0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            25% {
-                transform: translate3d(20px, 25vh, 0) rotate(90deg);
-            }
-            50% {
-                transform: translate3d(-15px, 50vh, 0) rotate(180deg);
-            }
-            75% {
-                transform: translate3d(10px, 75vh, 0) rotate(270deg);
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(0, 100vh, 0) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Thanksgiving themed bubbles */
+        /* Bubbles */
         .bubble {
-            background: rgba(255, 165, 0, 0.4); /* Orange thanksgiving bubbles */
+            background: rgba(168, 85, 247, 0.4); /* Purple themed bubbles */
         }
 
         /* Package details animation */
@@ -1525,64 +1487,7 @@
         border-color: #7f5af0;
     }
 
-    /* Thanksgiving Theme Animations */
-    .thanksgiving-leaves {
-        position: absolute;
-        font-size: 20px;
-        animation: fallDown 6s infinite linear;
-        pointer-events: none;
-    }
 
-    .thanksgiving-leaves:nth-child(1) {
-        left: 10%;
-        animation-delay: 0s;
-    }
-
-    .thanksgiving-leaves:nth-child(2) {
-        left: 50%;
-        animation-delay: 2s;
-    }
-
-    .thanksgiving-leaves:nth-child(3) {
-        left: 80%;
-        animation-delay: 4s;
-    }
-
-    @keyframes fallDown {
-        0% {
-            opacity: 1;
-            top: -10%;
-            transform: translateX(0px) rotate(0deg);
-        }
-        25% {
-            transform: translateX(10px) rotate(90deg);
-        }
-        50% {
-            transform: translateX(-10px) rotate(180deg);
-        }
-        75% {
-            transform: translateX(5px) rotate(270deg);
-        }
-        100% {
-            opacity: 0;
-            top: 110%;
-            transform: translateX(0px) rotate(360deg);
-        }
-    }
-
-    /* Thanksgiving Special Pulse */
-    #thanksgiving-banner {
-        animation: thanksgivingPulse 3s ease-in-out infinite;
-    }
-
-    @keyframes thanksgivingPulse {
-        0%, 100% {
-            box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
-        }
-        50% {
-            box-shadow: 0 0 0 10px rgba(251, 146, 60, 0);
-        }
-    }
 
     /* Button Ripple Effect */
     .glow-button, .ultra-glow-button {
@@ -1638,49 +1543,20 @@
     </script>
 <body itemscope itemtype="https://schema.org/LocalBusiness" itemid="https://www.jaysmobilewash.net/#organization">
 
-    <!-- Thanksgiving Banner 2025 -->
-    <div id="thanksgiving-banner" class="relative bg-gradient-to-r from-purple-900/95 via-orange-900/95 to-purple-900/95 border-b-2 border-orange-500/30 backdrop-blur-sm">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-center text-center">
-                <div class="flex items-center space-x-3">
-                    <span class="text-2xl animate-bounce">🦃</span>
-                    <div class="text-white">
-                        <span class="text-lg font-bold bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">
-                            Thanksgiving Special!
-                        </span>
-                        <span class="text-orange-200 ml-2">Get your car detailed before the holidays!</span>
-                        <span class="text-lg font-bold text-yellow-300 ml-2">🍂 15% OFF 🍂</span>
-                    </div>
-                    <span class="text-2xl animate-bounce">🍂</span>
-                </div>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div class="thanksgiving-leaves" style="animation-delay: 0s;">🍁</div>
-                <div class="thanksgiving-leaves" style="animation-delay: 2s;">🍂</div>
-                <div class="thanksgiving-leaves" style="animation-delay: 4s;">🍃</div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Galaxy Starfield Overlay -->
     <aside id="galaxy-starfield" class="galaxy-starfield" aria-label="Animated galaxy starfield background">
         <!-- Stars will be dynamically generated here -->
     </aside>
 
-    <!-- Loading Screen - Hardware Accelerated with Thanksgiving Theme -->
-    <section id="loading-screen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-orange-900/20 to-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience" style="will-change: opacity; transform: translateZ(0);">
-        <!-- Thanksgiving Floating Leaves -->
-        <div class="thanksgiving-loading-leaves absolute inset-0 pointer-events-none overflow-hidden">
-            <div class="thanksgiving-leaf" style="left: 10%; animation-delay: 0s;">🍁</div>
-            <div class="thanksgiving-leaf" style="left: 30%; animation-delay: 1s;">🍂</div>
-            <div class="thanksgiving-leaf" style="left: 70%; animation-delay: 2s;">🍃</div>
-            <div class="thanksgiving-leaf" style="left: 90%; animation-delay: 3s;">🍁</div>
-        </div>
+    <!-- Loading Screen - Hardware Accelerated -->
+    <section id="loading-screen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 z-[9999] flex items-center justify-center" aria-label="Loading Experience" style="will-change: opacity; transform: translateZ(0);">
         <div class="relative w-80 h-80">
             <!-- Water tank container -->
             <div class="absolute inset-0 bg-gray-800 rounded-xl border-4 border-purple-500 overflow-hidden">
-                <!-- Thanksgiving Themed Water fill - Optimized -->
-                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-orange-600 via-yellow-500 to-orange-400" style="transition: height 0.1s cubic-bezier(0.4, 0, 0.2, 1); will-change: height; transform: translateZ(0);">
+                <!-- Water fill - Optimized -->
+                <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-purple-600 via-pink-500 to-purple-400" style="transition: height 0.1s cubic-bezier(0.4, 0, 0.2, 1); will-change: height; transform: translateZ(0);">
                     <div class="water-wave" aria-hidden="true"></div>
                     <div class="water-wave water-wave-2" aria-hidden="true"></div>
                 </div>
@@ -1703,14 +1579,10 @@
                   <img src="https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png" alt="Jay's Mobile Wash animated logo" class="w-full h-full object-contain" loading="eager">
                 </div>
             </div>
-            <!-- Progress text with Thanksgiving Theme -->
+            <!-- Progress text -->
             <div class="absolute bottom-10 left-0 right-0 text-center text-white">
-                <p class="text-sm font-medium flex items-center justify-center">
-                    <span class="mr-2 animate-bounce">🦃</span>
-                    Loading Thanksgiving Experience...
-                    <span class="ml-2 animate-bounce">🍂</span>
-                </p>
-                <p class="text-xs mt-1 text-orange-200">Get ready for 15% OFF! <span id="loading-progress">0</span>% Complete</p>
+                <p class="text-sm font-medium">Loading Premium Experience...</p>
+                <p class="text-xs mt-1 text-purple-200"><span id="loading-progress">0</span>% Complete</p>
             </div>
         </div>
     </section>
@@ -1781,29 +1653,20 @@
             <div class="particles-container absolute inset-0 pointer-events-none z-0" aria-hidden="true"></div>
             <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20 md:pt-48 md:pb-28 z-2">
                 <header class="text-center sm:text-left max-w-4xl mx-auto sm:mx-0">
-                    <!-- Thanksgiving Decoration -->
-                    <div class="mb-4 text-center sm:text-left">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-orange-900/40 border border-orange-500/30 text-orange-200 text-sm font-medium backdrop-blur-sm">
-                            🦃 Thanksgiving Special - 15% OFF Until Nov 28th! 🍂
-                        </span>
-                    </div>
-
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 beat-reactive" data-freq="mid">
                         <span class="gradient-text glow-text important-header-glow">#1 Orange County Mobile Car Detailing</span>
                         <br>
                         <span class="text-white">#1 Los Angeles Mobile Car Detailing Service</span>
-                        <br>
-                        <span class="text-orange-300 text-3xl sm:text-4xl md:text-5xl">🦃 Give Thanks with a Clean Car! 🍂</span>
                     </h1>
                     <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto sm:mx-0">
-                        Get your car holiday-ready for Thanksgiving gatherings! Premium mobile detailing services that come to you. 🦃✨
+                        Premium mobile detailing services that come to you. Professional ceramic coating, paint correction, and full-service detailing throughout LA and Orange County.
                     </p>
                     <nav aria-label="Primary call to action" class="flex flex-wrap gap-4 justify-center sm:justify-start max-w-full overflow-visible">
                         <a href="tel:+15622289429" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg glow-button beat-reactive" data-freq="low" itemprop="telephone">
                             <i class="fas fa-phone-alt mr-2" aria-hidden="true"></i> Call (562) 228-9429
                         </a>
                         <button onclick="window.JaysBookingSystem?.openBookingModal()" class="px-8 py-4 text-lg font-semibold rounded-md bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg glow-button transform hover:scale-105 transition-all duration-300">
-                            <i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> 🦃 Book Thanksgiving Special! 🍂
+                            <i class="fas fa-calendar-plus mr-2" aria-hidden="true"></i> Book Now
                         </button>
                         <a href="#packages" class="px-6 py-4 text-lg font-semibold rounded-md bg-gray-800 hover:bg-gray-700 text-white">
                         View Packages
@@ -2063,22 +1926,12 @@
     <!-- Enhanced Packages Section with Show More -->
     <section id="packages" class="py-20 bg-gray-900">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Thanksgiving Special Header -->
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-900/60 to-yellow-900/60 border-2 border-orange-500/40 backdrop-blur-sm mb-4">
-                    <span class="text-2xl mr-3">🦃</span>
-                    <span class="text-orange-200 font-bold text-lg">THANKSGIVING SPECIAL - 15% OFF ALL PACKAGES!</span>
-                    <span class="text-2xl ml-3">🍂</span>
-                </div>
-                <p class="text-orange-300 text-sm">*Valid until November 28th, 2025. Give thanks with a spotless car! 🦃</p>
-            </div>
-
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     <span class="gradient-text">Orange County Mobile Car Detailing & Los Angeles Mobile Car Detailing Packages</span>
                 </h2>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Choose the perfect detailing package for your vehicle and budget. 🦃 Holiday-ready in hours! 🍂
+                    Choose the perfect detailing package for your vehicle and budget.
                 </p>
             </div>
            <!-- Deionized Water Section -->
@@ -4049,20 +3902,20 @@
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
+                    const targetId = this.getAttribute('href');
+                    const target = document.querySelector(targetId);
                     if (target) {
-                        const navHeight = document.getElementById('navbar').offsetHeight;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        // Close mobile menu if open
+                        // Close mobile menu first if open
                         if (!mobileMenu.classList.contains('hidden')) {
                             mobileMenu.classList.add('hidden');
                             mobileMenuButton.setAttribute('aria-expanded', 'false');
                         }
+                        
+                        // Use scrollIntoView which respects scroll-margin-top CSS
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
             });
@@ -5306,7 +5159,7 @@
         }
       },
       "datePublished": "2024-01-01",
-      "dateModified": "2024-12-30"
+      "dateModified": "2026-01-26"
     }
     </script>
 
@@ -5376,7 +5229,310 @@
     }
     </script>
 
+    <!-- 🏆 ULTIMATE RICH RESULTS: HowTo Schema for Step-by-Step Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Get Professional Mobile Car Detailing in Los Angeles & Orange County",
+      "description": "Step-by-step guide to booking premium mobile car detailing services at your location in LA or OC. We come to you!",
+      "image": "https://jaysmobilewash.net/mobile-detailing.PNG",
+      "totalTime": "PT3H",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "70-800"
+      },
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Vehicle to be detailed"
+        }
+      ],
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Access to your parking location"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Choose Your Detailing Package",
+          "text": "Select from Mini Detail ($70), Luxury Detail ($130), Max Detail ($200), Ceramic Coating ($450), or Graphene Coating ($800)",
+          "url": "https://www.jaysmobilewash.net/#packages"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Book Your Appointment",
+          "text": "Call 562-228-9429 or use our online booking system to schedule your mobile detailing",
+          "url": "https://www.jaysmobilewash.net/#booking"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Provide Your Location",
+          "text": "Tell us where to come - home, office, or anywhere in Los Angeles or Orange County",
+          "url": "https://www.jaysmobilewash.net/#locations"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "We Detail Your Vehicle",
+          "text": "Our professional team arrives fully equipped and details your car while you relax",
+          "url": "https://www.jaysmobilewash.net/"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Enjoy Your Showroom-Quality Car",
+          "text": "Your vehicle is returned looking brand new with professional-grade protection",
+          "url": "https://www.jaysmobilewash.net/"
+        }
+      ]
+    }
+    </script>
+
+    <!-- 🎬 VideoObject Schema for Video Rich Results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Jay's Mobile Wash - Professional Mobile Car Detailing in Los Angeles & Orange County",
+      "description": "Watch our mobile car detailing team transform vehicles throughout LA and Orange County. Premium ceramic coating, paint correction, and full interior detailing services.",
+      "thumbnailUrl": "https://jaysmobilewash.net/mobile-detailing.PNG",
+      "uploadDate": "2026-01-26",
+      "contentUrl": "https://www.jaysmobilewash.net/VID_20250626031412768%20(1)%20(1).mp4",
+      "embedUrl": "https://www.jaysmobilewash.net/",
+      "duration": "PT2M30S",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Jay's Mobile Wash",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png"
+        }
+      }
+    }
+    </script>
+
+    <!-- ⭐ Multiple Review Schema for Enhanced Star Ratings -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Jay's Mobile Wash",
+      "@id": "https://www.jaysmobilewash.net/#reviews",
+      "telephone": "+15622289429",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "16845 S Hoover St",
+        "addressLocality": "Gardena",
+        "addressRegion": "CA",
+        "postalCode": "90247",
+        "addressCountry": "US"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "156",
+        "ratingCount": "156"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Michael T."
+          },
+          "datePublished": "2026-01-15",
+          "reviewBody": "Best mobile detailing in Orange County! Jay came to my office and detailed my BMW while I worked. The ceramic coating looks incredible - better than the dealership!"
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Sarah M."
+          },
+          "datePublished": "2026-01-10",
+          "reviewBody": "Outstanding service in Beverly Hills! They detailed my Tesla Model S and it looks showroom new. The graphene coating is worth every penny. Highly recommend!"
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "David L."
+          },
+          "datePublished": "2026-01-08",
+          "reviewBody": "Jay's Mobile Wash is the #1 mobile car detailing in Los Angeles! They transformed my Mercedes - the paint correction removed years of swirl marks. Amazing work!"
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Jennifer R."
+          },
+          "datePublished": "2026-01-05",
+          "reviewBody": "Best detailing service in Newport Beach! Super convenient - they came to my house and my Porsche looks absolutely stunning. 5 stars all the way!"
+        },
+        {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Chris P."
+          },
+          "datePublished": "2026-01-02",
+          "reviewBody": "Finally found reliable mobile detailing in Irvine! Professional, on-time, and the interior deep clean was unbelievable. My car smells brand new!"
+        }
+      ]
+    }
+    </script>
+
+    <!-- 🔍 WebSite Schema with SearchAction for Sitelinks Search Box -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Jay's Mobile Wash - #1 Mobile Car Detailing",
+      "url": "https://www.jaysmobilewash.net",
+      "description": "Premium mobile car detailing services in Los Angeles and Orange County. Ceramic coating, paint correction, and full detailing. We come to you!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Jay's Mobile Wash",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://i.ibb.co/1Yk0MChV/F91-F533-E-C5-CF-4-D18-A295-7-B40-C430-B8-E6-1.png"
+        }
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.jaysmobilewash.net/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- 📍 Enhanced GeoCircle Service Area Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Mobile Car Detailing",
+      "name": "Mobile Car Detailing - Los Angeles & Orange County",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Jay's Mobile Wash",
+        "telephone": "+15622289429",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "16845 S Hoover St",
+          "addressLocality": "Gardena",
+          "addressRegion": "CA",
+          "postalCode": "90247",
+          "addressCountry": "US"
+        }
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "33.8743",
+          "longitude": "-118.2827"
+        },
+        "geoRadius": "80000"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mobile Detailing Packages",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Exterior Detailing",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hand Wash"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Clay Bar Treatment"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Paint Correction"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ceramic Coating"} }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Interior Detailing",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Vacuum & Shampooing"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Leather Conditioning"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Steam Cleaning"} },
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Odor Elimination"} }
+            ]
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- 📞 ContactPoint Schema for Click-to-Call -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Jay's Mobile Wash",
+      "url": "https://www.jaysmobilewash.net",
+      "telephone": "+15622289429",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+1-562-228-9429",
+          "contactType": "customer service",
+          "areaServed": ["US"],
+          "availableLanguage": ["English", "Spanish"],
+          "hoursAvailable": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "07:00",
+            "closes": "19:00"
+          }
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+1-562-228-9429",
+          "contactType": "sales",
+          "areaServed": ["Los Angeles", "Orange County"]
+        }
+      ]
+    }
+    </script>
+
     <!-- Pricing Navigation Enhancement -->
+
     <script>
         function scrollToPackagesThenPricing(event) {
             // Prevent default link behavior
@@ -5539,44 +5695,7 @@
     }
     </style>
 
-    <!-- EMERGENCY CACHE CLEAR - Force complete cleanup -->
-    <script>
-    // AGGRESSIVE CACHE CLEARING FOR LAG BUSTER CLEANUP
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            // Step 1: Unregister ALL service workers
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                const unregisterPromises = registrations.map(registration => {
-                    console.log('Unregistering service worker:', registration.scope);
-                    return registration.unregister();
-                });
-                return Promise.all(unregisterPromises);
-            }).then(function() {
-                // Step 2: Clear ALL caches
-                return caches.keys();
-            }).then(function(cacheNames) {
-                const deletePromises = cacheNames.map(function(cacheName) {
-                    console.log('Deleting cache:', cacheName);
-                    return caches.delete(cacheName);
-                });
-                return Promise.all(deletePromises);
-            }).then(function() {
-                // Step 3: Force reload to clear everything
-                console.log('All caches cleared! Reloading...');
-                // Small delay to ensure cleanup completes
-                setTimeout(function() {
-                    window.location.reload(true);
-                }, 1000);
-            }).catch(function(error) {
-                console.log('Cache cleanup error:', error);
-                // Try to reload anyway
-                setTimeout(function() {
-                    window.location.reload(true);
-                }, 2000);
-            });
-        });
-    }
-    </script>
+    <!-- Cache clear script removed - was causing infinite reload loop -->
 
     <!-- 🚀 ULTIMATE SPEED ROCKET FOR GOOGLE DOMINATION 🚀 -->
     <script src="/ULTIMATE_SPEED_ROCKET.js" defer></script>

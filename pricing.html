@@ -778,91 +778,12 @@
             transform: translateY(0);
         }
 
-        /* Thanksgiving Theme Animations */
-        .thanksgiving-leaves {
-            position: absolute;
-            font-size: 20px;
-            animation: fallDown 6s infinite linear;
-            pointer-events: none;
-        }
 
-        .thanksgiving-leaves:nth-child(1) {
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .thanksgiving-leaves:nth-child(2) {
-            left: 50%;
-            animation-delay: 2s;
-        }
-
-        .thanksgiving-leaves:nth-child(3) {
-            left: 80%;
-            animation-delay: 4s;
-        }
-
-        @keyframes fallDown {
-            0% {
-                opacity: 1;
-                top: -10%;
-                transform: translateX(0px) rotate(0deg);
-            }
-            25% {
-                transform: translateX(10px) rotate(90deg);
-            }
-            50% {
-                transform: translateX(-10px) rotate(180deg);
-            }
-            75% {
-                transform: translateX(5px) rotate(270deg);
-            }
-            100% {
-                opacity: 0;
-                top: 110%;
-                transform: translateX(0px) rotate(360deg);
-            }
-        }
-
-        /* Thanksgiving Special Pulse */
-        #thanksgiving-banner {
-            animation: thanksgivingPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes thanksgivingPulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 0 10px rgba(251, 146, 60, 0);
-            }
-        }
     </style>
 </head>
 <body class="text-white">
 
-    <!-- Thanksgiving Banner 2025 -->
-    <div id="thanksgiving-banner" class="relative bg-gradient-to-r from-purple-900/95 via-orange-900/95 to-purple-900/95 border-b-2 border-orange-500/30 backdrop-blur-sm">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-center text-center">
-                <div class="flex items-center space-x-3">
-                    <span class="text-2xl animate-bounce">🦃</span>
-                    <div class="text-white">
-                        <span class="text-lg font-bold bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">
-                            Thanksgiving Special!
-                        </span>
-                        <span class="text-orange-200 ml-2">Get your car detailed before the holidays!</span>
-                        <span class="text-lg font-bold text-yellow-300 ml-2">🍂 15% OFF 🍂</span>
-                    </div>
-                    <span class="text-2xl animate-bounce">🍂</span>
-                </div>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div class="thanksgiving-leaves" style="animation-delay: 0s;">🍁</div>
-                <div class="thanksgiving-leaves" style="animation-delay: 2s;">🍂</div>
-                <div class="thanksgiving-leaves" style="animation-delay: 4s;">🍃</div>
-            </div>
-        </div>
-    </div>
+
 
     <header>
       <nav class="bg-black bg-opacity-50 backdrop-filter backdrop-blur-lg fixed w-full z-50" aria-label="Main Navigation">
@@ -904,21 +825,11 @@
 
       <section class="container mx-auto px-4 sm:px-6 lg:px-8">
         <header class="text-center mb-12">
-          <!-- Thanksgiving Special Header -->
-          <div class="mb-6">
-            <div class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-orange-900/60 to-yellow-900/60 border-2 border-orange-500/40 backdrop-blur-sm mb-4">
-              <span class="text-2xl mr-3">🦃</span>
-              <span class="text-orange-200 font-bold text-lg">THANKSGIVING SPECIAL - 15% OFF ALL PACKAGES!</span>
-              <span class="text-2xl ml-3">🍂</span>
-            </div>
-            <p class="text-orange-300 text-sm">*Valid until November 28th, 2025. Get your car holiday-ready! 🦃</p>
-          </div>
-
           <h1 class="text-4xl md:text-5xl font-bold mb-4 important-header-glow">
-            <span class="gradient-text">🦃 Mobile Car Detailing Prices Los Angeles & Orange County 🍂</span>
+            <span class="gradient-text">Mobile Car Detailing Prices Los Angeles & Orange County</span>
           </h1>
           <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-            ★★★★★ 4.9/5 Stars (116+ Reviews) | Premium mobile car detailing from $60-$800 | Perfect for Thanksgiving gatherings! 🦃✨
+            ★★★★★ 4.9/5 Stars (116+ Reviews) | Premium mobile car detailing from $60-$800
           </p>
         </header>
 
@@ -1278,20 +1189,8 @@
 
               <!-- Surcharges & Important Fees Section -->
               <section class="mb-8" aria-label="Surcharges and Fees">
-                <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-exclamation-circle mr-2"></i>🦃 IMPORTANT: CONDITIONAL SURCHARGES 🍂</h3>
+                <h3 class="text-xl font-bold mb-4 text-red-400"><i class="fas fa-exclamation-circle mr-2"></i>IMPORTANT: CONDITIONAL SURCHARGES</h3>
                 <div class="bg-gradient-to-r from-red-900 to-orange-900 bg-opacity-30 rounded-lg p-6">
-                  <!-- Thanksgiving Discount Banner -->
-                  <div class="mb-6 p-4 bg-green-900/30 rounded-lg border border-green-500/40">
-                    <div class="text-center">
-                      <h4 class="font-bold text-green-300 mb-2 flex items-center justify-center">
-                        <span class="mr-2">🦃</span>
-                        THANKSGIVING SPECIAL DISCOUNT
-                        <span class="ml-2">🍂</span>
-                      </h4>
-                      <p class="text-3xl font-bold text-green-400 mb-2">15% OFF</p>
-                      <p class="text-sm text-green-200">Applied automatically until Nov 28th! Give thanks with a clean car! 🦃✨</p>
-                    </div>
-                  </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="text-center">
                       <h4 class="font-bold text-red-300 mb-2">🧹 Heavy Dirt/Grime</h4>
