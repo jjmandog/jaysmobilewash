@@ -1045,17 +1045,17 @@ function setupBookingEventListeners() {
 
     // Step navigation
     document.addEventListener('click', (e) => {
-        if (e.target.id === 'step1-next') {
+        if (e.target.closest('#step1-next')) {
             goToStep(2);
-        } else if (e.target.id === 'step2-back') {
+        } else if (e.target.closest('#step2-back')) {
             goToStep(1);
-        } else if (e.target.id === 'step2-next') {
+        } else if (e.target.closest('#step2-next')) {
             if (validateStep2()) {
                 goToStep(3);
             }
-        } else if (e.target.id === 'step3-back') {
+        } else if (e.target.closest('#step3-back')) {
             goToStep(2);
-        } else if (e.target.id === 'confirm-booking') {
+        } else if (e.target.closest('#confirm-booking')) {
             submitBooking();
         }
     });
