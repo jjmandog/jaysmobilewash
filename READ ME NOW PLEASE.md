@@ -55,6 +55,24 @@ A backlink strategy was also created during this session. Key actions:
 
 ---
 
+## 🔗 Real Social & Business Profile Links (Added March 2, 2026)
+
+All of these are now in the site's JSON-LD schema (`sameAs`) and footer links:
+- **Instagram**: https://www.instagram.com/jayswaxandwash/
+- **Facebook**: https://www.facebook.com/jayswaxandwash/
+- **Yelp (Buena Park/OC)**: https://www.yelp.com/biz/jay-s-mobile-wash-buena-park
+- **Yelp (LA/Gardena)**: https://www.yelp.com/biz/jay-s-mobile-wash-la-gardena
+- **MapQuest**: https://www.mapquest.com/us/california/jays-mobile-wash-la-706668333
+- **Google Maps**: https://maps.app.goo.gl/ZCAGfF26grj6ofFS9
+
+---
+
+## 🤖 robots.txt Fix (March 2, 2026)
+
+**GPTBot and ChatGPT-User were previously BLOCKED** in robots.txt — changed to Allow so AI bots can crawl the site and discover the business.
+
+---
+
 ## 🏗️ Website Structure Notes
 
 - The site uses static HTML files (not a framework like React/Next.js)
