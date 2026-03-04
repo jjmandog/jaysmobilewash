@@ -117,6 +117,104 @@
         <mobile:mobile/>
     </url>
 
+    <!-- Orange County City Pages -->
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-newport-beach.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-huntington-beach.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-irvine.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-anaheim.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-costa-mesa.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-laguna-beach.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <!-- Los Angeles City Pages -->
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-santa-monica.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-long-beach.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-torrance.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-manhattan-beach.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-pasadena.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-west-hollywood.html</loc>
+        <lastmod>2026-03-04T06:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
     <!-- About & Products -->
     <url>
         <loc>https://www.jaysmobilewash.net/about.html</loc>
