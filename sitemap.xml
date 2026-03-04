@@ -247,4 +247,84 @@
         <priority>0.30</priority>
     </url>
 
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-fullerton.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-brea.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-yorba-linda.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-placentia.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-garden-grove.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-buena-park.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-santa-ana.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-tustin.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-orange.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
+    <url>
+        <loc>https://www.jaysmobilewash.net/locations-stanton.html</loc>
+        <lastmod>2026-03-04T08:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <mobile:mobile/>
+    </url>
+
 </urlset>

@@ -51,6 +51,16 @@ Allow: /locations-irvine.html
 Allow: /locations-anaheim.html
 Allow: /locations-costa-mesa.html
 Allow: /locations-laguna-beach.html
+Allow: /locations-fullerton.html
+Allow: /locations-brea.html
+Allow: /locations-yorba-linda.html
+Allow: /locations-placentia.html
+Allow: /locations-garden-grove.html
+Allow: /locations-buena-park.html
+Allow: /locations-santa-ana.html
+Allow: /locations-tustin.html
+Allow: /locations-orange.html
+Allow: /locations-stanton.html
 
 # Los Angeles City Pages
 Allow: /locations-santa-monica.html
