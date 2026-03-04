@@ -50,8 +50,8 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
+      "source": "/((?!api/)(?!.*\\.html$)(?!.*\\.css$)(?!.*\\.js$)(?!.*\\.png$)(?!.*\\.jpg$)(?!.*\\.jpeg$)(?!.*\\.webp$)(?!.*\\.ico$)(?!.*\\.xml$)(?!.*\\.json$)(?!.*\\.txt$)(?!.*\\.mp3$)(?!.*\\.wav$)(?!.*\\.mp4$)(?!.*\\.svg$)(?!.*\\.woff2?$)(?!.*\\.ttf$)(?!.*\\.eot$)(?!.*\\.PNG$).*)",
+      "destination": "/404.html"
     }
   ]
 }

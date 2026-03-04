@@ -1,6 +1,6 @@
 # Jay's Mobile Wash - Robots.txt
-# Last Updated: January 26, 2026
-# Version: v3.0.0 - SEO Optimized
+# Last Updated: March 4, 2026
+# Version: v4.0.0 - Indexing Fix + City Pages
 
 # ===========================================
 # PRIMARY SEARCH ENGINES
@@ -24,6 +24,7 @@ Crawl-delay: 2
 
 User-agent: *
 Allow: /
+Allow: /index.html
 Allow: /pricing.html
 Allow: /about.html
 Allow: /products.html
@@ -32,14 +33,32 @@ Allow: /paint-correction.html
 Allow: /interior-detailing.html
 Allow: /orange-county-mobile-car-detailing.html
 Allow: /los-angeles-mobile-car-detailing.html
-Allow: /locations-beverly-hills.html
-Allow: /locations-orange-county.html
-Allow: /locations-los-angeles.html
 Allow: /services-ceramic-coating.html
 Allow: /services-exterior-detailing.html
 Allow: /services-interior-detailing.html
 Allow: /privacy.html
 Allow: /terms.html
+
+# Location Hub Pages
+Allow: /locations-beverly-hills.html
+Allow: /locations-orange-county.html
+Allow: /locations-los-angeles.html
+
+# Orange County City Pages
+Allow: /locations-newport-beach.html
+Allow: /locations-huntington-beach.html
+Allow: /locations-irvine.html
+Allow: /locations-anaheim.html
+Allow: /locations-costa-mesa.html
+Allow: /locations-laguna-beach.html
+
+# Los Angeles City Pages
+Allow: /locations-santa-monica.html
+Allow: /locations-long-beach.html
+Allow: /locations-torrance.html
+Allow: /locations-manhattan-beach.html
+Allow: /locations-pasadena.html
+Allow: /locations-west-hollywood.html
 
 # Essential Assets
 Allow: /manifest.json
@@ -52,7 +71,7 @@ Allow: *.jpeg
 Allow: *.webp
 
 # ===========================================
-# BLOCK IRRELEVANT CONTENT
+# BLOCK IRRELEVANT / JUNK CONTENT
 # ===========================================
 
 # Block testing files
@@ -60,6 +79,7 @@ Disallow: /test-*
 Disallow: /*.test.js
 Disallow: /*.test.html
 Disallow: /chatbot-test.html
+Disallow: /simple-test.html
 
 # Block development files
 Disallow: /.git/
@@ -68,13 +88,86 @@ Disallow: /.next/
 Disallow: /.env*
 Disallow: /config/
 Disallow: /scripts/
+Disallow: /tests/
+Disallow: /logs/
+Disallow: /database/
+Disallow: /memory-bank/
+Disallow: /src/
+Disallow: /pages/
+Disallow: /utils/
 
-# Block admin and private
+# Block admin, private, and internal tools
 Disallow: /admin/
 Disallow: /private/
+Disallow: /api-templates/
+Disallow: /api-examples/
+
+# Block duplicate/junk HTML files
+Disallow: /about-DESKTOP-A5QQ172.html
+Disallow: /api-dashboard-demo.html
+Disallow: /ntfy-webhook-forwarder.html
+Disallow: /setup-ntfy.html
+Disallow: /test-api-assignments.html
+Disallow: /test-channel.html
+Disallow: /test-ntfy.html
+Disallow: /news-2025-november.html
+Disallow: /410.html
+
+# Block duplicate/old sitemaps (we use sitemap.xml only)
+Disallow: /sitemap-*.xml
+Disallow: /main-sitemap.xml
+Disallow: /la-detailing-sitemap*.xml
+Disallow: /oc-detailing-sitemap*.xml
+Disallow: /mobile-car-wash-sitemap*.xml
+Disallow: /image-sitemap.xml
+Disallow: /geo.xml
+
+# Block media files (audio/video not needed for SEO)
+Disallow: /*.mp3
+Disallow: /*.wav
+Disallow: /*.mp4
+
+# Block dev/debug JS files
+Disallow: /EMERGENCY_SEO_RECOVERY.js
+Disallow: /GOOGLE_INDEXING_ACCELERATOR.js
+Disallow: /KEYWORD_DOMINATION_WARFARE.js
+Disallow: /ULTIMATE_SEO_POWER_BOOST.js
+Disallow: /ULTIMATE_SPEED_ROCKET.js
+Disallow: /OPENROUTER_MODELS.js
+Disallow: /css-cleanup-fix.js
+Disallow: /emergency-chatbot-fix.js
+Disallow: /emergency-css-blocker.js
+Disallow: /invalid-route-handler.js
+Disallow: /auto-mode-test.js
+Disallow: /backend-audit.js
+Disallow: /backend-test.js
+Disallow: /api-validation-test.js
+Disallow: /simple-chatbot-fix.js
+Disallow: /spa-seo-head-manager.js
+Disallow: /create-favicons.js
+Disallow: /chatbot-settings-sync.js
+Disallow: /test-hf-gated.js
+Disallow: /test-ntfy-webhook.js
+
+# Block validation/debug JSON files
+Disallow: /robots-validation-*.json
+Disallow: /robots-optimized.txt
+
+# Block markdown docs (not for public)
+Disallow: /*.md
 
 # Block query strings (duplicate content)
 Disallow: /*?
+
+# ===========================================
+# AI SEARCH ENGINES - ALLOW
+# ===========================================
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
 
 # ===========================================
 # BLOCK BAD BOTS
@@ -82,12 +175,6 @@ Disallow: /*?
 
 User-agent: CCBot
 Disallow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
 
 User-agent: AhrefsBot
 Disallow: /
